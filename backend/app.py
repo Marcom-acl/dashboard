@@ -43,8 +43,9 @@ BREVO_API_KEY     = os.environ.get('BREVO_API_KEY', '')
 FB_APP_ID         = os.environ.get('FB_APP_ID', '')
 FB_APP_SECRET     = os.environ.get('FB_APP_SECRET', '')
 ANTHROPIC_API_KEY = os.environ.get('ANTHROPIC_API_KEY', '')
-GOOGLE_CLIENT_ID  = os.environ.get('GOOGLE_CLIENT_ID', '')
+GOOGLE_CLIENT_ID     = os.environ.get('GOOGLE_CLIENT_ID', '')
 GOOGLE_CLIENT_SECRET = os.environ.get('GOOGLE_CLIENT_SECRET', '')
+GOOGLE_REFRESH_TOKEN = os.environ.get('GOOGLE_REFRESH_TOKEN', '')
 
 # ── Storage paths ─────────────────────────────────────────────────────────────
 DATA_DIR = os.environ.get('DATA_DIR', os.path.dirname(os.path.abspath(__file__)))
@@ -134,7 +135,12 @@ def _google_secrets():
     return web.get('client_id'), web.get('client_secret')
 
 def _google_token():
-    return _load_json(GOOGLE_TOKEN_PATH)
+    stored = _load_json(GOOGLE_TOKEN_PATH)
+    if stored:
+        return stored
+    if GOOGLE_REFRESH_TOKEN:
+        return {'refresh_token': GOOGLE_REFRESH_TOKEN}
+    return None
 
 def _refresh_google_token(token_data):
     client_id, client_secret = _google_secrets()
@@ -148,7 +154,10 @@ def _refresh_google_token(token_data):
     })
     if r.ok:
         new_token = {**token_data, **r.json()}
-        _save_json(GOOGLE_TOKEN_PATH, new_token)
+        try:
+            _save_json(GOOGLE_TOKEN_PATH, new_token)
+        except Exception:
+            pass
         return new_token
     return None
 
@@ -156,13 +165,12 @@ def _get_google_access_token():
     token_data = _google_token()
     if not token_data:
         return None
-    access_token = token_data.get('access_token')
-    # Try to refresh if we have a refresh token
-    if token_data.get('refresh_token'):
+    refresh_token = token_data.get('refresh_token')
+    if refresh_token:
         refreshed = _refresh_google_token(token_data)
         if refreshed:
-            access_token = refreshed.get('access_token')
-    return access_token
+            return refreshed.get('access_token')
+    return token_data.get('access_token')
 
 def _google_headers():
     token = _get_google_access_token()
@@ -207,8 +215,20 @@ def google_callback():
     })
     if not r.ok:
         return jsonify({'error': r.text}), 400
-    _save_json(GOOGLE_TOKEN_PATH, r.json())
-    return '<h2>Google connecté !</h2><p>Vous pouvez fermer cette fenêtre.</p>'
+    token_data = r.json()
+    try:
+        _save_json(GOOGLE_TOKEN_PATH, token_data)
+    except Exception:
+        pass
+    refresh_token = token_data.get('refresh_token', '')
+    return f'''<!DOCTYPE html><html><body style="font-family:sans-serif;padding:2rem;max-width:600px">
+<h2 style="color:#22c55e">✅ Google connecté !</h2>
+<p>Copie cette valeur et ajoute-la dans Railway → Variables :</p>
+<p><strong>Variable :</strong> <code>GOOGLE_REFRESH_TOKEN</code></p>
+<p><strong>Valeur :</strong></p>
+<textarea style="width:100%;padding:.5rem;font-family:monospace;font-size:.85rem" rows="3" onclick="this.select()">{refresh_token}</textarea>
+<p style="color:#666;font-size:.85rem">Une fois sauvegardée dans Railway, tu n'auras plus besoin de reconnecter Google même après un redémarrage.</p>
+</body></html>'''
 
 
 # ─────────────────────────────────────────────────────────────────────────────
