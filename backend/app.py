@@ -941,19 +941,24 @@ def brevo():
     headers = {'api-key': BREVO_API_KEY, 'Accept': 'application/json'}
     BREVO_BASE = 'https://api.brevo.com/v3'
 
-    # Campaigns
+    # Campaigns — 'statistics=globalStats' is required for Brevo to include stats
     rc = _get(f'{BREVO_BASE}/emailCampaigns', headers=headers, params={
         'status': 'sent', 'limit': 50, 'offset': 0,
-        'sort': 'desc',
+        'sort': 'desc', 'statistics': 'globalStats',
     })
     campaigns = []
     if rc.ok:
         for c in rc.json().get('campaigns', []):
+            stats = c.get('statistics', {})
+            gs = stats.get('globalStats', {})
+            # Brevo v3 uses 'uniqueViews' for opens — normalise to 'uniqueOpens'
+            if 'uniqueOpens' not in gs and 'uniqueViews' in gs:
+                gs['uniqueOpens'] = gs['uniqueViews']
             campaigns.append({
                 'id':         c.get('id'),
                 'name':       c.get('name'),
                 'sentDate':   c.get('sentDate'),
-                'statistics': c.get('statistics', {}),
+                'statistics': stats,
             })
 
     # Contact stats
