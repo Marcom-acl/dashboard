@@ -281,7 +281,20 @@ def fb_callback():
         return jsonify({'error': r.text}), 400
     token_data = r.json()
     _save_json(FB_TOKEN_PATH, token_data)
-    return '<h2>Facebook connecté !</h2><p>Vous pouvez fermer cette fenêtre.</p>'
+    access_token = token_data.get('access_token', '')
+    return f'''<h2>✅ Facebook connecté !</h2>
+<p>Token enregistré sur le serveur.</p>
+<hr>
+<p><strong>Pour rendre la connexion permanente</strong> (survit aux redéploiements Railway) :</p>
+<ol>
+  <li>Copiez ce token :<br>
+    <textarea rows="4" style="width:100%;font-family:monospace;font-size:11px">{access_token}</textarea>
+  </li>
+  <li>Sur Railway → Variables → ajoutez :<br>
+    <code>FB_TOKEN = [valeur ci-dessus]</code>
+  </li>
+</ol>
+<p>Vous pouvez fermer cette fenêtre ensuite.</p>'''
 
 
 # ─────────────────────────────────────────────────────────────────────────────
