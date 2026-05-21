@@ -630,9 +630,92 @@
       .scroll{padding:16px 16px 40px;}
     }
 
+
+    /* ─── PASSWORD OVERLAY ────────────────────────────────────── */
+    .pw-overlay{position:fixed;inset:0;background:var(--bg);z-index:9999;display:none;align-items:center;justify-content:center;flex-direction:column;gap:0;}
+    .pw-overlay.active{display:flex;}
+    .pw-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:40px 36px;width:340px;max-width:90vw;box-shadow:0 24px 60px rgba(0,0,0,.12);display:flex;flex-direction:column;gap:20px;align-items:center;}
+    .pw-logo{width:52px;height:52px;border-radius:10px;background:var(--y);display:grid;place-items:center;font-family:'FaricyNew','Albert Sans',sans-serif;font-weight:700;font-style:italic;font-size:20px;color:#000;box-shadow:inset 0 0 0 1px rgba(0,0,0,.08);}
+    .pw-title{font-family:'FaricyNew','Albert Sans',sans-serif;font-weight:700;font-size:22px;letter-spacing:-0.02em;color:#000;text-align:center;line-height:1.1;}
+    .pw-sub{font-size:12px;color:var(--muted);text-align:center;margin-top:-14px;line-height:1.5;}
+    .pw-form{display:flex;flex-direction:column;gap:10px;width:100%;}
+    .pw-input{border:1px solid var(--border);border-radius:var(--r-sm);font-family:inherit;font-size:14px;padding:10px 14px;color:var(--text);background:var(--bg);outline:none;transition:border-color .15s;width:100%;text-align:center;letter-spacing:.1em;}
+    .pw-input:focus{border-color:var(--y);background:var(--surface);}
+    .pw-btn{background:var(--y);color:#000;border:none;border-radius:var(--r-sm);font-family:inherit;font-size:13px;font-weight:700;padding:10px 20px;cursor:pointer;width:100%;transition:background .15s;text-transform:uppercase;letter-spacing:.06em;}
+    .pw-btn:hover{background:var(--y-deep);}
+    .pw-error{font-size:12px;color:var(--bad);text-align:center;height:16px;transition:opacity .2s;}
+    .pw-error:empty{opacity:0;}
+
+    /* ─── SPARKLINE ───────────────────────────────────────────── */
+    .kpi-spark{display:block;margin-top:8px;opacity:.75;}
+
+    /* ─── HEALTH BAR BREVO ────────────────────────────────────── */
+    .hb-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);box-shadow:var(--shadow-1);padding:16px 20px;}
+    .hb-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:12px;}
+    .hb-bar{display:flex;height:12px;border-radius:99px;overflow:hidden;gap:1px;background:var(--border);}
+    .hb-seg{height:100%;transition:width .8s cubic-bezier(.16,1,.3,1);}
+    .hb-actif{background:var(--c-brevo);}
+    .hb-dormant{background:var(--y);}
+    .hb-disengaged{background:var(--muted-2);}
+    .hb-legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:10px;}
+    .hb-leg{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--muted);}
+    .hb-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
+    .hb-stats{display:flex;gap:20px;margin-top:14px;padding-top:12px;border-top:1px dashed var(--border);flex-wrap:wrap;}
+    .hb-stat{display:flex;flex-direction:column;gap:2px;}
+    .hb-stat-val{font-family:'FaricyNew','Albert Sans',sans-serif;font-weight:700;font-size:22px;line-height:1.1;letter-spacing:-0.02em;}
+    .hb-stat-lbl{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;}
+
+    /* ─── SCORE BAR (tableaux campagnes) ──────────────────────── */
+    .score-wrap{display:flex;align-items:center;gap:6px;}
+    .score-track{flex:1;height:5px;background:var(--border);border-radius:3px;min-width:40px;}
+    .score-fill{height:5px;border-radius:3px;transition:width .6s ease;}
+    .score-val{font-size:11px;font-weight:700;width:26px;text-align:right;}
+    .score-good{background:var(--good);}
+    .score-warn{background:var(--warn);}
+    .score-bad{background:var(--bad);}
+
+    /* ─── TYPE BADGES (Brevo) ─────────────────────────────────── */
+    .type-badge{display:inline-block;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;padding:2px 6px;border-radius:10px;white-space:nowrap;}
+    .type-nl{background:#EEF2FF;color:#3730A3;}
+    .type-enq{background:#E6F8F3;color:#0B996E;}
+    .type-rel{background:#FEF2F2;color:#B91C1C;}
+    .type-other{background:#F3F4F6;color:#6B7280;}
+
+    /* ─── BREVO CHARTS GRID ───────────────────────────────────── */
+    .brevo-charts{display:grid;grid-template-columns:3fr 2fr;gap:14px;}
+    @media(max-width:900px){.brevo-charts{grid-template-columns:1fr;}}
+
+    /* ─── FB PAGE CARDS ───────────────────────────────────────── */
+    .fb-pages-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px;}
+    .fb-page-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);padding:16px;box-shadow:var(--shadow-1);}
+    .fb-page-name{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--c-fb);margin-bottom:10px;display:flex;align-items:center;gap:6px;}
+    .fb-page-fans{font-family:'FaricyNew','Albert Sans',sans-serif;font-weight:700;font-size:28px;line-height:1;color:#000;letter-spacing:-0.025em;}
+    .fb-page-fans-lbl{font-size:10px;color:var(--muted);margin-top:2px;font-weight:600;}
+    .fb-page-stats{display:flex;gap:10px;margin-top:10px;padding-top:10px;border-top:1px solid var(--border);flex-wrap:wrap;}
+    .fb-page-stat{flex:1;display:flex;flex-direction:column;gap:2px;min-width:52px;}
+    .fb-page-stat-val{font-size:13px;font-weight:700;font-family:'FaricyNew','Albert Sans',sans-serif;line-height:1.1;}
+    .fb-page-stat-lbl{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;}
+
   </style>
 </head>
 <body data-accent="bar" data-density="comfortable" data-sidebar="light">
+
+<!-- ════════ PASSWORD OVERLAY ════════ -->
+<div class="pw-overlay active" id="pwOverlay">
+  <div class="pw-card">
+    <div class="pw-logo">ACL</div>
+    <div>
+      <div class="pw-title">Dashboard Marcom</div>
+      <p class="pw-sub">Accès réservé à l'équipe Communication ACL</p>
+    </div>
+    <div class="pw-form">
+      <input class="pw-input" id="pwInput" type="password" placeholder="Mot de passe" autocomplete="current-password" />
+      <button class="pw-btn" id="pwSubmit">Accéder au dashboard</button>
+    </div>
+    <div class="pw-error" id="pwError"></div>
+  </div>
+</div>
+
 <div class="app">
 
   <!-- ════════════════ SIDEBAR ════════════════ -->
@@ -896,12 +979,29 @@ function trendBadge(delta, invert=false) {
 }
 
 function kpiCard(opts) {
+  const sparkHtml = opts.spark && opts.spark.length > 1 ? miniSparkline(opts.spark, opts.src || 'var(--y)') : '';
   return `<div class="kpi-card" style="--src:${opts.src||'var(--y)'};--src-bg:${opts.srcBg||'var(--y-soft)'}">
     <div class="kpi-label">${opts.label}</div>
     <div class="kpi-body">
       <div><div class="kpi-val">${opts.value}<span class="kpi-suf">${opts.suffix||''}</span></div>${opts.badge||''}</div>
     </div>
+    ${sparkHtml ? `<svg class="kpi-spark" width="100%" height="28" viewBox="0 0 100 28" preserveAspectRatio="none">${sparkHtml}</svg>` : ''}
   </div>`;
+}
+
+function miniSparkline(values, color) {
+  if (!values || values.length < 2) return '';
+  const min = Math.min(...values), max = Math.max(...values);
+  const range = max - min || 1;
+  const W = 100, H = 26;
+  const pts = values.map((v, i) => {
+    const x = (i / (values.length - 1)) * W;
+    const y = H - 2 - ((v - min) / range * (H - 6));
+    return `${x.toFixed(1)},${y.toFixed(1)}`;
+  });
+  const last = pts[pts.length - 1].split(',');
+  return `<polyline points="${pts.join(' ')}" fill="none" stroke="${color}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity=".65"/>
+    <circle cx="${last[0]}" cy="${last[1]}" r="2.5" fill="${color}" opacity=".9"/>`;
 }
 
 function barListHtml(items, color, maxVal, labelKey, valKey, fmtFn) {
@@ -956,14 +1056,14 @@ async function loadAll() {
   document.getElementById('lastUpd').textContent = 'Chargement…';
 
   try {
-    const [ga4, ga4auto, ga4ext, gsc, fb, fbpage, brevo, yt, li] = await Promise.allSettled([
-      api('/ga4'), api('/ga4/autotouring'), api('/ga4/extended'),
+    const [ga4, ga4auto, ga4ext, ga4trend, gsc, fb, fbpage, brevo, yt, li] = await Promise.allSettled([
+      api('/ga4'), api('/ga4/autotouring'), api('/ga4/extended'), api('/ga4/funnel-trend'),
       api('/gsc'), api('/fb'), api('/fb/page'), api('/brevo'),
       api('/youtube'), api('/linkedin')
     ]);
 
     const v = r => r.status === 'fulfilled' ? r.value : null;
-    const dGA4   = v(ga4),   dGA4A = v(ga4auto), dGA4E = v(ga4ext);
+    const dGA4   = v(ga4),   dGA4A = v(ga4auto), dGA4E = v(ga4ext), dGA4T = v(ga4trend);
     const dGSC   = v(gsc),   dFB   = v(fb),      dFBP  = v(fbpage);
     const dBrevo = v(brevo), dYT   = v(yt),       dLI   = v(li);
 
@@ -974,7 +1074,7 @@ async function loadAll() {
     updateStatus('bs-yt',    dYT    && !dYT.error);
     updateStatus('bs-li',    dLI    && !dLI.error);
 
-    renderOverview({dGA4, dGSC, dFB, dBrevo, dLI, dYT});
+    renderOverview({dGA4, dGSC, dFB, dBrevo, dLI, dYT, dGA4T});
     renderGA4(dGA4, dGA4A, dGA4E);
     renderMeta(dFB, dFBP);
     renderGSC(dGSC);
@@ -998,7 +1098,7 @@ function updateStatus(id, ok) {
 }
 
 // ── OVERVIEW ─────────────────────────────────────────────────
-function renderOverview({dGA4, dGSC, dFB, dBrevo, dLI, dYT}) {
+function renderOverview({dGA4, dGSC, dFB, dBrevo, dLI, dYT, dGA4T}) {
   const el = document.getElementById('panel-overview');
   if (!el) return;
 
@@ -1006,6 +1106,12 @@ function renderOverview({dGA4, dGSC, dFB, dBrevo, dLI, dYT}) {
   const clicks   = dGSC?.clicks   || 0;
   const spend    = dFB?.spend     || 0;
   const contacts = dBrevo?.contactStats?.total || 0;
+
+  // Sparkline data
+  const sparkGA4  = dGA4T?.trend?.map(t => t.sessions) || [];
+  const sparkGSC  = dGSC?.trend?.map(t => t.clicks) || [];
+  const camps = dBrevo?.campaigns || [];
+  const sparkBrevo = camps.slice(0,12).reverse().map(c => c.statistics?.globalStats?.delivered || 0);
 
   el.innerHTML = `
     <div class="hero">
@@ -1023,10 +1129,10 @@ function renderOverview({dGA4, dGSC, dFB, dBrevo, dLI, dYT}) {
       </div>
     </div>
     <div class="kpi-row">
-      ${kpiCard({label:'Sessions acl.lu', value:fmtN(sessions), badge:trendBadge(dGA4?.deltas?.sessions), src:'var(--c-ga4)', srcBg:'var(--c-ga4-bg)'})}
-      ${kpiCard({label:'Clics SEO', value:fmtN(clicks), badge:trendBadge(dGSC?.deltas?.clicks), src:'var(--c-gsc)', srcBg:'var(--c-gsc-bg)'})}
+      ${kpiCard({label:'Sessions acl.lu', value:fmtN(sessions), badge:trendBadge(dGA4?.deltas?.sessions), src:'var(--c-ga4)', srcBg:'var(--c-ga4-bg)', spark:sparkGA4})}
+      ${kpiCard({label:'Clics SEO', value:fmtN(clicks), badge:trendBadge(dGSC?.deltas?.clicks), src:'var(--c-gsc)', srcBg:'var(--c-gsc-bg)', spark:sparkGSC})}
       ${kpiCard({label:'Budget Meta Ads', value:fmtEur(spend), src:'var(--c-fb)', srcBg:'var(--c-fb-bg)'})}
-      ${kpiCard({label:'Contacts Brevo', value:fmtN(contacts), src:'var(--c-brevo)', srcBg:'var(--c-brevo-bg)'})}
+      ${kpiCard({label:'Contacts Brevo', value:fmtN(contacts), src:'var(--c-brevo)', srcBg:'var(--c-brevo-bg)', spark:sparkBrevo})}
     </div>
     <div class="overview-bars">
       <div class="card"><div class="card-head"><div class="card-title">Top pages acl.lu</div></div>
@@ -1130,6 +1236,10 @@ function renderMeta(d, dP) {
   if (!el) return;
   if (!d || d.error) { el.innerHTML = errState('Meta Ads', d?.error); return; }
 
+  const cpm = (d.spend && d.impressions) ? (d.spend / d.impressions * 1000) : null;
+  const topCampaigns = d.topCampaigns || [];
+  const campsBySpend = topCampaigns.slice(0, 6).map(c => ({name: (c.name||'—').substring(0,40), spend: c.spend||0}));
+
   el.innerHTML = `
     <div class="sec-title"><h2>Meta Ads</h2><div class="line"></div>
       <span class="src-pill" style="--src:var(--c-fb);--src-bg:var(--c-fb-bg)">Meta</span>
@@ -1139,13 +1249,25 @@ function renderMeta(d, dP) {
       ${kpiCard({label:'Impressions', value:fmtN(d.impressions), src:'var(--c-fb)', srcBg:'var(--c-fb-bg)'})}
       ${kpiCard({label:'CTR moyen', value:fmtPct(d.ctr), src:'var(--c-fb)', srcBg:'var(--c-fb-bg)'})}
       ${kpiCard({label:'CPC moyen', value:fmtEur(d.cpc), src:'var(--c-fb)', srcBg:'var(--c-fb-bg)'})}
+      ${cpm !== null ? kpiCard({label:'CPM', value:fmtEur(cpm), src:'var(--c-fb)', srcBg:'var(--c-fb-bg)'}) : ''}
       ${kpiCard({label:'ROAS', value:(d.roas||0).toFixed(2)+'×', src:'var(--c-fb)', srcBg:'var(--c-fb-bg)'})}
     </div>
-    <div class="card"><div class="card-head"><div class="card-title">Campagnes</div></div>
-      <div class="card-body flush"><div class="tbl-scroll"><table class="tbl">
-        <thead><tr><th>Campagne</th><th class="r">Budget</th><th class="r">Impr.</th><th class="r">ROAS</th></tr></thead>
-        <tbody>${(d.topCampaigns||[]).map(c=>`<tr><td class="cn">${c.name}</td><td class="r">${fmtEur(c.spend)}</td><td class="r">${fmtN(c.impressions)}</td><td class="r">${(c.roas||0).toFixed(2)}×</td></tr>`).join('')}</tbody>
-      </table></div></div>
+    <div class="overview-bars">
+      <div class="card"><div class="card-head"><div class="card-title">Top campagnes — budget</div></div>
+        <div class="card-body">${barListHtml(campsBySpend, 'var(--c-fb)', null, 'name', 'spend', fmtEur)}</div>
+      </div>
+      <div class="card"><div class="card-head"><div class="card-title">Détail campagnes</div></div>
+        <div class="card-body flush"><div class="tbl-scroll"><table class="tbl">
+          <thead><tr><th>Campagne</th><th class="r">Budget</th><th class="r">Impr.</th><th class="r">CTR</th><th class="r">ROAS</th></tr></thead>
+          <tbody>${topCampaigns.map(c=>`<tr>
+            <td class="cn">${c.name}</td>
+            <td class="r">${fmtEur(c.spend)}</td>
+            <td class="r">${fmtN(c.impressions)}</td>
+            <td class="r">${fmtPct(c.ctr||0)}</td>
+            <td class="r">${(c.roas||0).toFixed(2)}×</td>
+          </tr>`).join('')}</tbody>
+        </table></div></div>
+      </div>
     </div>
     ${dP ? renderFBPage(dP) : ''}`;
 
@@ -1153,18 +1275,55 @@ function renderMeta(d, dP) {
 }
 
 function renderFBPage(d) {
-  const pages = d.pages || [];
+  const pages   = d.pages || [];
+  const maxImpr = Math.max(...pages.map(p => p.impressions      || 0), 1);
+  const maxEng  = Math.max(...pages.map(p => p.post_engagements || 0), 1);
+
+  const pageCardsHtml = pages.map(p => `
+    <div class="fb-page-card">
+      <div class="fb-page-name">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="var(--c-fb)"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        ${p.name}
+      </div>
+      <div class="fb-page-fans">${fmtN(p.fans)}</div>
+      <div class="fb-page-fans-lbl">Abonnés</div>
+      <div class="fb-page-stats">
+        <div class="fb-page-stat">
+          <div class="fb-page-stat-val">${fmtN(p.impressions || 0)}</div>
+          <div class="fb-page-stat-lbl">Impressions</div>
+        </div>
+        <div class="fb-page-stat">
+          <div class="fb-page-stat-val">${fmtN(p.post_engagements || 0)}</div>
+          <div class="fb-page-stat-lbl">Engagements</div>
+        </div>
+        <div class="fb-page-stat">
+          <div class="fb-page-stat-val">${fmtN(p.posts_count || 0)}</div>
+          <div class="fb-page-stat-lbl">Posts</div>
+        </div>
+      </div>
+    </div>`).join('');
+
   return `
     <div class="sec-title"><h2>Pages Facebook</h2><div class="line"></div></div>
-    <div class="kpi-grid">
-      ${pages.map(p => kpiCard({label:p.name, value:fmtN(p.fans), suffix:'fans', src:'var(--c-fb)', srcBg:'var(--c-fb-bg)'})).join('')}
-      ${kpiCard({label:'Impressions totales', value:fmtN(d.totals?.impressions||0), src:'var(--c-fb)', srcBg:'var(--c-fb-bg)'})}
-      ${kpiCard({label:'Engagement', value:fmtN(d.totals?.post_engagements||0), src:'var(--c-fb)', srcBg:'var(--c-fb-bg)'})}
+    <div class="fb-pages-grid">${pageCardsHtml}</div>
+    <div class="overview-bars">
+      <div class="card"><div class="card-head"><div class="card-title">Impressions par page</div></div>
+        <div class="card-body">${barListHtml(pages, 'var(--c-fb)', maxImpr, 'name', 'impressions', fmtN)}</div>
+      </div>
+      <div class="card"><div class="card-head"><div class="card-title">Engagement par page</div></div>
+        <div class="card-body">${barListHtml(pages, 'var(--c-fb)', maxEng, 'name', 'post_engagements', fmtN)}</div>
+      </div>
     </div>
     ${d.topPosts?.length ? `<div class="card"><div class="card-head"><div class="card-title">Top posts</div></div>
       <div class="card-body flush"><div class="tbl-scroll"><table class="tbl">
-        <thead><tr><th>Message</th><th>Page</th><th class="r">Engagement</th><th class="r">Likes</th></tr></thead>
-        <tbody>${d.topPosts.slice(0,6).map(p=>`<tr><td class="cn">${p.message||'—'}</td><td>${p.page}</td><td class="r">${fmtN(p.engagement)}</td><td class="r">${fmtN(p.likes)}</td></tr>`).join('')}</tbody>
+        <thead><tr><th>Message</th><th>Page</th><th class="r">Engagement</th><th class="r">Portée</th><th class="r">Likes</th></tr></thead>
+        <tbody>${d.topPosts.slice(0,8).map(p=>`<tr>
+          <td class="cn">${p.message||'—'}</td>
+          <td>${p.page}</td>
+          <td class="r">${fmtN(p.engagement)}</td>
+          <td class="r">${fmtN(p.reach||0)}</td>
+          <td class="r">${fmtN(p.likes)}</td>
+        </tr>`).join('')}</tbody>
       </table></div></div></div>` : ''}`;
 }
 
@@ -1206,9 +1365,17 @@ function renderGSC(d) {
 }
 
 // ── BREVO ─────────────────────────────────────────────────────
+function getCampaignType(name) {
+  const n = (name || '').toLowerCase();
+  if (/newsletter|nl\b/.test(n)) return 'nl';
+  if (/enqu[êe]te|survey/.test(n)) return 'enq';
+  if (/relance|rappel/.test(n)) return 'rel';
+  return 'other';
+}
+
 function renderBrevo(d) {
-  const el      = document.getElementById('panel-brevo');
-  const errEl   = document.getElementById('errBanner');
+  const el    = document.getElementById('panel-brevo');
+  const errEl = document.getElementById('errBanner');
   if (!el) return;
   if (!d || d.error) {
     if (errEl) { errEl.textContent = d?.error || 'Erreur Brevo'; errEl.classList.add('visible'); }
@@ -1216,13 +1383,67 @@ function renderBrevo(d) {
   }
   if (errEl) errEl.classList.remove('visible');
 
-  const cs     = d.contactStats || {};
-  const camps  = d.campaigns || [];
-  const totalDlvr  = camps.reduce((a,c)=>a+(c.statistics?.globalStats?.delivered||0), 0);
-  const totalOpens = camps.reduce((a,c)=>a+(c.statistics?.globalStats?.uniqueOpens||0), 0);
-  const totalClick = camps.reduce((a,c)=>a+(c.statistics?.globalStats?.uniqueClicks||0), 0);
-  const avgOpen    = totalDlvr  ? (totalOpens/totalDlvr*100).toFixed(1)  : '—';
-  const avgClick   = totalOpens ? (totalClick/totalOpens*100).toFixed(1) : '—';
+  const cs    = d.contactStats || {};
+  const camps = d.campaigns   || [];
+
+  // Contact health
+  const total   = cs.total       || 0;
+  const unsub   = cs.unsubscribed || 0;
+  const blocked = cs.blocked     || 0;
+  const actif   = Math.max(0, total - unsub - blocked);
+  const actifPct   = total ? +(actif   / total * 100).toFixed(1) : 0;
+  const unsubPct   = total ? +(unsub   / total * 100).toFixed(1) : 0;
+  const blockedPct = total ? +(blocked / total * 100).toFixed(1) : 0;
+
+  // Per-campaign enrichment
+  const campsE = camps.map(c => {
+    const gs    = c.statistics?.globalStats || {};
+    const dlvr  = gs.delivered       || 0;
+    const opens = gs.uniqueOpens     || 0;
+    const clics = gs.uniqueClicks    || 0;
+    const unsb  = gs.unsubscriptions || 0;
+    const openRate  = dlvr  ? opens / dlvr  * 100 : 0;
+    const clickRate = dlvr  ? clics / dlvr  * 100 : 0;
+    const ctor      = opens ? clics / opens * 100 : 0;
+    const unsubRate = dlvr  ? unsb  / dlvr  * 100 : 0;
+    const openScore  = Math.min(100, (openRate  / 25) * 100);
+    const clickScore = Math.min(100, (clickRate / 3)  * 100);
+    const fidelScore = Math.max(0, 100 - unsubRate * 50);
+    const score = Math.round(openScore * 0.4 + clickScore * 0.4 + fidelScore * 0.2);
+    return { ...c, dlvr, opens, clics, unsb, openRate, clickRate, ctor, unsubRate, score, type: getCampaignType(c.name) };
+  });
+
+  // Global aggregates
+  const totalDlvr  = campsE.reduce((a,c) => a + c.dlvr,  0);
+  const totalOpens = campsE.reduce((a,c) => a + c.opens, 0);
+  const totalClick = campsE.reduce((a,c) => a + c.clics, 0);
+  const totalUnsub = campsE.reduce((a,c) => a + c.unsb,  0);
+  const avgOpen  = totalDlvr  ? totalOpens / totalDlvr  * 100 : 0;
+  const avgClick = totalDlvr  ? totalClick / totalDlvr  * 100 : 0;
+  const avgCTOR  = totalOpens ? totalClick / totalOpens * 100 : 0;
+  const avgUnsub = totalDlvr  ? totalUnsub / totalDlvr  * 100 : 0;
+
+  // Top by open rate for bar chart
+  const topByOpen = [...campsE].sort((a,b) => b.openRate - a.openRate).slice(0, 6);
+
+  // Type distribution
+  const typeCounts = {nl:0, enq:0, rel:0, other:0};
+  campsE.forEach(c => { typeCounts[c.type] = (typeCounts[c.type] || 0) + 1; });
+  const typeItems = [
+    {name:'Newsletter', count:typeCounts.nl},
+    {name:'Enquête',    count:typeCounts.enq},
+    {name:'Relance',    count:typeCounts.rel},
+    {name:'Autre',      count:typeCounts.other},
+  ].filter(t => t.count > 0);
+
+  // Sparkline: last 10 campaigns open rates (chronological)
+  const sparkBrevo = campsE.slice(0, 10).reverse().map(c => c.openRate);
+
+  const typeBadgeHtml = type => {
+    const labels = {nl:'Newsletter', enq:'Enquête', rel:'Relance', other:'Autre'};
+    return `<span class="type-badge type-${type}">${labels[type] || type}</span>`;
+  };
+  const scoreCls = s => s >= 65 ? 'score-good' : s >= 40 ? 'score-warn' : 'score-bad';
 
   // Remove previous rendered content (keep errBanner)
   Array.from(el.children).forEach(child => {
@@ -1235,27 +1456,84 @@ function renderBrevo(d) {
     <div class="sec-title"><h2>Brevo — Email Marketing</h2><div class="line"></div>
       <span class="src-pill" style="--src:var(--c-brevo);--src-bg:var(--c-brevo-bg)">Brevo</span>
     </div>
+
     <div class="kpi-grid">
-      ${kpiCard({label:'Contacts totaux', value:fmtN(cs.total), src:'var(--c-brevo)', srcBg:'var(--c-brevo-bg)'})}
-      ${kpiCard({label:'Campagnes envoyées', value:fmtN(camps.length), src:'var(--c-brevo)', srcBg:'var(--c-brevo-bg)'})}
-      ${kpiCard({label:"Taux d'ouverture moy.", value:avgOpen+'%', src:'var(--c-brevo)', srcBg:'var(--c-brevo-bg)'})}
-      ${kpiCard({label:'Taux de clic moy.', value:avgClick+'%', src:'var(--c-brevo)', srcBg:'var(--c-brevo-bg)'})}
+      ${kpiCard({label:'Contacts totaux',        value:fmtN(total),            src:'var(--c-brevo)', srcBg:'var(--c-brevo-bg)'})}
+      ${kpiCard({label:'Contacts actifs',         value:fmtN(actif),            src:'var(--c-brevo)', srcBg:'var(--c-brevo-bg)'})}
+      ${kpiCard({label:'Campagnes envoyées',      value:fmtN(camps.length),     src:'var(--c-brevo)', srcBg:'var(--c-brevo-bg)'})}
+      ${kpiCard({label:'Emails livrés',           value:fmtN(totalDlvr),        src:'var(--c-brevo)', srcBg:'var(--c-brevo-bg)'})}
+      ${kpiCard({label:"Taux d'ouverture moy.",   value:fmtPct(avgOpen),        src:'var(--c-brevo)', srcBg:'var(--c-brevo-bg)', spark:sparkBrevo})}
+      ${kpiCard({label:'Taux de clic moy.',       value:fmtPct(avgClick),       src:'var(--c-brevo)', srcBg:'var(--c-brevo-bg)'})}
+      ${kpiCard({label:'CTOR moyen',              value:fmtPct(avgCTOR),        src:'var(--c-brevo)', srcBg:'var(--c-brevo-bg)'})}
+      ${kpiCard({label:'Désabonnements moy.',     value:fmtPct(avgUnsub),       src:'var(--c-brevo)', srcBg:'var(--c-brevo-bg)'})}
     </div>
-    <div class="card"><div class="card-head"><div class="card-title">Campagnes récentes</div></div>
+
+    <div class="hb-wrap">
+      <div class="hb-title">Santé de la liste de contacts</div>
+      <div class="hb-bar">
+        <div class="hb-seg hb-actif"      style="width:${actifPct}%"></div>
+        <div class="hb-seg hb-dormant"    style="width:${unsubPct}%"></div>
+        <div class="hb-seg hb-disengaged" style="width:${blockedPct}%"></div>
+      </div>
+      <div class="hb-legend">
+        <div class="hb-leg"><div class="hb-dot" style="background:var(--c-brevo)"></div>Actifs ${actifPct}%</div>
+        <div class="hb-leg"><div class="hb-dot" style="background:var(--y)"></div>Désabonnés ${unsubPct}%</div>
+        <div class="hb-leg"><div class="hb-dot" style="background:var(--muted-2)"></div>Bloqués ${blockedPct}%</div>
+      </div>
+      <div class="hb-stats">
+        <div class="hb-stat"><div class="hb-stat-val">${fmtN(actif)}</div><div class="hb-stat-lbl">Actifs</div></div>
+        <div class="hb-stat"><div class="hb-stat-val">${fmtN(unsub)}</div><div class="hb-stat-lbl">Désabonnés</div></div>
+        <div class="hb-stat"><div class="hb-stat-val">${fmtN(blocked)}</div><div class="hb-stat-lbl">Bloqués</div></div>
+        <div class="hb-stat"><div class="hb-stat-val">${fmtN(total)}</div><div class="hb-stat-lbl">Total</div></div>
+      </div>
+    </div>
+
+    <div class="brevo-charts">
+      <div class="card"><div class="card-head"><div class="card-title">Top taux d'ouverture</div></div>
+        <div class="card-body">${barListHtml(topByOpen, 'var(--c-brevo)', 100, 'name', 'openRate', n => n.toFixed(1)+'%')}</div>
+      </div>
+      <div class="card"><div class="card-head"><div class="card-title">Types de campagnes</div></div>
+        <div class="card-body">${barListHtml(typeItems, 'var(--c-brevo)', null, 'name', 'count', fmtN)}</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <div class="card-title">Campagnes récentes</div>
+        <span style="font-size:10px;color:var(--muted);font-weight:600;margin-left:auto">Score = ouverture×40% + clic×40% + fidélité×20%</span>
+      </div>
       <div class="card-body flush"><div class="tbl-scroll"><table class="tbl">
-        <thead><tr><th>Campagne</th><th class="r">Livrés</th><th class="r">Ouvertures</th><th class="r">Clics</th><th class="r">Désabonnés</th></tr></thead>
-        <tbody>${camps.slice(0,10).map(c=>{
-          const gs = c.statistics?.globalStats||{};
-          return `<tr>
-            <td class="cn">${c.name||'—'}</td>
-            <td class="r">${fmtN(gs.delivered||0)}</td>
-            <td class="r">${fmtN(gs.uniqueOpens||0)}</td>
-            <td class="r">${fmtN(gs.uniqueClicks||0)}</td>
-            <td class="r">${fmtN(gs.unsubscriptions||0)}</td>
-          </tr>`;
-        }).join('')}</tbody>
+        <thead><tr>
+          <th>Campagne</th><th>Type</th>
+          <th class="r">Livrés</th><th class="r">Ouv.</th><th class="r">Clic</th>
+          <th class="r">CTOR</th><th class="r">Désab.</th>
+          <th style="min-width:90px">Score</th>
+        </tr></thead>
+        <tbody>${campsE.slice(0, 15).map(c => `<tr>
+          <td class="cn">${c.name||'—'}</td>
+          <td>${typeBadgeHtml(c.type)}</td>
+          <td class="r">${fmtN(c.dlvr)}</td>
+          <td class="r">${fmtPct(c.openRate)}</td>
+          <td class="r">${fmtPct(c.clickRate)}</td>
+          <td class="r">${fmtPct(c.ctor)}</td>
+          <td class="r">${fmtPct(c.unsubRate)}</td>
+          <td>
+            <div class="score-wrap">
+              <div class="score-track"><div class="score-fill ${scoreCls(c.score)}" style="width:${c.score}%"></div></div>
+              <span class="score-val">${c.score}</span>
+            </div>
+          </td>
+        </tr>`).join('')}</tbody>
       </table></div></div>
+    </div>
+
+    <div style="display:flex;gap:16px;flex-wrap:wrap;padding:4px 0;align-items:center">
+      <div class="hb-leg"><div class="hb-dot" style="background:var(--good)"></div>Score ≥ 65 — Bon</div>
+      <div class="hb-leg"><div class="hb-dot" style="background:var(--warn)"></div>Score 40–64 — Moyen</div>
+      <div class="hb-leg"><div class="hb-dot" style="background:var(--bad)"></div>Score &lt; 40 — À améliorer</div>
+      <span style="font-size:11px;color:var(--muted);margin-left:auto">Benchmarks : ouverture &gt;25%, clic &gt;3%</span>
     </div>`;
+
   el.appendChild(wrap);
   animateCards(el);
 }
@@ -1461,6 +1739,37 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
 
 // ── Refresh button ────────────────────────────────────────────
 document.getElementById('btnRefresh')?.addEventListener('click', loadAll);
+
+// ── Password protection ───────────────────────────────────────
+(function() {
+  const PW      = 'acl2026';
+  const KEY     = 'acl_dash_auth';
+  const overlay = document.getElementById('pwOverlay');
+  const input   = document.getElementById('pwInput');
+  const btn     = document.getElementById('pwSubmit');
+  const err     = document.getElementById('pwError');
+
+  if (localStorage.getItem(KEY) === '1') {
+    overlay.classList.remove('active');
+  } else {
+    setTimeout(() => input && input.focus(), 100);
+  }
+
+  function tryAuth() {
+    if ((input.value || '').trim() === PW) {
+      localStorage.setItem(KEY, '1');
+      overlay.classList.remove('active');
+    } else {
+      err.textContent = 'Mot de passe incorrect';
+      input.value = '';
+      setTimeout(() => { err.textContent = ''; }, 2500);
+      input.focus();
+    }
+  }
+
+  btn && btn.addEventListener('click', tryAuth);
+  input && input.addEventListener('keydown', e => { if (e.key === 'Enter') tryAuth(); });
+})();
 
 // ── Boot ──────────────────────────────────────────────────────
 setDateRange(30);
