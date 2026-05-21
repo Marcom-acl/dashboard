@@ -39,10 +39,12 @@ FB_PAGES                  = {
 }
 
 # ── Env-var secrets ──────────────────────────────────────────────────────────
-BREVO_API_KEY    = os.environ.get('BREVO_API_KEY', '')
-FB_APP_ID        = os.environ.get('FB_APP_ID', '')
-FB_APP_SECRET    = os.environ.get('FB_APP_SECRET', '')
+BREVO_API_KEY     = os.environ.get('BREVO_API_KEY', '')
+FB_APP_ID         = os.environ.get('FB_APP_ID', '')
+FB_APP_SECRET     = os.environ.get('FB_APP_SECRET', '')
 ANTHROPIC_API_KEY = os.environ.get('ANTHROPIC_API_KEY', '')
+GOOGLE_CLIENT_ID  = os.environ.get('GOOGLE_CLIENT_ID', '')
+GOOGLE_CLIENT_SECRET = os.environ.get('GOOGLE_CLIENT_SECRET', '')
 
 # ── Storage paths ─────────────────────────────────────────────────────────────
 DATA_DIR = os.environ.get('DATA_DIR', os.path.dirname(os.path.abspath(__file__)))
@@ -122,6 +124,8 @@ GOOGLE_SCOPES = [
 ]
 
 def _google_secrets():
+    if GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET:
+        return GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET
     s = _load_json(GOOGLE_SECRETS_PATH)
     if not s:
         return None, None
