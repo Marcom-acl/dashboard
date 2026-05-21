@@ -77,6 +77,7 @@ def _load_json(path):
         return None
 
 def _save_json(path, data):
+    os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, 'w') as f:
         json.dump(data, f)
 
