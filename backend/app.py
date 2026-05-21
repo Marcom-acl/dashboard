@@ -1298,6 +1298,36 @@ def build_market_prompt(data):
     return '\n'.join(lines)
 
 
+def build_section_prompt(data):
+    section = data.get('section', 'general')
+    period  = data.get('period', 30)
+
+    ctx = {
+        'ga4':      f"Sessions : {data.get('sessions')}, utilisateurs : {data.get('users')}, rebond : {data.get('bounceRate')}%, deltas (%) : {data.get('deltas')}",
+        'gsc':      f"Clics : {data.get('clicks')}, CTR : {data.get('ctr')}%, position moy. : {data.get('avgPosition')}, deltas (%) : {data.get('deltas')}",
+        'meta':     f"Budget : {data.get('spend')} EUR, ROAS : {data.get('roas')}×, CTR : {data.get('ctr')}%, impressions : {data.get('impressions')}",
+        'brevo':    f"Taux ouverture moy. : {data.get('avgOpenRate')}%, taux clic : {data.get('avgClick')}%, désabonnements : {data.get('totalUnsub')}, campagnes : {data.get('campaigns')}",
+        'youtube':  f"Abonnés : {data.get('subscribers')}, vues totales : {data.get('totalViews')}, nouvelles vidéos : {data.get('periodVideos')}",
+        'linkedin': f"Abonnés : {data.get('followers')}, engagements : {data.get('engagements')}",
+    }
+    section_labels = {
+        'ga4': 'Google Analytics (acl.lu)', 'gsc': 'Google Search Console (SEO)',
+        'meta': 'Meta Ads', 'brevo': 'Email Brevo', 'youtube': 'YouTube', 'linkedin': 'LinkedIn',
+    }
+    kpi_ctx = ctx.get(section, str(data))
+    label   = section_labels.get(section, section)
+
+    return '\n'.join([
+        f"Tu es un analyste marketing pour ACL Luxembourg. Analyse les KPIs {label} sur {period} jours :",
+        kpi_ctx,
+        "",
+        "Génère UNE observation concise (20-35 mots max) en français qui explique ce que ces chiffres signifient concrètement.",
+        "Commence directement par l'observation. Pas de titre, pas de ponctuation finale.",
+        "Exemples : 'Le trafic organique progresse de 12% — l'optimisation des pages de membres porte ses fruits'",
+        "Réponds uniquement avec la phrase d'observation.",
+    ])
+
+
 def build_greeting_prompt(data):
     ga4    = data.get('ga4')   or {}
     gsc    = data.get('gsc')   or {}
@@ -1339,6 +1369,21 @@ def get_insights():
 
     if not ANTHROPIC_API_KEY:
         return jsonify({'error': 'ANTHROPIC_API_KEY manquante'}), 503
+
+    if mode == 'section':
+        prompt = build_section_prompt(data)
+        try:
+            import anthropic
+            client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
+            msg = client.messages.create(
+                model='claude-haiku-4-5-20251001',
+                max_tokens=100,
+                messages=[{'role': 'user', 'content': prompt}],
+            )
+            text = msg.content[0].text.strip().strip('"').strip("'")
+            return jsonify({'insight': text})
+        except Exception as e:
+            return jsonify({'error': str(e)}), 500
 
     if mode == 'greeting':
         prompt = build_greeting_prompt(data)

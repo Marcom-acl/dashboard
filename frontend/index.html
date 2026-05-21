@@ -286,10 +286,11 @@
     .health{display:flex;align-items:center;gap:14px;padding:10px 16px;background:var(--surface);border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow-1);}
     .health-ring{position:relative;width:48px;height:48px;}
     .health-ring svg{transform:rotate(-90deg);}
-    .health-ring .ring-num{position:absolute;inset:0;display:grid;place-items:center;font-weight:700;font-style:italic;font-size:15px;letter-spacing:-0.02em;}
-    .health-meta{display:flex;flex-direction:column;line-height:1.15;}
-    .health-label-ring{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);}
-    .health-val-ring{font-size:13.5px;font-weight:700;color:var(--text);}
+    .health-ring .ring-num{display:none;}
+    .health-meta{display:flex;flex-direction:column;line-height:1.2;gap:1px;}
+    .health-meta-title{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:2px;}
+    .health-label-ring{font-size:12.5px;font-weight:500;color:var(--text);font-style:italic;}
+    .health-val-ring{font-size:11px;font-weight:600;color:var(--muted);}
 
     /* ─── TAB PANELS ──────────────────────────────────────────────── */
     .tab-panel{display:none;}
@@ -610,17 +611,46 @@
     .kpi-delta.neg{color:var(--bad);}
     .kpi-delta.neut{color:var(--muted);}
 
+    /* ─── HAMBURGER ──────────────────────────────────────────────── */
+    .hamburger-btn{display:none;align-items:center;justify-content:center;width:34px;height:34px;border:1px solid var(--border);border-radius:var(--r-sm);background:var(--surface);cursor:pointer;flex-shrink:0;}
+    .hamburger-btn svg{display:block;}
+    .sb-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:199;}
+    .sb-overlay.open{display:block;}
+    .sb.mobile-open{display:flex;position:fixed;left:0;top:0;height:100vh;z-index:200;box-shadow:2px 0 24px rgba(0,0,0,.18);}
+
+    /* ─── GA4 COMPARISON BLOCK ─────────────────────────────────── */
+    .sec-compare{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);padding:12px 16px;box-shadow:var(--shadow-1);}
+    .cmp-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:10px;}
+    .cmp-row{display:flex;gap:20px;flex-wrap:wrap;}
+    .cmp-item{display:flex;flex-direction:column;gap:2px;}
+    .cmp-name{font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;}
+    .cmp-cur{font-family:'FaricyNew','Albert Sans',sans-serif;font-weight:700;font-size:18px;letter-spacing:-0.02em;}
+    .cmp-vs{font-size:11.5px;color:var(--muted);}
+    [data-theme="dark"] .sec-compare{background:#111;border-color:#1e1e1e;}
+
+    /* ─── PER-SECTION AI BLOCK ───────────────────────────────────── */
+    .sec-ai{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);font-size:12.5px;line-height:1.6;color:var(--text);box-shadow:var(--shadow-1);}
+    .sec-ai-icon{color:var(--y);flex-shrink:0;font-size:13px;margin-top:1px;}
+    .sec-ai-text{flex:1;color:var(--muted);}
+    [data-theme="dark"] .sec-ai{background:#111;border-color:#1e1e1e;}
+    [data-theme="dark"] .sec-ai-text{color:#bbb;}
+
     /* ─── RESPONSIVE ──────────────────────────────────────────────── */
     @media(max-width:1100px){.kpi-row{grid-template-columns:repeat(2,1fr);}}
     @media(max-width:768px){
       .app{grid-template-columns:1fr;}
       .sb{display:none;}
+      .hamburger-btn{display:flex;}
       .kpi-row{grid-template-columns:1fr 1fr;}
       .overview-bars{grid-template-columns:1fr;}
+      .scroll{padding:20px 16px 40px;}
+      .ov-mid-grid{grid-template-columns:1fr;}
+      .ov-bottom-grid{grid-template-columns:1fr;}
+      .overview-bars-2{grid-template-columns:1fr;}
     }
     @media(max-width:480px){
       .kpi-row{grid-template-columns:1fr;}
-      .scroll{padding:16px 16px 40px;}
+      .scroll{padding:16px 12px 40px;}
     }
 
 
@@ -789,8 +819,8 @@
     .overview-bars-2 .bar-row{padding:5px 0;}
     @media(max-width:700px){.overview-bars-2{grid-template-columns:1fr;}}
 
-    /* ─── OVERVIEW MID GRID (donut large + positions compact) */
-    .ov-mid-grid{display:grid;grid-template-columns:1fr 240px;gap:14px;align-items:start;}
+    /* ─── OVERVIEW MID GRID (donut compact + positions large) */
+    .ov-mid-grid{display:grid;grid-template-columns:300px 1fr;gap:14px;align-items:start;}
     @media(max-width:900px){.ov-mid-grid{grid-template-columns:1fr;}}
 
     /* ─── OVERVIEW BOTTOM GRID (insights + benchmark) ────── */
@@ -858,8 +888,8 @@
     .bar-name{font-size:12.5px;color:var(--text);}
     .bar-val{font-size:12px;font-weight:700;}
     .tb-upd{font-size:11.5px;color:var(--muted-2);white-space:nowrap;}
-    .obj-mc-note{font-size:11px;color:#555;line-height:1.4;}
-    .obj-mc-target{font-size:12px;color:#555;}
+    .obj-mc-note{font-size:11px;color:#aaa;line-height:1.4;}
+    .obj-mc-target{font-size:12px;color:#aaa;}
 
     /* ─── DARK MODE ────────────────────────────────────────── */
     [data-theme="dark"]{
@@ -986,6 +1016,7 @@
   </div>
 </div>
 
+<div class="sb-overlay" id="sbOverlay"></div>
 <div class="app">
 
   <!-- ════════════════ SIDEBAR ════════════════ -->
@@ -1076,6 +1107,9 @@
 
     <!-- TOPBAR -->
     <div class="topbar">
+      <button class="hamburger-btn" id="btnHamburger" title="Menu">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
       <div class="crumb">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
         <span>ACL Marcom</span>
@@ -1376,9 +1410,9 @@ function renderOverview({dGA4, dGSC, dFB, dFBP, dBrevo, dLI, dYT, dGA4T}) {
       <div class="health">
         ${healthRing(score)}
         <div class="health-meta">
+          <span class="health-meta-title">Santé des canaux</span>
           <span class="health-label-ring" id="heroGreeting">Analyse de votre performance…</span>
-          <span class="health-val-ring">${scoreLabel} — ${scoreDesc}</span>
-          <span class="health-method">Sessions GA4 + Clics SEO + ROAS Meta → % canaux en hausse</span>
+          <span class="health-val-ring">${scoreLabel} · ${scoreDesc}</span>
         </div>
       </div>
     </div>
@@ -1493,6 +1527,7 @@ function renderGA4(d, dA, dE, dT) {
     <div class="sec-title"><h2>Google Analytics — acl.lu</h2><div class="line"></div>
       <span class="src-pill" style="--src:var(--c-ga4);--src-bg:var(--c-ga4-bg)">GA4</span>
     </div>
+    ${sectionAiHtml('ga4')}
     <div class="kpi-grid">
       ${kpiCard({label:'Sessions', value:fmtN(d.sessions), badge:trendBadge(d.deltas?.sessions), src:'var(--c-ga4)', srcBg:'var(--c-ga4-bg)'})}
       ${kpiCard({label:'Utilisateurs', value:fmtN(d.users), badge:trendBadge(d.deltas?.users), src:'var(--c-ga4)', srcBg:'var(--c-ga4-bg)'})}
@@ -1500,6 +1535,20 @@ function renderGA4(d, dA, dE, dT) {
       ${kpiCard({label:'Tx engagement', value:fmtPct(d.engagementRate), badge:trendBadge(d.deltas?.engagementRate), src:'var(--c-ga4)', srcBg:'var(--c-ga4-bg)'})}
       ${kpiCard({label:'Durée moyenne', value:fmtDur(d.avgSessionDuration), badge:trendBadge(d.deltas?.avgSessionDuration), src:'var(--c-ga4)', srcBg:'var(--c-ga4-bg)'})}
     </div>
+    ${d.prev ? `<div class="sec-compare" id="ga4-compare">
+      <div class="cmp-label">Période précédente (${globalDays}j)</div>
+      <div class="cmp-row">
+        ${['sessions','users','bounceRate','engagementRate'].filter(k => d.prev[k] != null).map(k => {
+          const labels = {sessions:'Sessions', users:'Visiteurs', bounceRate:'Rebond', engagementRate:'Engagement'};
+          const cur = k.includes('Rate') ? fmtPct(d[k]) : fmtN(d[k]);
+          const prv = k.includes('Rate') ? fmtPct(d.prev[k]) : fmtN(d.prev[k]);
+          const delta = d.deltas?.[k];
+          const inv = k === 'bounceRate';
+          const clr = delta == null ? '' : (inv ? delta < 0 : delta > 0) ? 'var(--good)' : 'var(--bad)';
+          return `<div class="cmp-item"><div class="cmp-name">${labels[k]}</div><div class="cmp-cur">${cur}</div><div class="cmp-vs">vs <span style="color:var(--muted)">${prv}</span>${delta != null ? `&ensp;<span style="font-weight:700;color:${clr}">${delta > 0 ? '+' : ''}${delta.toFixed(1)}%</span>` : ''}</div></div>`;
+        }).join('')}
+      </div>
+    </div>` : ''}
     <div class="card">
       <div class="card-head"><div class="card-title">Évolution sessions &amp; visiteurs</div></div>
       <div class="card-body" style="height:220px;padding:12px 16px 8px">
@@ -1524,6 +1573,7 @@ function renderGA4(d, dA, dE, dT) {
 
   animateCards(el);
   renderGA4TrendChart(dT?.trend || []);
+  fetchSectionInsight('ga4', {sessions: d.sessions, users: d.users, bounceRate: d.bounceRate, deltas: d.deltas});
 }
 
 function renderGA4TrendChart(trend) {
@@ -1824,6 +1874,7 @@ function renderMeta(d, dP) {
     <div class="sec-title"><h2>Meta Ads</h2><div class="line"></div>
       <span class="src-pill" style="--src:var(--c-fb);--src-bg:var(--c-fb-bg)">Meta</span>
     </div>
+    ${sectionAiHtml('meta')}
     <div class="kpi-grid">
       ${kpiCard({label:'Budget dépensé', value:fmtEur(d.spend), src:'var(--c-fb)', srcBg:'var(--c-fb-bg)'})}
       ${kpiCard({label:'Impressions', value:fmtN(d.impressions), src:'var(--c-fb)', srcBg:'var(--c-fb-bg)'})}
@@ -1905,6 +1956,8 @@ function renderFBPage(d) {
           <td class="r">${fmtN(p.likes)}</td>
         </tr>`).join('')}</tbody>
       </table></div></div></div>` : ''}`;
+  animateCards(el);
+  fetchSectionInsight('meta', {spend: d.spend, roas: d.roas, ctr: d.ctr, impressions: d.impressions});
 }
 
 // ── GSC ───────────────────────────────────────────────────────
@@ -1917,6 +1970,7 @@ function renderGSC(d) {
     <div class="sec-title"><h2>Google Search Console</h2><div class="line"></div>
       <span class="src-pill" style="--src:var(--c-gsc);--src-bg:var(--c-gsc-bg)">SEO</span>
     </div>
+    ${sectionAiHtml('gsc')}
     <div class="kpi-grid">
       ${kpiCard({label:'Clics', value:fmtN(d.clicks), badge:trendBadge(d.deltas?.clicks), src:'var(--c-gsc)', srcBg:'var(--c-gsc-bg)'})}
       ${kpiCard({label:'Impressions', value:fmtN(d.impressions), badge:trendBadge(d.deltas?.impressions), src:'var(--c-gsc)', srcBg:'var(--c-gsc-bg)'})}
@@ -1942,6 +1996,7 @@ function renderGSC(d) {
     </div>`;
 
   animateCards(el);
+  fetchSectionInsight('gsc', {clicks: d.clicks, ctr: d.ctr, avgPosition: d.avgPosition, deltas: d.deltas});
 }
 
 // ── OBJECTIFS ÉQUIPE ──────────────────────────────────────────
@@ -2012,6 +2067,7 @@ function renderObjectives({dFBP, dFB, dBrevo}) {
         ${objMcCard('Facebook · Posts', 'ACL Sport — Posts/semaine', sportWkly, 1.5, sportWkly.toFixed(1)+'/sem', '1.5/sem', `${sportPosts} posts → ≈ ${sportAnnual}/an`, '#FEDB00')}
         ${objMcCard('Facebook · Posts', 'ACL Karting — Posts/semaine', kartingWkly, 1.5, kartingWkly.toFixed(1)+'/sem', '1.5/sem', `${kartingPosts} posts → ≈ ${kartingAnnual}/an`, '#FEDB00')}
         ${objMcCard('Meta Ads', `Impressions (${globalDays}j)`, metaImpressions, metaTarget, fmtN(metaImpressions), fmtN(metaTarget), 'Objectif annuel 2 000 000', '#F97316')}
+        ${dFBP?.totals?.engaged_users ? objMcCard('Facebook · Engagement', `Utilisateurs engagés (${globalDays}j)`, dFBP.totals.engaged_users, Math.round(dFBP.totals.engaged_users * 1.2), fmtN(dFBP.totals.engaged_users), '+20%', 'Interactions uniques avec les posts', '#1877F2') : ''}
         ${objMcCard('Brevo Email', "Taux d'ouverture moyen", openRate, 60, fmtPct(openRate), '60.0%', 'Objectif : 60% d\'ouverture', '#0B996E')}
       </div>
     </div>`;
@@ -2118,6 +2174,7 @@ function renderBrevo(d) {
     <div class="sec-title"><h2>Brevo — Email Marketing</h2><div class="line"></div>
       <span class="src-pill" style="--src:var(--c-brevo);--src-bg:var(--c-brevo-bg)">Brevo</span>
     </div>
+    ${sectionAiHtml('brevo')}
 
     <div class="kpi-grid">
       ${kpiCard({label:'Contacts totaux',        value:fmtN(total),            src:'var(--c-brevo)', srcBg:'var(--c-brevo-bg)'})}
@@ -2127,7 +2184,8 @@ function renderBrevo(d) {
       ${kpiCard({label:"Taux d'ouverture moy.",   value:fmtPct(avgOpen),        src:'var(--c-brevo)', srcBg:'var(--c-brevo-bg)', spark:sparkBrevo})}
       ${kpiCard({label:'Taux de clic moy.',       value:fmtPct(avgClick),       src:'var(--c-brevo)', srcBg:'var(--c-brevo-bg)'})}
       ${kpiCard({label:'CTOR moyen',              value:fmtPct(avgCTOR),        src:'var(--c-brevo)', srcBg:'var(--c-brevo-bg)'})}
-      ${kpiCard({label:'Désabonnements moy.',     value:fmtPct(avgUnsub),       src:'var(--c-brevo)', srcBg:'var(--c-brevo-bg)'})}
+      ${kpiCard({label:'Désabonnements (période)', value:fmtN(totalUnsub),      src:'var(--c-brevo)', srcBg:'var(--c-brevo-bg)'})}
+      ${kpiCard({label:'Taux désabonnement moy.', value:fmtPct(avgUnsub),      src:'var(--c-brevo)', srcBg:'var(--c-brevo-bg)'})}
     </div>
 
     <div class="hb-wrap">
@@ -2162,42 +2220,45 @@ function renderBrevo(d) {
     <div class="card">
       <div class="card-head">
         <div class="card-title">Campagnes récentes</div>
-        <span style="font-size:10px;color:var(--muted);font-weight:600;margin-left:auto">Score = ouverture×40% + clic×40% + fidélité×20%</span>
       </div>
       <div class="card-body flush"><div class="tbl-scroll"><table class="tbl">
         <thead><tr>
           <th>Campagne</th><th>Type</th>
-          <th class="r">Livrés</th><th class="r">Ouv.</th><th class="r">Clic</th>
-          <th class="r">CTOR</th><th class="r">Désab.</th>
+          <th class="r">Livrés</th>
+          <th class="r" title="Benchmark : ≥35% excellent · 20–35% moyen · &lt;20% faible">Ouv. ⬤</th>
+          <th class="r" title="Benchmark : ≥3% excellent · 1–3% moyen · &lt;1% faible">Clic ⬤</th>
+          <th class="r" title="Benchmark : ≥10% excellent · 5–10% moyen · &lt;5% faible">CTOR ⬤</th>
+          <th class="r" title="Benchmark : &lt;0.1% excellent · 0.1–0.5% moyen · &gt;0.5% élevé">Désab. ⬤</th>
           <th style="min-width:90px">Score</th>
         </tr></thead>
-        <tbody>${campsE.slice(0, 15).map(c => `<tr>
+        <tbody>${campsE.slice(0, 15).map(c => {
+          const openCls  = c.openRate  >= 35 ? 'var(--good)' : c.openRate  >= 20 ? 'var(--warn)' : 'var(--bad)';
+          const clicCls  = c.clickRate >= 3  ? 'var(--good)' : c.clickRate >= 1  ? 'var(--warn)' : 'var(--bad)';
+          const ctorCls  = c.ctor      >= 10 ? 'var(--good)' : c.ctor      >= 5  ? 'var(--warn)' : 'var(--bad)';
+          const unsubCls = c.unsubRate <= 0.1? 'var(--good)' : c.unsubRate <= 0.5? 'var(--warn)' : 'var(--bad)';
+          return `<tr>
           <td class="cn">${c.name||'—'}</td>
           <td>${typeBadgeHtml(c.type)}</td>
           <td class="r">${fmtN(c.dlvr)}</td>
-          <td class="r">${fmtPct(c.openRate)}</td>
-          <td class="r">${fmtPct(c.clickRate)}</td>
-          <td class="r">${fmtPct(c.ctor)}</td>
-          <td class="r">${fmtPct(c.unsubRate)}</td>
-          <td>
-            <div class="score-wrap">
-              <div class="score-track"><div class="score-fill ${scoreCls(c.score)}" style="width:${c.score}%"></div></div>
-              <span class="score-val">${c.score}</span>
-            </div>
-          </td>
-        </tr>`).join('')}</tbody>
+          <td class="r" style="font-weight:700;color:${openCls}">${fmtPct(c.openRate)}</td>
+          <td class="r" style="font-weight:700;color:${clicCls}">${fmtPct(c.clickRate)}</td>
+          <td class="r" style="font-weight:700;color:${ctorCls}">${fmtPct(c.ctor)}</td>
+          <td class="r" style="font-weight:700;color:${unsubCls}">${fmtPct(c.unsubRate)}</td>
+          <td><div class="score-wrap"><div class="score-track"><div class="score-fill ${scoreCls(c.score)}" style="width:${c.score}%"></div></div><span class="score-val">${c.score}</span></div></td>
+        </tr>`;}).join('')}</tbody>
       </table></div></div>
     </div>
 
-    <div style="display:flex;gap:16px;flex-wrap:wrap;padding:4px 0;align-items:center">
-      <div class="hb-leg"><div class="hb-dot" style="background:var(--good)"></div>Score ≥ 65 — Bon</div>
-      <div class="hb-leg"><div class="hb-dot" style="background:var(--warn)"></div>Score 40–64 — Moyen</div>
-      <div class="hb-leg"><div class="hb-dot" style="background:var(--bad)"></div>Score &lt; 40 — À améliorer</div>
-      <span style="font-size:11px;color:var(--muted);margin-left:auto">Benchmarks : ouverture &gt;25%, clic &gt;3%</span>
+    <div style="display:flex;flex-direction:column;gap:5px;padding:4px 0 2px;font-size:11px;color:var(--muted);">
+      <div><strong style="color:var(--text)">Légende ⬤ </strong> <span style="color:var(--good);font-weight:700">■</span> Excellent &nbsp; <span style="color:var(--warn);font-weight:700">■</span> Moyen &nbsp; <span style="color:var(--bad);font-weight:700">■</span> Faible</div>
+      <div>Ouverture : ≥35% vert · 20–35% jaune · &lt;20% rouge &emsp; standard B2C GDPR LUX : 25–35%</div>
+      <div>Clic : ≥3% vert · 1–3% jaune · &lt;1% rouge &emsp; CTOR : ≥10% vert · 5–10% jaune · &lt;5% rouge</div>
+      <div>Désabonnement : &lt;0.1% vert · 0.1–0.5% jaune · &gt;0.5% rouge &emsp; Score = ouv×40% + clic×40% + fidélité×20%</div>
     </div>`;
 
   el.appendChild(wrap);
   animateCards(el);
+  fetchSectionInsight('brevo', {avgOpenRate: avgOpen, avgClick, totalUnsub, campaigns: camps.length});
 }
 
 // ── YOUTUBE ───────────────────────────────────────────────────
@@ -2210,6 +2271,7 @@ function renderYouTube(d) {
     <div class="sec-title"><h2>YouTube ACL</h2><div class="line"></div>
       <span class="src-pill" style="--src:var(--c-yt);--src-bg:var(--c-yt-bg)">YouTube</span>
     </div>
+    ${sectionAiHtml('youtube')}
     <div class="kpi-grid">
       ${kpiCard({label:'Abonnés', value:fmtN(d.subscribers), src:'var(--c-yt)', srcBg:'var(--c-yt-bg)'})}
       ${kpiCard({label:'Vues totales', value:fmtN(d.totalViews), src:'var(--c-yt)', srcBg:'var(--c-yt-bg)'})}
@@ -2223,6 +2285,7 @@ function renderYouTube(d) {
       </table></div></div></div>` : ''}`;
 
   animateCards(el);
+  fetchSectionInsight('youtube', {subscribers: d.subscribers, totalViews: d.totalViews, periodVideos: d.periodVideos});
 }
 
 // ── LINKEDIN ──────────────────────────────────────────────────
@@ -2235,6 +2298,7 @@ function renderLinkedIn(d) {
     <div class="sec-title"><h2>LinkedIn ACL</h2><div class="line"></div>
       <span class="src-pill" style="--src:var(--c-li);--src-bg:var(--c-li-bg)">LinkedIn</span>
     </div>
+    ${sectionAiHtml('linkedin')}
     <div class="kpi-grid">
       ${kpiCard({label:'Abonnés', value:fmtN(d.followers||d.totalFollowers||0), src:'var(--c-li)', srcBg:'var(--c-li-bg)'})}
       ${kpiCard({label:'Impressions', value:fmtN(d.impressions||d.totalImpressions||0), src:'var(--c-li)', srcBg:'var(--c-li-bg)'})}
@@ -2248,6 +2312,7 @@ function renderLinkedIn(d) {
       </table></div></div></div>` : ''}`;
 
   animateCards(el);
+  fetchSectionInsight('linkedin', {followers: d.followers||d.totalFollowers, engagements: d.engagements||d.totalEngagements});
 }
 
 // ── AI INSIGHTS ───────────────────────────────────────────────
@@ -2255,6 +2320,13 @@ async function fetchInsights({dGA4, dGSC, dFB, dBrevo, dLI, dYT}) {
   const el  = document.getElementById('insights-body');
   const sub = document.getElementById('apSubtitle');
   if (!el) return;
+
+  // Show "slow server" warning after 12 seconds
+  const slowTimer = setTimeout(() => {
+    if (el.querySelector('.spin-star')) {
+      el.innerHTML = '<div class="ap-loading" style="color:#999"><div class="spin-star" style="animation:spin 1.2s linear infinite;display:inline-block;font-size:18px">✦</div><br>Le serveur démarre… 30–60 s la première fois.</div>';
+    }
+  }, 12000);
 
   try {
     const r = await fetch(`${API_BASE}/insights`, {
@@ -2264,13 +2336,14 @@ async function fetchInsights({dGA4, dGSC, dFB, dBrevo, dLI, dYT}) {
         ga4:    dGA4   ? {sessions: dGA4.sessions, deltas: dGA4.deltas, period: globalDays} : null,
         gsc:    dGSC   ? {clicks: dGSC.clicks, ctr: dGSC.ctr, avgPosition: dGSC.avgPosition, deltas: dGSC.deltas} : null,
         fb:     dFB    ? {spend: dFB.spend, roas: dFB.roas, ctr: dFB.ctr} : null,
-        brevo:  dBrevo ? {campaigns: dBrevo.campaigns?.length, contactStats: dBrevo.contactStats} : null,
+        brevo:  dBrevo ? {campaigns: dBrevo.campaigns?.length, avgOpenRate: dBrevo.avgOpenRate} : null,
         li:     dLI    ? {followers: dLI.followers||dLI.totalFollowers} : null,
         yt:     dYT    ? {subscribers: dYT.subscribers, periodVideos: dYT.periodVideos} : null,
         period: globalDays,
       }),
-      signal: AbortSignal.timeout(45000),
+      signal: AbortSignal.timeout(60000),
     });
+    clearTimeout(slowTimer);
     const data     = await r.json();
     const insights = data.insights || [];
 
@@ -2305,7 +2378,35 @@ async function fetchInsights({dGA4, dGSC, dFB, dBrevo, dLI, dYT}) {
       }
     }
   } catch(e) {
-    el.innerHTML = '<div class="ap-loading" style="color:#999">Insights IA non disponibles — configurer ANTHROPIC_API_KEY sur Railway.</div>';
+    clearTimeout(slowTimer);
+    el.innerHTML = `<div class="ap-loading" style="color:#999;display:flex;flex-direction:column;gap:10px;align-items:center">
+      <div>Insights IA indisponibles.</div>
+      <button onclick="if(window._lastDashData)fetchInsights(window._lastDashData)" style="background:#1a1a1a;border:1px solid #333;color:#FEDB00;padding:6px 14px;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit">↻ Réessayer</button>
+    </div>`;
+  }
+}
+
+// ── PER-SECTION AI BLOCK ──────────────────────────────────────
+function sectionAiHtml(id) {
+  return `<div class="sec-ai" id="sec-ai-${id}"><span class="sec-ai-icon">✦</span><span class="sec-ai-text" id="sec-ai-text-${id}">Analyse IA en cours…</span></div>`;
+}
+
+async function fetchSectionInsight(sectionId, payload) {
+  const el = document.getElementById(`sec-ai-text-${sectionId}`);
+  const wrap = document.getElementById(`sec-ai-${sectionId}`);
+  if (!el) return;
+  try {
+    const r = await fetch(`${API_BASE}/insights`, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({mode:'section', section: sectionId, period: globalDays, ...payload}),
+      signal: AbortSignal.timeout(30000),
+    });
+    const d = await r.json();
+    if (d.insight) { el.textContent = d.insight; }
+    else if (wrap) { wrap.style.display = 'none'; }
+  } catch(e) {
+    if (wrap) wrap.style.display = 'none';
   }
 }
 
@@ -2408,6 +2509,18 @@ function applyGlobalRange() {
     closeCfg();
     showToast('URL sauvegardée', 'success');
   });
+})();
+
+// ── Hamburger menu (mobile) ───────────────────────────────────
+(function() {
+  const btn     = document.getElementById('btnHamburger');
+  const overlay = document.getElementById('sbOverlay');
+  const sb      = document.querySelector('.sb');
+  function openSb()  { sb?.classList.add('mobile-open'); overlay?.classList.add('open'); }
+  function closeSb() { sb?.classList.remove('mobile-open'); overlay?.classList.remove('open'); }
+  btn?.addEventListener('click', openSb);
+  overlay?.addEventListener('click', closeSb);
+  document.querySelectorAll('.tab-btn').forEach(b => b.addEventListener('click', closeSb));
 })();
 
 // ── Dark mode toggle ──────────────────────────────────────────
@@ -2518,14 +2631,38 @@ document.getElementById('btnRefresh')?.addEventListener('click', loadAll);
     const cfgBody = document.querySelector('.cfg-body');
     if (!cfgBody) return;
 
-    // Déconnexion (tous les utilisateurs)
+    // Déconnexion + changement de mot de passe (tous les utilisateurs)
     const logoutSec = document.createElement('div');
     logoutSec.id = 'logoutSection';
     logoutSec.innerHTML = `<div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border);">
-      <div style="font-size:11px;color:var(--muted);margin-bottom:6px;">Connecté en tant que <strong>${sessData.name}</strong></div>
+      <div style="font-size:11px;color:var(--muted);margin-bottom:8px;">Connecté en tant que <strong>${sessData.name}</strong></div>
+      <div class="cfg-label" style="margin-bottom:6px;">Changer mon mot de passe</div>
+      <input class="cfg-input" id="changePwCurrent" type="password" placeholder="Mot de passe actuel" style="margin-bottom:6px;" />
+      <input class="cfg-input" id="changePwNew" type="password" placeholder="Nouveau mot de passe" style="margin-bottom:6px;" />
+      <input class="cfg-input" id="changePwConfirm" type="password" placeholder="Confirmer le nouveau mot de passe" style="margin-bottom:8px;" />
+      <button id="changePwBtn" class="cfg-save" style="margin-bottom:10px;">Changer le mot de passe</button>
       <button id="logoutBtn" class="cfg-save" style="background:#1a1a1a;color:#e0ddd6;border:1px solid #2a2a2a;">Se déconnecter</button>
     </div>`;
     cfgBody.appendChild(logoutSec);
+
+    document.getElementById('changePwBtn')?.addEventListener('click', async () => {
+      const cur     = document.getElementById('changePwCurrent')?.value.trim();
+      const newPw   = document.getElementById('changePwNew')?.value.trim();
+      const confirm = document.getElementById('changePwConfirm')?.value.trim();
+      if (!cur || !newPw || !confirm) { showToast('Remplissez tous les champs.', 'error'); return; }
+      if (newPw !== confirm) { showToast('Les nouveaux mots de passe ne correspondent pas.', 'error'); return; }
+      if (newPw.length < 8) { showToast('Minimum 8 caractères requis.', 'error'); return; }
+      const curHash = await sha256(cur);
+      const users   = getUsers();
+      const user    = users.find(u => u.email.toLowerCase() === sessData.email.toLowerCase());
+      if (!user || curHash !== user.hash) { showToast('Mot de passe actuel incorrect.', 'error'); return; }
+      user.hash = await sha256(newPw);
+      saveUsers(users);
+      showToast('Mot de passe modifié avec succès.');
+      document.getElementById('changePwCurrent').value = '';
+      document.getElementById('changePwNew').value     = '';
+      document.getElementById('changePwConfirm').value = '';
+    });
     document.getElementById('logoutBtn')?.addEventListener('click', () => {
       localStorage.removeItem(SESSION_KEY);
       location.reload();
