@@ -983,16 +983,10 @@ def brevo():
     headers = {'api-key': BREVO_API_KEY, 'Accept': 'application/json'}
     BREVO_BASE = 'https://api.brevo.com/v3'
 
-    # Always fetch last 90 days for campaigns — the period filter causes empty results
-    # when no campaigns were sent in the selected window (e.g. last 7 days).
-    today = datetime.date.today()
-    brevo_start = (today - datetime.timedelta(days=90)).isoformat()
-    brevo_end   = today.isoformat()
-
+    # Fetch last 50 sent campaigns — no date filter to avoid empty results
     rc = _get(f'{BREVO_BASE}/emailCampaigns', headers=headers, params={
         'status': 'sent', 'limit': 50, 'offset': 0,
         'sort': 'desc', 'statistics': 'globalStats',
-        'startDate': brevo_start, 'endDate': brevo_end,
     })
     campaigns = []
     if rc.ok:
@@ -1025,7 +1019,16 @@ def brevo():
     if rct.ok:
         contact_stats['total'] = rct.json().get('count', contact_stats['total'])
 
-    return jsonify({'campaigns': campaigns, 'contactStats': contact_stats})
+    # Compute avgOpenRate from campaigns
+    total_dlvr  = sum(c['statistics'].get('globalStats', {}).get('delivered', 0) for c in campaigns)
+    total_opens = sum(
+        c['statistics'].get('globalStats', {}).get('uniqueOpens', 0)
+        or c['statistics'].get('globalStats', {}).get('uniqueViews', 0)
+        for c in campaigns
+    )
+    avg_open_rate = round(total_opens / total_dlvr * 100, 1) if total_dlvr else 0
+
+    return jsonify({'campaigns': campaigns, 'contactStats': contact_stats, 'avgOpenRate': avg_open_rate})
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -1259,12 +1262,63 @@ def build_insights_prompt(data):
     return '\n'.join(lines)
 
 
+def build_market_prompt(data):
+    ga4   = data.get('ga4')   or {}
+    gsc   = data.get('gsc')   or {}
+    fb    = data.get('fb')    or {}
+    brevo = data.get('brevo') or {}
+    li    = data.get('li')    or {}
+    period = data.get('period', 30)
+
+    lines = [
+        "Tu es un analyste marketing expert du marché luxembourgeois et des clubs automobiles européens (ADAC, RAC, TCS, ACI).",
+        f"Analyse les KPIs d'ACL Luxembourg sur {period} jours et fournis une analyse comparative de marché en français.",
+        "",
+        "## Données ACL",
+    ]
+    if gsc:  lines.append(f"SEO : {gsc.get('clicks')} clics, CTR {gsc.get('ctr')}%, position moy. {gsc.get('avgPosition')}")
+    if fb:   lines.append(f"Meta Ads : {fb.get('spend')} EUR, ROAS {fb.get('roas')}×, CTR {fb.get('ctr')}%")
+    if brevo:lines.append(f"Email : {brevo.get('campaigns')} campagnes, taux ouverture moy. {brevo.get('avgOpenRate')}%")
+    if li:   lines.append(f"LinkedIn : {li.get('followers')} abonnés")
+
+    lines += [
+        "",
+        "## Benchmarks secteur",
+        "- SEO Luxembourg : marché petit (650k hab.), concurrence faible, orgs établies atteignent pos. < 10 facilement",
+        "- Meta LUX : CPM élevé (marché premium), CTR attendu 0.9-1.5%, ROAS > 2× viable",
+        "- Email B2C Europe GDPR : open rate 25-35%, listes qualifiées LUX atteignent 35-50%",
+        "- LinkedIn orga. : engagement 1-3%, grands clubs (ADAC) : 2-5%",
+        "- Clubs comparables : ADAC (9M membres), RAC UK, TCS Suisse, ACI Italie — présence digitale forte",
+        "",
+        "## Instructions",
+        "Réponds en texte libre (pas de JSON), maximum 180 mots.",
+        "Structure : 1 ligne de synthèse globale, puis 3-4 points clés avec chiffres comparatifs.",
+        "Sois direct et actionnable.",
+    ]
+    return '\n'.join(lines)
+
+
 @app.route('/insights', methods=['POST'])
 def get_insights():
     data = request.json or {}
+    mode = data.get('mode', 'insights')
 
     if not ANTHROPIC_API_KEY:
         return jsonify({'error': 'ANTHROPIC_API_KEY manquante'}), 503
+
+    if mode == 'market':
+        prompt = build_market_prompt(data)
+        try:
+            import anthropic
+            client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
+            msg = client.messages.create(
+                model='claude-haiku-4-5-20251001',
+                max_tokens=512,
+                messages=[{'role': 'user', 'content': prompt}],
+            )
+            return jsonify({'marketAnalysis': msg.content[0].text})
+        except Exception as e:
+            return jsonify({'error': str(e)}), 500
 
     prompt = build_insights_prompt(data)
 

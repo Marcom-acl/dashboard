@@ -597,19 +597,12 @@
     .toast.error{border-left:3px solid var(--bad);}
     .toast.success{border-left:3px solid var(--good);}
 
-    /* ─── TWEAKS PANEL ────────────────────────────────────────────── */
-    .tw-toggle{position:fixed;bottom:18px;right:18px;z-index:200;background:#000;color:var(--y);border:none;border-radius:99px;padding:9px 15px;font-weight:700;font-size:12px;letter-spacing:.04em;text-transform:uppercase;display:flex;align-items:center;gap:7px;cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,.2);}
-    .tw-panel{position:fixed;bottom:18px;right:18px;z-index:201;width:290px;background:var(--surface);border:1px solid var(--border);border-radius:14px;box-shadow:0 20px 50px rgba(0,0,0,.16);padding:18px;display:none;flex-direction:column;gap:14px;}
-    .tw-panel.open{display:flex;}
-    .tw-head{display:flex;align-items:center;gap:8px;}
-    .tw-title{font-weight:800;font-style:italic;font-size:17px;letter-spacing:-0.02em;}
-    .tw-close{margin-left:auto;width:28px;height:28px;border-radius:7px;border:1px solid var(--border);background:var(--surface);display:grid;place-items:center;cursor:pointer;}
-    .tw-group{display:flex;flex-direction:column;gap:6px;}
-    .tw-lbl{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);}
-    .tw-opts{display:grid;grid-template-columns:repeat(2,1fr);gap:5px;}
-    .tw-opt{padding:7px 10px;border:1px solid var(--border);border-radius:7px;background:var(--surface);font-family:inherit;font-size:12px;font-weight:600;cursor:pointer;color:var(--text);transition:all 120ms;}
-    .tw-opt:hover{border-color:#000;}
-    .tw-opt.active{background:#000;color:#fff;border-color:#000;}
+    /* ─── THEME TOGGLE ────────────────────────────────────────────── */
+    .btn-theme{position:relative;}
+    [data-theme="dark"] .icon-sun{display:none;}
+    [data-theme="dark"] .icon-moon{display:block;}
+    .icon-sun{display:block;}
+    .icon-moon{display:none;}
 
     /* ─── KPI DELTA ──────────────────────────────────────────────── */
     .kpi-delta{font-size:11px;font-weight:700;margin-top:3px;}
@@ -725,8 +718,12 @@
     .mission-panel{background:#0d0d0d;border:1px solid #222;border-radius:var(--r-lg);padding:20px 22px 22px;display:flex;flex-direction:column;gap:14px;}
     .mission-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
     .mission-title{font-family:'FaricyNew','Albert Sans',sans-serif;font-weight:700;font-style:italic;font-size:17px;color:#fff;letter-spacing:-0.02em;}
-    .mission-subtitle{font-size:11px;color:#666;margin-top:3px;}
+    .mission-subtitle{font-size:12px;color:#777;margin-top:3px;}
+    .mission-header-right{display:flex;align-items:center;gap:10px;}
     .mission-period-badge{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:#1a1a1a;color:#888;border:1px solid #2a2a2a;padding:3px 10px;border-radius:99px;}
+    .mission-collapse-btn{background:none;border:1px solid #333;border-radius:6px;width:26px;height:26px;display:grid;place-items:center;cursor:pointer;color:#777;transition:all 120ms;flex-shrink:0;}
+    .mission-collapse-btn:hover{color:#ccc;border-color:#555;}
+    .mission-panel.collapsed .mission-grid{display:none;}
     .mission-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px;}
     .obj-mc{background:#111;border:1px solid #1e1e1e;border-radius:10px;border-left:4px solid var(--obj-color,#555);padding:14px 16px 12px;display:flex;flex-direction:column;gap:7px;transition:background 120ms;}
     .obj-mc:hover{background:#161616;}
@@ -776,19 +773,26 @@
 
     /* ─── CHANNEL DONUT ───────────────────────────────────── */
     .channel-donut-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);box-shadow:var(--shadow-1);padding:18px;display:flex;flex-direction:column;gap:12px;}
-    .channel-donut-title{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);}
-    .channel-donut-inner{display:flex;align-items:center;gap:18px;}
-    .channel-donut-canvas-wrap{width:110px;height:110px;flex-shrink:0;position:relative;}
-    .channel-donut-legend{display:flex;flex-direction:column;gap:6px;flex:1;min-width:0;}
-    .channel-leg-item{display:flex;align-items:center;gap:7px;font-size:11px;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-    .channel-leg-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
-    .channel-leg-val{margin-left:auto;font-weight:700;font-size:11px;color:var(--muted);flex-shrink:0;}
+    .channel-donut-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);}
+    .channel-donut-inner{display:flex;flex-direction:column;align-items:center;gap:16px;}
+    .channel-donut-canvas-wrap{width:200px;height:200px;flex-shrink:0;position:relative;}
+    .channel-donut-legend{display:flex;flex-direction:column;gap:7px;width:100%;}
+    .channel-leg-item{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .channel-leg-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
+    .channel-leg-val{margin-left:auto;font-weight:700;font-size:12.5px;color:var(--muted);flex-shrink:0;}
 
-    /* ─── OVERVIEW 3-COL bars + donut ─────────────────────── */
-    .overview-bars-3{display:grid;grid-template-columns:1fr 1fr auto;gap:14px;align-items:start;}
-    .overview-bars-3 .channel-donut-wrap{min-width:210px;}
-    @media(max-width:1100px){.overview-bars-3{grid-template-columns:1fr 1fr;} .overview-bars-3 .channel-donut-wrap{grid-column:1/-1;}}
-    @media(max-width:700px){.overview-bars-3{grid-template-columns:1fr;}}
+    /* ─── OVERVIEW TOP BARS 2-COL (compact) ──────────────── */
+    .overview-bars-2{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start;}
+    .overview-bars-2 .bar-row{padding:5px 0;}
+    @media(max-width:700px){.overview-bars-2{grid-template-columns:1fr;}}
+
+    /* ─── OVERVIEW MID GRID (donut + positions) ──────────── */
+    .ov-mid-grid{display:grid;grid-template-columns:260px 1fr;gap:14px;align-items:start;}
+    @media(max-width:900px){.ov-mid-grid{grid-template-columns:1fr;}}
+
+    /* ─── OVERVIEW BOTTOM GRID (insights + benchmark) ────── */
+    .ov-bottom-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start;}
+    @media(max-width:1000px){.ov-bottom-grid{grid-template-columns:1fr;}}
 
     /* ─── INSIGHTS IA BUTTON ──────────────────────────────── */
     .btn-insights{display:inline-flex;align-items:center;gap:6px;padding:7px 13px;border:1px solid #2a2a2a;border-radius:8px;font-family:inherit;font-size:12px;font-weight:700;letter-spacing:.01em;cursor:pointer;white-space:nowrap;transition:all 150ms;background:#111;color:#ccc;position:relative;}
@@ -800,6 +804,163 @@
     .btn-insights.loaded{border-color:#FEDB00;color:#FEDB00;}
     .insights-badge{background:#FEDB00;color:#000;font-size:9px;font-weight:800;padding:1px 5px;border-radius:99px;display:none;}
     .btn-insights.loaded .insights-badge{display:inline;}
+    .rec.rec-hidden{display:none;}
+
+    /* ─── BENCHMARK MODULE ─────────────────────────────────── */
+    .bench-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);box-shadow:var(--shadow-1);overflow:hidden;display:flex;flex-direction:column;}
+    .bench-head{padding:14px 16px 10px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+    .bench-head-left{display:flex;flex-direction:column;gap:2px;}
+    .bench-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);}
+    .bench-sub{font-size:11.5px;color:var(--muted-2);margin-top:1px;}
+    .btn-market{font-size:11px;font-weight:700;color:#FEDB00;background:#111;border:1px solid #2a2a2a;border-radius:6px;padding:4px 10px;cursor:pointer;display:inline-flex;align-items:center;gap:5px;white-space:nowrap;flex-shrink:0;font-family:inherit;}
+    .btn-market:hover{background:#1a1a1a;}
+    .btn-market.loading{animation:insightGlow 1.6s ease-in-out infinite;}
+    .bench-body{display:flex;flex-direction:column;}
+    .bench-row{display:flex;align-items:center;padding:10px 16px;border-bottom:1px solid var(--border);gap:12px;}
+    .bench-row:last-child{border-bottom:none;}
+    .bench-canal{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;padding:2px 7px;border-radius:99px;flex-shrink:0;}
+    .bench-metric-wrap{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px;}
+    .bench-metric-name{font-size:12px;color:var(--muted);font-weight:500;}
+    .bench-metric-note{font-size:10.5px;color:var(--muted-2);line-height:1.4;margin-top:1px;}
+    .bench-val{font-family:'FaricyNew','Albert Sans',sans-serif;font-weight:700;font-style:italic;font-size:15px;min-width:52px;text-align:right;flex-shrink:0;}
+    .bench-ref{font-size:10.5px;color:var(--muted-2);min-width:65px;text-align:right;flex-shrink:0;}
+    .bench-status{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;flex-shrink:0;font-size:12px;}
+    .bench-ok{background:rgba(22,163,74,.12);color:#16A34A;}
+    .bench-warn{background:rgba(249,115,22,.14);color:#F97316;}
+    .bench-bad{background:rgba(220,38,38,.12);color:#DC2626;}
+    .bench-na{background:var(--border);color:var(--muted-2);}
+    .bench-ai-result{padding:12px 16px;font-size:12px;color:var(--muted);line-height:1.65;border-top:1px solid var(--border);white-space:pre-wrap;}
+
+    /* ─── GSC TOP POSITIONS ───────────────────────────────── */
+    .gsc-pos-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);box-shadow:var(--shadow-1);overflow:hidden;display:flex;flex-direction:column;}
+    .gsc-pos-head{padding:14px 16px 10px;border-bottom:1px solid var(--border);}
+    .gsc-pos-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);}
+    .gsc-pos-list{display:flex;flex-direction:column;}
+    .gsc-pos-item{display:flex;align-items:center;gap:12px;padding:9px 16px;border-bottom:1px solid var(--border);}
+    .gsc-pos-item:last-child{border-bottom:none;}
+    .pos-badge{width:34px;height:34px;border-radius:8px;display:grid;place-items:center;font-family:'FaricyNew','Albert Sans',sans-serif;font-weight:700;font-style:italic;font-size:14px;flex-shrink:0;}
+    .pos-top{background:rgba(22,163,74,.12);color:#16A34A;}
+    .pos-mid{background:rgba(254,219,0,.18);color:#8B6F00;}
+    .pos-low{background:rgba(156,163,175,.1);color:#6B7280;}
+    .gsc-pos-query{flex:1;font-size:12.5px;color:var(--text);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:500;}
+    .gsc-pos-meta{display:flex;flex-direction:column;align-items:flex-end;gap:1px;flex-shrink:0;}
+    .gsc-pos-ctr{font-size:11px;color:var(--muted);}
+    .gsc-pos-clics{font-size:11px;font-weight:700;color:var(--text);}
+
+    /* ─── FONT SIZE IMPROVEMENTS ──────────────────────────── */
+    .rec-insight{font-size:12.5px;color:#777;line-height:1.6;}
+    .rec-action{margin-top:9px;font-size:12.5px;font-weight:700;color:#FEDB00;display:inline-flex;align-items:center;gap:4px;}
+    .rec-src{font-size:11px;font-weight:700;padding:2px 7px;border-radius:99px;background:#1e1e1e;color:#999;border:1px solid #2a2a2a;}
+    .ap-subtitle{font-size:12px;color:#666;padding:6px 20px 10px;border-bottom:1px solid #141414;}
+    .bar-name{font-size:12.5px;color:var(--text);}
+    .bar-val{font-size:12px;font-weight:700;}
+    .tb-upd{font-size:11.5px;color:var(--muted-2);white-space:nowrap;}
+    .obj-mc-note{font-size:11px;color:#555;line-height:1.4;}
+    .obj-mc-target{font-size:12px;color:#555;}
+
+    /* ─── DARK MODE ────────────────────────────────────────── */
+    [data-theme="dark"]{
+      --bg:#0A0A0A;--surface:#111;--border:#1e1e1e;--border-strong:#2a2a2a;
+      --text:#F0EDE6;--muted:#aaa;--muted-2:#666;
+      --y-soft:#3d3200;
+      --c-ga4-bg:#2a2000;--c-fb-bg:#0d1a38;--c-gsc-bg:#0a2015;
+      --c-brevo-bg:#081c14;--c-li-bg:#091a30;--c-yt-bg:#260000;
+      --shadow-1:0 1px 0 rgba(0,0,0,.5),0 1px 2px rgba(0,0,0,.3);
+      --shadow-2:0 1px 0 rgba(0,0,0,.5),0 6px 18px rgba(0,0,0,.4);
+    }
+    [data-theme="dark"] body{background:var(--bg);color:var(--text);}
+    [data-theme="dark"] .topbar{background:rgba(10,10,10,.92);border-bottom-color:#1a1a1a;}
+    [data-theme="dark"] .sb{background:#0d0d0d;border-right-color:#1a1a1a;}
+    [data-theme="dark"] .sb-item{color:#c0bdb5;}
+    [data-theme="dark"] .sb-item:hover{background:rgba(255,255,255,.04);color:#f0ede6;}
+    [data-theme="dark"] .sb-brand-name{color:#f0ede6;}
+    [data-theme="dark"] .sb-brand-sub{color:#666;}
+    [data-theme="dark"] .sb-section-title{color:#555;}
+    [data-theme="dark"] .sb-dot{box-shadow:0 0 0 2px #0d0d0d;}
+    [data-theme="dark"] .sb-user-name{color:#f0ede6;}
+    [data-theme="dark"] .sb-user-role{color:#888;}
+    [data-theme="dark"] .sb-item.active{background:rgba(254,219,0,.1);color:var(--y);}
+    [data-theme="dark"] .sb-foot{border-top-color:#1a1a1a;}
+    [data-theme="dark"] .card{background:#111;border-color:#1e1e1e;}
+    [data-theme="dark"] .kpi-card{background:#111;border-color:#1e1e1e;}
+    [data-theme="dark"] .hb-wrap{background:#111;border-color:#1e1e1e;}
+    [data-theme="dark"] .channel-donut-wrap{background:#111;border-color:#1e1e1e;}
+    [data-theme="dark"] .health{background:#111;border-color:#1e1e1e;}
+    [data-theme="dark"] .hero-title{color:#f0ede6;}
+    [data-theme="dark"] .hero-sub{color:#aaa;}
+    [data-theme="dark"] .kpi-val{color:#f0ede6;}
+    [data-theme="dark"] .kpi-label{color:#aaa;}
+    [data-theme="dark"] .kpi-suf{color:#888;}
+    [data-theme="dark"] .kpi-badge.good{background:rgba(22,163,74,.18);color:#4ade80;}
+    [data-theme="dark"] .kpi-badge.bad{background:rgba(220,38,38,.18);color:#f87171;}
+    [data-theme="dark"] .kpi-badge.neutral{background:rgba(156,163,175,.12);color:#9ca3af;}
+    [data-theme="dark"] .bar-name{color:#d0cdc6;}
+    [data-theme="dark"] .bar-track{background:#222;}
+    [data-theme="dark"] .card-title{color:#d0cdc6;}
+    [data-theme="dark"] .card-head{border-bottom-color:#1a1a1a;}
+    [data-theme="dark"] .tbl thead tr th{background:#0d0d0d;color:#aaa;border-bottom-color:#1a1a1a;}
+    [data-theme="dark"] .tbl tr td{border-color:#1a1a1a;}
+    [data-theme="dark"] .tbl tr:hover td{background:rgba(255,255,255,.02);}
+    [data-theme="dark"] .tbl-scroll{border-color:#1a1a1a;}
+    [data-theme="dark"] .tbl-empty{color:#555;}
+    [data-theme="dark"] .icon-btn{background:#111;border-color:#1e1e1e;color:#aaa;}
+    [data-theme="dark"] .icon-btn:hover{background:#1a1a1a;border-color:#2a2a2a;}
+    [data-theme="dark"] .cfg-overlay{background:rgba(0,0,0,.7);}
+    [data-theme="dark"] .cfg-drawer{background:#0d0d0d;border-left-color:#1a1a1a;}
+    [data-theme="dark"] .cfg-head{border-bottom-color:#1a1a1a;color:#f0ede6;}
+    [data-theme="dark"] .cfg-title{color:#f0ede6;}
+    [data-theme="dark"] .cfg-label{color:#d0cdc6;}
+    [data-theme="dark"] .cfg-sub{color:#777;}
+    [data-theme="dark"] .cfg-input{background:#111;border-color:#2a2a2a;color:#f0ede6;}
+    [data-theme="dark"] .cfg-note{color:#666;background:#0a0a0a;border-color:#1a1a1a;}
+    [data-theme="dark"] .cfg-note code{background:#1a1a1a;color:#aaa;}
+    [data-theme="dark"] .cfg-save{background:#1a1a1a;border-color:#2a2a2a;color:#f0ede6;}
+    [data-theme="dark"] .cfg-save:hover{background:#222;}
+    [data-theme="dark"] .filter-bar{background:#111;border-color:#1e1e1e;}
+    [data-theme="dark"] .filter-btn{color:#666;}
+    [data-theme="dark"] .filter-btn.active{color:#f0ede6;}
+    [data-theme="dark"] .date-inp{background:#111;border-color:#1e1e1e;color:#f0ede6;}
+    [data-theme="dark"] .crumb{color:#666;}
+    [data-theme="dark"] .crumb b{color:#c0bdb5;}
+    [data-theme="dark"] .sec-title h2{color:#f0ede6;}
+    [data-theme="dark"] .line{background:#1e1e1e;}
+    [data-theme="dark"] .err-banner{background:#2a0000;border-color:#5c0000;color:#fca5a5;}
+    [data-theme="dark"] .hb-bar{background:#1a1a1a;}
+    [data-theme="dark"] .hb-leg{color:#888;}
+    [data-theme="dark"] .hb-stat-val{color:#f0ede6;}
+    [data-theme="dark"] .hb-stat-lbl{color:#666;}
+    [data-theme="dark"] .score-track{background:#222;}
+    [data-theme="dark"] .fb-page-card{background:#111;border-color:#1e1e1e;}
+    [data-theme="dark"] .fb-page-fans{color:#f0ede6;}
+    [data-theme="dark"] .fb-page-stat-val{color:#d0cdc6;}
+    [data-theme="dark"] .fb-page-stat-lbl{color:#666;}
+    [data-theme="dark"] .fb-page-stats{border-top-color:#1a1a1a;}
+    [data-theme="dark"] .type-nl{background:#1a1d4a;color:#818cf8;}
+    [data-theme="dark"] .type-enq{background:#0a2018;color:#34d399;}
+    [data-theme="dark"] .type-rel{background:#2a0808;color:#f87171;}
+    [data-theme="dark"] .type-other{background:#1a1a1a;color:#9ca3af;}
+    [data-theme="dark"] .no-key{background:#111;border-color:#1e1e1e;color:#aaa;}
+    [data-theme="dark"] .no-key a{color:#FEDB00;}
+    [data-theme="dark"] .pw-overlay{background:#0A0A0A;}
+    [data-theme="dark"] .pw-card{background:#111;border-color:#1e1e1e;}
+    [data-theme="dark"] .pw-title{color:#f0ede6;}
+    [data-theme="dark"] .pw-input{background:#0a0a0a;border-color:#2a2a2a;color:#f0ede6;}
+    [data-theme="dark"] .src-pill{background:rgba(0,0,0,.3);}
+    [data-theme="dark"] .bench-wrap{background:#111;border-color:#1e1e1e;}
+    [data-theme="dark"] .bench-head{border-bottom-color:#1a1a1a;}
+    [data-theme="dark"] .bench-row{border-bottom-color:#1a1a1a;}
+    [data-theme="dark"] .bench-metric-name{color:#aaa;}
+    [data-theme="dark"] .bench-val{color:#f0ede6;}
+    [data-theme="dark"] .gsc-pos-wrap{background:#111;border-color:#1e1e1e;}
+    [data-theme="dark"] .gsc-pos-head{border-bottom-color:#1a1a1a;}
+    [data-theme="dark"] .gsc-pos-item{border-bottom-color:#1a1a1a;}
+    [data-theme="dark"] .channel-leg-item{color:#d0cdc6;}
+    [data-theme="dark"] .health-label-ring{color:#888;}
+    [data-theme="dark"] .health-val-ring{color:#f0ede6;}
+    [data-theme="dark"] .hero-eyebrow{color:#777;}
+    [data-theme="dark"] .tb-filter-label{color:#666;}
+    [data-theme="dark"] .score-val{color:#d0cdc6;}
+    [data-theme="dark"] #gsc-period-note{color:#777;}
 
   </style>
 </head>
@@ -948,6 +1109,10 @@
           Insights IA
           <span class="insights-badge"></span>
         </button>
+        <button class="icon-btn btn-theme" id="btnTheme" title="Mode sombre / clair">
+          <svg class="icon-moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="icon-sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        </button>
         <button class="icon-btn" id="openCfgTop" title="Configuration">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h0a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h0a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v0a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
         </button>
@@ -1025,43 +1190,6 @@
       <code>/google/auth</code> &nbsp; <code>/fb/auth</code> &nbsp; <code>/linkedin/auth</code>
     </div>
 
-  </div>
-</div>
-
-<!-- ════════ TWEAKS PANEL ════════ -->
-<button class="tw-toggle" id="twToggle">
-  <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 13.5 9 21 10.5 13.5 12 12 19 10.5 12 3 10.5 10.5 9 12 2Z"/></svg>
-  Tweaks
-</button>
-<div class="tw-panel" id="twPanel">
-  <div class="tw-head">
-    <div class="tw-title">Tweaks</div>
-    <button class="tw-close" id="twClose">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6 6 18M6 6l12 12"/></svg>
-    </button>
-  </div>
-  <div class="tw-group">
-    <div class="tw-lbl">Style d'accent KPI</div>
-    <div class="tw-opts">
-      <button class="tw-opt active" data-tweak="accent" data-val="bar">Barre latérale</button>
-      <button class="tw-opt" data-tweak="accent" data-val="tint">Fond teinté</button>
-      <button class="tw-opt" data-tweak="accent" data-val="corner">Coin coloré</button>
-      <button class="tw-opt" data-tweak="accent" data-val="diag">Diagonale</button>
-    </div>
-  </div>
-  <div class="tw-group">
-    <div class="tw-lbl">Sidebar</div>
-    <div class="tw-opts">
-      <button class="tw-opt active" data-tweak="sidebar" data-val="light">Claire</button>
-      <button class="tw-opt" data-tweak="sidebar" data-val="dark">Sombre</button>
-    </div>
-  </div>
-  <div class="tw-group">
-    <div class="tw-lbl">Densité</div>
-    <div class="tw-opts">
-      <button class="tw-opt active" data-tweak="density" data-val="comfortable">Confortable</button>
-      <button class="tw-opt" data-tweak="density" data-val="compact">Compacte</button>
-    </div>
   </div>
 </div>
 
@@ -1231,10 +1359,7 @@ function renderOverview({dGA4, dGSC, dFB, dFBP, dBrevo, dLI, dYT, dGA4T}) {
   ].filter(Boolean).join(' · ') || 'En attente de données';
 
   el.innerHTML = `
-    <!-- 1. MISSION CONTROL — first position -->
-    <div id="ov-objectives"></div>
-
-    <!-- 2. HERO -->
+    <!-- 1. HERO — greeting + health ring -->
     <div class="hero">
       <div class="hero-greet">
         <div class="hero-eyebrow"><span class="live-dot"></span>Semaine ${getWeekNum()} · ${globalDays}j</div>
@@ -1251,7 +1376,10 @@ function renderOverview({dGA4, dGSC, dFB, dFBP, dBrevo, dLI, dYT, dGA4T}) {
       </div>
     </div>
 
-    <!-- 3. KPI ROW — Position GSC replaces Contacts Brevo -->
+    <!-- 2. MISSION CONTROL — objectifs (après hero, avant KPIs) -->
+    <div id="ov-objectives"></div>
+
+    <!-- 3. KPI ROW -->
     <div class="kpi-row">
       ${kpiCard({label:'Sessions acl.lu', value:fmtN(sessions), badge:trendBadge(dGA4?.deltas?.sessions), src:'var(--c-ga4)', srcBg:'var(--c-ga4-bg)', spark:sparkGA4})}
       ${kpiCard({label:'Clics SEO', value:fmtN(clicks), badge:trendBadge(dGSC?.deltas?.clicks), src:'var(--c-gsc)', srcBg:'var(--c-gsc-bg)', spark:sparkGSC})}
@@ -1259,35 +1387,43 @@ function renderOverview({dGA4, dGSC, dFB, dFBP, dBrevo, dLI, dYT, dGA4T}) {
       ${kpiCard({label:'Position Moy. GSC', value:avgPos > 0 ? avgPos.toFixed(1) : '—', badge:trendBadge(dGSC?.deltas?.avgPosition, true), src:'var(--c-gsc)', srcBg:'var(--c-gsc-bg)'})}
     </div>
 
-    <!-- 4. 3-COL BARS + CHANNEL DONUT -->
-    <div class="overview-bars-3">
+    <!-- 4. TOP BARS 2-COL (compact) -->
+    <div class="overview-bars-2">
       <div class="card"><div class="card-head"><div class="card-title">Top pages acl.lu</div></div>
-        <div class="card-body">${barListHtml(dGA4?.topPages?.slice(0,6)||[], 'var(--c-ga4)', null, 'page', 'views', fmtN)}</div>
+        <div class="card-body">${barListHtml(dGA4?.topPages?.slice(0,5)||[], 'var(--c-ga4)', null, 'page', 'views', fmtN)}</div>
       </div>
       <div class="card"><div class="card-head"><div class="card-title">Top requêtes GSC</div></div>
-        <div class="card-body">${barListHtml(dGSC?.topQueries?.slice(0,6)||[], 'var(--c-gsc)', null, 'query', 'clicks', fmtN)}</div>
+        <div class="card-body">${barListHtml(dGSC?.topQueries?.slice(0,5)||[], 'var(--c-gsc)', null, 'query', 'clicks', fmtN)}</div>
       </div>
+    </div>
+
+    <!-- 5. MID GRID : donut + positions GSC -->
+    <div class="ov-mid-grid">
       <div class="channel-donut-wrap">
-        <div class="channel-donut-title">Mix canaux</div>
+        <div class="channel-donut-title">Mix canaux GA4</div>
         <div class="channel-donut-inner">
           <div class="channel-donut-canvas-wrap">
-            <canvas id="chartChannelDonut" width="110" height="110"></canvas>
+            <canvas id="chartChannelDonut" width="200" height="200"></canvas>
           </div>
           <div class="channel-donut-legend" id="channelDonutLegend"></div>
         </div>
       </div>
+      <div class="gsc-pos-wrap" id="gscPosModule"></div>
     </div>
 
-    <!-- 5. ACTIONS PRIORITAIRES — dark AI recommendations -->
-    <div class="ap-wrap" id="ov-insights">
-      <div class="ap-head">
-        <div class="ap-title"><span class="ap-title-star">✦</span> Actions prioritaires</div>
-        <button class="ap-link" id="apToutVoir" style="display:none">Tout voir →</button>
+    <!-- 6. BOTTOM GRID : insights IA (top 3) + benchmark -->
+    <div class="ov-bottom-grid">
+      <div class="ap-wrap" id="ov-insights">
+        <div class="ap-head">
+          <div class="ap-title"><span class="ap-title-star">✦</span> Actions prioritaires</div>
+          <button class="ap-link" id="apToutVoir" style="display:none">Tout voir →</button>
+        </div>
+        <div class="ap-subtitle" id="apSubtitle">Générées depuis vos données — analyse en cours…</div>
+        <div class="ap-body" id="insights-body">
+          <div class="ap-loading"><div class="spin-star">✦</div><br>Génération des recommandations IA…</div>
+        </div>
       </div>
-      <div class="ap-subtitle" id="apSubtitle">Générées depuis vos données — analyse en cours…</div>
-      <div class="ap-body" id="insights-body">
-        <div class="ap-loading"><div class="spin-star">✦</div><br>Génération des recommandations IA…</div>
-      </div>
+      <div id="ov-benchmark"></div>
     </div>`;
 
   // Wire "Tout voir" expand/collapse
@@ -1309,6 +1445,8 @@ function renderOverview({dGA4, dGSC, dFB, dFBP, dBrevo, dLI, dYT, dGA4T}) {
   animateCards(el);
   renderObjectives({dFBP, dFB, dBrevo});
   renderChannelDonut(dGA4?.channelBreakdown || []);
+  renderGSCPositions(dGSC?.topQueries || []);
+  renderBenchmarks({dGA4, dGSC, dFB, dBrevo, dLI, dYT});
 }
 
 function getWeekNum() {
@@ -1501,6 +1639,145 @@ function renderChannelDonut(channels) {
   }
 }
 
+// ── GSC TOP POSITIONS ─────────────────────────────────────────
+function renderGSCPositions(queries) {
+  const el = document.getElementById('gscPosModule');
+  if (!el) return;
+  const sorted = [...(queries||[])].filter(q => q.position > 0).sort((a,b) => a.position - b.position).slice(0, 8);
+  if (!sorted.length) {
+    el.innerHTML = `<div class="gsc-pos-head"><div class="gsc-pos-title">Top positions Google</div></div><p class="tbl-empty" style="padding:16px">Aucune donnée</p>`;
+    return;
+  }
+  const posClass = p => p <= 3 ? 'pos-top' : p <= 10 ? 'pos-mid' : 'pos-low';
+  el.innerHTML = `
+    <div class="gsc-pos-head"><div class="gsc-pos-title">Top positions Google ACL</div></div>
+    <div class="gsc-pos-list">
+      ${sorted.map(q => `
+        <div class="gsc-pos-item">
+          <div class="pos-badge ${posClass(q.position)}">${q.position.toFixed(0)}</div>
+          <div class="gsc-pos-query" title="${q.query}">${q.query}</div>
+          <div class="gsc-pos-meta">
+            <span class="gsc-pos-clics">${fmtN(q.clicks)} clics</span>
+            <span class="gsc-pos-ctr">CTR ${fmtPct(q.ctr)}</span>
+          </div>
+        </div>`).join('')}
+    </div>`;
+}
+
+// ── BENCHMARK STATIQUE ────────────────────────────────────────
+function renderBenchmarks({dGA4, dGSC, dFB, dBrevo, dLI, dYT}) {
+  const el = document.getElementById('ov-benchmark');
+  if (!el) return;
+
+  const camps      = dBrevo?.campaigns || [];
+  const totalDlvr  = camps.reduce((s,c) => s+(c.statistics?.globalStats?.delivered||0), 0);
+  const totalOpens = camps.reduce((s,c) => s+((c.statistics?.globalStats?.uniqueOpens||c.statistics?.globalStats?.uniqueViews)||0), 0);
+  const avgOpenRate = dBrevo?.avgOpenRate ?? (totalDlvr ? totalOpens/totalDlvr*100 : null);
+
+  function bench(canal, canalStyle, metric, note, val, ref, refLabel, cmp) {
+    let cls = 'bench-na', icon = '—';
+    if (val != null && cmp) { const ok = cmp(val); cls = ok === true ? 'bench-ok' : ok === false ? 'bench-bad' : 'bench-warn'; icon = ok === true ? '✓' : ok === false ? '✗' : '~'; }
+    const valFmt = val != null ? val : '—';
+    return `<div class="bench-row">
+      <div class="bench-canal" style="background:${canalStyle}22;color:${canalStyle}">${canal}</div>
+      <div class="bench-metric-wrap">
+        <div class="bench-metric-name">${metric}</div>
+        ${note ? `<div class="bench-metric-note">${note}</div>` : ''}
+      </div>
+      <div class="bench-val">${valFmt}</div>
+      <div class="bench-ref">${refLabel}</div>
+      <div class="bench-status ${cls}">${icon}</div>
+    </div>`;
+  }
+
+  const avgPos    = dGSC?.avgPosition;
+  const ctr       = dGSC?.ctr;
+  const fbCtr     = dFB?.ctr;
+  const roas      = dFB?.roas;
+  const liEng     = dLI?.engagementRate ?? dLI?.avgEngagement;
+
+  el.innerHTML = `
+    <div class="bench-wrap">
+      <div class="bench-head">
+        <div class="bench-head-left">
+          <div class="bench-title">Benchmarks marché</div>
+          <div class="bench-sub">Vos KPIs vs standards LUX / secteur clubs</div>
+        </div>
+        <button class="btn-market" id="btnMarket">
+          <span>✦</span> Analyse IA
+        </button>
+      </div>
+      <div class="bench-body">
+        ${bench('SEO', '#34A853', 'Position moyenne Google',
+          'Pos. < 4 = top résultats. Clubs LUX établis visent < 15.',
+          avgPos != null ? avgPos.toFixed(1) : null, null, 'cible < 10',
+          v => v <= 3 ? true : v <= 10 ? null : false)}
+        ${bench('SEO', '#34A853', 'CTR Search Console',
+          'CTR attendu selon position : pos.1–3 = 25–35%, pos.4–10 = 3–10%.',
+          ctr != null ? fmtPct(ctr) : null, null, 'benchmark 3–10%',
+          v => parseFloat(v) >= 5 ? true : parseFloat(v) >= 2 ? null : false)}
+        ${bench('Meta', '#1877F2', 'CTR publicités',
+          'Benchmark secteur auto/loisirs LUX : 0.9–1.5%. Moins = créatifs à revoir.',
+          fbCtr != null ? fmtPct(fbCtr) : null, null, 'bench. 0.9–1.5%',
+          v => parseFloat(v) >= 1.5 ? true : parseFloat(v) >= 0.9 ? null : false)}
+        ${bench('Meta', '#1877F2', 'ROAS',
+          'ROAS > 2× = campagne rentable. ROAS > 4× = excellent pour secteur auto.',
+          roas != null ? roas.toFixed(2)+'×' : null, null, 'cible > 2×',
+          v => parseFloat(v) >= 4 ? true : parseFloat(v) >= 2 ? null : false)}
+        ${bench('Email', '#0B996E', 'Taux d\'ouverture',
+          'B2C Europe : 25% moy. Listes engagées (GDPR LUX) atteignent 35–50%.',
+          avgOpenRate != null ? fmtPct(avgOpenRate) : null, null, 'bench. 25–35%',
+          v => parseFloat(v) >= 35 ? true : parseFloat(v) >= 20 ? null : false)}
+        ${bench('LinkedIn', '#0A66C2', 'Engagement',
+          'Engagement moy. pages orga. : 1–3%. Clubs / assoc. atteignent 2–4%.',
+          liEng != null ? fmtPct(liEng) : null, null, 'bench. 1–3%',
+          v => parseFloat(v) >= 3 ? true : parseFloat(v) >= 1 ? null : false)}
+      </div>
+      <div class="bench-ai-result" id="benchAiResult" style="display:none"></div>
+    </div>`;
+
+  document.getElementById('btnMarket')?.addEventListener('click', () => fetchMarketAnalysis({dGA4, dGSC, dFB, dBrevo, dLI, dYT}));
+}
+
+// ── MARKET ANALYSIS (AI) ──────────────────────────────────────
+async function fetchMarketAnalysis({dGA4, dGSC, dFB, dBrevo, dLI, dYT}) {
+  const btn = document.getElementById('btnMarket');
+  const res = document.getElementById('benchAiResult');
+  if (!res) return;
+  if (btn) { btn.classList.add('loading'); btn.disabled = true; }
+  res.style.display = 'block';
+  res.textContent = 'Analyse en cours…';
+  try {
+    const r = await fetch(`${API_BASE}/insights`, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({
+        ga4:    dGA4   ? {sessions: dGA4.sessions, deltas: dGA4.deltas} : null,
+        gsc:    dGSC   ? {clicks: dGSC.clicks, ctr: dGSC.ctr, avgPosition: dGSC.avgPosition} : null,
+        fb:     dFB    ? {spend: dFB.spend, roas: dFB.roas, ctr: dFB.ctr} : null,
+        brevo:  dBrevo ? {campaigns: dBrevo.campaigns?.length, avgOpenRate: dBrevo.avgOpenRate} : null,
+        li:     dLI    ? {followers: dLI.followers||dLI.totalFollowers} : null,
+        yt:     dYT    ? {subscribers: dYT.subscribers} : null,
+        period: globalDays,
+        mode:   'market',
+      }),
+      signal: AbortSignal.timeout(45000),
+    });
+    const data = await r.json();
+    if (data.marketAnalysis) {
+      res.textContent = data.marketAnalysis;
+    } else if (data.insights?.length) {
+      res.textContent = data.insights.map(i => `${i.source} — ${i.insight}`).join('\n\n');
+    } else {
+      res.textContent = 'Analyse non disponible.';
+    }
+  } catch(e) {
+    res.textContent = 'Analyse IA non disponible — vérifier la connexion Railway.';
+  } finally {
+    if (btn) { btn.classList.remove('loading'); btn.disabled = false; }
+  }
+}
+
 function renderGA4Extended(d) {
   const nvr  = d.newVsReturning || [];
   const devs = d.devices || [];
@@ -1681,10 +1958,12 @@ function renderObjectives({dFBP, dFB, dBrevo}) {
   const metaImpressions = dFB?.impressions || 0;
   const metaTarget      = Math.round(2000000 / 365 * globalDays);
 
+  // Use avgOpenRate from backend (pre-computed) — fallback to local computation if available
   const camps      = dBrevo?.campaigns || [];
   const totalDlvr  = camps.reduce((a,c) => a + (c.statistics?.globalStats?.delivered  || 0), 0);
-  const totalOpens = camps.reduce((a,c) => a + (c.statistics?.globalStats?.uniqueOpens || 0), 0);
-  const openRate   = totalDlvr ? totalOpens / totalDlvr * 100 : 0;
+  const totalOpens = camps.reduce((a,c) => a + ((c.statistics?.globalStats?.uniqueOpens || c.statistics?.globalStats?.uniqueViews) || 0), 0);
+  const openRateLocal = totalDlvr ? totalOpens / totalDlvr * 100 : 0;
+  const openRate = dBrevo?.avgOpenRate != null ? dBrevo.avgOpenRate : openRateLocal;
 
   function objMcCard(group, label, current, target, display, targetDisplay, note, color) {
     const pct = Math.min(100, target ? Math.round(current / target * 100) : 0);
@@ -1703,14 +1982,22 @@ function renderObjectives({dFBP, dFB, dBrevo}) {
     </div>`;
   }
 
+  const isCollapsed = localStorage.getItem('mission_collapsed') === '1';
   el.innerHTML = `
-    <div class="mission-panel">
+    <div class="mission-panel${isCollapsed ? ' collapsed' : ''}">
       <div class="mission-header">
         <div>
           <div class="mission-title">Mission Control — Objectifs 2026</div>
           <div class="mission-subtitle">Suivi des objectifs annuels ACL Marcom</div>
         </div>
-        <div class="mission-period-badge">${globalDays}j</div>
+        <div class="mission-header-right">
+          <div class="mission-period-badge">${globalDays}j</div>
+          <button class="mission-collapse-btn" id="missionCollapseBtn" title="${isCollapsed ? 'Développer' : 'Réduire'}">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              ${isCollapsed ? '<polyline points="18 15 12 9 6 15"/>' : '<polyline points="6 9 12 15 18 9"/>'}
+            </svg>
+          </button>
+        </div>
       </div>
       <div class="mission-grid">
         ${objMcCard('Facebook · Abonnés', 'ACL Sport — Abonnés page', sportFans, 2500, fmtN(sportFans), '2 500', 'Objectif annuel tous comptes', '#1877F2')}
@@ -1721,6 +2008,15 @@ function renderObjectives({dFBP, dFB, dBrevo}) {
         ${objMcCard('Brevo Email', "Taux d'ouverture moyen", openRate, 60, fmtPct(openRate), '60.0%', 'Objectif : 60% d\'ouverture', '#0B996E')}
       </div>
     </div>`;
+
+  document.getElementById('missionCollapseBtn')?.addEventListener('click', function() {
+    const panel = this.closest('.mission-panel');
+    const grid  = panel.querySelector('.mission-grid');
+    const now   = panel.classList.toggle('collapsed');
+    localStorage.setItem('mission_collapsed', now ? '1' : '0');
+    this.title = now ? 'Développer' : 'Réduire';
+    this.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">${now ? '<polyline points="18 15 12 9 6 15"/>' : '<polyline points="6 9 12 15 18 9"/>'}</svg>`;
+  });
 }
 
 // ── BREVO ─────────────────────────────────────────────────────
@@ -2096,20 +2392,16 @@ function applyGlobalRange() {
   });
 })();
 
-// ── Tweaks panel ──────────────────────────────────────────────
+// ── Dark mode toggle ──────────────────────────────────────────
 (function() {
-  const toggle = document.getElementById('twToggle');
-  const panel  = document.getElementById('twPanel');
-  const close  = document.getElementById('twClose');
-  toggle?.addEventListener('click', () => panel.classList.add('open'));
-  close?.addEventListener('click',  () => panel.classList.remove('open'));
-  document.querySelectorAll('.tw-opt').forEach(b => {
-    b.addEventListener('click', () => {
-      const tw = b.dataset.tweak, val = b.dataset.val;
-      document.querySelectorAll(`[data-tweak="${tw}"]`).forEach(x => x.classList.remove('active'));
-      b.classList.add('active');
-      document.body.setAttribute('data-' + tw, val);
-    });
+  const btn  = document.getElementById('btnTheme');
+  const root = document.documentElement;
+  const saved = localStorage.getItem('acl_theme');
+  if (saved === 'dark') root.setAttribute('data-theme', 'dark');
+  btn?.addEventListener('click', () => {
+    const isDark = root.getAttribute('data-theme') === 'dark';
+    root.setAttribute('data-theme', isDark ? 'light' : 'dark');
+    localStorage.setItem('acl_theme', isDark ? 'light' : 'dark');
   });
 })();
 
