@@ -696,6 +696,31 @@
     .fb-page-stat-val{font-size:13px;font-weight:700;font-family:'FaricyNew','Albert Sans',sans-serif;line-height:1.1;}
     .fb-page-stat-lbl{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;}
 
+    /* ─── SCORE RING LEGEND ──────────────────────────────────── */
+    .health-method{font-size:10px;color:var(--muted);margin-top:4px;line-height:1.4;max-width:220px;}
+
+    /* ─── OBJECTIFS ÉQUIPE ───────────────────────────────────── */
+    .obj-group{display:flex;flex-direction:column;gap:10px;margin-bottom:18px;}
+    .obj-group:last-child{margin-bottom:0;}
+    .obj-group-title{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding-bottom:6px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:5px;}
+    .obj-row{display:flex;align-items:center;gap:12px;}
+    .obj-meta{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px;}
+    .obj-label{font-size:12px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .obj-vals{font-size:11px;color:var(--muted);}
+    .obj-target{color:var(--muted-2);}
+    .obj-note{font-size:10px;color:var(--muted-2);margin-top:1px;}
+    .obj-bar-wrap{display:flex;align-items:center;gap:8px;width:160px;flex-shrink:0;}
+    .obj-track{flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden;}
+    .obj-fill{height:100%;border-radius:3px;transition:width .6s ease;}
+    .obj-fill-good{background:var(--good);}
+    .obj-fill-warn{background:var(--warn);}
+    .obj-fill-bad{background:var(--bad);}
+    .obj-pct{font-size:11px;font-weight:700;width:28px;text-align:right;flex-shrink:0;}
+    .obj-pct-good{color:var(--good);}
+    .obj-pct-warn{color:var(--warn);}
+    .obj-pct-bad{color:var(--bad);}
+    @media(max-width:600px){.obj-bar-wrap{width:100px;} .obj-note{display:none;}}
+
   </style>
 </head>
 <body data-accent="bar" data-density="comfortable" data-sidebar="light">
@@ -1057,7 +1082,7 @@ async function loadAll() {
 
   try {
     const [ga4, ga4auto, ga4ext, ga4trend, gsc, fb, fbpage, brevo, yt, li] = await Promise.allSettled([
-      api('/ga4'), api('/ga4/autotouring'), api('/ga4/extended'), api('/ga4/funnel-trend'),
+      api('/ga4'), api('/ga4/autotouring'), api('/ga4/extended'), api('/ga4/trend'),
       api('/gsc'), api('/fb'), api('/fb/page'), api('/brevo'),
       api('/youtube'), api('/linkedin')
     ]);
@@ -1074,8 +1099,8 @@ async function loadAll() {
     updateStatus('bs-yt',    dYT    && !dYT.error);
     updateStatus('bs-li',    dLI    && !dLI.error);
 
-    renderOverview({dGA4, dGSC, dFB, dBrevo, dLI, dYT, dGA4T});
-    renderGA4(dGA4, dGA4A, dGA4E);
+    renderOverview({dGA4, dGSC, dFB, dFBP, dBrevo, dLI, dYT, dGA4T});
+    renderGA4(dGA4, dGA4A, dGA4E, dGA4T);
     renderMeta(dFB, dFBP);
     renderGSC(dGSC);
     renderBrevo(dBrevo);
@@ -1098,7 +1123,7 @@ function updateStatus(id, ok) {
 }
 
 // ── OVERVIEW ─────────────────────────────────────────────────
-function renderOverview({dGA4, dGSC, dFB, dBrevo, dLI, dYT, dGA4T}) {
+function renderOverview({dGA4, dGSC, dFB, dFBP, dBrevo, dLI, dYT, dGA4T}) {
   const el = document.getElementById('panel-overview');
   if (!el) return;
 
@@ -1106,12 +1131,20 @@ function renderOverview({dGA4, dGSC, dFB, dBrevo, dLI, dYT, dGA4T}) {
   const clicks   = dGSC?.clicks   || 0;
   const spend    = dFB?.spend     || 0;
   const contacts = dBrevo?.contactStats?.total || 0;
+  const score    = scoreGlobal({dGA4, dGSC, dFB, dBrevo, dLI, dYT});
 
   // Sparkline data
   const sparkGA4  = dGA4T?.trend?.map(t => t.sessions) || [];
   const sparkGSC  = dGSC?.trend?.map(t => t.clicks) || [];
   const camps = dBrevo?.campaigns || [];
   const sparkBrevo = camps.slice(0,12).reverse().map(c => c.statistics?.globalStats?.delivered || 0);
+
+  const scoreLabel = score >= 70 ? 'Bon' : score >= 40 ? 'Moyen' : 'Attention';
+  const scoreDesc  = [
+    dGA4?.deltas?.sessions != null ? `Sessions ${dGA4.deltas.sessions > 0 ? '↑' : '↓'}` : null,
+    dGSC?.deltas?.clicks   != null ? `SEO ${dGSC.deltas.clicks > 0 ? '↑' : '↓'}` : null,
+    dFB?.roas != null ? `ROAS ${dFB.roas > 1 ? '↑' : '↓'}` : null,
+  ].filter(Boolean).join(' · ') || 'En attente de données';
 
   el.innerHTML = `
     <div class="hero">
@@ -1121,10 +1154,11 @@ function renderOverview({dGA4, dGSC, dFB, dBrevo, dLI, dYT, dGA4T}) {
         <p class="hero-sub">Vue d'ensemble de tous les canaux marketing ACL Luxembourg.</p>
       </div>
       <div class="health">
-        ${healthRing(scoreGlobal({dGA4,dGSC,dFB,dBrevo,dLI,dYT}))}
+        ${healthRing(score)}
         <div class="health-meta">
-          <span class="health-label-ring">Score Global</span>
-          <span class="health-val-ring">Performance ${globalDays}j</span>
+          <span class="health-label-ring">Score Global — ${scoreLabel}</span>
+          <span class="health-val-ring">${scoreDesc}</span>
+          <span class="health-method">Sessions GA4 + Clics SEO + ROAS Meta → % canaux en hausse</span>
         </div>
       </div>
     </div>
@@ -1149,6 +1183,7 @@ function renderOverview({dGA4, dGSC, dFB, dBrevo, dLI, dYT, dGA4T}) {
     <div id="ov-objectives"></div>`;
 
   animateCards(el);
+  renderObjectives({dFBP, dFB, dBrevo});
 }
 
 function getWeekNum() {
@@ -1167,18 +1202,19 @@ function scoreGlobal({dGA4, dGSC, dFB, dBrevo}) {
 
 function healthRing(pct) {
   const r=20, c=2*Math.PI*r, d=c*(pct/100);
+  const color = pct >= 70 ? 'var(--good)' : pct >= 40 ? 'var(--warn)' : 'var(--bad)';
   return `<div class="health-ring">
-    <svg width="48" height="48" viewBox="0 0 48 48">
+    <svg width="48" height="48" viewBox="0 0 48 48" style="transform:rotate(-90deg)">
       <circle cx="24" cy="24" r="${r}" fill="none" stroke="var(--border)" stroke-width="4"/>
-      <circle cx="24" cy="24" r="${r}" fill="none" stroke="var(--y)" stroke-width="4"
+      <circle cx="24" cy="24" r="${r}" fill="none" stroke="${color}" stroke-width="4"
         stroke-dasharray="${d} ${c-d}" stroke-linecap="round"/>
     </svg>
-    <div class="ring-num f-num">${pct}</div>
+    <div class="ring-num f-num" style="color:${color}">${pct}</div>
   </div>`;
 }
 
 // ── GA4 ───────────────────────────────────────────────────────
-function renderGA4(d, dA, dE) {
+function renderGA4(d, dA, dE, dT) {
   const el = document.getElementById('panel-ga4');
   if (!el) return;
   if (!d || d.error) { el.innerHTML = errState('GA4', d?.error); return; }
@@ -1193,6 +1229,12 @@ function renderGA4(d, dA, dE) {
       ${kpiCard({label:'Taux de rebond', value:fmtPct(d.bounceRate), badge:trendBadge(d.deltas?.bounceRate, true), src:'var(--c-ga4)', srcBg:'var(--c-ga4-bg)'})}
       ${kpiCard({label:'Tx engagement', value:fmtPct(d.engagementRate), badge:trendBadge(d.deltas?.engagementRate), src:'var(--c-ga4)', srcBg:'var(--c-ga4-bg)'})}
       ${kpiCard({label:'Durée moyenne', value:fmtDur(d.avgSessionDuration), badge:trendBadge(d.deltas?.avgSessionDuration), src:'var(--c-ga4)', srcBg:'var(--c-ga4-bg)'})}
+    </div>
+    <div class="card">
+      <div class="card-head"><div class="card-title">Évolution sessions &amp; visiteurs</div></div>
+      <div class="card-body" style="height:220px;padding:12px 16px 8px">
+        <canvas id="chartGA4Trend"></canvas>
+      </div>
     </div>
     <div class="overview-bars">
       <div class="card"><div class="card-head"><div class="card-title">Top pages</div></div>
@@ -1211,6 +1253,69 @@ function renderGA4(d, dA, dE) {
     ${dE ? renderGA4Extended(dE) : ''}`;
 
   animateCards(el);
+  renderGA4TrendChart(dT?.trend || []);
+}
+
+function renderGA4TrendChart(trend) {
+  if (chartInstances['ga4Trend']) {
+    chartInstances['ga4Trend'].destroy();
+    delete chartInstances['ga4Trend'];
+  }
+  const canvas = document.getElementById('chartGA4Trend');
+  if (!canvas || !trend?.length) return;
+  const labels = trend.map(t => t.date.slice(5).replace('-', '/'));
+  const step = Math.max(1, Math.floor(labels.length / 12));
+  chartInstances['ga4Trend'] = new Chart(canvas, {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [
+        {
+          label: 'Sessions',
+          data: trend.map(t => t.sessions),
+          borderColor: '#F4B400',
+          backgroundColor: 'rgba(244,180,0,0.08)',
+          borderWidth: 2,
+          pointRadius: 0,
+          tension: 0.35,
+          fill: true,
+          yAxisID: 'y',
+        },
+        {
+          label: 'Visiteurs',
+          data: trend.map(t => t.users),
+          borderColor: '#123C62',
+          backgroundColor: 'transparent',
+          borderWidth: 1.5,
+          pointRadius: 0,
+          tension: 0.35,
+          borderDash: [5, 3],
+          yAxisID: 'y',
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: { display: true, position: 'top', labels: { font: { family: 'Albert Sans', size: 11 }, boxWidth: 12, padding: 14 } },
+        tooltip: { bodyFont: { family: 'Albert Sans' } },
+      },
+      scales: {
+        x: {
+          grid: { display: false },
+          ticks: { font: { size: 10, family: 'Albert Sans' }, color: '#808080', maxTicksLimit: 10, maxRotation: 0,
+            callback: (_, i) => (i % step === 0 ? labels[i] : '') },
+        },
+        y: {
+          grid: { color: 'rgba(0,0,0,0.05)' },
+          ticks: { font: { size: 10, family: 'Albert Sans' }, color: '#808080',
+            callback: v => v >= 1000 ? (v/1000).toFixed(1)+'k' : v },
+        },
+      },
+    },
+  });
 }
 
 function renderGA4Extended(d) {
@@ -1234,7 +1339,15 @@ function renderGA4Extended(d) {
 function renderMeta(d, dP) {
   const el = document.getElementById('panel-fbads');
   if (!el) return;
-  if (!d || d.error) { el.innerHTML = errState('Meta Ads', d?.error); return; }
+  if (!d || d.error) {
+    el.innerHTML = `${errState('Meta Ads', d?.error)}
+      <div style="margin:16px 0;padding:16px;background:#EFF6FF;border:1px solid #BFDBFE;border-radius:10px;font-size:13px;line-height:1.6">
+        <strong>Connecter Facebook / Meta Ads</strong><br>
+        Visitez ce lien depuis le backend Railway pour autoriser l'accès :<br>
+        <a href="${API_BASE}/fb/auth" target="_blank" style="color:var(--c-fb);font-weight:700">${API_BASE}/fb/auth →</a>
+      </div>`;
+    return;
+  }
 
   const cpm = (d.spend && d.impressions) ? (d.spend / d.impressions * 1000) : null;
   const topCampaigns = d.topCampaigns || [];
@@ -1362,6 +1475,83 @@ function renderGSC(d) {
     </div>`;
 
   animateCards(el);
+}
+
+// ── OBJECTIFS ÉQUIPE ──────────────────────────────────────────
+function renderObjectives({dFBP, dFB, dBrevo}) {
+  const el = document.getElementById('ov-objectives');
+  if (!el) return;
+
+  const pages         = dFBP?.pages || [];
+  const sportPage     = pages.find(p => /sport/i.test(p.name))   || {};
+  const kartingPage   = pages.find(p => /karting/i.test(p.name)) || {};
+
+  const sportFans     = sportPage.fans   || 0;
+  const kartingFans   = kartingPage.fans || 0;
+  const sportPosts    = sportPage.posts_count   || 0;
+  const kartingPosts  = kartingPage.posts_count || 0;
+  const sportWkly     = globalDays ? (sportPosts   / globalDays * 7) : 0;
+  const kartingWkly   = globalDays ? (kartingPosts / globalDays * 7) : 0;
+  const sportAnnual   = globalDays ? Math.round(sportPosts   / globalDays * 365) : 0;
+  const kartingAnnual = globalDays ? Math.round(kartingPosts / globalDays * 365) : 0;
+
+  const metaImpressions = dFB?.impressions || 0;
+  const metaTarget      = Math.round(2000000 / 365 * globalDays);
+
+  const camps      = dBrevo?.campaigns || [];
+  const totalDlvr  = camps.reduce((a,c) => a + (c.statistics?.globalStats?.delivered  || 0), 0);
+  const totalOpens = camps.reduce((a,c) => a + (c.statistics?.globalStats?.uniqueOpens || 0), 0);
+  const openRate   = totalDlvr ? totalOpens / totalDlvr * 100 : 0;
+
+  function objRow(label, current, target, display, targetDisplay, note) {
+    const pct = Math.min(100, target ? Math.round(current / target * 100) : 0);
+    const cls  = pct >= 90 ? 'good' : pct >= 60 ? 'warn' : 'bad';
+    return `<div class="obj-row">
+      <div class="obj-meta">
+        <span class="obj-label">${label}</span>
+        <span class="obj-vals"><b>${display}</b> <span class="obj-target">/ obj. ${targetDisplay}</span></span>
+        ${note ? `<span class="obj-note">${note}</span>` : ''}
+      </div>
+      <div class="obj-bar-wrap">
+        <div class="obj-track"><div class="obj-fill obj-fill-${cls}" style="width:${pct}%"></div></div>
+        <span class="obj-pct obj-pct-${cls}">${pct >= 100 ? '✓' : pct + '%'}</span>
+      </div>
+    </div>`;
+  }
+
+  el.innerHTML = `
+    <div class="card">
+      <div class="card-head">
+        <div class="card-title">Objectifs équipe <span class="src-pill" style="--src:#6B7280;--src-bg:#F3F4F6;color:#6B7280">${globalDays}j</span></div>
+        <span style="font-size:10px;color:var(--muted);font-weight:600;margin-left:auto">Impressions Meta et posts annualisés sur la période sélectionnée</span>
+      </div>
+      <div class="card-body">
+        <div class="obj-group">
+          <div class="obj-group-title">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="var(--c-fb)"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            Pages Facebook — Croissance abonnés
+          </div>
+          ${objRow('ACL Sport — Abonnés', sportFans, 2500, fmtN(sportFans), '2 500', 'Objectif annuel tous comptes confondus')}
+          ${objRow('ACL Karting — Abonnés', kartingFans, 3000, fmtN(kartingFans), '3 000', 'Objectif annuel tous comptes confondus')}
+        </div>
+        <div class="obj-group">
+          <div class="obj-group-title">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="var(--c-fb)"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            Pages Facebook — Fréquence de publication
+          </div>
+          ${objRow('ACL Sport — Posts/semaine', sportWkly, 1.5, sportWkly.toFixed(1)+'/sem', '1.5/sem', `${sportPosts} posts sur ${globalDays}j → ≈ ${sportAnnual}/an (objectif 78)`)}
+          ${objRow('ACL Karting — Posts/semaine', kartingWkly, 1.5, kartingWkly.toFixed(1)+'/sem', '1.5/sem', `${kartingPosts} posts sur ${globalDays}j → ≈ ${kartingAnnual}/an (objectif 78)`)}
+        </div>
+        <div class="obj-group">
+          <div class="obj-group-title">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--c-fb)" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8m-4-4v4"/></svg>
+            Meta Ads &amp; Email
+          </div>
+          ${objRow(`Meta — Impressions (${globalDays}j)`, metaImpressions, metaTarget, fmtN(metaImpressions), fmtN(metaTarget), `Objectif annuel 2 000 000 → ${fmtN(metaTarget)} cible sur ${globalDays}j`)}
+          ${objRow("Brevo — Taux d'ouverture moyen", openRate, 60, fmtPct(openRate), '60.0%', 'Objectif : 60% de taux d\'ouverture moyen sur les campagnes')}
+        </div>
+      </div>
+    </div>`;
 }
 
 // ── BREVO ─────────────────────────────────────────────────────

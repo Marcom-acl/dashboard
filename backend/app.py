@@ -663,6 +663,34 @@ def ga4_funnel():
     return jsonify({'steps': steps, 'conversionRate': conversion_rate})
 
 
+@app.route('/ga4/trend')
+def ga4_trend():
+    """Daily sessions + users for the selected period — powers the line chart."""
+    start, end = _date_range()
+    headers = _google_headers()
+    if not headers:
+        return jsonify({'error': 'Google non connecté'})
+
+    url = f'https://analyticsdata.googleapis.com/v1beta/properties/{GA4_PROPERTY}:runReport'
+    body = {
+        'dateRanges': [{'startDate': start, 'endDate': end}],
+        'dimensions': [{'name': 'date'}],
+        'metrics':    [{'name': 'sessions'}, {'name': 'totalUsers'}],
+        'orderBys':   [{'dimension': {'dimensionName': 'date'}}],
+    }
+    r = _post(url, headers=headers, json=body)
+    trend = []
+    if r.ok:
+        for row in r.json().get('rows', []):
+            d = row['dimensionValues'][0]['value']  # YYYYMMDD
+            trend.append({
+                'date':     f"{d[:4]}-{d[4:6]}-{d[6:]}",
+                'sessions': int(float(row['metricValues'][0]['value'])),
+                'users':    int(float(row['metricValues'][1]['value'])),
+            })
+    return jsonify({'trend': trend})
+
+
 # ─────────────────────────────────────────────────────────────────────────────
 # Google Search Console
 # ─────────────────────────────────────────────────────────────────────────────
