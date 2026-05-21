@@ -721,6 +721,86 @@
     .obj-pct-bad{color:var(--bad);}
     @media(max-width:600px){.obj-bar-wrap{width:100px;} .obj-note{display:none;}}
 
+    /* ─── MISSION CONTROL — Objectifs ───────────────────────── */
+    .mission-panel{background:#0d0d0d;border:1px solid #222;border-radius:var(--r-lg);padding:20px 22px 22px;display:flex;flex-direction:column;gap:14px;}
+    .mission-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+    .mission-title{font-family:'FaricyNew','Albert Sans',sans-serif;font-weight:700;font-style:italic;font-size:17px;color:#fff;letter-spacing:-0.02em;}
+    .mission-subtitle{font-size:11px;color:#666;margin-top:3px;}
+    .mission-period-badge{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:#1a1a1a;color:#888;border:1px solid #2a2a2a;padding:3px 10px;border-radius:99px;}
+    .mission-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px;}
+    .obj-mc{background:#111;border:1px solid #1e1e1e;border-radius:10px;border-left:4px solid var(--obj-color,#555);padding:14px 16px 12px;display:flex;flex-direction:column;gap:7px;transition:background 120ms;}
+    .obj-mc:hover{background:#161616;}
+    .obj-mc-group{font-size:9px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--obj-color,#555);}
+    .obj-mc-label{font-size:12.5px;font-weight:600;color:#e0e0e0;line-height:1.3;}
+    .obj-mc-vals{display:flex;align-items:baseline;gap:8px;}
+    .obj-mc-current{font-family:'FaricyNew','Albert Sans',sans-serif;font-weight:700;font-style:italic;font-size:24px;color:#fff;letter-spacing:-0.02em;}
+    .obj-mc-target{font-size:11px;color:#555;}
+    .obj-mc-note{font-size:10px;color:#444;line-height:1.4;}
+    .obj-mc-bar-wrap{display:flex;align-items:center;gap:8px;margin-top:2px;}
+    .obj-mc-track{flex:1;height:5px;background:#2a2a2a;border-radius:3px;overflow:hidden;}
+    .obj-mc-fill{height:100%;border-radius:3px;background:var(--obj-color,#555);transition:width .6s ease;}
+    .obj-mc-pct{font-size:11px;font-weight:700;color:var(--obj-color,#555);width:32px;text-align:right;flex-shrink:0;}
+
+    /* ─── RECOMMENDATIONS — dark card redesign ────────────── */
+    .recs{display:flex;flex-direction:column;gap:10px;}
+    .rec{display:flex;flex-direction:column;gap:0;border-radius:10px;background:#111;border:1px solid #1e1e1e;border-left:4px solid var(--rec-color,#555);padding:14px 16px 12px;cursor:pointer;transition:background 120ms,transform 120ms;position:relative;overflow:hidden;}
+    .rec:hover{background:#171717;transform:translateX(2px);}
+    .rec.high{--rec-color:#DC2626;}
+    .rec.med{--rec-color:#F97316;}
+    .rec.low{--rec-color:#16A34A;}
+    .rec-prio{display:none;}
+    .rec-body{flex:1;min-width:0;}
+    .rec-head{display:flex;align-items:center;gap:6px;margin-bottom:6px;flex-wrap:wrap;}
+    .rec-badge{font-size:9px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;padding:2px 7px;border-radius:99px;color:#fff;}
+    .rec.high .rec-badge{background:rgba(220,38,38,.18);color:#f87171;}
+    .rec.med  .rec-badge{background:rgba(249,115,22,.18);color:#fb923c;}
+    .rec.low  .rec-badge{background:rgba(22,163,74,.18);color:#4ade80;}
+    .rec-src{font-size:9.5px;font-weight:700;padding:2px 7px;border-radius:99px;background:#1e1e1e;color:#888;border:1px solid #2a2a2a;}
+    .rec-title{font-weight:700;font-size:13px;color:#f0f0f0;line-height:1.3;letter-spacing:-0.005em;margin-bottom:4px;}
+    .rec-insight{font-size:11.5px;color:#666;line-height:1.55;}
+    .rec-action{margin-top:9px;font-size:11.5px;font-weight:700;color:#FEDB00;display:inline-flex;align-items:center;gap:4px;}
+    .rec.rec-hidden{display:none;}
+
+    /* ─── ACTIONS PRIORITAIRES container ─────────────────── */
+    .ap-wrap{display:flex;flex-direction:column;gap:0;background:#0d0d0d;border:1px solid #1e1e1e;border-radius:var(--r-lg);overflow:hidden;}
+    .ap-head{padding:16px 20px 12px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #1a1a1a;}
+    .ap-title{font-family:'FaricyNew','Albert Sans',sans-serif;font-weight:700;font-style:italic;font-size:16px;color:#fff;display:flex;align-items:center;gap:8px;}
+    .ap-title-star{color:#FEDB00;font-style:normal;font-size:14px;}
+    .ap-link{font-size:12px;font-weight:700;color:#FEDB00;background:none;border:none;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:4px;flex-shrink:0;}
+    .ap-link:hover{text-decoration:underline;}
+    .ap-subtitle{font-size:11px;color:#555;padding:6px 20px 10px;border-bottom:1px solid #141414;}
+    .ap-body{padding:14px 16px 16px;display:flex;flex-direction:column;gap:10px;}
+    .ap-loading{padding:32px;text-align:center;color:#444;font-size:12px;}
+    .ap-loading .spin-star{font-size:18px;display:inline-block;animation:spin 1.2s linear infinite;margin-bottom:6px;}
+    @keyframes spin{to{transform:rotate(360deg);}}
+
+    /* ─── CHANNEL DONUT ───────────────────────────────────── */
+    .channel-donut-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);box-shadow:var(--shadow-1);padding:18px;display:flex;flex-direction:column;gap:12px;}
+    .channel-donut-title{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);}
+    .channel-donut-inner{display:flex;align-items:center;gap:18px;}
+    .channel-donut-canvas-wrap{width:110px;height:110px;flex-shrink:0;position:relative;}
+    .channel-donut-legend{display:flex;flex-direction:column;gap:6px;flex:1;min-width:0;}
+    .channel-leg-item{display:flex;align-items:center;gap:7px;font-size:11px;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .channel-leg-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+    .channel-leg-val{margin-left:auto;font-weight:700;font-size:11px;color:var(--muted);flex-shrink:0;}
+
+    /* ─── OVERVIEW 3-COL bars + donut ─────────────────────── */
+    .overview-bars-3{display:grid;grid-template-columns:1fr 1fr auto;gap:14px;align-items:start;}
+    .overview-bars-3 .channel-donut-wrap{min-width:210px;}
+    @media(max-width:1100px){.overview-bars-3{grid-template-columns:1fr 1fr;} .overview-bars-3 .channel-donut-wrap{grid-column:1/-1;}}
+    @media(max-width:700px){.overview-bars-3{grid-template-columns:1fr;}}
+
+    /* ─── INSIGHTS IA BUTTON ──────────────────────────────── */
+    .btn-insights{display:inline-flex;align-items:center;gap:6px;padding:7px 13px;border:1px solid #2a2a2a;border-radius:8px;font-family:inherit;font-size:12px;font-weight:700;letter-spacing:.01em;cursor:pointer;white-space:nowrap;transition:all 150ms;background:#111;color:#ccc;position:relative;}
+    .btn-insights:hover{background:#1a1a1a;color:#fff;}
+    .btn-insights .btn-star{color:#FEDB00;font-size:12px;}
+    .btn-insights.loading{animation:insightGlow 1.6s ease-in-out infinite;}
+    .btn-insights.loading .btn-star{animation:spin 1s linear infinite;display:inline-block;}
+    @keyframes insightGlow{0%,100%{box-shadow:0 0 0 0 rgba(254,219,0,0);}50%{box-shadow:0 0 0 5px rgba(254,219,0,.2);}}
+    .btn-insights.loaded{border-color:#FEDB00;color:#FEDB00;}
+    .insights-badge{background:#FEDB00;color:#000;font-size:9px;font-weight:800;padding:1px 5px;border-radius:99px;display:none;}
+    .btn-insights.loaded .insights-badge{display:inline;}
+
   </style>
 </head>
 <body data-accent="bar" data-density="comfortable" data-sidebar="light">
@@ -863,6 +943,11 @@
 
       <div class="tb-actions">
         <span class="tb-upd" id="lastUpd"></span>
+        <button class="btn-insights" id="btnInsights" title="Générer les recommandations IA">
+          <span class="btn-star">✦</span>
+          Insights IA
+          <span class="insights-badge"></span>
+        </button>
         <button class="icon-btn" id="openCfgTop" title="Configuration">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h0a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h0a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v0a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
         </button>
@@ -1107,7 +1192,8 @@ async function loadAll() {
     renderYouTube(dYT);
     renderLinkedIn(dLI);
 
-    fetchInsights({dGA4, dGSC, dFB, dBrevo, dLI, dYT});
+    window._lastDashData = {dGA4, dGSC, dFB, dBrevo, dLI, dYT};
+    fetchInsights(window._lastDashData);
 
     document.getElementById('lastUpd').textContent = 'Mis à jour : ' + new Date().toLocaleTimeString('fr-BE', {hour:'2-digit', minute:'2-digit'});
   } catch(e) {
@@ -1130,14 +1216,12 @@ function renderOverview({dGA4, dGSC, dFB, dFBP, dBrevo, dLI, dYT, dGA4T}) {
   const sessions = dGA4?.sessions || 0;
   const clicks   = dGSC?.clicks   || 0;
   const spend    = dFB?.spend     || 0;
-  const contacts = dBrevo?.contactStats?.total || 0;
+  const avgPos   = dGSC?.avgPosition || 0;
   const score    = scoreGlobal({dGA4, dGSC, dFB, dBrevo, dLI, dYT});
 
   // Sparkline data
-  const sparkGA4  = dGA4T?.trend?.map(t => t.sessions) || [];
-  const sparkGSC  = dGSC?.trend?.map(t => t.clicks) || [];
-  const camps = dBrevo?.campaigns || [];
-  const sparkBrevo = camps.slice(0,12).reverse().map(c => c.statistics?.globalStats?.delivered || 0);
+  const sparkGA4 = dGA4T?.trend?.map(t => t.sessions) || [];
+  const sparkGSC = dGSC?.trend?.map(t => t.clicks) || [];
 
   const scoreLabel = score >= 70 ? 'Bon' : score >= 40 ? 'Moyen' : 'Attention';
   const scoreDesc  = [
@@ -1147,6 +1231,10 @@ function renderOverview({dGA4, dGSC, dFB, dFBP, dBrevo, dLI, dYT, dGA4T}) {
   ].filter(Boolean).join(' · ') || 'En attente de données';
 
   el.innerHTML = `
+    <!-- 1. MISSION CONTROL — first position -->
+    <div id="ov-objectives"></div>
+
+    <!-- 2. HERO -->
     <div class="hero">
       <div class="hero-greet">
         <div class="hero-eyebrow"><span class="live-dot"></span>Semaine ${getWeekNum()} · ${globalDays}j</div>
@@ -1162,28 +1250,65 @@ function renderOverview({dGA4, dGSC, dFB, dFBP, dBrevo, dLI, dYT, dGA4T}) {
         </div>
       </div>
     </div>
+
+    <!-- 3. KPI ROW — Position GSC replaces Contacts Brevo -->
     <div class="kpi-row">
       ${kpiCard({label:'Sessions acl.lu', value:fmtN(sessions), badge:trendBadge(dGA4?.deltas?.sessions), src:'var(--c-ga4)', srcBg:'var(--c-ga4-bg)', spark:sparkGA4})}
       ${kpiCard({label:'Clics SEO', value:fmtN(clicks), badge:trendBadge(dGSC?.deltas?.clicks), src:'var(--c-gsc)', srcBg:'var(--c-gsc-bg)', spark:sparkGSC})}
       ${kpiCard({label:'Budget Meta Ads', value:fmtEur(spend), src:'var(--c-fb)', srcBg:'var(--c-fb-bg)'})}
-      ${kpiCard({label:'Contacts Brevo', value:fmtN(contacts), src:'var(--c-brevo)', srcBg:'var(--c-brevo-bg)', spark:sparkBrevo})}
+      ${kpiCard({label:'Position Moy. GSC', value:avgPos > 0 ? avgPos.toFixed(1) : '—', badge:trendBadge(dGSC?.deltas?.avgPosition, true), src:'var(--c-gsc)', srcBg:'var(--c-gsc-bg)'})}
     </div>
-    <div class="overview-bars">
+
+    <!-- 4. 3-COL BARS + CHANNEL DONUT -->
+    <div class="overview-bars-3">
       <div class="card"><div class="card-head"><div class="card-title">Top pages acl.lu</div></div>
         <div class="card-body">${barListHtml(dGA4?.topPages?.slice(0,6)||[], 'var(--c-ga4)', null, 'page', 'views', fmtN)}</div>
       </div>
       <div class="card"><div class="card-head"><div class="card-title">Top requêtes GSC</div></div>
         <div class="card-body">${barListHtml(dGSC?.topQueries?.slice(0,6)||[], 'var(--c-gsc)', null, 'query', 'clicks', fmtN)}</div>
       </div>
+      <div class="channel-donut-wrap">
+        <div class="channel-donut-title">Mix canaux</div>
+        <div class="channel-donut-inner">
+          <div class="channel-donut-canvas-wrap">
+            <canvas id="chartChannelDonut" width="110" height="110"></canvas>
+          </div>
+          <div class="channel-donut-legend" id="channelDonutLegend"></div>
+        </div>
+      </div>
     </div>
-    <div id="ov-insights" class="card">
-      <div class="card-head"><div class="card-title">Recommandations IA <span class="src-pill" style="--src:var(--y)">Claude</span></div></div>
-      <div class="card-body" id="insights-body"><p class="tbl-empty">Analyse en cours…</p></div>
-    </div>
-    <div id="ov-objectives"></div>`;
+
+    <!-- 5. ACTIONS PRIORITAIRES — dark AI recommendations -->
+    <div class="ap-wrap" id="ov-insights">
+      <div class="ap-head">
+        <div class="ap-title"><span class="ap-title-star">✦</span> Actions prioritaires</div>
+        <button class="ap-link" id="apToutVoir" style="display:none">Tout voir →</button>
+      </div>
+      <div class="ap-subtitle" id="apSubtitle">Générées depuis vos données — analyse en cours…</div>
+      <div class="ap-body" id="insights-body">
+        <div class="ap-loading"><div class="spin-star">✦</div><br>Génération des recommandations IA…</div>
+      </div>
+    </div>`;
+
+  // Wire "Tout voir" expand/collapse
+  el.addEventListener('click', function(e) {
+    const btn = e.target.closest('#apToutVoir');
+    if (!btn) return;
+    const body = document.getElementById('insights-body');
+    if (!body) return;
+    const hidden = body.querySelectorAll('.rec.rec-hidden');
+    if (hidden.length) {
+      hidden.forEach(r => r.classList.remove('rec-hidden'));
+      btn.textContent = 'Voir moins ↑';
+    } else {
+      body.querySelectorAll('.rec').forEach((r, i) => { if (i >= 3) r.classList.add('rec-hidden'); });
+      btn.textContent = 'Tout voir →';
+    }
+  });
 
   animateCards(el);
   renderObjectives({dFBP, dFB, dBrevo});
+  renderChannelDonut(dGA4?.channelBreakdown || []);
 }
 
 function getWeekNum() {
@@ -1316,6 +1441,64 @@ function renderGA4TrendChart(trend) {
       },
     },
   });
+}
+
+function renderChannelDonut(channels) {
+  if (chartInstances['channelDonut']) {
+    chartInstances['channelDonut'].destroy();
+    delete chartInstances['channelDonut'];
+  }
+  const canvas = document.getElementById('chartChannelDonut');
+  const legend = document.getElementById('channelDonutLegend');
+  if (!canvas) return;
+  if (!channels?.length) {
+    if (legend) legend.innerHTML = '<span style="color:#999;font-size:11px">Aucune donnée</span>';
+    return;
+  }
+  const COLOR_MAP = {
+    'Organic Search':  '#34A853',
+    'Paid Search':     '#FEDB00',
+    'Direct':          '#123C62',
+    'Social':          '#1877F2',
+    'Organic Social':  '#1877F2',
+    'Email':           '#0B996E',
+    'Referral':        '#6B7280',
+    'Organic Video':   '#FF0000',
+    'Unassigned':      '#9CA3AF',
+  };
+  const total  = channels.reduce((s, c) => s + (c.sessions || 0), 0) || 1;
+  const labels = channels.map(c => c.channel || 'Other');
+  const data   = channels.map(c => c.sessions || 0);
+  const colors = labels.map(l => COLOR_MAP[l] || '#6B7280');
+
+  chartInstances['channelDonut'] = new Chart(canvas, {
+    type: 'doughnut',
+    data: { labels, datasets: [{ data, backgroundColor: colors, borderColor: '#fff', borderWidth: 2, hoverOffset: 4 }] },
+    options: {
+      responsive: false,
+      maintainAspectRatio: false,
+      cutout: '68%',
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: { label: ctx => ` ${ctx.label}: ${((ctx.raw / total) * 100).toFixed(1)}%` },
+          bodyFont: { family: 'Albert Sans', size: 11 },
+        },
+      },
+    },
+  });
+
+  if (legend) {
+    legend.innerHTML = channels.slice(0, 6).map(c => {
+      const pct   = ((c.sessions || 0) / total * 100).toFixed(0);
+      const color = COLOR_MAP[c.channel] || '#6B7280';
+      return `<div class="channel-leg-item">
+        <div class="channel-leg-dot" style="background:${color}"></div>
+        <span>${c.channel}</span>
+        <span class="channel-leg-val">${pct}%</span>
+      </div>`;
+    }).join('');
+  }
 }
 
 function renderGA4Extended(d) {
@@ -1503,53 +1686,39 @@ function renderObjectives({dFBP, dFB, dBrevo}) {
   const totalOpens = camps.reduce((a,c) => a + (c.statistics?.globalStats?.uniqueOpens || 0), 0);
   const openRate   = totalDlvr ? totalOpens / totalDlvr * 100 : 0;
 
-  function objRow(label, current, target, display, targetDisplay, note) {
+  function objMcCard(group, label, current, target, display, targetDisplay, note, color) {
     const pct = Math.min(100, target ? Math.round(current / target * 100) : 0);
-    const cls  = pct >= 90 ? 'good' : pct >= 60 ? 'warn' : 'bad';
-    return `<div class="obj-row">
-      <div class="obj-meta">
-        <span class="obj-label">${label}</span>
-        <span class="obj-vals"><b>${display}</b> <span class="obj-target">/ obj. ${targetDisplay}</span></span>
-        ${note ? `<span class="obj-note">${note}</span>` : ''}
+    return `<div class="obj-mc" style="--obj-color:${color}">
+      <div class="obj-mc-group">${group}</div>
+      <div class="obj-mc-label">${label}</div>
+      <div class="obj-mc-vals">
+        <span class="obj-mc-current">${display}</span>
+        <span class="obj-mc-target">/ obj. ${targetDisplay}</span>
       </div>
-      <div class="obj-bar-wrap">
-        <div class="obj-track"><div class="obj-fill obj-fill-${cls}" style="width:${pct}%"></div></div>
-        <span class="obj-pct obj-pct-${cls}">${pct >= 100 ? '✓' : pct + '%'}</span>
+      ${note ? `<div class="obj-mc-note">${note}</div>` : ''}
+      <div class="obj-mc-bar-wrap">
+        <div class="obj-mc-track"><div class="obj-mc-fill" style="width:${pct}%"></div></div>
+        <span class="obj-mc-pct">${pct >= 100 ? '✓' : pct + '%'}</span>
       </div>
     </div>`;
   }
 
   el.innerHTML = `
-    <div class="card">
-      <div class="card-head">
-        <div class="card-title">Objectifs équipe <span class="src-pill" style="--src:#6B7280;--src-bg:#F3F4F6;color:#6B7280">${globalDays}j</span></div>
-        <span style="font-size:10px;color:var(--muted);font-weight:600;margin-left:auto">Impressions Meta et posts annualisés sur la période sélectionnée</span>
+    <div class="mission-panel">
+      <div class="mission-header">
+        <div>
+          <div class="mission-title">Mission Control — Objectifs 2026</div>
+          <div class="mission-subtitle">Suivi des objectifs annuels ACL Marcom</div>
+        </div>
+        <div class="mission-period-badge">${globalDays}j</div>
       </div>
-      <div class="card-body">
-        <div class="obj-group">
-          <div class="obj-group-title">
-            <svg width="10" height="10" viewBox="0 0 24 24" fill="var(--c-fb)"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-            Pages Facebook — Croissance abonnés
-          </div>
-          ${objRow('ACL Sport — Abonnés', sportFans, 2500, fmtN(sportFans), '2 500', 'Objectif annuel tous comptes confondus')}
-          ${objRow('ACL Karting — Abonnés', kartingFans, 3000, fmtN(kartingFans), '3 000', 'Objectif annuel tous comptes confondus')}
-        </div>
-        <div class="obj-group">
-          <div class="obj-group-title">
-            <svg width="10" height="10" viewBox="0 0 24 24" fill="var(--c-fb)"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-            Pages Facebook — Fréquence de publication
-          </div>
-          ${objRow('ACL Sport — Posts/semaine', sportWkly, 1.5, sportWkly.toFixed(1)+'/sem', '1.5/sem', `${sportPosts} posts sur ${globalDays}j → ≈ ${sportAnnual}/an (objectif 78)`)}
-          ${objRow('ACL Karting — Posts/semaine', kartingWkly, 1.5, kartingWkly.toFixed(1)+'/sem', '1.5/sem', `${kartingPosts} posts sur ${globalDays}j → ≈ ${kartingAnnual}/an (objectif 78)`)}
-        </div>
-        <div class="obj-group">
-          <div class="obj-group-title">
-            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--c-fb)" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8m-4-4v4"/></svg>
-            Meta Ads &amp; Email
-          </div>
-          ${objRow(`Meta — Impressions (${globalDays}j)`, metaImpressions, metaTarget, fmtN(metaImpressions), fmtN(metaTarget), `Objectif annuel 2 000 000 → ${fmtN(metaTarget)} cible sur ${globalDays}j`)}
-          ${objRow("Brevo — Taux d'ouverture moyen", openRate, 60, fmtPct(openRate), '60.0%', 'Objectif : 60% de taux d\'ouverture moyen sur les campagnes')}
-        </div>
+      <div class="mission-grid">
+        ${objMcCard('Facebook · Abonnés', 'ACL Sport — Abonnés page', sportFans, 2500, fmtN(sportFans), '2 500', 'Objectif annuel tous comptes', '#1877F2')}
+        ${objMcCard('Facebook · Abonnés', 'ACL Karting — Abonnés page', kartingFans, 3000, fmtN(kartingFans), '3 000', 'Objectif annuel tous comptes', '#1877F2')}
+        ${objMcCard('Facebook · Posts', 'ACL Sport — Posts/semaine', sportWkly, 1.5, sportWkly.toFixed(1)+'/sem', '1.5/sem', `${sportPosts} posts → ≈ ${sportAnnual}/an`, '#FEDB00')}
+        ${objMcCard('Facebook · Posts', 'ACL Karting — Posts/semaine', kartingWkly, 1.5, kartingWkly.toFixed(1)+'/sem', '1.5/sem', `${kartingPosts} posts → ≈ ${kartingAnnual}/an`, '#FEDB00')}
+        ${objMcCard('Meta Ads', `Impressions (${globalDays}j)`, metaImpressions, metaTarget, fmtN(metaImpressions), fmtN(metaTarget), 'Objectif annuel 2 000 000', '#F97316')}
+        ${objMcCard('Brevo Email', "Taux d'ouverture moyen", openRate, 60, fmtPct(openRate), '60.0%', 'Objectif : 60% d\'ouverture', '#0B996E')}
       </div>
     </div>`;
 }
@@ -1780,31 +1949,45 @@ function renderLinkedIn(d) {
 
 // ── AI INSIGHTS ───────────────────────────────────────────────
 async function fetchInsights({dGA4, dGSC, dFB, dBrevo, dLI, dYT}) {
-  const el = document.getElementById('insights-body');
+  const el    = document.getElementById('insights-body');
+  const sub   = document.getElementById('apSubtitle');
+  const btnIa = document.getElementById('btnInsights');
   if (!el) return;
+
+  if (btnIa) { btnIa.classList.remove('loaded'); btnIa.classList.add('loading'); }
+
   try {
     const r = await fetch(`${API_BASE}/insights`, {
       method: 'POST',
       headers: {'Content-Type':'application/json'},
       body: JSON.stringify({
-        ga4:   dGA4   ? {sessions: dGA4.sessions,   deltas: dGA4.deltas}   : null,
-        gsc:   dGSC   ? {clicks: dGSC.clicks, ctr: dGSC.ctr, avgPosition: dGSC.avgPosition, deltas: dGSC.deltas} : null,
-        fb:    dFB    ? {spend: dFB.spend, roas: dFB.roas, ctr: dFB.ctr} : null,
-        brevo: dBrevo ? {campaigns: dBrevo.campaigns?.length, contactStats: dBrevo.contactStats} : null,
-        li:    dLI    ? {followers: dLI.followers||dLI.totalFollowers} : null,
-        yt:    dYT    ? {subscribers: dYT.subscribers, periodVideos: dYT.periodVideos} : null,
+        ga4:    dGA4   ? {sessions: dGA4.sessions, deltas: dGA4.deltas, period: globalDays} : null,
+        gsc:    dGSC   ? {clicks: dGSC.clicks, ctr: dGSC.ctr, avgPosition: dGSC.avgPosition, deltas: dGSC.deltas} : null,
+        fb:     dFB    ? {spend: dFB.spend, roas: dFB.roas, ctr: dFB.ctr} : null,
+        brevo:  dBrevo ? {campaigns: dBrevo.campaigns?.length, contactStats: dBrevo.contactStats} : null,
+        li:     dLI    ? {followers: dLI.followers||dLI.totalFollowers} : null,
+        yt:     dYT    ? {subscribers: dYT.subscribers, periodVideos: dYT.periodVideos} : null,
+        period: globalDays,
       }),
-      signal: AbortSignal.timeout(30000),
+      signal: AbortSignal.timeout(45000),
     });
-    const data = await r.json();
+    const data     = await r.json();
     const insights = data.insights || [];
-    if (!insights.length) { el.innerHTML = '<p class="tbl-empty">Aucune recommandation générée.</p>'; return; }
-    el.innerHTML = `<div class="recs">${insights.map(i => `
-      <div class="rec ${i.priority}">
+
+    if (!insights.length) {
+      el.innerHTML = '<div class="ap-loading" style="color:#444">Aucune recommandation générée.</div>';
+      if (btnIa) btnIa.classList.remove('loading');
+      return;
+    }
+
+    if (sub) sub.textContent = `Générées depuis vos données — ${insights.length} recommandation${insights.length > 1 ? 's' : ''}`;
+
+    el.innerHTML = `<div class="recs">${insights.map((i, idx) => `
+      <div class="rec ${i.priority}${idx >= 3 ? ' rec-hidden' : ''}">
         <div class="rec-prio"></div>
         <div class="rec-body">
           <div class="rec-head">
-            <span class="rec-badge ${i.priority}">${i.priority==='high'?'URGENT':i.priority==='med'?'IMPORTANT':'INFO'}</span>
+            <span class="rec-badge">${i.priority==='high' ? 'URGENT' : i.priority==='med' ? 'À PLANIFIER' : 'OPPORTUNITÉ'}</span>
             <span class="rec-src">${i.source||''}</span>
           </div>
           <div class="rec-title">${i.title}</div>
@@ -1812,8 +1995,26 @@ async function fetchInsights({dGA4, dGSC, dFB, dBrevo, dLI, dYT}) {
           <div class="rec-action">→ ${i.action}</div>
         </div>
       </div>`).join('')}</div>`;
+
+    const toutVoir = document.getElementById('apToutVoir');
+    if (toutVoir) {
+      if (insights.length > 3) {
+        toutVoir.textContent = `Tout voir (${insights.length}) →`;
+        toutVoir.style.display = '';
+      } else {
+        toutVoir.style.display = 'none';
+      }
+    }
+
+    if (btnIa) {
+      btnIa.classList.remove('loading');
+      btnIa.classList.add('loaded');
+      const badge = btnIa.querySelector('.insights-badge');
+      if (badge) badge.textContent = insights.length;
+    }
   } catch(e) {
-    el.innerHTML = `<p class="tbl-empty" style="color:var(--muted)">Insights IA non disponibles (configurer ANTHROPIC_API_KEY sur Railway).</p>`;
+    el.innerHTML = '<div class="ap-loading" style="color:#444">Insights IA non disponibles — configurer ANTHROPIC_API_KEY sur Railway.</div>';
+    if (btnIa) btnIa.classList.remove('loading');
   }
 }
 
@@ -1911,6 +2112,11 @@ function applyGlobalRange() {
     });
   });
 })();
+
+// ── Insights IA button ────────────────────────────────────────
+document.getElementById('btnInsights')?.addEventListener('click', () => {
+  if (window._lastDashData) fetchInsights(window._lastDashData);
+});
 
 // ── Sidebar tab switching ─────────────────────────────────────
 document.querySelectorAll('.tab-btn').forEach(btn => {

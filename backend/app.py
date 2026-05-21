@@ -983,11 +983,16 @@ def brevo():
     headers = {'api-key': BREVO_API_KEY, 'Accept': 'application/json'}
     BREVO_BASE = 'https://api.brevo.com/v3'
 
-    # Campaigns — 'statistics=globalStats' is required for Brevo to include stats
+    # Always fetch last 90 days for campaigns — the period filter causes empty results
+    # when no campaigns were sent in the selected window (e.g. last 7 days).
+    today = datetime.date.today()
+    brevo_start = (today - datetime.timedelta(days=90)).isoformat()
+    brevo_end   = today.isoformat()
+
     rc = _get(f'{BREVO_BASE}/emailCampaigns', headers=headers, params={
         'status': 'sent', 'limit': 50, 'offset': 0,
         'sort': 'desc', 'statistics': 'globalStats',
-        'startDate': str(start), 'endDate': str(end),
+        'startDate': brevo_start, 'endDate': brevo_end,
     })
     campaigns = []
     if rc.ok:
@@ -1186,16 +1191,17 @@ def linkedin():
 # ─────────────────────────────────────────────────────────────────────────────
 
 def build_insights_prompt(data):
-    ga4   = data.get('ga4')   or {}
-    gsc   = data.get('gsc')   or {}
-    fb    = data.get('fb')    or {}
-    brevo = data.get('brevo') or {}
-    li    = data.get('li')    or {}
-    yt    = data.get('yt')    or {}
+    ga4    = data.get('ga4')    or {}
+    gsc    = data.get('gsc')    or {}
+    fb     = data.get('fb')     or {}
+    brevo  = data.get('brevo')  or {}
+    li     = data.get('li')     or {}
+    yt     = data.get('yt')     or {}
+    period = data.get('period', 30)
 
     lines = [
-        "Tu es un analyste marketing senior pour ACL Luxembourg (Automobile Club de Luxembourg).",
-        "Analyse les KPIs marketing ci-dessous et génère des recommandations actionnables en français.",
+        "Tu es un analyste marketing senior pour ACL Luxembourg (Automobile Club de Luxembourg, 191 000 membres, secteur automobile/mobilité, Luxembourg).",
+        f"Analyse les KPIs marketing ci-dessous sur une période de {period} jours et génère des recommandations actionnables en français.",
         "",
         "## Données KPI",
     ]
@@ -1212,34 +1218,42 @@ def build_insights_prompt(data):
         ctr      = gsc.get('ctr', 'N/A')
         position = gsc.get('avgPosition', 'N/A')
         lines.append(f"**Search Console** : {clicks} clics, CTR {ctr}%, position moy. {position}")
+        lines.append(f"  → Benchmark SEO : CTR moyen pos. 1-3 = 25-35%, pos. 4-10 = 3-10%, au-delà = <3%")
 
     if fb:
-        spend = fb.get('spend', 'N/A')
-        roas  = fb.get('roas', 'N/A')
+        spend  = fb.get('spend', 'N/A')
+        roas   = fb.get('roas', 'N/A')
         ctr_fb = fb.get('ctr', 'N/A')
         lines.append(f"**Meta Ads** : {spend} EUR dépensés, ROAS {roas}x, CTR {ctr_fb}%")
+        lines.append(f"  → Benchmark Meta : CTR moyen = 0.9-1.5%, ROAS sain = >2x, coût/clic secteur auto LUX ≈ 1.20€")
 
     if brevo:
-        n_camps   = brevo.get('campaigns', 'N/A')
-        contacts  = (brevo.get('contactStats') or {}).get('total', 'N/A')
-        lines.append(f"**Brevo** : {n_camps} campagnes, {contacts} contacts")
+        n_camps  = brevo.get('campaigns', 'N/A')
+        contacts = (brevo.get('contactStats') or {}).get('total', 'N/A')
+        lines.append(f"**Brevo** : {n_camps} campagnes analysées, {contacts} contacts")
+        lines.append(f"  → Benchmark email B2C Europe : taux d'ouverture moyen = 25%, taux de clic = 2-3%, CTOR = 10-15%")
 
     if li:
         followers = li.get('followers', 'N/A')
-        lines.append(f"**LinkedIn** : {followers} abonnés")
+        lines.append(f"**LinkedIn** : {followers} abonnés page")
+        lines.append(f"  → Benchmark LinkedIn organisations : taux d'engagement = 1-3%, croissance abonnés = +2-5%/mois")
 
     if yt:
         subs   = yt.get('subscribers', 'N/A')
         videos = yt.get('periodVideos', 'N/A')
-        lines.append(f"**YouTube** : {subs} abonnés, {videos} nouvelles vidéos sur la période")
+        lines.append(f"**YouTube** : {subs} abonnés, {videos} nouvelles vidéos sur {period} jours")
+        lines.append(f"  → Benchmark YouTube petites chaînes : 1-4 vidéos/mois pour maintenir l'algorithme")
 
     lines += [
         "",
         "## Instructions",
         "Réponds UNIQUEMENT avec un tableau JSON valide (pas de markdown, pas d'explication).",
-        "Génère 3 à 5 recommandations prioritaires.",
-        "Format exact :",
-        '[{"priority":"high|med|low","source":"GA4|Meta|GSC|Brevo|LinkedIn|YouTube","title":"titre court","insight":"observation factuelle","action":"action concrète à prendre"}]',
+        f"Génère exactement 5 à 6 recommandations prioritaires pour ACL Luxembourg.",
+        "Inclure AU MOINS 1 recommandation de type 'low' (opportunité de croissance identifiée).",
+        "Dans le champ 'insight', comparer le KPI au benchmark fourni et quantifier l'écart.",
+        "Dans le champ 'action', proposer une action concrète, mesurable, réalisable sous 2 semaines.",
+        "Format exact (JSON array, rien d'autre) :",
+        '[{"priority":"high|med|low","source":"GA4|Meta|GSC|Brevo|LinkedIn|YouTube","title":"titre court max 8 mots","insight":"observation avec écart au benchmark","action":"action concrète et mesurable"}]',
     ]
 
     return '\n'.join(lines)
