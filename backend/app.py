@@ -123,6 +123,7 @@ GOOGLE_TOKEN_URL = 'https://oauth2.googleapis.com/token'
 GOOGLE_SCOPES = [
     'https://www.googleapis.com/auth/analytics.readonly',
     'https://www.googleapis.com/auth/webmasters.readonly',
+    'https://www.googleapis.com/auth/youtube.readonly',
 ]
 
 def _google_secrets():
@@ -357,6 +358,24 @@ def status():
         'brevo':     bool(BREVO_API_KEY),
         'anthropic': bool(ANTHROPIC_API_KEY),
     })
+
+
+@app.route('/google/debug')
+def google_debug():
+    client_id, client_secret = _google_secrets()
+    token_data = _google_token()
+    if not token_data:
+        return jsonify({'error': 'Pas de token', 'client_id': bool(client_id)})
+    refresh_token = token_data.get('refresh_token')
+    if not refresh_token:
+        return jsonify({'error': 'Pas de refresh_token', 'token_keys': list(token_data.keys())})
+    r = _post(GOOGLE_TOKEN_URL, data={
+        'client_id':     client_id,
+        'client_secret': client_secret,
+        'refresh_token': refresh_token,
+        'grant_type':    'refresh_token',
+    })
+    return jsonify({'status': r.status_code, 'response': r.json()})
 
 
 # ─────────────────────────────────────────────────────────────────────────────
