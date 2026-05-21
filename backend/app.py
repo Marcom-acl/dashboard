@@ -1,0 +1,1189 @@
+"""
+ACL Marcom Dashboard — Backend API (Railway)
+============================================================
+Adapted from the local proxy.py for cloud deployment.
+All secrets are read from environment variables.
+"""
+
+import os
+import json
+import re
+import datetime
+import requests
+from flask import Flask, request, jsonify, redirect, session
+from flask_cors import CORS
+
+# ── SSL bypass (optional, for Zscaler corporate proxy) ──────────────────────
+if os.environ.get('DISABLE_SSL_VERIFY', 'false').lower() == 'true':
+    import urllib3
+    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+    _VERIFY = False
+else:
+    _VERIFY = True
+
+# ── App setup ────────────────────────────────────────────────────────────────
+app = Flask(__name__)
+app.secret_key = os.environ.get('FLASK_SECRET', os.urandom(32))
+CORS(app, origins=[os.environ.get('FRONTEND_URL', '*')], supports_credentials=True)
+
+# ── Constants ────────────────────────────────────────────────────────────────
+GA4_PROPERTY              = '267556854'
+GA4_PROPERTY_AUTOTOURING  = '473431929'
+GSC_SITE                  = 'sc-domain:acl.lu'
+YT_CHANNEL_ID             = 'UC9LK0kbfLqZQCsgNOrz3aqA'
+FB_ACCOUNTS               = ['act_1192620784140333']
+FB_PAGES                  = {
+    'ACL':     '213661677006',
+    'Sport':   '900728663131402',
+    'Karting': '963910666805565',
+}
+
+# ── Env-var secrets ──────────────────────────────────────────────────────────
+BREVO_API_KEY    = os.environ.get('BREVO_API_KEY', '')
+FB_APP_ID        = os.environ.get('FB_APP_ID', '')
+FB_APP_SECRET    = os.environ.get('FB_APP_SECRET', '')
+ANTHROPIC_API_KEY = os.environ.get('ANTHROPIC_API_KEY', '')
+
+# ── Storage paths ─────────────────────────────────────────────────────────────
+DATA_DIR = os.environ.get('DATA_DIR', os.path.dirname(os.path.abspath(__file__)))
+APP_URL  = os.environ.get('APP_URL', 'http://localhost:5050')
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Helpers
+# ─────────────────────────────────────────────────────────────────────────────
+
+def _get(url, **kwargs):
+    """Wrapper for requests.get that respects DISABLE_SSL_VERIFY."""
+    kwargs.setdefault('verify', _VERIFY)
+    kwargs.setdefault('timeout', 30)
+    return requests.get(url, **kwargs)
+
+def _post(url, **kwargs):
+    kwargs.setdefault('verify', _VERIFY)
+    kwargs.setdefault('timeout', 30)
+    return requests.post(url, **kwargs)
+
+def _token_path(name):
+    return os.path.join(DATA_DIR, name)
+
+def _load_json(path):
+    try:
+        with open(path) as f:
+            return json.load(f)
+    except Exception:
+        return None
+
+def _save_json(path, data):
+    with open(path, 'w') as f:
+        json.dump(data, f)
+
+def _date_range():
+    """Parse start/end query params; defaults to last 30 days."""
+    end_str   = request.args.get('end')
+    start_str = request.args.get('start')
+    today = datetime.date.today()
+    if end_str:
+        try:
+            end = datetime.date.fromisoformat(end_str)
+        except ValueError:
+            end = today
+    else:
+        end = today
+    if start_str:
+        try:
+            start = datetime.date.fromisoformat(start_str)
+        except ValueError:
+            start = end - datetime.timedelta(days=30)
+    else:
+        start = end - datetime.timedelta(days=30)
+    return start.isoformat(), end.isoformat()
+
+def _delta(curr, prev):
+    """Percentage change from prev to curr."""
+    if not prev:
+        return None
+    return round((curr - prev) / prev * 100, 1)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Google OAuth helpers
+# ─────────────────────────────────────────────────────────────────────────────
+
+GOOGLE_TOKEN_PATH   = _token_path('google_token.json')
+GOOGLE_SECRETS_PATH = _token_path('google_client_secret.json')
+
+GOOGLE_AUTH_URL  = 'https://accounts.google.com/o/oauth2/v2/auth'
+GOOGLE_TOKEN_URL = 'https://oauth2.googleapis.com/token'
+
+GOOGLE_SCOPES = [
+    'https://www.googleapis.com/auth/analytics.readonly',
+    'https://www.googleapis.com/auth/webmasters.readonly',
+]
+
+def _google_secrets():
+    s = _load_json(GOOGLE_SECRETS_PATH)
+    if not s:
+        return None, None
+    web = s.get('web') or s.get('installed') or {}
+    return web.get('client_id'), web.get('client_secret')
+
+def _google_token():
+    return _load_json(GOOGLE_TOKEN_PATH)
+
+def _refresh_google_token(token_data):
+    client_id, client_secret = _google_secrets()
+    if not client_id:
+        return None
+    r = _post(GOOGLE_TOKEN_URL, data={
+        'client_id':     client_id,
+        'client_secret': client_secret,
+        'refresh_token': token_data.get('refresh_token'),
+        'grant_type':    'refresh_token',
+    })
+    if r.ok:
+        new_token = {**token_data, **r.json()}
+        _save_json(GOOGLE_TOKEN_PATH, new_token)
+        return new_token
+    return None
+
+def _get_google_access_token():
+    token_data = _google_token()
+    if not token_data:
+        return None
+    access_token = token_data.get('access_token')
+    # Try to refresh if we have a refresh token
+    if token_data.get('refresh_token'):
+        refreshed = _refresh_google_token(token_data)
+        if refreshed:
+            access_token = refreshed.get('access_token')
+    return access_token
+
+def _google_headers():
+    token = _get_google_access_token()
+    if not token:
+        return None
+    return {'Authorization': f'Bearer {token}'}
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Google OAuth routes
+# ─────────────────────────────────────────────────────────────────────────────
+
+@app.route('/google/auth')
+def google_auth():
+    client_id, _ = _google_secrets()
+    if not client_id:
+        return jsonify({'error': 'google_client_secret.json manquant dans DATA_DIR'}), 503
+    scope = ' '.join(GOOGLE_SCOPES)
+    redirect_uri = f'{APP_URL}/google/callback'
+    url = (
+        f'{GOOGLE_AUTH_URL}?response_type=code'
+        f'&client_id={client_id}'
+        f'&redirect_uri={redirect_uri}'
+        f'&scope={requests.utils.quote(scope)}'
+        f'&access_type=offline&prompt=consent'
+    )
+    return redirect(url)
+
+@app.route('/google/callback')
+def google_callback():
+    code = request.args.get('code')
+    if not code:
+        return jsonify({'error': 'Code manquant'}), 400
+    client_id, client_secret = _google_secrets()
+    redirect_uri = f'{APP_URL}/google/callback'
+    r = _post(GOOGLE_TOKEN_URL, data={
+        'code':          code,
+        'client_id':     client_id,
+        'client_secret': client_secret,
+        'redirect_uri':  redirect_uri,
+        'grant_type':    'authorization_code',
+    })
+    if not r.ok:
+        return jsonify({'error': r.text}), 400
+    _save_json(GOOGLE_TOKEN_PATH, r.json())
+    return '<h2>Google connecté !</h2><p>Vous pouvez fermer cette fenêtre.</p>'
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Facebook OAuth helpers
+# ─────────────────────────────────────────────────────────────────────────────
+
+FB_TOKEN_PATH = _token_path('fb_token.json')
+FB_AUTH_URL   = 'https://www.facebook.com/v19.0/dialog/oauth'
+FB_TOKEN_URL  = 'https://graph.facebook.com/v19.0/oauth/access_token'
+FB_GRAPH      = 'https://graph.facebook.com/v19.0'
+
+FB_SCOPES = [
+    'ads_read', 'read_insights', 'pages_read_engagement',
+    'pages_show_list', 'business_management',
+]
+
+def _fb_token():
+    stored = _load_json(FB_TOKEN_PATH)
+    if stored:
+        return stored.get('access_token')
+    return os.environ.get('FB_TOKEN', '')
+
+@app.route('/fb/auth')
+def fb_auth():
+    if not FB_APP_ID:
+        return jsonify({'error': 'FB_APP_ID manquant'}), 503
+    redirect_uri = f'{APP_URL}/fb/callback'
+    scope = ','.join(FB_SCOPES)
+    url = (
+        f'{FB_AUTH_URL}?client_id={FB_APP_ID}'
+        f'&redirect_uri={requests.utils.quote(redirect_uri)}'
+        f'&scope={scope}&response_type=code'
+    )
+    return redirect(url)
+
+@app.route('/fb/callback')
+def fb_callback():
+    code = request.args.get('code')
+    if not code:
+        return jsonify({'error': 'Code manquant'}), 400
+    redirect_uri = f'{APP_URL}/fb/callback'
+    r = _get(FB_TOKEN_URL, params={
+        'client_id':     FB_APP_ID,
+        'client_secret': FB_APP_SECRET,
+        'redirect_uri':  redirect_uri,
+        'code':          code,
+    })
+    if not r.ok:
+        return jsonify({'error': r.text}), 400
+    token_data = r.json()
+    _save_json(FB_TOKEN_PATH, token_data)
+    return '<h2>Facebook connecté !</h2><p>Vous pouvez fermer cette fenêtre.</p>'
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# LinkedIn OAuth helpers
+# ─────────────────────────────────────────────────────────────────────────────
+
+LI_TOKEN_PATH    = _token_path('linkedin_token.json')
+LI_CONFIG_PATH   = _token_path('linkedin_config.json')
+LI_AUTH_URL      = 'https://www.linkedin.com/oauth/v2/authorization'
+LI_TOKEN_URL     = 'https://www.linkedin.com/oauth/v2/accessToken'
+LI_API           = 'https://api.linkedin.com/v2'
+LI_SCOPES        = ['r_organization_social', 'r_basicprofile', 'rw_organization_admin']
+
+def _li_config():
+    cfg = _load_json(LI_CONFIG_PATH) or {}
+    return {
+        'client_id':       cfg.get('client_id')       or os.environ.get('LI_CLIENT_ID', ''),
+        'client_secret':   cfg.get('client_secret')   or os.environ.get('LI_CLIENT_SECRET', ''),
+        'organization_id': cfg.get('organization_id') or os.environ.get('LI_ORGANIZATION_ID', ''),
+    }
+
+def _li_token():
+    stored = _load_json(LI_TOKEN_PATH)
+    if stored:
+        return stored.get('access_token')
+    return None
+
+@app.route('/linkedin/auth')
+def linkedin_auth():
+    cfg = _li_config()
+    if not cfg['client_id']:
+        return jsonify({'error': 'LI_CLIENT_ID manquant'}), 503
+    redirect_uri = f'{APP_URL}/linkedin/callback'
+    scope = '%20'.join(LI_SCOPES)
+    url = (
+        f'{LI_AUTH_URL}?response_type=code'
+        f'&client_id={cfg["client_id"]}'
+        f'&redirect_uri={requests.utils.quote(redirect_uri)}'
+        f'&scope={scope}&state=acl_marcom'
+    )
+    return redirect(url)
+
+@app.route('/linkedin/callback')
+def linkedin_callback():
+    code = request.args.get('code')
+    if not code:
+        return jsonify({'error': 'Code manquant'}), 400
+    cfg = _li_config()
+    redirect_uri = f'{APP_URL}/linkedin/callback'
+    r = _post(LI_TOKEN_URL, data={
+        'grant_type':    'authorization_code',
+        'code':          code,
+        'redirect_uri':  redirect_uri,
+        'client_id':     cfg['client_id'],
+        'client_secret': cfg['client_secret'],
+    })
+    if not r.ok:
+        return jsonify({'error': r.text}), 400
+    _save_json(LI_TOKEN_PATH, r.json())
+    return '<h2>LinkedIn connecté !</h2><p>Vous pouvez fermer cette fenêtre.</p>'
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Status route
+# ─────────────────────────────────────────────────────────────────────────────
+
+@app.route('/status')
+def status():
+    return jsonify({
+        'status':    'ok',
+        'google':    bool(_google_token()),
+        'facebook':  bool(_fb_token()),
+        'linkedin':  bool(_li_token()),
+        'brevo':     bool(BREVO_API_KEY),
+        'anthropic': bool(ANTHROPIC_API_KEY),
+    })
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# GA4 route — acl.lu
+# ─────────────────────────────────────────────────────────────────────────────
+
+def _ga4_run_report(property_id, start, end, dimensions, metrics):
+    headers = _google_headers()
+    if not headers:
+        return None
+    url = f'https://analyticsdata.googleapis.com/v1beta/properties/{property_id}:runReport'
+    body = {
+        'dateRanges': [{'startDate': start, 'endDate': end}],
+        'dimensions': [{'name': d} for d in dimensions],
+        'metrics':    [{'name': m} for m in metrics],
+    }
+    r = _post(url, headers=headers, json=body)
+    if r.ok:
+        return r.json()
+    return None
+
+def _ga4_scalar(property_id, start, end, metric):
+    headers = _google_headers()
+    if not headers:
+        return 0
+    url = f'https://analyticsdata.googleapis.com/v1beta/properties/{property_id}:runReport'
+    body = {
+        'dateRanges': [{'startDate': start, 'endDate': end}],
+        'metrics':    [{'name': metric}],
+    }
+    r = _post(url, headers=headers, json=body)
+    if not r.ok:
+        return 0
+    data = r.json()
+    try:
+        return float(data['rows'][0]['metricValues'][0]['value'])
+    except Exception:
+        return 0
+
+def _parse_ga4_main(property_id, start, end):
+    """Return a dict with the main GA4 KPIs for a property."""
+    headers = _google_headers()
+    if not headers:
+        return {'error': 'Google non connecté'}
+
+    url = f'https://analyticsdata.googleapis.com/v1beta/properties/{property_id}:runReport'
+
+    # Main KPIs
+    main_body = {
+        'dateRanges': [
+            {'startDate': start, 'endDate': end},
+        ],
+        'metrics': [
+            {'name': 'sessions'},
+            {'name': 'totalUsers'},
+            {'name': 'bounceRate'},
+            {'name': 'averageSessionDuration'},
+            {'name': 'engagementRate'},
+        ],
+    }
+    r = _post(url, headers=headers, json=main_body)
+    if not r.ok:
+        return {'error': r.text[:200]}
+    data = r.json()
+    try:
+        vals = data['rows'][0]['metricValues']
+        sessions  = int(float(vals[0]['value']))
+        users     = int(float(vals[1]['value']))
+        bounce    = round(float(vals[2]['value']) * 100, 1)
+        duration  = round(float(vals[3]['value']), 1)
+        engage    = round(float(vals[4]['value']) * 100, 1)
+    except Exception:
+        sessions = users = 0
+        bounce = duration = engage = 0.0
+
+    # Previous period for deltas
+    days = (datetime.date.fromisoformat(end) - datetime.date.fromisoformat(start)).days
+    prev_end   = datetime.date.fromisoformat(start) - datetime.timedelta(days=1)
+    prev_start = prev_end - datetime.timedelta(days=days)
+    prev_body  = {**main_body, 'dateRanges': [{'startDate': prev_start.isoformat(), 'endDate': prev_end.isoformat()}]}
+    rp = _post(url, headers=headers, json=prev_body)
+    prev = {}
+    if rp.ok:
+        try:
+            pv = rp.json()['rows'][0]['metricValues']
+            prev = {
+                'sessions':          int(float(pv[0]['value'])),
+                'users':             int(float(pv[1]['value'])),
+                'bounceRate':        round(float(pv[2]['value']) * 100, 1),
+                'avgSessionDuration': round(float(pv[3]['value']), 1),
+                'engagementRate':    round(float(pv[4]['value']) * 100, 1),
+            }
+        except Exception:
+            pass
+
+    deltas = {
+        'sessions':           _delta(sessions,  prev.get('sessions')),
+        'users':              _delta(users,      prev.get('users')),
+        'bounceRate':         _delta(bounce,     prev.get('bounceRate')),
+        'avgSessionDuration': _delta(duration,   prev.get('avgSessionDuration')),
+        'engagementRate':     _delta(engage,     prev.get('engagementRate')),
+    }
+
+    # Top pages
+    pages_body = {
+        'dateRanges': [{'startDate': start, 'endDate': end}],
+        'dimensions': [{'name': 'pagePath'}],
+        'metrics':    [{'name': 'screenPageViews'}],
+        'orderBys':   [{'metric': {'metricName': 'screenPageViews'}, 'desc': True}],
+        'limit':      20,
+    }
+    rp2 = _post(url, headers=headers, json=pages_body)
+    top_pages = []
+    if rp2.ok:
+        for row in rp2.json().get('rows', []):
+            top_pages.append({
+                'page':  row['dimensionValues'][0]['value'],
+                'views': int(float(row['metricValues'][0]['value'])),
+            })
+
+    # Channel breakdown
+    chan_body = {
+        'dateRanges': [{'startDate': start, 'endDate': end}],
+        'dimensions': [{'name': 'sessionDefaultChannelGroup'}],
+        'metrics':    [{'name': 'sessions'}],
+        'orderBys':   [{'metric': {'metricName': 'sessions'}, 'desc': True}],
+    }
+    rc = _post(url, headers=headers, json=chan_body)
+    channels = []
+    if rc.ok:
+        for row in rc.json().get('rows', []):
+            channels.append({
+                'channel':  row['dimensionValues'][0]['value'],
+                'sessions': int(float(row['metricValues'][0]['value'])),
+            })
+
+    return {
+        'sessions':            sessions,
+        'users':               users,
+        'bounceRate':          bounce,
+        'avgSessionDuration':  duration,
+        'engagementRate':      engage,
+        'channelBreakdown':    channels,
+        'topPages':            top_pages,
+        'prev':                prev,
+        'deltas':              deltas,
+    }
+
+
+@app.route('/ga4')
+def ga4():
+    start, end = _date_range()
+    return jsonify(_parse_ga4_main(GA4_PROPERTY, start, end))
+
+
+@app.route('/ga4/autotouring')
+def ga4_autotouring():
+    start, end = _date_range()
+    return jsonify(_parse_ga4_main(GA4_PROPERTY_AUTOTOURING, start, end))
+
+
+@app.route('/ga4/extended')
+def ga4_extended():
+    start, end = _date_range()
+    headers = _google_headers()
+    if not headers:
+        return jsonify({'error': 'Google non connecté'})
+
+    url = f'https://analyticsdata.googleapis.com/v1beta/properties/{GA4_PROPERTY}:runReport'
+
+    def run(dimensions, metrics, limit=20, order_metric=None):
+        body = {
+            'dateRanges': [{'startDate': start, 'endDate': end}],
+            'dimensions': [{'name': d} for d in dimensions],
+            'metrics':    [{'name': m} for m in metrics],
+            'limit':      limit,
+        }
+        if order_metric:
+            body['orderBys'] = [{'metric': {'metricName': order_metric}, 'desc': True}]
+        r = _post(url, headers=headers, json=body)
+        return r.json() if r.ok else {}
+
+    # New vs returning
+    nvr_data = run(['newVsReturning'], ['sessions'])
+    nvr = [
+        {'type': row['dimensionValues'][0]['value'], 'sessions': int(float(row['metricValues'][0]['value']))}
+        for row in nvr_data.get('rows', [])
+    ]
+
+    # Markets (language)
+    mkt_data = run(['language'], ['sessions', 'engagementRate', 'averageSessionDuration'], limit=10, order_metric='sessions')
+    markets = []
+    for row in mkt_data.get('rows', []):
+        markets.append({
+            'name':          row['dimensionValues'][0]['value'],
+            'sessions':      int(float(row['metricValues'][0]['value'])),
+            'engagementRate': round(float(row['metricValues'][1]['value']) * 100, 1),
+            'duration':      round(float(row['metricValues'][2]['value']), 1),
+        })
+
+    # Entry pages
+    ep_data = run(['landingPage'], ['sessions', 'bounceRate', 'engagementRate'], limit=20, order_metric='sessions')
+    entry_pages = []
+    for row in ep_data.get('rows', []):
+        br = round(float(row['metricValues'][1]['value']) * 100, 1)
+        entry_pages.append({
+            'page':    row['dimensionValues'][0]['value'],
+            'sessions': int(float(row['metricValues'][0]['value'])),
+            'bounceRate': br,
+        })
+
+    # Key events
+    evt_data = run(['eventName'], ['eventCount'], limit=20, order_metric='eventCount')
+    events = [
+        {'name': row['dimensionValues'][0]['value'], 'count': int(float(row['metricValues'][0]['value']))}
+        for row in evt_data.get('rows', [])
+    ]
+
+    # Devices
+    dev_data = run(['deviceCategory'], ['sessions', 'engagementRate'], limit=10, order_metric='sessions')
+    total_sessions = sum(int(float(r['metricValues'][0]['value'])) for r in dev_data.get('rows', [])) or 1
+    devices = []
+    for row in dev_data.get('rows', []):
+        s = int(float(row['metricValues'][0]['value']))
+        devices.append({
+            'name':          row['dimensionValues'][0]['value'],
+            'sessions':      s,
+            'pct':           round(s / total_sessions * 100, 1),
+            'engagementRate': round(float(row['metricValues'][1]['value']) * 100, 1),
+        })
+
+    # Conversion by channel
+    conv_data = run(['sessionDefaultChannelGroup'], ['sessions', 'conversions'], limit=10, order_metric='sessions')
+    conv_by_channel = []
+    for row in conv_data.get('rows', []):
+        conv_by_channel.append({
+            'channel':     row['dimensionValues'][0]['value'],
+            'sessions':    int(float(row['metricValues'][0]['value'])),
+            'conversions': int(float(row['metricValues'][1]['value'])),
+        })
+
+    return jsonify({
+        'newVsReturning':    nvr,
+        'markets':           markets,
+        'entryPages':        entry_pages,
+        'keyEvents':         events,
+        'devices':           devices,
+        'conversionByChannel': conv_by_channel,
+    })
+
+
+@app.route('/ga4/funnel')
+def ga4_funnel():
+    start, end = _date_range()
+    headers = _google_headers()
+    if not headers:
+        return jsonify({'error': 'Google non connecté'})
+
+    url = f'https://analyticsdata.googleapis.com/v1beta/properties/{GA4_PROPERTY}:runReport'
+
+    steps_metrics = [
+        ('sessions',    'Sessions'),
+        ('engagedSessions', 'Sessions engagées'),
+        ('conversions', 'Conversions'),
+    ]
+
+    body = {
+        'dateRanges': [{'startDate': start, 'endDate': end}],
+        'metrics': [{'name': m} for m, _ in steps_metrics],
+    }
+    r = _post(url, headers=headers, json=body)
+    steps = []
+    conversion_rate = 0
+    if r.ok:
+        try:
+            vals = r.json()['rows'][0]['metricValues']
+            values = [int(float(v['value'])) for v in vals]
+            for i, (_, label) in enumerate(steps_metrics):
+                steps.append({'label': label, 'value': values[i]})
+            if values[0]:
+                conversion_rate = round(values[-1] / values[0] * 100, 2)
+        except Exception:
+            pass
+
+    return jsonify({'steps': steps, 'conversionRate': conversion_rate})
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Google Search Console
+# ─────────────────────────────────────────────────────────────────────────────
+
+@app.route('/gsc')
+def gsc():
+    start, end = _date_range()
+    # GSC requires at least 3 days lag; enforce minimum 28 day window for stable data
+    headers = _google_headers()
+    if not headers:
+        return jsonify({'error': 'Google non connecté'})
+
+    base_url = f'https://www.googleapis.com/webmasters/v3/sites/{requests.utils.quote(GSC_SITE, safe="")}/searchAnalytics/query'
+
+    def query(body):
+        r = _post(base_url, headers=headers, json=body)
+        return r.json() if r.ok else {}
+
+    # Main KPIs
+    main = query({
+        'startDate': start, 'endDate': end,
+        'rowLimit': 1,
+    })
+    totals = main.get('rows', [{}])[0]
+    clicks      = int(totals.get('clicks', 0))
+    impressions = int(totals.get('impressions', 0))
+    ctr         = round(totals.get('ctr', 0) * 100, 2)
+    position    = round(totals.get('position', 0), 1)
+
+    # Previous period
+    days = (datetime.date.fromisoformat(end) - datetime.date.fromisoformat(start)).days
+    prev_end   = datetime.date.fromisoformat(start) - datetime.timedelta(days=1)
+    prev_start = prev_end - datetime.timedelta(days=days)
+    prev_data  = query({'startDate': prev_start.isoformat(), 'endDate': prev_end.isoformat(), 'rowLimit': 1})
+    prev_row   = prev_data.get('rows', [{}])[0]
+    prev = {
+        'clicks':      int(prev_row.get('clicks', 0)),
+        'impressions': int(prev_row.get('impressions', 0)),
+        'ctr':         round(prev_row.get('ctr', 0) * 100, 2),
+        'avgPosition': round(prev_row.get('position', 0), 1),
+    }
+    deltas = {
+        'clicks':      _delta(clicks,      prev['clicks']),
+        'impressions': _delta(impressions, prev['impressions']),
+        'ctr':         _delta(ctr,         prev['ctr']),
+        'avgPosition': _delta(position,    prev['avgPosition']),
+    }
+
+    # Top queries
+    q_data = query({
+        'startDate': start, 'endDate': end,
+        'dimensions': ['query'],
+        'rowLimit': 25,
+        'orderBy': [{'fieldName': 'clicks', 'sortOrder': 'DESCENDING'}],
+    })
+    top_queries = []
+    for row in q_data.get('rows', []):
+        top_queries.append({
+            'query':       row['keys'][0],
+            'clicks':      int(row.get('clicks', 0)),
+            'impressions': int(row.get('impressions', 0)),
+            'ctr':         round(row.get('ctr', 0) * 100, 2),
+            'position':    round(row.get('position', 0), 1),
+            'evolution':   None,
+        })
+
+    # Top pages
+    p_data = query({
+        'startDate': start, 'endDate': end,
+        'dimensions': ['page'],
+        'rowLimit': 25,
+        'orderBy': [{'fieldName': 'clicks', 'sortOrder': 'DESCENDING'}],
+    })
+    top_pages = []
+    for row in p_data.get('rows', []):
+        top_pages.append({
+            'page':        row['keys'][0],
+            'clicks':      int(row.get('clicks', 0)),
+            'impressions': int(row.get('impressions', 0)),
+            'ctr':         round(row.get('ctr', 0) * 100, 2),
+            'position':    round(row.get('position', 0), 1),
+        })
+
+    # Trend (daily clicks over period)
+    trend_data = query({
+        'startDate': start, 'endDate': end,
+        'dimensions': ['date'],
+        'rowLimit': 500,
+        'orderBy': [{'fieldName': 'date', 'sortOrder': 'ASCENDING'}],
+    })
+    trend = [
+        {'date': row['keys'][0], 'clicks': int(row.get('clicks', 0))}
+        for row in trend_data.get('rows', [])
+    ]
+
+    # Opportunities: high impressions, low CTR, position 4-20
+    opportunities = [
+        {
+            'page':        p['page'],
+            'impressions': p['impressions'],
+            'ctr':         p['ctr'],
+            'position':    p['position'],
+            'potential':   int(p['impressions'] * 0.05),  # est. clicks at 5% CTR
+        }
+        for p in top_pages
+        if p['impressions'] > 500 and p['ctr'] < 3 and 4 <= p['position'] <= 20
+    ]
+
+    return jsonify({
+        'clicks':      clicks,
+        'impressions': impressions,
+        'ctr':         ctr,
+        'avgPosition': position,
+        'prev':        prev,
+        'deltas':      deltas,
+        'topQueries':  top_queries,
+        'topPages':    top_pages,
+        'trend':       trend,
+        'opportunities': opportunities,
+    })
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Facebook Ads
+# ─────────────────────────────────────────────────────────────────────────────
+
+@app.route('/fb')
+def fb_ads():
+    start, end = _date_range()
+    token = _fb_token()
+    if not token:
+        return jsonify({'error': 'Facebook non connecté — visiter /fb/auth'})
+
+    params = {
+        'access_token': token,
+        'time_range':   json.dumps({'since': start, 'until': end}),
+        'fields':       'spend,impressions,clicks,actions,ctr,cpc,cpm',
+        'level':        'account',
+    }
+    totals = {'spend': 0, 'impressions': 0, 'clicks': 0, 'ctr': 0, 'cpc': 0, 'cpm': 0, 'conversions': 0}
+    campaigns = []
+
+    for account_id in FB_ACCOUNTS:
+        # Account totals
+        r = _get(f'{FB_GRAPH}/{account_id}/insights', params=params)
+        if r.ok:
+            rows = r.json().get('data', [])
+            if rows:
+                d = rows[0]
+                totals['spend']       += float(d.get('spend', 0))
+                totals['impressions'] += int(d.get('impressions', 0))
+                totals['clicks']      += int(d.get('clicks', 0))
+                totals['ctr']          = float(d.get('ctr', 0))
+                totals['cpc']          = float(d.get('cpc', 0))
+                totals['cpm']          = float(d.get('cpm', 0))
+                for action in d.get('actions', []):
+                    if action.get('action_type') == 'purchase':
+                        totals['conversions'] += float(action.get('value', 0))
+
+        # Campaign level
+        cp = {**params, 'level': 'campaign', 'fields': 'campaign_name,spend,impressions,actions'}
+        rc = _get(f'{FB_GRAPH}/{account_id}/insights', params=cp)
+        if rc.ok:
+            for row in rc.json().get('data', []):
+                revenue = sum(float(a.get('value', 0)) for a in row.get('actions', []) if a.get('action_type') == 'purchase')
+                spend   = float(row.get('spend', 0))
+                campaigns.append({
+                    'name':        row.get('campaign_name', ''),
+                    'spend':       round(spend, 2),
+                    'impressions': int(row.get('impressions', 0)),
+                    'roas':        round(revenue / spend, 2) if spend else 0,
+                })
+
+    spend = round(totals['spend'], 2)
+    revenue = totals['conversions']
+    roas = round(revenue / spend, 2) if spend else 0
+
+    return jsonify({
+        'spend':       spend,
+        'impressions': totals['impressions'],
+        'clicks':      totals['clicks'],
+        'conversions': round(revenue, 2),
+        'ctr':         round(totals['ctr'], 2),
+        'cpc':         round(totals['cpc'], 2),
+        'cpm':         round(totals['cpm'], 2),
+        'roas':        roas,
+        'topCampaigns': sorted(campaigns, key=lambda x: x['spend'], reverse=True)[:10],
+    })
+
+
+@app.route('/fb/page')
+def fb_page():
+    start, end = _date_range()
+    token = _fb_token()
+    if not token:
+        return jsonify({'error': 'Facebook non connecté — visiter /fb/auth'})
+
+    pages_data = []
+    all_posts  = []
+    impressions_total  = 0
+    engaged_total      = 0
+    engagements_total  = 0
+
+    for page_name, page_id in FB_PAGES.items():
+        # Fan count
+        ri = _get(f'{FB_GRAPH}/{page_id}', params={'fields': 'fan_count,followers_count', 'access_token': token})
+        fans = 0
+        if ri.ok:
+            d = ri.json()
+            fans = d.get('fan_count') or d.get('followers_count', 0)
+
+        # Insights
+        rin = _get(f'{FB_GRAPH}/{page_id}/insights', params={
+            'metric':       'page_impressions,page_engaged_users,page_post_engagements',
+            'period':       'day',
+            'since':        start,
+            'until':        end,
+            'access_token': token,
+        })
+        if rin.ok:
+            for metric_data in rin.json().get('data', []):
+                total_val = sum(v.get('value', 0) for v in metric_data.get('values', []))
+                mn = metric_data.get('name', '')
+                if mn == 'page_impressions':
+                    impressions_total += total_val
+                elif mn == 'page_engaged_users':
+                    engaged_total += total_val
+                elif mn == 'page_post_engagements':
+                    engagements_total += total_val
+
+        pages_data.append({'name': page_name, 'id': page_id, 'fans': fans})
+
+        # Posts
+        rp = _get(f'{FB_GRAPH}/{page_id}/posts', params={
+            'fields':       'message,created_time,likes.summary(true),comments.summary(true)',
+            'since':        start,
+            'until':        end,
+            'access_token': token,
+            'limit':        25,
+        })
+        if rp.ok:
+            for post in rp.json().get('data', []):
+                likes   = post.get('likes',    {}).get('summary', {}).get('total_count', 0)
+                comments = post.get('comments', {}).get('summary', {}).get('total_count', 0)
+                all_posts.append({
+                    'page':       page_name,
+                    'message':    (post.get('message') or '')[:80],
+                    'likes':      likes,
+                    'comments':   comments,
+                    'engagement': likes + comments,
+                })
+
+    all_posts.sort(key=lambda x: x['engagement'], reverse=True)
+
+    return jsonify({
+        'pages':    pages_data,
+        'totals':   {
+            'impressions':       impressions_total,
+            'engaged_users':     engaged_total,
+            'post_engagements':  engagements_total,
+        },
+        'topPosts': all_posts[:10],
+        'ytd':      {},
+    })
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Brevo
+# ─────────────────────────────────────────────────────────────────────────────
+
+@app.route('/brevo')
+def brevo():
+    if not BREVO_API_KEY:
+        return jsonify({'error': 'BREVO_API_KEY manquante'})
+
+    headers = {'api-key': BREVO_API_KEY, 'Accept': 'application/json'}
+    BREVO_BASE = 'https://api.brevo.com/v3'
+
+    # Campaigns
+    rc = _get(f'{BREVO_BASE}/emailCampaigns', headers=headers, params={
+        'status': 'sent', 'limit': 50, 'offset': 0,
+        'sort': 'desc',
+    })
+    campaigns = []
+    if rc.ok:
+        for c in rc.json().get('campaigns', []):
+            campaigns.append({
+                'id':         c.get('id'),
+                'name':       c.get('name'),
+                'sentDate':   c.get('sentDate'),
+                'statistics': c.get('statistics', {}),
+            })
+
+    # Contact stats
+    rs = _get(f'{BREVO_BASE}/contacts/statistics', headers=headers)
+    contact_stats = {'total': 0, 'unsubscribed': 0, 'blocked': 0}
+    if rs.ok:
+        d = rs.json()
+        contact_stats = {
+            'total':       d.get('clickers', 0) + d.get('openers', 0) + d.get('hardBounces', 0) + d.get('softBounces', 0),
+            'unsubscribed': d.get('unsubscribed', 0),
+            'blocked':     d.get('hardBounces', 0),
+        }
+
+    # Also try contacts count
+    rct = _get(f'{BREVO_BASE}/contacts', headers=headers, params={'limit': 1})
+    if rct.ok:
+        contact_stats['total'] = rct.json().get('count', contact_stats['total'])
+
+    return jsonify({'campaigns': campaigns, 'contactStats': contact_stats})
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# YouTube
+# ─────────────────────────────────────────────────────────────────────────────
+
+@app.route('/youtube')
+def youtube():
+    start, end = _date_range()
+    headers = _google_headers()
+    if not headers:
+        return jsonify({'error': 'Google non connecté'})
+
+    YT_BASE = 'https://www.googleapis.com/youtube/v3'
+
+    # Channel stats
+    rc = _get(f'{YT_BASE}/channels', headers=headers, params={
+        'part': 'statistics', 'id': YT_CHANNEL_ID,
+    })
+    if not rc.ok:
+        return jsonify({'error': rc.text[:200]})
+
+    items = rc.json().get('items', [])
+    if not items:
+        return jsonify({'error': 'Canal YouTube introuvable'})
+
+    stats = items[0].get('statistics', {})
+    subscribers  = int(stats.get('subscriberCount', 0))
+    total_views  = int(stats.get('viewCount', 0))
+    video_count  = int(stats.get('videoCount', 0))
+
+    # Recent videos
+    rv = _get(f'{YT_BASE}/search', headers=headers, params={
+        'part':       'snippet',
+        'channelId':  YT_CHANNEL_ID,
+        'order':      'date',
+        'publishedAfter': start + 'T00:00:00Z',
+        'maxResults': 20,
+        'type':       'video',
+    })
+    videos = []
+    period_videos = 0
+    if rv.ok:
+        video_ids = [i['id']['videoId'] for i in rv.json().get('items', []) if i.get('id', {}).get('videoId')]
+        period_videos = len(video_ids)
+        if video_ids:
+            rs = _get(f'{YT_BASE}/videos', headers=headers, params={
+                'part': 'snippet,statistics',
+                'id':   ','.join(video_ids),
+            })
+            if rs.ok:
+                for item in rs.json().get('items', []):
+                    sn = item.get('snippet', {})
+                    st = item.get('statistics', {})
+                    videos.append({
+                        'title':    sn.get('title', ''),
+                        'date':     sn.get('publishedAt', '')[:10],
+                        'views':    int(st.get('viewCount', 0)),
+                        'likes':    int(st.get('likeCount', 0)),
+                        'comments': int(st.get('commentCount', 0)),
+                    })
+
+    return jsonify({
+        'subscribers':  subscribers,
+        'totalViews':   total_views,
+        'videoCount':   video_count,
+        'periodVideos': period_videos,
+        'topVideos':    sorted(videos, key=lambda x: x['views'], reverse=True),
+    })
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# LinkedIn
+# ─────────────────────────────────────────────────────────────────────────────
+
+@app.route('/linkedin')
+def linkedin():
+    start, end = _date_range()
+    token = _li_token()
+    cfg   = _li_config()
+    if not token:
+        return jsonify({'error': 'LinkedIn non connecté — visiter /linkedin/auth'})
+
+    headers    = {'Authorization': f'Bearer {token}', 'X-Restli-Protocol-Version': '2.0.0'}
+    org_id     = cfg.get('organization_id', '')
+    LI_API_URL = 'https://api.linkedin.com/v2'
+
+    if not org_id:
+        return jsonify({'error': 'LI_ORGANIZATION_ID manquant'})
+
+    # Follower count
+    rf = _get(f'{LI_API_URL}/organizationalEntityFollowerStatistics', headers=headers, params={
+        'q':                      'organizationalEntity',
+        'organizationalEntity':   f'urn:li:organization:{org_id}',
+    })
+    followers = 0
+    if rf.ok:
+        for el in rf.json().get('elements', []):
+            followers += el.get('totalFollowerCount', 0)
+            break
+
+    # Share statistics
+    start_dt = int(datetime.datetime.fromisoformat(start).timestamp() * 1000)
+    end_dt   = int(datetime.datetime.fromisoformat(end).timestamp() * 1000)
+
+    rs = _get(f'{LI_API_URL}/organizationalEntityShareStatistics', headers=headers, params={
+        'q':                      'organizationalEntity',
+        'organizationalEntity':   f'urn:li:organization:{org_id}',
+        'timeIntervals.timeGranularityType': 'DAY',
+        'timeIntervals.start':    start_dt,
+        'timeIntervals.end':      end_dt,
+    })
+    impressions  = 0
+    clicks       = 0
+    engagements  = 0
+    if rs.ok:
+        for el in rs.json().get('elements', []):
+            ts = el.get('totalShareStatistics', {})
+            impressions += ts.get('impressionCount', 0)
+            clicks      += ts.get('clickCount', 0)
+            engagements += ts.get('engagement', 0)
+
+    # Recent posts
+    rp = _get(f'{LI_API_URL}/shares', headers=headers, params={
+        'q':    'owners',
+        'owners': f'urn:li:organization:{org_id}',
+        'count': 20,
+    })
+    posts = []
+    if rp.ok:
+        for item in rp.json().get('elements', []):
+            text = ''
+            try:
+                text = item['text']['text'][:80]
+            except Exception:
+                pass
+            activity = item.get('activity', '')
+            # Get share stats for each post (simplified)
+            posts.append({
+                'text':        text,
+                'activity':    activity,
+                'impressions': 0,
+                'clicks':      0,
+                'reactions':   0,
+            })
+
+    return jsonify({
+        'followers':        followers,
+        'totalFollowers':   followers,
+        'impressions':      impressions,
+        'totalImpressions': impressions,
+        'clicks':           clicks,
+        'totalClicks':      clicks,
+        'engagements':      engagements,
+        'totalEngagements': engagements,
+        'topPosts':         posts[:10],
+        'recentPosts':      posts[:10],
+    })
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# AI Insights (Claude)
+# ─────────────────────────────────────────────────────────────────────────────
+
+def build_insights_prompt(data):
+    ga4   = data.get('ga4')   or {}
+    gsc   = data.get('gsc')   or {}
+    fb    = data.get('fb')    or {}
+    brevo = data.get('brevo') or {}
+    li    = data.get('li')    or {}
+    yt    = data.get('yt')    or {}
+
+    lines = [
+        "Tu es un analyste marketing senior pour ACL Luxembourg (Automobile Club de Luxembourg).",
+        "Analyse les KPIs marketing ci-dessous et génère des recommandations actionnables en français.",
+        "",
+        "## Données KPI",
+    ]
+
+    if ga4:
+        sess   = ga4.get('sessions', 'N/A')
+        deltas = ga4.get('deltas') or {}
+        d_sess = deltas.get('sessions')
+        lines.append(f"**GA4 acl.lu** : {sess} sessions "
+                     f"({'↑' if d_sess and d_sess > 0 else '↓'} {abs(d_sess or 0):.1f}% vs période préc.)")
+
+    if gsc:
+        clicks   = gsc.get('clicks', 'N/A')
+        ctr      = gsc.get('ctr', 'N/A')
+        position = gsc.get('avgPosition', 'N/A')
+        lines.append(f"**Search Console** : {clicks} clics, CTR {ctr}%, position moy. {position}")
+
+    if fb:
+        spend = fb.get('spend', 'N/A')
+        roas  = fb.get('roas', 'N/A')
+        ctr_fb = fb.get('ctr', 'N/A')
+        lines.append(f"**Meta Ads** : {spend} EUR dépensés, ROAS {roas}x, CTR {ctr_fb}%")
+
+    if brevo:
+        n_camps   = brevo.get('campaigns', 'N/A')
+        contacts  = (brevo.get('contactStats') or {}).get('total', 'N/A')
+        lines.append(f"**Brevo** : {n_camps} campagnes, {contacts} contacts")
+
+    if li:
+        followers = li.get('followers', 'N/A')
+        lines.append(f"**LinkedIn** : {followers} abonnés")
+
+    if yt:
+        subs   = yt.get('subscribers', 'N/A')
+        videos = yt.get('periodVideos', 'N/A')
+        lines.append(f"**YouTube** : {subs} abonnés, {videos} nouvelles vidéos sur la période")
+
+    lines += [
+        "",
+        "## Instructions",
+        "Réponds UNIQUEMENT avec un tableau JSON valide (pas de markdown, pas d'explication).",
+        "Génère 3 à 5 recommandations prioritaires.",
+        "Format exact :",
+        '[{"priority":"high|med|low","source":"GA4|Meta|GSC|Brevo|LinkedIn|YouTube","title":"titre court","insight":"observation factuelle","action":"action concrète à prendre"}]',
+    ]
+
+    return '\n'.join(lines)
+
+
+@app.route('/insights', methods=['POST'])
+def get_insights():
+    data = request.json or {}
+
+    if not ANTHROPIC_API_KEY:
+        return jsonify({'error': 'ANTHROPIC_API_KEY manquante'}), 503
+
+    prompt = build_insights_prompt(data)
+
+    try:
+        import anthropic
+        client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
+        msg = client.messages.create(
+            model='claude-haiku-4-5-20251001',
+            max_tokens=1024,
+            messages=[{'role': 'user', 'content': prompt}],
+        )
+        text = msg.content[0].text
+        # Extract JSON array from response
+        match = re.search(r'\[.*\]', text, re.DOTALL)
+        insights = json.loads(match.group()) if match else []
+        return jsonify({'insights': insights})
+    except Exception as e:
+        return jsonify({'error': str(e), 'insights': []}), 500
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Entrypoint
+# ─────────────────────────────────────────────────────────────────────────────
+
+if __name__ == '__main__':
+    port = int(os.environ.get('PORT', 5050))
+    debug = os.environ.get('FLASK_DEBUG', 'false').lower() == 'true'
+    app.run(host='0.0.0.0', port=port, debug=debug)
