@@ -938,6 +938,7 @@ def brevo():
     if not BREVO_API_KEY:
         return jsonify({'error': 'BREVO_API_KEY manquante'})
 
+    start, end = _date_range()
     headers = {'api-key': BREVO_API_KEY, 'Accept': 'application/json'}
     BREVO_BASE = 'https://api.brevo.com/v3'
 
@@ -945,6 +946,7 @@ def brevo():
     rc = _get(f'{BREVO_BASE}/emailCampaigns', headers=headers, params={
         'status': 'sent', 'limit': 50, 'offset': 0,
         'sort': 'desc', 'statistics': 'globalStats',
+        'startDate': str(start), 'endDate': str(end),
     })
     campaigns = []
     if rc.ok:
