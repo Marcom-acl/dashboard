@@ -1298,6 +1298,40 @@ def build_market_prompt(data):
     return '\n'.join(lines)
 
 
+def build_greeting_prompt(data):
+    ga4    = data.get('ga4')   or {}
+    gsc    = data.get('gsc')   or {}
+    fb     = data.get('fb')    or {}
+    brevo  = data.get('brevo') or {}
+    period = data.get('period', 30)
+
+    kpis = []
+    if ga4.get('sessions'):
+        delta = ga4.get('deltas', {}).get('sessions')
+        trend = f" ({'+' if delta and delta > 0 else ''}{delta:.1f}%)" if delta is not None else ''
+        kpis.append(f"Sessions acl.lu : {ga4['sessions']:,}{trend}")
+    if gsc.get('clicks'):
+        delta = gsc.get('deltas', {}).get('clicks')
+        trend = f" ({'+' if delta and delta > 0 else ''}{delta:.1f}%)" if delta is not None else ''
+        kpis.append(f"Clics SEO : {gsc['clicks']:,}{trend}")
+    if fb.get('roas'):
+        kpis.append(f"ROAS Meta : {fb['roas']:.2f}×")
+    if brevo.get('avgOpenRate'):
+        kpis.append(f"Taux d'ouverture email : {brevo['avgOpenRate']}%")
+
+    lines = [
+        f"Tu es un assistant marketing pour ACL Luxembourg. Voici les KPIs principaux sur {period} jours :",
+        '\n'.join(f"- {k}" for k in kpis) if kpis else "- Données partiellement disponibles",
+        "",
+        "Génère UNE phrase courte (15-25 mots max) en français qui résume l'état général de la performance.",
+        "Sois direct et positif quand c'est justifié, nuancé sinon.",
+        "Commence par un verbe d'action ou un adjectif. Pas de ponctuation finale.",
+        "Exemples : 'Bonne semaine côté SEO, les campagnes Meta marquent le pas' | 'Performance solide sur tous les canaux cette période'",
+        "Réponds uniquement avec la phrase, sans guillemets ni explication.",
+    ]
+    return '\n'.join(lines)
+
+
 @app.route('/insights', methods=['POST'])
 def get_insights():
     data = request.json or {}
@@ -1305,6 +1339,21 @@ def get_insights():
 
     if not ANTHROPIC_API_KEY:
         return jsonify({'error': 'ANTHROPIC_API_KEY manquante'}), 503
+
+    if mode == 'greeting':
+        prompt = build_greeting_prompt(data)
+        try:
+            import anthropic
+            client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
+            msg = client.messages.create(
+                model='claude-haiku-4-5-20251001',
+                max_tokens=80,
+                messages=[{'role': 'user', 'content': prompt}],
+            )
+            text = msg.content[0].text.strip().strip('"').strip("'")
+            return jsonify({'greeting': text})
+        except Exception as e:
+            return jsonify({'error': str(e)}), 500
 
     if mode == 'market':
         prompt = build_market_prompt(data)

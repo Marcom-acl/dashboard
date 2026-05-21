@@ -718,7 +718,7 @@
     .mission-panel{background:#0d0d0d;border:1px solid #222;border-radius:var(--r-lg);padding:20px 22px 22px;display:flex;flex-direction:column;gap:14px;}
     .mission-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
     .mission-title{font-family:'FaricyNew','Albert Sans',sans-serif;font-weight:700;font-style:italic;font-size:17px;color:#fff;letter-spacing:-0.02em;}
-    .mission-subtitle{font-size:12px;color:#777;margin-top:3px;}
+    .mission-subtitle{font-size:12px;color:#aaa;margin-top:3px;}
     .mission-header-right{display:flex;align-items:center;gap:10px;}
     .mission-period-badge{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:#1a1a1a;color:#888;border:1px solid #2a2a2a;padding:3px 10px;border-radius:99px;}
     .mission-collapse-btn{background:none;border:1px solid #333;border-radius:6px;width:26px;height:26px;display:grid;place-items:center;cursor:pointer;color:#777;transition:all 120ms;flex-shrink:0;}
@@ -728,13 +728,13 @@
     .obj-mc{background:#111;border:1px solid #1e1e1e;border-radius:10px;border-left:4px solid var(--obj-color,#555);padding:14px 16px 12px;display:flex;flex-direction:column;gap:7px;transition:background 120ms;}
     .obj-mc:hover{background:#161616;}
     .obj-mc-group{font-size:9px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--obj-color,#555);}
-    .obj-mc-label{font-size:12.5px;font-weight:600;color:#e0e0e0;line-height:1.3;}
+    .obj-mc-label{font-size:12.5px;font-weight:600;color:#e8e5de;line-height:1.3;}
     .obj-mc-vals{display:flex;align-items:baseline;gap:8px;}
     .obj-mc-current{font-family:'FaricyNew','Albert Sans',sans-serif;font-weight:700;font-style:italic;font-size:24px;color:#fff;letter-spacing:-0.02em;}
-    .obj-mc-target{font-size:11px;color:#555;}
-    .obj-mc-note{font-size:10px;color:#444;line-height:1.4;}
+    .obj-mc-target{font-size:12px;color:#999;}
+    .obj-mc-note{font-size:11px;color:#888;line-height:1.4;}
     .obj-mc-bar-wrap{display:flex;align-items:center;gap:8px;margin-top:2px;}
-    .obj-mc-track{flex:1;height:5px;background:#2a2a2a;border-radius:3px;overflow:hidden;}
+    .obj-mc-track{flex:1;height:5px;background:#404040;border-radius:3px;overflow:hidden;}
     .obj-mc-fill{height:100%;border-radius:3px;background:var(--obj-color,#555);transition:width .6s ease;}
     .obj-mc-pct{font-size:11px;font-weight:700;color:var(--obj-color,#555);width:32px;text-align:right;flex-shrink:0;}
 
@@ -759,17 +759,20 @@
     .rec.rec-hidden{display:none;}
 
     /* ─── ACTIONS PRIORITAIRES container ─────────────────── */
+    @keyframes spin{to{transform:rotate(360deg);}}
+    @keyframes ai-scan{0%{opacity:0;transform:translateX(-120%);}35%,65%{opacity:1;}100%{opacity:0;transform:translateX(220%);}}
+    @keyframes ai-pulse{0%,100%{opacity:.5;transform:scale(1);}50%{opacity:1;transform:scale(1.3);}}
     .ap-wrap{display:flex;flex-direction:column;gap:0;background:#0d0d0d;border:1px solid #1e1e1e;border-radius:var(--r-lg);overflow:hidden;}
-    .ap-head{padding:16px 20px 12px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #1a1a1a;}
+    .ap-head{position:relative;overflow:hidden;padding:16px 20px 12px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #1a1a1a;}
+    .ap-head::after{content:'';position:absolute;top:0;bottom:0;left:0;width:45%;background:linear-gradient(90deg,transparent,rgba(254,219,0,.07),transparent);animation:ai-scan 5s ease-in-out infinite;pointer-events:none;}
     .ap-title{font-family:'FaricyNew','Albert Sans',sans-serif;font-weight:700;font-style:italic;font-size:16px;color:#fff;display:flex;align-items:center;gap:8px;}
-    .ap-title-star{color:#FEDB00;font-style:normal;font-size:14px;}
+    .ap-title-star{color:#FEDB00;font-style:normal;font-size:14px;display:inline-block;animation:ai-pulse 2.5s ease-in-out infinite;}
     .ap-link{font-size:12px;font-weight:700;color:#FEDB00;background:none;border:none;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:4px;flex-shrink:0;}
     .ap-link:hover{text-decoration:underline;}
-    .ap-subtitle{font-size:11px;color:#555;padding:6px 20px 10px;border-bottom:1px solid #141414;}
+    .ap-subtitle{font-size:11px;color:#999;padding:6px 20px 10px;border-bottom:1px solid #141414;}
     .ap-body{padding:14px 16px 16px;display:flex;flex-direction:column;gap:10px;}
-    .ap-loading{padding:32px;text-align:center;color:#444;font-size:12px;}
+    .ap-loading{padding:32px;text-align:center;color:#999;font-size:12.5px;}
     .ap-loading .spin-star{font-size:18px;display:inline-block;animation:spin 1.2s linear infinite;margin-bottom:6px;}
-    @keyframes spin{to{transform:rotate(360deg);}}
 
     /* ─── CHANNEL DONUT ───────────────────────────────────── */
     .channel-donut-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);box-shadow:var(--shadow-1);padding:18px;display:flex;flex-direction:column;gap:12px;}
@@ -786,8 +789,8 @@
     .overview-bars-2 .bar-row{padding:5px 0;}
     @media(max-width:700px){.overview-bars-2{grid-template-columns:1fr;}}
 
-    /* ─── OVERVIEW MID GRID (donut + positions) ──────────── */
-    .ov-mid-grid{display:grid;grid-template-columns:260px 1fr;gap:14px;align-items:start;}
+    /* ─── OVERVIEW MID GRID (donut large + positions compact) */
+    .ov-mid-grid{display:grid;grid-template-columns:1fr 240px;gap:14px;align-items:start;}
     @media(max-width:900px){.ov-mid-grid{grid-template-columns:1fr;}}
 
     /* ─── OVERVIEW BOTTOM GRID (insights + benchmark) ────── */
@@ -816,13 +819,13 @@
     .btn-market:hover{background:#1a1a1a;}
     .btn-market.loading{animation:insightGlow 1.6s ease-in-out infinite;}
     .bench-body{display:flex;flex-direction:column;}
-    .bench-row{display:flex;align-items:center;padding:10px 16px;border-bottom:1px solid var(--border);gap:12px;}
+    .bench-row{display:flex;align-items:center;padding:12px 16px;border-bottom:1px solid var(--border);gap:12px;}
     .bench-row:last-child{border-bottom:none;}
-    .bench-canal{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;padding:2px 7px;border-radius:99px;flex-shrink:0;}
-    .bench-metric-wrap{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px;}
-    .bench-metric-name{font-size:12px;color:var(--muted);font-weight:500;}
-    .bench-metric-note{font-size:10.5px;color:var(--muted-2);line-height:1.4;margin-top:1px;}
-    .bench-val{font-family:'FaricyNew','Albert Sans',sans-serif;font-weight:700;font-style:italic;font-size:15px;min-width:52px;text-align:right;flex-shrink:0;}
+    .bench-canal{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;padding:2px 8px;border-radius:99px;flex-shrink:0;}
+    .bench-metric-wrap{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;}
+    .bench-metric-name{font-size:13.5px;color:var(--muted);font-weight:500;}
+    .bench-metric-note{font-size:11.5px;color:var(--muted-2);line-height:1.4;margin-top:2px;}
+    .bench-val{font-family:'FaricyNew','Albert Sans',sans-serif;font-weight:700;font-style:italic;font-size:17px;min-width:56px;text-align:right;flex-shrink:0;}
     .bench-ref{font-size:10.5px;color:var(--muted-2);min-width:65px;text-align:right;flex-shrink:0;}
     .bench-status{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;flex-shrink:0;font-size:12px;}
     .bench-ok{background:rgba(22,163,74,.12);color:#16A34A;}
@@ -848,10 +851,10 @@
     .gsc-pos-clics{font-size:11px;font-weight:700;color:var(--text);}
 
     /* ─── FONT SIZE IMPROVEMENTS ──────────────────────────── */
-    .rec-insight{font-size:12.5px;color:#777;line-height:1.6;}
+    .rec-insight{font-size:12.5px;color:#bbb;line-height:1.6;}
     .rec-action{margin-top:9px;font-size:12.5px;font-weight:700;color:#FEDB00;display:inline-flex;align-items:center;gap:4px;}
-    .rec-src{font-size:11px;font-weight:700;padding:2px 7px;border-radius:99px;background:#1e1e1e;color:#999;border:1px solid #2a2a2a;}
-    .ap-subtitle{font-size:12px;color:#666;padding:6px 20px 10px;border-bottom:1px solid #141414;}
+    .rec-src{font-size:11px;font-weight:700;padding:2px 7px;border-radius:99px;background:#252525;color:#bbb;border:1px solid #333;}
+    .ap-subtitle{font-size:12px;color:#999;padding:6px 20px 10px;border-bottom:1px solid #1e1e1e;}
     .bar-name{font-size:12.5px;color:var(--text);}
     .bar-val{font-size:12px;font-weight:700;}
     .tb-upd{font-size:11.5px;color:var(--muted-2);white-space:nowrap;}
@@ -975,6 +978,7 @@
       <p class="pw-sub">Accès réservé à l'équipe Communication ACL</p>
     </div>
     <div class="pw-form">
+      <input class="pw-input" id="pwEmail" type="email" placeholder="Email @acl.lu" autocomplete="email" />
       <input class="pw-input" id="pwInput" type="password" placeholder="Mot de passe" autocomplete="current-password" />
       <button class="pw-btn" id="pwSubmit">Accéder au dashboard</button>
     </div>
@@ -1104,11 +1108,6 @@
 
       <div class="tb-actions">
         <span class="tb-upd" id="lastUpd"></span>
-        <button class="btn-insights" id="btnInsights" title="Générer les recommandations IA">
-          <span class="btn-star">✦</span>
-          Insights IA
-          <span class="insights-badge"></span>
-        </button>
         <button class="icon-btn btn-theme" id="btnTheme" title="Mode sombre / clair">
           <svg class="icon-moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
           <svg class="icon-sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
@@ -1202,6 +1201,13 @@ const DEFAULT_API = 'https://dashboard-production-482e.up.railway.app';
 let API_BASE = localStorage.getItem('acl_api_base') || DEFAULT_API;
 let globalStart = null, globalEnd = null, globalDays = 30;
 let chartInstances = {};
+
+function getCurrentUserFirstName() {
+  try {
+    const s = JSON.parse(localStorage.getItem('acl_dash_session') || '{}');
+    return s.name ? s.name.split(' ')[0] : 'Vincent';
+  } catch(e) { return 'Vincent'; }
+}
 
 // ── Helpers ───────────────────────────────────────────────────
 function fmtN(n, dec=0) { return (n||0).toLocaleString('fr-BE', {maximumFractionDigits: dec}); }
@@ -1322,6 +1328,7 @@ async function loadAll() {
 
     window._lastDashData = {dGA4, dGSC, dFB, dBrevo, dLI, dYT};
     fetchInsights(window._lastDashData);
+    fetchGreeting(window._lastDashData);
 
     document.getElementById('lastUpd').textContent = 'Mis à jour : ' + new Date().toLocaleTimeString('fr-BE', {hour:'2-digit', minute:'2-digit'});
   } catch(e) {
@@ -1363,14 +1370,14 @@ function renderOverview({dGA4, dGSC, dFB, dFBP, dBrevo, dLI, dYT, dGA4T}) {
     <div class="hero">
       <div class="hero-greet">
         <div class="hero-eyebrow"><span class="live-dot"></span>Semaine ${getWeekNum()} · ${globalDays}j</div>
-        <h1 class="hero-title f-display">Bonjour <span class="hl-y">Vincent</span></h1>
+        <h1 class="hero-title f-display">Bonjour <span class="hl-y">${getCurrentUserFirstName()}</span></h1>
         <p class="hero-sub">Vue d'ensemble de tous les canaux marketing ACL Luxembourg.</p>
       </div>
       <div class="health">
         ${healthRing(score)}
         <div class="health-meta">
-          <span class="health-label-ring">Score Global — ${scoreLabel}</span>
-          <span class="health-val-ring">${scoreDesc}</span>
+          <span class="health-label-ring" id="heroGreeting">Analyse de votre performance…</span>
+          <span class="health-val-ring">${scoreLabel} — ${scoreDesc}</span>
           <span class="health-method">Sessions GA4 + Clics SEO + ROAS Meta → % canaux en hausse</span>
         </div>
       </div>
@@ -2245,12 +2252,9 @@ function renderLinkedIn(d) {
 
 // ── AI INSIGHTS ───────────────────────────────────────────────
 async function fetchInsights({dGA4, dGSC, dFB, dBrevo, dLI, dYT}) {
-  const el    = document.getElementById('insights-body');
-  const sub   = document.getElementById('apSubtitle');
-  const btnIa = document.getElementById('btnInsights');
+  const el  = document.getElementById('insights-body');
+  const sub = document.getElementById('apSubtitle');
   if (!el) return;
-
-  if (btnIa) { btnIa.classList.remove('loaded'); btnIa.classList.add('loading'); }
 
   try {
     const r = await fetch(`${API_BASE}/insights`, {
@@ -2271,8 +2275,7 @@ async function fetchInsights({dGA4, dGSC, dFB, dBrevo, dLI, dYT}) {
     const insights = data.insights || [];
 
     if (!insights.length) {
-      el.innerHTML = '<div class="ap-loading" style="color:#444">Aucune recommandation générée.</div>';
-      if (btnIa) btnIa.classList.remove('loading');
+      el.innerHTML = '<div class="ap-loading" style="color:#999">Aucune recommandation générée.</div>';
       return;
     }
 
@@ -2301,17 +2304,32 @@ async function fetchInsights({dGA4, dGSC, dFB, dBrevo, dLI, dYT}) {
         toutVoir.style.display = 'none';
       }
     }
-
-    if (btnIa) {
-      btnIa.classList.remove('loading');
-      btnIa.classList.add('loaded');
-      const badge = btnIa.querySelector('.insights-badge');
-      if (badge) badge.textContent = insights.length;
-    }
   } catch(e) {
-    el.innerHTML = '<div class="ap-loading" style="color:#444">Insights IA non disponibles — configurer ANTHROPIC_API_KEY sur Railway.</div>';
-    if (btnIa) btnIa.classList.remove('loading');
+    el.innerHTML = '<div class="ap-loading" style="color:#999">Insights IA non disponibles — configurer ANTHROPIC_API_KEY sur Railway.</div>';
   }
+}
+
+// ── AI GREETING ───────────────────────────────────────────────
+async function fetchGreeting({dGA4, dGSC, dFB, dBrevo}) {
+  const el = document.getElementById('heroGreeting');
+  if (!el) return;
+  try {
+    const r = await fetch(`${API_BASE}/insights`, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({
+        mode:  'greeting',
+        ga4:   dGA4   ? {sessions: dGA4.sessions, deltas: dGA4.deltas, period: globalDays} : null,
+        gsc:   dGSC   ? {clicks: dGSC.clicks, avgPosition: dGSC.avgPosition, deltas: dGSC.deltas} : null,
+        fb:    dFB    ? {spend: dFB.spend, roas: dFB.roas} : null,
+        brevo: dBrevo ? {avgOpenRate: dBrevo.avgOpenRate} : null,
+        period: globalDays,
+      }),
+      signal: AbortSignal.timeout(20000),
+    });
+    const data = await r.json();
+    if (data.greeting) el.textContent = data.greeting;
+  } catch(e) { /* silent — placeholder text stays */ }
 }
 
 // ── Utilities ─────────────────────────────────────────────────
@@ -2405,11 +2423,6 @@ function applyGlobalRange() {
   });
 })();
 
-// ── Insights IA button ────────────────────────────────────────
-document.getElementById('btnInsights')?.addEventListener('click', () => {
-  if (window._lastDashData) fetchInsights(window._lastDashData);
-});
-
 // ── Sidebar tab switching ─────────────────────────────────────
 document.querySelectorAll('.tab-btn').forEach(btn => {
   btn.addEventListener('click', () => {
@@ -2428,35 +2441,157 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
 // ── Refresh button ────────────────────────────────────────────
 document.getElementById('btnRefresh')?.addEventListener('click', loadAll);
 
-// ── Password protection ───────────────────────────────────────
+// ── Multi-user authentication ─────────────────────────────────
 (function() {
-  const PW      = 'acl2026';
-  const KEY     = 'acl_dash_auth';
+  const USERS_KEY   = 'acl_dash_users';
+  const SESSION_KEY = 'acl_dash_session';
+  // SHA-256("ACL.Marcom.2026") — mot de passe initial admin
+  const ADMIN_SEED = [{
+    name: 'Vincent Huwer', email: 'vhuwer@acl.lu', role: 'admin',
+    hash: 'c3ad607d59cebafcfd19ca4da43b4d7ceda52350bae6f733899c49b8c3437b51'
+  }];
+
+  function getUsers() {
+    try { return JSON.parse(localStorage.getItem(USERS_KEY)) || ADMIN_SEED; }
+    catch(e) { return ADMIN_SEED; }
+  }
+  function saveUsers(u) { localStorage.setItem(USERS_KEY, JSON.stringify(u)); }
+
+  async function sha256(str) {
+    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+  }
+
   const overlay = document.getElementById('pwOverlay');
-  const input   = document.getElementById('pwInput');
-  const btn     = document.getElementById('pwSubmit');
-  const err     = document.getElementById('pwError');
+  const emailEl = document.getElementById('pwEmail');
+  const inputEl = document.getElementById('pwInput');
+  const btnEl   = document.getElementById('pwSubmit');
+  const errEl   = document.getElementById('pwError');
 
-  if (localStorage.getItem(KEY) === '1') {
-    overlay.classList.remove('active');
+  // Restore session
+  const sess = localStorage.getItem(SESSION_KEY);
+  if (sess) {
+    try { if (JSON.parse(sess).email) overlay.classList.remove('active'); }
+    catch(e) {}
   } else {
-    setTimeout(() => input && input.focus(), 100);
+    setTimeout(() => emailEl && emailEl.focus(), 100);
   }
 
-  function tryAuth() {
-    if ((input.value || '').trim() === PW) {
-      localStorage.setItem(KEY, '1');
-      overlay.classList.remove('active');
-    } else {
-      err.textContent = 'Mot de passe incorrect';
-      input.value = '';
-      setTimeout(() => { err.textContent = ''; }, 2500);
-      input.focus();
+  function showAuthErr(msg) {
+    if (!errEl) return;
+    errEl.textContent = msg;
+    setTimeout(() => { if (errEl) errEl.textContent = ''; }, 2800);
+  }
+
+  async function tryAuth() {
+    const email = (emailEl?.value || '').trim().toLowerCase();
+    const pw    = (inputEl?.value  || '').trim();
+    if (!email || !pw) { showAuthErr('Remplissez votre email et mot de passe.'); return; }
+    const users = getUsers();
+    const user  = users.find(u => u.email.toLowerCase() === email);
+    if (!user) { showAuthErr('Email non reconnu.'); return; }
+    const hash = await sha256(pw);
+    if (hash !== user.hash) {
+      showAuthErr('Mot de passe incorrect.');
+      inputEl.value = '';
+      inputEl.focus();
+      return;
     }
+    localStorage.setItem(SESSION_KEY, JSON.stringify({email: user.email, name: user.name, role: user.role}));
+    overlay.classList.remove('active');
+    // Mise à jour du prénom dans le hero (si déjà rendu)
+    document.querySelectorAll('.hero-title .hl-y').forEach(el => {
+      el.textContent = user.name.split(' ')[0];
+    });
   }
 
-  btn && btn.addEventListener('click', tryAuth);
-  input && input.addEventListener('keydown', e => { if (e.key === 'Enter') tryAuth(); });
+  btnEl?.addEventListener('click', tryAuth);
+  inputEl?.addEventListener('keydown', e => { if (e.key === 'Enter') tryAuth(); });
+  emailEl?.addEventListener('keydown', e => { if (e.key === 'Enter') inputEl?.focus(); });
+
+  // ── Panel admin dans le cfg drawer ────────────────────────────
+  function renderUserPanel() {
+    document.getElementById('userMgmtSection')?.remove();
+    document.getElementById('logoutSection')?.remove();
+    const sessData = JSON.parse(localStorage.getItem(SESSION_KEY) || 'null');
+    if (!sessData) return;
+    const cfgBody = document.querySelector('.cfg-body');
+    if (!cfgBody) return;
+
+    // Déconnexion (tous les utilisateurs)
+    const logoutSec = document.createElement('div');
+    logoutSec.id = 'logoutSection';
+    logoutSec.innerHTML = `<div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border);">
+      <div style="font-size:11px;color:var(--muted);margin-bottom:6px;">Connecté en tant que <strong>${sessData.name}</strong></div>
+      <button id="logoutBtn" class="cfg-save" style="background:#1a1a1a;color:#e0ddd6;border:1px solid #2a2a2a;">Se déconnecter</button>
+    </div>`;
+    cfgBody.appendChild(logoutSec);
+    document.getElementById('logoutBtn')?.addEventListener('click', () => {
+      localStorage.removeItem(SESSION_KEY);
+      location.reload();
+    });
+
+    // Gestion utilisateurs (admin uniquement)
+    if (sessData.role !== 'admin') return;
+    const users = getUsers();
+    const section = document.createElement('div');
+    section.id = 'userMgmtSection';
+    section.innerHTML = `<div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border);">
+      <div class="cfg-label">Utilisateurs du dashboard</div>
+      <div class="cfg-sub" style="margin-bottom:10px;">Admin · Réservé à l'équipe Communication @acl.lu</div>
+      <div id="userList" style="display:flex;flex-direction:column;gap:6px;">
+        ${users.map(u => `<div style="display:flex;align-items:center;justify-content:space-between;background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:8px 10px;">
+          <div>
+            <div style="font-size:12px;font-weight:700;color:var(--text);">${u.name}${u.role==='admin'?' <span style="background:var(--y);color:#000;font-size:9px;padding:1px 5px;border-radius:99px;font-weight:800;vertical-align:middle;">ADMIN</span>':''}</div>
+            <div style="font-size:11px;color:var(--muted);">${u.email}</div>
+          </div>
+          ${u.role!=='admin'?`<button data-rmuser="${u.email}" style="border:none;background:none;color:var(--bad);cursor:pointer;font-size:11px;font-weight:700;padding:4px 6px;">✕</button>`:''}
+        </div>`).join('')}
+      </div>
+      <div style="margin-top:12px;display:flex;flex-direction:column;gap:6px;">
+        <div class="cfg-label" style="margin-top:2px;">Ajouter un utilisateur</div>
+        <input class="cfg-input" id="newUserName"  placeholder="Prénom Nom" />
+        <input class="cfg-input" id="newUserEmail" placeholder="prenom.nom@acl.lu" type="email" />
+        <input class="cfg-input" id="newUserPw"    placeholder="Mot de passe initial" type="password" />
+        <button class="cfg-save" id="addUserBtn" style="margin-top:2px;">Ajouter</button>
+      </div>
+    </div>`;
+    cfgBody.appendChild(section);
+
+    section.querySelectorAll('[data-rmuser]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const email = btn.dataset.rmuser;
+        if (!confirm(`Retirer ${email} du dashboard ?`)) return;
+        const updated = getUsers().filter(u => u.email.toLowerCase() !== email.toLowerCase());
+        saveUsers(updated);
+        renderUserPanel();
+        showToast(`${email} retiré.`);
+      });
+    });
+
+    document.getElementById('addUserBtn')?.addEventListener('click', async () => {
+      const name  = document.getElementById('newUserName')?.value.trim();
+      const email = document.getElementById('newUserEmail')?.value.trim().toLowerCase();
+      const pw    = document.getElementById('newUserPw')?.value.trim();
+      if (!name || !email || !pw) { showToast('Remplir tous les champs.', 'error'); return; }
+      if (!email.endsWith('@acl.lu')) { showToast('Email doit se terminer par @acl.lu', 'error'); return; }
+      const cur = getUsers();
+      if (cur.find(u => u.email.toLowerCase() === email)) { showToast('Cet email existe déjà.', 'error'); return; }
+      const hash = await sha256(pw);
+      cur.push({name, email, role:'user', hash});
+      saveUsers(cur);
+      showToast(`${name} ajouté(e) avec succès.`);
+      renderUserPanel();
+    });
+  }
+
+  // Ouvrir le panel quand le drawer s'ouvre
+  const drawer = document.getElementById('cfgDrawer');
+  if (drawer) {
+    new MutationObserver(() => {
+      if (drawer.classList.contains('open')) renderUserPanel();
+    }).observe(drawer, {attributes: true, attributeFilter: ['class']});
+  }
 })();
 
 // ── Boot ──────────────────────────────────────────────────────
