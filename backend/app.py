@@ -24,7 +24,7 @@ else:
 # ── App setup ────────────────────────────────────────────────────────────────
 app = Flask(__name__)
 app.secret_key = os.environ.get('FLASK_SECRET', os.urandom(32))
-CORS(app, origins=[os.environ.get('FRONTEND_URL', '*')], supports_credentials=True)
+CORS(app, origins='*')
 
 # ── Constants ────────────────────────────────────────────────────────────────
 GA4_PROPERTY              = '267556854'
