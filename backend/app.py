@@ -1148,10 +1148,14 @@ def brevo_club():
                 )
 
     def fetch_email_detail(uuid):
-        r = _get(f'{BREVO_BASE}/smtp/email/{uuid}', headers=headers)
-        if not r.ok:
+        try:
+            r = _get(f'{BREVO_BASE}/smtp/email/{uuid}', headers=headers,
+                     timeout=8)
+            if not r.ok:
+                return uuid, []
+            return uuid, r.json().get('events', [])
+        except Exception:
             return uuid, []
-        return uuid, r.json().get('events', [])
 
     uuid_events = {}
     with concurrent.futures.ThreadPoolExecutor(max_workers=20) as ex:
@@ -1160,7 +1164,7 @@ def brevo_club():
 
     # Collect all unique event names for debug
     all_event_names = {ev.get('name', '') for evts in uuid_events.values() for ev in evts}
-    OPEN_EVENT_NAMES = {'opened', 'open', 'opens', 'uniqueOpens', 'firstOpen'}
+    OPEN_EVENT_NAMES = {'unique_opened', 'opened'}
 
     # 4. Aggregate
     offers_data   = {}
@@ -1239,6 +1243,7 @@ def brevo_club():
             'activeTemplates': len(active_tids),
             'uuidsFetched':    len(uuid_events),
             'allEventNames':   sorted(all_event_names),
+            'failedUuids':     sum(1 for evts in uuid_events.values() if evts == []),
         },
     })
 
