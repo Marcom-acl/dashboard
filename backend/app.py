@@ -1071,7 +1071,7 @@ def brevo_club():
     offset = 0
     while True:
         rc = _get(f'{BREVO_BASE}/smtp/templates', headers=headers,
-                  params={'templateStatus': 'true', 'limit': 50, 'offset': offset})
+                  params={'limit': 50, 'offset': offset})
         if not rc.ok:
             break
         batch = rc.json().get('templates', [])
@@ -1141,9 +1141,11 @@ def brevo_club():
     leads_ytd_g    = set()
     leads_month_g  = set()
 
+    CLICK_EVENT_NAMES = {'clicks', 'click', 'clicked', 'uniqueClicks'}
+
     total_emails_fetched = sum(len(v) for v in template_emails.values())
-    sample_email = None
-    emails_with_events = 0
+    all_event_names      = set()
+    sample_email_keys    = None
 
     for tid, emails in template_emails.items():
         offer = tid_to_offer[tid]
@@ -1155,10 +1157,10 @@ def brevo_club():
         od = offers_data[offer]
 
         for e in emails:
-            if sample_email is None:
-                sample_email = e
-            if e.get('events'):
-                emails_with_events += 1
+            if sample_email_keys is None:
+                sample_email_keys = list(e.keys())
+            for ev in e.get('events', []):
+                all_event_names.add(ev.get('name', ''))
 
             email = (e.get('email') or '').lower().strip()
             if not email or is_excluded(email):
@@ -1166,7 +1168,7 @@ def brevo_club():
 
             date     = (e.get('date') or '')[:7]
             is_month = date == current_month
-            clicked  = any(ev.get('name') == 'clicks'
+            clicked  = any(ev.get('name', '').lower() in CLICK_EVENT_NAMES
                            for ev in e.get('events', []))
 
             reach_ytd_g.add(email)
@@ -1213,8 +1215,8 @@ def brevo_club():
             'dateRange':          f'{ytd_start} to {today}',
             'chunksCount':        len(chunks),
             'totalEmailsFetched': total_emails_fetched,
-            'emailsWithEvents':   emails_with_events,
-            'sampleEmail':        sample_email,
+            'allEventNamesFound': sorted(all_event_names),
+            'sampleEmailKeys':    sample_email_keys,
         },
     })
 
