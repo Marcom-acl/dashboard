@@ -1094,6 +1094,8 @@ def brevo_club():
                     for tid in tids}
 
     # 2. Fetch emails per template ID in parallel
+    fetch_errors = {}
+
     def fetch_for_template(tid):
         results, off = [], 0
         while True:
@@ -1103,8 +1105,10 @@ def brevo_club():
                 'limit': 500, 'offset': off, 'sort': 'desc',
             })
             if not r.ok:
+                fetch_errors[tid] = r.text[:200]
                 break
-            batch = r.json().get('transactionalEmails', [])
+            data  = r.json()
+            batch = data.get('transactionalEmails', [])
             if not batch:
                 break
             results.extend(batch)
@@ -1117,6 +1121,14 @@ def brevo_club():
     with concurrent.futures.ThreadPoolExecutor(max_workers=10) as ex:
         for tid, emails in ex.map(fetch_for_template, all_tids):
             template_emails[tid] = emails
+
+    # Debug: sample raw response for first template (no date filter)
+    sample_tid    = all_tids[0] if all_tids else None
+    sample_raw    = None
+    if sample_tid:
+        rs = _get(f'{BREVO_BASE}/smtp/emails', headers=headers,
+                  params={'templateId': sample_tid, 'limit': 5, 'sort': 'desc'})
+        sample_raw = rs.json() if rs.ok else rs.text[:300]
 
     # 3. Aggregate — sets deduplicate automatically
     offers_data    = {}
@@ -1182,6 +1194,14 @@ def brevo_club():
             'Adresses @acl.lu, @epic.net et adresses de test exclues. '
             'Déduplication exacte par email (membres uniques par offre).'
         ),
+        '_debug': {
+            'templateCount':  len(all_tids),
+            'offerCount':     len(templates_by_offer),
+            'dateRange':      f'{ytd_start} → {today}',
+            'sampleTemplateId': sample_tid,
+            'sampleRawResponse': sample_raw,
+            'fetchErrors':    fetch_errors,
+        },
     })
 
 
