@@ -1093,22 +1093,32 @@ def brevo_club():
                     for offer, tids in templates_by_offer.items()
                     for tid in tids}
 
-    # 2. Fetch emails per template ID in parallel
-    fetch_errors = {}
+    # Brevo limits /smtp/emails to 30 days per query — split into 28-day chunks
+    def date_chunks(start_str, end_str, chunk=28):
+        s = datetime.datetime.strptime(start_str, '%Y-%m-%d').date()
+        e = datetime.datetime.strptime(end_str,   '%Y-%m-%d').date()
+        out = []
+        cur = s
+        while cur <= e:
+            out.append((str(cur), str(min(cur + datetime.timedelta(days=chunk - 1), e))))
+            cur += datetime.timedelta(days=chunk)
+        return out
 
-    def fetch_for_template(tid):
+    chunks = date_chunks(ytd_start, today)
+
+    # 2. Fetch emails per (template, chunk) in parallel
+    def fetch_chunk(args):
+        tid, cs, ce = args
         results, off = [], 0
         while True:
             r = _get(f'{BREVO_BASE}/smtp/emails', headers=headers, params={
                 'templateId': tid,
-                'startDate': ytd_start, 'endDate': today,
+                'startDate': cs, 'endDate': ce,
                 'limit': 500, 'offset': off, 'sort': 'desc',
             })
             if not r.ok:
-                fetch_errors[tid] = r.text[:200]
                 break
-            data  = r.json()
-            batch = data.get('transactionalEmails', [])
+            batch = r.json().get('transactionalEmails', [])
             if not batch:
                 break
             results.extend(batch)
@@ -1117,18 +1127,12 @@ def brevo_club():
             off += 500
         return tid, results
 
-    template_emails = {}
-    with concurrent.futures.ThreadPoolExecutor(max_workers=10) as ex:
-        for tid, emails in ex.map(fetch_for_template, all_tids):
-            template_emails[tid] = emails
+    tasks = [(tid, cs, ce) for tid in all_tids for cs, ce in chunks]
 
-    # Debug: sample raw response for first template (no date filter)
-    sample_tid    = all_tids[0] if all_tids else None
-    sample_raw    = None
-    if sample_tid:
-        rs = _get(f'{BREVO_BASE}/smtp/emails', headers=headers,
-                  params={'templateId': sample_tid, 'limit': 5, 'sort': 'desc'})
-        sample_raw = rs.json() if rs.ok else rs.text[:300]
+    template_emails = {tid: [] for tid in all_tids}
+    with concurrent.futures.ThreadPoolExecutor(max_workers=20) as ex:
+        for tid, emails in ex.map(fetch_chunk, tasks):
+            template_emails[tid].extend(emails)
 
     # 3. Aggregate — sets deduplicate automatically
     offers_data    = {}
