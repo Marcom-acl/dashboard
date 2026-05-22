@@ -1035,6 +1035,42 @@ def brevo():
 # Brevo — ACL Club
 # ─────────────────────────────────────────────────────────────────────────────
 
+@app.route('/brevo/club/debug-tags')
+def brevo_club_debug_tags():
+    """Retourne les tags existants dans les derniers emails transactionnels."""
+    if not BREVO_API_KEY:
+        return jsonify({'error': 'BREVO_API_KEY manquante'})
+    BREVO_BASE = 'https://api.brevo.com/v3'
+    headers    = {'api-key': BREVO_API_KEY, 'Accept': 'application/json'}
+    now        = datetime.datetime.utcnow()
+
+    # Fetch last 500 transactional emails, no filter
+    rc = _get(f'{BREVO_BASE}/smtp/emails', headers=headers, params={
+        'startDate': (now - datetime.timedelta(days=90)).strftime('%Y-%m-%d'),
+        'endDate':   now.strftime('%Y-%m-%d'),
+        'limit':     500,
+        'offset':    0,
+        'sort':      'desc',
+    })
+    if not rc.ok:
+        return jsonify({'error': rc.text})
+
+    emails   = rc.json().get('transactionalEmails', [])
+    all_tags = set()
+    samples  = []
+    for e in emails[:20]:
+        tags = e.get('tags') or []
+        for t in tags:
+            all_tags.add(str(t))
+        samples.append({'email': e.get('email','')[:4]+'***', 'subject': e.get('subject',''), 'tags': tags, 'date': (e.get('date') or '')[:10]})
+
+    return jsonify({
+        'totalFetched': len(emails),
+        'allTagsFound': sorted(all_tags),
+        'recentSamples': samples,
+    })
+
+
 @app.route('/brevo/club')
 def brevo_club():
     if not BREVO_API_KEY:
