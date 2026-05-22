@@ -1037,37 +1037,42 @@ def brevo():
 
 @app.route('/brevo/club/debug-tags')
 def brevo_club_debug_tags():
-    """Retourne les tags existants dans les derniers emails transactionnels."""
+    """Liste les templates transactionnels Brevo pour identifier celui des emails Club."""
     if not BREVO_API_KEY:
         return jsonify({'error': 'BREVO_API_KEY manquante'})
     BREVO_BASE = 'https://api.brevo.com/v3'
     headers    = {'api-key': BREVO_API_KEY, 'Accept': 'application/json'}
-    now        = datetime.datetime.utcnow()
 
-    # Fetch last 500 transactional emails, no filter
-    rc = _get(f'{BREVO_BASE}/smtp/emails', headers=headers, params={
-        'startDate': (now - datetime.timedelta(days=90)).strftime('%Y-%m-%d'),
-        'endDate':   now.strftime('%Y-%m-%d'),
-        'limit':     500,
-        'offset':    0,
-        'sort':      'desc',
-    })
-    if not rc.ok:
-        return jsonify({'error': rc.text})
-
-    emails   = rc.json().get('transactionalEmails', [])
-    all_tags = set()
-    samples  = []
-    for e in emails[:20]:
-        tags = e.get('tags') or []
-        for t in tags:
-            all_tags.add(str(t))
-        samples.append({'email': e.get('email','')[:4]+'***', 'subject': e.get('subject',''), 'tags': tags, 'date': (e.get('date') or '')[:10]})
+    templates = []
+    offset = 0
+    while True:
+        rc = _get(f'{BREVO_BASE}/smtp/templates', headers=headers, params={
+            'templateStatus': 'true', 'limit': 50, 'offset': offset,
+        })
+        if not rc.ok:
+            break
+        batch = rc.json().get('templates', [])
+        if not batch:
+            break
+        for t in batch:
+            templates.append({
+                'id':        t.get('id'),
+                'name':      t.get('name'),
+                'subject':   t.get('subject'),
+                'tag':       t.get('tag'),
+                'updatedAt': (t.get('modifiedAt') or '')[:10],
+            })
+        if len(batch) < 50:
+            break
+        offset += 50
 
     return jsonify({
-        'totalFetched': len(emails),
-        'allTagsFound': sorted(all_tags),
-        'recentSamples': samples,
+        'totalTemplates': len(templates),
+        'templates': sorted(templates, key=lambda t: t['name'] or ''),
+        'instruction': (
+            'Identifiez le ou les templates utilisés pour les emails Club, '
+            'notez leur "id", et communiquez-les pour configurer le filtre.'
+        ),
     })
 
 
