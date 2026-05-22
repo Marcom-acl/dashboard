@@ -1041,7 +1041,7 @@ def brevo_club():
         return jsonify({'error': 'BREVO_API_KEY manquante'})
 
     BREVO_BASE = 'https://api.brevo.com/v3'
-    CLUB_TAG   = 'acl club'
+    CLUB_TAG   = 'club-member'
     headers    = {'api-key': BREVO_API_KEY, 'Accept': 'application/json'}
 
     now           = datetime.datetime.utcnow()
