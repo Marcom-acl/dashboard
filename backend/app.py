@@ -1042,110 +1042,163 @@ def brevo_club():
     if not BREVO_API_KEY:
         return jsonify({'error': 'BREVO_API_KEY manquante'})
 
-    BREVO_BASE = 'https://api.brevo.com/v3'
-    headers    = {'api-key': BREVO_API_KEY, 'Accept': 'application/json'}
+    BREVO_BASE       = 'https://api.brevo.com/v3'
+    EXCLUDED_DOMAINS = {'acl.lu', 'epic.net'}
+    EXCLUDED_EMAILS  = {'pierreyvesmeert@gmail.com', 'conrardykim@gmail.com'}
+    headers          = {'api-key': BREVO_API_KEY, 'Accept': 'application/json'}
 
     now           = datetime.datetime.utcnow()
     current_month = now.strftime('%Y-%m')
     current_year  = now.strftime('%Y')
     ytd_start     = f'{current_year}-01-01'
+    today         = now.strftime('%Y-%m-%d')
 
-    # 1. Fetch all sent marketing campaigns from this year
-    all_campaigns  = []
-    club_campaigns = []
+    def is_excluded(email):
+        e = email.lower().strip()
+        return e.split('@')[-1] in EXCLUDED_DOMAINS or e in EXCLUDED_EMAILS
+
+    def offer_from_name(tpl_name):
+        n = re.sub(r'^CLUB_', '', tpl_name, flags=re.IGNORECASE)
+        n = re.sub(r'_(?:Membre|Partner).*$', '', n, flags=re.IGNORECASE)
+        for m in ('janvier','fevrier','mars','avril','mai','juin',
+                  'juillet','aout','septembre','octobre','novembre','decembre'):
+            n = re.sub(rf'_{m}$', '', n, flags=re.IGNORECASE)
+        return n.strip('_ ') or tpl_name
+
+    # 1. Discover all templates (id → offer name)
+    tid_to_offer = {}
     offset = 0
     while True:
-        r = _get(f'{BREVO_BASE}/emailCampaigns', headers=headers,
-                 params={'status': 'sent', 'limit': 50, 'offset': offset,
-                         'excludeHtmlContent': 'true', 'startDate': ytd_start})
-        if not r.ok:
+        rc = _get(f'{BREVO_BASE}/smtp/templates', headers=headers,
+                  params={'limit': 50, 'offset': offset})
+        if not rc.ok:
             break
-        batch = r.json().get('campaigns', [])
+        batch = rc.json().get('templates', [])
         if not batch:
             break
-        for c in batch:
-            name = c.get('name', '')
-            all_campaigns.append(name)
-            if re.search(r'club', name, re.IGNORECASE):
-                club_campaigns.append(c)
+        for t in batch:
+            tid_to_offer[t['id']] = offer_from_name(t.get('name', ''))
         if len(batch) < 50:
             break
         offset += 50
 
-    # 2. Aggregate by offer
-    seen        = set()   # (subject, sent_month) — dedup accidental re-sends
-    offers_data = {}
-    leads_month = leads_ytd = reach_month = reach_ytd = 0
+    # 2. Date chunks — /smtp/statistics/events max 30 days per query
+    def date_chunks(start_str, end_str, chunk=28):
+        s = datetime.datetime.strptime(start_str, '%Y-%m-%d').date()
+        e = datetime.datetime.strptime(end_str,   '%Y-%m-%d').date()
+        out = []
+        cur = s
+        while cur <= e:
+            out.append((str(cur), str(min(cur + datetime.timedelta(days=chunk - 1), e))))
+            cur += datetime.timedelta(days=chunk)
+        return out
 
-    for c in club_campaigns:
-        sent = (c.get('sentDate') or '')[:7]          # YYYY-MM
-        if not sent or sent[:4] != current_year:
+    chunks = date_chunks(ytd_start, today)
+
+    # 3. Fetch from /smtp/statistics/events by tag + event type
+    def fetch_events(event_type, cs, ce):
+        results, off = [], 0
+        while True:
+            r = _get(f'{BREVO_BASE}/smtp/statistics/events', headers=headers, params={
+                'tags':      'club-member',
+                'event':     event_type,
+                'startDate': cs, 'endDate': ce,
+                'limit':     100, 'offset': off,
+            })
+            if not r.ok:
+                break
+            batch = r.json().get('events', [])
+            if not batch:
+                break
+            results.extend(batch)
+            if len(batch) < 100:
+                break
+            off += 100
+        return results
+
+    def fetch_delivered(c): return fetch_events('delivered', *c)
+    def fetch_clicks(c):    return fetch_events('clicks',    *c)
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=12) as ex:
+        reach_futs  = [ex.submit(fetch_delivered, c) for c in chunks]
+        clicks_futs = [ex.submit(fetch_clicks, c)    for c in chunks]
+
+    all_reach  = [e for f in reach_futs  for e in f.result()]
+    all_clicks = [e for f in clicks_futs for e in f.result()]
+
+    # 4. Aggregate — sets deduplicate per offer
+    offers_data   = {}
+    reach_ytd_g   = set()
+    reach_month_g = set()
+    leads_ytd_g   = set()
+    leads_month_g = set()
+
+    def get_offer(ev):
+        tid = ev.get('templateId')
+        return tid_to_offer.get(tid, f'offre-{tid}') if tid else 'Offre inconnue'
+
+    for e in all_reach:
+        email = (e.get('email') or '').lower().strip()
+        if not email or is_excluded(email):
             continue
-
-        subj      = c.get('subject', '')
-        dedup_key = (subj, sent)
-        if dedup_key in seen:
-            continue
-        seen.add(dedup_key)
-
-        stats     = (c.get('statistics') or {}).get('globalStats') or {}
-        delivered = int(stats.get('delivered') or 0)
-        clicks    = int(stats.get('uniqueClicks') or 0)
-
-        # Derive offer name from campaign name: "Club Orange Avril 2026" → "Orange"
-        raw_name = c.get('name', '')
-        offer    = re.sub(r'(?i)^club\s*[-_]?\s*', '', raw_name)
-        offer    = re.sub(r'(?i)\s*[-_]?\s*(janvier|février|fevrier|mars|avril|mai|juin|'
-                          r'juillet|août|aout|septembre|octobre|novembre|décembre|decembre)'
-                          r'[\s_\-]*\d{0,4}.*$', '', offer)
-        offer    = offer.strip(' _-') or raw_name
-
+        date     = (e.get('date') or '')[:7]
+        is_month = date == current_month
+        offer    = get_offer(e)
         if offer not in offers_data:
-            offers_data[offer] = {'delivered_ytd': 0, 'delivered_month': 0,
-                                  'clicks_ytd': 0,    'clicks_month': 0}
+            offers_data[offer] = {'reach_ytd': set(), 'reach_month': set(),
+                                  'leads_ytd': set(), 'leads_month': set()}
         od = offers_data[offer]
-        od['delivered_ytd'] += delivered
-        od['clicks_ytd']    += clicks
-        reach_ytd  += delivered
-        leads_ytd  += clicks
+        reach_ytd_g.add(email);  od['reach_ytd'].add(email)
+        if is_month:
+            reach_month_g.add(email); od['reach_month'].add(email)
 
-        if sent == current_month:
-            od['delivered_month'] += delivered
-            od['clicks_month']    += clicks
-            reach_month += delivered
-            leads_month += clicks
+    for e in all_clicks:
+        email = (e.get('email') or '').lower().strip()
+        if not email or is_excluded(email):
+            continue
+        date     = (e.get('date') or '')[:7]
+        is_month = date == current_month
+        offer    = get_offer(e)
+        if offer not in offers_data:
+            offers_data[offer] = {'reach_ytd': set(), 'reach_month': set(),
+                                  'leads_ytd': set(), 'leads_month': set()}
+        od = offers_data[offer]
+        leads_ytd_g.add(email);  od['leads_ytd'].add(email)
+        if is_month:
+            leads_month_g.add(email); od['leads_month'].add(email)
 
     offers_list = sorted([
         {
             'name':        offer,
-            'reachYtd':    d['delivered_ytd'],
-            'reachMonth':  d['delivered_month'],
-            'leadsYtd':    d['clicks_ytd'],
-            'leadsMonth':  d['clicks_month'],
-            'leadRateYtd': round(d['clicks_ytd'] / d['delivered_ytd'] * 100, 1)
-                           if d['delivered_ytd'] else 0,
+            'reachYtd':    len(d['reach_ytd']),
+            'reachMonth':  len(d['reach_month']),
+            'leadsYtd':    len(d['leads_ytd']),
+            'leadsMonth':  len(d['leads_month']),
+            'leadRateYtd': round(len(d['leads_ytd']) / len(d['reach_ytd']) * 100, 1)
+                           if d['reach_ytd'] else 0,
         }
         for offer, d in offers_data.items()
     ], key=lambda x: x['leadsYtd'], reverse=True)
 
     return jsonify({
         'offers':       offers_list,
-        'leadsMonth':   leads_month,
-        'leadsYtd':     leads_ytd,
-        'reachMonth':   reach_month,
-        'reachYtd':     reach_ytd,
+        'leadsMonth':   len(leads_month_g),
+        'leadsYtd':     len(leads_ytd_g),
+        'reachMonth':   len(reach_month_g),
+        'reachYtd':     len(reach_ytd_g),
         'currentMonth': current_month,
         'currentYear':  current_year,
         'note': (
-            'Source : campagnes marketing Brevo contenant "club" dans le nom. '
-            'Leads = clics uniques par campagne (proxy intérêt membre). '
-            'Déduplication par sujet+mois (évite les re-sends accidentels).'
+            'Source : emails transactionnels tagués "club-member" (Brevo). '
+            'Adresses @acl.lu, @epic.net et adresses de test exclues. '
+            'Déduplication exacte par email (membres uniques par offre).'
         ),
         '_debug': {
-            'totalCampaignsThisYear': len(all_campaigns),
-            'clubCampaignsFound':     len(club_campaigns),
-            'sampleAllNames':         all_campaigns[:40],
-            'clubCampaignNames':      [c.get('name') for c in club_campaigns],
+            'chunksCount':      len(chunks),
+            'totalDelivered':   len(all_reach),
+            'totalClicks':      len(all_clicks),
+            'sampleDeliveredKeys': list(all_reach[0].keys())  if all_reach  else None,
+            'sampleClickKeys':     list(all_clicks[0].keys()) if all_clicks else None,
         },
     })
 
