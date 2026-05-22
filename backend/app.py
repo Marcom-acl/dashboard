@@ -1141,6 +1141,10 @@ def brevo_club():
     leads_ytd_g    = set()
     leads_month_g  = set()
 
+    total_emails_fetched = sum(len(v) for v in template_emails.values())
+    sample_email = None
+    emails_with_events = 0
+
     for tid, emails in template_emails.items():
         offer = tid_to_offer[tid]
         if offer not in offers_data:
@@ -1151,6 +1155,11 @@ def brevo_club():
         od = offers_data[offer]
 
         for e in emails:
+            if sample_email is None:
+                sample_email = e
+            if e.get('events'):
+                emails_with_events += 1
+
             email = (e.get('email') or '').lower().strip()
             if not email or is_excluded(email):
                 continue
@@ -1198,6 +1207,15 @@ def brevo_club():
             'Adresses @acl.lu, @epic.net et adresses de test exclues. '
             'Déduplication exacte par email (membres uniques par offre).'
         ),
+        '_debug': {
+            'templateCount':      len(all_tids),
+            'offerCount':         len(templates_by_offer),
+            'dateRange':          f'{ytd_start} to {today}',
+            'chunksCount':        len(chunks),
+            'totalEmailsFetched': total_emails_fetched,
+            'emailsWithEvents':   emails_with_events,
+            'sampleEmail':        sample_email,
+        },
     })
 
 
