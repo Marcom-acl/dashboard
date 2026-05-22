@@ -1040,129 +1040,114 @@ def brevo_club():
     if not BREVO_API_KEY:
         return jsonify({'error': 'BREVO_API_KEY manquante'})
 
-    BREVO_BASE = 'https://api.brevo.com/v3'
-    CLUB_TAG   = 'club-member'
-    headers    = {'api-key': BREVO_API_KEY, 'Accept': 'application/json'}
+    BREVO_BASE       = 'https://api.brevo.com/v3'
+    CLUB_TAG         = 'Club-member'
+    EXCLUDED_DOMAINS = {'acl.lu', 'epic.net'}
+    EXCLUDED_EMAILS  = {'pierreyvesmeert@gmail.com', 'conrardykim@gmail.com'}
+    headers          = {'api-key': BREVO_API_KEY, 'Accept': 'application/json'}
 
     now           = datetime.datetime.utcnow()
     current_month = now.strftime('%Y-%m')
     current_year  = now.strftime('%Y')
+    ytd_start     = f'{current_year}-01-01'
+    today         = now.strftime('%Y-%m-%d')
 
-    # Paginate through all sent campaigns
-    all_campaigns = []
+    def _is_excluded(email):
+        email = email.lower().strip()
+        domain = email.split('@')[-1] if '@' in email else ''
+        return domain in EXCLUDED_DOMAINS or email in EXCLUDED_EMAILS
+
+    def _has_event(record, name):
+        return any(e.get('name') == name for e in record.get('events', []))
+
+    # Paginate transactional emails tagged Club-member for the current year
+    all_emails = []
     offset = 0
     while True:
-        rc = _get(f'{BREVO_BASE}/emailCampaigns', headers=headers, params={
-            'status': 'sent', 'limit': 100, 'offset': offset,
-            'sort': 'desc', 'statistics': 'globalStats',
+        rc = _get(f'{BREVO_BASE}/smtp/emails', headers=headers, params={
+            'tags':      CLUB_TAG,
+            'startDate': ytd_start,
+            'endDate':   today,
+            'limit':     500,
+            'offset':    offset,
+            'sort':      'desc',
         })
         if not rc.ok:
             break
-        batch = rc.json().get('campaigns', [])
+        batch = rc.json().get('transactionalEmails', [])
         if not batch:
             break
-        all_campaigns.extend(batch)
-        if len(batch) < 100:
+        all_emails.extend(batch)
+        if len(batch) < 500:
             break
-        offset += 100
+        offset += 500
 
-    # Collect all unique tags for debugging
-    all_tags = set()
-    for c in all_campaigns:
-        raw = c.get('tag') or ''
-        for t in raw.split(','):
-            t = t.strip()
-            if t:
-                all_tags.add(t)
-        for t in c.get('tags', []):
-            if t:
-                all_tags.add(str(t))
+    # Deduplication + exclusion + aggregation
+    seen_dedup   = set()    # (email, subject) — évite les multi-envois accidentels
+    unique_ytd   = set()    # adresses uniques YTD (portée)
+    unique_month = set()    # adresses uniques mois courant (portée)
+    leads_ytd    = set()    # adresses uniques ayant cliqué YTD
+    leads_month  = set()    # adresses uniques ayant cliqué ce mois
 
-    # Filter by "ACL Club" tag (case-insensitive)
-    def _has_club_tag(c):
-        tag = (c.get('tag') or '').lower()
-        tags = [t.lower() for t in c.get('tags', [])]
-        return CLUB_TAG in tag or CLUB_TAG in tags
+    # Par offre (sujet) : membres touchés + leads
+    offers = {}
 
-    club_campaigns = [c for c in all_campaigns if _has_club_tag(c)]
+    for e in all_emails:
+        email   = (e.get('email') or '').lower().strip()
+        subject = (e.get('subject') or '').strip()
+        date    = (e.get('date') or '')[:7]   # YYYY-MM
 
-    # Deduplicate on (subject, month) to avoid counting accidental re-sends
-    seen_month_keys = set()
-    seen_ytd_keys   = set()
+        if not email or _is_excluded(email):
+            continue
 
-    leads_month  = 0
-    leads_ytd    = 0
-    reach_month  = 0
-    reach_ytd    = 0
-    processed    = []
+        dedup_key = (email, subject)
+        if dedup_key in seen_dedup:
+            continue
+        seen_dedup.add(dedup_key)
 
-    for c in club_campaigns:
-        gs = c.get('statistics', {}).get('globalStats', {})
-        if 'uniqueOpens' not in gs and 'uniqueViews' in gs:
-            gs['uniqueOpens'] = gs['uniqueViews']
+        clicked = _has_event(e, 'clicks')
+        is_month = date == current_month
 
-        sent_date  = (c.get('sentDate') or '')[:10]
-        sent_month = sent_date[:7]   # YYYY-MM
-        sent_year  = sent_date[:4]   # YYYY
-        subject    = c.get('subject') or c.get('name') or ''
-        delivered  = gs.get('delivered', 0)
-        opens      = gs.get('uniqueOpens', 0)
-        clicks     = gs.get('uniqueClicks', 0)
-        unsubs     = gs.get('unsubscriptions', 0)
+        unique_ytd.add(email)
+        if is_month:
+            unique_month.add(email)
+        if clicked:
+            leads_ytd.add(email)
+            if is_month:
+                leads_month.add(email)
 
-        open_rate  = round(opens  / delivered * 100, 1) if delivered else 0
-        click_rate = round(clicks / delivered * 100, 1) if delivered else 0
-        ctor       = round(clicks / opens     * 100, 1) if opens     else 0
+        if subject not in offers:
+            offers[subject] = {'reach': set(), 'leads': set(), 'firstDate': date}
+        offers[subject]['reach'].add(email)
+        if clicked:
+            offers[subject]['leads'].add(email)
+        if date < offers[subject]['firstDate']:
+            offers[subject]['firstDate'] = date
 
-        processed.append({
-            'id':        c.get('id'),
-            'name':      c.get('name', ''),
-            'subject':   subject,
-            'sentDate':  sent_date,
-            'delivered': delivered,
-            'opens':     opens,
-            'clicks':    clicks,
-            'unsubs':    unsubs,
-            'openRate':  open_rate,
-            'clickRate': click_rate,
-            'ctor':      ctor,
-        })
-
-        # YTD aggregation (dedup by subject within year)
-        ytd_key = (sent_year, subject)
-        if sent_year == current_year and ytd_key not in seen_ytd_keys:
-            seen_ytd_keys.add(ytd_key)
-            leads_ytd += clicks
-            reach_ytd += delivered
-
-        # Month aggregation (dedup by subject within month)
-        month_key = (sent_month, subject)
-        if sent_month == current_month and month_key not in seen_month_keys:
-            seen_month_keys.add(month_key)
-            leads_month += clicks
-            reach_month += delivered
-
-    # Sort by clicks descending
-    processed.sort(key=lambda c: c['clicks'], reverse=True)
+    offers_list = sorted([
+        {
+            'name':     subj,
+            'date':     d['firstDate'],
+            'reach':    len(d['reach']),
+            'leads':    len(d['leads']),
+            'leadRate': round(len(d['leads']) / len(d['reach']) * 100, 1) if d['reach'] else 0,
+        }
+        for subj, d in offers.items()
+    ], key=lambda x: x['leads'], reverse=True)
 
     return jsonify({
-        'campaigns':    processed,
-        'leadsMonth':   leads_month,
-        'leadsYtd':     leads_ytd,
-        'reachMonth':   reach_month,
-        'reachYtd':     reach_ytd,
+        'offers':       offers_list,
+        'leadsMonth':   len(leads_month),
+        'leadsYtd':     len(leads_ytd),
+        'reachMonth':   len(unique_month),
+        'reachYtd':     len(unique_ytd),
+        'totalEmails':  len(seen_dedup),
         'currentMonth': current_month,
         'currentYear':  current_year,
-        'debug': {
-            'totalCampaignsFetched': len(all_campaigns),
-            'clubCampaignsFound':    len(club_campaigns),
-            'allTagsFound':          sorted(all_tags),
-            'clubTagUsed':           CLUB_TAG,
-        },
         'note': (
-            "Les adresses internes (@acl.lu, @epic.net) et les adresses de test ne sont pas exclues "
-            "car les données disponibles en temps réel sont agrégées (non par destinataire). "
-            "Pour une déduplication exacte, utiliser DashThis."
+            'Données transactionnelles Brevo (tag Club-member). '
+            'Adresses @acl.lu, @epic.net et adresses de test exclues. '
+            'Déduplication exacte par combinaison email+sujet.'
         ),
     })
 

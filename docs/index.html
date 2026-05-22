@@ -2278,16 +2278,14 @@ function renderClub(d) {
   if (!el) return;
   if (!d || d.error) { el.innerHTML = errState('ACL Club', d?.error); return; }
 
-  const camps      = d.campaigns   || [];
+  const offers     = d.offers      || [];
   const leadsMonth = d.leadsMonth  || 0;
   const leadsYtd   = d.leadsYtd    || 0;
   const reachMonth = d.reachMonth  || 0;
   const reachYtd   = d.reachYtd    || 0;
-  const month      = d.currentMonth || '';
-  const year       = d.currentYear  || '';
+  const year       = d.currentYear || '';
 
-  const clicCls = v => v >= 3 ? 'var(--good)' : v >= 1 ? 'var(--warn)' : 'var(--bad)';
-  const openCls = v => v >= 35 ? 'var(--good)' : v >= 20 ? 'var(--warn)' : 'var(--bad)';
+  const leadRateCls = v => v >= 3 ? 'var(--good)' : v >= 1 ? 'var(--warn)' : 'var(--bad)';
 
   el.innerHTML = `
     <div class="sec-title"><h2>ACL Club — Leads par offre</h2><div class="line"></div>
@@ -2295,47 +2293,43 @@ function renderClub(d) {
     </div>
 
     <div class="kpi-grid">
-      ${kpiCard({label:'Leads mois en cours',       value:fmtN(leadsMonth), src:'var(--c-club)', srcBg:'var(--c-club-bg)'})}
-      ${kpiCard({label:'Leads depuis début '+year,   value:fmtN(leadsYtd),   src:'var(--c-club)', srcBg:'var(--c-club-bg)'})}
-      ${kpiCard({label:'Membres touchés ce mois',   value:fmtN(reachMonth), src:'var(--c-club)', srcBg:'var(--c-club-bg)'})}
-      ${kpiCard({label:'Campagnes Club (total)',     value:fmtN(camps.length), src:'var(--c-club)', srcBg:'var(--c-club-bg)'})}
+      ${kpiCard({label:'Leads mois en cours',        value:fmtN(leadsMonth), src:'var(--c-club)', srcBg:'var(--c-club-bg)'})}
+      ${kpiCard({label:'Leads depuis début '+year,    value:fmtN(leadsYtd),   src:'var(--c-club)', srcBg:'var(--c-club-bg)'})}
+      ${kpiCard({label:'Membres uniques touchés (mois)', value:fmtN(reachMonth), src:'var(--c-club)', srcBg:'var(--c-club-bg)'})}
+      ${kpiCard({label:'Membres uniques touchés ('+year+')', value:fmtN(reachYtd), src:'var(--c-club)', srcBg:'var(--c-club-bg)'})}
     </div>
 
-    ${!camps.length ? `
+    ${!offers.length ? `
     <div class="card" style="border:1px solid var(--warn)">
       <div class="card-body" style="display:flex;flex-direction:column;gap:8px;padding:18px">
-        <div style="font-weight:700;color:var(--warn)">Aucune campagne avec le tag "Club-member" trouvée</div>
-        <div style="font-size:13px;color:var(--muted)">Pour alimenter ce panneau, appliquer le tag <strong style="color:var(--text)">Club-member</strong> aux campagnes d'offres Club dans Brevo (<em>Campagnes → sélectionner → Modifier le tag</em>). Les nouvelles campagnes taguées apparaîtront automatiquement ici.</div>
+        <div style="font-weight:700;color:var(--warn)">Aucun email transactionnel avec le tag "Club-member" trouvé</div>
+        <div style="font-size:13px;color:var(--muted)">Les emails d'offres Club doivent être envoyés via Brevo avec le tag <strong style="color:var(--text)">Club-member</strong> pour apparaître ici. Vérifier que le tag est bien appliqué lors de l'envoi.</div>
       </div>
     </div>` : `
     <div class="card">
-      <div class="card-head"><div class="card-title">Offres Club — détail par campagne</div></div>
+      <div class="card-head"><div class="card-title">Offres Club — leads par sujet d'email</div></div>
       <div class="card-body flush"><div class="tbl-scroll"><table class="tbl">
         <thead><tr>
-          <th>Offre (campagne)</th>
-          <th class="r">Date</th>
-          <th class="r" title="Emails effectivement livrés">Livrés</th>
-          <th class="r" title="Benchmark : ≥35% excellent · 20–35% moyen · &lt;20% faible">Ouv. ⬤</th>
-          <th class="r" title="Benchmark : ≥3% excellent · 1–3% moyen · &lt;1% faible">Leads (clics) ⬤</th>
-          <th class="r">Taux clic</th>
-          <th class="r" title="Click-to-Open Rate">CTOR</th>
+          <th>Offre (sujet email)</th>
+          <th class="r">1er envoi</th>
+          <th class="r" title="Membres uniques ayant reçu cet email (après déduplication)">Membres touchés</th>
+          <th class="r" title="Membres uniques ayant cliqué — proxy de lead">Leads (clics uniques)</th>
+          <th class="r" title="Taux de clic : ≥3% excellent · 1–3% moyen · &lt;1% faible">Taux lead ⬤</th>
         </tr></thead>
-        <tbody>${camps.map(c => `<tr>
-          <td class="cn">${c.name || '—'}</td>
-          <td class="r" style="white-space:nowrap">${c.sentDate ? c.sentDate.slice(0,10) : '—'}</td>
-          <td class="r">${fmtN(c.delivered)}</td>
-          <td class="r" style="font-weight:700;color:${openCls(c.openRate)}">${fmtPct(c.openRate)}</td>
-          <td class="r" style="font-weight:700;color:${clicCls(c.clickRate)}">${fmtN(c.clicks)}</td>
-          <td class="r" style="font-weight:700;color:${clicCls(c.clickRate)}">${fmtPct(c.clickRate)}</td>
-          <td class="r">${fmtPct(c.ctor)}</td>
+        <tbody>${offers.map(o => `<tr>
+          <td class="cn">${o.name || '—'}</td>
+          <td class="r" style="white-space:nowrap">${o.date || '—'}</td>
+          <td class="r">${fmtN(o.reach)}</td>
+          <td class="r" style="font-weight:700">${fmtN(o.leads)}</td>
+          <td class="r" style="font-weight:700;color:${leadRateCls(o.leadRate)}">${fmtPct(o.leadRate)}</td>
         </tr>`).join('')}</tbody>
       </table></div></div>
     </div>`}
 
     <div style="display:flex;flex-direction:column;gap:5px;padding:4px 0 2px;font-size:11px;color:var(--muted);">
-      <div><strong style="color:var(--text)">Leads</strong> = membres ayant cliqué dans l'email (proxy d'intérêt actif). <strong style="color:var(--text)">Membres touchés</strong> = emails livrés (portée).</div>
-      <div>Ouverture : ≥35% vert · 20–35% jaune · &lt;20% rouge &emsp; Clic : ≥3% vert · 1–3% jaune · &lt;1% rouge</div>
-      <div style="color:var(--muted-2)">⚠ Données agrégées : les adresses @acl.lu, @epic.net et les adresses de test ne sont pas exclues en temps réel. La déduplication exacte par destinataire est disponible dans DashThis. Réf. RGPD : identifier les membres par email est à terme à remplacer par un identifiant anonymisé.</div>
+      <div><strong style="color:var(--text)">Lead</strong> = membre unique ayant cliqué dans l'email. <strong style="color:var(--text)">Membres touchés</strong> = destinataires uniques après déduplication email+sujet.</div>
+      <div>Adresses @acl.lu, @epic.net et adresses de test exclues. Déduplication exacte par email.</div>
+      <div style="color:var(--muted-2)">Réf. RGPD : l'identifiant email est à terme à remplacer par un identifiant anonymisé. Données limitées à l'année ${year} en cours.</div>
     </div>`;
 
   animateCards(el);
