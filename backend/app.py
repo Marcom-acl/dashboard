@@ -1133,62 +1133,34 @@ def brevo_club():
         for tid, emails in ex.map(fetch_reach, reach_tasks):
             template_reach[tid].extend(emails)
 
-    # 3b. Unique opens — only for templates that had actual deliveries (reduces tasks 10x)
+    # 3b. Per-email events via /smtp/email/{uuid} — the only reliable way to get opens
+    # Build uuid → (email_addr, templateId, date_month) from reach data
     active_tids = [tid for tid in all_tids if template_reach[tid]]
+    uuid_meta   = {}
+    for tid in active_tids:
+        for e in template_reach[tid]:
+            uuid = e.get('uuid')
+            if uuid:
+                uuid_meta[uuid] = (
+                    (e.get('email') or '').lower().strip(),
+                    tid,
+                    (e.get('date') or '')[:7],
+                )
 
-    def fetch_opens(args):
-        tid, cs, ce = args
-        results, off = [], 0
-        while True:
-            r = _get(f'{BREVO_BASE}/smtp/statistics/events', headers=headers, params={
-                'templateId': tid, 'event': 'opened',
-                'startDate': cs, 'endDate': ce,
-                'limit': 100, 'offset': off,
-            })
-            if not r.ok:
-                break
-            batch = r.json().get('events', [])
-            if not batch:
-                break
-            results.extend(batch)
-            if len(batch) < 100:
-                break
-            off += 100
-        return tid, results
+    def fetch_email_detail(uuid):
+        r = _get(f'{BREVO_BASE}/smtp/email/{uuid}', headers=headers)
+        if not r.ok:
+            return uuid, []
+        return uuid, r.json().get('events', [])
 
-    # 3c. Tag-based opens in parallel (uses correct event name now)
-    def fetch_opens_bytag(cs_ce):
-        cs, ce = cs_ce
-        results, off = [], 0
-        while True:
-            r = _get(f'{BREVO_BASE}/smtp/statistics/events', headers=headers, params={
-                'tags': 'club-member', 'event': 'opened',
-                'startDate': cs, 'endDate': ce,
-                'limit': 100, 'offset': off,
-            })
-            if not r.ok:
-                break
-            batch = r.json().get('events', [])
-            if not batch:
-                break
-            results.extend(batch)
-            if len(batch) < 100:
-                break
-            off += 100
-        return results
-
-    opens_tasks    = [(tid, cs, ce) for tid in active_tids for cs, ce in chunks]
-    template_opens = {tid: [] for tid in all_tids}
-    tag_opens      = []
-
+    uuid_events = {}
     with concurrent.futures.ThreadPoolExecutor(max_workers=20) as ex:
-        opens_futs  = [ex.submit(fetch_opens,      t) for t in opens_tasks]
-        tag_futs    = [ex.submit(fetch_opens_bytag, c) for c in chunks]
+        for uuid, evts in ex.map(fetch_email_detail, uuid_meta.keys()):
+            uuid_events[uuid] = evts
 
-    for f in opens_futs:
-        tid, events = f.result()
-        template_opens[tid].extend(events)
-    tag_opens = [e for f in tag_futs for e in f.result()]
+    # Collect all unique event names for debug
+    all_event_names = {ev.get('name', '') for evts in uuid_events.values() for ev in evts}
+    OPEN_EVENT_NAMES = {'opened', 'open', 'opens', 'uniqueOpens', 'firstOpen'}
 
     # 4. Aggregate
     offers_data   = {}
@@ -1196,9 +1168,6 @@ def brevo_club():
     reach_month_g = set()
     leads_ytd_g   = set()
     leads_month_g = set()
-
-    # Prefer tag-based opens if the API returned results; fall back to templateId-based
-    use_tag_opens = len(tag_opens) > 0
 
     for tid in all_tids:
         offer = tid_to_offer[tid]
@@ -1216,32 +1185,25 @@ def brevo_club():
             if date == current_month:
                 reach_month_g.add(email); od['reach_month'].add(email)
 
-        if not use_tag_opens:
-            for e in template_opens[tid]:
-                email = (e.get('email') or '').lower().strip()
-                if not email or is_excluded(email):
-                    continue
-                date = (e.get('date') or '')[:7]
-                leads_ytd_g.add(email);  od['leads_ytd'].add(email)
-                if date == current_month:
-                    leads_month_g.add(email); od['leads_month'].add(email)
-
-    # If tag-based opens returned data, use them (covers all Club templates regardless of name)
-    if use_tag_opens:
-        for e in tag_opens:
-            email = (e.get('email') or '').lower().strip()
-            if not email or is_excluded(email):
-                continue
-            date  = (e.get('date') or '')[:7]
-            tid   = e.get('templateId')
-            offer = tid_to_offer.get(tid, 'Autre') if tid else 'Autre'
-            if offer not in offers_data:
-                offers_data[offer] = {'reach_ytd': set(), 'reach_month': set(),
-                                      'leads_ytd': set(), 'leads_month': set()}
-            od = offers_data[offer]
-            leads_ytd_g.add(email);  od['leads_ytd'].add(email)
-            if date == current_month:
-                leads_month_g.add(email); od['leads_month'].add(email)
+    # Opens from per-email detail — uuid_events is the only reliable source
+    for uuid, evts in uuid_events.items():
+        meta = uuid_meta.get(uuid)
+        if not meta:
+            continue
+        email_addr, tid, date = meta
+        if not email_addr or is_excluded(email_addr):
+            continue
+        opened = any(ev.get('name', '').lower() in OPEN_EVENT_NAMES for ev in evts)
+        if not opened:
+            continue
+        offer = tid_to_offer.get(tid, 'Autre')
+        if offer not in offers_data:
+            offers_data[offer] = {'reach_ytd': set(), 'reach_month': set(),
+                                  'leads_ytd': set(), 'leads_month': set()}
+        od = offers_data[offer]
+        leads_ytd_g.add(email_addr);  od['leads_ytd'].add(email_addr)
+        if date == current_month:
+            leads_month_g.add(email_addr); od['leads_month'].add(email_addr)
 
     offers_list = sorted([
         {
@@ -1270,14 +1232,13 @@ def brevo_club():
             'Déduplication exacte par email.'
         ),
         '_debug': {
-            'templateCount':         len(all_tids),
-            'offerCount':            len(templates_by_offer),
-            'chunksCount':           len(chunks),
-            'totalReach':            sum(len(v) for v in template_reach.values()),
-            'activeTemplates':        len(active_tids),
-            'totalOpens_byTemplateId': sum(len(v) for v in template_opens.values()),
-            'totalOpens_byTag':      len(tag_opens),
-            'usedTagOpens':          use_tag_opens,
+            'templateCount':   len(all_tids),
+            'offerCount':      len(templates_by_offer),
+            'chunksCount':     len(chunks),
+            'totalReach':      sum(len(v) for v in template_reach.values()),
+            'activeTemplates': len(active_tids),
+            'uuidsFetched':    len(uuid_events),
+            'allEventNames':   sorted(all_event_names),
         },
     })
 
