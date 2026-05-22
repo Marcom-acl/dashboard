@@ -2285,7 +2285,7 @@ function renderClub(d) {
   const reachYtd   = d.reachYtd    || 0;
   const year       = d.currentYear || '';
 
-  const leadRateCls = v => v >= 3 ? 'var(--good)' : v >= 1 ? 'var(--warn)' : 'var(--bad)';
+  const leadRateCls = v => v >= 30 ? 'var(--good)' : v >= 15 ? 'var(--warn)' : 'var(--bad)';
 
   el.innerHTML = `
     <div class="sec-title"><h2>ACL Club — Leads par offre</h2><div class="line"></div>
@@ -2293,10 +2293,10 @@ function renderClub(d) {
     </div>
 
     <div class="kpi-grid">
-      ${kpiCard({label:'Leads mois en cours',        value:fmtN(leadsMonth), src:'var(--c-club)', srcBg:'var(--c-club-bg)'})}
-      ${kpiCard({label:'Leads depuis début '+year,    value:fmtN(leadsYtd),   src:'var(--c-club)', srcBg:'var(--c-club-bg)'})}
-      ${kpiCard({label:'Membres uniques touchés (mois)', value:fmtN(reachMonth), src:'var(--c-club)', srcBg:'var(--c-club-bg)'})}
-      ${kpiCard({label:'Membres uniques touchés ('+year+')', value:fmtN(reachYtd), src:'var(--c-club)', srcBg:'var(--c-club-bg)'})}
+      ${kpiCard({label:'1ères ouvertures (mois)',       value:fmtN(leadsMonth), src:'var(--c-club)', srcBg:'var(--c-club-bg)'})}
+      ${kpiCard({label:'1ères ouvertures ('+year+')',   value:fmtN(leadsYtd),   src:'var(--c-club)', srcBg:'var(--c-club-bg)'})}
+      ${kpiCard({label:'Membres touchés (mois)',        value:fmtN(reachMonth), src:'var(--c-club)', srcBg:'var(--c-club-bg)'})}
+      ${kpiCard({label:'Membres touchés ('+year+')',    value:fmtN(reachYtd),   src:'var(--c-club)', srcBg:'var(--c-club-bg)'})}
     </div>
 
     ${!offers.length ? `
@@ -2312,9 +2312,9 @@ function renderClub(d) {
         <thead><tr>
           <th>Offre (partenaire)</th>
           <th class="r" title="Membres uniques ayant reçu cet email cette année">Touchés YTD</th>
-          <th class="r" title="Membres uniques ayant cliqué cette année">Leads YTD</th>
-          <th class="r" title="Membres uniques ayant cliqué ce mois">Leads mois</th>
-          <th class="r" title="Taux lead YTD : ≥3% excellent · 1–3% moyen · &lt;1% faible">Taux ⬤</th>
+          <th class="r" title="Membres uniques ayant ouvert l'email cette année">Ouv. uniques YTD</th>
+          <th class="r" title="Membres uniques ayant ouvert l'email ce mois">Ouv. uniques mois</th>
+          <th class="r" title="Taux d'ouverture YTD : ≥30% excellent · 15–30% moyen · &lt;15% faible">Taux ⬤</th>
         </tr></thead>
         <tbody>${offers.map(o => `<tr>
           <td class="cn">${o.name || '—'}</td>
@@ -2327,7 +2327,7 @@ function renderClub(d) {
     </div>`}
 
     <div style="display:flex;flex-direction:column;gap:5px;padding:4px 0 2px;font-size:11px;color:var(--muted);">
-      <div><strong style="color:var(--text)">Lead</strong> = membre unique ayant cliqué dans l'email. <strong style="color:var(--text)">Membres touchés</strong> = destinataires uniques après déduplication email+sujet.</div>
+      <div><strong style="color:var(--text)">1ère ouverture</strong> = membre unique ayant ouvert l'email (proxy d'intérêt). <strong style="color:var(--text)">Membres touchés</strong> = destinataires uniques après déduplication.</div>
       <div>Adresses @acl.lu, @epic.net et adresses de test exclues. Déduplication exacte par email.</div>
       <div style="color:var(--muted-2)">Réf. RGPD : l'identifiant email est à terme à remplacer par un identifiant anonymisé. Données limitées à l'année ${year} en cours.</div>
     </div>`;

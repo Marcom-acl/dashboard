@@ -1125,13 +1125,13 @@ def brevo_club():
             off += 500
         return tid, results
 
-    # 3b. Clicks — /smtp/statistics/events per (templateId, chunk)
-    def fetch_clicks(args):
+    # 3b. Unique opens — /smtp/statistics/events per (templateId, chunk)
+    def fetch_opens(args):
         tid, cs, ce = args
         results, off = [], 0
         while True:
             r = _get(f'{BREVO_BASE}/smtp/statistics/events', headers=headers, params={
-                'templateId': tid, 'event': 'clicks',
+                'templateId': tid, 'event': 'uniqueOpens',
                 'startDate': cs, 'endDate': ce,
                 'limit': 100, 'offset': off,
             })
@@ -1146,30 +1146,45 @@ def brevo_club():
             off += 100
         return tid, results
 
+    # 3c. Tag-based unique opens (parallel diagnostic + potential richer source)
+    def fetch_opens_bytag(cs_ce):
+        cs, ce = cs_ce
+        results, off = [], 0
+        while True:
+            r = _get(f'{BREVO_BASE}/smtp/statistics/events', headers=headers, params={
+                'tags': 'club-member', 'event': 'uniqueOpens',
+                'startDate': cs, 'endDate': ce,
+                'limit': 100, 'offset': off,
+            })
+            if not r.ok:
+                break
+            batch = r.json().get('events', [])
+            if not batch:
+                break
+            results.extend(batch)
+            if len(batch) < 100:
+                break
+            off += 100
+        return results
+
     tasks = [(tid, cs, ce) for tid in all_tids for cs, ce in chunks]
 
     template_reach  = {tid: [] for tid in all_tids}
-    template_clicks = {tid: [] for tid in all_tids}
+    template_opens  = {tid: [] for tid in all_tids}
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=20) as ex:
-        reach_futs  = [ex.submit(fetch_reach,  t) for t in tasks]
-        clicks_futs = [ex.submit(fetch_clicks, t) for t in tasks]
+        reach_futs = [ex.submit(fetch_reach, t) for t in tasks]
+        opens_futs = [ex.submit(fetch_opens, t) for t in tasks]
+        tag_futs   = [ex.submit(fetch_opens_bytag, c) for c in chunks]
 
     for f in reach_futs:
         tid, emails = f.result()
         template_reach[tid].extend(emails)
-    for f in clicks_futs:
+    for f in opens_futs:
         tid, events = f.result()
-        template_clicks[tid].extend(events)
+        template_opens[tid].extend(events)
 
-    # 3c. Debug: sample a few recent events without filters to see real tag format
-    sample_events_r = _get(f'{BREVO_BASE}/smtp/statistics/events', headers=headers,
-                           params={'event': 'delivered', 'limit': 5,
-                                   'startDate': today, 'endDate': today})
-    sample_tags = []
-    if sample_events_r.ok:
-        for ev in sample_events_r.json().get('events', []):
-            sample_tags.append(ev.get('tag'))
+    tag_opens = [e for f in tag_futs for e in f.result()]
 
     # 4. Aggregate
     offers_data   = {}
@@ -1177,6 +1192,9 @@ def brevo_club():
     reach_month_g = set()
     leads_ytd_g   = set()
     leads_month_g = set()
+
+    # Prefer tag-based opens if the API returned results; fall back to templateId-based
+    use_tag_opens = len(tag_opens) > 0
 
     for tid in all_tids:
         offer = tid_to_offer[tid]
@@ -1194,11 +1212,29 @@ def brevo_club():
             if date == current_month:
                 reach_month_g.add(email); od['reach_month'].add(email)
 
-        for e in template_clicks[tid]:
+        if not use_tag_opens:
+            for e in template_opens[tid]:
+                email = (e.get('email') or '').lower().strip()
+                if not email or is_excluded(email):
+                    continue
+                date = (e.get('date') or '')[:7]
+                leads_ytd_g.add(email);  od['leads_ytd'].add(email)
+                if date == current_month:
+                    leads_month_g.add(email); od['leads_month'].add(email)
+
+    # If tag-based opens returned data, use them (covers all Club templates regardless of name)
+    if use_tag_opens:
+        for e in tag_opens:
             email = (e.get('email') or '').lower().strip()
             if not email or is_excluded(email):
                 continue
-            date = (e.get('date') or '')[:7]
+            date  = (e.get('date') or '')[:7]
+            tid   = e.get('templateId')
+            offer = tid_to_offer.get(tid, 'Autre') if tid else 'Autre'
+            if offer not in offers_data:
+                offers_data[offer] = {'reach_ytd': set(), 'reach_month': set(),
+                                      'leads_ytd': set(), 'leads_month': set()}
+            od = offers_data[offer]
             leads_ytd_g.add(email);  od['leads_ytd'].add(email)
             if date == current_month:
                 leads_month_g.add(email); od['leads_month'].add(email)
@@ -1230,12 +1266,13 @@ def brevo_club():
             'Déduplication exacte par email.'
         ),
         '_debug': {
-            'templateCount':    len(all_tids),
-            'offerCount':       len(templates_by_offer),
-            'chunksCount':      len(chunks),
-            'totalReach':       sum(len(v) for v in template_reach.values()),
-            'totalClicks':      sum(len(v) for v in template_clicks.values()),
-            'sampleTagsToday':  sample_tags,
+            'templateCount':         len(all_tids),
+            'offerCount':            len(templates_by_offer),
+            'chunksCount':           len(chunks),
+            'totalReach':            sum(len(v) for v in template_reach.values()),
+            'totalOpens_byTemplateId': sum(len(v) for v in template_opens.values()),
+            'totalOpens_byTag':      len(tag_opens),
+            'usedTagOpens':          use_tag_opens,
         },
     })
 
