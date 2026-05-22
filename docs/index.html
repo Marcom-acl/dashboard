@@ -32,6 +32,7 @@
       --c-fb:#1877F2;    --c-fb-bg:#E3EEFE;
       --c-gsc:#34A853;   --c-gsc-bg:#E0F2E6;
       --c-brevo:#0B996E; --c-brevo-bg:#DEF1EA;
+      --c-club:#123C62;  --c-club-bg:#E8EEF4;
       --c-li:#0A66C2;    --c-li-bg:#DEEAF7;
       --c-yt:#FF0000;    --c-yt-bg:#FDE0E0;
 
@@ -897,7 +898,7 @@
       --text:#F0EDE6;--muted:#aaa;--muted-2:#666;
       --y-soft:#3d3200;
       --c-ga4-bg:#2a2000;--c-fb-bg:#0d1a38;--c-gsc-bg:#0a2015;
-      --c-brevo-bg:#081c14;--c-li-bg:#091a30;--c-yt-bg:#260000;
+      --c-brevo-bg:#081c14;--c-club-bg:#0b1825;--c-li-bg:#091a30;--c-yt-bg:#260000;
       --shadow-1:0 1px 0 rgba(0,0,0,.5),0 1px 2px rgba(0,0,0,.3);
       --shadow-2:0 1px 0 rgba(0,0,0,.5),0 6px 18px rgba(0,0,0,.4);
     }
@@ -1067,6 +1068,11 @@
           Brevo
           <span class="sb-dot" id="bs-brevo" style="background:var(--muted-2);"></span>
         </button>
+        <button class="sb-item tab-btn" data-tab="club">
+          <svg class="sb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          ACL Club
+          <span class="sb-dot" id="bs-club" style="background:var(--muted-2);"></span>
+        </button>
         <button class="sb-item tab-btn" data-tab="linkedin">
           <svg class="sb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 11v6M8 8v.01M12 17v-4a2 2 0 0 1 4 0v4M12 17v-6"/></svg>
           LinkedIn
@@ -1186,6 +1192,9 @@
         <div id="panel-brevo" class="tab-panel">
           <div class="err-banner" id="errBanner"></div>
         </div>
+
+        <!-- ── ACL CLUB ─────────────────────────────────────────── -->
+        <div id="panel-club" class="tab-panel"></div>
 
         <!-- ── LINKEDIN ─────────────────────────────────────────── -->
         <div id="panel-linkedin" class="tab-panel"></div>
@@ -1334,21 +1343,22 @@ async function loadAll() {
   document.getElementById('lastUpd').textContent = 'Chargement…';
 
   try {
-    const [ga4, ga4auto, ga4ext, ga4trend, gsc, fb, fbpage, brevo, yt, li] = await Promise.allSettled([
+    const [ga4, ga4auto, ga4ext, ga4trend, gsc, fb, fbpage, brevo, club, yt, li] = await Promise.allSettled([
       api('/ga4'), api('/ga4/autotouring'), api('/ga4/extended'), api('/ga4/trend'),
-      api('/gsc'), api('/fb'), api('/fb/page'), api('/brevo'),
+      api('/gsc'), api('/fb'), api('/fb/page'), api('/brevo'), api('/brevo/club'),
       api('/youtube'), api('/linkedin')
     ]);
 
     const v = r => r.status === 'fulfilled' ? r.value : null;
     const dGA4   = v(ga4),   dGA4A = v(ga4auto), dGA4E = v(ga4ext), dGA4T = v(ga4trend);
     const dGSC   = v(gsc),   dFB   = v(fb),      dFBP  = v(fbpage);
-    const dBrevo = v(brevo), dYT   = v(yt),       dLI   = v(li);
+    const dBrevo = v(brevo), dClub = v(club),     dYT   = v(yt),     dLI   = v(li);
 
     updateStatus('bs-ga4',   dGA4   && !dGA4.error);
     updateStatus('bs-gsc',   dGSC   && !dGSC.error);
     updateStatus('bs-fbads', dFB    && !dFB.error);
     updateStatus('bs-brevo', dBrevo && !dBrevo.error);
+    updateStatus('bs-club',  dClub  && !dClub.error);
     updateStatus('bs-yt',    dYT    && !dYT.error);
     updateStatus('bs-li',    dLI    && !dLI.error);
 
@@ -1357,6 +1367,7 @@ async function loadAll() {
     renderMeta(dFB, dFBP);
     renderGSC(dGSC);
     renderBrevo(dBrevo);
+    renderClub(dClub);
     renderYouTube(dYT);
     renderLinkedIn(dLI);
 
@@ -2259,6 +2270,69 @@ function renderBrevo(d) {
   el.appendChild(wrap);
   animateCards(el);
   fetchSectionInsight('brevo', {avgOpenRate: avgOpen, avgClick, totalUnsub, campaigns: camps.length});
+}
+
+// ── ACL CLUB ──────────────────────────────────────────────────
+function renderClub(d) {
+  const el = document.getElementById('panel-club');
+  if (!el) return;
+  if (!d || d.error) { el.innerHTML = errState('ACL Club', d?.error); return; }
+
+  const camps      = d.campaigns   || [];
+  const leadsMonth = d.leadsMonth  || 0;
+  const leadsYtd   = d.leadsYtd    || 0;
+  const reachMonth = d.reachMonth  || 0;
+  const reachYtd   = d.reachYtd    || 0;
+  const month      = d.currentMonth || '';
+  const year       = d.currentYear  || '';
+
+  const clicCls = v => v >= 3 ? 'var(--good)' : v >= 1 ? 'var(--warn)' : 'var(--bad)';
+  const openCls = v => v >= 35 ? 'var(--good)' : v >= 20 ? 'var(--warn)' : 'var(--bad)';
+
+  el.innerHTML = `
+    <div class="sec-title"><h2>ACL Club — Leads par offre</h2><div class="line"></div>
+      <span class="src-pill" style="--src:var(--c-club);--src-bg:var(--c-club-bg)">Brevo</span>
+    </div>
+
+    <div class="kpi-grid">
+      ${kpiCard({label:'Leads mois en cours',       value:fmtN(leadsMonth), src:'var(--c-club)', srcBg:'var(--c-club-bg)'})}
+      ${kpiCard({label:'Leads depuis début '+year,   value:fmtN(leadsYtd),   src:'var(--c-club)', srcBg:'var(--c-club-bg)'})}
+      ${kpiCard({label:'Membres touchés ce mois',   value:fmtN(reachMonth), src:'var(--c-club)', srcBg:'var(--c-club-bg)'})}
+      ${kpiCard({label:'Campagnes Club (total)',     value:fmtN(camps.length), src:'var(--c-club)', srcBg:'var(--c-club-bg)'})}
+    </div>
+
+    ${camps.length ? `
+    <div class="card">
+      <div class="card-head"><div class="card-title">Offres Club — détail par campagne</div></div>
+      <div class="card-body flush"><div class="tbl-scroll"><table class="tbl">
+        <thead><tr>
+          <th>Offre (campagne)</th>
+          <th class="r">Date</th>
+          <th class="r" title="Emails effectivement livrés">Livrés</th>
+          <th class="r" title="Benchmark : ≥35% excellent · 20–35% moyen · &lt;20% faible">Ouv. ⬤</th>
+          <th class="r" title="Benchmark : ≥3% excellent · 1–3% moyen · &lt;1% faible">Leads (clics) ⬤</th>
+          <th class="r">Taux clic</th>
+          <th class="r" title="Click-to-Open Rate">CTOR</th>
+        </tr></thead>
+        <tbody>${camps.map(c => `<tr>
+          <td class="cn">${c.name || '—'}</td>
+          <td class="r" style="white-space:nowrap">${c.sentDate ? c.sentDate.slice(0,10) : '—'}</td>
+          <td class="r">${fmtN(c.delivered)}</td>
+          <td class="r" style="font-weight:700;color:${openCls(c.openRate)}">${fmtPct(c.openRate)}</td>
+          <td class="r" style="font-weight:700;color:${clicCls(c.clickRate)}">${fmtN(c.clicks)}</td>
+          <td class="r" style="font-weight:700;color:${clicCls(c.clickRate)}">${fmtPct(c.clickRate)}</td>
+          <td class="r">${fmtPct(c.ctor)}</td>
+        </tr>`).join('')}</tbody>
+      </table></div></div>
+    </div>` : '<div class="card"><div class="card-body" style="color:var(--muted);font-size:13px">Aucune campagne avec le tag "ACL Club" trouvée.</div></div>'}
+
+    <div style="display:flex;flex-direction:column;gap:5px;padding:4px 0 2px;font-size:11px;color:var(--muted);">
+      <div><strong style="color:var(--text)">Leads</strong> = membres ayant cliqué dans l'email (proxy d'intérêt actif). <strong style="color:var(--text)">Membres touchés</strong> = emails livrés (portée).</div>
+      <div>Ouverture : ≥35% vert · 20–35% jaune · &lt;20% rouge &emsp; Clic : ≥3% vert · 1–3% jaune · &lt;1% rouge</div>
+      <div style="color:var(--muted-2)">⚠ Données agrégées : les adresses @acl.lu, @epic.net et les adresses de test ne sont pas exclues en temps réel. La déduplication exacte par destinataire est disponible dans DashThis. Réf. RGPD : identifier les membres par email est à terme à remplacer par un identifiant anonymisé.</div>
+    </div>`;
+
+  animateCards(el);
 }
 
 // ── YOUTUBE ───────────────────────────────────────────────────

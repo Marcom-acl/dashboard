@@ -1032,6 +1032,124 @@ def brevo():
 
 
 # ─────────────────────────────────────────────────────────────────────────────
+# Brevo — ACL Club
+# ─────────────────────────────────────────────────────────────────────────────
+
+@app.route('/brevo/club')
+def brevo_club():
+    if not BREVO_API_KEY:
+        return jsonify({'error': 'BREVO_API_KEY manquante'})
+
+    BREVO_BASE = 'https://api.brevo.com/v3'
+    CLUB_TAG   = 'acl club'
+    headers    = {'api-key': BREVO_API_KEY, 'Accept': 'application/json'}
+
+    now           = datetime.datetime.utcnow()
+    current_month = now.strftime('%Y-%m')
+    current_year  = now.strftime('%Y')
+
+    # Paginate through all sent campaigns
+    all_campaigns = []
+    offset = 0
+    while True:
+        rc = _get(f'{BREVO_BASE}/emailCampaigns', headers=headers, params={
+            'status': 'sent', 'limit': 100, 'offset': offset,
+            'sort': 'desc', 'statistics': 'globalStats',
+        })
+        if not rc.ok:
+            break
+        batch = rc.json().get('campaigns', [])
+        if not batch:
+            break
+        all_campaigns.extend(batch)
+        if len(batch) < 100:
+            break
+        offset += 100
+
+    # Filter by "ACL Club" tag (case-insensitive)
+    def _has_club_tag(c):
+        tag = (c.get('tag') or '').lower()
+        tags = [t.lower() for t in c.get('tags', [])]
+        return CLUB_TAG in tag or CLUB_TAG in tags
+
+    club_campaigns = [c for c in all_campaigns if _has_club_tag(c)]
+
+    # Deduplicate on (subject, month) to avoid counting accidental re-sends
+    seen_month_keys = set()
+    seen_ytd_keys   = set()
+
+    leads_month  = 0
+    leads_ytd    = 0
+    reach_month  = 0
+    reach_ytd    = 0
+    processed    = []
+
+    for c in club_campaigns:
+        gs = c.get('statistics', {}).get('globalStats', {})
+        if 'uniqueOpens' not in gs and 'uniqueViews' in gs:
+            gs['uniqueOpens'] = gs['uniqueViews']
+
+        sent_date  = (c.get('sentDate') or '')[:10]
+        sent_month = sent_date[:7]   # YYYY-MM
+        sent_year  = sent_date[:4]   # YYYY
+        subject    = c.get('subject') or c.get('name') or ''
+        delivered  = gs.get('delivered', 0)
+        opens      = gs.get('uniqueOpens', 0)
+        clicks     = gs.get('uniqueClicks', 0)
+        unsubs     = gs.get('unsubscriptions', 0)
+
+        open_rate  = round(opens  / delivered * 100, 1) if delivered else 0
+        click_rate = round(clicks / delivered * 100, 1) if delivered else 0
+        ctor       = round(clicks / opens     * 100, 1) if opens     else 0
+
+        processed.append({
+            'id':        c.get('id'),
+            'name':      c.get('name', ''),
+            'subject':   subject,
+            'sentDate':  sent_date,
+            'delivered': delivered,
+            'opens':     opens,
+            'clicks':    clicks,
+            'unsubs':    unsubs,
+            'openRate':  open_rate,
+            'clickRate': click_rate,
+            'ctor':      ctor,
+        })
+
+        # YTD aggregation (dedup by subject within year)
+        ytd_key = (sent_year, subject)
+        if sent_year == current_year and ytd_key not in seen_ytd_keys:
+            seen_ytd_keys.add(ytd_key)
+            leads_ytd += clicks
+            reach_ytd += delivered
+
+        # Month aggregation (dedup by subject within month)
+        month_key = (sent_month, subject)
+        if sent_month == current_month and month_key not in seen_month_keys:
+            seen_month_keys.add(month_key)
+            leads_month += clicks
+            reach_month += delivered
+
+    # Sort by clicks descending
+    processed.sort(key=lambda c: c['clicks'], reverse=True)
+
+    return jsonify({
+        'campaigns':   processed,
+        'leadsMonth':  leads_month,
+        'leadsYtd':    leads_ytd,
+        'reachMonth':  reach_month,
+        'reachYtd':    reach_ytd,
+        'currentMonth': current_month,
+        'currentYear':  current_year,
+        'note': (
+            "Les adresses internes (@acl.lu, @epic.net) et les adresses de test ne sont pas exclues "
+            "car les données disponibles en temps réel sont agrégées (non par destinataire). "
+            "Pour une déduplication exacte, utiliser DashThis."
+        ),
+    })
+
+
+# ─────────────────────────────────────────────────────────────────────────────
 # YouTube
 # ─────────────────────────────────────────────────────────────────────────────
 
