@@ -1066,6 +1066,18 @@ def brevo_club():
             break
         offset += 100
 
+    # Collect all unique tags for debugging
+    all_tags = set()
+    for c in all_campaigns:
+        raw = c.get('tag') or ''
+        for t in raw.split(','):
+            t = t.strip()
+            if t:
+                all_tags.add(t)
+        for t in c.get('tags', []):
+            if t:
+                all_tags.add(str(t))
+
     # Filter by "ACL Club" tag (case-insensitive)
     def _has_club_tag(c):
         tag = (c.get('tag') or '').lower()
@@ -1134,13 +1146,19 @@ def brevo_club():
     processed.sort(key=lambda c: c['clicks'], reverse=True)
 
     return jsonify({
-        'campaigns':   processed,
-        'leadsMonth':  leads_month,
-        'leadsYtd':    leads_ytd,
-        'reachMonth':  reach_month,
-        'reachYtd':    reach_ytd,
+        'campaigns':    processed,
+        'leadsMonth':   leads_month,
+        'leadsYtd':     leads_ytd,
+        'reachMonth':   reach_month,
+        'reachYtd':     reach_ytd,
         'currentMonth': current_month,
         'currentYear':  current_year,
+        'debug': {
+            'totalCampaignsFetched': len(all_campaigns),
+            'clubCampaignsFound':    len(club_campaigns),
+            'allTagsFound':          sorted(all_tags),
+            'clubTagUsed':           CLUB_TAG,
+        },
         'note': (
             "Les adresses internes (@acl.lu, @epic.net) et les adresses de test ne sont pas exclues "
             "car les données disponibles en temps réel sont agrégées (non par destinataire). "
