@@ -1125,13 +1125,23 @@ def brevo_club():
             off += 500
         return tid, results
 
-    # 3b. Unique opens — /smtp/statistics/events per (templateId, chunk)
+    # 3a-only: fetch reach first (serial per batch of 20)
+    reach_tasks     = [(tid, cs, ce) for tid in all_tids for cs, ce in chunks]
+    template_reach  = {tid: [] for tid in all_tids}
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=20) as ex:
+        for tid, emails in ex.map(fetch_reach, reach_tasks):
+            template_reach[tid].extend(emails)
+
+    # 3b. Unique opens — only for templates that had actual deliveries (reduces tasks 10x)
+    active_tids = [tid for tid in all_tids if template_reach[tid]]
+
     def fetch_opens(args):
         tid, cs, ce = args
         results, off = [], 0
         while True:
             r = _get(f'{BREVO_BASE}/smtp/statistics/events', headers=headers, params={
-                'templateId': tid, 'event': 'uniqueOpens',
+                'templateId': tid, 'event': 'opened',
                 'startDate': cs, 'endDate': ce,
                 'limit': 100, 'offset': off,
             })
@@ -1146,13 +1156,13 @@ def brevo_club():
             off += 100
         return tid, results
 
-    # 3c. Tag-based unique opens (parallel diagnostic + potential richer source)
+    # 3c. Tag-based opens in parallel (uses correct event name now)
     def fetch_opens_bytag(cs_ce):
         cs, ce = cs_ce
         results, off = [], 0
         while True:
             r = _get(f'{BREVO_BASE}/smtp/statistics/events', headers=headers, params={
-                'tags': 'club-member', 'event': 'uniqueOpens',
+                'tags': 'club-member', 'event': 'opened',
                 'startDate': cs, 'endDate': ce,
                 'limit': 100, 'offset': off,
             })
@@ -1167,23 +1177,17 @@ def brevo_club():
             off += 100
         return results
 
-    tasks = [(tid, cs, ce) for tid in all_tids for cs, ce in chunks]
-
-    template_reach  = {tid: [] for tid in all_tids}
-    template_opens  = {tid: [] for tid in all_tids}
+    opens_tasks    = [(tid, cs, ce) for tid in active_tids for cs, ce in chunks]
+    template_opens = {tid: [] for tid in all_tids}
+    tag_opens      = []
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=20) as ex:
-        reach_futs = [ex.submit(fetch_reach, t) for t in tasks]
-        opens_futs = [ex.submit(fetch_opens, t) for t in tasks]
-        tag_futs   = [ex.submit(fetch_opens_bytag, c) for c in chunks]
+        opens_futs  = [ex.submit(fetch_opens,      t) for t in opens_tasks]
+        tag_futs    = [ex.submit(fetch_opens_bytag, c) for c in chunks]
 
-    for f in reach_futs:
-        tid, emails = f.result()
-        template_reach[tid].extend(emails)
     for f in opens_futs:
         tid, events = f.result()
         template_opens[tid].extend(events)
-
     tag_opens = [e for f in tag_futs for e in f.result()]
 
     # 4. Aggregate
@@ -1270,6 +1274,7 @@ def brevo_club():
             'offerCount':            len(templates_by_offer),
             'chunksCount':           len(chunks),
             'totalReach':            sum(len(v) for v in template_reach.values()),
+            'activeTemplates':        len(active_tids),
             'totalOpens_byTemplateId': sum(len(v) for v in template_opens.values()),
             'totalOpens_byTag':      len(tag_opens),
             'usedTagOpens':          use_tag_opens,
