@@ -1133,47 +1133,34 @@ def brevo_club():
         for tid, emails in ex.map(fetch_reach, reach_tasks):
             template_reach[tid].extend(emails)
 
-    # 3b. Per-email events via /smtp/email/{uuid} — the only reliable way to get opens
-    # Build uuid → (email_addr, templateId, date_month) from reach data
+    # 3b. Open events via /smtp/statistics/events?templateId=X&event=uniqueOpened
     active_tids = [tid for tid in all_tids if template_reach[tid]]
-    uuid_meta   = {}
-    for tid in active_tids:
-        for e in template_reach[tid]:
-            uuid = e.get('uuid')
-            if uuid:
-                uuid_meta[uuid] = (
-                    (e.get('email') or '').lower().strip(),
-                    tid,
-                    (e.get('date') or '')[:7],
-                )
 
-    def fetch_email_detail(uuid):
-        try:
-            r = _get(f'{BREVO_BASE}/smtp/email/{uuid}', headers=headers,
-                     timeout=15)
+    def fetch_open_events(args):
+        tid, cs, ce = args
+        results, off = [], 0
+        while True:
+            r = _get(f'{BREVO_BASE}/smtp/statistics/events', headers=headers,
+                     params={'templateId': tid, 'startDate': cs, 'endDate': ce,
+                             'event': 'uniqueOpened', 'limit': 500, 'offset': off,
+                             'sort': 'desc'})
             if not r.ok:
-                return uuid, [], f'http_{r.status_code}', r.text[:300]
-            events = r.json().get('events', [])
-            return uuid, events, None, None
-        except requests.exceptions.Timeout:
-            return uuid, [], 'timeout', None
-        except Exception as exc:
-            return uuid, [], f'exc_{type(exc).__name__}', None
+                break
+            batch = r.json().get('events', [])
+            if not batch:
+                break
+            results.extend(batch)
+            if len(batch) < 500:
+                break
+            off += 500
+        return tid, results
 
-    uuid_events  = {}
-    error_counts = {}
-    sample_errors = {}
-    with concurrent.futures.ThreadPoolExecutor(max_workers=5) as ex:
-        for uuid, evts, err, detail in ex.map(fetch_email_detail, uuid_meta.keys()):
-            uuid_events[uuid] = evts
-            if err:
-                error_counts[err] = error_counts.get(err, 0) + 1
-                if err not in sample_errors and detail:
-                    sample_errors[err] = detail
+    events_tasks   = [(tid, cs, ce) for tid in active_tids for cs, ce in chunks]
+    template_events = {tid: [] for tid in active_tids}
 
-    # Collect all unique event names for debug
-    all_event_names = {ev.get('name', '') for evts in uuid_events.values() for ev in evts}
-    OPEN_EVENT_NAMES = {'unique_opened', 'opened'}
+    with concurrent.futures.ThreadPoolExecutor(max_workers=20) as ex:
+        for tid, evts in ex.map(fetch_open_events, events_tasks):
+            template_events[tid].extend(evts)
 
     # 4. Aggregate
     offers_data   = {}
@@ -1198,25 +1185,22 @@ def brevo_club():
             if date == current_month:
                 reach_month_g.add(email); od['reach_month'].add(email)
 
-    # Opens from per-email detail — uuid_events is the only reliable source
-    for uuid, evts in uuid_events.items():
-        meta = uuid_meta.get(uuid)
-        if not meta:
+    for tid in active_tids:
+        offer = tid_to_offer.get(tid)
+        if not offer:
             continue
-        email_addr, tid, date = meta
-        if not email_addr or is_excluded(email_addr):
-            continue
-        opened = any(ev.get('name', '').lower() in OPEN_EVENT_NAMES for ev in evts)
-        if not opened:
-            continue
-        offer = tid_to_offer.get(tid, 'Autre')
         if offer not in offers_data:
             offers_data[offer] = {'reach_ytd': set(), 'reach_month': set(),
                                   'leads_ytd': set(), 'leads_month': set()}
         od = offers_data[offer]
-        leads_ytd_g.add(email_addr);  od['leads_ytd'].add(email_addr)
-        if date == current_month:
-            leads_month_g.add(email_addr); od['leads_month'].add(email_addr)
+        for ev in template_events[tid]:
+            email_addr = (ev.get('email') or '').lower().strip()
+            if not email_addr or is_excluded(email_addr):
+                continue
+            date = (ev.get('date') or '')[:7]
+            leads_ytd_g.add(email_addr);  od['leads_ytd'].add(email_addr)
+            if date == current_month:
+                leads_month_g.add(email_addr); od['leads_month'].add(email_addr)
 
     offers_list = sorted([
         {
@@ -1245,16 +1229,12 @@ def brevo_club():
             'Déduplication exacte par email.'
         ),
         '_debug': {
-            'templateCount':   len(all_tids),
-            'offerCount':      len(templates_by_offer),
-            'chunksCount':     len(chunks),
-            'totalReach':      sum(len(v) for v in template_reach.values()),
-            'activeTemplates': len(active_tids),
-            'uuidsFetched':    len(uuid_events),
-            'allEventNames':   sorted(all_event_names),
-            'failedUuids':     sum(1 for evts in uuid_events.values() if evts == []),
-            'errorCounts':     error_counts,
-            'sampleErrors':    sample_errors,
+            'templateCount':    len(all_tids),
+            'offerCount':       len(templates_by_offer),
+            'chunksCount':      len(chunks),
+            'totalReach':       sum(len(v) for v in template_reach.values()),
+            'activeTemplates':  len(active_tids),
+            'totalOpenEvents':  sum(len(v) for v in template_events.values()),
         },
     })
 
