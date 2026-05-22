@@ -1150,17 +1150,26 @@ def brevo_club():
     def fetch_email_detail(uuid):
         try:
             r = _get(f'{BREVO_BASE}/smtp/email/{uuid}', headers=headers,
-                     timeout=8)
+                     timeout=15)
             if not r.ok:
-                return uuid, []
-            return uuid, r.json().get('events', [])
-        except Exception:
-            return uuid, []
+                return uuid, [], f'http_{r.status_code}', r.text[:300]
+            events = r.json().get('events', [])
+            return uuid, events, None, None
+        except requests.exceptions.Timeout:
+            return uuid, [], 'timeout', None
+        except Exception as exc:
+            return uuid, [], f'exc_{type(exc).__name__}', None
 
-    uuid_events = {}
-    with concurrent.futures.ThreadPoolExecutor(max_workers=20) as ex:
-        for uuid, evts in ex.map(fetch_email_detail, uuid_meta.keys()):
+    uuid_events  = {}
+    error_counts = {}
+    sample_errors = {}
+    with concurrent.futures.ThreadPoolExecutor(max_workers=5) as ex:
+        for uuid, evts, err, detail in ex.map(fetch_email_detail, uuid_meta.keys()):
             uuid_events[uuid] = evts
+            if err:
+                error_counts[err] = error_counts.get(err, 0) + 1
+                if err not in sample_errors and detail:
+                    sample_errors[err] = detail
 
     # Collect all unique event names for debug
     all_event_names = {ev.get('name', '') for evts in uuid_events.values() for ev in evts}
@@ -1244,6 +1253,8 @@ def brevo_club():
             'uuidsFetched':    len(uuid_events),
             'allEventNames':   sorted(all_event_names),
             'failedUuids':     sum(1 for evts in uuid_events.values() if evts == []),
+            'errorCounts':     error_counts,
+            'sampleErrors':    sample_errors,
         },
     })
 
