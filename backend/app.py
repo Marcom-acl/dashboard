@@ -1198,14 +1198,6 @@ def brevo_club():
             'Adresses @acl.lu, @epic.net et adresses de test exclues. '
             'Déduplication exacte par email (membres uniques par offre).'
         ),
-        '_debug': {
-            'templateCount':  len(all_tids),
-            'offerCount':     len(templates_by_offer),
-            'dateRange':      f'{ytd_start} → {today}',
-            'sampleTemplateId': sample_tid,
-            'sampleRawResponse': sample_raw,
-            'fetchErrors':    fetch_errors,
-        },
     })
 
 
