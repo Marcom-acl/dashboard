@@ -2302,26 +2302,26 @@ function renderClub(d) {
     ${!offers.length ? `
     <div class="card" style="border:1px solid var(--warn)">
       <div class="card-body" style="display:flex;flex-direction:column;gap:8px;padding:18px">
-        <div style="font-weight:700;color:var(--warn)">Aucun email transactionnel avec le tag "Club-member" trouvé</div>
-        <div style="font-size:13px;color:var(--muted)">Les emails d'offres Club doivent être envoyés via Brevo avec le tag <strong style="color:var(--text)">Club-member</strong> pour apparaître ici. Vérifier que le tag est bien appliqué lors de l'envoi.</div>
+        <div style="font-weight:700;color:var(--warn)">Aucun email Club trouvé pour ${year}</div>
+        <div style="font-size:13px;color:var(--muted)">Le panneau se peuple automatiquement dès que des emails sont envoyés via des templates Brevo nommés <strong style="color:var(--text)">CLUB_[Partenaire]_Membre_[langue]</strong>.</div>
       </div>
     </div>` : `
     <div class="card">
-      <div class="card-head"><div class="card-title">Offres Club — leads par sujet d'email</div></div>
+      <div class="card-head"><div class="card-title">Leads par offre — ${year}</div></div>
       <div class="card-body flush"><div class="tbl-scroll"><table class="tbl">
         <thead><tr>
-          <th>Offre (sujet email)</th>
-          <th class="r">1er envoi</th>
-          <th class="r" title="Membres uniques ayant reçu cet email (après déduplication)">Membres touchés</th>
-          <th class="r" title="Membres uniques ayant cliqué — proxy de lead">Leads (clics uniques)</th>
-          <th class="r" title="Taux de clic : ≥3% excellent · 1–3% moyen · &lt;1% faible">Taux lead ⬤</th>
+          <th>Offre (partenaire)</th>
+          <th class="r" title="Membres uniques ayant reçu cet email cette année">Touchés YTD</th>
+          <th class="r" title="Membres uniques ayant cliqué cette année">Leads YTD</th>
+          <th class="r" title="Membres uniques ayant cliqué ce mois">Leads mois</th>
+          <th class="r" title="Taux lead YTD : ≥3% excellent · 1–3% moyen · &lt;1% faible">Taux ⬤</th>
         </tr></thead>
         <tbody>${offers.map(o => `<tr>
           <td class="cn">${o.name || '—'}</td>
-          <td class="r" style="white-space:nowrap">${o.date || '—'}</td>
-          <td class="r">${fmtN(o.reach)}</td>
-          <td class="r" style="font-weight:700">${fmtN(o.leads)}</td>
-          <td class="r" style="font-weight:700;color:${leadRateCls(o.leadRate)}">${fmtPct(o.leadRate)}</td>
+          <td class="r">${fmtN(o.reachYtd)}</td>
+          <td class="r" style="font-weight:700">${fmtN(o.leadsYtd)}</td>
+          <td class="r">${fmtN(o.leadsMonth)}</td>
+          <td class="r" style="font-weight:700;color:${leadRateCls(o.leadRateYtd)}">${fmtPct(o.leadRateYtd)}</td>
         </tr>`).join('')}</tbody>
       </table></div></div>
     </div>`}

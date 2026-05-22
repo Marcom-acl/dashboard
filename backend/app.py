@@ -10,6 +10,7 @@ import json
 import re
 import datetime
 import requests
+import concurrent.futures
 from flask import Flask, request, jsonify, redirect, session
 from flask_cors import CORS
 
@@ -1035,46 +1036,6 @@ def brevo():
 # Brevo — ACL Club
 # ─────────────────────────────────────────────────────────────────────────────
 
-@app.route('/brevo/club/debug-tags')
-def brevo_club_debug_tags():
-    """Liste les templates transactionnels Brevo pour identifier celui des emails Club."""
-    if not BREVO_API_KEY:
-        return jsonify({'error': 'BREVO_API_KEY manquante'})
-    BREVO_BASE = 'https://api.brevo.com/v3'
-    headers    = {'api-key': BREVO_API_KEY, 'Accept': 'application/json'}
-
-    templates = []
-    offset = 0
-    while True:
-        rc = _get(f'{BREVO_BASE}/smtp/templates', headers=headers, params={
-            'templateStatus': 'true', 'limit': 50, 'offset': offset,
-        })
-        if not rc.ok:
-            break
-        batch = rc.json().get('templates', [])
-        if not batch:
-            break
-        for t in batch:
-            templates.append({
-                'id':        t.get('id'),
-                'name':      t.get('name'),
-                'subject':   t.get('subject'),
-                'tag':       t.get('tag'),
-                'updatedAt': (t.get('modifiedAt') or '')[:10],
-            })
-        if len(batch) < 50:
-            break
-        offset += 50
-
-    return jsonify({
-        'totalTemplates': len(templates),
-        'templates': sorted(templates, key=lambda t: t['name'] or ''),
-        'instruction': (
-            'Identifiez le ou les templates utilisés pour les emails Club, '
-            'notez leur "id", et communiquez-les pour configurer le filtre.'
-        ),
-    })
-
 
 @app.route('/brevo/club')
 def brevo_club():
@@ -1082,7 +1043,6 @@ def brevo_club():
         return jsonify({'error': 'BREVO_API_KEY manquante'})
 
     BREVO_BASE       = 'https://api.brevo.com/v3'
-    CLUB_TAG         = 'Club-member'
     EXCLUDED_DOMAINS = {'acl.lu', 'epic.net'}
     EXCLUDED_EMAILS  = {'pierreyvesmeert@gmail.com', 'conrardykim@gmail.com'}
     headers          = {'api-key': BREVO_API_KEY, 'Accept': 'application/json'}
@@ -1093,102 +1053,134 @@ def brevo_club():
     ytd_start     = f'{current_year}-01-01'
     today         = now.strftime('%Y-%m-%d')
 
-    def _is_excluded(email):
-        email = email.lower().strip()
-        domain = email.split('@')[-1] if '@' in email else ''
-        return domain in EXCLUDED_DOMAINS or email in EXCLUDED_EMAILS
+    def is_excluded(email):
+        e = email.lower().strip()
+        return e.split('@')[-1] in EXCLUDED_DOMAINS or e in EXCLUDED_EMAILS
 
-    def _has_event(record, name):
-        return any(e.get('name') == name for e in record.get('events', []))
+    def offer_from_name(tpl_name):
+        """CLUB_Orange_avril_Membre_FR  →  'Orange'"""
+        n = re.sub(r'^CLUB_', '', tpl_name)
+        n = re.sub(r'_(?:Membre|Partner).*$', '', n, flags=re.IGNORECASE)
+        for m in ('janvier','fevrier','mars','avril','mai','juin',
+                  'juillet','aout','septembre','octobre','novembre','decembre'):
+            n = re.sub(rf'_{m}$', '', n, flags=re.IGNORECASE)
+        return n.strip('_ ')
 
-    # Paginate transactional emails tagged Club-member for the current year
-    all_emails = []
+    # 1. Discover all CLUB_*_Membre_* templates (skip TEST)
+    templates_by_offer = {}
     offset = 0
     while True:
-        rc = _get(f'{BREVO_BASE}/smtp/emails', headers=headers, params={
-            'tags':      CLUB_TAG,
-            'startDate': ytd_start,
-            'endDate':   today,
-            'limit':     500,
-            'offset':    offset,
-            'sort':      'desc',
-        })
+        rc = _get(f'{BREVO_BASE}/smtp/templates', headers=headers,
+                  params={'templateStatus': 'true', 'limit': 50, 'offset': offset})
         if not rc.ok:
             break
-        batch = rc.json().get('transactionalEmails', [])
+        batch = rc.json().get('templates', [])
         if not batch:
             break
-        all_emails.extend(batch)
-        if len(batch) < 500:
+        for t in batch:
+            n = t.get('name', '')
+            if (re.match(r'^CLUB_', n)
+                    and re.search(r'_Membre', n, re.IGNORECASE)
+                    and 'TEST' not in n.upper()):
+                offer = offer_from_name(n)
+                templates_by_offer.setdefault(offer, []).append(t['id'])
+        if len(batch) < 50:
             break
-        offset += 500
+        offset += 50
 
-    # Deduplication + exclusion + aggregation
-    seen_dedup   = set()    # (email, subject) — évite les multi-envois accidentels
-    unique_ytd   = set()    # adresses uniques YTD (portée)
-    unique_month = set()    # adresses uniques mois courant (portée)
-    leads_ytd    = set()    # adresses uniques ayant cliqué YTD
-    leads_month  = set()    # adresses uniques ayant cliqué ce mois
+    all_tids    = [tid for tids in templates_by_offer.values() for tid in tids]
+    tid_to_offer = {tid: offer
+                    for offer, tids in templates_by_offer.items()
+                    for tid in tids}
 
-    # Par offre (sujet) : membres touchés + leads
-    offers = {}
+    # 2. Fetch emails per template ID in parallel
+    def fetch_for_template(tid):
+        results, off = [], 0
+        while True:
+            r = _get(f'{BREVO_BASE}/smtp/emails', headers=headers, params={
+                'templateId': tid,
+                'startDate': ytd_start, 'endDate': today,
+                'limit': 500, 'offset': off, 'sort': 'desc',
+            })
+            if not r.ok:
+                break
+            batch = r.json().get('transactionalEmails', [])
+            if not batch:
+                break
+            results.extend(batch)
+            if len(batch) < 500:
+                break
+            off += 500
+        return tid, results
 
-    for e in all_emails:
-        email   = (e.get('email') or '').lower().strip()
-        subject = (e.get('subject') or '').strip()
-        date    = (e.get('date') or '')[:7]   # YYYY-MM
+    template_emails = {}
+    with concurrent.futures.ThreadPoolExecutor(max_workers=10) as ex:
+        for tid, emails in ex.map(fetch_for_template, all_tids):
+            template_emails[tid] = emails
 
-        if not email or _is_excluded(email):
-            continue
+    # 3. Aggregate — sets deduplicate automatically
+    offers_data    = {}
+    reach_ytd_g    = set()
+    reach_month_g  = set()
+    leads_ytd_g    = set()
+    leads_month_g  = set()
 
-        dedup_key = (email, subject)
-        if dedup_key in seen_dedup:
-            continue
-        seen_dedup.add(dedup_key)
+    for tid, emails in template_emails.items():
+        offer = tid_to_offer[tid]
+        if offer not in offers_data:
+            offers_data[offer] = {
+                'reach_ytd': set(), 'reach_month': set(),
+                'leads_ytd': set(), 'leads_month': set(),
+            }
+        od = offers_data[offer]
 
-        clicked = _has_event(e, 'clicks')
-        is_month = date == current_month
+        for e in emails:
+            email = (e.get('email') or '').lower().strip()
+            if not email or is_excluded(email):
+                continue
 
-        unique_ytd.add(email)
-        if is_month:
-            unique_month.add(email)
-        if clicked:
-            leads_ytd.add(email)
+            date     = (e.get('date') or '')[:7]
+            is_month = date == current_month
+            clicked  = any(ev.get('name') == 'clicks'
+                           for ev in e.get('events', []))
+
+            reach_ytd_g.add(email)
+            od['reach_ytd'].add(email)
             if is_month:
-                leads_month.add(email)
-
-        if subject not in offers:
-            offers[subject] = {'reach': set(), 'leads': set(), 'firstDate': date}
-        offers[subject]['reach'].add(email)
-        if clicked:
-            offers[subject]['leads'].add(email)
-        if date < offers[subject]['firstDate']:
-            offers[subject]['firstDate'] = date
+                reach_month_g.add(email)
+                od['reach_month'].add(email)
+            if clicked:
+                leads_ytd_g.add(email)
+                od['leads_ytd'].add(email)
+                if is_month:
+                    leads_month_g.add(email)
+                    od['leads_month'].add(email)
 
     offers_list = sorted([
         {
-            'name':     subj,
-            'date':     d['firstDate'],
-            'reach':    len(d['reach']),
-            'leads':    len(d['leads']),
-            'leadRate': round(len(d['leads']) / len(d['reach']) * 100, 1) if d['reach'] else 0,
+            'name':        offer,
+            'reachYtd':    len(d['reach_ytd']),
+            'reachMonth':  len(d['reach_month']),
+            'leadsYtd':    len(d['leads_ytd']),
+            'leadsMonth':  len(d['leads_month']),
+            'leadRateYtd': round(len(d['leads_ytd']) / len(d['reach_ytd']) * 100, 1)
+                           if d['reach_ytd'] else 0,
         }
-        for subj, d in offers.items()
-    ], key=lambda x: x['leads'], reverse=True)
+        for offer, d in offers_data.items()
+    ], key=lambda x: x['leadsYtd'], reverse=True)
 
     return jsonify({
         'offers':       offers_list,
-        'leadsMonth':   len(leads_month),
-        'leadsYtd':     len(leads_ytd),
-        'reachMonth':   len(unique_month),
-        'reachYtd':     len(unique_ytd),
-        'totalEmails':  len(seen_dedup),
+        'leadsMonth':   len(leads_month_g),
+        'leadsYtd':     len(leads_ytd_g),
+        'reachMonth':   len(reach_month_g),
+        'reachYtd':     len(reach_ytd_g),
         'currentMonth': current_month,
         'currentYear':  current_year,
         'note': (
-            'Données transactionnelles Brevo (tag Club-member). '
+            'Source : templates CLUB_*_Membre_* (Brevo transactionnel). '
             'Adresses @acl.lu, @epic.net et adresses de test exclues. '
-            'Déduplication exacte par combinaison email+sujet.'
+            'Déduplication exacte par email (membres uniques par offre).'
         ),
     })
 
