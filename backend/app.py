@@ -1014,11 +1014,17 @@ def brevo():
     blacklisted_64 = list_data.get('totalBlacklisted', 0)
     total_64       = subscribed_64 + blacklisted_64
 
-    # Global stats (hard bounces + désinscriptions totales)
-    rs = _get(f'{BREVO_BASE}/contacts/statistics', headers=headers)
-    global_stats        = rs.json() if rs.ok else {}
-    hard_bounces        = global_stats.get('hardBounces', 0)
-    global_unsubscribed = global_stats.get('unsubscribed', 0)
+    # Hard bounces — 6 derniers mois via smtp/statistics/globalStats
+    today_str       = datetime.datetime.utcnow().strftime('%Y-%m-%d')
+    six_months_ago  = (datetime.datetime.utcnow() - datetime.timedelta(days=180)).strftime('%Y-%m-%d')
+    rh = _get(f'{BREVO_BASE}/smtp/statistics/globalStats', headers=headers,
+              params={'startDate': six_months_ago, 'endDate': today_str})
+    hard_bounces = rh.json().get('hardBounces', 0) if rh.ok else 0
+
+    # Désinscriptions totales — cumul depuis 2015
+    ru = _get(f'{BREVO_BASE}/smtp/statistics/globalStats', headers=headers,
+              params={'startDate': '2015-01-01', 'endDate': today_str})
+    global_unsubscribed = ru.json().get('unsubscriptions', 0) if ru.ok else 0
 
     contact_stats = {
         'total':        total_64,
@@ -1477,10 +1483,13 @@ def supermetrics_linkedin():
 
     acc = SUPERMETRICS_LI_ACCOUNT
 
+    sm_errors = []  # capture les erreurs Supermetrics pour diagnostic
+
     # ── 1. Performance par date (share_statistics, report_type 6) ────────────
     perf_fields = ['date', 'page_impressions', 'page_clicks', 'page_engagements',
                    'page_engagement_rate', 'page_likes', 'page_comments', 'page_shares']
-    rows1, sc1, _ = _supermetrics_query('LIP', acc, perf_fields, start, end)
+    rows1, sc1, err1 = _supermetrics_query('LIP', acc, perf_fields, start, end)
+    if err1: sm_errors.append(f'perf: {err1}')
     items1 = _sm_rows_to_dicts(rows1, sc1 or perf_fields)
 
     trend = [{'date': r.get('date', ''),
@@ -1492,7 +1501,8 @@ def supermetrics_linkedin():
 
     # ── 2. Croissance abonnés par date (follower_statistics, report_type 4) ──
     fol_fields = ['date', 'followers_gain_total', 'followers_gain_organic', 'followers_gain_paid']
-    rows2, sc2, _ = _supermetrics_query('LIP', acc, fol_fields, start, end)
+    rows2, sc2, err2 = _supermetrics_query('LIP', acc, fol_fields, start, end)
+    if err2: sm_errors.append(f'followers: {err2}')
     items2 = _sm_rows_to_dicts(rows2, sc2 or fol_fields)
 
     new_followers = sum(r.get('followers_gain_total', 0) or 0 for r in items2)
@@ -1501,7 +1511,8 @@ def supermetrics_linkedin():
         t['newFollowers'] = gain_by_date.get(t['date'], 0)
 
     # ── 3. Total abonnés (company_statistics, report_type 3) ─────────────────
-    rows3, sc3, _ = _supermetrics_query('LIP', acc, ['follower_count'], start, end, max_rows=1)
+    rows3, sc3, err3 = _supermetrics_query('LIP', acc, ['follower_count'], start, end, max_rows=1)
+    if err3: sm_errors.append(f'follower_count: {err3}')
     items3 = _sm_rows_to_dicts(rows3, sc3 or ['follower_count'])
     follower_count = int(items3[-1].get('follower_count', 0) or 0) if items3 else 0
 
@@ -1509,7 +1520,8 @@ def supermetrics_linkedin():
     post_fields = ['update_title', 'update_share_comment', 'update_url',
                    'update_share_media_category', 'page_impressions', 'page_clicks',
                    'page_likes', 'page_comments', 'page_shares', 'page_engagement_rate']
-    rows4, sc4, _ = _supermetrics_query('LIP', acc, post_fields, start, end, max_rows=50)
+    rows4, sc4, err4 = _supermetrics_query('LIP', acc, post_fields, start, end, max_rows=50)
+    if err4: sm_errors.append(f'posts: {err4}')
     items4 = _sm_rows_to_dicts(rows4, sc4 or post_fields)
 
     posts = [{
@@ -1526,7 +1538,8 @@ def supermetrics_linkedin():
     } for r in items4[:20]]
 
     # ── 5. Démographie par pays (company_statistics, report_type 3) ──────────
-    rows5, sc5, _ = _supermetrics_query('LIP', acc, ['follower_country', 'follower_count'], start, end)
+    rows5, sc5, err5 = _supermetrics_query('LIP', acc, ['follower_country', 'follower_count'], start, end)
+    if err5: sm_errors.append(f'countries: {err5}')
     items5 = _sm_rows_to_dicts(rows5, sc5 or ['follower_country', 'follower_count'])
     countries = sorted(
         [{'name': r.get('follower_country', ''), 'count': r.get('follower_count', 0) or 0} for r in items5],
@@ -1534,7 +1547,8 @@ def supermetrics_linkedin():
     )[:10]
 
     # ── 6. Démographie par secteur ────────────────────────────────────────────
-    rows6, sc6, _ = _supermetrics_query('LIP', acc, ['follower_industry', 'follower_count'], start, end)
+    rows6, sc6, err6 = _supermetrics_query('LIP', acc, ['follower_industry', 'follower_count'], start, end)
+    if err6: sm_errors.append(f'industries: {err6}')
     items6 = _sm_rows_to_dicts(rows6, sc6 or ['follower_industry', 'follower_count'])
     industries = sorted(
         [{'name': r.get('follower_industry', ''), 'count': r.get('follower_count', 0) or 0} for r in items6],
@@ -1543,6 +1557,7 @@ def supermetrics_linkedin():
 
     return jsonify({
         'source':        'supermetrics',
+        '_debug_errors': sm_errors if sm_errors else None,
         # ── compat fields for overview & insights ──
         'followers':      follower_count,
         'totalFollowers': follower_count,
