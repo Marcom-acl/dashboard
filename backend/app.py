@@ -1326,13 +1326,12 @@ def youtube():
 # Supermetrics helpers
 # ─────────────────────────────────────────────────────────────────────────────
 
-SUPERMETRICS_FETCH_URL  = 'https://api.supermetrics.com/enterprise/v2/fetch'
-SUPERMETRICS_RESULT_URL = 'https://api.supermetrics.com/enterprise/v2/result'
+SUPERMETRICS_QUERY_URL  = 'https://api.supermetrics.com/enterprise/v2/query/data/json'
 SUPERMETRICS_LI_ACCOUNT = '10097790'  # ACL - Automobile Club du Luxembourg
 
 
 def _supermetrics_query(ds_id, ds_accounts, fields, start_date, end_date, max_rows=500):
-    """POST a Supermetrics query; poll async result if needed.
+    """GET a Supermetrics query (sync_timeout=60 s).
 
     Returns (rows, schema, error_msg).  rows is a list of lists; schema a list of field IDs.
     On failure rows and schema are None and error_msg is set.
@@ -1342,6 +1341,7 @@ def _supermetrics_query(ds_id, ds_accounts, fields, start_date, end_date, max_ro
 
     accounts = [ds_accounts] if isinstance(ds_accounts, str) else list(ds_accounts)
     query = {
+        'api_key':         SUPERMETRICS_API_KEY,
         'ds_id':           ds_id,
         'ds_accounts':     accounts,
         'fields':          fields,
@@ -1349,30 +1349,14 @@ def _supermetrics_query(ds_id, ds_accounts, fields, start_date, end_date, max_ro
         'start_date':      start_date,
         'end_date':        end_date,
         'max_rows':        max_rows,
+        'sync_timeout':    60,
     }
 
-    r = _post(
-        SUPERMETRICS_FETCH_URL,
-        data={'json': json.dumps(query), 'api_secret': SUPERMETRICS_API_KEY},
-    )
+    r = _get(SUPERMETRICS_QUERY_URL, params={'json': json.dumps(query)}, timeout=90)
     if not r.ok:
         return None, None, f'Supermetrics HTTP {r.status_code}: {r.text[:200]}'
 
     body = r.json()
-
-    # Async pattern: poll until the job completes
-    job_id = body.get('jobID') or body.get('job_id') or body.get('schedule_id')
-    if job_id:
-        for _ in range(15):
-            time.sleep(2)
-            rp = _get(SUPERMETRICS_RESULT_URL + f'/{job_id}',
-                      params={'api_secret': SUPERMETRICS_API_KEY})
-            if rp.ok:
-                body = rp.json()
-                if body.get('status') not in ('running', 'pending', 'queued'):
-                    break
-        else:
-            return None, None, 'Supermetrics timeout après 30 s'
 
     rows   = body.get('data', [])
     raw_sc = body.get('schema', fields)
