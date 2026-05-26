@@ -1330,7 +1330,7 @@ SUPERMETRICS_QUERY_URL  = 'https://api.supermetrics.com/enterprise/v2/query/data
 SUPERMETRICS_LI_ACCOUNT = '10097790'  # ACL - Automobile Club du Luxembourg
 
 
-def _supermetrics_query(ds_id, ds_accounts, fields, start_date, end_date, max_rows=500):
+def _supermetrics_query(ds_id, ds_accounts, fields, start_date, end_date, max_rows=500, report_type=None):
     """GET a Supermetrics query (sync_timeout=60 s).
 
     Returns (rows, schema, error_msg).  rows is a list of lists; schema a list of field IDs.
@@ -1351,6 +1351,8 @@ def _supermetrics_query(ds_id, ds_accounts, fields, start_date, end_date, max_ro
         'max_rows':        max_rows,
         'sync_timeout':    60,
     }
+    if report_type is not None:
+        query['settings'] = {'report_type': str(report_type)}
 
     try:
         r = _get(SUPERMETRICS_QUERY_URL, params={'json': json.dumps(query)}, timeout=90)
@@ -1553,8 +1555,8 @@ def _supermetrics_linkedin_impl():
         'engagementRate': round(_n(r.get('page_engagement_rate')), 2),
     } for r in items4[:20]]
 
-    # ── 5. Démographie par pays (company_statistics, report_type 3) ──────────
-    rows5, sc5, err5 = _supermetrics_query('LIP', acc, ['follower_country', 'follower_count'], start, end)
+    # ── 5. Démographie par pays (follower_statistics, report_type 3) ───────────
+    rows5, sc5, err5 = _supermetrics_query('LIP', acc, ['follower_country', 'follower_count'], start, end, report_type=3)
     if err5: sm_errors.append(f'countries: {err5}')
     items5 = _sm_rows_to_dicts(rows5, sc5 or ['follower_country', 'follower_count'])
     countries = sorted(
@@ -1562,8 +1564,8 @@ def _supermetrics_linkedin_impl():
         key=lambda x: x['count'], reverse=True
     )[:10]
 
-    # ── 6. Démographie par secteur ────────────────────────────────────────────
-    rows6, sc6, err6 = _supermetrics_query('LIP', acc, ['follower_industry', 'follower_count'], start, end)
+    # ── 6. Démographie par secteur (follower_statistics, report_type 3) ─────────
+    rows6, sc6, err6 = _supermetrics_query('LIP', acc, ['follower_industry', 'follower_count'], start, end, report_type=3)
     if err6: sm_errors.append(f'industries: {err6}')
     items6 = _sm_rows_to_dicts(rows6, sc6 or ['follower_industry', 'follower_count'])
     industries = sorted(
@@ -1571,9 +1573,12 @@ def _supermetrics_linkedin_impl():
         key=lambda x: x['count'], reverse=True
     )[:8]
 
+    _debug_demo = {'countries_raw': items5[:5], 'industries_raw': items6[:5]}
+
     return jsonify({
         'source':        'supermetrics',
         '_debug_errors': sm_errors if sm_errors else None,
+        '_debug_demo':   _debug_demo,
         # ── compat fields for overview & insights ──
         'followers':      follower_count,
         'totalFollowers': follower_count,
