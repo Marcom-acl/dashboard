@@ -1383,6 +1383,16 @@ def _sm_rows_to_dicts(rows, schema):
     return [dict(zip(schema, row)) for row in (rows or [])]
 
 
+def _n(v, default=0.0):
+    """Safely cast a Supermetrics value (often a string) to float."""
+    if v is None or v == '':
+        return default
+    try:
+        return float(v)
+    except (TypeError, ValueError):
+        return default
+
+
 # ─────────────────────────────────────────────────────────────────────────────
 # LinkedIn
 # ─────────────────────────────────────────────────────────────────────────────
@@ -1499,11 +1509,11 @@ def _supermetrics_linkedin_impl():
     items1 = _sm_rows_to_dicts(rows1, sc1 or perf_fields)
 
     trend = [{'date': r.get('date', ''),
-              'impressions': r.get('page_impressions', 0) or 0,
-              'engagements': r.get('page_engagements', 0) or 0} for r in items1]
+              'impressions': _n(r.get('page_impressions')),
+              'engagements': _n(r.get('page_engagements'))} for r in items1]
 
-    def _sum(key): return sum(r.get(key, 0) or 0 for r in items1)
-    avg_er = (sum(r.get('page_engagement_rate', 0) or 0 for r in items1) / len(items1)) if items1 else 0
+    def _sum(key): return sum(_n(r.get(key)) for r in items1)
+    avg_er = (sum(_n(r.get('page_engagement_rate')) for r in items1) / len(items1)) if items1 else 0
 
     # ── 2. Croissance abonnés par date (follower_statistics, report_type 4) ──
     fol_fields = ['date', 'followers_gain_total', 'followers_gain_organic', 'followers_gain_paid']
@@ -1511,8 +1521,8 @@ def _supermetrics_linkedin_impl():
     if err2: sm_errors.append(f'followers: {err2}')
     items2 = _sm_rows_to_dicts(rows2, sc2 or fol_fields)
 
-    new_followers = sum(r.get('followers_gain_total', 0) or 0 for r in items2)
-    gain_by_date  = {r.get('date', ''): r.get('followers_gain_total', 0) or 0 for r in items2}
+    new_followers = sum(_n(r.get('followers_gain_total')) for r in items2)
+    gain_by_date  = {r.get('date', ''): _n(r.get('followers_gain_total')) for r in items2}
     for t in trend:
         t['newFollowers'] = gain_by_date.get(t['date'], 0)
 
@@ -1520,7 +1530,7 @@ def _supermetrics_linkedin_impl():
     rows3, sc3, err3 = _supermetrics_query('LIP', acc, ['follower_count'], start, end, max_rows=1)
     if err3: sm_errors.append(f'follower_count: {err3}')
     items3 = _sm_rows_to_dicts(rows3, sc3 or ['follower_count'])
-    follower_count = int(items3[-1].get('follower_count', 0) or 0) if items3 else 0
+    follower_count = int(_n(items3[-1].get('follower_count'))) if items3 else 0
 
     # ── 4. Top posts (update_details, report_type 10) ─────────────────────────
     post_fields = ['update_title', 'update_share_comment', 'update_url',
@@ -1535,12 +1545,12 @@ def _supermetrics_linkedin_impl():
         'text':           (r.get('update_share_comment') or '')[:120],
         'url':            r.get('update_url', ''),
         'mediaCategory':  r.get('update_share_media_category', ''),
-        'impressions':    r.get('page_impressions', 0) or 0,
-        'clicks':         r.get('page_clicks', 0) or 0,
-        'likes':          r.get('page_likes', 0) or 0,
-        'comments':       r.get('page_comments', 0) or 0,
-        'shares':         r.get('page_shares', 0) or 0,
-        'engagementRate': round(float(r.get('page_engagement_rate', 0) or 0), 2),
+        'impressions':    _n(r.get('page_impressions')),
+        'clicks':         _n(r.get('page_clicks')),
+        'likes':          _n(r.get('page_likes')),
+        'comments':       _n(r.get('page_comments')),
+        'shares':         _n(r.get('page_shares')),
+        'engagementRate': round(_n(r.get('page_engagement_rate')), 2),
     } for r in items4[:20]]
 
     # ── 5. Démographie par pays (company_statistics, report_type 3) ──────────
@@ -1548,7 +1558,7 @@ def _supermetrics_linkedin_impl():
     if err5: sm_errors.append(f'countries: {err5}')
     items5 = _sm_rows_to_dicts(rows5, sc5 or ['follower_country', 'follower_count'])
     countries = sorted(
-        [{'name': r.get('follower_country', ''), 'count': r.get('follower_count', 0) or 0} for r in items5],
+        [{'name': r.get('follower_country', ''), 'count': _n(r.get('follower_count'))} for r in items5],
         key=lambda x: x['count'], reverse=True
     )[:10]
 
@@ -1557,7 +1567,7 @@ def _supermetrics_linkedin_impl():
     if err6: sm_errors.append(f'industries: {err6}')
     items6 = _sm_rows_to_dicts(rows6, sc6 or ['follower_industry', 'follower_count'])
     industries = sorted(
-        [{'name': r.get('follower_industry', ''), 'count': r.get('follower_count', 0) or 0} for r in items6],
+        [{'name': r.get('follower_industry', ''), 'count': _n(r.get('follower_count'))} for r in items6],
         key=lambda x: x['count'], reverse=True
     )[:8]
 
