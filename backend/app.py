@@ -1004,21 +1004,27 @@ def brevo():
                 'statistics': stats,
             })
 
-    # Contact stats
-    rs = _get(f'{BREVO_BASE}/contacts/statistics', headers=headers)
-    contact_stats = {'total': 0, 'unsubscribed': 0, 'blocked': 0}
-    if rs.ok:
-        d = rs.json()
-        contact_stats = {
-            'total':       d.get('clickers', 0) + d.get('openers', 0) + d.get('hardBounces', 0) + d.get('softBounces', 0),
-            'unsubscribed': d.get('unsubscribed', 0),
-            'blocked':     d.get('hardBounces', 0),
-        }
+    # Contact stats — liste #64 (membres ACL)
+    LIST_ID = 64
+    rl = _get(f'{BREVO_BASE}/contacts/lists/{LIST_ID}', headers=headers)
+    list_data = rl.json() if rl.ok else {}
+    subscribed_64  = list_data.get('totalSubscribers', 0)
+    blacklisted_64 = list_data.get('totalBlacklisted', 0)
+    total_64       = subscribed_64 + blacklisted_64
 
-    # Also try contacts count
-    rct = _get(f'{BREVO_BASE}/contacts', headers=headers, params={'limit': 1})
-    if rct.ok:
-        contact_stats['total'] = rct.json().get('count', contact_stats['total'])
+    # Global stats (hard bounces + désinscriptions totales)
+    rs = _get(f'{BREVO_BASE}/contacts/statistics', headers=headers)
+    global_stats        = rs.json() if rs.ok else {}
+    hard_bounces        = global_stats.get('hardBounces', 0)
+    global_unsubscribed = global_stats.get('unsubscribed', 0)
+
+    contact_stats = {
+        'total':        total_64,
+        'subscribed':   subscribed_64,
+        'blacklisted':  blacklisted_64,
+        'hardBounces':  hard_bounces,
+        'unsubscribed': global_unsubscribed,
+    }
 
     # Compute avgOpenRate from campaigns
     total_dlvr  = sum(c['statistics'].get('globalStats', {}).get('delivered', 0) for c in campaigns)

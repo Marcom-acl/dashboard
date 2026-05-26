@@ -996,6 +996,38 @@
     [data-theme="dark"] .score-val{color:#d0cdc6;}
     [data-theme="dark"] #gsc-period-note{color:#777;}
 
+    /* ─── CALENDRIER MARKETING 2026 ─────────────────────────── */
+    .cal-module{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);box-shadow:var(--shadow-1);padding:16px 20px;}
+    .cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+    .cal-title-wrap{display:flex;align-items:center;gap:7px;}
+    .cal-icon{font-size:13px;}
+    .cal-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);}
+    .cal-count{font-size:11px;font-weight:700;background:var(--y);color:#000;padding:2px 8px;border-radius:99px;}
+    .cal-list{display:flex;flex-direction:column;gap:5px;}
+    .cal-item{display:flex;align-items:center;gap:10px;padding:7px 10px;border-radius:8px;background:var(--bg);font-size:12.5px;}
+    .cal-item.cal-today{background:var(--y-soft);border-left:3px solid var(--y-deep);}
+    .cal-item.cal-soon{border-left:3px solid var(--border-strong);}
+    .cal-date{font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:600;color:var(--muted);min-width:52px;flex-shrink:0;}
+    .cal-name{flex:1;font-weight:500;color:var(--text);line-height:1.3;}
+    .cal-cat{font-size:9.5px;font-weight:700;padding:2px 7px;border-radius:99px;flex-shrink:0;color:#fff;white-space:nowrap;}
+    .cal-more{margin-top:10px;background:none;border:1px solid var(--border);border-radius:6px;font-family:inherit;font-size:11px;font-weight:600;color:var(--muted);padding:5px 12px;cursor:pointer;width:100%;transition:background .15s;}
+    .cal-more:hover{background:var(--bg);}
+    [data-theme="dark"] .cal-module{background:#111;border-color:#1e1e1e;}
+    [data-theme="dark"] .cal-item{background:#0a0a0a;}
+    [data-theme="dark"] .cal-item.cal-today{background:#1a1600;}
+    [data-theme="dark"] .cal-name{color:#d0cdc6;}
+
+    /* ─── RÉSUMÉ IA (hero overview) ────────────────────────── */
+    .ai-summary-row{display:flex;align-items:flex-start;gap:10px;background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--y);border-radius:var(--r-md);padding:12px 16px;box-shadow:var(--shadow-1);font-size:13px;line-height:1.5;}
+    .ai-summary-icon{color:var(--y);font-size:16px;flex-shrink:0;margin-top:1px;}
+    .ai-summary-text{flex:1;color:var(--text);}
+    .ai-summary-link{flex-shrink:0;font-size:11.5px;font-weight:700;color:var(--n);text-decoration:none;white-space:nowrap;align-self:center;padding:4px 10px;border:1px solid var(--n);border-radius:6px;transition:background .15s,color .15s;}
+    .ai-summary-link:hover{background:var(--n);color:#fff;}
+    [data-theme="dark"] .ai-summary-row{background:#111;border-color:#1e1e1e;border-left-color:var(--y);}
+    [data-theme="dark"] .ai-summary-text{color:#d0cdc6;}
+    [data-theme="dark"] .ai-summary-link{color:var(--y);border-color:var(--y);}
+    [data-theme="dark"] .ai-summary-link:hover{background:var(--y);color:#000;}
+
   </style>
 </head>
 <body data-accent="bar" data-density="comfortable" data-sidebar="light">
@@ -1388,6 +1420,158 @@ function updateStatus(id, ok) {
   if (el) el.style.background = ok ? 'var(--good)' : 'var(--bad)';
 }
 
+// ── CALENDRIER MARKETING 2026 ────────────────────────────────
+const MKTCAL_2026 = [
+  {date:"2026-05-26",event:"Journée mondiale du challenge",category:"Journée mondiale"},
+  {date:"2026-05-27",event:"Journée mondiale de la loutre",category:"Journée mondiale"},
+  {date:"2026-05-28",event:"Journée internationale de la santé des femmes",category:"Journée mondiale"},
+  {date:"2026-05-29",event:"Fête des voisins",category:"Fête"},
+  {date:"2026-05-30",event:"Finale Ligue des Champions (Budapest)",category:"Sport"},
+  {date:"2026-05-31",event:"Fête des Mères / Journée mondiale sans tabac",category:"Fête"},
+  {date:"2026-06-01",event:"Journée mondiale des parents / du lait",category:"Journée mondiale"},
+  {date:"2026-06-03",event:"Journée mondiale de la bicyclette",category:"Journée mondiale"},
+  {date:"2026-06-05",event:"Journée mondiale de l'environnement",category:"RSE"},
+  {date:"2026-06-08",event:"Journée mondiale des océans",category:"RSE"},
+  {date:"2026-06-11",event:"Coupe du monde de football (début)",category:"Sport"},
+  {date:"2026-06-15",event:"Journée européenne du vent",category:"RSE"},
+  {date:"2026-06-17",event:"Viva Technology Paris",category:"Digital"},
+  {date:"2026-06-20",event:"Journée mondiale des réfugiés",category:"RSE"},
+  {date:"2026-06-21",event:"Fête de la Musique / Fête des Pères / Été",category:"Fête"},
+  {date:"2026-06-23",event:"Fête Nationale Luxembourg",category:"Jour férié LU"},
+  {date:"2026-06-24",event:"Début des soldes d'été",category:"Commercial"},
+  {date:"2026-06-30",event:"Journée mondiale des réseaux sociaux",category:"Digital"},
+  {date:"2026-07-04",event:"Début vacances d'été / Tour de France",category:"Sport"},
+  {date:"2026-07-06",event:"Journée internationale du baiser",category:"Fête"},
+  {date:"2026-07-14",event:"Fête nationale française",category:"Jour férié"},
+  {date:"2026-07-16",event:"AI Appreciation Day",category:"Digital"},
+  {date:"2026-07-17",event:"Journée mondiale des emojis",category:"Digital"},
+  {date:"2026-07-19",event:"Finale Coupe du monde de football",category:"Sport"},
+  {date:"2026-07-21",event:"Fête nationale belge",category:"Jour férié"},
+  {date:"2026-07-23",event:"Journée mondiale des dauphins",category:"RSE"},
+  {date:"2026-07-30",event:"Journée internationale de l'amitié",category:"Journée mondiale"},
+  {date:"2026-08-01",event:"Journée mondiale du web",category:"Digital"},
+  {date:"2026-08-08",event:"Journée internationale du chat",category:"Fête"},
+  {date:"2026-08-12",event:"Journée internationale de la jeunesse / Éclipse solaire en Europe",category:"Journée mondiale"},
+  {date:"2026-08-15",event:"Assomption (jour férié LU)",category:"Jour férié LU"},
+  {date:"2026-08-19",event:"Journée mondiale de la photographie",category:"Culture"},
+  {date:"2026-08-21",event:"Journée mondiale de la mode",category:"Culture"},
+  {date:"2026-08-26",event:"Journée mondiale du chien",category:"Journée mondiale"},
+  {date:"2026-08-29",event:"Schueberfouer Luxembourg (env. fin août)",category:"Événement LU"},
+  {date:"2026-09-01",event:"Rentrée scolaire",category:"Événement LU"},
+  {date:"2026-09-05",event:"Journée mondiale de la barbe",category:"Fête"},
+  {date:"2026-09-10",event:"Journée mondiale prévention du suicide",category:"RSE"},
+  {date:"2026-09-13",event:"Journée mondiale des programmeurs",category:"Digital"},
+  {date:"2026-09-16",event:"Semaine européenne de la mobilité",category:"RSE"},
+  {date:"2026-09-19",event:"Journées européennes du patrimoine",category:"Culture"},
+  {date:"2026-09-21",event:"Journée internationale de la paix",category:"RSE"},
+  {date:"2026-09-22",event:"Journée mondiale sans voiture",category:"RSE"},
+  {date:"2026-09-23",event:"Automne",category:"Journée mondiale"},
+  {date:"2026-09-27",event:"Journée mondiale du tourisme",category:"Journée mondiale"},
+  {date:"2026-09-29",event:"Journée mondiale du cœur",category:"Journée mondiale"},
+  {date:"2026-09-30",event:"Journée internationale du podcast / de la traduction",category:"Digital"},
+  {date:"2026-10-01",event:"Cybermoi/s (tout le mois) / Journées du café et chocolat",category:"Digital"},
+  {date:"2026-10-02",event:"Journée internationale de la non-violence",category:"RSE"},
+  {date:"2026-10-05",event:"Journée mondiale des enseignants",category:"Journée mondiale"},
+  {date:"2026-10-10",event:"Journée mondiale de la santé mentale",category:"RSE"},
+  {date:"2026-10-13",event:"Journée internationale du hamburger",category:"Commercial"},
+  {date:"2026-10-16",event:"Journée mondiale de l'alimentation",category:"RSE"},
+  {date:"2026-10-21",event:"Paris Games Week",category:"Culture"},
+  {date:"2026-10-25",event:"Passage heure d'hiver / Journée mondiale des pâtes",category:"Journée mondiale"},
+  {date:"2026-10-31",event:"Halloween",category:"Commercial"},
+  {date:"2026-11-01",event:"Toussaint (jour férié LU) / Movember",category:"Jour férié LU"},
+  {date:"2026-11-03",event:"Journée mondiale de la gentillesse",category:"RSE"},
+  {date:"2026-11-11",event:"Armistice",category:"Jour férié"},
+  {date:"2026-11-13",event:"World Kindness Day / Journée du digital clean-up",category:"RSE"},
+  {date:"2026-11-19",event:"Journée mondiale des toilettes / de l'homme",category:"Journée mondiale"},
+  {date:"2026-11-20",event:"Journée des droits de l'enfant",category:"RSE"},
+  {date:"2026-11-25",event:"Journée internationale contre les violences",category:"RSE"},
+  {date:"2026-11-27",event:"Black Friday",category:"Commercial"},
+  {date:"2026-11-28",event:"Small Business Saturday",category:"Commercial"},
+  {date:"2026-11-30",event:"Cyber Monday",category:"Commercial"},
+  {date:"2026-12-01",event:"Journée mondiale contre le SIDA",category:"RSE"},
+  {date:"2026-12-03",event:"Journée internationale des personnes handicapées",category:"RSE"},
+  {date:"2026-12-05",event:"Journée mondiale du bénévolat",category:"RSE"},
+  {date:"2026-12-10",event:"Journée internationale des droits de l'Homme",category:"RSE"},
+  {date:"2026-12-13",event:"Marchés de Noël Luxembourg (env. déc.)",category:"Événement LU"},
+  {date:"2026-12-18",event:"Journée internationale pull de Noël",category:"Commercial"},
+  {date:"2026-12-21",event:"Hiver / Solstice d'hiver",category:"Journée mondiale"},
+  {date:"2026-12-24",event:"Veille de Noël",category:"Fête"},
+  {date:"2026-12-25",event:"Noël (jour férié LU)",category:"Jour férié LU"},
+  {date:"2026-12-26",event:"Saint-Étienne (jour férié LU)",category:"Jour férié LU"},
+  {date:"2026-12-31",event:"Réveillon / Saint-Sylvestre",category:"Fête"},
+];
+
+const CAL_COLORS = {
+  'RSE':              '#16A34A',
+  'Journée mondiale': '#3B82F6',
+  'Fête':             '#8B5CF6',
+  'Digital':          '#0B996E',
+  'Commercial':       '#D97706',
+  'Jour férié LU':    '#123C62',
+  'Jour férié':       '#6B7280',
+  'Sport':            '#F97316',
+  'Culture':          '#EC4899',
+  'Événement LU':     '#1D4ED8',
+};
+
+function renderCalendar() {
+  const list  = document.getElementById('calList');
+  const count = document.getElementById('calCount');
+  const more  = document.getElementById('calMore');
+  if (!list) return;
+
+  const today = new Date(); today.setHours(0,0,0,0);
+  const in60  = new Date(today); in60.setDate(today.getDate() + 60);
+  const in30  = new Date(today); in30.setDate(today.getDate() + 30);
+
+  const upcoming = MKTCAL_2026
+    .map(e => ({...e, dt: new Date(e.date + 'T00:00:00')}))
+    .filter(e => e.dt >= today)
+    .sort((a, b) => a.dt - b.dt);
+
+  const in30count = upcoming.filter(e => e.dt <= in30).length;
+  if (count) count.textContent = `${in30count} dans les 30 prochains jours`;
+
+  const SHOW = 8;
+  const visible  = upcoming.slice(0, SHOW);
+  const hidden   = upcoming.slice(SHOW);
+
+  const dayNames = ['dim','lun','mar','mer','jeu','ven','sam'];
+  const monthAbbr = ['jan','fév','mar','avr','mai','juin','juil','août','sep','oct','nov','déc'];
+
+  function itemHtml(e) {
+    const color = CAL_COLORS[e.category] || '#6B7280';
+    const isToday = e.dt.getTime() === today.getTime();
+    const isSoon  = !isToday && e.dt <= in30;
+    const dayStr  = dayNames[e.dt.getDay()];
+    const dateStr = `${e.dt.getDate()} ${monthAbbr[e.dt.getMonth()]}`;
+    const cls     = isToday ? 'cal-item cal-today' : isSoon ? 'cal-item cal-soon' : 'cal-item';
+    return `<div class="${cls}">
+      <span class="cal-date">${dayStr} ${dateStr}</span>
+      <span class="cal-name">${e.event}</span>
+      <span class="cal-cat" style="background:${color}">${e.category}</span>
+    </div>`;
+  }
+
+  list.innerHTML = visible.map(itemHtml).join('');
+
+  if (hidden.length) {
+    more.textContent = `Voir ${hidden.length} événements de plus ↓`;
+    more.style.display = '';
+    let expanded = false;
+    more.onclick = () => {
+      expanded = !expanded;
+      if (expanded) {
+        list.innerHTML = upcoming.map(itemHtml).join('');
+        more.textContent = 'Voir moins ↑';
+      } else {
+        list.innerHTML = visible.map(itemHtml).join('');
+        more.textContent = `Voir ${hidden.length} événements de plus ↓`;
+      }
+    };
+  }
+}
+
 // ── OVERVIEW ─────────────────────────────────────────────────
 function renderOverview({dGA4, dGSC, dFB, dFBP, dBrevo, dLI, dYT, dGA4T}) {
   const el = document.getElementById('panel-overview');
@@ -1418,17 +1602,16 @@ function renderOverview({dGA4, dGSC, dFB, dFBP, dBrevo, dLI, dYT, dGA4T}) {
         <h1 class="hero-title f-display">Bonjour <span class="hl-y">${getCurrentUserFirstName()}</span></h1>
         <p class="hero-sub">Vue d'ensemble de tous les canaux marketing ACL Luxembourg.</p>
       </div>
-      <div class="health">
-        ${healthRing(score)}
-        <div class="health-meta">
-          <span class="health-meta-title">Santé des canaux</span>
-          <span class="health-label-ring" id="heroGreeting">Analyse de votre performance…</span>
-          <span class="health-val-ring">${scoreLabel} · ${scoreDesc}</span>
-        </div>
-      </div>
     </div>
 
-    <!-- 2. MISSION CONTROL — objectifs (après hero, avant KPIs) -->
+    <!-- 2. RÉSUMÉ IA — synthèse 1-2 phrases + ancre vers recommandations -->
+    <div class="ai-summary-row" id="ov-ai-summary" style="display:none">
+      <span class="ai-summary-icon">✦</span>
+      <p class="ai-summary-text" id="ov-ai-summary-text"></p>
+      <a class="ai-summary-link" href="#ov-insights-anchor">Voir les recommandations ↓</a>
+    </div>
+
+    <!-- 3. MISSION CONTROL — objectifs (après hero, avant KPIs) -->
     <div id="ov-objectives"></div>
 
     <!-- 3. KPI ROW -->
@@ -1439,7 +1622,20 @@ function renderOverview({dGA4, dGSC, dFB, dFBP, dBrevo, dLI, dYT, dGA4T}) {
       ${kpiCard({label:'Position Moy. GSC', value:avgPos > 0 ? avgPos.toFixed(1) : '—', badge:trendBadge(dGSC?.deltas?.avgPosition, true), src:'var(--c-gsc)', srcBg:'var(--c-gsc-bg)'})}
     </div>
 
-    <!-- 4. TOP BARS 2-COL (compact) -->
+    <!-- 4. CALENDRIER MARKETING 2026 -->
+    <div class="cal-module" id="calModule">
+      <div class="cal-head">
+        <div class="cal-title-wrap">
+          <span class="cal-icon">📅</span>
+          <span class="cal-title">Calendrier marketing 2026</span>
+        </div>
+        <div class="cal-count" id="calCount"></div>
+      </div>
+      <div class="cal-list" id="calList"></div>
+      <button class="cal-more" id="calMore" style="display:none">Voir plus ↓</button>
+    </div>
+
+    <!-- 5. TOP BARS 2-COL (compact) -->
     <div class="overview-bars-2">
       <div class="card"><div class="card-head"><div class="card-title">Top pages acl.lu</div></div>
         <div class="card-body">${barListHtml(dGA4?.topPages?.slice(0,5)||[], 'var(--c-ga4)', null, 'page', 'views', fmtN)}</div>
@@ -1465,7 +1661,7 @@ function renderOverview({dGA4, dGSC, dFB, dFBP, dBrevo, dLI, dYT, dGA4T}) {
 
     <!-- 6. BOTTOM GRID : insights IA (top 3) + benchmark -->
     <div class="ov-bottom-grid">
-      <div class="ap-wrap" id="ov-insights">
+      <div class="ap-wrap" id="ov-insights-anchor">
         <div class="ap-head">
           <div class="ap-title"><span class="ap-title-star">✦</span> Actions prioritaires</div>
           <button class="ap-link" id="apToutVoir" style="display:none">Tout voir →</button>
@@ -1496,6 +1692,7 @@ function renderOverview({dGA4, dGSC, dFB, dFBP, dBrevo, dLI, dYT, dGA4T}) {
 
   animateCards(el);
   renderObjectives({dFBP, dFB, dBrevo});
+  renderCalendar();
   renderChannelDonut(dGA4?.channelBreakdown || []);
   renderGSCPositions(dGSC?.topQueries || []);
   renderBenchmarks({dGA4, dGSC, dFB, dBrevo, dLI, dYT});
@@ -2115,14 +2312,14 @@ function renderBrevo(d) {
   const cs    = d.contactStats || {};
   const camps = d.campaigns   || [];
 
-  // Contact health
-  const total   = cs.total       || 0;
-  const unsub   = cs.unsubscribed || 0;
-  const blocked = cs.blocked     || 0;
-  const actif   = Math.max(0, total - unsub - blocked);
-  const actifPct   = total ? +(actif   / total * 100).toFixed(1) : 0;
-  const unsubPct   = total ? +(unsub   / total * 100).toFixed(1) : 0;
-  const blockedPct = total ? +(blocked / total * 100).toFixed(1) : 0;
+  // Contact health — liste #64 membres ACL
+  const total       = cs.total        || 0;
+  const subscribed  = cs.subscribed   || 0;
+  const blacklisted = cs.blacklisted  || 0;
+  const hardBounces = cs.hardBounces  || 0;
+  const unsubGlobal = cs.unsubscribed || 0;
+  const subscribedPct  = total ? +(subscribed  / total * 100).toFixed(1) : 0;
+  const blacklistedPct = total ? +(blacklisted / total * 100).toFixed(1) : 0;
 
   // Per-campaign enrichment
   const campsE = camps.map(c => {
@@ -2188,34 +2385,33 @@ function renderBrevo(d) {
     ${sectionAiHtml('brevo')}
 
     <div class="kpi-grid">
-      ${kpiCard({label:'Contacts totaux',        value:fmtN(total),            src:'var(--c-brevo)', srcBg:'var(--c-brevo-bg)'})}
-      ${kpiCard({label:'Contacts actifs',         value:fmtN(actif),            src:'var(--c-brevo)', srcBg:'var(--c-brevo-bg)'})}
-      ${kpiCard({label:'Campagnes envoyées',      value:fmtN(camps.length),     src:'var(--c-brevo)', srcBg:'var(--c-brevo-bg)'})}
-      ${kpiCard({label:'Emails livrés',           value:fmtN(totalDlvr),        src:'var(--c-brevo)', srcBg:'var(--c-brevo-bg)'})}
-      ${kpiCard({label:"Taux d'ouverture moy.",   value:fmtPct(avgOpen),        src:'var(--c-brevo)', srcBg:'var(--c-brevo-bg)', spark:sparkBrevo})}
-      ${kpiCard({label:'Taux de clic moy.',       value:fmtPct(avgClick),       src:'var(--c-brevo)', srcBg:'var(--c-brevo-bg)'})}
-      ${kpiCard({label:'CTOR moyen',              value:fmtPct(avgCTOR),        src:'var(--c-brevo)', srcBg:'var(--c-brevo-bg)'})}
-      ${kpiCard({label:'Désabonnements (période)', value:fmtN(totalUnsub),      src:'var(--c-brevo)', srcBg:'var(--c-brevo-bg)'})}
-      ${kpiCard({label:'Taux désabonnement moy.', value:fmtPct(avgUnsub),      src:'var(--c-brevo)', srcBg:'var(--c-brevo-bg)'})}
+      ${kpiCard({label:'Contacts totaux (liste #64)',   value:fmtN(total),           src:'var(--c-brevo)', srcBg:'var(--c-brevo-bg)'})}
+      ${kpiCard({label:'Contacts inscrits (liste #64)', value:fmtN(subscribed),      src:'var(--c-brevo)', srcBg:'var(--c-brevo-bg)'})}
+      ${kpiCard({label:'Désinscriptions totales',        value:fmtN(unsubGlobal),    src:'var(--c-brevo)', srcBg:'var(--c-brevo-bg)'})}
+      ${kpiCard({label:'Campagnes envoyées',             value:fmtN(camps.length),   src:'var(--c-brevo)', srcBg:'var(--c-brevo-bg)'})}
+      ${kpiCard({label:'Emails livrés',                  value:fmtN(totalDlvr),      src:'var(--c-brevo)', srcBg:'var(--c-brevo-bg)'})}
+      ${kpiCard({label:"Taux d'ouverture moy.",          value:fmtPct(avgOpen),      src:'var(--c-brevo)', srcBg:'var(--c-brevo-bg)', spark:sparkBrevo})}
+      ${kpiCard({label:'Taux de clic moy.',              value:fmtPct(avgClick),     src:'var(--c-brevo)', srcBg:'var(--c-brevo-bg)'})}
+      ${kpiCard({label:'CTOR moyen',                     value:fmtPct(avgCTOR),      src:'var(--c-brevo)', srcBg:'var(--c-brevo-bg)'})}
+      ${kpiCard({label:'Désab. période (campagnes)',     value:fmtN(totalUnsub),     src:'var(--c-brevo)', srcBg:'var(--c-brevo-bg)'})}
+      ${kpiCard({label:'Taux désabonnement moy.',        value:fmtPct(avgUnsub),     src:'var(--c-brevo)', srcBg:'var(--c-brevo-bg)'})}
     </div>
 
     <div class="hb-wrap">
-      <div class="hb-title">Santé de la liste de contacts</div>
+      <div class="hb-title">Santé de la liste de contacts — Liste #64 membres ACL</div>
       <div class="hb-bar">
-        <div class="hb-seg hb-actif"      style="width:${actifPct}%"></div>
-        <div class="hb-seg hb-dormant"    style="width:${unsubPct}%"></div>
-        <div class="hb-seg hb-disengaged" style="width:${blockedPct}%"></div>
+        <div class="hb-seg hb-actif"      style="width:${subscribedPct}%"></div>
+        <div class="hb-seg hb-disengaged" style="width:${blacklistedPct}%"></div>
       </div>
       <div class="hb-legend">
-        <div class="hb-leg"><div class="hb-dot" style="background:var(--c-brevo)"></div>Actifs ${actifPct}%</div>
-        <div class="hb-leg"><div class="hb-dot" style="background:var(--y)"></div>Désabonnés ${unsubPct}%</div>
-        <div class="hb-leg"><div class="hb-dot" style="background:var(--muted-2)"></div>Bloqués ${blockedPct}%</div>
+        <div class="hb-leg"><div class="hb-dot" style="background:var(--c-brevo)"></div>Inscrits ${subscribedPct}%</div>
+        <div class="hb-leg"><div class="hb-dot" style="background:var(--bad)"></div>Blacklistés ${blacklistedPct}%</div>
       </div>
       <div class="hb-stats">
-        <div class="hb-stat"><div class="hb-stat-val">${fmtN(actif)}</div><div class="hb-stat-lbl">Actifs</div></div>
-        <div class="hb-stat"><div class="hb-stat-val">${fmtN(unsub)}</div><div class="hb-stat-lbl">Désabonnés</div></div>
-        <div class="hb-stat"><div class="hb-stat-val">${fmtN(blocked)}</div><div class="hb-stat-lbl">Bloqués</div></div>
-        <div class="hb-stat"><div class="hb-stat-val">${fmtN(total)}</div><div class="hb-stat-lbl">Total</div></div>
+        <div class="hb-stat"><div class="hb-stat-val">${fmtN(subscribed)}</div><div class="hb-stat-lbl">Inscrits</div></div>
+        <div class="hb-stat"><div class="hb-stat-val">${fmtN(blacklisted)}</div><div class="hb-stat-lbl">Blacklistés</div></div>
+        <div class="hb-stat"><div class="hb-stat-val">${fmtN(hardBounces)}</div><div class="hb-stat-lbl">Hard bounces</div></div>
+        <div class="hb-stat"><div class="hb-stat-val">${fmtN(total)}</div><div class="hb-stat-lbl">Total liste #64</div></div>
       </div>
     </div>
 
@@ -2427,6 +2623,18 @@ async function fetchInsights({dGA4, dGSC, dFB, dBrevo, dLI, dYT}) {
     }
 
     if (sub) sub.textContent = `Générées depuis vos données — ${insights.length} recommandation${insights.length > 1 ? 's' : ''}`;
+
+    // Résumé IA 1-2 phrases dans le hero de la vue d'ensemble
+    const summaryEl   = document.getElementById('ov-ai-summary');
+    const summaryText = document.getElementById('ov-ai-summary-text');
+    const summaryLink = summaryEl?.querySelector('.ai-summary-link');
+    if (summaryEl && summaryText) {
+      const top   = insights.find(i => i.priority === 'high') || insights[0];
+      const label = top.priority === 'high' ? 'Priorité haute' : top.priority === 'med' ? 'À planifier' : 'Opportunité';
+      summaryText.textContent = `${label} · ${top.title} — ${top.insight.length > 130 ? top.insight.substring(0, 130) + '…' : top.insight}`;
+      if (summaryLink) summaryLink.textContent = `Voir les ${insights.length} recommandation${insights.length > 1 ? 's' : ''} ↓`;
+      summaryEl.style.display = '';
+    }
 
     el.innerHTML = `<div class="recs">${insights.map((i, idx) => `
       <div class="rec ${i.priority}${idx >= 3 ? ' rec-hidden' : ''}">
