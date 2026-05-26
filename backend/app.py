@@ -1536,7 +1536,7 @@ def _supermetrics_linkedin_impl():
     post_fields = ['update_title', 'update_share_comment', 'update_url',
                    'update_share_media_category', 'page_impressions', 'page_clicks',
                    'page_likes', 'page_comments', 'page_shares', 'page_engagement_rate']
-    rows4, sc4, err4 = _supermetrics_query('LIP', acc, post_fields, start, end, max_rows=50)
+    rows4, sc4, err4 = _supermetrics_query('LIP', acc, post_fields, start, end, max_rows=200)
     if err4: sm_errors.append(f'posts: {err4}')
     items4 = _sm_rows_to_dicts(rows4, sc4 or post_fields)
 

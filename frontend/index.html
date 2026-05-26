@@ -2564,7 +2564,6 @@ function renderLinkedIn(d) {
   if (!el) return;
   if (!d || d.error) { el.innerHTML = errState('LinkedIn', d?.error); return; }
 
-  // Support both Supermetrics shape (d.summary) and legacy direct API shape
   const sum          = d.summary || d;
   const followers    = sum.followerCount    ?? d.followers    ?? d.totalFollowers    ?? 0;
   const newFollowers = sum.newFollowers     ?? 0;
@@ -2576,27 +2575,50 @@ function renderLinkedIn(d) {
 
   const posts      = d.posts || d.topPosts || d.recentPosts || [];
   const trend      = d.trend || [];
-  const countries  = d.demographics?.countries  || [];
-  const industries = d.demographics?.industries || [];
+  // Sort demographics descending: largest segment first (top of chart)
+  const countries  = [...(d.demographics?.countries  || [])].sort((a, b) => b.count - a.count);
+  const industries = [...(d.demographics?.industries || [])].sort((a, b) => b.count - a.count);
   const impSpark   = trend.map(t => t.impressions  || 0);
   const folSpark   = trend.map(t => t.newFollowers || 0);
 
-  // Build posts rows as a separate var to avoid backtick nesting issues
-  const postRows = posts.slice(0, 15).map(p => {
-    const text  = (p.title || p.text || p.commentary || '—').slice(0, 70);
-    const type  = (p.mediaCategory || '').toLowerCase().replace(/_/g, ' ') || '—';
-    const link  = p.url ? `<a href="${p.url}" target="_blank" rel="noopener" style="color:inherit">${text}</a>` : text;
-    return `<tr>
-      <td class="cn">${link}</td>
-      <td class="cn" style="color:var(--muted-1);font-size:10px;white-space:nowrap">${type}</td>
-      <td class="r">${fmtN(p.impressions||0)}</td>
-      <td class="r">${fmtN(p.clicks||0)}</td>
-      <td class="r">${fmtN(p.likes||p.reactions||0)}</td>
-      <td class="r">${fmtN(p.comments||0)}</td>
-      <td class="r">${fmtN(p.shares||0)}</td>
-      <td class="r">${fmtPct(p.engagementRate||0)}</td>
-    </tr>`;
-  }).join('');
+  function engColor(rate) {
+    const r = parseFloat(rate) || 0;
+    if (r >= 2)   return '#22c55e';
+    if (r >= 1)   return '#84cc16';
+    if (r >= 0.5) return '#f59e0b';
+    return '#ef4444';
+  }
+
+  function buildPostRows(arr, sortKey, sortDir) {
+    const numericKeys = ['impressions','clicks','likes','comments','shares','engagementRate'];
+    return [...arr].sort((a, b) => {
+      const av = numericKeys.includes(sortKey) ? (parseFloat(a[sortKey]) || 0) : (a[sortKey] || '').toString().toLowerCase();
+      const bv = numericKeys.includes(sortKey) ? (parseFloat(b[sortKey]) || 0) : (b[sortKey] || '').toString().toLowerCase();
+      return sortDir * (typeof av === 'number' ? bv - av : av.localeCompare(bv));
+    }).map(p => {
+      const text = (p.title || p.text || p.commentary || '—').slice(0, 70);
+      const type = (p.mediaCategory || '').toLowerCase().replace(/_/g, ' ') || '—';
+      const link = p.url ? `<a href="${p.url}" target="_blank" rel="noopener" style="color:inherit">${text}</a>` : text;
+      const er   = parseFloat(p.engagementRate || 0);
+      return `<tr>
+        <td class="cn">${link}</td>
+        <td class="cn" style="color:var(--muted-1);font-size:10px;white-space:nowrap">${type}</td>
+        <td class="r">${fmtN(p.impressions||0)}</td>
+        <td class="r">${fmtN(p.clicks||0)}</td>
+        <td class="r">${fmtN(p.likes||p.reactions||0)}</td>
+        <td class="r">${fmtN(p.comments||0)}</td>
+        <td class="r">${fmtN(p.shares||0)}</td>
+        <td class="r" style="color:${engColor(er)};font-weight:600">${fmtPct(er)}</td>
+      </tr>`;
+    }).join('');
+  }
+
+  let liSortKey = 'impressions', liSortDir = 1;
+
+  function sortHdr(label, key, cls) {
+    const align = cls || 'r';
+    return `<th class="${align}" data-li-sort="${key}" style="cursor:pointer;user-select:none;white-space:nowrap">${label} <span style="opacity:0.4;font-size:9px">↕</span></th>`;
+  }
 
   el.innerHTML = `
     <div class="sec-title"><h2>LinkedIn ACL</h2><div class="line"></div>
@@ -2619,16 +2641,30 @@ function renderLinkedIn(d) {
     </div>` : ''}
 
     ${posts.length ? `
-    <div class="card"><div class="card-head"><div class="card-title">Posts récents</div></div>
-      <div class="card-body flush"><div class="tbl-scroll"><table class="tbl">
+    <div class="card">
+      <div class="card-head"><div class="card-title">Posts (${posts.length})</div></div>
+      <div class="card-body flush"><div class="tbl-scroll"><table class="tbl" id="liPostsTbl">
         <thead><tr>
-          <th>Post</th><th>Type</th>
-          <th class="r">Impr.</th><th class="r">Clics</th>
-          <th class="r">J'aime</th><th class="r">Comm.</th>
-          <th class="r">Partages</th><th class="r">Eng.%</th>
+          ${sortHdr('Post', 'title', 'cn')}
+          ${sortHdr('Type', 'mediaCategory', 'cn')}
+          ${sortHdr('Impr.', 'impressions')}
+          ${sortHdr('Clics', 'clicks')}
+          ${sortHdr("J'aime", 'likes')}
+          ${sortHdr('Comm.', 'comments')}
+          ${sortHdr('Partages', 'shares')}
+          ${sortHdr('Eng.%', 'engagementRate')}
         </tr></thead>
-        <tbody>${postRows}</tbody>
-      </table></div></div></div>` : ''}
+        <tbody id="liPostsTbody">${buildPostRows(posts, liSortKey, liSortDir)}</tbody>
+      </table></div></div>
+      <div style="padding:10px 16px 12px;border-top:1px solid var(--border-0);font-size:11px;color:var(--muted-1);line-height:1.7">
+        <strong style="color:var(--text-0)">Taux d'engagement</strong> = (j'aime + commentaires + partages + clics) ÷ impressions × 100<br>
+        Benchmarks LinkedIn pages entreprises :
+        <span style="color:#22c55e;font-weight:600">≥ 2 % Excellent</span> &nbsp;·&nbsp;
+        <span style="color:#84cc16;font-weight:600">1–2 % Bon</span> &nbsp;·&nbsp;
+        <span style="color:#f59e0b;font-weight:600">0,5–1 % Moyen</span> &nbsp;·&nbsp;
+        <span style="color:#ef4444;font-weight:600">&lt; 0,5 % Faible</span>
+      </div>
+    </div>` : ''}
 
     ${(countries.length || industries.length) ? `
     <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;margin-top:4px">
@@ -2642,6 +2678,19 @@ function renderLinkedIn(d) {
       </div>` : ''}
     </div>` : ''}
   `;
+
+  // ── Tri des colonnes posts ───────────────────────────────────────────────
+  el.querySelectorAll('#liPostsTbl thead th[data-li-sort]').forEach(th => {
+    th.addEventListener('click', () => {
+      const key = th.dataset.liSort;
+      liSortDir = (liSortKey === key) ? -liSortDir : 1;
+      liSortKey = key;
+      el.querySelectorAll('#liPostsTbl thead th[data-li-sort] span').forEach(s => { s.textContent = ' ↕'; s.style.opacity = '0.4'; });
+      const arrow = th.querySelector('span');
+      if (arrow) { arrow.textContent = liSortDir === 1 ? ' ↓' : ' ↑'; arrow.style.opacity = '1'; }
+      document.getElementById('liPostsTbody').innerHTML = buildPostRows(posts, liSortKey, liSortDir);
+    });
+  });
 
   // ── Trend line chart ────────────────────────────────────────────────────
   if (trend.length > 1) {
@@ -2671,28 +2720,32 @@ function renderLinkedIn(d) {
     }
   }
 
-  // ── Horizontal bar — countries ──────────────────────────────────────────
+  // ── Horizontal bar — countries (plus grand en haut) ─────────────────────
   if (countries.length) {
     ['liCountry'].forEach(k => { if (chartInstances[k]) { chartInstances[k].destroy(); delete chartInstances[k]; } });
     const cvs2 = document.getElementById('chartLICountry');
     if (cvs2) {
+      const sorted = [...countries].sort((a, b) => b.count - a.count); // descending: data[0]=largest → top of chart
       chartInstances['liCountry'] = new Chart(cvs2, {
         type: 'bar',
-        data: { labels: countries.map(x => x.name), datasets: [{ data: countries.map(x => x.count), backgroundColor: 'rgba(10,102,194,0.7)', borderRadius: 3 }] },
-        options: { indexAxis: 'y', responsive: true, plugins: { legend: { display: false } }, scales: { x: { grid: { color: 'rgba(128,128,128,0.07)' } }, y: { ticks: { font: { size: 10 } } } } }
+        data: { labels: sorted.map(x => x.name), datasets: [{ data: sorted.map(x => x.count), backgroundColor: 'rgba(10,102,194,0.7)', borderRadius: 3 }] },
+        options: { indexAxis: 'y', responsive: true, plugins: { legend: { display: false } },
+          scales: { x: { grid: { color: 'rgba(128,128,128,0.07)' } }, y: { ticks: { font: { size: 10 } } } } }
       });
     }
   }
 
-  // ── Horizontal bar — industries ─────────────────────────────────────────
+  // ── Horizontal bar — industries (plus grand en haut) ────────────────────
   if (industries.length) {
     ['liIndustry'].forEach(k => { if (chartInstances[k]) { chartInstances[k].destroy(); delete chartInstances[k]; } });
     const cvs3 = document.getElementById('chartLIIndustry');
     if (cvs3) {
+      const sorted = [...industries].sort((a, b) => b.count - a.count);
       chartInstances['liIndustry'] = new Chart(cvs3, {
         type: 'bar',
-        data: { labels: industries.map(x => x.name), datasets: [{ data: industries.map(x => x.count), backgroundColor: 'rgba(10,102,194,0.7)', borderRadius: 3 }] },
-        options: { indexAxis: 'y', responsive: true, plugins: { legend: { display: false } }, scales: { x: { grid: { color: 'rgba(128,128,128,0.07)' } }, y: { ticks: { font: { size: 10 } } } } }
+        data: { labels: sorted.map(x => x.name), datasets: [{ data: sorted.map(x => x.count), backgroundColor: 'rgba(10,102,194,0.7)', borderRadius: 3 }] },
+        options: { indexAxis: 'y', responsive: true, plugins: { legend: { display: false } },
+          scales: { x: { grid: { color: 'rgba(128,128,128,0.07)' } }, y: { ticks: { font: { size: 10 } } } } }
       });
     }
   }
