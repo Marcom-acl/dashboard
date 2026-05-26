@@ -1352,11 +1352,25 @@ def _supermetrics_query(ds_id, ds_accounts, fields, start_date, end_date, max_ro
         'sync_timeout':    60,
     }
 
-    r = _get(SUPERMETRICS_QUERY_URL, params={'json': json.dumps(query)}, timeout=90)
-    if not r.ok:
-        return None, None, f'Supermetrics HTTP {r.status_code}: {r.text[:200]}'
+    try:
+        r = _get(SUPERMETRICS_QUERY_URL, params={'json': json.dumps(query)}, timeout=90)
+    except Exception as exc:
+        return None, None, f'Supermetrics request error: {exc}'
 
-    body = r.json()
+    if not r.ok:
+        return None, None, f'Supermetrics HTTP {r.status_code}: {r.text[:300]}'
+
+    try:
+        body = r.json()
+    except Exception:
+        return None, None, f'Supermetrics response non-JSON: {r.text[:200]}'
+
+    if not isinstance(body, dict):
+        return None, None, f'Supermetrics unexpected body type: {type(body).__name__}: {str(body)[:200]}'
+
+    if body.get('error') or body.get('message'):
+        msg = body.get('error') or body.get('message')
+        return None, None, f'Supermetrics API error: {msg}'
 
     rows   = body.get('data', [])
     raw_sc = body.get('schema', fields)
@@ -1461,6 +1475,14 @@ def linkedin():
 @app.route('/supermetrics/linkedin')
 def supermetrics_linkedin():
     """LinkedIn Pages analytics via Supermetrics (account 10097790 — ACL)."""
+    try:
+        return _supermetrics_linkedin_impl()
+    except Exception as exc:
+        import traceback
+        return jsonify({'error': str(exc), '_traceback': traceback.format_exc()}), 500
+
+
+def _supermetrics_linkedin_impl():
     start, end = _date_range()
     if not SUPERMETRICS_API_KEY:
         return jsonify({'error': 'SUPERMETRICS_API_KEY manquant — ajouter la variable sur Railway'}), 503
