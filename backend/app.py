@@ -1352,7 +1352,7 @@ def _supermetrics_query(ds_id, ds_accounts, fields, start_date, end_date, max_ro
         'sync_timeout':    60,
     }
     if report_type is not None:
-        query['settings'] = {'report_type': str(report_type)}
+        query['report_type'] = str(report_type)
 
     try:
         r = _get(SUPERMETRICS_QUERY_URL, params={'json': json.dumps(query)}, timeout=90)
@@ -1508,7 +1508,9 @@ def _supermetrics_linkedin_impl():
                    'page_engagement_rate', 'page_likes', 'page_comments', 'page_shares']
     rows1, sc1, err1 = _supermetrics_query('LIP', acc, perf_fields, start, end)
     if err1: sm_errors.append(f'perf: {err1}')
-    items1 = _sm_rows_to_dicts(rows1, sc1 or perf_fields)
+    # Filter header rows (Supermetrics sometimes includes a row with field names as values)
+    items1 = [r for r in _sm_rows_to_dicts(rows1, sc1 or perf_fields)
+              if r.get('date', '') not in ('', 'date', 'Date')]
 
     trend = [{'date': r.get('date', ''),
               'impressions': _n(r.get('page_impressions')),
@@ -1521,7 +1523,8 @@ def _supermetrics_linkedin_impl():
     fol_fields = ['date', 'followers_gain_total', 'followers_gain_organic', 'followers_gain_paid']
     rows2, sc2, err2 = _supermetrics_query('LIP', acc, fol_fields, start, end)
     if err2: sm_errors.append(f'followers: {err2}')
-    items2 = _sm_rows_to_dicts(rows2, sc2 or fol_fields)
+    items2 = [r for r in _sm_rows_to_dicts(rows2, sc2 or fol_fields)
+              if r.get('date', '') not in ('', 'date', 'Date')]
 
     new_followers = sum(_n(r.get('followers_gain_total')) for r in items2)
     gain_by_date  = {r.get('date', ''): _n(r.get('followers_gain_total')) for r in items2}
@@ -1540,7 +1543,10 @@ def _supermetrics_linkedin_impl():
                    'page_likes', 'page_comments', 'page_shares', 'page_engagement_rate']
     rows4, sc4, err4 = _supermetrics_query('LIP', acc, post_fields, start, end, max_rows=200)
     if err4: sm_errors.append(f'posts: {err4}')
-    items4 = _sm_rows_to_dicts(rows4, sc4 or post_fields)
+    _PLACEHOLDER_URLS = {'Update URL', 'update url', ''}
+    items4 = [r for r in _sm_rows_to_dicts(rows4, sc4 or post_fields)
+              if r.get('update_url', '') not in _PLACEHOLDER_URLS
+              and r.get('update_title', '') not in ('Update title', 'update_title', '')]
 
     posts = [{
         'title':          (r.get('update_title') or r.get('update_share_comment', ''))[:80],
@@ -1553,7 +1559,7 @@ def _supermetrics_linkedin_impl():
         'comments':       _n(r.get('page_comments')),
         'shares':         _n(r.get('page_shares')),
         'engagementRate': round(_n(r.get('page_engagement_rate')), 2),
-    } for r in items4[:20]]
+    } for r in items4]
 
     # ── 5. Démographie par pays (follower_statistics, report_type 3) ───────────
     rows5, sc5, err5 = _supermetrics_query('LIP', acc, ['follower_country', 'follower_count'], start, end, report_type=3)
