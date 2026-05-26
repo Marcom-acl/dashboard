@@ -8,6 +8,7 @@ All secrets are read from environment variables.
 import os
 import json
 import re
+import time
 import datetime
 import requests
 import concurrent.futures
@@ -47,6 +48,7 @@ ANTHROPIC_API_KEY = os.environ.get('ANTHROPIC_API_KEY', '')
 GOOGLE_CLIENT_ID     = os.environ.get('GOOGLE_CLIENT_ID', '')
 GOOGLE_CLIENT_SECRET = os.environ.get('GOOGLE_CLIENT_SECRET', '')
 GOOGLE_REFRESH_TOKEN = os.environ.get('GOOGLE_REFRESH_TOKEN', '')
+SUPERMETRICS_API_KEY = os.environ.get('SUPERMETRICS_API_KEY', '')
 
 # ── Storage paths ─────────────────────────────────────────────────────────────
 DATA_DIR = os.environ.get('DATA_DIR', os.path.dirname(os.path.abspath(__file__)))
@@ -1315,6 +1317,69 @@ def youtube():
 
 
 # ─────────────────────────────────────────────────────────────────────────────
+# Supermetrics helpers
+# ─────────────────────────────────────────────────────────────────────────────
+
+SUPERMETRICS_FETCH_URL  = 'https://api.supermetrics.com/enterprise/v2/fetch'
+SUPERMETRICS_RESULT_URL = 'https://api.supermetrics.com/enterprise/v2/result'
+SUPERMETRICS_LI_ACCOUNT = '10097790'  # ACL - Automobile Club du Luxembourg
+
+
+def _supermetrics_query(ds_id, ds_accounts, fields, start_date, end_date, max_rows=500):
+    """POST a Supermetrics query; poll async result if needed.
+
+    Returns (rows, schema, error_msg).  rows is a list of lists; schema a list of field IDs.
+    On failure rows and schema are None and error_msg is set.
+    """
+    if not SUPERMETRICS_API_KEY:
+        return None, None, 'SUPERMETRICS_API_KEY manquant — ajouter la variable sur Railway'
+
+    accounts = [ds_accounts] if isinstance(ds_accounts, str) else list(ds_accounts)
+    query = {
+        'ds_id':           ds_id,
+        'ds_accounts':     accounts,
+        'fields':          fields,
+        'date_range_type': 'custom',
+        'start_date':      start_date,
+        'end_date':        end_date,
+        'max_rows':        max_rows,
+    }
+
+    r = _post(
+        SUPERMETRICS_FETCH_URL,
+        data={'json': json.dumps(query), 'api_secret': SUPERMETRICS_API_KEY},
+    )
+    if not r.ok:
+        return None, None, f'Supermetrics HTTP {r.status_code}: {r.text[:200]}'
+
+    body = r.json()
+
+    # Async pattern: poll until the job completes
+    job_id = body.get('jobID') or body.get('job_id') or body.get('schedule_id')
+    if job_id:
+        for _ in range(15):
+            time.sleep(2)
+            rp = _get(SUPERMETRICS_RESULT_URL + f'/{job_id}',
+                      params={'api_secret': SUPERMETRICS_API_KEY})
+            if rp.ok:
+                body = rp.json()
+                if body.get('status') not in ('running', 'pending', 'queued'):
+                    break
+        else:
+            return None, None, 'Supermetrics timeout après 30 s'
+
+    rows   = body.get('data', [])
+    raw_sc = body.get('schema', fields)
+    schema = [s.get('id', s) if isinstance(s, dict) else s for s in raw_sc]
+    return rows, schema, None
+
+
+def _sm_rows_to_dicts(rows, schema):
+    """Convert Supermetrics [row, ...] + schema into list of dicts."""
+    return [dict(zip(schema, row)) for row in (rows or [])]
+
+
+# ─────────────────────────────────────────────────────────────────────────────
 # LinkedIn
 # ─────────────────────────────────────────────────────────────────────────────
 
@@ -1400,6 +1465,112 @@ def linkedin():
         'totalEngagements': engagements,
         'topPosts':         posts[:10],
         'recentPosts':      posts[:10],
+    })
+
+
+@app.route('/supermetrics/linkedin')
+def supermetrics_linkedin():
+    """LinkedIn Pages analytics via Supermetrics (account 10097790 — ACL)."""
+    start, end = _date_range()
+    if not SUPERMETRICS_API_KEY:
+        return jsonify({'error': 'SUPERMETRICS_API_KEY manquant — ajouter la variable sur Railway'}), 503
+
+    acc = SUPERMETRICS_LI_ACCOUNT
+
+    # ── 1. Performance par date (share_statistics, report_type 6) ────────────
+    perf_fields = ['date', 'page_impressions', 'page_clicks', 'page_engagements',
+                   'page_engagement_rate', 'page_likes', 'page_comments', 'page_shares']
+    rows1, sc1, _ = _supermetrics_query('LIP', acc, perf_fields, start, end)
+    items1 = _sm_rows_to_dicts(rows1, sc1 or perf_fields)
+
+    trend = [{'date': r.get('date', ''),
+              'impressions': r.get('page_impressions', 0) or 0,
+              'engagements': r.get('page_engagements', 0) or 0} for r in items1]
+
+    def _sum(key): return sum(r.get(key, 0) or 0 for r in items1)
+    avg_er = (sum(r.get('page_engagement_rate', 0) or 0 for r in items1) / len(items1)) if items1 else 0
+
+    # ── 2. Croissance abonnés par date (follower_statistics, report_type 4) ──
+    fol_fields = ['date', 'followers_gain_total', 'followers_gain_organic', 'followers_gain_paid']
+    rows2, sc2, _ = _supermetrics_query('LIP', acc, fol_fields, start, end)
+    items2 = _sm_rows_to_dicts(rows2, sc2 or fol_fields)
+
+    new_followers = sum(r.get('followers_gain_total', 0) or 0 for r in items2)
+    gain_by_date  = {r.get('date', ''): r.get('followers_gain_total', 0) or 0 for r in items2}
+    for t in trend:
+        t['newFollowers'] = gain_by_date.get(t['date'], 0)
+
+    # ── 3. Total abonnés (company_statistics, report_type 3) ─────────────────
+    rows3, sc3, _ = _supermetrics_query('LIP', acc, ['follower_count'], start, end, max_rows=1)
+    items3 = _sm_rows_to_dicts(rows3, sc3 or ['follower_count'])
+    follower_count = int(items3[-1].get('follower_count', 0) or 0) if items3 else 0
+
+    # ── 4. Top posts (update_details, report_type 10) ─────────────────────────
+    post_fields = ['update_title', 'update_share_comment', 'update_url',
+                   'update_share_media_category', 'page_impressions', 'page_clicks',
+                   'page_likes', 'page_comments', 'page_shares', 'page_engagement_rate']
+    rows4, sc4, _ = _supermetrics_query('LIP', acc, post_fields, start, end, max_rows=50)
+    items4 = _sm_rows_to_dicts(rows4, sc4 or post_fields)
+
+    posts = [{
+        'title':          (r.get('update_title') or r.get('update_share_comment', ''))[:80],
+        'text':           (r.get('update_share_comment') or '')[:120],
+        'url':            r.get('update_url', ''),
+        'mediaCategory':  r.get('update_share_media_category', ''),
+        'impressions':    r.get('page_impressions', 0) or 0,
+        'clicks':         r.get('page_clicks', 0) or 0,
+        'likes':          r.get('page_likes', 0) or 0,
+        'comments':       r.get('page_comments', 0) or 0,
+        'shares':         r.get('page_shares', 0) or 0,
+        'engagementRate': round(float(r.get('page_engagement_rate', 0) or 0), 2),
+    } for r in items4[:20]]
+
+    # ── 5. Démographie par pays (company_statistics, report_type 3) ──────────
+    rows5, sc5, _ = _supermetrics_query('LIP', acc, ['follower_country', 'follower_count'], start, end)
+    items5 = _sm_rows_to_dicts(rows5, sc5 or ['follower_country', 'follower_count'])
+    countries = sorted(
+        [{'name': r.get('follower_country', ''), 'count': r.get('follower_count', 0) or 0} for r in items5],
+        key=lambda x: x['count'], reverse=True
+    )[:10]
+
+    # ── 6. Démographie par secteur ────────────────────────────────────────────
+    rows6, sc6, _ = _supermetrics_query('LIP', acc, ['follower_industry', 'follower_count'], start, end)
+    items6 = _sm_rows_to_dicts(rows6, sc6 or ['follower_industry', 'follower_count'])
+    industries = sorted(
+        [{'name': r.get('follower_industry', ''), 'count': r.get('follower_count', 0) or 0} for r in items6],
+        key=lambda x: x['count'], reverse=True
+    )[:8]
+
+    return jsonify({
+        'source':        'supermetrics',
+        # ── compat fields for overview & insights ──
+        'followers':      follower_count,
+        'totalFollowers': follower_count,
+        'impressions':    _sum('page_impressions'),
+        'totalImpressions': _sum('page_impressions'),
+        'clicks':         _sum('page_clicks'),
+        'totalClicks':    _sum('page_clicks'),
+        'engagements':    _sum('page_engagements'),
+        'totalEngagements': _sum('page_engagements'),
+        'engagementRate': round(avg_er, 2),
+        # ── enriched structure ──
+        'summary': {
+            'followerCount':   follower_count,
+            'newFollowers':    new_followers,
+            'impressions':     _sum('page_impressions'),
+            'clicks':          _sum('page_clicks'),
+            'engagements':     _sum('page_engagements'),
+            'engagementRate':  round(avg_er, 2),
+            'likes':           _sum('page_likes'),
+            'comments':        _sum('page_comments'),
+            'shares':          _sum('page_shares'),
+        },
+        'trend':  trend,
+        'posts':  posts,
+        'demographics': {
+            'countries':  countries,
+            'industries': industries,
+        },
     })
 
 

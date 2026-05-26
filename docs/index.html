@@ -1378,7 +1378,7 @@ async function loadAll() {
     const [ga4, ga4auto, ga4ext, ga4trend, gsc, fb, fbpage, brevo, club, yt, li] = await Promise.allSettled([
       api('/ga4'), api('/ga4/autotouring'), api('/ga4/extended'), api('/ga4/trend'),
       api('/gsc'), api('/fb'), api('/fb/page'), api('/brevo'), api('/brevo/club'),
-      api('/youtube'), api('/linkedin')
+      api('/youtube'), api('/supermetrics/linkedin')
     ]);
 
     const v = r => r.status === 'fulfilled' ? r.value : null;
@@ -2564,25 +2564,141 @@ function renderLinkedIn(d) {
   if (!el) return;
   if (!d || d.error) { el.innerHTML = errState('LinkedIn', d?.error); return; }
 
+  // Support both Supermetrics shape (d.summary) and legacy direct API shape
+  const sum          = d.summary || d;
+  const followers    = sum.followerCount    ?? d.followers    ?? d.totalFollowers    ?? 0;
+  const newFollowers = sum.newFollowers     ?? 0;
+  const impressions  = sum.impressions      ?? d.impressions  ?? d.totalImpressions  ?? 0;
+  const clicks       = sum.clicks           ?? d.clicks       ?? d.totalClicks       ?? 0;
+  const engagements  = sum.engagements      ?? d.engagements  ?? d.totalEngagements  ?? 0;
+  const engRate      = sum.engagementRate   ?? d.engagementRate ?? 0;
+  const shares       = sum.shares           ?? 0;
+
+  const posts      = d.posts || d.topPosts || d.recentPosts || [];
+  const trend      = d.trend || [];
+  const countries  = d.demographics?.countries  || [];
+  const industries = d.demographics?.industries || [];
+  const impSpark   = trend.map(t => t.impressions  || 0);
+  const folSpark   = trend.map(t => t.newFollowers || 0);
+
+  // Build posts rows as a separate var to avoid backtick nesting issues
+  const postRows = posts.slice(0, 15).map(p => {
+    const text  = (p.title || p.text || p.commentary || '—').slice(0, 70);
+    const type  = (p.mediaCategory || '').toLowerCase().replace(/_/g, ' ') || '—';
+    const link  = p.url ? `<a href="${p.url}" target="_blank" rel="noopener" style="color:inherit">${text}</a>` : text;
+    return `<tr>
+      <td class="cn">${link}</td>
+      <td class="cn" style="color:var(--muted-1);font-size:10px;white-space:nowrap">${type}</td>
+      <td class="r">${fmtN(p.impressions||0)}</td>
+      <td class="r">${fmtN(p.clicks||0)}</td>
+      <td class="r">${fmtN(p.likes||p.reactions||0)}</td>
+      <td class="r">${fmtN(p.comments||0)}</td>
+      <td class="r">${fmtN(p.shares||0)}</td>
+      <td class="r">${fmtPct(p.engagementRate||0)}</td>
+    </tr>`;
+  }).join('');
+
   el.innerHTML = `
     <div class="sec-title"><h2>LinkedIn ACL</h2><div class="line"></div>
       <span class="src-pill" style="--src:var(--c-li);--src-bg:var(--c-li-bg)">LinkedIn</span>
     </div>
     ${sectionAiHtml('linkedin')}
     <div class="kpi-grid">
-      ${kpiCard({label:'Abonnés', value:fmtN(d.followers||d.totalFollowers||0), src:'var(--c-li)', srcBg:'var(--c-li-bg)'})}
-      ${kpiCard({label:'Impressions', value:fmtN(d.impressions||d.totalImpressions||0), src:'var(--c-li)', srcBg:'var(--c-li-bg)'})}
-      ${kpiCard({label:'Clics', value:fmtN(d.clicks||d.totalClicks||0), src:'var(--c-li)', srcBg:'var(--c-li-bg)'})}
-      ${kpiCard({label:'Engagement', value:fmtN(d.engagements||d.totalEngagements||0), src:'var(--c-li)', srcBg:'var(--c-li-bg)'})}
+      ${kpiCard({label:'Abonnés',          value:fmtN(followers),    src:'var(--c-li)', srcBg:'var(--c-li-bg)'})}
+      ${kpiCard({label:'Nouveaux abonnés', value:fmtN(newFollowers), src:'var(--c-li)', srcBg:'var(--c-li-bg)', spark:folSpark})}
+      ${kpiCard({label:'Impressions',      value:fmtN(impressions),  src:'var(--c-li)', srcBg:'var(--c-li-bg)', spark:impSpark})}
+      ${kpiCard({label:"Taux d'engagement",value:fmtPct(engRate),    src:'var(--c-li)', srcBg:'var(--c-li-bg)'})}
+      ${kpiCard({label:'Clics',            value:fmtN(clicks),       src:'var(--c-li)', srcBg:'var(--c-li-bg)'})}
+      ${kpiCard({label:'Engagements',      value:fmtN(engagements),  src:'var(--c-li)', srcBg:'var(--c-li-bg)'})}
+      ${kpiCard({label:'Partages',         value:fmtN(shares),       src:'var(--c-li)', srcBg:'var(--c-li-bg)'})}
     </div>
-    ${(d.topPosts||d.recentPosts||[]).length ? `<div class="card"><div class="card-head"><div class="card-title">Posts récents</div></div>
+
+    ${trend.length > 1 ? `
+    <div class="card"><div class="card-head"><div class="card-title">Tendance — Impressions &amp; Nouveaux abonnés</div></div>
+      <div class="card-body"><canvas id="chartLITrend" height="120"></canvas></div>
+    </div>` : ''}
+
+    ${posts.length ? `
+    <div class="card"><div class="card-head"><div class="card-title">Posts récents</div></div>
       <div class="card-body flush"><div class="tbl-scroll"><table class="tbl">
-        <thead><tr><th>Post</th><th class="r">Impr.</th><th class="r">Clics</th><th class="r">Reactions</th></tr></thead>
-        <tbody>${(d.topPosts||d.recentPosts||[]).slice(0,8).map(p=>`<tr><td class="cn">${p.text||p.commentary||'—'}</td><td class="r">${fmtN(p.impressions||p.impressionCount||0)}</td><td class="r">${fmtN(p.clicks||p.clickCount||0)}</td><td class="r">${fmtN(p.reactions||p.likeCount||0)}</td></tr>`).join('')}</tbody>
-      </table></div></div></div>` : ''}`;
+        <thead><tr>
+          <th>Post</th><th>Type</th>
+          <th class="r">Impr.</th><th class="r">Clics</th>
+          <th class="r">J'aime</th><th class="r">Comm.</th>
+          <th class="r">Partages</th><th class="r">Eng.%</th>
+        </tr></thead>
+        <tbody>${postRows}</tbody>
+      </table></div></div></div>` : ''}
+
+    ${(countries.length || industries.length) ? `
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;margin-top:4px">
+      ${countries.length ? `
+      <div class="card"><div class="card-head"><div class="card-title">Abonnés par pays</div></div>
+        <div class="card-body"><canvas id="chartLICountry" height="180"></canvas></div>
+      </div>` : ''}
+      ${industries.length ? `
+      <div class="card"><div class="card-head"><div class="card-title">Abonnés par secteur</div></div>
+        <div class="card-body"><canvas id="chartLIIndustry" height="180"></canvas></div>
+      </div>` : ''}
+    </div>` : ''}
+  `;
+
+  // ── Trend line chart ────────────────────────────────────────────────────
+  if (trend.length > 1) {
+    ['liTrend'].forEach(k => { if (chartInstances[k]) { chartInstances[k].destroy(); delete chartInstances[k]; } });
+    const cvs = document.getElementById('chartLITrend');
+    if (cvs) {
+      chartInstances['liTrend'] = new Chart(cvs, {
+        type: 'line',
+        data: {
+          labels: trend.map(t => t.date ? t.date.slice(5).replace('-', '/') : ''),
+          datasets: [
+            { label: 'Impressions',      data: trend.map(t => t.impressions  || 0), borderColor: '#0A66C2', backgroundColor: 'rgba(10,102,194,0.07)', tension: 0.3, yAxisID: 'y',  pointRadius: 0, borderWidth: 2 },
+            { label: 'Nouveaux abonnés', data: trend.map(t => t.newFollowers || 0), borderColor: '#FEDB00', backgroundColor: 'rgba(254,219,0,0.07)',   tension: 0.3, yAxisID: 'y2', pointRadius: 0, borderWidth: 2 },
+          ]
+        },
+        options: {
+          responsive: true,
+          interaction: { mode: 'index', intersect: false },
+          plugins: { legend: { labels: { font: { size: 11 }, boxWidth: 12 } } },
+          scales: {
+            y:  { position: 'left',  grid: { color: 'rgba(128,128,128,0.08)' }, ticks: { font: { size: 10 } } },
+            y2: { position: 'right', grid: { drawOnChartArea: false },           ticks: { font: { size: 10 } } },
+            x:  { ticks: { maxTicksLimit: 10, font: { size: 10 } }, grid: { display: false } },
+          }
+        }
+      });
+    }
+  }
+
+  // ── Horizontal bar — countries ──────────────────────────────────────────
+  if (countries.length) {
+    ['liCountry'].forEach(k => { if (chartInstances[k]) { chartInstances[k].destroy(); delete chartInstances[k]; } });
+    const cvs2 = document.getElementById('chartLICountry');
+    if (cvs2) {
+      chartInstances['liCountry'] = new Chart(cvs2, {
+        type: 'bar',
+        data: { labels: countries.map(x => x.name), datasets: [{ data: countries.map(x => x.count), backgroundColor: 'rgba(10,102,194,0.7)', borderRadius: 3 }] },
+        options: { indexAxis: 'y', responsive: true, plugins: { legend: { display: false } }, scales: { x: { grid: { color: 'rgba(128,128,128,0.07)' } }, y: { ticks: { font: { size: 10 } } } } }
+      });
+    }
+  }
+
+  // ── Horizontal bar — industries ─────────────────────────────────────────
+  if (industries.length) {
+    ['liIndustry'].forEach(k => { if (chartInstances[k]) { chartInstances[k].destroy(); delete chartInstances[k]; } });
+    const cvs3 = document.getElementById('chartLIIndustry');
+    if (cvs3) {
+      chartInstances['liIndustry'] = new Chart(cvs3, {
+        type: 'bar',
+        data: { labels: industries.map(x => x.name), datasets: [{ data: industries.map(x => x.count), backgroundColor: 'rgba(10,102,194,0.7)', borderRadius: 3 }] },
+        options: { indexAxis: 'y', responsive: true, plugins: { legend: { display: false } }, scales: { x: { grid: { color: 'rgba(128,128,128,0.07)' } }, y: { ticks: { font: { size: 10 } } } } }
+      });
+    }
+  }
 
   animateCards(el);
-  fetchSectionInsight('linkedin', {followers: d.followers||d.totalFollowers, engagements: d.engagements||d.totalEngagements});
+  fetchSectionInsight('linkedin', { followers, engagementRate: engRate, impressions, engagements, newFollowers });
 }
 
 // ── AI INSIGHTS ───────────────────────────────────────────────
