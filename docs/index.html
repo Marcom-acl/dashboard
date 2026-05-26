@@ -2575,9 +2575,9 @@ function renderLinkedIn(d) {
 
   const posts      = d.posts || d.topPosts || d.recentPosts || [];
   const trend      = d.trend || [];
-  // Sort demographics descending: largest segment first (top of chart)
-  const countries  = [...(d.demographics?.countries  || [])].sort((a, b) => b.count - a.count);
-  const industries = [...(d.demographics?.industries || [])].sort((a, b) => b.count - a.count);
+  // Démographie : liste de strings triées alphabétiquement (pas de count par segment disponible via LIP)
+  const countries  = (d.demographics?.countries  || []).filter(Boolean).sort();
+  const industries = (d.demographics?.industries || []).filter(Boolean).sort();
   const impSpark   = trend.map(t => t.impressions  || 0);
   const folSpark   = trend.map(t => t.newFollowers || 0);
 
@@ -2669,12 +2669,20 @@ function renderLinkedIn(d) {
     ${(countries.length || industries.length) ? `
     <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;margin-top:4px">
       ${countries.length ? `
-      <div class="card"><div class="card-head"><div class="card-title">Abonnés par pays</div></div>
-        <div class="card-body"><canvas id="chartLICountry" height="180"></canvas></div>
+      <div class="card"><div class="card-head"><div class="card-title">Pays représentés (${countries.length})</div></div>
+        <div class="card-body" style="padding:12px 16px">
+          <div style="display:flex;flex-wrap:wrap;gap:6px">
+            ${countries.map(c => `<span style="background:rgba(10,102,194,0.1);color:#0A66C2;border:1px solid rgba(10,102,194,0.2);border-radius:99px;padding:3px 10px;font-size:11px;white-space:nowrap">${c}</span>`).join('')}
+          </div>
+        </div>
       </div>` : ''}
       ${industries.length ? `
-      <div class="card"><div class="card-head"><div class="card-title">Abonnés par secteur</div></div>
-        <div class="card-body"><canvas id="chartLIIndustry" height="180"></canvas></div>
+      <div class="card"><div class="card-head"><div class="card-title">Secteurs représentés (${industries.length})</div></div>
+        <div class="card-body" style="padding:12px 16px">
+          <div style="display:flex;flex-wrap:wrap;gap:6px">
+            ${industries.map(i => `<span style="background:rgba(10,102,194,0.1);color:#0A66C2;border:1px solid rgba(10,102,194,0.2);border-radius:99px;padding:3px 10px;font-size:11px;white-space:nowrap">${i}</span>`).join('')}
+          </div>
+        </div>
       </div>` : ''}
     </div>` : ''}
   `;
@@ -2716,36 +2724,6 @@ function renderLinkedIn(d) {
             x:  { ticks: { maxTicksLimit: 10, font: { size: 10 } }, grid: { display: false } },
           }
         }
-      });
-    }
-  }
-
-  // ── Horizontal bar — countries (plus grand en haut) ─────────────────────
-  if (countries.length) {
-    ['liCountry'].forEach(k => { if (chartInstances[k]) { chartInstances[k].destroy(); delete chartInstances[k]; } });
-    const cvs2 = document.getElementById('chartLICountry');
-    if (cvs2) {
-      const sorted = [...countries].sort((a, b) => b.count - a.count); // descending: data[0]=largest → top of chart
-      chartInstances['liCountry'] = new Chart(cvs2, {
-        type: 'bar',
-        data: { labels: sorted.map(x => x.name), datasets: [{ data: sorted.map(x => x.count), backgroundColor: 'rgba(10,102,194,0.7)', borderRadius: 3 }] },
-        options: { indexAxis: 'y', responsive: true, plugins: { legend: { display: false } },
-          scales: { x: { grid: { color: 'rgba(128,128,128,0.07)' } }, y: { ticks: { font: { size: 10 } } } } }
-      });
-    }
-  }
-
-  // ── Horizontal bar — industries (plus grand en haut) ────────────────────
-  if (industries.length) {
-    ['liIndustry'].forEach(k => { if (chartInstances[k]) { chartInstances[k].destroy(); delete chartInstances[k]; } });
-    const cvs3 = document.getElementById('chartLIIndustry');
-    if (cvs3) {
-      const sorted = [...industries].sort((a, b) => b.count - a.count);
-      chartInstances['liIndustry'] = new Chart(cvs3, {
-        type: 'bar',
-        data: { labels: sorted.map(x => x.name), datasets: [{ data: sorted.map(x => x.count), backgroundColor: 'rgba(10,102,194,0.7)', borderRadius: 3 }] },
-        options: { indexAxis: 'y', responsive: true, plugins: { legend: { display: false } },
-          scales: { x: { grid: { color: 'rgba(128,128,128,0.07)' } }, y: { ticks: { font: { size: 10 } } } } }
       });
     }
   }

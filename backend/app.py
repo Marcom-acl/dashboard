@@ -1562,29 +1562,28 @@ def _supermetrics_linkedin_impl():
     } for r in items4]
 
     # ── 5. Démographie par pays (follower_statistics, report_type 3) ───────────
-    rows5, sc5, err5 = _supermetrics_query('LIP', acc, ['follower_country', 'follower_count'], start, end, report_type=3)
+    # Note: follower_count retourne le total global pour chaque ligne — seule la
+    # liste des segments présents est exploitable.
+    rows5, sc5, err5 = _supermetrics_query('LIP', acc, ['follower_country'], start, end, report_type=3, max_rows=50)
     if err5: sm_errors.append(f'countries: {err5}')
-    items5 = _sm_rows_to_dicts(rows5, sc5 or ['follower_country', 'follower_count'])
+    items5 = _sm_rows_to_dicts(rows5, sc5 or ['follower_country'])
     countries = sorted(
-        [{'name': r.get('follower_country', ''), 'count': _n(r.get('follower_count'))} for r in items5],
-        key=lambda x: x['count'], reverse=True
-    )[:10]
+        [r.get('follower_country', '') for r in items5
+         if r.get('follower_country', '') not in ('', 'Follower country', 'follower_country')],
+    )[:30]
 
     # ── 6. Démographie par secteur (follower_statistics, report_type 3) ─────────
-    rows6, sc6, err6 = _supermetrics_query('LIP', acc, ['follower_industry', 'follower_count'], start, end, report_type=3)
+    rows6, sc6, err6 = _supermetrics_query('LIP', acc, ['follower_industry'], start, end, report_type=3, max_rows=50)
     if err6: sm_errors.append(f'industries: {err6}')
-    items6 = _sm_rows_to_dicts(rows6, sc6 or ['follower_industry', 'follower_count'])
+    items6 = _sm_rows_to_dicts(rows6, sc6 or ['follower_industry'])
     industries = sorted(
-        [{'name': r.get('follower_industry', ''), 'count': _n(r.get('follower_count'))} for r in items6],
-        key=lambda x: x['count'], reverse=True
-    )[:8]
-
-    _debug_demo = {'countries_raw': items5[:5], 'industries_raw': items6[:5]}
+        [r.get('follower_industry', '') for r in items6
+         if r.get('follower_industry', '') not in ('', 'Follower industry', 'follower_industry')],
+    )[:25]
 
     return jsonify({
         'source':        'supermetrics',
         '_debug_errors': sm_errors if sm_errors else None,
-        '_debug_demo':   _debug_demo,
         # ── compat fields for overview & insights ──
         'followers':      follower_count,
         'totalFollowers': follower_count,
