@@ -300,64 +300,6 @@ def fb_callback():
 <p>Vous pouvez fermer cette fenêtre ensuite.</p>'''
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# LinkedIn OAuth helpers
-# ─────────────────────────────────────────────────────────────────────────────
-
-LI_TOKEN_PATH    = _token_path('linkedin_token.json')
-LI_CONFIG_PATH   = _token_path('linkedin_config.json')
-LI_AUTH_URL      = 'https://www.linkedin.com/oauth/v2/authorization'
-LI_TOKEN_URL     = 'https://www.linkedin.com/oauth/v2/accessToken'
-LI_API           = 'https://api.linkedin.com/v2'
-LI_SCOPES        = ['r_organization_social', 'r_basicprofile', 'rw_organization_admin']
-
-def _li_config():
-    cfg = _load_json(LI_CONFIG_PATH) or {}
-    return {
-        'client_id':       cfg.get('client_id')       or os.environ.get('LI_CLIENT_ID', ''),
-        'client_secret':   cfg.get('client_secret')   or os.environ.get('LI_CLIENT_SECRET', ''),
-        'organization_id': cfg.get('organization_id') or os.environ.get('LI_ORGANIZATION_ID', ''),
-    }
-
-def _li_token():
-    stored = _load_json(LI_TOKEN_PATH)
-    if stored:
-        return stored.get('access_token')
-    return None
-
-@app.route('/linkedin/auth')
-def linkedin_auth():
-    cfg = _li_config()
-    if not cfg['client_id']:
-        return jsonify({'error': 'LI_CLIENT_ID manquant'}), 503
-    redirect_uri = f'{APP_URL}/linkedin/callback'
-    scope = '%20'.join(LI_SCOPES)
-    url = (
-        f'{LI_AUTH_URL}?response_type=code'
-        f'&client_id={cfg["client_id"]}'
-        f'&redirect_uri={requests.utils.quote(redirect_uri)}'
-        f'&scope={scope}&state=acl_marcom'
-    )
-    return redirect(url)
-
-@app.route('/linkedin/callback')
-def linkedin_callback():
-    code = request.args.get('code')
-    if not code:
-        return jsonify({'error': 'Code manquant'}), 400
-    cfg = _li_config()
-    redirect_uri = f'{APP_URL}/linkedin/callback'
-    r = _post(LI_TOKEN_URL, data={
-        'grant_type':    'authorization_code',
-        'code':          code,
-        'redirect_uri':  redirect_uri,
-        'client_id':     cfg['client_id'],
-        'client_secret': cfg['client_secret'],
-    })
-    if not r.ok:
-        return jsonify({'error': r.text}), 400
-    _save_json(LI_TOKEN_PATH, r.json())
-    return '<h2>LinkedIn connecté !</h2><p>Vous pouvez fermer cette fenêtre.</p>'
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -370,7 +312,7 @@ def status():
         'status':    'ok',
         'google':    bool(_google_token()),
         'facebook':  bool(_fb_token()),
-        'linkedin':  bool(_li_token()),
+        'linkedin':  bool(SUPERMETRICS_API_KEY),
         'brevo':     bool(BREVO_API_KEY),
         'anthropic': bool(ANTHROPIC_API_KEY),
     })
@@ -1393,95 +1335,6 @@ def _n(v, default=0.0):
         return float(v)
     except (TypeError, ValueError):
         return default
-
-
-# ─────────────────────────────────────────────────────────────────────────────
-# LinkedIn
-# ─────────────────────────────────────────────────────────────────────────────
-
-@app.route('/linkedin')
-def linkedin():
-    start, end = _date_range()
-    token = _li_token()
-    cfg   = _li_config()
-    if not token:
-        return jsonify({'error': 'LinkedIn non connecté — visiter /linkedin/auth'})
-
-    headers    = {'Authorization': f'Bearer {token}', 'X-Restli-Protocol-Version': '2.0.0'}
-    org_id     = cfg.get('organization_id', '')
-    LI_API_URL = 'https://api.linkedin.com/v2'
-
-    if not org_id:
-        return jsonify({'error': 'LI_ORGANIZATION_ID manquant'})
-
-    # Follower count
-    rf = _get(f'{LI_API_URL}/organizationalEntityFollowerStatistics', headers=headers, params={
-        'q':                      'organizationalEntity',
-        'organizationalEntity':   f'urn:li:organization:{org_id}',
-    })
-    followers = 0
-    if rf.ok:
-        for el in rf.json().get('elements', []):
-            followers += el.get('totalFollowerCount', 0)
-            break
-
-    # Share statistics
-    start_dt = int(datetime.datetime.fromisoformat(start).timestamp() * 1000)
-    end_dt   = int(datetime.datetime.fromisoformat(end).timestamp() * 1000)
-
-    rs = _get(f'{LI_API_URL}/organizationalEntityShareStatistics', headers=headers, params={
-        'q':                      'organizationalEntity',
-        'organizationalEntity':   f'urn:li:organization:{org_id}',
-        'timeIntervals.timeGranularityType': 'DAY',
-        'timeIntervals.start':    start_dt,
-        'timeIntervals.end':      end_dt,
-    })
-    impressions  = 0
-    clicks       = 0
-    engagements  = 0
-    if rs.ok:
-        for el in rs.json().get('elements', []):
-            ts = el.get('totalShareStatistics', {})
-            impressions += ts.get('impressionCount', 0)
-            clicks      += ts.get('clickCount', 0)
-            engagements += ts.get('engagement', 0)
-
-    # Recent posts
-    rp = _get(f'{LI_API_URL}/shares', headers=headers, params={
-        'q':    'owners',
-        'owners': f'urn:li:organization:{org_id}',
-        'count': 20,
-    })
-    posts = []
-    if rp.ok:
-        for item in rp.json().get('elements', []):
-            text = ''
-            try:
-                text = item['text']['text'][:80]
-            except Exception:
-                pass
-            activity = item.get('activity', '')
-            # Get share stats for each post (simplified)
-            posts.append({
-                'text':        text,
-                'activity':    activity,
-                'impressions': 0,
-                'clicks':      0,
-                'reactions':   0,
-            })
-
-    return jsonify({
-        'followers':        followers,
-        'totalFollowers':   followers,
-        'impressions':      impressions,
-        'totalImpressions': impressions,
-        'clicks':           clicks,
-        'totalClicks':      clicks,
-        'engagements':      engagements,
-        'totalEngagements': engagements,
-        'topPosts':         posts[:10],
-        'recentPosts':      posts[:10],
-    })
 
 
 @app.route('/supermetrics/linkedin')
