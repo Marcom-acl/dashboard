@@ -349,12 +349,14 @@ def fb_callback():
 @app.route('/status')
 def status():
     return jsonify({
-        'status':    'ok',
-        'google':    bool(_google_token()),
-        'facebook':  bool(_fb_token()),
-        'linkedin':  bool(SUPERMETRICS_API_KEY),
-        'brevo':     bool(BREVO_API_KEY),
-        'anthropic': bool(ANTHROPIC_API_KEY),
+        'status':          'ok',
+        'google':          bool(_google_token()),
+        'facebook':        bool(_fb_token()),
+        'linkedin':        bool(SUPERMETRICS_API_KEY),
+        'brevo':           bool(BREVO_API_KEY),
+        'anthropic':       bool(ANTHROPIC_API_KEY),
+        'railway_persist': bool(os.environ.get('RAILWAY_TOKEN')),
+        'user_count':      len(_RUNTIME_USERS),
     })
 
 
