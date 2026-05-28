@@ -50,18 +50,40 @@ GOOGLE_CLIENT_SECRET = os.environ.get('GOOGLE_CLIENT_SECRET', '')
 GOOGLE_REFRESH_TOKEN = os.environ.get('GOOGLE_REFRESH_TOKEN', '')
 SUPERMETRICS_API_KEY = os.environ.get('SUPERMETRICS_API_KEY', '')
 
-# ── Dashboard users (source: DASHBOARD_USERS env var + in-memory runtime) ────
+# ── Dashboard users (source: GitHub Gist > DASHBOARD_USERS env var > seed) ───
+GITHUB_TOKEN  = os.environ.get('GITHUB_TOKEN', '')
+GIST_ID       = os.environ.get('GIST_ID', '')
+GIST_FILENAME = 'dashboard_users.json'
+_GH_HEADERS   = lambda: {'Authorization': f'token {GITHUB_TOKEN}',
+                          'Accept': 'application/vnd.github.v3+json'}
+
 _ADMIN_USER = {'name': 'Vincent Huwer', 'email': 'vhuwer@acl.lu', 'role': 'admin',
                'hash': 'c3ad607d59cebafcfd19ca4da43b4d7ceda52350bae6f733899c49b8c3437b51'}
 
-def _init_runtime_users():
-    users = {'vhuwer@acl.lu': _ADMIN_USER}
-    raw = os.environ.get('DASHBOARD_USERS', '')
+def _fetch_gist_users():
+    if not GITHUB_TOKEN or not GIST_ID:
+        return None
     try:
-        for u in (json.loads(raw) if raw else []):
-            users[u['email'].lower()] = u
+        r = requests.get(f'https://api.github.com/gists/{GIST_ID}',
+                         headers=_GH_HEADERS(), timeout=6, verify=_VERIFY)
+        if r.ok:
+            content = r.json()['files'].get(GIST_FILENAME, {}).get('content', '[]')
+            return json.loads(content)
     except Exception:
         pass
+    return None
+
+def _init_runtime_users():
+    users = {'vhuwer@acl.lu': _ADMIN_USER}
+    source = _fetch_gist_users()
+    if source is None:
+        raw = os.environ.get('DASHBOARD_USERS', '')
+        try:
+            source = json.loads(raw) if raw else []
+        except Exception:
+            source = []
+    for u in source:
+        users[u['email'].lower()] = u
     return users
 
 _RUNTIME_USERS = _init_runtime_users()
@@ -69,31 +91,21 @@ _RUNTIME_USERS = _init_runtime_users()
 def _non_admin_users():
     return [u for u in _RUNTIME_USERS.values() if u['email'] != 'vhuwer@acl.lu']
 
-def _persist_users_to_railway():
-    """Writes non-admin users to DASHBOARD_USERS via the Railway API. Returns (ok, error_msg)."""
-    token   = os.environ.get('RAILWAY_TOKEN', '')
-    proj_id = os.environ.get('RAILWAY_PROJECT_ID', '')
-    env_id  = os.environ.get('RAILWAY_ENVIRONMENT_ID', '')
-    svc_id  = os.environ.get('RAILWAY_SERVICE_ID', '')
-    if not all([token, proj_id, env_id, svc_id]):
-        return False, f'missing: token={bool(token)} proj={bool(proj_id)} env={bool(env_id)} svc={bool(svc_id)}'
-    value = json.dumps(_non_admin_users(), ensure_ascii=False)
-    query = 'mutation variableUpsert($input: VariableUpsertInput!) { variableUpsert(input: $input) }'
-    r = requests.post(
-        'https://backboard.railway.app/graphql/v2',
-        headers={'Authorization': f'Bearer {token}', 'Content-Type': 'application/json'},
-        json={'query': query, 'variables': {'input': {
-            'projectId': proj_id, 'environmentId': env_id, 'serviceId': svc_id,
-            'name': 'DASHBOARD_USERS', 'value': value,
-        }}},
-        timeout=3, verify=_VERIFY,
-    )
-    if not r.ok:
-        return False, f'HTTP {r.status_code}: {r.text[:200]}'
-    data = r.json()
-    if data.get('errors'):
-        return False, str(data['errors'][0].get('message', data['errors']))
-    return True, None
+def _persist_users():
+    if not GITHUB_TOKEN or not GIST_ID:
+        return False, 'GITHUB_TOKEN ou GIST_ID manquant sur Railway'
+    try:
+        r = requests.patch(
+            f'https://api.github.com/gists/{GIST_ID}',
+            headers=_GH_HEADERS(),
+            json={'files': {GIST_FILENAME: {'content': json.dumps(_non_admin_users(), ensure_ascii=False)}}},
+            timeout=8, verify=_VERIFY,
+        )
+        if not r.ok:
+            return False, f'GitHub API HTTP {r.status_code}'
+        return True, None
+    except Exception as e:
+        return False, str(e)
 
 # ── Storage paths ─────────────────────────────────────────────────────────────
 DATA_DIR = os.environ.get('DATA_DIR', os.path.dirname(os.path.abspath(__file__)))
@@ -360,7 +372,7 @@ def status():
         'linkedin':        bool(SUPERMETRICS_API_KEY),
         'brevo':           bool(BREVO_API_KEY),
         'anthropic':       bool(ANTHROPIC_API_KEY),
-        'railway_persist': bool(os.environ.get('RAILWAY_TOKEN')),
+        'railway_persist': bool(GITHUB_TOKEN and GIST_ID),
         'user_count':      len(_RUNTIME_USERS),
     })
 
@@ -379,10 +391,7 @@ def api_users_add():
         return jsonify({'error': 'name, email, hash requis'}), 400
     _RUNTIME_USERS[email] = {'name': name, 'email': email,
                               'role': data.get('role', 'user'), 'hash': hash_}
-    try:
-        persisted, persist_err = _persist_users_to_railway()
-    except Exception as e:
-        persisted, persist_err = False, str(e)
+    persisted, persist_err = _persist_users()
     export = json.dumps(_non_admin_users(), ensure_ascii=False)
     return jsonify({'ok': True, 'persisted': persisted,
                     'persist_error': persist_err,
@@ -394,10 +403,7 @@ def api_users_delete(email):
     if email == 'vhuwer@acl.lu':
         return jsonify({'error': 'Admin non supprimable'}), 400
     _RUNTIME_USERS.pop(email, None)
-    try:
-        persisted, persist_err = _persist_users_to_railway()
-    except Exception as e:
-        persisted, persist_err = False, str(e)
+    persisted, persist_err = _persist_users()
     export = json.dumps(_non_admin_users(), ensure_ascii=False)
     return jsonify({'ok': True, 'persisted': persisted,
                     'persist_error': persist_err,
