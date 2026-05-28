@@ -2985,23 +2985,54 @@ document.getElementById('btnRefresh')?.addEventListener('click', loadAll);
 
 // ── Multi-user authentication ─────────────────────────────────
 (function() {
-  const USERS_KEY   = 'acl_dash_users';
-  const SESSION_KEY = 'acl_dash_session';
-  // SHA-256("ACL.Marcom.2026") — mot de passe initial admin
-  const ADMIN_SEED = [{
-    name: 'Vincent Huwer', email: 'vhuwer@acl.lu', role: 'admin',
-    hash: 'c3ad607d59cebafcfd19ca4da43b4d7ceda52350bae6f733899c49b8c3437b51'
-  }];
-
-  function getUsers() {
-    try { return JSON.parse(localStorage.getItem(USERS_KEY)) || ADMIN_SEED; }
-    catch(e) { return ADMIN_SEED; }
-  }
-  function saveUsers(u) { localStorage.setItem(USERS_KEY, JSON.stringify(u)); }
+  const SESSION_KEY  = 'acl_dash_session';
+  const USERS_CACHE  = 'acl_dash_users_cache';
 
   async function sha256(str) {
     const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
-    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+  }
+
+  async function getUsers() {
+    try {
+      const r = await fetch(`${API_BASE}/api/users`, {signal: AbortSignal.timeout(5000)});
+      if (r.ok) {
+        const users = await r.json();
+        localStorage.setItem(USERS_CACHE, JSON.stringify(users));
+        return users;
+      }
+    } catch(e) {}
+    try { return JSON.parse(localStorage.getItem(USERS_CACHE)) || []; }
+    catch(e) { return []; }
+  }
+
+  async function apiAddUser(u) {
+    const r = await fetch(`${API_BASE}/api/users`, {
+      method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(u)
+    });
+    return r.ok ? r.json() : null;
+  }
+
+  async function apiDeleteUser(email) {
+    const r = await fetch(`${API_BASE}/api/users/${encodeURIComponent(email)}`, {method:'DELETE'});
+    return r.ok ? r.json() : null;
+  }
+
+  function showExport(exportJson) {
+    document.getElementById('dashboardExport')?.remove();
+    if (!exportJson) return;
+    const userSec = document.getElementById('userMgmtSection');
+    if (!userSec) return;
+    const div = document.createElement('div');
+    div.id = 'dashboardExport';
+    div.style.cssText = 'margin-top:10px;padding:10px;background:var(--surface);border:1px solid var(--border);border-radius:6px;';
+    div.innerHTML = `<div style="font-size:11px;color:var(--muted);margin-bottom:6px;font-weight:600;">Coller dans <code>DASHBOARD_USERS</code> sur Railway pour rendre permanent :</div>
+      <textarea readonly style="width:100%;box-sizing:border-box;height:56px;background:var(--bg);border:1px solid var(--border);border-radius:4px;padding:6px;font-size:11px;font-family:monospace;color:var(--text);resize:none;">${exportJson}</textarea>
+      <button id="copyExportBtn" class="cfg-save" style="margin-top:6px;font-size:12px;padding:6px 10px;">Copier le JSON</button>`;
+    userSec.appendChild(div);
+    document.getElementById('copyExportBtn')?.addEventListener('click', () => {
+      navigator.clipboard.writeText(exportJson).then(() => showToast('JSON copié dans le presse-papiers.'));
+    });
   }
 
   const overlay = document.getElementById('pwOverlay');
@@ -3010,7 +3041,6 @@ document.getElementById('btnRefresh')?.addEventListener('click', loadAll);
   const btnEl   = document.getElementById('pwSubmit');
   const errEl   = document.getElementById('pwError');
 
-  // Restore session
   const sess = localStorage.getItem(SESSION_KEY);
   if (sess) {
     try { if (JSON.parse(sess).email) overlay.classList.remove('active'); }
@@ -3029,7 +3059,7 @@ document.getElementById('btnRefresh')?.addEventListener('click', loadAll);
     const email = (emailEl?.value || '').trim().toLowerCase();
     const pw    = (inputEl?.value  || '').trim();
     if (!email || !pw) { showAuthErr('Remplissez votre email et mot de passe.'); return; }
-    const users = getUsers();
+    const users = await getUsers();
     const user  = users.find(u => u.email.toLowerCase() === email);
     if (!user) { showAuthErr('Email non reconnu.'); return; }
     const hash = await sha256(pw);
@@ -3041,7 +3071,6 @@ document.getElementById('btnRefresh')?.addEventListener('click', loadAll);
     }
     localStorage.setItem(SESSION_KEY, JSON.stringify({email: user.email, name: user.name, role: user.role}));
     overlay.classList.remove('active');
-    // Mise à jour du prénom dans le hero (si déjà rendu)
     document.querySelectorAll('.hero-title .hl-y').forEach(el => {
       el.textContent = user.name.split(' ')[0];
     });
@@ -3052,7 +3081,7 @@ document.getElementById('btnRefresh')?.addEventListener('click', loadAll);
   emailEl?.addEventListener('keydown', e => { if (e.key === 'Enter') inputEl?.focus(); });
 
   // ── Panel admin dans le cfg drawer ────────────────────────────
-  function renderUserPanel() {
+  async function renderUserPanel() {
     document.getElementById('userMgmtSection')?.remove();
     document.getElementById('logoutSection')?.remove();
     const sessData = JSON.parse(localStorage.getItem(SESSION_KEY) || 'null');
@@ -3060,7 +3089,6 @@ document.getElementById('btnRefresh')?.addEventListener('click', loadAll);
     const cfgBody = document.querySelector('.cfg-body');
     if (!cfgBody) return;
 
-    // Déconnexion + changement de mot de passe (tous les utilisateurs)
     const logoutSec = document.createElement('div');
     logoutSec.id = 'logoutSection';
     logoutSec.innerHTML = `<div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border);">
@@ -3082,12 +3110,12 @@ document.getElementById('btnRefresh')?.addEventListener('click', loadAll);
       if (newPw !== confirm) { showToast('Les nouveaux mots de passe ne correspondent pas.', 'error'); return; }
       if (newPw.length < 8) { showToast('Minimum 8 caractères requis.', 'error'); return; }
       const curHash = await sha256(cur);
-      const users   = getUsers();
+      const users   = await getUsers();
       const user    = users.find(u => u.email.toLowerCase() === sessData.email.toLowerCase());
       if (!user || curHash !== user.hash) { showToast('Mot de passe actuel incorrect.', 'error'); return; }
-      user.hash = await sha256(newPw);
-      saveUsers(users);
-      showToast('Mot de passe modifié avec succès.');
+      const res = await apiAddUser({...user, hash: await sha256(newPw)});
+      if (res?.ok) { showToast('Mot de passe modifié.'); showExport(res.export); }
+      else { showToast('Erreur lors de la mise à jour.', 'error'); }
       document.getElementById('changePwCurrent').value = '';
       document.getElementById('changePwNew').value     = '';
       document.getElementById('changePwConfirm').value = '';
@@ -3097,9 +3125,9 @@ document.getElementById('btnRefresh')?.addEventListener('click', loadAll);
       location.reload();
     });
 
-    // Gestion utilisateurs (admin uniquement)
     if (sessData.role !== 'admin') return;
-    const users = getUsers();
+
+    const users = await getUsers();
     const section = document.createElement('div');
     section.id = 'userMgmtSection';
     section.innerHTML = `<div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border);">
@@ -3136,13 +3164,13 @@ document.getElementById('btnRefresh')?.addEventListener('click', loadAll);
     cfgBody.appendChild(section);
 
     section.querySelectorAll('[data-rmuser]').forEach(btn => {
-      btn.addEventListener('click', () => {
+      btn.addEventListener('click', async () => {
         const email = btn.dataset.rmuser;
         if (!confirm(`Retirer ${email} du dashboard ?`)) return;
-        const updated = getUsers().filter(u => u.email.toLowerCase() !== email.toLowerCase());
-        saveUsers(updated);
+        const res = await apiDeleteUser(email);
+        if (res?.ok) { showToast(`${email} retiré.`); showExport(res.export); }
+        else { showToast('Erreur.', 'error'); }
         renderUserPanel();
-        showToast(`${email} retiré.`);
       });
     });
 
@@ -3171,15 +3199,15 @@ document.getElementById('btnRefresh')?.addEventListener('click', loadAll);
         const input = document.getElementById(`resetPwInput-${email.replace('@','_at_')}`);
         const newPw = input?.value.trim();
         if (!newPw || newPw.length < 8) { showToast('Minimum 8 caractères requis.', 'error'); return; }
-        const users = getUsers();
-        const user = users.find(u => u.email.toLowerCase() === email.toLowerCase());
+        const users = await getUsers();
+        const user  = users.find(u => u.email.toLowerCase() === email.toLowerCase());
         if (!user) return;
-        user.hash = await sha256(newPw);
-        saveUsers(users);
+        const res = await apiAddUser({...user, hash: await sha256(newPw)});
+        if (res?.ok) { showToast(`Mot de passe de ${user.name} réinitialisé.`); showExport(res.export); }
+        else { showToast('Erreur.', 'error'); }
         const form = document.getElementById(`resetForm-${email.replace('@','_at_')}`);
         if (form) form.style.display = 'none';
         if (input) input.value = '';
-        showToast(`Mot de passe de ${user.name} réinitialisé avec succès.`);
       });
     });
 
@@ -3189,17 +3217,19 @@ document.getElementById('btnRefresh')?.addEventListener('click', loadAll);
       const pw    = document.getElementById('newUserPw')?.value.trim();
       if (!name || !email || !pw) { showToast('Remplir tous les champs.', 'error'); return; }
       if (!email.endsWith('@acl.lu')) { showToast('Email doit se terminer par @acl.lu', 'error'); return; }
-      const cur = getUsers();
-      if (cur.find(u => u.email.toLowerCase() === email)) { showToast('Cet email existe déjà.', 'error'); return; }
+      const users = await getUsers();
+      if (users.find(u => u.email.toLowerCase() === email)) { showToast('Cet email existe déjà.', 'error'); return; }
       const hash = await sha256(pw);
-      cur.push({name, email, role:'user', hash});
-      saveUsers(cur);
-      showToast(`${name} ajouté(e) avec succès.`);
+      const res  = await apiAddUser({name, email, role:'user', hash});
+      if (res?.ok) { showToast(`${name} ajouté(e).`); showExport(res.export); }
+      else { showToast('Erreur lors de l\'ajout.', 'error'); }
+      document.getElementById('newUserName').value  = '';
+      document.getElementById('newUserEmail').value = '';
+      document.getElementById('newUserPw').value    = '';
       renderUserPanel();
     });
   }
 
-  // Ouvrir le panel quand le drawer s'ouvre
   const drawer = document.getElementById('cfgDrawer');
   if (drawer) {
     new MutationObserver(() => {

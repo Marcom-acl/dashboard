@@ -50,6 +50,22 @@ GOOGLE_CLIENT_SECRET = os.environ.get('GOOGLE_CLIENT_SECRET', '')
 GOOGLE_REFRESH_TOKEN = os.environ.get('GOOGLE_REFRESH_TOKEN', '')
 SUPERMETRICS_API_KEY = os.environ.get('SUPERMETRICS_API_KEY', '')
 
+# ── Dashboard users (source: DASHBOARD_USERS env var + in-memory runtime) ────
+_ADMIN_USER = {'name': 'Vincent Huwer', 'email': 'vhuwer@acl.lu', 'role': 'admin',
+               'hash': 'c3ad607d59cebafcfd19ca4da43b4d7ceda52350bae6f733899c49b8c3437b51'}
+
+def _init_runtime_users():
+    users = {'vhuwer@acl.lu': _ADMIN_USER}
+    raw = os.environ.get('DASHBOARD_USERS', '')
+    try:
+        for u in (json.loads(raw) if raw else []):
+            users[u['email'].lower()] = u
+    except Exception:
+        pass
+    return users
+
+_RUNTIME_USERS = _init_runtime_users()
+
 # ── Storage paths ─────────────────────────────────────────────────────────────
 DATA_DIR = os.environ.get('DATA_DIR', os.path.dirname(os.path.abspath(__file__)))
 APP_URL  = os.environ.get('APP_URL', 'http://localhost:5050')
@@ -316,6 +332,33 @@ def status():
         'brevo':     bool(BREVO_API_KEY),
         'anthropic': bool(ANTHROPIC_API_KEY),
     })
+
+
+@app.route('/api/users', methods=['GET'])
+def api_users_get():
+    return jsonify(list(_RUNTIME_USERS.values()))
+
+@app.route('/api/users', methods=['POST'])
+def api_users_add():
+    data  = request.get_json(silent=True) or {}
+    email = (data.get('email') or '').strip().lower()
+    name  = (data.get('name')  or '').strip()
+    hash_ = (data.get('hash')  or '').strip()
+    if not email or not name or not hash_:
+        return jsonify({'error': 'name, email, hash requis'}), 400
+    _RUNTIME_USERS[email] = {'name': name, 'email': email,
+                              'role': data.get('role', 'user'), 'hash': hash_}
+    export = [u for u in _RUNTIME_USERS.values() if u['email'] != 'vhuwer@acl.lu']
+    return jsonify({'ok': True, 'export': json.dumps(export, ensure_ascii=False)})
+
+@app.route('/api/users/<path:email>', methods=['DELETE'])
+def api_users_delete(email):
+    email = email.lower()
+    if email == 'vhuwer@acl.lu':
+        return jsonify({'error': 'Admin non supprimable'}), 400
+    _RUNTIME_USERS.pop(email, None)
+    export = [u for u in _RUNTIME_USERS.values() if u['email'] != 'vhuwer@acl.lu']
+    return jsonify({'ok': True, 'export': json.dumps(export, ensure_ascii=False)})
 
 
 @app.route('/google/debug')
