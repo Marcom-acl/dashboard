@@ -70,13 +70,13 @@ def _non_admin_users():
     return [u for u in _RUNTIME_USERS.values() if u['email'] != 'vhuwer@acl.lu']
 
 def _persist_users_to_railway():
-    """Writes non-admin users to DASHBOARD_USERS via the Railway API. Returns True on success."""
+    """Writes non-admin users to DASHBOARD_USERS via the Railway API. Returns (ok, error_msg)."""
     token   = os.environ.get('RAILWAY_TOKEN', '')
     proj_id = os.environ.get('RAILWAY_PROJECT_ID', '')
     env_id  = os.environ.get('RAILWAY_ENVIRONMENT_ID', '')
     svc_id  = os.environ.get('RAILWAY_SERVICE_ID', '')
     if not all([token, proj_id, env_id, svc_id]):
-        return False
+        return False, f'missing: token={bool(token)} proj={bool(proj_id)} env={bool(env_id)} svc={bool(svc_id)}'
     value = json.dumps(_non_admin_users(), ensure_ascii=False)
     query = 'mutation variableUpsert($input: VariableUpsertInput!) { variableUpsert(input: $input) }'
     r = requests.post(
@@ -88,7 +88,12 @@ def _persist_users_to_railway():
         }}},
         timeout=8, verify=_VERIFY,
     )
-    return r.ok and not r.json().get('errors')
+    if not r.ok:
+        return False, f'HTTP {r.status_code}: {r.text[:200]}'
+    data = r.json()
+    if data.get('errors'):
+        return False, str(data['errors'][0].get('message', data['errors']))
+    return True, None
 
 # ── Storage paths ─────────────────────────────────────────────────────────────
 DATA_DIR = os.environ.get('DATA_DIR', os.path.dirname(os.path.abspath(__file__)))
@@ -375,11 +380,13 @@ def api_users_add():
     _RUNTIME_USERS[email] = {'name': name, 'email': email,
                               'role': data.get('role', 'user'), 'hash': hash_}
     try:
-        persisted = _persist_users_to_railway()
-    except Exception:
-        persisted = False
+        persisted, persist_err = _persist_users_to_railway()
+    except Exception as e:
+        persisted, persist_err = False, str(e)
     export = json.dumps(_non_admin_users(), ensure_ascii=False)
-    return jsonify({'ok': True, 'persisted': persisted, 'export': None if persisted else export})
+    return jsonify({'ok': True, 'persisted': persisted,
+                    'persist_error': persist_err,
+                    'export': None if persisted else export})
 
 @app.route('/api/users/<path:email>', methods=['DELETE'])
 def api_users_delete(email):
@@ -388,11 +395,13 @@ def api_users_delete(email):
         return jsonify({'error': 'Admin non supprimable'}), 400
     _RUNTIME_USERS.pop(email, None)
     try:
-        persisted = _persist_users_to_railway()
-    except Exception:
-        persisted = False
+        persisted, persist_err = _persist_users_to_railway()
+    except Exception as e:
+        persisted, persist_err = False, str(e)
     export = json.dumps(_non_admin_users(), ensure_ascii=False)
-    return jsonify({'ok': True, 'persisted': persisted, 'export': None if persisted else export})
+    return jsonify({'ok': True, 'persisted': persisted,
+                    'persist_error': persist_err,
+                    'export': None if persisted else export})
 
 
 @app.route('/google/debug')

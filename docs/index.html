@@ -3223,7 +3223,7 @@ document.getElementById('btnRefresh')?.addEventListener('click', loadAll);
       if (users.find(u => u.email.toLowerCase() === email)) { showToast('Cet email existe déjà.', 'error'); return; }
       const hash = await sha256(pw);
       const res  = await apiAddUser({name, email, role:'user', hash});
-      if (res?.ok) { showToast(res.persisted ? `${name} ajouté(e) et sauvegardé.` : `${name} ajouté(e).`); showExport(res.export); }
+      if (res?.ok) { showToast(res.persisted ? `${name} ajouté(e) et sauvegardé.` : `${name} ajouté(e). Non sauvegardé : ${res.persist_error||'?'}`); showExport(res.export); }
       else { showToast(`Erreur : ${res?.error || 'inconnue'}`, 'error'); }
       document.getElementById('newUserName').value  = '';
       document.getElementById('newUserEmail').value = '';
