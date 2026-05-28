@@ -3028,7 +3028,7 @@ document.getElementById('btnRefresh')?.addEventListener('click', loadAll);
     const div = document.createElement('div');
     div.id = 'dashboardExport';
     div.style.cssText = 'margin-top:10px;padding:10px;background:var(--surface);border:1px solid var(--border);border-radius:6px;';
-    div.innerHTML = `<div style="font-size:11px;color:var(--muted);margin-bottom:6px;font-weight:600;">Coller dans <code>DASHBOARD_USERS</code> sur Railway pour rendre permanent :</div>
+    div.innerHTML = `<div style="font-size:11px;color:var(--muted);margin-bottom:6px;font-weight:600;">Coller dans <code>DASHBOARD_USERS</code> sur Railway → Variables pour rendre permanent :</div>
       <textarea readonly style="width:100%;box-sizing:border-box;height:56px;background:var(--bg);border:1px solid var(--border);border-radius:4px;padding:6px;font-size:11px;font-family:monospace;color:var(--text);resize:none;">${exportJson}</textarea>
       <button id="copyExportBtn" class="cfg-save" style="margin-top:6px;font-size:12px;padding:6px 10px;">Copier le JSON</button>`;
     userSec.appendChild(div);
@@ -3223,7 +3223,7 @@ document.getElementById('btnRefresh')?.addEventListener('click', loadAll);
       if (users.find(u => u.email.toLowerCase() === email)) { showToast('Cet email existe déjà.', 'error'); return; }
       const hash = await sha256(pw);
       const res  = await apiAddUser({name, email, role:'user', hash});
-      if (res?.ok) { showToast(res.persisted ? `${name} ajouté(e) et sauvegardé.` : `${name} ajouté(e). Non sauvegardé : ${res.persist_error||'?'}`); showExport(res.export); }
+      if (res?.ok) { showToast(res.persisted ? `${name} ajouté(e) et sauvegardé.` : `${name} ajouté(e). Copier le JSON ci-dessous dans Railway pour rendre permanent.`); showExport(res.export); }
       else { showToast(`Erreur : ${res?.error || 'inconnue'}`, 'error'); }
       document.getElementById('newUserName').value  = '';
       document.getElementById('newUserEmail').value = '';

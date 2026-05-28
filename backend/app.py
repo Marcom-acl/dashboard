@@ -86,7 +86,7 @@ def _persist_users_to_railway():
             'projectId': proj_id, 'environmentId': env_id, 'serviceId': svc_id,
             'name': 'DASHBOARD_USERS', 'value': value,
         }}},
-        timeout=8, verify=_VERIFY,
+        timeout=3, verify=_VERIFY,
     )
     if not r.ok:
         return False, f'HTTP {r.status_code}: {r.text[:200]}'
