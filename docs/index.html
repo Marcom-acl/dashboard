@@ -3114,7 +3114,7 @@ document.getElementById('btnRefresh')?.addEventListener('click', loadAll);
       const user    = users.find(u => u.email.toLowerCase() === sessData.email.toLowerCase());
       if (!user || curHash !== user.hash) { showToast('Mot de passe actuel incorrect.', 'error'); return; }
       const res = await apiAddUser({...user, hash: await sha256(newPw)});
-      if (res?.ok) { showToast('Mot de passe modifié.'); showExport(res.export); }
+      if (res?.ok) { showToast(res.persisted ? 'Mot de passe modifié et sauvegardé.' : 'Mot de passe modifié.'); showExport(res.export); }
       else { showToast('Erreur lors de la mise à jour.', 'error'); }
       document.getElementById('changePwCurrent').value = '';
       document.getElementById('changePwNew').value     = '';
@@ -3168,7 +3168,7 @@ document.getElementById('btnRefresh')?.addEventListener('click', loadAll);
         const email = btn.dataset.rmuser;
         if (!confirm(`Retirer ${email} du dashboard ?`)) return;
         const res = await apiDeleteUser(email);
-        if (res?.ok) { showToast(`${email} retiré.`); showExport(res.export); }
+        if (res?.ok) { showToast(res.persisted ? `${email} retiré et sauvegardé.` : `${email} retiré.`); showExport(res.export); }
         else { showToast('Erreur.', 'error'); }
         renderUserPanel();
       });
@@ -3203,7 +3203,7 @@ document.getElementById('btnRefresh')?.addEventListener('click', loadAll);
         const user  = users.find(u => u.email.toLowerCase() === email.toLowerCase());
         if (!user) return;
         const res = await apiAddUser({...user, hash: await sha256(newPw)});
-        if (res?.ok) { showToast(`Mot de passe de ${user.name} réinitialisé.`); showExport(res.export); }
+        if (res?.ok) { showToast(res.persisted ? `Mot de passe de ${user.name} réinitialisé et sauvegardé.` : `Mot de passe de ${user.name} réinitialisé.`); showExport(res.export); }
         else { showToast('Erreur.', 'error'); }
         const form = document.getElementById(`resetForm-${email.replace('@','_at_')}`);
         if (form) form.style.display = 'none';
@@ -3221,7 +3221,7 @@ document.getElementById('btnRefresh')?.addEventListener('click', loadAll);
       if (users.find(u => u.email.toLowerCase() === email)) { showToast('Cet email existe déjà.', 'error'); return; }
       const hash = await sha256(pw);
       const res  = await apiAddUser({name, email, role:'user', hash});
-      if (res?.ok) { showToast(`${name} ajouté(e).`); showExport(res.export); }
+      if (res?.ok) { showToast(res.persisted ? `${name} ajouté(e) et sauvegardé.` : `${name} ajouté(e).`); showExport(res.export); }
       else { showToast('Erreur lors de l\'ajout.', 'error'); }
       document.getElementById('newUserName').value  = '';
       document.getElementById('newUserEmail').value = '';
