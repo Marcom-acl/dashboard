@@ -374,8 +374,11 @@ def api_users_add():
         return jsonify({'error': 'name, email, hash requis'}), 400
     _RUNTIME_USERS[email] = {'name': name, 'email': email,
                               'role': data.get('role', 'user'), 'hash': hash_}
-    persisted = _persist_users_to_railway()
-    export    = json.dumps(_non_admin_users(), ensure_ascii=False)
+    try:
+        persisted = _persist_users_to_railway()
+    except Exception:
+        persisted = False
+    export = json.dumps(_non_admin_users(), ensure_ascii=False)
     return jsonify({'ok': True, 'persisted': persisted, 'export': None if persisted else export})
 
 @app.route('/api/users/<path:email>', methods=['DELETE'])
@@ -384,8 +387,11 @@ def api_users_delete(email):
     if email == 'vhuwer@acl.lu':
         return jsonify({'error': 'Admin non supprimable'}), 400
     _RUNTIME_USERS.pop(email, None)
-    persisted = _persist_users_to_railway()
-    export    = json.dumps(_non_admin_users(), ensure_ascii=False)
+    try:
+        persisted = _persist_users_to_railway()
+    except Exception:
+        persisted = False
+    export = json.dumps(_non_admin_users(), ensure_ascii=False)
     return jsonify({'ok': True, 'persisted': persisted, 'export': None if persisted else export})
 
 

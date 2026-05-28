@@ -3010,12 +3010,14 @@ document.getElementById('btnRefresh')?.addEventListener('click', loadAll);
     const r = await fetch(`${API_BASE}/api/users`, {
       method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(u)
     });
-    return r.ok ? r.json() : null;
+    const json = await r.json().catch(() => null);
+    return r.ok ? json : {ok: false, error: json?.error || `HTTP ${r.status}`};
   }
 
   async function apiDeleteUser(email) {
     const r = await fetch(`${API_BASE}/api/users/${encodeURIComponent(email)}`, {method:'DELETE'});
-    return r.ok ? r.json() : null;
+    const json = await r.json().catch(() => null);
+    return r.ok ? json : {ok: false, error: json?.error || `HTTP ${r.status}`};
   }
 
   function showExport(exportJson) {
@@ -3222,7 +3224,7 @@ document.getElementById('btnRefresh')?.addEventListener('click', loadAll);
       const hash = await sha256(pw);
       const res  = await apiAddUser({name, email, role:'user', hash});
       if (res?.ok) { showToast(res.persisted ? `${name} ajouté(e) et sauvegardé.` : `${name} ajouté(e).`); showExport(res.export); }
-      else { showToast('Erreur lors de l\'ajout.', 'error'); }
+      else { showToast(`Erreur : ${res?.error || 'inconnue'}`, 'error'); }
       document.getElementById('newUserName').value  = '';
       document.getElementById('newUserEmail').value = '';
       document.getElementById('newUserPw').value    = '';
