@@ -990,19 +990,22 @@ def fb_page():
                 elif mn == 'page_post_engagements':
                     engagements_total += total_val
 
-        pages_data.append({'name': page_name, 'id': page_id, 'fans': fans})
-
-        # Posts
+        # Posts — paginated count + top posts collection
+        posts_count = 0
         rp = _get(f'{FB_GRAPH}/{page_id}/posts', params={
             'fields':       'message,created_time,likes.summary(true),comments.summary(true)',
             'since':        start,
             'until':        end,
             'access_token': token,
-            'limit':        25,
+            'limit':        100,
         })
         if rp.ok:
-            for post in rp.json().get('data', []):
-                likes   = post.get('likes',    {}).get('summary', {}).get('total_count', 0)
+            page_body   = rp.json()
+            page_posts  = page_body.get('data', [])
+            posts_count = len(page_posts)
+            next_url    = page_body.get('paging', {}).get('next')
+            for post in page_posts:
+                likes    = post.get('likes',    {}).get('summary', {}).get('total_count', 0)
                 comments = post.get('comments', {}).get('summary', {}).get('total_count', 0)
                 all_posts.append({
                     'page':       page_name,
@@ -1011,6 +1014,16 @@ def fb_page():
                     'comments':   comments,
                     'engagement': likes + comments,
                 })
+            # Paginate pour comptage précis (pas besoin du détail des posts suivants)
+            while next_url and posts_count < 500:
+                rn = _get(next_url, timeout=30)
+                if not rn.ok:
+                    break
+                nb          = rn.json()
+                posts_count += len(nb.get('data', []))
+                next_url    = nb.get('paging', {}).get('next')
+
+        pages_data.append({'name': page_name, 'id': page_id, 'fans': fans, 'posts_count': posts_count})
 
     all_posts.sort(key=lambda x: x['engagement'], reverse=True)
 
