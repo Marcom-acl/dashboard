@@ -1119,6 +1119,17 @@
     </div>
 
     <div class="sb-section">
+      <div class="sb-section-title">Intelligence</div>
+      <nav class="sb-nav">
+        <button class="sb-item tab-btn" data-tab="veille">
+          <svg class="sb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="4"/><path d="M11 7v1M11 14v1M7 11h1M14 11h1M8.5 8.5l.7.7M13.1 13.1l.7.7M8.5 13.5l.7-.7M13.1 8.9l.7-.7"/><path d="m20 20-4.3-4.3"/></svg>
+          Veille sectorielle
+          <span class="sb-dot" id="bs-veille" style="background:var(--muted-2);"></span>
+        </button>
+      </nav>
+    </div>
+
+    <div class="sb-section">
       <div class="sb-section-title">Outils</div>
       <nav class="sb-nav">
         <button class="sb-item" id="openCfg">
@@ -1230,6 +1241,9 @@
 
         <!-- ── LINKEDIN ─────────────────────────────────────────── -->
         <div id="panel-linkedin" class="tab-panel"></div>
+
+        <!-- ── VEILLE ────────────────────────────────────────────── -->
+        <div id="panel-veille" class="tab-panel"></div>
 
       </div>
     </div>
@@ -1375,26 +1389,28 @@ async function loadAll() {
   document.getElementById('lastUpd').textContent = 'Chargement…';
 
   try {
-    const [ga4, ga4auto, ga4ext, ga4trend, gsc, fb, fbpage, brevo, club, yt, li] = await Promise.allSettled([
+    const [ga4, ga4auto, ga4ext, ga4trend, gsc, fb, fbpage, brevo, club, yt, li, veille] = await Promise.allSettled([
       api('/ga4'), api('/ga4/autotouring'), api('/ga4/extended'), api('/ga4/trend'),
       api('/gsc'), api('/fb'), api('/fb/page'), api('/brevo'), api('/brevo/club'),
-      api('/youtube'), api('/supermetrics/linkedin')
+      api('/youtube'), api('/supermetrics/linkedin'), api('/veille')
     ]);
 
     const v = r => r.status === 'fulfilled' ? r.value : null;
     const dGA4   = v(ga4),   dGA4A = v(ga4auto), dGA4E = v(ga4ext), dGA4T = v(ga4trend);
     const dGSC   = v(gsc),   dFB   = v(fb),      dFBP  = v(fbpage);
     const dBrevo = v(brevo), dClub = v(club),     dYT   = v(yt),     dLI   = v(li);
+    const dVeille = v(veille);
 
-    updateStatus('bs-ga4',   dGA4   && !dGA4.error);
-    updateStatus('bs-gsc',   dGSC   && !dGSC.error);
-    updateStatus('bs-fbads', dFB    && !dFB.error);
-    updateStatus('bs-brevo', dBrevo && !dBrevo.error);
-    updateStatus('bs-club',  dClub  && !dClub.error);
-    updateStatus('bs-yt',    dYT    && !dYT.error);
-    updateStatus('bs-li',    dLI    && !dLI.error);
+    updateStatus('bs-ga4',    dGA4    && !dGA4.error);
+    updateStatus('bs-gsc',    dGSC    && !dGSC.error);
+    updateStatus('bs-fbads',  dFB     && !dFB.error);
+    updateStatus('bs-brevo',  dBrevo  && !dBrevo.error);
+    updateStatus('bs-club',   dClub   && !dClub.error);
+    updateStatus('bs-yt',     dYT     && !dYT.error);
+    updateStatus('bs-li',     dLI     && !dLI.error);
+    updateStatus('bs-veille', dVeille && !dVeille.error);
 
-    renderOverview({dGA4, dGSC, dFB, dFBP, dBrevo, dLI, dYT, dGA4T});
+    renderOverview({dGA4, dGSC, dFB, dFBP, dBrevo, dLI, dYT, dGA4T, dVeille});
     renderGA4(dGA4, dGA4A, dGA4E, dGA4T);
     renderMeta(dFB, dFBP);
     renderGSC(dGSC);
@@ -1402,6 +1418,7 @@ async function loadAll() {
     renderClub(dClub);
     renderYouTube(dYT);
     renderLinkedIn(dLI);
+    renderVeille(dVeille);
 
     window._lastDashData = {dGA4, dGSC, dFB, dBrevo, dLI, dYT};
     fetchInsights(window._lastDashData);
@@ -1573,7 +1590,7 @@ function renderCalendar() {
 }
 
 // ── OVERVIEW ─────────────────────────────────────────────────
-function renderOverview({dGA4, dGSC, dFB, dFBP, dBrevo, dLI, dYT, dGA4T}) {
+function renderOverview({dGA4, dGSC, dFB, dFBP, dBrevo, dLI, dYT, dGA4T, dVeille}) {
   const el = document.getElementById('panel-overview');
   if (!el) return;
 
@@ -1672,7 +1689,8 @@ function renderOverview({dGA4, dGSC, dFB, dFBP, dBrevo, dLI, dYT, dGA4T}) {
         </div>
       </div>
       <div id="ov-benchmark"></div>
-    </div>`;
+    </div>
+    <div id="ov-veille" style="margin-top:14px"></div>`;
 
   // Wire "Tout voir" expand/collapse
   el.addEventListener('click', function(e) {
@@ -1696,6 +1714,57 @@ function renderOverview({dGA4, dGSC, dFB, dFBP, dBrevo, dLI, dYT, dGA4T}) {
   renderChannelDonut(dGA4?.channelBreakdown || []);
   renderGSCPositions(dGSC?.topQueries || []);
   renderBenchmarks({dGA4, dGSC, dFB, dBrevo, dLI, dYT});
+  renderVeilleOverview(dVeille);
+}
+
+function renderVeilleOverview(d) {
+  const el = document.getElementById('ov-veille');
+  if (!el) return;
+  if (!d || d.error || !d.items) return;
+
+  const items     = d.items || [];
+  const notable   = items.filter(i => i.badge === 'NOTABLE');
+  const surveiller = items.filter(i => i.badge === 'SURVEILLER');
+  const lastUpd   = d.generated_at || '—';
+  const nextEd    = d.next_edition  || '—';
+
+  const recentNotable = notable.sort((a,b) => b.date.localeCompare(a.date)).slice(0, 3);
+
+  el.innerHTML = `
+    <div class="bench-wrap">
+      <div class="bench-head">
+        <div class="bench-head-left">
+          <div class="bench-title">Veille sectorielle</div>
+          <div class="bench-sub">Clubs automobiles européens · Mise à jour ${lastUpd} · Prochaine édition ${nextEd}</div>
+        </div>
+        <button class="ap-link" onclick="document.querySelector('[data-tab=veille]')?.click()" style="font-size:11px">Voir tout →</button>
+      </div>
+      <div class="bench-body">
+        <div style="display:flex;gap:24px;padding:12px 16px;border-bottom:1px solid var(--border)">
+          <div style="text-align:center">
+            <div style="font-family:'FaricyNew','Albert Sans',sans-serif;font-weight:700;font-style:italic;font-size:22px;color:var(--n)">${items.length}</div>
+            <div style="font-size:10px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.06em">Items total</div>
+          </div>
+          <div style="text-align:center">
+            <div style="font-family:'FaricyNew','Albert Sans',sans-serif;font-weight:700;font-style:italic;font-size:22px;color:#8A6800">${notable.length}</div>
+            <div style="font-size:10px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.06em">Notables</div>
+          </div>
+          <div style="text-align:center">
+            <div style="font-family:'FaricyNew','Albert Sans',sans-serif;font-weight:700;font-style:italic;font-size:22px;color:var(--warn)">${surveiller.length}</div>
+            <div style="font-size:10px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.06em">À surveiller</div>
+          </div>
+        </div>
+        ${recentNotable.map(i => `
+        <div class="bench-row">
+          <span class="bench-canal" style="background:#FFF4A8;color:#8A6800;font-size:9px">${i.club}</span>
+          <div class="bench-metric-wrap">
+            <div class="bench-metric-name" style="color:var(--text);font-weight:500;font-size:12px">${i.content.length > 120 ? i.content.slice(0, 120) + '…' : i.content}</div>
+            <div class="bench-metric-note">${i.date}</div>
+          </div>
+          <div class="bench-status bench-ok">★</div>
+        </div>`).join('')}
+      </div>
+    </div>`;
 }
 
 function getWeekNum() {
@@ -2730,6 +2799,136 @@ function renderLinkedIn(d) {
 
   animateCards(el);
   fetchSectionInsight('linkedin', { followers, engagementRate: engRate, impressions, engagements, newFollowers });
+}
+
+// ── VEILLE SECTORIELLE ────────────────────────────────────────
+function renderVeille(d) {
+  const el = document.getElementById('panel-veille');
+  if (!el) return;
+  if (!d || d.error) {
+    el.innerHTML = `<div class="no-key"><strong>Veille sectorielle</strong><br>${d?.error || 'Données non disponibles — le fichier veille-data.json n\'est pas encore publié sur GitHub.'}</div>`;
+    return;
+  }
+
+  const items    = d.items    || [];
+  const trends   = d.trends   || [];
+  const signals  = d.signals  || [];
+  const editions = d.editions || [];
+
+  const notable   = items.filter(i => i.badge === 'NOTABLE').length;
+  const surveiller = items.filter(i => i.badge === 'SURVEILLER').length;
+  const clubs     = [...new Set(items.map(i => i.club))];
+  const lastUpd   = d.generated_at || '—';
+  const nextEd    = d.next_edition  || '—';
+
+  const BADGE_STYLE = {
+    NOTABLE:    'background:#FFF4A8;color:#8A6800;border:1px solid #FEDB00;font-weight:700',
+    SURVEILLER: 'background:#FEF3C7;color:#92400E;border:1px solid #F97316',
+    INFO:       'background:#F4F4F2;color:#7A7770;border:1px solid #E8E6E0',
+  };
+
+  const CAT_COLOR = {
+    'EU':       '#123C62',
+    'Monde':    '#0B996E',
+    'Mobilité': '#7C3AED',
+  };
+
+  let vFilterClub = 'all', vFilterBadge = 'all';
+
+  function buildRows() {
+    return items
+      .filter(i => (vFilterClub  === 'all' || i.club  === vFilterClub)
+                && (vFilterBadge === 'all' || i.badge === vFilterBadge))
+      .sort((a, b) => b.date.localeCompare(a.date))
+      .map(i => {
+        const bStyle = BADGE_STYLE[i.badge] || BADGE_STYLE.INFO;
+        const cColor = CAT_COLOR[i.category] || '#7A7770';
+        const link   = i.url ? `<a href="${i.url}" target="_blank" rel="noopener" style="color:inherit;text-decoration:none">${i.content}</a>` : i.content;
+        return `<tr>
+          <td style="font-size:11px;white-space:nowrap;color:var(--muted)">${i.date}</td>
+          <td style="font-weight:600;white-space:nowrap">${i.club}</td>
+          <td><span style="font-size:10px;font-weight:700;color:${cColor};background:${cColor}18;border:1px solid ${cColor}30;border-radius:99px;padding:2px 8px;white-space:nowrap">${i.category}</span></td>
+          <td style="max-width:480px;line-height:1.4">${link}${i.relevance ? `<div style="font-size:11px;color:var(--muted);margin-top:4px;font-style:italic">${i.relevance}</div>` : ''}</td>
+          <td><span style="font-size:10px;border-radius:99px;padding:3px 9px;white-space:nowrap;${bStyle}">${i.badge}</span></td>
+        </tr>`;
+      }).join('') || `<tr><td colspan="5" style="text-align:center;padding:24px;color:var(--muted)">Aucun résultat pour ces filtres.</td></tr>`;
+  }
+
+  el.innerHTML = `
+    <div class="sec-title"><h2>Veille sectorielle</h2><div class="line"></div>
+      <span class="src-pill" style="--src:#123C62;--src-bg:#E8EEF4">Clubs automobiles</span>
+    </div>
+
+    <div class="kpi-grid">
+      ${kpiCard({label:'Items total', value:fmtN(items.length), src:'var(--n)', srcBg:'var(--c-club-bg)'})}
+      ${kpiCard({label:'Signaux NOTABLE', value:fmtN(notable), src:'var(--y-deep)', srcBg:'var(--y-soft)'})}
+      ${kpiCard({label:'À surveiller', value:fmtN(surveiller), src:'var(--warn)', srcBg:'#FEF3C7'})}
+      ${kpiCard({label:'Clubs surveillés', value:fmtN(clubs.length), src:'var(--n)', srcBg:'var(--c-club-bg)'})}
+    </div>
+
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap">
+      <span style="font-size:11px;color:var(--muted);font-weight:600">Filtrer :</span>
+      <select id="veilleClubFilter" style="font-size:12px;padding:5px 10px;border:1px solid var(--border);border-radius:6px;background:var(--surface);color:var(--text);font-family:inherit">
+        <option value="all">Tous les clubs</option>
+        ${clubs.sort().map(c => `<option value="${c}">${c}</option>`).join('')}
+      </select>
+      <select id="veilleBadgeFilter" style="font-size:12px;padding:5px 10px;border:1px solid var(--border);border-radius:6px;background:var(--surface);color:var(--text);font-family:inherit">
+        <option value="all">Tous les badges</option>
+        <option value="NOTABLE">NOTABLE</option>
+        <option value="SURVEILLER">SURVEILLER</option>
+        <option value="INFO">INFO</option>
+      </select>
+      <span style="margin-left:auto;font-size:11px;color:var(--muted)">Mise à jour : ${lastUpd} · Prochaine édition : ${nextEd}</span>
+    </div>
+
+    <div class="card"><div class="card-body flush"><div class="tbl-scroll">
+      <table class="tbl" id="veilleTbl">
+        <thead><tr>
+          <th>Date</th><th>Club</th><th>Catégorie</th><th>Contenu &amp; pertinence ACL</th><th>Badge</th>
+        </tr></thead>
+        <tbody id="veilleTbody">${buildRows()}</tbody>
+      </table>
+    </div></div></div>
+
+    ${(trends.length || signals.length) ? `
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:12px;margin-top:4px">
+      ${trends.length ? `
+      <div class="card"><div class="card-head"><div class="card-title">Tendances observées (${trends.length})</div></div>
+        <div class="card-body" style="padding:14px 16px">
+          <ol style="margin:0;padding-left:18px;display:flex;flex-direction:column;gap:10px">
+            ${trends.map(t => `<li style="font-size:13px;line-height:1.5;color:var(--text)">${t}</li>`).join('')}
+          </ol>
+        </div>
+      </div>` : ''}
+      ${signals.length ? `
+      <div class="card"><div class="card-head"><div class="card-title">Signaux faibles (${signals.length})</div></div>
+        <div class="card-body" style="padding:14px 16px">
+          <ol style="margin:0;padding-left:18px;display:flex;flex-direction:column;gap:10px">
+            ${signals.map(s => `<li style="font-size:13px;line-height:1.5;color:var(--text)">${s}</li>`).join('')}
+          </ol>
+        </div>
+      </div>` : ''}
+    </div>` : ''}
+
+    ${editions.length ? `
+    <div class="card"><div class="card-head"><div class="card-title">Éditions archivées (${editions.length})</div></div>
+      <div class="card-body" style="padding:12px 16px">
+        <div style="display:flex;flex-wrap:wrap;gap:6px">
+          ${[...editions].reverse().map(e => `<span style="background:var(--c-club-bg);color:var(--n);border:1px solid #C5D5E8;border-radius:99px;padding:3px 12px;font-size:11px;white-space:nowrap">${e.label || e.date}</span>`).join('')}
+        </div>
+      </div>
+    </div>` : ''}`;
+
+  document.getElementById('veilleClubFilter').addEventListener('change', e => {
+    vFilterClub = e.target.value;
+    document.getElementById('veilleTbody').innerHTML = buildRows();
+  });
+  document.getElementById('veilleBadgeFilter').addEventListener('change', e => {
+    vFilterBadge = e.target.value;
+    document.getElementById('veilleTbody').innerHTML = buildRows();
+  });
+
+  animateCards(el);
 }
 
 // ── AI INSIGHTS ───────────────────────────────────────────────

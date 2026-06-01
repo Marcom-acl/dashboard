@@ -29,6 +29,8 @@ app.secret_key = os.environ.get('FLASK_SECRET', os.urandom(32))
 CORS(app, origins='*')
 
 # ── Constants ────────────────────────────────────────────────────────────────
+VEILLE_DATA_URL = 'https://raw.githubusercontent.com/Marcom-acl/dashboard/main/data/veille-data.json'
+
 GA4_PROPERTY              = '267556854'
 GA4_PROPERTY_AUTOTOURING  = '473431929'
 GSC_SITE                  = 'sc-domain:acl.lu'
@@ -365,6 +367,11 @@ def fb_callback():
 
 @app.route('/status')
 def status():
+    try:
+        vr = _get(VEILLE_DATA_URL, timeout=4)
+        veille_ok = vr.ok
+    except Exception:
+        veille_ok = False
     return jsonify({
         'status':          'ok',
         'google':          bool(_google_token()),
@@ -373,8 +380,20 @@ def status():
         'brevo':           bool(BREVO_API_KEY),
         'anthropic':       bool(ANTHROPIC_API_KEY),
         'railway_persist': bool(GITHUB_TOKEN and GIST_ID),
+        'veille':          veille_ok,
         'user_count':      len(_RUNTIME_USERS),
     })
+
+
+@app.route('/veille')
+def veille():
+    try:
+        r = _get(VEILLE_DATA_URL, timeout=10)
+        if not r.ok:
+            return jsonify({'error': f'GitHub raw HTTP {r.status_code}'}), 503
+        return jsonify(r.json())
+    except Exception as e:
+        return jsonify({'error': str(e)}), 503
 
 
 @app.route('/api/users', methods=['GET'])
