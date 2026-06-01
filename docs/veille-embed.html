@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Veille sectorielle — Clubs automobiles</title>
+<style>
+  :root {
+    --n: #123C62;
+    --y: #FEDB00;
+    --surface: #ffffff;
+    --border: #E0E0E0;
+    --border-strong: #C0C0C0;
+    --muted: #888888;
+    --muted-2: #BBBBBB;
+    --text: #111111;
+    --r-md: 8px;
+    --shadow-1: 0 1px 4px rgba(0,0,0,.07);
+    --c-club-bg: #EBF2FA;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  body {
+    font-family: 'Albert Sans', Arial, sans-serif;
+    font-size: 13px;
+    color: var(--text);
+    background: #F5F7FA;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Section title */
+  .sec-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .sec-title h2 {
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0;
+    white-space: nowrap;
+    color: var(--text);
+    letter-spacing: -.01em;
+  }
+  .sec-title .line {
+    flex: 1;
+    height: 2px;
+    background: var(--border);
+    border-radius: 1px;
+  }
+  .src-pill {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .07em;
+    padding: 3px 10px;
+    border-radius: 99px;
+    background: var(--c-club-bg);
+    color: var(--n);
+    border: 1px solid #C5D5E8;
+    white-space: nowrap;
+  }
+
+  /* Cards */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+    box-shadow: var(--shadow-1);
+    overflow: hidden;
+  }
+  .card-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .card-title {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .07em;
+    color: var(--muted);
+  }
+  .card-body { padding: 14px 16px; }
+
+  /* Tables */
+  table, .tbl { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  thead th {
+    background: var(--n);
+    color: #fff;
+    text-align: left;
+    padding: 10px 14px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+  }
+  thead th:first-child { padding-left: 18px; }
+  thead th:hover { color: var(--y); }
+  tbody tr { border-bottom: 1px solid var(--border); transition: background .12s; }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: rgba(254,219,0,.06); }
+  tbody td { padding: 10px 14px; white-space: nowrap; vertical-align: middle; }
+  tbody td:first-child { padding-left: 18px; }
+  .tbl-scroll { overflow-x: auto; }
+
+  /* Loading / error */
+  .load-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    color: var(--muted);
+    font-size: 14px;
+    gap: 14px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .spinner {
+    width: 28px; height: 28px;
+    border: 3px solid var(--border);
+    border-top-color: var(--n);
+    border-radius: 50%;
+    animation: spin .7s linear infinite;
+  }
+
+  /* Wrapper */
+  #wrap { padding: 16px; }
+</style>
+</head>
+<body>
+<div id="wrap">
+  <div id="panel-veille">
+    <div class="load-wrap">
+      <div class="spinner"></div>
+      Chargement des données veille…
+    </div>
+  </div>
+</div>
+
+<script>
+const VEILLE_URL = 'https://raw.githubusercontent.com/Marcom-acl/dashboard/main/data/veille-data.json';
+
+(async function () {
+  let d = null;
+  try {
+    const r = await fetch(VEILLE_URL);
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    d = await r.json();
+  } catch (e) {
+    document.getElementById('panel-veille').innerHTML =
+      `<div class="load-wrap" style="color:#c00">Impossible de charger les données veille.<br><small>${e.message}</small></div>`;
+    return;
+  }
+  renderVeille(d);
+})();
+
+function renderVeille(d) {
+  const el = document.getElementById('panel-veille');
+  if (!el) return;
+  if (!d || d.error) {
+    el.innerHTML = `<div class="load-wrap"><strong>Veille sectorielle</strong><br>${d?.error || "Données non disponibles — le fichier veille-data.json n'est pas encore publié sur GitHub."}</div>`;
+    return;
+  }
+
+  const ALL      = d.items    || [];
+  const trends   = d.trends   || [];
+  const signals  = d.signals  || [];
+  const editions = d.editions || [];
+  const lastUpd  = d.generated_at || '—';
+  const nextEd   = d.next_edition  || '—';
+
+  const nNotable    = ALL.filter(i => i.badge === 'NOTABLE').length;
+  const nSurveiller = ALL.filter(i => i.badge === 'SURVEILLER').length;
+  const nInfo       = ALL.filter(i => i.badge === 'INFO').length;
+  const nEditions   = editions.length || [...new Set(ALL.map(i => i.date))].length;
+
+  const PAGE_SIZE = 12;
+  let filtered = ALL.slice().sort((a,b) => b.date.localeCompare(a.date));
+  let vPage = 1, vSortCol = 'date', vSortDir = 'desc';
+  let vDate = '', vCat = '', vBadge = '', vSearch = '';
+
+  function dateLabel(iso) {
+    const months = ['','jan.','fév.','mars','avr.','mai','juin','juil.','août','sep.','oct.','nov.','déc.'];
+    const p = iso.split('-');
+    return parseInt(p[2]) + ' ' + months[parseInt(p[1])] + ' ' + p[0];
+  }
+
+  function badgeHtml(b) {
+    const styles = {
+      NOTABLE:    'background:#e8f4e8;color:#2d6a2d;',
+      SURVEILLER: 'background:#FFF8DC;color:#8B6914;',
+      INFO:       'background:#f0f0f0;color:#666;',
+    };
+    const st = styles[b] || styles.INFO;
+    return `<span style="display:inline-block;font-size:10px;font-weight:700;padding:2px 7px;border-radius:3px;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap;${st}">${b}</span>`;
+  }
+
+  function catHtml(cat) {
+    const dots = { 'EU': '#123C62', 'Monde': '#2d7d9a', 'Mobilité': '#4a90a4' };
+    const color = dots[cat] || '#888';
+    return `<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${color};margin-right:5px;vertical-align:middle"></span>${cat}`;
+  }
+
+  function applyFilters() {
+    const search = vSearch.toLowerCase().trim();
+    filtered = ALL.filter(i => {
+      if (vDate  && i.date     !== vDate)  return false;
+      if (vCat   && i.category !== vCat)   return false;
+      if (vBadge && i.badge    !== vBadge) return false;
+      if (search) {
+        const hay = (i.club + ' ' + i.content + ' ' + (i.relevance||'') + ' ' + (i.category||'')).toLowerCase();
+        if (!hay.includes(search)) return false;
+      }
+      return true;
+    });
+    filtered.sort((a,b) => {
+      const va = a[vSortCol] || '', vb = b[vSortCol] || '';
+      if (va < vb) return vSortDir === 'asc' ? -1 : 1;
+      if (va > vb) return vSortDir === 'asc' ?  1 : -1;
+      return 0;
+    });
+    vPage = 1;
+    updateCount();
+    renderRows();
+    renderPagination();
+  }
+
+  function updateCount() {
+    const cnt = document.getElementById('veilleCount');
+    if (cnt) cnt.textContent = filtered.length + ' résultat' + (filtered.length > 1 ? 's' : '');
+  }
+
+  function renderRows() {
+    const tbody = document.getElementById('veilleTbody');
+    const empty = document.getElementById('veilleEmpty');
+    if (!tbody) return;
+    const start = (vPage - 1) * PAGE_SIZE;
+    const page  = filtered.slice(start, start + PAGE_SIZE);
+    if (!page.length) {
+      tbody.innerHTML = '';
+      if (empty) empty.style.display = 'block';
+      return;
+    }
+    if (empty) empty.style.display = 'none';
+    tbody.innerHTML = page.map(item => {
+      const linkStart = item.url ? `<a href="${item.url}" target="_blank" rel="noopener" style="color:inherit">` : '';
+      const linkEnd   = item.url ? `</a>` : '';
+      return `<tr>
+        <td style="white-space:nowrap;color:#888;font-size:12px;font-weight:700;vertical-align:top">${dateLabel(item.date)}</td>
+        <td style="white-space:nowrap;font-weight:700;vertical-align:top">${item.club}</td>
+        <td style="white-space:nowrap;vertical-align:top">${catHtml(item.category)}</td>
+        <td style="white-space:nowrap;vertical-align:top">${badgeHtml(item.badge)}</td>
+        <td style="white-space:normal;overflow-wrap:break-word;word-break:break-word;max-width:380px;line-height:1.5;font-size:13px;vertical-align:top">${linkStart}${item.content}${linkEnd}</td>
+        <td style="white-space:normal;overflow-wrap:break-word;word-break:break-word;color:#555;font-style:italic;font-size:12px;max-width:240px;line-height:1.45;vertical-align:top">${item.relevance || ''}</td>
+      </tr>`;
+    }).join('');
+  }
+
+  function pgBtn(disabled, active) {
+    const base = 'border:1px solid #E0E0E0;border-radius:4px;padding:5px 10px;font-size:13px;cursor:pointer;font-family:inherit;';
+    if (disabled) return base + 'opacity:.4;pointer-events:none;background:#fff;color:#111;';
+    if (active)   return base + 'background:#000;color:#FEDB00;font-weight:700;border-color:#000;';
+    return base + 'background:#fff;color:#111;';
+  }
+
+  function renderPagination() {
+    const pag = document.getElementById('veillePag');
+    if (!pag) return;
+    const total = Math.ceil(filtered.length / PAGE_SIZE);
+    if (total <= 1) { pag.innerHTML = ''; return; }
+    let html = `<button onclick="window._vPage(${vPage-1})" style="${pgBtn(vPage===1)}">&#8249;</button>`;
+    for (let i = 1; i <= total; i++) {
+      if (i===1||i===total||(i>=vPage-2&&i<=vPage+2)) {
+        html += `<button onclick="window._vPage(${i})" style="${pgBtn(false,i===vPage)}">${i}</button>`;
+      } else if (i===vPage-3||i===vPage+3) {
+        html += `<span style="padding:0 4px;color:#888">…</span>`;
+      }
+    }
+    html += `<button onclick="window._vPage(${vPage+1})" style="${pgBtn(vPage===total)}">&#8250;</button>`;
+    html += `<span style="font-size:11px;color:#888;margin-left:8px">Page ${vPage} / ${total}</span>`;
+    pag.innerHTML = html;
+  }
+
+  function sortHdr(label, col) {
+    const indicator = vSortCol===col ? (vSortDir==='asc'?' ↑':' ↓') : '';
+    return `<th id="vth-${col}" onclick="window._vSort('${col}')" style="cursor:pointer;user-select:none;white-space:nowrap">${label}${indicator}</th>`;
+  }
+
+  function selStyle() {
+    return 'border:1px solid #C0C0C0;border-radius:4px;padding:5px 8px;font-size:12px;color:#111;background:#fff;font-family:inherit;outline:none;';
+  }
+
+  const uniqDates = [...new Set(ALL.map(i => i.date))].sort((a,b) => b.localeCompare(a));
+
+  el.innerHTML = `
+    <div class="sec-title">
+      <h2>Veille sectorielle</h2>
+      <div class="line"></div>
+      <span class="src-pill">Clubs automobiles</span>
+    </div>
+
+    <!-- Stats bar -->
+    <div style="background:#fff;border:1px solid #E0E0E0;border-bottom:3px solid #FEDB00;border-radius:8px 8px 0 0;padding:14px 20px;display:flex;gap:32px;flex-wrap:wrap;margin-bottom:0">
+      <div style="text-align:center"><div style="font-size:24px;font-weight:700;font-style:italic">${nEditions}</div><div style="font-size:10px;color:#888;text-transform:uppercase;letter-spacing:.06em">Éditions</div></div>
+      <div style="text-align:center"><div style="font-size:24px;font-weight:700;font-style:italic">${ALL.length}</div><div style="font-size:10px;color:#888;text-transform:uppercase;letter-spacing:.06em">Items total</div></div>
+      <div style="text-align:center"><div style="font-size:24px;font-weight:700;font-style:italic;color:#2d6a2d">${nNotable}</div><div style="font-size:10px;color:#888;text-transform:uppercase;letter-spacing:.06em">Notable</div></div>
+      <div style="text-align:center"><div style="font-size:24px;font-weight:700;font-style:italic;color:#8B6914">${nSurveiller}</div><div style="font-size:10px;color:#888;text-transform:uppercase;letter-spacing:.06em">Surveiller</div></div>
+      <div style="text-align:center"><div style="font-size:24px;font-weight:700;font-style:italic;color:#888">${nInfo}</div><div style="font-size:10px;color:#888;text-transform:uppercase;letter-spacing:.06em">Info</div></div>
+      <div style="margin-left:auto;text-align:right;display:flex;flex-direction:column;justify-content:center;gap:2px">
+        <div style="font-size:11px;color:#888">Mise à jour : <strong>${lastUpd}</strong></div>
+        <div style="font-size:11px;color:#888">Prochaine édition : <strong>${nextEd}</strong></div>
+      </div>
+    </div>
+
+    <!-- Signals box -->
+    ${signals.length ? `
+    <div style="background:#fffbea;border:1px solid #FEDB00;border-left:5px solid #FEDB00;border-top:none;border-radius:0 0 8px 8px;padding:16px 20px;margin-bottom:16px">
+      <div style="font-size:13px;font-weight:700;color:#7a6000;margin-bottom:10px">Signaux faibles récurrents</div>
+      ${signals.map(s => `<div style="font-size:13px;color:#555;margin-bottom:7px;padding-left:16px;position:relative;line-height:1.5"><span style="position:absolute;left:0;color:#FEDB00;font-size:9px;top:4px">▶</span>${s}</div>`).join('')}
+    </div>` : '<div style="margin-bottom:16px"></div>'}
+
+    <!-- Filters -->
+    <div style="background:#fff;border:1px solid #E0E0E0;border-radius:8px;padding:12px 16px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px">
+      <div><label style="font-size:11px;color:#888;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-right:4px">Édition</label>
+        <select id="vFDate" style="${selStyle()}"><option value="">Toutes</option>${uniqDates.map(dt=>`<option value="${dt}">Édition du ${dateLabel(dt)}</option>`).join('')}</select></div>
+      <div><label style="font-size:11px;color:#888;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-right:4px">Catégorie</label>
+        <select id="vFCat" style="${selStyle()}"><option value="">Toutes</option><option value="EU">Clubs EU</option><option value="Monde">Clubs monde</option><option value="Mobilité">Acteurs mobilité</option></select></div>
+      <div><label style="font-size:11px;color:#888;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-right:4px">Niveau</label>
+        <select id="vFBadge" style="${selStyle()}"><option value="">Tous</option><option value="NOTABLE">Notable</option><option value="SURVEILLER">Surveiller</option><option value="INFO">Info</option></select></div>
+      <div><label style="font-size:11px;color:#888;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-right:4px">Recherche</label>
+        <input type="text" id="vFSearch" placeholder="Club, sujet…" style="${selStyle()}width:170px;"></div>
+      <button onclick="window._vReset()" style="background:#f0f0f0;border:1px solid #E0E0E0;border-radius:4px;padding:6px 12px;font-size:12px;color:#888;cursor:pointer;font-family:inherit">Réinitialiser</button>
+      <span id="veilleCount" style="margin-left:auto;font-size:12px;color:#888"></span>
+    </div>
+
+    <!-- Table -->
+    <div style="background:#fff;border:1px solid #E0E0E0;border-radius:8px;overflow:hidden;margin-bottom:12px;box-shadow:0 1px 4px rgba(0,0,0,.07)">
+      <div class="tbl-scroll">
+        <table class="tbl" style="border-radius:0">
+          <thead><tr>
+            ${sortHdr('Date','date')}
+            ${sortHdr('Club / Acteur','club')}
+            <th style="white-space:nowrap">Catégorie</th>
+            ${sortHdr('Niveau','badge')}
+            <th>Nouveauté</th>
+            <th>Pertinence ACL</th>
+          </tr></thead>
+          <tbody id="veilleTbody"></tbody>
+        </table>
+      </div>
+      <div id="veilleEmpty" style="display:none;text-align:center;padding:32px;color:#888;font-size:14px">Aucun résultat pour ces filtres.</div>
+    </div>
+    <div id="veillePag" style="display:flex;justify-content:center;align-items:center;gap:4px;padding:12px 0;flex-wrap:wrap"></div>
+
+    <!-- Tendances -->
+    ${trends.length ? `
+    <div class="card" style="margin-top:8px">
+      <div class="card-head"><div class="card-title">Tendances observées (${trends.length})</div></div>
+      <div class="card-body">
+        <ol style="margin:0;padding-left:18px;display:flex;flex-direction:column;gap:10px">
+          ${trends.map(t=>`<li style="font-size:13px;line-height:1.5">${t}</li>`).join('')}
+        </ol>
+      </div>
+    </div>` : ''}
+
+    <!-- Éditions archivées -->
+    ${editions.length ? `
+    <div class="card" style="margin-top:8px">
+      <div class="card-head"><div class="card-title">Éditions archivées (${editions.length})</div></div>
+      <div class="card-body">
+        <div style="display:flex;flex-wrap:wrap;gap:6px">
+          ${[...editions].reverse().map(e=>`<span style="background:#EBF2FA;color:#123C62;border:1px solid #C5D5E8;border-radius:99px;padding:3px 12px;font-size:11px;white-space:nowrap">${e.label||e.date}</span>`).join('')}
+        </div>
+      </div>
+    </div>` : ''}`;
+
+  applyFilters();
+
+  window._vPage = function(n) {
+    const total = Math.ceil(filtered.length / PAGE_SIZE);
+    if (n < 1 || n > total) return;
+    vPage = n;
+    renderRows();
+    renderPagination();
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
+  window._vSort = function(col) {
+    if (vSortCol === col) { vSortDir = vSortDir === 'asc' ? 'desc' : 'asc'; }
+    else { vSortCol = col; vSortDir = col === 'date' ? 'desc' : 'asc'; }
+    ['date','club','badge'].forEach(c => {
+      const th = document.getElementById('vth-' + c);
+      if (!th) return;
+      const label = {date:'Date', club:'Club / Acteur', badge:'Niveau'}[c];
+      const ind = vSortCol===c ? (vSortDir==='asc'?' ↑':' ↓') : '';
+      th.textContent = label + ind;
+    });
+    applyFilters();
+  };
+
+  window._vReset = function() {
+    ['vFDate','vFCat','vFBadge'].forEach(id => { const e = document.getElementById(id); if(e) e.value=''; });
+    const s = document.getElementById('vFSearch'); if(s) s.value='';
+    vDate=''; vCat=''; vBadge=''; vSearch=''; vSortCol='date'; vSortDir='desc';
+    applyFilters();
+  };
+
+  ['vFDate','vFCat','vFBadge'].forEach(id => {
+    const input = document.getElementById(id);
+    if (!input) return;
+    input.addEventListener('change', () => {
+      vDate  = document.getElementById('vFDate')?.value  || '';
+      vCat   = document.getElementById('vFCat')?.value   || '';
+      vBadge = document.getElementById('vFBadge')?.value || '';
+      applyFilters();
+    });
+  });
+  const srch = document.getElementById('vFSearch');
+  if (srch) srch.addEventListener('input', e => { vSearch = e.target.value; applyFilters(); });
+}
+</script>
+</body>
+</html>
