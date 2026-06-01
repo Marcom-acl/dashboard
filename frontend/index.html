@@ -2884,12 +2884,12 @@ function renderVeille(d) {
       const linkStart = item.url ? `<a href="${item.url}" target="_blank" rel="noopener" style="color:inherit">` : '';
       const linkEnd   = item.url ? `</a>` : '';
       return `<tr>
-        <td style="white-space:nowrap;color:#888;font-size:12px;font-weight:700">${dateLabel(item.date)}</td>
-        <td style="white-space:nowrap;font-weight:700">${item.club}</td>
-        <td style="white-space:nowrap">${catHtml(item.category)}</td>
-        <td>${badgeHtml(item.badge)}</td>
-        <td style="max-width:360px;line-height:1.45;font-size:13px">${linkStart}${item.content}${linkEnd}</td>
-        <td style="color:#555;font-style:italic;font-size:12px;max-width:220px;line-height:1.4">${item.relevance || ''}</td>
+        <td style="white-space:nowrap;color:#888;font-size:12px;font-weight:700;vertical-align:top">${dateLabel(item.date)}</td>
+        <td style="white-space:nowrap;font-weight:700;vertical-align:top">${item.club}</td>
+        <td style="white-space:nowrap;vertical-align:top">${catHtml(item.category)}</td>
+        <td style="white-space:nowrap;vertical-align:top">${badgeHtml(item.badge)}</td>
+        <td style="white-space:normal;overflow-wrap:break-word;word-break:break-word;max-width:380px;line-height:1.5;font-size:13px;vertical-align:top">${linkStart}${item.content}${linkEnd}</td>
+        <td style="white-space:normal;overflow-wrap:break-word;word-break:break-word;color:#555;font-style:italic;font-size:12px;max-width:240px;line-height:1.45;vertical-align:top">${item.relevance || ''}</td>
       </tr>`;
     }).join('');
   }
