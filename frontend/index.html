@@ -1069,11 +1069,6 @@
           <svg class="sb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>
           Vue d'ensemble
         </button>
-        <button class="sb-item tab-btn" data-tab="partners">
-          <svg class="sb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3.5"/><circle cx="17" cy="10" r="2.5"/><path d="M3 20c0-3 2.5-5.5 6-5.5s6 2.5 6 5.5"/><path d="M14.5 19c0-2 1.5-4 3.5-4s3 1.3 3 3"/></svg>
-          Partenaires
-          <span class="sb-badge">7</span>
-        </button>
       </nav>
     </div>
 
@@ -1211,13 +1206,6 @@
 
         <!-- ── OVERVIEW ─────────────────────────────────────────── -->
         <div id="panel-overview" class="tab-panel active"></div>
-
-        <!-- ── PARTENAIRES ─────────────────────────────────────── -->
-        <div id="panel-partners" class="tab-panel">
-          <div class="partner-no-data">
-            Sélectionnez un partenaire après avoir chargé les données.
-          </div>
-        </div>
 
         <!-- ── GA4 ─────────────────────────────────────────────── -->
         <div id="panel-ga4" class="tab-panel"></div>
@@ -2810,123 +2798,261 @@ function renderVeille(d) {
     return;
   }
 
-  const items    = d.items    || [];
-  const trends   = d.trends   || [];
-  const signals  = d.signals  || [];
+  const ALL     = d.items    || [];
+  const trends  = d.trends   || [];
+  const signals = d.signals  || [];
   const editions = d.editions || [];
+  const lastUpd  = d.generated_at || '—';
+  const nextEd   = d.next_edition  || '—';
 
-  const notable   = items.filter(i => i.badge === 'NOTABLE').length;
-  const surveiller = items.filter(i => i.badge === 'SURVEILLER').length;
-  const clubs     = [...new Set(items.map(i => i.club))];
-  const lastUpd   = d.generated_at || '—';
-  const nextEd    = d.next_edition  || '—';
+  const nNotable    = ALL.filter(i => i.badge === 'NOTABLE').length;
+  const nSurveiller = ALL.filter(i => i.badge === 'SURVEILLER').length;
+  const nInfo       = ALL.filter(i => i.badge === 'INFO').length;
+  const nEditions   = editions.length || [...new Set(ALL.map(i => i.date))].size;
 
-  const BADGE_STYLE = {
-    NOTABLE:    'background:#FFF4A8;color:#8A6800;border:1px solid #FEDB00;font-weight:700',
-    SURVEILLER: 'background:#FEF3C7;color:#92400E;border:1px solid #F97316',
-    INFO:       'background:#F4F4F2;color:#7A7770;border:1px solid #E8E6E0',
-  };
+  // ── state ──
+  const PAGE_SIZE = 12;
+  let filtered = ALL.slice().sort((a,b) => b.date.localeCompare(a.date));
+  let vPage = 1, vSortCol = 'date', vSortDir = 'desc';
+  let vDate = '', vCat = '', vBadge = '', vSearch = '';
 
-  const CAT_COLOR = {
-    'EU':       '#123C62',
-    'Monde':    '#0B996E',
-    'Mobilité': '#7C3AED',
-  };
-
-  let vFilterClub = 'all', vFilterBadge = 'all';
-
-  function buildRows() {
-    return items
-      .filter(i => (vFilterClub  === 'all' || i.club  === vFilterClub)
-                && (vFilterBadge === 'all' || i.badge === vFilterBadge))
-      .sort((a, b) => b.date.localeCompare(a.date))
-      .map(i => {
-        const bStyle = BADGE_STYLE[i.badge] || BADGE_STYLE.INFO;
-        const cColor = CAT_COLOR[i.category] || '#7A7770';
-        const link   = i.url ? `<a href="${i.url}" target="_blank" rel="noopener" style="color:inherit;text-decoration:none">${i.content}</a>` : i.content;
-        return `<tr>
-          <td style="font-size:11px;white-space:nowrap;color:var(--muted)">${i.date}</td>
-          <td style="font-weight:600;white-space:nowrap">${i.club}</td>
-          <td><span style="font-size:10px;font-weight:700;color:${cColor};background:${cColor}18;border:1px solid ${cColor}30;border-radius:99px;padding:2px 8px;white-space:nowrap">${i.category}</span></td>
-          <td style="max-width:480px;line-height:1.4">${link}${i.relevance ? `<div style="font-size:11px;color:var(--muted);margin-top:4px;font-style:italic">${i.relevance}</div>` : ''}</td>
-          <td><span style="font-size:10px;border-radius:99px;padding:3px 9px;white-space:nowrap;${bStyle}">${i.badge}</span></td>
-        </tr>`;
-      }).join('') || `<tr><td colspan="5" style="text-align:center;padding:24px;color:var(--muted)">Aucun résultat pour ces filtres.</td></tr>`;
+  // ── helpers ──
+  function dateLabel(iso) {
+    const months = ['','jan.','fév.','mars','avr.','mai','juin','juil.','août','sep.','oct.','nov.','déc.'];
+    const p = iso.split('-');
+    return parseInt(p[2]) + ' ' + months[parseInt(p[1])] + ' ' + p[0];
   }
 
+  function badgeHtml(b) {
+    const styles = {
+      NOTABLE:    'background:#e8f4e8;color:#2d6a2d;',
+      SURVEILLER: 'background:#FFF8DC;color:#8B6914;',
+      INFO:       'background:#f0f0f0;color:#666;',
+    };
+    const st = styles[b] || styles.INFO;
+    return `<span style="display:inline-block;font-size:10px;font-weight:700;padding:2px 7px;border-radius:3px;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap;${st}">${b}</span>`;
+  }
+
+  function catHtml(cat) {
+    const dots = { 'EU': '#123C62', 'Monde': '#2d7d9a', 'Mobilité': '#4a90a4' };
+    const color = dots[cat] || '#888';
+    return `<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${color};margin-right:5px;vertical-align:middle"></span>${cat}`;
+  }
+
+  function applyFilters() {
+    const search = vSearch.toLowerCase().trim();
+    filtered = ALL.filter(i => {
+      if (vDate   && i.date   !== vDate)   return false;
+      if (vCat    && i.category !== vCat)  return false;
+      if (vBadge  && i.badge  !== vBadge)  return false;
+      if (search) {
+        const hay = (i.club + ' ' + i.content + ' ' + i.relevance + ' ' + (i.category||'')).toLowerCase();
+        if (!hay.includes(search)) return false;
+      }
+      return true;
+    });
+    filtered.sort((a,b) => {
+      const va = a[vSortCol] || '', vb = b[vSortCol] || '';
+      if (va < vb) return vSortDir === 'asc' ? -1 : 1;
+      if (va > vb) return vSortDir === 'asc' ? 1 : -1;
+      return 0;
+    });
+    vPage = 1;
+    updateCount();
+    renderRows();
+    renderPagination();
+  }
+
+  function updateCount() {
+    const el = document.getElementById('veilleCount');
+    if (el) el.textContent = filtered.length + ' résultat' + (filtered.length > 1 ? 's' : '');
+  }
+
+  function renderRows() {
+    const tbody = document.getElementById('veilleTbody');
+    const empty = document.getElementById('veilleEmpty');
+    if (!tbody) return;
+    const start = (vPage - 1) * PAGE_SIZE;
+    const page  = filtered.slice(start, start + PAGE_SIZE);
+    if (!page.length) {
+      tbody.innerHTML = '';
+      if (empty) empty.style.display = 'block';
+      return;
+    }
+    if (empty) empty.style.display = 'none';
+    tbody.innerHTML = page.map(item => {
+      const linkStart = item.url ? `<a href="${item.url}" target="_blank" rel="noopener" style="color:inherit">` : '';
+      const linkEnd   = item.url ? `</a>` : '';
+      return `<tr>
+        <td style="white-space:nowrap;color:#888;font-size:12px;font-weight:700">${dateLabel(item.date)}</td>
+        <td style="white-space:nowrap;font-weight:700">${item.club}</td>
+        <td style="white-space:nowrap">${catHtml(item.category)}</td>
+        <td>${badgeHtml(item.badge)}</td>
+        <td style="max-width:360px;line-height:1.45;font-size:13px">${linkStart}${item.content}${linkEnd}</td>
+        <td style="color:#555;font-style:italic;font-size:12px;max-width:220px;line-height:1.4">${item.relevance || ''}</td>
+      </tr>`;
+    }).join('');
+  }
+
+  function renderPagination() {
+    const pag = document.getElementById('veillePag');
+    if (!pag) return;
+    const total = Math.ceil(filtered.length / PAGE_SIZE);
+    if (total <= 1) { pag.innerHTML = ''; return; }
+    let html = `<button onclick="window._vPage(${vPage-1})" style="${pgBtn(vPage===1)}">&#8249;</button>`;
+    for (let i = 1; i <= total; i++) {
+      if (i===1||i===total||(i>=vPage-2&&i<=vPage+2)) {
+        html += `<button onclick="window._vPage(${i})" style="${pgBtn(false,i===vPage)}">${i}</button>`;
+      } else if (i===vPage-3||i===vPage+3) {
+        html += `<span style="padding:0 4px;color:var(--muted)">…</span>`;
+      }
+    }
+    html += `<button onclick="window._vPage(${vPage+1})" style="${pgBtn(vPage===total)}">&#8250;</button>`;
+    html += `<span style="font-size:11px;color:var(--muted);margin-left:8px">Page ${vPage} / ${total}</span>`;
+    pag.innerHTML = html;
+  }
+
+  function pgBtn(disabled, active) {
+    const base = 'border:1px solid var(--border);border-radius:4px;padding:5px 10px;font-size:13px;cursor:pointer;font-family:inherit;';
+    if (disabled) return base + 'opacity:.4;pointer-events:none;background:var(--surface);color:var(--text);';
+    if (active)   return base + 'background:#000;color:#FEDB00;font-weight:700;border-color:#000;';
+    return base + 'background:var(--surface);color:var(--text);';
+  }
+
+  function sortHdr(label, col) {
+    const indicator = vSortCol===col ? (vSortDir==='asc'?' ↑':' ↓') : '';
+    return `<th id="vth-${col}" onclick="window._vSort('${col}')" style="cursor:pointer;user-select:none;white-space:nowrap">${label}${indicator}</th>`;
+  }
+
+  // ── unique dates for edition filter ──
+  const uniqDates = [...new Set(ALL.map(i => i.date))].sort((a,b)=>b.localeCompare(a));
+
+  // ── render shell ──
   el.innerHTML = `
     <div class="sec-title"><h2>Veille sectorielle</h2><div class="line"></div>
-      <span class="src-pill" style="--src:#123C62;--src-bg:#E8EEF4">Clubs automobiles</span>
+      <span class="src-pill" style="--src:var(--n);--src-bg:var(--c-club-bg)">Clubs automobiles</span>
     </div>
 
-    <div class="kpi-grid">
-      ${kpiCard({label:'Items total', value:fmtN(items.length), src:'var(--n)', srcBg:'var(--c-club-bg)'})}
-      ${kpiCard({label:'Signaux NOTABLE', value:fmtN(notable), src:'var(--y-deep)', srcBg:'var(--y-soft)'})}
-      ${kpiCard({label:'À surveiller', value:fmtN(surveiller), src:'var(--warn)', srcBg:'#FEF3C7'})}
-      ${kpiCard({label:'Clubs surveillés', value:fmtN(clubs.length), src:'var(--n)', srcBg:'var(--c-club-bg)'})}
+    <!-- Stats bar -->
+    <div style="background:var(--surface);border:1px solid var(--border);border-bottom:3px solid #FEDB00;border-radius:var(--r-md) var(--r-md) 0 0;padding:14px 20px;display:flex;gap:32px;flex-wrap:wrap;margin-bottom:0">
+      <div style="text-align:center"><div style="font-size:24px;font-weight:700;font-family:'FaricyNew','Albert Sans',sans-serif;font-style:italic">${nEditions}</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em">Éditions</div></div>
+      <div style="text-align:center"><div style="font-size:24px;font-weight:700;font-family:'FaricyNew','Albert Sans',sans-serif;font-style:italic">${ALL.length}</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em">Items total</div></div>
+      <div style="text-align:center"><div style="font-size:24px;font-weight:700;font-family:'FaricyNew','Albert Sans',sans-serif;font-style:italic;color:#2d6a2d">${nNotable}</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em">Notable</div></div>
+      <div style="text-align:center"><div style="font-size:24px;font-weight:700;font-family:'FaricyNew','Albert Sans',sans-serif;font-style:italic;color:#8B6914">${nSurveiller}</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em">Surveiller</div></div>
+      <div style="text-align:center"><div style="font-size:24px;font-weight:700;font-family:'FaricyNew','Albert Sans',sans-serif;font-style:italic;color:var(--muted)">${nInfo}</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em">Info</div></div>
+      <div style="margin-left:auto;text-align:right;display:flex;flex-direction:column;justify-content:center;gap:2px">
+        <div style="font-size:11px;color:var(--muted)">Mise à jour : <strong>${lastUpd}</strong></div>
+        <div style="font-size:11px;color:var(--muted)">Prochaine édition : <strong>${nextEd}</strong></div>
+      </div>
     </div>
 
-    <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap">
-      <span style="font-size:11px;color:var(--muted);font-weight:600">Filtrer :</span>
-      <select id="veilleClubFilter" style="font-size:12px;padding:5px 10px;border:1px solid var(--border);border-radius:6px;background:var(--surface);color:var(--text);font-family:inherit">
-        <option value="all">Tous les clubs</option>
-        ${clubs.sort().map(c => `<option value="${c}">${c}</option>`).join('')}
-      </select>
-      <select id="veilleBadgeFilter" style="font-size:12px;padding:5px 10px;border:1px solid var(--border);border-radius:6px;background:var(--surface);color:var(--text);font-family:inherit">
-        <option value="all">Tous les badges</option>
-        <option value="NOTABLE">NOTABLE</option>
-        <option value="SURVEILLER">SURVEILLER</option>
-        <option value="INFO">INFO</option>
-      </select>
-      <span style="margin-left:auto;font-size:11px;color:var(--muted)">Mise à jour : ${lastUpd} · Prochaine édition : ${nextEd}</span>
+    <!-- Signals box -->
+    ${signals.length ? `
+    <div style="background:#fffbea;border:1px solid #FEDB00;border-left:5px solid #FEDB00;border-top:none;border-radius:0 0 var(--r-md) var(--r-md);padding:16px 20px;margin-bottom:16px">
+      <div style="font-size:13px;font-weight:700;color:#7a6000;margin-bottom:10px">Signaux faibles récurrents</div>
+      ${signals.map(s => `<div style="font-size:13px;color:#555;margin-bottom:7px;padding-left:16px;position:relative;line-height:1.5"><span style="position:absolute;left:0;color:#FEDB00;font-size:9px;top:4px">▶</span>${s}</div>`).join('')}
+    </div>` : '<div style="margin-bottom:16px"></div>'}
+
+    <!-- Filters -->
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);padding:12px 16px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px">
+      <div><label style="font-size:11px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-right:4px">Édition</label>
+        <select id="vFDate" style="${selStyle()}"><option value="">Toutes</option>${uniqDates.map(dt=>`<option value="${dt}">Édition du ${dateLabel(dt)}</option>`).join('')}</select></div>
+      <div><label style="font-size:11px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-right:4px">Catégorie</label>
+        <select id="vFCat" style="${selStyle()}"><option value="">Toutes</option><option value="EU">Clubs EU</option><option value="Monde">Clubs monde</option><option value="Mobilité">Acteurs mobilité</option></select></div>
+      <div><label style="font-size:11px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-right:4px">Niveau</label>
+        <select id="vFBadge" style="${selStyle()}"><option value="">Tous</option><option value="NOTABLE">Notable</option><option value="SURVEILLER">Surveiller</option><option value="INFO">Info</option></select></div>
+      <div><label style="font-size:11px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-right:4px">Recherche</label>
+        <input type="text" id="vFSearch" placeholder="Club, sujet…" style="${selStyle()}width:170px;"></div>
+      <button onclick="window._vReset()" style="background:#f0f0f0;border:1px solid var(--border);border-radius:4px;padding:6px 12px;font-size:12px;color:var(--muted);cursor:pointer;font-family:inherit">Réinitialiser</button>
+      <span id="veilleCount" style="margin-left:auto;font-size:12px;color:var(--muted)"></span>
     </div>
 
-    <div class="card"><div class="card-body flush"><div class="tbl-scroll">
-      <table class="tbl" id="veilleTbl">
-        <thead><tr>
-          <th>Date</th><th>Club</th><th>Catégorie</th><th>Contenu &amp; pertinence ACL</th><th>Badge</th>
-        </tr></thead>
-        <tbody id="veilleTbody">${buildRows()}</tbody>
-      </table>
-    </div></div></div>
+    <!-- Table -->
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);overflow:hidden;margin-bottom:12px">
+      <div class="tbl-scroll">
+        <table class="tbl" style="border-radius:0">
+          <thead><tr>
+            ${sortHdr('Date','date')}
+            ${sortHdr('Club / Acteur','club')}
+            <th style="white-space:nowrap">Catégorie</th>
+            ${sortHdr('Niveau','badge')}
+            <th>Nouveauté</th>
+            <th>Pertinence ACL</th>
+          </tr></thead>
+          <tbody id="veilleTbody"></tbody>
+        </table>
+      </div>
+      <div id="veilleEmpty" style="display:none;text-align:center;padding:32px;color:var(--muted);font-size:14px">Aucun résultat pour ces filtres.</div>
+    </div>
+    <div id="veillePag" style="display:flex;justify-content:center;align-items:center;gap:4px;padding:12px 0;flex-wrap:wrap"></div>
 
-    ${(trends.length || signals.length) ? `
-    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:12px;margin-top:4px">
-      ${trends.length ? `
-      <div class="card"><div class="card-head"><div class="card-title">Tendances observées (${trends.length})</div></div>
-        <div class="card-body" style="padding:14px 16px">
-          <ol style="margin:0;padding-left:18px;display:flex;flex-direction:column;gap:10px">
-            ${trends.map(t => `<li style="font-size:13px;line-height:1.5;color:var(--text)">${t}</li>`).join('')}
-          </ol>
-        </div>
-      </div>` : ''}
-      ${signals.length ? `
-      <div class="card"><div class="card-head"><div class="card-title">Signaux faibles (${signals.length})</div></div>
-        <div class="card-body" style="padding:14px 16px">
-          <ol style="margin:0;padding-left:18px;display:flex;flex-direction:column;gap:10px">
-            ${signals.map(s => `<li style="font-size:13px;line-height:1.5;color:var(--text)">${s}</li>`).join('')}
-          </ol>
-        </div>
-      </div>` : ''}
+    <!-- Tendances -->
+    ${trends.length ? `
+    <div class="card" style="margin-top:8px"><div class="card-head"><div class="card-title">Tendances observées (${trends.length})</div></div>
+      <div class="card-body" style="padding:14px 16px">
+        <ol style="margin:0;padding-left:18px;display:flex;flex-direction:column;gap:10px">
+          ${trends.map(t=>`<li style="font-size:13px;line-height:1.5">${t}</li>`).join('')}
+        </ol>
+      </div>
     </div>` : ''}
 
+    <!-- Éditions archivées -->
     ${editions.length ? `
-    <div class="card"><div class="card-head"><div class="card-title">Éditions archivées (${editions.length})</div></div>
+    <div class="card" style="margin-top:8px"><div class="card-head"><div class="card-title">Éditions archivées (${editions.length})</div></div>
       <div class="card-body" style="padding:12px 16px">
         <div style="display:flex;flex-wrap:wrap;gap:6px">
-          ${[...editions].reverse().map(e => `<span style="background:var(--c-club-bg);color:var(--n);border:1px solid #C5D5E8;border-radius:99px;padding:3px 12px;font-size:11px;white-space:nowrap">${e.label || e.date}</span>`).join('')}
+          ${[...editions].reverse().map(e=>`<span style="background:var(--c-club-bg);color:var(--n);border:1px solid #C5D5E8;border-radius:99px;padding:3px 12px;font-size:11px;white-space:nowrap">${e.label||e.date}</span>`).join('')}
         </div>
       </div>
     </div>` : ''}`;
 
-  document.getElementById('veilleClubFilter').addEventListener('change', e => {
-    vFilterClub = e.target.value;
-    document.getElementById('veilleTbody').innerHTML = buildRows();
+  function selStyle() { return 'border:1px solid var(--border-strong);border-radius:4px;padding:5px 8px;font-size:12px;color:var(--text);background:var(--surface);font-family:inherit;outline:none;'; }
+
+  // initial render
+  applyFilters();
+
+  // global callbacks for onclick in HTML (pagination, sort)
+  window._vPage = function(n) {
+    const total = Math.ceil(filtered.length / PAGE_SIZE);
+    if (n < 1 || n > total) return;
+    vPage = n;
+    renderRows();
+    renderPagination();
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+  window._vSort = function(col) {
+    if (vSortCol === col) { vSortDir = vSortDir === 'asc' ? 'desc' : 'asc'; }
+    else { vSortCol = col; vSortDir = col === 'date' ? 'desc' : 'asc'; }
+    // update header labels
+    ['date','club','badge'].forEach(c => {
+      const th = document.getElementById('vth-' + c);
+      if (!th) return;
+      const label = {date:'Date', club:'Club / Acteur', badge:'Niveau'}[c];
+      const ind = vSortCol===c ? (vSortDir==='asc'?' ↑':' ↓') : '';
+      th.textContent = label + ind;
+    });
+    applyFilters();
+  };
+  window._vReset = function() {
+    ['vFDate','vFCat','vFBadge'].forEach(id => { const el = document.getElementById(id); if(el) el.value=''; });
+    const s = document.getElementById('vFSearch'); if(s) s.value='';
+    vDate=''; vCat=''; vBadge=''; vSearch=''; vSortCol='date'; vSortDir='desc';
+    applyFilters();
+  };
+
+  // wire filters
+  ['vFDate','vFCat','vFBadge'].forEach(id => {
+    const input = document.getElementById(id);
+    if (!input) return;
+    input.addEventListener('change', () => {
+      vDate   = document.getElementById('vFDate')?.value   || '';
+      vCat    = document.getElementById('vFCat')?.value    || '';
+      vBadge  = document.getElementById('vFBadge')?.value  || '';
+      applyFilters();
+    });
   });
-  document.getElementById('veilleBadgeFilter').addEventListener('change', e => {
-    vFilterBadge = e.target.value;
-    document.getElementById('veilleTbody').innerHTML = buildRows();
-  });
+  const srch = document.getElementById('vFSearch');
+  if (srch) srch.addEventListener('input', e => { vSearch = e.target.value; applyFilters(); });
 
   animateCards(el);
 }
