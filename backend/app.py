@@ -953,9 +953,7 @@ def fb_ads():
 @app.route('/fb/page')
 def fb_page():
     start, end = _date_range()
-    token = _fb_token()
-    if not token:
-        return jsonify({'error': 'Facebook non connecté — visiter /fb/auth'})
+    token = _fb_token()  # peut être None — la route continue sans token
 
     pages_data = []
     all_posts  = []
@@ -964,64 +962,55 @@ def fb_page():
     engagements_total  = 0
 
     for page_name, page_id in FB_PAGES.items():
-        # Fan count
-        ri = _get(f'{FB_GRAPH}/{page_id}', params={'fields': 'fan_count,followers_count', 'access_token': token})
         fans = 0
-        if ri.ok:
-            d = ri.json()
-            fans = d.get('fan_count') or d.get('followers_count', 0)
+        if token:
+            # Fan count
+            ri = _get(f'{FB_GRAPH}/{page_id}', params={'fields': 'fan_count,followers_count', 'access_token': token})
+            if ri.ok:
+                d = ri.json()
+                fans = d.get('fan_count') or d.get('followers_count', 0)
 
-        # Insights
-        rin = _get(f'{FB_GRAPH}/{page_id}/insights', params={
-            'metric':       'page_impressions,page_engaged_users,page_post_engagements',
-            'period':       'day',
-            'since':        start,
-            'until':        end,
-            'access_token': token,
-        })
-        if rin.ok:
-            for metric_data in rin.json().get('data', []):
-                total_val = sum(v.get('value', 0) for v in metric_data.get('values', []))
-                mn = metric_data.get('name', '')
-                if mn == 'page_impressions':
-                    impressions_total += total_val
-                elif mn == 'page_engaged_users':
-                    engaged_total += total_val
-                elif mn == 'page_post_engagements':
-                    engagements_total += total_val
+            # Insights
+            rin = _get(f'{FB_GRAPH}/{page_id}/insights', params={
+                'metric':       'page_impressions,page_engaged_users,page_post_engagements',
+                'period':       'day',
+                'since':        start,
+                'until':        end,
+                'access_token': token,
+            })
+            if rin.ok:
+                for metric_data in rin.json().get('data', []):
+                    total_val = sum(v.get('value', 0) for v in metric_data.get('values', []))
+                    mn = metric_data.get('name', '')
+                    if mn == 'page_impressions':
+                        impressions_total += total_val
+                    elif mn == 'page_engaged_users':
+                        engaged_total += total_val
+                    elif mn == 'page_post_engagements':
+                        engagements_total += total_val
 
-        # Posts — paginated count + top posts collection
-        posts_count = 0
-        rp = _get(f'{FB_GRAPH}/{page_id}/posts', params={
-            'fields':       'message,created_time,likes.summary(true),comments.summary(true)',
-            'since':        start,
-            'until':        end,
-            'access_token': token,
-            'limit':        100,
-        })
-        if rp.ok:
-            page_body   = rp.json()
-            page_posts  = page_body.get('data', [])
-            posts_count = len(page_posts)
-            next_url    = page_body.get('paging', {}).get('next')
-            for post in page_posts:
-                likes    = post.get('likes',    {}).get('summary', {}).get('total_count', 0)
-                comments = post.get('comments', {}).get('summary', {}).get('total_count', 0)
-                all_posts.append({
-                    'page':       page_name,
-                    'message':    (post.get('message') or '')[:80],
-                    'likes':      likes,
-                    'comments':   comments,
-                    'engagement': likes + comments,
-                })
-            # Paginate pour comptage précis (pas besoin du détail des posts suivants)
-            while next_url and posts_count < 500:
-                rn = _get(next_url, timeout=30)
-                if not rn.ok:
-                    break
-                nb          = rn.json()
-                posts_count += len(nb.get('data', []))
-                next_url    = nb.get('paging', {}).get('next')
+            # Top posts (détail pour l'affichage)
+            rp = _get(f'{FB_GRAPH}/{page_id}/posts', params={
+                'fields':       'message,created_time,likes.summary(true),comments.summary(true)',
+                'since':        start,
+                'until':        end,
+                'access_token': token,
+                'limit':        25,
+            })
+            if rp.ok:
+                for post in rp.json().get('data', []):
+                    likes    = post.get('likes',    {}).get('summary', {}).get('total_count', 0)
+                    comments = post.get('comments', {}).get('summary', {}).get('total_count', 0)
+                    all_posts.append({
+                        'page':       page_name,
+                        'message':    (post.get('message') or '')[:80],
+                        'likes':      likes,
+                        'comments':   comments,
+                        'engagement': likes + comments,
+                    })
+
+        # Posts count via Supermetrics — indépendant du token FB
+        posts_count = _supermetrics_fb_posts_count(page_id, start, end)
 
         pages_data.append({'name': page_name, 'id': page_id, 'fans': fans, 'posts_count': posts_count})
 
@@ -1396,7 +1385,7 @@ SUPERMETRICS_QUERY_URL  = 'https://api.supermetrics.com/enterprise/v2/query/data
 SUPERMETRICS_LI_ACCOUNT = '10097790'  # ACL - Automobile Club du Luxembourg
 
 
-def _supermetrics_query(ds_id, ds_accounts, fields, start_date, end_date, max_rows=500, report_type=None):
+def _supermetrics_query(ds_id, ds_accounts, fields, start_date, end_date, max_rows=500, report_type=None, settings=None):
     """GET a Supermetrics query (sync_timeout=60 s).
 
     Returns (rows, schema, error_msg).  rows is a list of lists; schema a list of field IDs.
@@ -1419,6 +1408,8 @@ def _supermetrics_query(ds_id, ds_accounts, fields, start_date, end_date, max_ro
     }
     if report_type is not None:
         query['report_type'] = str(report_type)
+    if settings:
+        query.update(settings)
 
     try:
         r = _get(SUPERMETRICS_QUERY_URL, params={'json': json.dumps(query)}, timeout=90)
@@ -1459,6 +1450,23 @@ def _n(v, default=0.0):
         return float(v)
     except (TypeError, ValueError):
         return default
+
+
+def _supermetrics_fb_posts_count(page_id, start, end):
+    """Nombre de posts publiés sur une page FB via Supermetrics (indépendant du token Graph API).
+    Retourne 0 si Supermetrics n'a pas FB Insights connecté ou si la clé manque.
+    """
+    rows, schema, err = _supermetrics_query(
+        'FB', page_id,
+        ['post_ID', 'post_reactions_total'],
+        start, end,
+        max_rows=1000,
+        settings={'include_all_published_posts': 'true'},
+    )
+    if err or not rows:
+        return 0
+    _SKIP = {'', 'Post ID', 'post_ID'}
+    return len([r for r in rows if r and str(r[0]) not in _SKIP])
 
 
 @app.route('/supermetrics/linkedin')
