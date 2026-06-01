@@ -1377,10 +1377,11 @@ async function loadAll() {
   document.getElementById('lastUpd').textContent = 'Chargement…';
 
   try {
-    const [ga4, ga4auto, ga4ext, ga4trend, gsc, fb, fbpage, brevo, club, yt, li, veille] = await Promise.allSettled([
+    const [ga4, ga4auto, ga4ext, ga4trend, gsc, fb, fbpage, brevo, club, yt, li, veille, fbpageytd, fbytd] = await Promise.allSettled([
       api('/ga4'), api('/ga4/autotouring'), api('/ga4/extended'), api('/ga4/trend'),
       api('/gsc'), api('/fb'), api('/fb/page'), api('/brevo'), api('/brevo/club'),
-      api('/youtube'), api('/supermetrics/linkedin'), api('/veille')
+      api('/youtube'), api('/supermetrics/linkedin'), api('/veille'),
+      api('/fb/page?start=2026-01-01'), api('/fb?start=2026-01-01')
     ]);
 
     const v = r => r.status === 'fulfilled' ? r.value : null;
@@ -1388,6 +1389,7 @@ async function loadAll() {
     const dGSC   = v(gsc),   dFB   = v(fb),      dFBP  = v(fbpage);
     const dBrevo = v(brevo), dClub = v(club),     dYT   = v(yt),     dLI   = v(li);
     const dVeille = v(veille);
+    const dFBPytd = v(fbpageytd), dFBytd = v(fbytd);
 
     updateStatus('bs-ga4',    dGA4    && !dGA4.error);
     updateStatus('bs-gsc',    dGSC    && !dGSC.error);
@@ -1697,7 +1699,7 @@ function renderOverview({dGA4, dGSC, dFB, dFBP, dBrevo, dLI, dYT, dGA4T, dVeille
   });
 
   animateCards(el);
-  renderObjectives({dFBP, dFB, dBrevo});
+  renderObjectives({dFBP, dFB, dBrevo, dFBPytd, dFBytd});
   renderCalendar();
   renderChannelDonut(dGA4?.channelBreakdown || []);
   renderGSCPositions(dGSC?.topQueries || []);
@@ -2265,32 +2267,59 @@ function renderGSC(d) {
 }
 
 // ── OBJECTIFS ÉQUIPE ──────────────────────────────────────────
-function renderObjectives({dFBP, dFB, dBrevo}) {
+function renderObjectives({dFBP, dFB, dBrevo, dFBPytd, dFBytd}) {
   const el = document.getElementById('ov-objectives');
   if (!el) return;
 
-  const pages         = dFBP?.pages || [];
-  const sportPage     = pages.find(p => /sport/i.test(p.name))   || {};
-  const kartingPage   = pages.find(p => /karting/i.test(p.name)) || {};
+  // YTD (2026-01-01 → aujourd'hui) pour les barres de progression
+  const ytdPages    = dFBPytd?.pages || [];
+  // Période sélectionnée pour la tendance
+  const periodPages = dFBP?.pages    || [];
 
-  const sportFans     = sportPage.fans   || 0;
-  const kartingFans   = kartingPage.fans || 0;
-  const sportPosts    = sportPage.posts_count   || 0;
-  const kartingPosts  = kartingPage.posts_count || 0;
-  const sportWkly     = globalDays ? (sportPosts   / globalDays * 7) : 0;
-  const kartingWkly   = globalDays ? (kartingPosts / globalDays * 7) : 0;
-  const sportAnnual   = globalDays ? Math.round(sportPosts   / globalDays * 365) : 0;
-  const kartingAnnual = globalDays ? Math.round(kartingPosts / globalDays * 365) : 0;
+  const sportYtd      = ytdPages.find(p => /sport/i.test(p.name))    || {};
+  const kartingYtd    = ytdPages.find(p => /karting/i.test(p.name))  || {};
+  const sportPeriod   = periodPages.find(p => /sport/i.test(p.name))   || {};
+  const kartingPeriod = periodPages.find(p => /karting/i.test(p.name)) || {};
 
-  const metaImpressions = dFB?.impressions || 0;
-  const metaTarget      = Math.round(2000000 / 365 * globalDays);
+  // Fans — totaux courants (indépendants de la période)
+  const sportFans   = sportYtd.fans   || sportPeriod.fans   || 0;
+  const kartingFans = kartingYtd.fans || kartingPeriod.fans || 0;
 
-  // Use avgOpenRate from backend (pre-computed) — fallback to local computation if available
-  const camps      = dBrevo?.campaigns || [];
-  const totalDlvr  = camps.reduce((a,c) => a + (c.statistics?.globalStats?.delivered  || 0), 0);
-  const totalOpens = camps.reduce((a,c) => a + ((c.statistics?.globalStats?.uniqueOpens || c.statistics?.globalStats?.uniqueViews) || 0), 0);
+  // Posts YTD + rythme annuel
+  const sportYtdPosts   = sportYtd.posts_count   || 0;
+  const kartingYtdPosts = kartingYtd.posts_count || 0;
+  const ytdDays         = Math.max(1, Math.round((new Date() - new Date('2026-01-01')) / 86400000));
+  const sportYtdWkly    = +(sportYtdPosts   / ytdDays * 7).toFixed(1);
+  const kartingYtdWkly  = +(kartingYtdPosts / ytdDays * 7).toFixed(1);
+  const sportAnnual     = Math.round(sportYtdPosts   / ytdDays * 365);
+  const kartingAnnual   = Math.round(kartingYtdPosts / ytdDays * 365);
+
+  // Tendance : rythme sur la période sélectionnée vs rythme YTD
+  const sportPeriodWkly   = globalDays ? +((sportPeriod.posts_count   || 0) / globalDays * 7).toFixed(1) : 0;
+  const kartingPeriodWkly = globalDays ? +((kartingPeriod.posts_count || 0) / globalDays * 7).toFixed(1) : 0;
+  function trendBadge(recent, ytd) {
+    if (!ytd || !recent) return '';
+    const diff = (recent - ytd) / ytd;
+    if (diff >  0.05) return ` <span style="color:#22c55e;font-weight:600">↑ ${recent.toFixed(1)}/sem</span>`;
+    if (diff < -0.05) return ` <span style="color:#ef4444;font-weight:600">↓ ${recent.toFixed(1)}/sem</span>`;
+    return ` <span style="color:#94a3b8">→ stable</span>`;
+  }
+
+  // Meta Ads — YTD vs objectif annuel fixe 2 000 000
+  const metaYtd    = dFBytd?.impressions || dFBytd?.totalImpressions || 0;
+  const metaPeriod = dFB?.impressions    || 0;
+  const metaTarget = 2000000;
+
+  // Engaged users YTD
+  const engagedYtd    = dFBPytd?.totals?.engaged_users || dFBP?.totals?.engaged_users || 0;
+  const engagedTarget = engagedYtd ? Math.round(engagedYtd * 1.2) : 0;
+
+  // Brevo — taux d'ouverture (toutes campagnes, non filtré par période)
+  const camps         = dBrevo?.campaigns || [];
+  const totalDlvr     = camps.reduce((a,c) => a + (c.statistics?.globalStats?.delivered  || 0), 0);
+  const totalOpens    = camps.reduce((a,c) => a + ((c.statistics?.globalStats?.uniqueOpens || c.statistics?.globalStats?.uniqueViews) || 0), 0);
   const openRateLocal = totalDlvr ? totalOpens / totalDlvr * 100 : 0;
-  const openRate = dBrevo?.avgOpenRate != null ? dBrevo.avgOpenRate : openRateLocal;
+  const openRate      = dBrevo?.avgOpenRate != null ? dBrevo.avgOpenRate : openRateLocal;
 
   function objMcCard(group, label, current, target, display, targetDisplay, note, color) {
     const pct = Math.min(100, target ? Math.round(current / target * 100) : 0);
@@ -2318,7 +2347,7 @@ function renderObjectives({dFBP, dFB, dBrevo}) {
           <div class="mission-subtitle">Suivi des objectifs annuels ACL Marcom</div>
         </div>
         <div class="mission-header-right">
-          <div class="mission-period-badge">${globalDays}j</div>
+          <div class="mission-period-badge">2026 YTD</div>
           <button class="mission-collapse-btn" id="missionCollapseBtn" title="${isCollapsed ? 'Développer' : 'Réduire'}">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
               ${isCollapsed ? '<polyline points="18 15 12 9 6 15"/>' : '<polyline points="6 9 12 15 18 9"/>'}
@@ -2329,10 +2358,10 @@ function renderObjectives({dFBP, dFB, dBrevo}) {
       <div class="mission-grid">
         ${objMcCard('Facebook · Abonnés', 'ACL Sport — Abonnés page', sportFans, 2500, fmtN(sportFans), '2 500', 'Objectif annuel tous comptes', '#1877F2')}
         ${objMcCard('Facebook · Abonnés', 'ACL Karting — Abonnés page', kartingFans, 3000, fmtN(kartingFans), '3 000', 'Objectif annuel tous comptes', '#1877F2')}
-        ${objMcCard('Facebook · Posts', 'ACL Sport — Posts/semaine', sportWkly, 1.5, sportWkly.toFixed(1)+'/sem', '1.5/sem', `${sportPosts} posts → ≈ ${sportAnnual}/an`, '#FEDB00')}
-        ${objMcCard('Facebook · Posts', 'ACL Karting — Posts/semaine', kartingWkly, 1.5, kartingWkly.toFixed(1)+'/sem', '1.5/sem', `${kartingPosts} posts → ≈ ${kartingAnnual}/an`, '#FEDB00')}
-        ${objMcCard('Meta Ads', `Impressions (${globalDays}j)`, metaImpressions, metaTarget, fmtN(metaImpressions), fmtN(metaTarget), 'Objectif annuel 2 000 000', '#F97316')}
-        ${dFBP?.totals?.engaged_users ? objMcCard('Facebook · Engagement', `Utilisateurs engagés (${globalDays}j)`, dFBP.totals.engaged_users, Math.round(dFBP.totals.engaged_users * 1.2), fmtN(dFBP.totals.engaged_users), '+20%', 'Interactions uniques avec les posts', '#1877F2') : ''}
+        ${objMcCard('Facebook · Posts', 'ACL Sport — Rythme 2026', sportYtdWkly, 1.5, sportYtdWkly+'/sem', '1.5/sem', `${sportYtdPosts} posts YTD · ≈${sportAnnual}/an${trendBadge(sportPeriodWkly, sportYtdWkly)}`, '#FEDB00')}
+        ${objMcCard('Facebook · Posts', 'ACL Karting — Rythme 2026', kartingYtdWkly, 1.5, kartingYtdWkly+'/sem', '1.5/sem', `${kartingYtdPosts} posts YTD · ≈${kartingAnnual}/an${trendBadge(kartingPeriodWkly, kartingYtdWkly)}`, '#FEDB00')}
+        ${objMcCard('Meta Ads', 'Impressions 2026', metaYtd, metaTarget, fmtN(metaYtd), '2 000 000', `Objectif annuel · période : ${fmtN(metaPeriod)}`, '#F97316')}
+        ${engagedYtd ? objMcCard('Facebook · Engagement', 'Utilisateurs engagés 2026', engagedYtd, engagedTarget, fmtN(engagedYtd), '+20%', 'Interactions uniques avec les posts', '#1877F2') : ''}
         ${objMcCard('Brevo Email', "Taux d'ouverture moyen", openRate, 60, fmtPct(openRate), '60.0%', 'Objectif : 60% d\'ouverture', '#0B996E')}
       </div>
     </div>`;
