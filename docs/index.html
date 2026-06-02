@@ -705,6 +705,31 @@
     .type-rel{background:#FEF2F2;color:#B91C1C;}
     .type-other{background:#F3F4F6;color:#6B7280;}
 
+    /* ─── THEME PROFILES ─────────────────────────────────────── */
+    .tp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;}
+    .tp-card{padding:15px;display:flex;flex-direction:column;gap:9px;border-radius:var(--r-md);background:var(--surface);border:1px solid var(--border);box-shadow:var(--shadow-1);}
+    .tp-head{display:flex;align-items:center;justify-content:space-between;gap:6px;}
+    .tp-trend{font-size:17px;font-weight:800;line-height:1;}
+    .tp-trend-up{color:var(--good);}
+    .tp-trend-down{color:var(--bad);}
+    .tp-trend-stable{color:var(--muted);}
+    .tp-metrics{display:flex;gap:14px;}
+    .tp-m{display:flex;flex-direction:column;gap:1px;}
+    .tp-m-val{font-size:15px;font-weight:700;font-family:'FaricyNew','Albert Sans',sans-serif;font-style:italic;letter-spacing:-.02em;}
+    .tp-m-lbl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);}
+    .tp-count{font-size:10px;color:var(--muted-2);}
+
+    /* ─── TIMELINE ────────────────────────────────────────────── */
+    .tl-controls{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-left:auto;}
+    .tl-metric-btn{border:none;padding:4px 10px;border-radius:20px;font-size:10.5px;font-weight:700;cursor:pointer;transition:all .15s;font-family:inherit;background:var(--border);color:var(--muted);}
+    .tl-metric-btn.active{background:var(--n);color:#fff;}
+    .tl-sep{width:1px;height:16px;background:var(--border);margin:0 2px;flex-shrink:0;}
+    .tl-type-btn{border:2px solid;padding:3px 9px;border-radius:20px;font-size:10.5px;font-weight:700;cursor:pointer;transition:opacity .15s;font-family:inherit;background:transparent;opacity:.35;}
+    .tl-type-btn.active{opacity:1;}
+    [data-theme="dark"] .tl-metric-btn{background:#222;color:var(--muted);}
+    [data-theme="dark"] .tl-metric-btn.active{background:var(--n);color:#fff;}
+    [data-theme="dark"] .tp-card{background:#161614;border-color:#222;}
+
     /* ─── BREVO CHARTS GRID ───────────────────────────────────── */
     .brevo-charts{display:grid;grid-template-columns:3fr 2fr;gap:14px;}
     @media(max-width:900px){.brevo-charts{grid-template-columns:1fr;}}
@@ -2487,6 +2512,59 @@ function renderBrevo(d) {
     if (child.id !== 'errBanner') el.removeChild(child);
   });
 
+  // ── Profils par type ────────────────────────────────────────
+  const TP_LABELS = {nl:'Newsletter', enq:'Enquête', rel:'Relance', other:'Autre'};
+  const TP_COLORS = {nl:'#0B996E', enq:'#0A66C2', rel:'#F97316', other:'#7A7770'};
+
+  const tpGroups = {};
+  campsE.forEach(c => {
+    if (!tpGroups[c.type]) tpGroups[c.type] = [];
+    tpGroups[c.type].push(c);
+  });
+
+  function tpProfile(clist) {
+    const sorted = [...clist].sort((a,b) => new Date(a.sentDate||0) - new Date(b.sentDate||0));
+    const n = sorted.length;
+    if (!n) return null;
+    const avgO    = sorted.reduce((s,c) => s + c.openRate,  0) / n;
+    const avgC    = sorted.reduce((s,c) => s + c.clickRate, 0) / n;
+    const avgCTOR = sorted.reduce((s,c) => s + c.ctor,      0) / n;
+    const last3   = sorted.slice(-3);
+    const prev3   = sorted.slice(-6, -3);
+    const avgLast = last3.reduce((s,c) => s + c.openRate, 0) / (last3.length||1);
+    const avgPrev = prev3.length ? prev3.reduce((s,c) => s + c.openRate, 0) / prev3.length : avgLast;
+    const diff    = avgLast - avgPrev;
+    const trend   = prev3.length === 0 ? 'new' : diff > 2 ? 'up' : diff < -2 ? 'down' : 'stable';
+    return { n, sorted, avgO, avgC, avgCTOR, trend, spark: sorted.map(c => c.openRate) };
+  }
+
+  const tpData = {};
+  Object.entries(tpGroups).forEach(([t, cl]) => { tpData[t] = tpProfile(cl); });
+
+  const tpTrendIcon = t => t === 'up' ? '↑' : t === 'down' ? '↓' : t === 'stable' ? '→' : '★';
+  const tpTrendCls  = t => t === 'up' ? 'tp-trend-up' : t === 'down' ? 'tp-trend-down' : 'tp-trend-stable';
+
+  const tpCardsHtml = Object.entries(tpData).filter(([,p]) => p).map(([type, p]) => {
+    const svg = miniSparkline(p.spark, TP_COLORS[type]);
+    return `<div class="tp-card">
+      <div class="tp-head">
+        <span class="type-badge type-${type}">${TP_LABELS[type]}</span>
+        <span class="tp-trend ${tpTrendCls(p.trend)}">${tpTrendIcon(p.trend)}</span>
+      </div>
+      <div class="tp-metrics">
+        <div class="tp-m"><div class="tp-m-val">${p.avgO.toFixed(1)}%</div><div class="tp-m-lbl">Ouv.</div></div>
+        <div class="tp-m"><div class="tp-m-val">${p.avgC.toFixed(1)}%</div><div class="tp-m-lbl">Clic</div></div>
+        <div class="tp-m"><div class="tp-m-val">${p.avgCTOR.toFixed(1)}%</div><div class="tp-m-lbl">CTOR</div></div>
+      </div>
+      ${svg ? `<svg width="100%" height="22" viewBox="0 0 100 22" preserveAspectRatio="none" style="opacity:.75">${svg}</svg>` : ''}
+      <div class="tp-count">${p.n} campagne${p.n > 1 ? 's' : ''}</div>
+    </div>`;
+  }).join('');
+
+  const tpTimelineLegend = Object.entries(tpData).filter(([,p]) => p).map(([type]) =>
+    `<button class="tl-type-btn active" data-tl-type="${type}" style="color:${TP_COLORS[type]};border-color:${TP_COLORS[type]};background:${TP_COLORS[type]}18">${TP_LABELS[type]}</button>`
+  ).join('');
+
   const wrap = document.createElement('div');
   wrap.style.cssText = 'display:flex;flex-direction:column;gap:20px';
   wrap.innerHTML = `
@@ -2523,6 +2601,39 @@ function renderBrevo(d) {
         <div class="hb-stat"><div class="hb-stat-val">${fmtN(blacklisted)}</div><div class="hb-stat-lbl">Blacklistés</div></div>
         <div class="hb-stat"><div class="hb-stat-val">${fmtN(hardBounces)}</div><div class="hb-stat-lbl">Hard bounces</div></div>
         <div class="hb-stat"><div class="hb-stat-val">${fmtN(total)}</div><div class="hb-stat-lbl">Total liste #64</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <div>
+          <div class="card-title">Profils par thématique</div>
+          <div class="card-sub">Taux d'ouverture moyen · tendance sur les 3 dernières campagnes (↑ +2 pts · ↓ −2 pts · → stable)</div>
+        </div>
+      </div>
+      <div class="card-body" style="padding:16px">
+        <div class="tp-grid">${tpCardsHtml}</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head" style="flex-wrap:wrap;gap:8px;align-items:flex-start">
+        <div>
+          <div class="card-title">Évolution par thématique</div>
+          <div class="card-sub">Taux d'ouverture de chaque envoi, classés chronologiquement</div>
+        </div>
+        <div class="tl-controls">
+          <button class="tl-metric-btn active" data-tl-metric="openRate">Ouverture %</button>
+          <button class="tl-metric-btn" data-tl-metric="clickRate">Clic %</button>
+          <button class="tl-metric-btn" data-tl-metric="ctor">CTOR %</button>
+          <div class="tl-sep"></div>
+          ${tpTimelineLegend}
+        </div>
+      </div>
+      <div class="card-body" style="padding:16px;padding-top:6px">
+        <div style="position:relative;height:210px">
+          <canvas id="brevoTLChart"></canvas>
+        </div>
       </div>
     </div>
 
@@ -2576,7 +2687,94 @@ function renderBrevo(d) {
 
   el.appendChild(wrap);
   animateCards(el);
+  initBrevoTimeline(tpData, TP_COLORS, TP_LABELS);
   fetchSectionInsight('brevo', {avgOpenRate: avgOpen, avgClick, totalUnsub, campaigns: camps.length});
+}
+
+// ── BREVO TIMELINE ────────────────────────────────────────────
+function initBrevoTimeline(tpData, TP_COLORS, TP_LABELS) {
+  if (chartInstances['brevoTL']) { chartInstances['brevoTL'].destroy(); delete chartInstances['brevoTL']; }
+  const cvs = document.getElementById('brevoTLChart');
+  if (!cvs) return;
+
+  function buildDatasets(metric) {
+    return Object.entries(tpData).filter(([,p]) => p).map(([type, p]) => ({
+      label: TP_LABELS[type],
+      data: p.sorted.filter(c => c.sentDate).map(c => ({
+        x: new Date(c.sentDate).getTime(),
+        y: metric === 'openRate' ? c.openRate : metric === 'clickRate' ? c.clickRate : c.ctor,
+        name: c.name,
+      })),
+      borderColor: TP_COLORS[type],
+      backgroundColor: TP_COLORS[type] + '18',
+      borderWidth: 2,
+      pointRadius: 4,
+      pointHoverRadius: 7,
+      tension: 0.35,
+      fill: false,
+    }));
+  }
+
+  const chart = new Chart(cvs, {
+    type: 'line',
+    data: { datasets: buildDatasets('openRate') },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: 'nearest', intersect: false },
+      scales: {
+        x: {
+          type: 'linear',
+          ticks: {
+            maxTicksLimit: 8,
+            font: { size: 10, family: "'Albert Sans',sans-serif" },
+            callback: v => new Date(v).toLocaleDateString('fr-BE', { month: 'short', year: '2-digit' }),
+          },
+          grid: { color: 'rgba(0,0,0,.04)' },
+        },
+        y: {
+          beginAtZero: false,
+          ticks: {
+            font: { size: 10, family: "'Albert Sans',sans-serif" },
+            callback: v => v.toFixed(0) + '%',
+          },
+          grid: { color: 'rgba(0,0,0,.04)' },
+        },
+      },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          displayColors: true,
+          callbacks: {
+            title: items => items[0]?.raw?.name || '',
+            label: item => ` ${item.dataset.label} : ${item.parsed.y.toFixed(1)}%`,
+          },
+        },
+      },
+    },
+  });
+  chartInstances['brevoTL'] = chart;
+
+  const metricBtns = document.querySelectorAll('.tl-metric-btn');
+  const typeBtns   = document.querySelectorAll('[data-tl-type]');
+
+  metricBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      metricBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      chart.data.datasets = buildDatasets(btn.dataset.tlMetric);
+      typeBtns.forEach((b, i) => chart.setDatasetVisibility(i, b.classList.contains('active')));
+      chart.update();
+    });
+  });
+
+  typeBtns.forEach((btn, i) => {
+    btn.addEventListener('click', () => {
+      btn.classList.toggle('active');
+      chart.setDatasetVisibility(i, btn.classList.contains('active'));
+      chart.update();
+    });
+  });
 }
 
 // ── ACL CLUB ──────────────────────────────────────────────────
