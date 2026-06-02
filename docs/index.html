@@ -726,7 +726,10 @@
     .tl-sep{width:1px;height:16px;background:var(--border);margin:0 2px;flex-shrink:0;}
     .tl-type-btn{border:2px solid;padding:3px 9px;border-radius:20px;font-size:10.5px;font-weight:700;cursor:pointer;transition:opacity .15s;font-family:inherit;background:transparent;opacity:.35;}
     .tl-type-btn.active{opacity:1;}
+    .tl-lang-btn{border:none;padding:3px 9px;border-radius:20px;font-size:10px;font-weight:800;cursor:pointer;transition:all .15s;font-family:inherit;letter-spacing:.05em;background:var(--border);color:var(--muted);}
+    .tl-lang-btn.active{background:var(--y);color:#000;}
     [data-theme="dark"] .tl-metric-btn{background:#222;color:var(--muted);}
+    [data-theme="dark"] .tl-lang-btn{background:#222;color:var(--muted);}
     [data-theme="dark"] .tl-metric-btn.active{background:var(--n);color:#fff;}
     [data-theme="dark"] .tp-card{background:#161614;border-color:#222;}
 
@@ -2435,6 +2438,13 @@ function getCampaignType(name) {
   return 'other';
 }
 
+function getCampaignLang(name) {
+  const n = (name || '').toUpperCase();
+  if (/\bDE\b|_DE[_\s\-\[\(]|[_\s\-\]\)]DE\b/.test(n)) return 'de';
+  if (/\bEN\b|_EN[_\s\-\[\(]|[_\s\-\]\)]EN\b/.test(n)) return 'en';
+  return 'fr';
+}
+
 function renderBrevo(d) {
   const el    = document.getElementById('panel-brevo');
   const errEl = document.getElementById('errBanner');
@@ -2472,7 +2482,7 @@ function renderBrevo(d) {
     const clickScore = Math.min(100, (clickRate / 3)  * 100);
     const fidelScore = Math.max(0, 100 - unsubRate * 50);
     const score = Math.round(openScore * 0.4 + clickScore * 0.4 + fidelScore * 0.2);
-    return { ...c, dlvr, opens, clics, unsb, openRate, clickRate, ctor, unsubRate, score, type: getCampaignType(c.name) };
+    return { ...c, dlvr, opens, clics, unsb, openRate, clickRate, ctor, unsubRate, score, type: getCampaignType(c.name), lang: getCampaignLang(c.name) };
   });
 
   // Global aggregates
@@ -2556,7 +2566,7 @@ function renderBrevo(d) {
         <div class="tp-m"><div class="tp-m-val">${p.avgC.toFixed(1)}%</div><div class="tp-m-lbl">Clic</div></div>
         <div class="tp-m"><div class="tp-m-val">${p.avgCTOR.toFixed(1)}%</div><div class="tp-m-lbl">CTOR</div></div>
       </div>
-      ${svg ? `<svg width="100%" height="22" viewBox="0 0 100 22" preserveAspectRatio="none" style="opacity:.75">${svg}</svg>` : ''}
+      ${svg ? `<svg width="100%" height="28" viewBox="0 0 100 28" preserveAspectRatio="none" style="opacity:.75">${svg}</svg>` : ''}
       <div class="tp-count">${p.n} campagne${p.n > 1 ? 's' : ''}</div>
     </div>`;
   }).join('');
@@ -2628,6 +2638,11 @@ function renderBrevo(d) {
           <button class="tl-metric-btn" data-tl-metric="ctor">CTOR %</button>
           <div class="tl-sep"></div>
           ${tpTimelineLegend}
+          <div class="tl-sep"></div>
+          <button class="tl-lang-btn active" data-tl-lang="all">Toutes</button>
+          <button class="tl-lang-btn" data-tl-lang="fr">FR</button>
+          <button class="tl-lang-btn" data-tl-lang="de">DE</button>
+          <button class="tl-lang-btn" data-tl-lang="en">EN</button>
         </div>
       </div>
       <div class="card-body" style="padding:16px;padding-top:6px">
@@ -2683,6 +2698,7 @@ function renderBrevo(d) {
       <div>Ouverture : ≥35% vert · 20–35% jaune · &lt;20% rouge &emsp; standard B2C GDPR LUX : 25–35%</div>
       <div>Clic : ≥3% vert · 1–3% jaune · &lt;1% rouge &emsp; CTOR : ≥10% vert · 5–10% jaune · &lt;5% rouge</div>
       <div>Désabonnement : &lt;0.1% vert · 0.1–0.5% jaune · &gt;0.5% rouge &emsp; Score = ouv×40% + clic×40% + fidélité×20%</div>
+      <div style="margin-top:5px;padding-top:5px;border-top:1px solid var(--border)"><strong style="color:var(--text)">Glossaire — </strong>Ouv. : taux d'ouverture unique (ouvreurs uniques / livrés) &nbsp;·&nbsp; Clic : taux de clic (cliqueurs uniques / livrés) &nbsp;·&nbsp; <strong style="color:var(--text)">CTOR</strong> <em>(Click-to-Open Rate)</em> : taux de clic parmi les ouvreurs = cliqués / ouverts &nbsp;·&nbsp; Désab. : désinscriptions / livrés &nbsp;·&nbsp; Score : note composite 0–100 (ouv×40 % + clic×40 % + fidélité×20 %)</div>
     </div>`;
 
   el.appendChild(wrap);
@@ -2697,14 +2713,21 @@ function initBrevoTimeline(tpData, TP_COLORS, TP_LABELS) {
   const cvs = document.getElementById('brevoTLChart');
   if (!cvs) return;
 
-  function buildDatasets(metric) {
+  let currentMetric = 'openRate';
+  let currentLang   = 'all';
+
+  function buildDatasets(metric, lang) {
     return Object.entries(tpData).filter(([,p]) => p).map(([type, p]) => ({
       label: TP_LABELS[type],
-      data: p.sorted.filter(c => c.sentDate).map(c => ({
-        x: new Date(c.sentDate).getTime(),
-        y: metric === 'openRate' ? c.openRate : metric === 'clickRate' ? c.clickRate : c.ctor,
-        name: c.name,
-      })),
+      data: p.sorted
+        .filter(c => c.sentDate)
+        .filter(c => lang === 'all' || c.lang === lang)
+        .map(c => ({
+          x: new Date(c.sentDate).getTime(),
+          y: metric === 'openRate' ? c.openRate : metric === 'clickRate' ? c.clickRate : c.ctor,
+          name: c.name,
+          lang: c.lang,
+        })),
       borderColor: TP_COLORS[type],
       backgroundColor: TP_COLORS[type] + '18',
       borderWidth: 2,
@@ -2715,9 +2738,15 @@ function initBrevoTimeline(tpData, TP_COLORS, TP_LABELS) {
     }));
   }
 
+  function refreshChart() {
+    chart.data.datasets = buildDatasets(currentMetric, currentLang);
+    typeBtns.forEach((b, i) => chart.setDatasetVisibility(i, b.classList.contains('active')));
+    chart.update();
+  }
+
   const chart = new Chart(cvs, {
     type: 'line',
-    data: { datasets: buildDatasets('openRate') },
+    data: { datasets: buildDatasets('openRate', 'all') },
     options: {
       responsive: true,
       maintainAspectRatio: false,
@@ -2746,7 +2775,11 @@ function initBrevoTimeline(tpData, TP_COLORS, TP_LABELS) {
         tooltip: {
           displayColors: true,
           callbacks: {
-            title: items => items[0]?.raw?.name || '',
+            title: items => {
+              const raw = items[0]?.raw;
+              const langTag = raw?.lang && raw.lang !== 'fr' ? ` [${raw.lang.toUpperCase()}]` : '';
+              return (raw?.name || '') + langTag;
+            },
             label: item => ` ${item.dataset.label} : ${item.parsed.y.toFixed(1)}%`,
           },
         },
@@ -2757,14 +2790,14 @@ function initBrevoTimeline(tpData, TP_COLORS, TP_LABELS) {
 
   const metricBtns = document.querySelectorAll('.tl-metric-btn');
   const typeBtns   = document.querySelectorAll('[data-tl-type]');
+  const langBtns   = document.querySelectorAll('[data-tl-lang]');
 
   metricBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       metricBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      chart.data.datasets = buildDatasets(btn.dataset.tlMetric);
-      typeBtns.forEach((b, i) => chart.setDatasetVisibility(i, b.classList.contains('active')));
-      chart.update();
+      currentMetric = btn.dataset.tlMetric;
+      refreshChart();
     });
   });
 
@@ -2773,6 +2806,15 @@ function initBrevoTimeline(tpData, TP_COLORS, TP_LABELS) {
       btn.classList.toggle('active');
       chart.setDatasetVisibility(i, btn.classList.contains('active'));
       chart.update();
+    });
+  });
+
+  langBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      langBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentLang = btn.dataset.tlLang;
+      refreshChart();
     });
   });
 }
