@@ -1100,14 +1100,19 @@ def brevo():
     headers = {'api-key': BREVO_API_KEY, 'Accept': 'application/json'}
     BREVO_BASE = 'https://api.brevo.com/v3'
 
-    # Fetch last 50 sent campaigns — no date filter to avoid empty results
-    rc = _get(f'{BREVO_BASE}/emailCampaigns', headers=headers, params={
-        'status': 'sent', 'limit': 50, 'offset': 0,
-        'sort': 'desc', 'statistics': 'globalStats',
-    })
+    # Fetch all sent campaigns for the selected period — paginate (Brevo max 50/page)
     campaigns = []
-    if rc.ok:
-        for c in rc.json().get('campaigns', []):
+    offset = 0
+    while True:
+        rc = _get(f'{BREVO_BASE}/emailCampaigns', headers=headers, params={
+            'status': 'sent', 'limit': 50, 'offset': offset,
+            'sort': 'desc', 'statistics': 'globalStats',
+            'startDate': start, 'endDate': end,
+        })
+        if not rc.ok:
+            break
+        batch = rc.json().get('campaigns', [])
+        for c in batch:
             stats = c.get('statistics', {})
             gs = stats.get('globalStats', {})
             # Brevo v3 uses 'uniqueViews' for opens — normalise to 'uniqueOpens'
@@ -1119,6 +1124,9 @@ def brevo():
                 'sentDate':   c.get('sentDate'),
                 'statistics': stats,
             })
+        if len(batch) < 50:
+            break
+        offset += 50
 
     # Contact stats — liste #64 (membres ACL)
     LIST_ID = 64
