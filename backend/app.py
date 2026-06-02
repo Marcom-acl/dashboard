@@ -10,6 +10,7 @@ import json
 import re
 import time
 import datetime
+import threading
 import requests
 import concurrent.futures
 from flask import Flask, request, jsonify, redirect, session
@@ -1102,22 +1103,61 @@ def brevo():
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# Brevo — ACL Club
+# Brevo — ACL Club  (cache en mémoire, refresh en arrière-plan)
 # ─────────────────────────────────────────────────────────────────────────────
+
+_CLUB_CACHE               = {'data': None, 'ts': 0.0}
+_CLUB_CACHE_LOCK          = threading.Lock()
+_CLUB_REFRESH_IN_PROGRESS = False
+_CLUB_CACHE_TTL           = 3600  # 1 heure
+
+
+def _brevo_club_refresh():
+    """Calcule les données Brevo Club et met à jour le cache. Toujours exécuté en thread daemon."""
+    global _CLUB_REFRESH_IN_PROGRESS
+    try:
+        data = _brevo_club_compute()
+        with _CLUB_CACHE_LOCK:
+            _CLUB_CACHE['data'] = data
+            _CLUB_CACHE['ts']   = time.time()
+    except Exception:
+        pass
+    finally:
+        _CLUB_REFRESH_IN_PROGRESS = False
 
 
 @app.route('/brevo/club')
 def brevo_club():
+    global _CLUB_REFRESH_IN_PROGRESS
     if not BREVO_API_KEY:
         return jsonify({'error': 'BREVO_API_KEY manquante'})
-    try:
-        return _brevo_club_impl()
-    except Exception as exc:
-        import traceback
-        return jsonify({'error': str(exc), '_traceback': traceback.format_exc()}), 500
+
+    now = time.time()
+    with _CLUB_CACHE_LOCK:
+        cached_data = _CLUB_CACHE['data']
+        cached_ts   = _CLUB_CACHE['ts']
+
+    # Cache frais → réponse immédiate
+    if cached_data and (now - cached_ts) < _CLUB_CACHE_TTL:
+        return jsonify({**cached_data, '_cached': True, '_cacheAge': int(now - cached_ts)})
+
+    # Pas encore de cache → déclenche le calcul en arrière-plan et retourne 202
+    if not cached_data:
+        if not _CLUB_REFRESH_IN_PROGRESS:
+            _CLUB_REFRESH_IN_PROGRESS = True
+            threading.Thread(target=_brevo_club_refresh, daemon=True).start()
+        return jsonify({'_loading': True,
+                        'message': 'Données en cours de chargement — recharger dans 60 s'}), 202
+
+    # Cache périmé → sert les données existantes et lance un refresh silencieux
+    if not _CLUB_REFRESH_IN_PROGRESS:
+        _CLUB_REFRESH_IN_PROGRESS = True
+        threading.Thread(target=_brevo_club_refresh, daemon=True).start()
+    return jsonify({**cached_data, '_cached': True,
+                    '_cacheAge': int(now - cached_ts), '_stale': True})
 
 
-def _brevo_club_impl():
+def _brevo_club_compute():
     BREVO_BASE       = 'https://api.brevo.com/v3'
     EXCLUDED_DOMAINS = {'acl.lu', 'epic.net'}
     EXCLUDED_EMAILS  = {'pierreyvesmeert@gmail.com', 'conrardykim@gmail.com'}
@@ -1858,6 +1898,15 @@ def get_insights():
         return jsonify({'insights': insights})
     except Exception as e:
         return jsonify({'error': str(e), 'insights': []}), 500
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Startup — préchauffage du cache Brevo Club
+# ─────────────────────────────────────────────────────────────────────────────
+
+if BREVO_API_KEY:
+    _CLUB_REFRESH_IN_PROGRESS = True
+    threading.Thread(target=_brevo_club_refresh, daemon=True).start()
 
 
 # ─────────────────────────────────────────────────────────────────────────────
