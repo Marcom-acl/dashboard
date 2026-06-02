@@ -92,12 +92,11 @@
     [data-sidebar="dark"] .sb-brand{border-bottom:1px solid #1f1d18;}
 
     .sb-logo{
-      width:40px;height:40px;border-radius:8px;background:var(--y);
+      width:40px;height:40px;border-radius:8px;overflow:hidden;
       display:grid;place-items:center;
-      font-family:'FaricyNew','Albert Sans',sans-serif;
-      font-weight:700;font-style:italic;font-size:16px;color:#000;letter-spacing:-0.02em;
       box-shadow:inset 0 0 0 1px rgba(0,0,0,.08);flex-shrink:0;
     }
+    .sb-logo img,.pw-logo img{width:100%;height:100%;object-fit:contain;display:block;}
     .sb-brand-meta{display:flex;flex-direction:column;line-height:1.1;}
     .sb-brand-name{font-weight:800;font-size:15px;letter-spacing:-0.01em;}
     .sb-brand-sub{font-size:10.5px;color:var(--muted);font-weight:500;letter-spacing:.06em;text-transform:uppercase;margin-top:3px;}
@@ -659,7 +658,7 @@
     .pw-overlay{position:fixed;inset:0;background:var(--bg);z-index:9999;display:none;align-items:center;justify-content:center;flex-direction:column;gap:0;}
     .pw-overlay.active{display:flex;}
     .pw-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:40px 36px;width:340px;max-width:90vw;box-shadow:0 24px 60px rgba(0,0,0,.12);display:flex;flex-direction:column;gap:20px;align-items:center;}
-    .pw-logo{width:52px;height:52px;border-radius:10px;background:var(--y);display:grid;place-items:center;font-family:'FaricyNew','Albert Sans',sans-serif;font-weight:700;font-style:italic;font-size:20px;color:#000;box-shadow:inset 0 0 0 1px rgba(0,0,0,.08);}
+    .pw-logo{width:52px;height:52px;border-radius:10px;overflow:hidden;display:grid;place-items:center;box-shadow:inset 0 0 0 1px rgba(0,0,0,.08);}
     .pw-title{font-family:'FaricyNew','Albert Sans',sans-serif;font-weight:700;font-size:22px;letter-spacing:-0.02em;color:#000;text-align:center;line-height:1.1;}
     .pw-sub{font-size:12px;color:var(--muted);text-align:center;margin-top:6px;line-height:1.5;}
     .pw-form{display:flex;flex-direction:column;gap:10px;width:100%;}
@@ -1063,7 +1062,7 @@
 <!-- ════════ PASSWORD OVERLAY ════════ -->
 <div class="pw-overlay active" id="pwOverlay">
   <div class="pw-card">
-    <div class="pw-logo">ACL</div>
+    <div class="pw-logo"><img src="https://marcom-acl.github.io/dashboard/ACL.png" alt="ACL" /></div>
     <div>
       <div class="pw-title">Dashboard Marcom</div>
       <p class="pw-sub">Accès réservé à l'équipe Communication ACL</p>
@@ -1083,7 +1082,7 @@
   <!-- ════════════════ SIDEBAR ════════════════ -->
   <aside class="sb">
     <div class="sb-brand">
-      <div class="sb-logo">ACL</div>
+      <div class="sb-logo"><img src="https://marcom-acl.github.io/dashboard/ACL.png" alt="ACL" /></div>
       <div class="sb-brand-meta">
         <span class="sb-brand-name">Marcom</span>
         <span class="sb-brand-sub">Dashboard · 2026</span>
