@@ -1110,7 +1110,14 @@ def brevo():
 def brevo_club():
     if not BREVO_API_KEY:
         return jsonify({'error': 'BREVO_API_KEY manquante'})
+    try:
+        return _brevo_club_impl()
+    except Exception as exc:
+        import traceback
+        return jsonify({'error': str(exc), '_traceback': traceback.format_exc()}), 500
 
+
+def _brevo_club_impl():
     BREVO_BASE       = 'https://api.brevo.com/v3'
     EXCLUDED_DOMAINS = {'acl.lu', 'epic.net'}
     EXCLUDED_EMAILS  = {'pierreyvesmeert@gmail.com', 'conrardykim@gmail.com'}
@@ -1137,24 +1144,27 @@ def brevo_club():
     # 1. Discover CLUB_*_Membre_* templates (active + inactive)
     templates_by_offer = {}
     offset = 0
-    while True:
-        rc = _get(f'{BREVO_BASE}/smtp/templates', headers=headers,
-                  params={'limit': 50, 'offset': offset})
-        if not rc.ok:
-            break
-        batch = rc.json().get('templates', [])
-        if not batch:
-            break
-        for t in batch:
-            n = t.get('name', '')
-            if (re.match(r'^CLUB_', n)
-                    and re.search(r'_Membre', n, re.IGNORECASE)
-                    and 'TEST' not in n.upper()):
-                offer = offer_from_name(n)
-                templates_by_offer.setdefault(offer, []).append(t['id'])
-        if len(batch) < 50:
-            break
-        offset += 50
+    try:
+        while True:
+            rc = _get(f'{BREVO_BASE}/smtp/templates', headers=headers,
+                      params={'limit': 50, 'offset': offset})
+            if not rc.ok:
+                break
+            batch = rc.json().get('templates', [])
+            if not batch:
+                break
+            for t in batch:
+                n = t.get('name', '')
+                if (re.match(r'^CLUB_', n)
+                        and re.search(r'_Membre', n, re.IGNORECASE)
+                        and 'TEST' not in n.upper()):
+                    offer = offer_from_name(n)
+                    templates_by_offer.setdefault(offer, []).append(t['id'])
+            if len(batch) < 50:
+                break
+            offset += 50
+    except Exception:
+        pass
 
     all_tids     = [tid for tids in templates_by_offer.values() for tid in tids]
     tid_to_offer = {tid: offer
@@ -1178,27 +1188,30 @@ def brevo_club():
     def fetch_reach(args):
         tid, cs, ce = args
         results, off = [], 0
-        while True:
-            r = _get(f'{BREVO_BASE}/smtp/emails', headers=headers, params={
-                'templateId': tid, 'startDate': cs, 'endDate': ce,
-                'limit': 500, 'offset': off, 'sort': 'desc',
-            })
-            if not r.ok:
-                break
-            batch = r.json().get('transactionalEmails', [])
-            if not batch:
-                break
-            results.extend(batch)
-            if len(batch) < 500:
-                break
-            off += 500
+        try:
+            while True:
+                r = _get(f'{BREVO_BASE}/smtp/emails', headers=headers, params={
+                    'templateId': tid, 'startDate': cs, 'endDate': ce,
+                    'limit': 500, 'offset': off, 'sort': 'desc',
+                })
+                if not r.ok:
+                    break
+                batch = r.json().get('transactionalEmails', [])
+                if not batch:
+                    break
+                results.extend(batch)
+                if len(batch) < 500:
+                    break
+                off += 500
+        except Exception:
+            pass
         return tid, results
 
     # 3a-only: fetch reach first (serial per batch of 20)
     reach_tasks     = [(tid, cs, ce) for tid in all_tids for cs, ce in chunks]
     template_reach  = {tid: [] for tid in all_tids}
 
-    with concurrent.futures.ThreadPoolExecutor(max_workers=20) as ex:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=6) as ex:
         for tid, emails in ex.map(fetch_reach, reach_tasks):
             template_reach[tid].extend(emails)
 
@@ -1208,26 +1221,29 @@ def brevo_club():
     def fetch_open_events(args):
         tid, cs, ce = args
         results, off = [], 0
-        while True:
-            r = _get(f'{BREVO_BASE}/smtp/statistics/events', headers=headers,
-                     params={'templateId': tid, 'startDate': cs, 'endDate': ce,
-                             'event': 'uniqueOpened', 'limit': 500, 'offset': off,
-                             'sort': 'desc'})
-            if not r.ok:
-                break
-            batch = r.json().get('events', [])
-            if not batch:
-                break
-            results.extend(batch)
-            if len(batch) < 500:
-                break
-            off += 500
+        try:
+            while True:
+                r = _get(f'{BREVO_BASE}/smtp/statistics/events', headers=headers,
+                         params={'templateId': tid, 'startDate': cs, 'endDate': ce,
+                                 'event': 'uniqueOpened', 'limit': 500, 'offset': off,
+                                 'sort': 'desc'})
+                if not r.ok:
+                    break
+                batch = r.json().get('events', [])
+                if not batch:
+                    break
+                results.extend(batch)
+                if len(batch) < 500:
+                    break
+                off += 500
+        except Exception:
+            pass
         return tid, results
 
     events_tasks   = [(tid, cs, ce) for tid in active_tids for cs, ce in chunks]
     template_events = {tid: [] for tid in active_tids}
 
-    with concurrent.futures.ThreadPoolExecutor(max_workers=20) as ex:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=6) as ex:
         for tid, evts in ex.map(fetch_open_events, events_tasks):
             template_events[tid].extend(evts)
 
