@@ -1422,6 +1422,24 @@ function setDateRange(days) {
   globalDays  = days;
 }
 
+// ── Lazy tab renderer ─────────────────────────────────────────
+function _renderTab(tab) {
+  const d = window._dashData;
+  if (!d) return;
+  if (window._tabRendered && window._tabRendered[tab]) return;
+  if (window._tabRendered) window._tabRendered[tab] = true;
+
+  if      (tab === 'overview')  renderOverview({dGA4: d.dGA4, dGSC: d.dGSC, dFB: d.dFB, dFBP: d.dFBP, dBrevo: d.dBrevo, dLI: d.dLI, dYT: d.dYT, dGA4T: d.dGA4T, dVeille: d.dVeille, dFBPytd: d.dFBPytd, dFBytd: d.dFBytd});
+  else if (tab === 'ga4')       renderGA4(d.dGA4, d.dGA4A, d.dGA4E, d.dGA4T);
+  else if (tab === 'fbads')     renderMeta(d.dFB, d.dFBP);
+  else if (tab === 'gsc')       renderGSC(d.dGSC);
+  else if (tab === 'brevo')     renderBrevo(d.dBrevo);
+  else if (tab === 'club')      renderClub(d.dClub);
+  else if (tab === 'youtube')   renderYouTube(d.dYT);
+  else if (tab === 'linkedin')  renderLinkedIn(d.dLI);
+  else if (tab === 'veille')    renderVeille(d.dVeille);
+}
+
 // ── loadAll ───────────────────────────────────────────────────
 async function loadAll() {
   const btn = document.getElementById('btnRefresh');
@@ -1453,15 +1471,11 @@ async function loadAll() {
     updateStatus('bs-li',     dLI     && !dLI.error);
     updateStatus('bs-veille', dVeille && !dVeille.error);
 
-    renderOverview({dGA4, dGSC, dFB, dFBP, dBrevo, dLI, dYT, dGA4T, dVeille, dFBPytd, dFBytd});
-    renderGA4(dGA4, dGA4A, dGA4E, dGA4T);
-    renderMeta(dFB, dFBP);
-    renderGSC(dGSC);
-    renderBrevo(dBrevo);
-    renderClub(dClub);
-    renderYouTube(dYT);
-    renderLinkedIn(dLI);
-    renderVeille(dVeille);
+    window._dashData = {dGA4, dGA4A, dGA4E, dGA4T, dGSC, dFB, dFBP, dBrevo, dClub, dYT, dLI, dVeille, dFBPytd, dFBytd};
+    window._tabRendered = {};
+
+    const activeTab = document.querySelector('.tab-btn.active')?.dataset.tab || 'overview';
+    _renderTab(activeTab);
 
     window._lastDashData = {dGA4, dGSC, dFB, dBrevo, dLI, dYT};
     fetchInsights(window._lastDashData);
@@ -3596,6 +3610,7 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
     btn.classList.add('active');
     const crumb = document.getElementById('crumbCurrent');
     if (crumb) crumb.textContent = btn.textContent.trim().split('\n')[0].trim();
+    _renderTab(tab);
   });
 });
 

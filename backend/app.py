@@ -43,6 +43,22 @@ FB_PAGES                  = {
     'Karting': '963910666805565',
 }
 
+# ── Generic TTL cache ─────────────────────────────────────────────────────────
+_API_CACHE      = {}
+_API_CACHE_LOCK = threading.Lock()
+
+def _cache_get(key):
+    now = time.time()
+    with _API_CACHE_LOCK:
+        e = _API_CACHE.get(key)
+    if e and now - e['ts'] < e['ttl']:
+        return {**e['data'], '_cached': True, '_cacheAge': int(now - e['ts'])}
+    return None
+
+def _cache_set(key, data, ttl):
+    with _API_CACHE_LOCK:
+        _API_CACHE[key] = {'data': data, 'ts': time.time(), 'ttl': ttl}
+
 # ── Env-var secrets ──────────────────────────────────────────────────────────
 BREVO_API_KEY     = os.environ.get('BREVO_API_KEY', '')
 FB_APP_ID         = os.environ.get('FB_APP_ID', '')
@@ -388,11 +404,15 @@ def status():
 
 @app.route('/veille')
 def veille():
+    cached = _cache_get('veille')
+    if cached: return jsonify(cached)
     try:
         r = _get(VEILLE_DATA_URL, timeout=10)
         if not r.ok:
             return jsonify({'error': f'GitHub raw HTTP {r.status_code}'}), 503
-        return jsonify(r.json())
+        data = r.json()
+        _cache_set('veille', data, 3600)
+        return jsonify(data)
     except Exception as e:
         return jsonify({'error': str(e)}), 503
 
@@ -598,18 +618,31 @@ def _parse_ga4_main(property_id, start, end):
 @app.route('/ga4')
 def ga4():
     start, end = _date_range()
-    return jsonify(_parse_ga4_main(GA4_PROPERTY, start, end))
+    key = f'ga4:{start}:{end}'
+    cached = _cache_get(key)
+    if cached: return jsonify(cached)
+    data = _parse_ga4_main(GA4_PROPERTY, start, end)
+    _cache_set(key, data, 600)
+    return jsonify(data)
 
 
 @app.route('/ga4/autotouring')
 def ga4_autotouring():
     start, end = _date_range()
-    return jsonify(_parse_ga4_main(GA4_PROPERTY_AUTOTOURING, start, end))
+    key = f'ga4-auto:{start}:{end}'
+    cached = _cache_get(key)
+    if cached: return jsonify(cached)
+    data = _parse_ga4_main(GA4_PROPERTY_AUTOTOURING, start, end)
+    _cache_set(key, data, 600)
+    return jsonify(data)
 
 
 @app.route('/ga4/extended')
 def ga4_extended():
     start, end = _date_range()
+    key = f'ga4-ext:{start}:{end}'
+    cached = _cache_get(key)
+    if cached: return jsonify(cached)
     headers = _google_headers()
     if not headers:
         return jsonify({'error': 'Google non connecté'})
@@ -687,14 +720,16 @@ def ga4_extended():
             'conversions': int(float(row['metricValues'][1]['value'])),
         })
 
-    return jsonify({
+    data = {
         'newVsReturning':    nvr,
         'markets':           markets,
         'entryPages':        entry_pages,
         'keyEvents':         events,
         'devices':           devices,
         'conversionByChannel': conv_by_channel,
-    })
+    }
+    _cache_set(key, data, 600)
+    return jsonify(data)
 
 
 @app.route('/ga4/funnel')
@@ -737,6 +772,9 @@ def ga4_funnel():
 def ga4_trend():
     """Daily sessions + users for the selected period — powers the line chart."""
     start, end = _date_range()
+    key = f'ga4-trend:{start}:{end}'
+    cached = _cache_get(key)
+    if cached: return jsonify(cached)
     headers = _google_headers()
     if not headers:
         return jsonify({'error': 'Google non connecté'})
@@ -758,7 +796,9 @@ def ga4_trend():
                 'sessions': int(float(row['metricValues'][0]['value'])),
                 'users':    int(float(row['metricValues'][1]['value'])),
             })
-    return jsonify({'trend': trend})
+    data = {'trend': trend}
+    _cache_set(key, data, 600)
+    return jsonify(data)
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -768,6 +808,9 @@ def ga4_trend():
 @app.route('/gsc')
 def gsc():
     start, end = _date_range()
+    key = f'gsc:{start}:{end}'
+    cached = _cache_get(key)
+    if cached: return jsonify(cached)
     # GSC requires at least 3 days lag; enforce minimum 28 day window for stable data
     headers = _google_headers()
     if not headers:
@@ -869,7 +912,7 @@ def gsc():
         if p['impressions'] > 500 and p['ctr'] < 3 and 4 <= p['position'] <= 20
     ]
 
-    return jsonify({
+    data = {
         'clicks':      clicks,
         'impressions': impressions,
         'ctr':         ctr,
@@ -880,7 +923,9 @@ def gsc():
         'topPages':    top_pages,
         'trend':       trend,
         'opportunities': opportunities,
-    })
+    }
+    _cache_set(key, data, 900)
+    return jsonify(data)
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -890,6 +935,9 @@ def gsc():
 @app.route('/fb')
 def fb_ads():
     start, end = _date_range()
+    key = f'fb:{start}:{end}'
+    cached = _cache_get(key)
+    if cached: return jsonify(cached)
     token = _fb_token()
     if not token:
         return jsonify({'error': 'Facebook non connecté — visiter /fb/auth'})
@@ -938,7 +986,7 @@ def fb_ads():
     revenue = totals['conversions']
     roas = round(revenue / spend, 2) if spend else 0
 
-    return jsonify({
+    data = {
         'spend':       spend,
         'impressions': totals['impressions'],
         'clicks':      totals['clicks'],
@@ -948,12 +996,17 @@ def fb_ads():
         'cpm':         round(totals['cpm'], 2),
         'roas':        roas,
         'topCampaigns': sorted(campaigns, key=lambda x: x['spend'], reverse=True)[:10],
-    })
+    }
+    _cache_set(key, data, 600)
+    return jsonify(data)
 
 
 @app.route('/fb/page')
 def fb_page():
     start, end = _date_range()
+    key = f'fb-page:{start}:{end}'
+    cached = _cache_get(key)
+    if cached: return jsonify(cached)
     token = _fb_token()  # peut être None — la route continue sans token
 
     pages_data = []
@@ -1017,7 +1070,7 @@ def fb_page():
 
     all_posts.sort(key=lambda x: x['engagement'], reverse=True)
 
-    return jsonify({
+    data = {
         'pages':    pages_data,
         'totals':   {
             'impressions':       impressions_total,
@@ -1026,7 +1079,9 @@ def fb_page():
         },
         'topPosts': all_posts[:10],
         'ytd':      {},
-    })
+    }
+    _cache_set(key, data, 900)
+    return jsonify(data)
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -1039,6 +1094,9 @@ def brevo():
         return jsonify({'error': 'BREVO_API_KEY manquante'})
 
     start, end = _date_range()
+    key = f'brevo:{start}:{end}'
+    cached = _cache_get(key)
+    if cached: return jsonify(cached)
     headers = {'api-key': BREVO_API_KEY, 'Accept': 'application/json'}
     BREVO_BASE = 'https://api.brevo.com/v3'
 
@@ -1099,7 +1157,9 @@ def brevo():
     )
     avg_open_rate = round(total_opens / total_dlvr * 100, 1) if total_dlvr else 0
 
-    return jsonify({'campaigns': campaigns, 'contactStats': contact_stats, 'avgOpenRate': avg_open_rate})
+    data = {'campaigns': campaigns, 'contactStats': contact_stats, 'avgOpenRate': avg_open_rate}
+    _cache_set(key, data, 600)
+    return jsonify(data)
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -1371,6 +1431,9 @@ def _brevo_club_compute():
 @app.route('/youtube')
 def youtube():
     start, end = _date_range()
+    key = f'youtube:{start}:{end}'
+    cached = _cache_get(key)
+    if cached: return jsonify(cached)
     headers = _google_headers()
     if not headers:
         return jsonify({'error': 'Google non connecté'})
@@ -1424,13 +1487,15 @@ def youtube():
                         'comments': int(st.get('commentCount', 0)),
                     })
 
-    return jsonify({
+    data = {
         'subscribers':  subscribers,
         'totalViews':   total_views,
         'videoCount':   video_count,
         'periodVideos': period_videos,
         'topVideos':    sorted(videos, key=lambda x: x['views'], reverse=True),
-    })
+    }
+    _cache_set(key, data, 900)
+    return jsonify(data)
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -1539,6 +1604,9 @@ def _supermetrics_linkedin_impl():
     start, end = _date_range()
     if not SUPERMETRICS_API_KEY:
         return jsonify({'error': 'SUPERMETRICS_API_KEY manquant — ajouter la variable sur Railway'}), 503
+    key = f'linkedin:{start}:{end}'
+    cached = _cache_get(key)
+    if cached: return jsonify(cached)
 
     acc = SUPERMETRICS_LI_ACCOUNT
 
@@ -1622,7 +1690,7 @@ def _supermetrics_linkedin_impl():
          if r.get('follower_industry', '') not in ('', 'Follower industry', 'follower_industry')],
     )[:25]
 
-    return jsonify({
+    data = {
         'source':        'supermetrics',
         '_debug_errors': sm_errors if sm_errors else None,
         # ── compat fields for overview & insights ──
@@ -1653,7 +1721,9 @@ def _supermetrics_linkedin_impl():
             'countries':  countries,
             'industries': industries,
         },
-    })
+    }
+    _cache_set(key, data, 900)
+    return jsonify(data)
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -1901,12 +1971,29 @@ def get_insights():
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# Startup — préchauffage du cache Brevo Club
+# Startup — préchauffage des caches (Brevo Club + GA4 + GSC pour 30j)
 # ─────────────────────────────────────────────────────────────────────────────
 
 if BREVO_API_KEY:
     _CLUB_REFRESH_IN_PROGRESS = True
     threading.Thread(target=_brevo_club_refresh, daemon=True).start()
+
+
+def _warmup_cache():
+    end   = datetime.date.today().isoformat()
+    start = (datetime.date.today() - datetime.timedelta(days=30)).isoformat()
+    jobs = [
+        (f'ga4:{start}:{end}',     lambda: _parse_ga4_main(GA4_PROPERTY, start, end),              600),
+        (f'ga4-auto:{start}:{end}', lambda: _parse_ga4_main(GA4_PROPERTY_AUTOTOURING, start, end), 600),
+    ]
+    for cache_key, fn, ttl in jobs:
+        try:
+            data = fn()
+            _cache_set(cache_key, data, ttl)
+        except Exception:
+            pass
+
+threading.Thread(target=_warmup_cache, daemon=True).start()
 
 
 # ─────────────────────────────────────────────────────────────────────────────
