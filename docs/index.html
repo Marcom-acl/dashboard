@@ -1410,7 +1410,7 @@ async function loadAll() {
     updateStatus('bs-li',     dLI     && !dLI.error);
     updateStatus('bs-veille', dVeille && !dVeille.error);
 
-    renderOverview({dGA4, dGSC, dFB, dFBP, dBrevo, dLI, dYT, dGA4T, dVeille});
+    renderOverview({dGA4, dGSC, dFB, dFBP, dBrevo, dLI, dYT, dGA4T, dVeille, dFBPytd, dFBytd});
     renderGA4(dGA4, dGA4A, dGA4E, dGA4T);
     renderMeta(dFB, dFBP);
     renderGSC(dGSC);
@@ -1590,7 +1590,7 @@ function renderCalendar() {
 }
 
 // ── OVERVIEW ─────────────────────────────────────────────────
-function renderOverview({dGA4, dGSC, dFB, dFBP, dBrevo, dLI, dYT, dGA4T, dVeille}) {
+function renderOverview({dGA4, dGSC, dFB, dFBP, dBrevo, dLI, dYT, dGA4T, dVeille, dFBPytd, dFBytd}) {
   const el = document.getElementById('panel-overview');
   if (!el) return;
 
