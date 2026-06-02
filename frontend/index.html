@@ -2200,8 +2200,19 @@ function renderMeta(d, dP) {
   }
 
   const cpm = (d.spend && d.impressions) ? (d.spend / d.impressions * 1000) : null;
-  const topCampaigns = d.topCampaigns || [];
-  const campsBySpend = topCampaigns.slice(0, 6).map(c => ({name: (c.name||'—').substring(0,40), spend: c.spend||0}));
+  const allCampaigns  = d.topCampaigns || [];
+  const someCampaigns = allCampaigns.filter(c => /some/i.test(c.name || ''));
+  const otherCampaigns = allCampaigns.filter(c => !/some/i.test(c.name || ''));
+
+  const someImpr  = d.someImpressions  ?? someCampaigns.reduce((s,c) => s + (c.impressions||0), 0);
+  const otherImpr = d.otherImpressions ?? otherCampaigns.reduce((s,c) => s + (c.impressions||0), 0);
+  const someSpend  = someCampaigns.reduce((s,c) => s + (c.spend||0), 0);
+  const otherSpend = otherCampaigns.reduce((s,c) => s + (c.spend||0), 0);
+  const imprTotal  = d.impressions || (someImpr + otherImpr) || 1;
+  const somePct    = Math.round(someImpr  / imprTotal * 100);
+  const otherPct   = Math.round(otherImpr / imprTotal * 100);
+
+  const campsBySpend = allCampaigns.slice(0, 6).map(c => ({name: (c.name||'—').substring(0,40), spend: c.spend||0}));
 
   el.innerHTML = `
     <div class="sec-title"><h2>Meta Ads</h2><div class="line"></div>
@@ -2210,26 +2221,58 @@ function renderMeta(d, dP) {
     ${sectionAiHtml('meta')}
     <div class="kpi-grid">
       ${kpiCard({label:'Budget dépensé', value:fmtEur(d.spend), src:'var(--c-fb)', srcBg:'var(--c-fb-bg)'})}
-      ${kpiCard({label:'Impressions', value:fmtN(d.impressions), src:'var(--c-fb)', srcBg:'var(--c-fb-bg)'})}
+      ${kpiCard({label:'Impressions totales', value:fmtN(d.impressions), src:'var(--c-fb)', srcBg:'var(--c-fb-bg)'})}
       ${kpiCard({label:'CTR moyen', value:fmtPct(d.ctr), src:'var(--c-fb)', srcBg:'var(--c-fb-bg)'})}
       ${kpiCard({label:'CPC moyen', value:fmtEur(d.cpc), src:'var(--c-fb)', srcBg:'var(--c-fb-bg)'})}
       ${cpm !== null ? kpiCard({label:'CPM', value:fmtEur(cpm), src:'var(--c-fb)', srcBg:'var(--c-fb-bg)'}) : ''}
       ${kpiCard({label:'ROAS', value:(d.roas||0).toFixed(2)+'×', src:'var(--c-fb)', srcBg:'var(--c-fb-bg)'})}
     </div>
+
+    <div class="card">
+      <div class="card-head">
+        <div>
+          <div class="card-title">Répartition des impressions — SOME vs autres</div>
+          <div class="card-sub">Campagnes dont le titre contient « SOME » (Social Media) vs reste du compte</div>
+        </div>
+      </div>
+      <div class="card-body" style="padding:16px;display:flex;flex-direction:column;gap:14px">
+        <div style="display:flex;gap:12px;flex-wrap:wrap">
+          <div style="flex:1;min-width:160px;background:var(--c-fb-bg);border-radius:10px;padding:14px 16px">
+            <div style="font-size:11px;font-weight:600;color:var(--c-fb);text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px">SOME — Social Media</div>
+            <div style="font-size:24px;font-weight:700;color:var(--text)">${fmtN(someImpr)}</div>
+            <div style="font-size:12px;color:var(--muted);margin-top:2px">${somePct}% des impressions · ${fmtEur(someSpend)} dépensés · ${someCampaigns.length} camp.</div>
+          </div>
+          <div style="flex:1;min-width:160px;background:var(--surface-2);border-radius:10px;padding:14px 16px">
+            <div style="font-size:11px;font-weight:600;color:var(--muted-1);text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px">Autres campagnes</div>
+            <div style="font-size:24px;font-weight:700;color:var(--text)">${fmtN(otherImpr)}</div>
+            <div style="font-size:12px;color:var(--muted);margin-top:2px">${otherPct}% des impressions · ${fmtEur(otherSpend)} dépensés · ${otherCampaigns.length} camp.</div>
+          </div>
+        </div>
+        <div style="display:flex;border-radius:6px;overflow:hidden;height:8px;gap:2px">
+          <div style="width:${somePct}%;background:var(--c-fb);border-radius:4px 0 0 4px"></div>
+          <div style="flex:1;background:var(--border);border-radius:0 4px 4px 0"></div>
+        </div>
+      </div>
+    </div>
+
     <div class="overview-bars">
       <div class="card"><div class="card-head"><div class="card-title">Top campagnes — budget</div></div>
         <div class="card-body">${barListHtml(campsBySpend, 'var(--c-fb)', null, 'name', 'spend', fmtEur)}</div>
       </div>
       <div class="card"><div class="card-head"><div class="card-title">Détail campagnes</div></div>
         <div class="card-body flush"><div class="tbl-scroll"><table class="tbl">
-          <thead><tr><th>Campagne</th><th class="r">Budget</th><th class="r">Impr.</th><th class="r">CTR</th><th class="r">ROAS</th></tr></thead>
-          <tbody>${topCampaigns.map(c=>`<tr>
-            <td class="cn">${c.name}</td>
-            <td class="r">${fmtEur(c.spend)}</td>
-            <td class="r">${fmtN(c.impressions)}</td>
-            <td class="r">${fmtPct(c.ctr||0)}</td>
-            <td class="r">${(c.roas||0).toFixed(2)}×</td>
-          </tr>`).join('')}</tbody>
+          <thead><tr><th>Campagne</th><th></th><th class="r">Budget</th><th class="r">Impr.</th><th class="r">ROAS</th></tr></thead>
+          <tbody>${allCampaigns.map(c => {
+            const isSome = /some/i.test(c.name || '');
+            const badge = isSome ? `<span style="font-size:9px;font-weight:700;padding:1px 5px;border-radius:4px;background:var(--c-fb-bg);color:var(--c-fb);white-space:nowrap">SOME</span>` : '';
+            return `<tr style="${isSome ? 'background:rgba(24,119,242,.04)' : ''}">
+              <td class="cn">${c.name}</td>
+              <td style="white-space:nowrap">${badge}</td>
+              <td class="r">${fmtEur(c.spend)}</td>
+              <td class="r">${fmtN(c.impressions)}</td>
+              <td class="r">${(c.roas||0).toFixed(2)}×</td>
+            </tr>`;
+          }).join('')}</tbody>
         </table></div></div>
       </div>
     </div>
@@ -2442,6 +2485,40 @@ function renderObjectives({dFBP, dFB, dBrevo, dFBPytd, dFBytd}) {
   });
 }
 
+// ── YOUTUBE THEME ─────────────────────────────────────────────
+function getVideoTheme(title) {
+  const t = (title || '').toLowerCase();
+  if (/electr|ev\b|bornes?|charg|hybride|zéro.?émission|zero.?emission/.test(t)) return 'electric';
+  if (/essai|test|routier|conduit|drive|km\b|consomm|moteur|0.?100/.test(t)) return 'test';
+  if (/autotouring|magazine|édition|numéro|hors.?série/.test(t)) return 'autotouring';
+  if (/sécurité|conseil|danger|alerte|prévention|code.?route|vitesse|accident|flash|radars?|prudence/.test(t)) return 'securite';
+  if (/voyage|route|road.?trip|destination|découverte|tourisme|vacances|week.?end|escapade/.test(t)) return 'voyage';
+  if (/actu|news|actualité|nouveauté|salon|genève|paris|lux|luxembourg|annonce|présentation|officiel/.test(t)) return 'actu';
+  if (/assistance|dépannage|service|membres?|carte|avantage|club|acl\b/.test(t)) return 'acl';
+  return 'other';
+}
+
+const YT_THEME_LABELS = {
+  electric:    'Mobilité électrique',
+  test:        'Essais & Tests',
+  autotouring: 'Autotouring',
+  securite:    'Sécurité',
+  voyage:      'Voyages & Routes',
+  actu:        'Actualité',
+  acl:         'ACL & Services',
+  other:       'Autre',
+};
+const YT_THEME_COLORS = {
+  electric:    '#22c55e',
+  test:        '#3b82f6',
+  autotouring: '#f59e0b',
+  securite:    '#ef4444',
+  voyage:      '#8b5cf6',
+  actu:        '#06b6d4',
+  acl:         '#FEDB00',
+  other:       '#94a3b8',
+};
+
 // ── BREVO ─────────────────────────────────────────────────────
 function getCampaignType(name) {
   const n = (name || '').toLowerCase();
@@ -2463,7 +2540,20 @@ function renderBrevo(d) {
   const errEl = document.getElementById('errBanner');
   if (!el) return;
   if (!d || d.error) {
-    if (errEl) { errEl.textContent = d?.error || 'Erreur Brevo'; errEl.classList.add('visible'); }
+    const msg = d?.error || 'Données Brevo indisponibles';
+    if (errEl) { errEl.textContent = msg; errEl.classList.add('visible'); }
+    el.innerHTML = `
+      <div class="sec-title"><h2>Brevo — Email Marketing</h2><div class="line"></div>
+        <span class="src-pill" style="--src:var(--c-brevo);--src-bg:var(--c-brevo-bg)">Brevo</span>
+      </div>
+      <div style="margin:16px 0;padding:16px 20px;background:#FEF2F2;border:1px solid #FECACA;border-radius:10px;font-size:13px;line-height:1.7">
+        <div style="font-weight:700;color:#DC2626;margin-bottom:6px">⚠ Erreur de connexion Brevo</div>
+        <div style="color:#7F1D1D;word-break:break-word">${msg}</div>
+        <div style="margin-top:10px;color:#991B1B;font-size:12px">
+          <strong>Vérifier :</strong> la variable <code style="background:#FEE2E2;padding:1px 4px;border-radius:3px">BREVO_API_KEY</code> dans Railway est-elle valide ?
+          Tester en visitant : <a href="${API_BASE}/status" target="_blank" style="color:#DC2626">${API_BASE}/status →</a>
+        </div>
+      </div>`;
     return;
   }
   if (errEl) errEl.classList.remove('visible');
@@ -2901,6 +2991,63 @@ function renderYouTube(d) {
   if (!el) return;
   if (!d || d.error) { el.innerHTML = errState('YouTube', d?.error); return; }
 
+  const videos = d.topVideos || [];
+
+  // Enrich each video with theme
+  const videosE = videos.map(v => ({
+    ...v,
+    theme: getVideoTheme(v.title),
+  }));
+
+  // Group by theme
+  const ytGroups = {};
+  videosE.forEach(v => {
+    if (!ytGroups[v.theme]) ytGroups[v.theme] = [];
+    ytGroups[v.theme].push(v);
+  });
+
+  // Build profile per theme (sorted chronologically)
+  function ytProfile(vlist) {
+    const sorted = [...vlist].sort((a,b) => (a.date||'') < (b.date||'') ? -1 : 1);
+    const n = sorted.length;
+    if (!n) return null;
+    const avgV = sorted.reduce((s,v) => s + v.views, 0) / n;
+    const avgL = sorted.reduce((s,v) => s + v.likes, 0) / n;
+    const last3  = sorted.slice(-3);
+    const prev3  = sorted.slice(-6, -3);
+    const avgLast = last3.reduce((s,v) => s + v.views, 0) / (last3.length||1);
+    const avgPrev = prev3.length ? prev3.reduce((s,v) => s + v.views, 0) / prev3.length : avgLast;
+    const diff  = avgLast - avgPrev;
+    const trend = prev3.length === 0 ? 'new' : diff > avgPrev * 0.05 ? 'up' : diff < -avgPrev * 0.05 ? 'down' : 'stable';
+    return { n, sorted, avgV, avgL, trend, spark: sorted.map(v => v.views) };
+  }
+
+  const ytData = {};
+  Object.entries(ytGroups).forEach(([t, vl]) => { ytData[t] = ytProfile(vl); });
+
+  const trendIcon = t => t === 'up' ? '↑' : t === 'down' ? '↓' : t === 'stable' ? '→' : '★';
+  const trendCls  = t => t === 'up' ? 'tp-trend-up' : t === 'down' ? 'tp-trend-down' : 'tp-trend-stable';
+
+  const themeCardsHtml = Object.entries(ytData).filter(([,p]) => p).map(([theme, p]) => {
+    const svg = miniSparkline(p.spark, YT_THEME_COLORS[theme]);
+    return `<div class="tp-card">
+      <div class="tp-head">
+        <span class="type-badge" style="background:${YT_THEME_COLORS[theme]}18;color:${YT_THEME_COLORS[theme]};border:1px solid ${YT_THEME_COLORS[theme]}33">${YT_THEME_LABELS[theme] || theme}</span>
+        <span class="tp-trend ${trendCls(p.trend)}">${trendIcon(p.trend)}</span>
+      </div>
+      <div class="tp-metrics">
+        <div class="tp-m"><div class="tp-m-val">${fmtN(Math.round(p.avgV))}</div><div class="tp-m-lbl">vues moy.</div></div>
+        <div class="tp-m"><div class="tp-m-val">${fmtN(Math.round(p.avgL))}</div><div class="tp-m-lbl">likes moy.</div></div>
+      </div>
+      ${svg ? `<svg width="100%" height="28" viewBox="0 0 100 28" preserveAspectRatio="none" style="opacity:.75">${svg}</svg>` : ''}
+      <div class="tp-count">${p.n} vidéo${p.n > 1 ? 's' : ''}</div>
+    </div>`;
+  }).join('');
+
+  const themeLegendHtml = Object.entries(ytData).filter(([,p]) => p).map(([theme]) =>
+    `<button class="tl-type-btn active" data-yt-theme="${theme}" style="color:${YT_THEME_COLORS[theme]};border-color:${YT_THEME_COLORS[theme]};background:${YT_THEME_COLORS[theme]}18">${YT_THEME_LABELS[theme] || theme}</button>`
+  ).join('');
+
   el.innerHTML = `
     <div class="sec-title"><h2>YouTube ACL</h2><div class="line"></div>
       <span class="src-pill" style="--src:var(--c-yt);--src-bg:var(--c-yt-bg)">YouTube</span>
@@ -2912,14 +3059,146 @@ function renderYouTube(d) {
       ${kpiCard({label:'Vidéos publiées', value:fmtN(d.videoCount), src:'var(--c-yt)', srcBg:'var(--c-yt-bg)'})}
       ${kpiCard({label:'Nouvelles vidéos (période)', value:fmtN(d.periodVideos), src:'var(--c-yt)', srcBg:'var(--c-yt-bg)'})}
     </div>
-    ${d.topVideos?.length ? `<div class="card"><div class="card-head"><div class="card-title">Vidéos récentes</div></div>
+
+    ${Object.keys(ytData).length > 0 ? `
+    <div class="card">
+      <div class="card-head">
+        <div>
+          <div class="card-title">Profils par thème</div>
+          <div class="card-sub">Vues moyennes par vidéo · tendance sur les 3 dernières (↑ +5% · ↓ −5% · → stable)</div>
+        </div>
+      </div>
+      <div class="card-body" style="padding:16px">
+        <div class="tp-grid">${themeCardsHtml}</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head" style="flex-wrap:wrap;gap:8px;align-items:flex-start">
+        <div>
+          <div class="card-title">Évolution par thème</div>
+          <div class="card-sub">Vidéos classées chronologiquement par date de publication</div>
+        </div>
+        <div class="tl-controls">
+          <button class="yt-metric-btn active" data-yt-metric="views">Vues</button>
+          <button class="yt-metric-btn" data-yt-metric="likes">Likes</button>
+          <button class="yt-metric-btn" data-yt-metric="comments">Commentaires</button>
+          <div class="tl-sep"></div>
+          ${themeLegendHtml}
+        </div>
+      </div>
+      <div class="card-body" style="padding:16px;padding-top:6px">
+        <div style="position:relative;height:210px">
+          <canvas id="ytTLChart"></canvas>
+        </div>
+      </div>
+    </div>` : ''}
+
+    ${videos.length ? `<div class="card"><div class="card-head"><div class="card-title">Vidéos récentes</div></div>
       <div class="card-body flush"><div class="tbl-scroll"><table class="tbl">
-        <thead><tr><th>Titre</th><th class="r">Date</th><th class="r">Vues</th><th class="r">Likes</th><th class="r">Commentaires</th></tr></thead>
-        <tbody>${d.topVideos.map(v=>`<tr><td class="cn">${v.title}</td><td class="r">${v.date}</td><td class="r">${fmtN(v.views)}</td><td class="r">${fmtN(v.likes)}</td><td class="r">${fmtN(v.comments)}</td></tr>`).join('')}</tbody>
+        <thead><tr><th>Titre</th><th>Thème</th><th class="r">Date</th><th class="r">Vues</th><th class="r">Likes</th><th class="r">Coms</th></tr></thead>
+        <tbody>${videosE.map(v=>`<tr>
+          <td class="cn">${v.title}</td>
+          <td style="white-space:nowrap"><span style="font-size:9px;font-weight:600;padding:2px 6px;border-radius:4px;background:${YT_THEME_COLORS[v.theme]}18;color:${YT_THEME_COLORS[v.theme]};border:1px solid ${YT_THEME_COLORS[v.theme]}33">${YT_THEME_LABELS[v.theme]||v.theme}</span></td>
+          <td class="r">${v.date}</td>
+          <td class="r">${fmtN(v.views)}</td>
+          <td class="r">${fmtN(v.likes)}</td>
+          <td class="r">${fmtN(v.comments)}</td>
+        </tr>`).join('')}</tbody>
       </table></div></div></div>` : ''}`;
 
   animateCards(el);
+  if (Object.keys(ytData).length > 0) initYouTubeTimeline(ytData);
   fetchSectionInsight('youtube', {subscribers: d.subscribers, totalViews: d.totalViews, periodVideos: d.periodVideos});
+}
+
+// ── YOUTUBE TIMELINE ──────────────────────────────────────────
+function initYouTubeTimeline(ytData) {
+  if (chartInstances['ytTL']) { chartInstances['ytTL'].destroy(); delete chartInstances['ytTL']; }
+  const cvs = document.getElementById('ytTLChart');
+  if (!cvs) return;
+
+  let currentMetric = 'views';
+
+  function buildDatasets(metric) {
+    return Object.entries(ytData).filter(([,p]) => p).map(([theme, p]) => ({
+      label: YT_THEME_LABELS[theme] || theme,
+      data: p.sorted.map(v => ({
+        x: new Date(v.date).getTime(),
+        y: metric === 'views' ? v.views : metric === 'likes' ? v.likes : v.comments,
+        title: v.title,
+      })),
+      borderColor: YT_THEME_COLORS[theme],
+      backgroundColor: YT_THEME_COLORS[theme] + '18',
+      borderWidth: 2,
+      pointRadius: 4,
+      pointHoverRadius: 7,
+      tension: 0.3,
+      fill: false,
+    }));
+  }
+
+  const chart = new Chart(cvs, {
+    type: 'line',
+    data: { datasets: buildDatasets('views') },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: 'nearest', intersect: false },
+      scales: {
+        x: {
+          type: 'linear',
+          ticks: {
+            maxTicksLimit: 8,
+            font: { size: 10, family: "'Albert Sans',sans-serif" },
+            callback: v => new Date(v).toLocaleDateString('fr-BE', { month: 'short', year: '2-digit' }),
+          },
+          grid: { color: 'rgba(0,0,0,.04)' },
+        },
+        y: {
+          beginAtZero: true,
+          ticks: {
+            font: { size: 10, family: "'Albert Sans',sans-serif" },
+            callback: v => fmtN(v),
+          },
+          grid: { color: 'rgba(0,0,0,.04)' },
+        },
+      },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          displayColors: true,
+          callbacks: {
+            title: items => items[0]?.raw?.title || '',
+            label: item => ` ${item.dataset.label} : ${fmtN(item.parsed.y)}`,
+          },
+        },
+      },
+    },
+  });
+  chartInstances['ytTL'] = chart;
+
+  const metricBtns = document.querySelectorAll('.yt-metric-btn');
+  const themeBtns  = document.querySelectorAll('[data-yt-theme]');
+
+  metricBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      metricBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentMetric = btn.dataset.ytMetric;
+      chart.data.datasets = buildDatasets(currentMetric);
+      themeBtns.forEach((b, i) => chart.setDatasetVisibility(i, b.classList.contains('active')));
+      chart.update();
+    });
+  });
+
+  themeBtns.forEach((btn, i) => {
+    btn.addEventListener('click', () => {
+      btn.classList.toggle('active');
+      chart.setDatasetVisibility(i, btn.classList.contains('active'));
+      chart.update();
+    });
+  });
 }
 
 // ── LINKEDIN ──────────────────────────────────────────────────

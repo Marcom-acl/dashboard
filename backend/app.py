@@ -986,16 +986,21 @@ def fb_ads():
     revenue = totals['conversions']
     roas = round(revenue / spend, 2) if spend else 0
 
+    some_impr  = sum(c['impressions'] for c in campaigns if 'some' in c['name'].lower())
+    other_impr = sum(c['impressions'] for c in campaigns if 'some' not in c['name'].lower())
+
     data = {
-        'spend':       spend,
-        'impressions': totals['impressions'],
+        'spend':            spend,
+        'impressions':      totals['impressions'],
+        'someImpressions':  some_impr,
+        'otherImpressions': other_impr,
         'clicks':      totals['clicks'],
         'conversions': round(revenue, 2),
         'ctr':         round(totals['ctr'], 2),
         'cpc':         round(totals['cpc'], 2),
         'cpm':         round(totals['cpm'], 2),
         'roas':        roas,
-        'topCampaigns': sorted(campaigns, key=lambda x: x['spend'], reverse=True)[:10],
+        'topCampaigns': sorted(campaigns, key=lambda x: x['spend'], reverse=True),
     }
     _cache_set(key, data, 600)
     return jsonify(data)
@@ -1097,77 +1102,103 @@ def brevo():
     key = f'brevo:{start}:{end}'
     cached = _cache_get(key)
     if cached: return jsonify(cached)
-    headers = {'api-key': BREVO_API_KEY, 'Accept': 'application/json'}
-    BREVO_BASE = 'https://api.brevo.com/v3'
 
-    # Fetch all sent campaigns for the selected period — paginate (Brevo max 50/page)
-    campaigns = []
-    offset = 0
-    while True:
-        rc = _get(f'{BREVO_BASE}/emailCampaigns', headers=headers, params={
-            'status': 'sent', 'limit': 50, 'offset': offset,
-            'sort': 'desc', 'statistics': 'globalStats',
-            'startDate': start, 'endDate': end,
-        })
-        if not rc.ok:
-            break
-        batch = rc.json().get('campaigns', [])
-        for c in batch:
-            stats = c.get('statistics', {})
-            gs = stats.get('globalStats', {})
-            # Brevo v3 uses 'uniqueViews' for opens — normalise to 'uniqueOpens'
-            if 'uniqueOpens' not in gs and 'uniqueViews' in gs:
-                gs['uniqueOpens'] = gs['uniqueViews']
-            campaigns.append({
-                'id':         c.get('id'),
-                'name':       c.get('name'),
-                'sentDate':   c.get('sentDate'),
-                'statistics': stats,
+    try:
+        headers = {'api-key': BREVO_API_KEY, 'Accept': 'application/json'}
+        BREVO_BASE = 'https://api.brevo.com/v3'
+
+        # Verify API key is valid before proceeding
+        rcheck = _get(f'{BREVO_BASE}/account', headers=headers)
+        if not rcheck.ok:
+            try:
+                detail = rcheck.json().get('message', rcheck.text[:200])
+            except Exception:
+                detail = rcheck.text[:200]
+            return jsonify({'error': f'Brevo API inaccessible (HTTP {rcheck.status_code}): {detail}'})
+
+        # Fetch all sent campaigns for the selected period — paginate (Brevo max 50/page)
+        campaigns = []
+        offset = 0
+        while True:
+            rc = _get(f'{BREVO_BASE}/emailCampaigns', headers=headers, params={
+                'status': 'sent', 'limit': 50, 'offset': offset,
+                'sort': 'desc', 'statistics': 'globalStats',
+                'startDate': start, 'endDate': end,
             })
-        if len(batch) < 50:
-            break
-        offset += 50
+            if not rc.ok:
+                break
+            try:
+                batch = rc.json().get('campaigns', [])
+            except Exception:
+                break
+            for c in batch:
+                stats = c.get('statistics', {})
+                gs = stats.get('globalStats', {})
+                # Brevo v3 uses 'uniqueViews' for opens — normalise to 'uniqueOpens'
+                if 'uniqueOpens' not in gs and 'uniqueViews' in gs:
+                    gs['uniqueOpens'] = gs['uniqueViews']
+                campaigns.append({
+                    'id':         c.get('id'),
+                    'name':       c.get('name'),
+                    'sentDate':   c.get('sentDate'),
+                    'statistics': stats,
+                })
+            if len(batch) < 50:
+                break
+            offset += 50
 
-    # Contact stats — liste #64 (membres ACL)
-    LIST_ID = 64
-    rl = _get(f'{BREVO_BASE}/contacts/lists/{LIST_ID}', headers=headers)
-    list_data = rl.json() if rl.ok else {}
-    subscribed_64  = list_data.get('totalSubscribers', 0)
-    blacklisted_64 = list_data.get('totalBlacklisted', 0)
-    total_64       = subscribed_64 + blacklisted_64
+        # Contact stats — liste #64 (membres ACL)
+        LIST_ID = 64
+        rl = _get(f'{BREVO_BASE}/contacts/lists/{LIST_ID}', headers=headers)
+        try:
+            list_data = rl.json() if rl.ok else {}
+        except Exception:
+            list_data = {}
+        subscribed_64  = list_data.get('totalSubscribers', 0)
+        blacklisted_64 = list_data.get('totalBlacklisted', 0)
+        total_64       = subscribed_64 + blacklisted_64
 
-    # Hard bounces — 6 derniers mois via smtp/statistics/globalStats
-    today_str       = datetime.datetime.utcnow().strftime('%Y-%m-%d')
-    six_months_ago  = (datetime.datetime.utcnow() - datetime.timedelta(days=180)).strftime('%Y-%m-%d')
-    rh = _get(f'{BREVO_BASE}/smtp/statistics/globalStats', headers=headers,
-              params={'startDate': six_months_ago, 'endDate': today_str})
-    hard_bounces = rh.json().get('hardBounces', 0) if rh.ok else 0
+        # Hard bounces — 6 derniers mois via smtp/statistics/globalStats
+        today_str       = datetime.datetime.utcnow().strftime('%Y-%m-%d')
+        six_months_ago  = (datetime.datetime.utcnow() - datetime.timedelta(days=180)).strftime('%Y-%m-%d')
+        rh = _get(f'{BREVO_BASE}/smtp/statistics/globalStats', headers=headers,
+                  params={'startDate': six_months_ago, 'endDate': today_str})
+        try:
+            hard_bounces = rh.json().get('hardBounces', 0) if rh.ok else 0
+        except Exception:
+            hard_bounces = 0
 
-    # Désinscriptions totales — cumul depuis 2015
-    ru = _get(f'{BREVO_BASE}/smtp/statistics/globalStats', headers=headers,
-              params={'startDate': '2015-01-01', 'endDate': today_str})
-    global_unsubscribed = ru.json().get('unsubscriptions', 0) if ru.ok else 0
+        # Désinscriptions totales — cumul depuis 2015
+        ru = _get(f'{BREVO_BASE}/smtp/statistics/globalStats', headers=headers,
+                  params={'startDate': '2015-01-01', 'endDate': today_str})
+        try:
+            global_unsubscribed = ru.json().get('unsubscriptions', 0) if ru.ok else 0
+        except Exception:
+            global_unsubscribed = 0
 
-    contact_stats = {
-        'total':        total_64,
-        'subscribed':   subscribed_64,
-        'blacklisted':  blacklisted_64,
-        'hardBounces':  hard_bounces,
-        'unsubscribed': global_unsubscribed,
-    }
+        contact_stats = {
+            'total':        total_64,
+            'subscribed':   subscribed_64,
+            'blacklisted':  blacklisted_64,
+            'hardBounces':  hard_bounces,
+            'unsubscribed': global_unsubscribed,
+        }
 
-    # Compute avgOpenRate from campaigns
-    total_dlvr  = sum(c['statistics'].get('globalStats', {}).get('delivered', 0) for c in campaigns)
-    total_opens = sum(
-        c['statistics'].get('globalStats', {}).get('uniqueOpens', 0)
-        or c['statistics'].get('globalStats', {}).get('uniqueViews', 0)
-        for c in campaigns
-    )
-    avg_open_rate = round(total_opens / total_dlvr * 100, 1) if total_dlvr else 0
+        # Compute avgOpenRate from campaigns
+        total_dlvr  = sum(c['statistics'].get('globalStats', {}).get('delivered', 0) for c in campaigns)
+        total_opens = sum(
+            c['statistics'].get('globalStats', {}).get('uniqueOpens', 0)
+            or c['statistics'].get('globalStats', {}).get('uniqueViews', 0)
+            for c in campaigns
+        )
+        avg_open_rate = round(total_opens / total_dlvr * 100, 1) if total_dlvr else 0
 
-    data = {'campaigns': campaigns, 'contactStats': contact_stats, 'avgOpenRate': avg_open_rate}
-    _cache_set(key, data, 600)
-    return jsonify(data)
+        data = {'campaigns': campaigns, 'contactStats': contact_stats, 'avgOpenRate': avg_open_rate}
+        _cache_set(key, data, 600)
+        return jsonify(data)
+
+    except Exception as e:
+        return jsonify({'error': f'Erreur interne Brevo: {str(e)}'})
 
 
 # ─────────────────────────────────────────────────────────────────────────────
