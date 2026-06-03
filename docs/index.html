@@ -700,6 +700,7 @@
     /* ─── TYPE BADGES (Brevo) ─────────────────────────────────── */
     .type-badge{display:inline-block;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;padding:2px 6px;border-radius:10px;white-space:nowrap;}
     .type-nl{background:#EEF2FF;color:#3730A3;}
+    .type-club_nl{background:#FFFBEB;color:#B45309;}
     .type-enq{background:#E6F8F3;color:#0B996E;}
     .type-rel{background:#FEF2F2;color:#B91C1C;}
     .type-other{background:#F3F4F6;color:#6B7280;}
@@ -997,6 +998,7 @@
     [data-theme="dark"] .fb-page-stat-lbl{color:#666;}
     [data-theme="dark"] .fb-page-stats{border-top-color:#1a1a1a;}
     [data-theme="dark"] .type-nl{background:#1a1d4a;color:#818cf8;}
+    [data-theme="dark"] .type-club_nl{background:#1c1200;color:#fbbf24;}
     [data-theme="dark"] .type-enq{background:#0a2018;color:#34d399;}
     [data-theme="dark"] .type-rel{background:#2a0808;color:#f87171;}
     [data-theme="dark"] .type-other{background:#1a1a1a;color:#9ca3af;}
@@ -2522,6 +2524,7 @@ const YT_THEME_COLORS = {
 // ── BREVO ─────────────────────────────────────────────────────
 function getCampaignType(name) {
   const n = (name || '').toLowerCase();
+  if (/club/.test(n) && /newsletter|nl\b/.test(n)) return 'club_nl';
   if (/newsletter|nl\b/.test(n)) return 'nl';
   if (/enqu[êe]te|survey/.test(n)) return 'enq';
   if (/relance|rappel/.test(n)) return 'rel';
@@ -2615,7 +2618,7 @@ function renderBrevo(d) {
   const sparkBrevo = campsE.slice(0, 10).reverse().map(c => c.openRate);
 
   const typeBadgeHtml = type => {
-    const labels = {nl:'Newsletter', enq:'Enquête', rel:'Relance', other:'Autre'};
+    const labels = {nl:'Newsletter', club_nl:'Club NL', enq:'Enquête', rel:'Relance', other:'Autre'};
     return `<span class="type-badge type-${type}">${labels[type] || type}</span>`;
   };
   const scoreCls = s => s >= 65 ? 'score-good' : s >= 40 ? 'score-warn' : 'score-bad';
@@ -2626,8 +2629,8 @@ function renderBrevo(d) {
   });
 
   // ── Profils par type ────────────────────────────────────────
-  const TP_LABELS = {nl:'Newsletter', enq:'Enquête', rel:'Relance', other:'Autre'};
-  const TP_COLORS = {nl:'#0B996E', enq:'#0A66C2', rel:'#F97316', other:'#7A7770'};
+  const TP_LABELS = {nl:'Newsletter', club_nl:'Club NL', enq:'Enquête', rel:'Relance', other:'Autre'};
+  const TP_COLORS = {nl:'#0B996E', club_nl:'#D97706', enq:'#0A66C2', rel:'#F97316', other:'#7A7770'};
 
   const tpGroups = {};
   campsE.forEach(c => {
