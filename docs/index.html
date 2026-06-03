@@ -2535,12 +2535,13 @@ function getCampaignType(name) {
   if (/newsletter|nl\b/.test(n)) {
     const core = n
       .replace(/newsletter|nl\b/g, '')
+      .replace(/\bacl\b|\bmarcom\b/g, '')
       .replace(/\b(fr|de|en|lu)\b/g, '')
       .replace(/\b(jan(?:vier)?|f[eé]v(?:rier)?|mars?|avr(?:il)?|mai|juin|juil(?:let)?|ao[uû]t|sept?(?:embre)?|oct(?:obre)?|nov(?:embre)?|d[eé]c(?:embre)?|januar|februar|m[äa]rz|oktober|dezember)\b/g, '')
       .replace(/\b20\d{2}\b/g, '')
       .replace(/[\s\-_/|,;.#\d]+/g, '')
       .trim();
-    return core.length <= 1 ? 'nl_gen' : 'nl_theme';
+    return core.length <= 3 ? 'nl_gen' : 'nl_theme';
   }
   if (/enqu[êe]te|survey/.test(n)) return 'enq';
   if (/relance|rappel/.test(n)) return 'rel';
@@ -2870,59 +2871,66 @@ function initBrevoTimeline(tpData, TP_COLORS, TP_LABELS) {
     }));
   }
 
+  const card       = cvs.closest('.card') || document;
+  const metricBtns = card.querySelectorAll('.tl-metric-btn');
+  const typeBtns   = card.querySelectorAll('[data-tl-type]');
+  const langBtns   = card.querySelectorAll('[data-tl-lang]');
+
   function refreshChart() {
     chart.data.datasets = buildDatasets(currentMetric, activeLangs);
     typeBtns.forEach((b, i) => chart.setDatasetVisibility(i, b.classList.contains('active')));
     chart.update();
   }
 
-  const chart = new Chart(cvs, {
-    type: 'line',
-    data: { datasets: buildDatasets('openRate', activeLangs) },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      interaction: { mode: 'nearest', intersect: false },
-      scales: {
-        x: {
-          type: 'linear',
-          ticks: {
-            maxTicksLimit: 8,
-            font: { size: 10, family: "'Albert Sans',sans-serif" },
-            callback: v => new Date(v).toLocaleDateString('fr-BE', { month: 'short', year: '2-digit' }),
-          },
-          grid: { color: 'rgba(0,0,0,.04)' },
-        },
-        y: {
-          beginAtZero: false,
-          ticks: {
-            font: { size: 10, family: "'Albert Sans',sans-serif" },
-            callback: v => v.toFixed(0) + '%',
-          },
-          grid: { color: 'rgba(0,0,0,.04)' },
-        },
-      },
-      plugins: {
-        legend: { display: false },
-        tooltip: {
-          displayColors: true,
-          callbacks: {
-            title: items => {
-              const raw = items[0]?.raw;
-              const langTag = raw?.lang && raw.lang !== 'fr' ? ` [${raw.lang.toUpperCase()}]` : '';
-              return (raw?.name || '') + langTag;
+  let chart;
+  try {
+    chart = new Chart(cvs, {
+      type: 'line',
+      data: { datasets: buildDatasets('openRate', activeLangs) },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: { mode: 'nearest', intersect: false },
+        scales: {
+          x: {
+            type: 'linear',
+            ticks: {
+              maxTicksLimit: 8,
+              font: { size: 10, family: "'Albert Sans',sans-serif" },
+              callback: v => new Date(v).toLocaleDateString('fr-BE', { month: 'short', year: '2-digit' }),
             },
-            label: item => ` ${item.dataset.label} : ${item.parsed.y.toFixed(1)}%`,
+            grid: { color: 'rgba(0,0,0,.04)' },
+          },
+          y: {
+            beginAtZero: true,
+            ticks: {
+              font: { size: 10, family: "'Albert Sans',sans-serif" },
+              callback: v => (typeof v === 'number' ? v.toFixed(0) : v) + '%',
+            },
+            grid: { color: 'rgba(0,0,0,.04)' },
+          },
+        },
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            displayColors: true,
+            callbacks: {
+              title: items => {
+                const raw = items[0]?.raw;
+                const langTag = raw?.lang && raw.lang !== 'fr' ? ` [${raw.lang.toUpperCase()}]` : '';
+                return (raw?.name || '') + langTag;
+              },
+              label: item => ` ${item.dataset.label} : ${item.parsed.y.toFixed(1)}%`,
+            },
           },
         },
       },
-    },
-  });
+    });
+  } catch(e) {
+    cvs.parentElement.innerHTML = `<div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--bad);font-size:12px;gap:6px">⚠ Erreur graphique : ${e.message}</div>`;
+    return;
+  }
   chartInstances['brevoTL'] = chart;
-
-  const metricBtns = document.querySelectorAll('.tl-metric-btn');
-  const typeBtns   = document.querySelectorAll('[data-tl-type]');
-  const langBtns   = document.querySelectorAll('[data-tl-lang]');
 
   metricBtns.forEach(btn => {
     btn.addEventListener('click', () => {
