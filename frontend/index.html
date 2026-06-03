@@ -700,6 +700,8 @@
     /* ─── TYPE BADGES (Brevo) ─────────────────────────────────── */
     .type-badge{display:inline-block;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;padding:2px 6px;border-radius:10px;white-space:nowrap;}
     .type-nl{background:#EEF2FF;color:#3730A3;}
+    .type-nl_gen{background:#EEF2FF;color:#3730A3;}
+    .type-nl_theme{background:#F5F3FF;color:#5B21B6;}
     .type-club_nl{background:#FFFBEB;color:#B45309;}
     .type-enq{background:#E6F8F3;color:#0B996E;}
     .type-rel{background:#FEF2F2;color:#B91C1C;}
@@ -720,7 +722,9 @@
     .tp-count{font-size:10px;color:var(--muted-2);}
 
     /* ─── TIMELINE ────────────────────────────────────────────── */
-    .tl-controls{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-left:auto;}
+    .tl-controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-left:auto;}
+    .tl-grp{display:inline-flex;gap:5px;align-items:center;flex-wrap:wrap;background:rgba(0,0,0,.025);border:1px solid var(--border);border-radius:8px;padding:5px 10px;}
+    .tl-grp-lbl{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);padding-right:6px;border-right:1px solid var(--border);margin-right:2px;white-space:nowrap;}
     .tl-metric-btn{border:none;padding:4px 10px;border-radius:20px;font-size:10.5px;font-weight:700;cursor:pointer;transition:all .15s;font-family:inherit;background:var(--border);color:var(--muted);}
     .tl-metric-btn.active{background:var(--n);color:#fff;}
     .tl-sep{width:1px;height:16px;background:var(--border);margin:0 2px;flex-shrink:0;}
@@ -998,10 +1002,13 @@
     [data-theme="dark"] .fb-page-stat-lbl{color:#666;}
     [data-theme="dark"] .fb-page-stats{border-top-color:#1a1a1a;}
     [data-theme="dark"] .type-nl{background:#1a1d4a;color:#818cf8;}
+    [data-theme="dark"] .type-nl_gen{background:#1a1d4a;color:#818cf8;}
+    [data-theme="dark"] .type-nl_theme{background:#1e0949;color:#a78bfa;}
     [data-theme="dark"] .type-club_nl{background:#1c1200;color:#fbbf24;}
     [data-theme="dark"] .type-enq{background:#0a2018;color:#34d399;}
     [data-theme="dark"] .type-rel{background:#2a0808;color:#f87171;}
     [data-theme="dark"] .type-other{background:#1a1a1a;color:#9ca3af;}
+    [data-theme="dark"] .tl-grp{background:rgba(255,255,255,.04);}
     [data-theme="dark"] .no-key{background:#111;border-color:#1e1e1e;color:#aaa;}
     [data-theme="dark"] .no-key a{color:#FEDB00;}
     [data-theme="dark"] .pw-overlay{background:#0A0A0A;}
@@ -2525,7 +2532,17 @@ const YT_THEME_COLORS = {
 function getCampaignType(name) {
   const n = (name || '').toLowerCase();
   if (/club/.test(n) && /newsletter|nl\b/.test(n)) return 'club_nl';
-  if (/newsletter|nl\b/.test(n)) return 'nl';
+  if (/newsletter|nl\b/.test(n)) {
+    // Retire les tokens non-thématiques ; si rien de substantiel ne reste → newsletter générale
+    const core = n
+      .replace(/newsletter|nl\b/g, '')
+      .replace(/\b(fr|de|en|lu)\b/g, '')
+      .replace(/\b(jan(?:vier)?|f[eé]v(?:rier)?|mars?|avr(?:il)?|mai|juin|juil(?:let)?|ao[uû]t|sept?(?:embre)?|oct(?:obre)?|nov(?:embre)?|d[eé]c(?:embre)?|januar|februar|m[äa]rz|oktober|dezember)\b/g, '')
+      .replace(/\b20\d{2}\b/g, '')
+      .replace(/[\s\-_/|,;.#\d]+/g, '')
+      .trim();
+    return core.length <= 1 ? 'nl_gen' : 'nl_theme';
+  }
   if (/enqu[êe]te|survey/.test(n)) return 'enq';
   if (/relance|rappel/.test(n)) return 'rel';
   return 'other';
@@ -2535,7 +2552,8 @@ function getCampaignLang(name) {
   const n = (name || '').toUpperCase();
   if (/\bDE\b|_DE[_\s\-\[\(]|[_\s\-\]\)]DE\b/.test(n)) return 'de';
   if (/\bEN\b|_EN[_\s\-\[\(]|[_\s\-\]\)]EN\b/.test(n)) return 'en';
-  return 'fr';
+  if (/\bFR\b|_FR[_\s\-\[\(]|[_\s\-\]\)]FR\b/.test(n)) return 'fr';
+  return 'nd';
 }
 
 function renderBrevo(d) {
@@ -2618,7 +2636,7 @@ function renderBrevo(d) {
   const sparkBrevo = campsE.slice(0, 10).reverse().map(c => c.openRate);
 
   const typeBadgeHtml = type => {
-    const labels = {nl:'Newsletter', club_nl:'Club NL', enq:'Enquête', rel:'Relance', other:'Autre'};
+    const labels = {nl_gen:'NL Générale', nl_theme:'NL Thématique', club_nl:'Club NL', enq:'Enquête', rel:'Relance', other:'Autre'};
     return `<span class="type-badge type-${type}">${labels[type] || type}</span>`;
   };
   const scoreCls = s => s >= 65 ? 'score-good' : s >= 40 ? 'score-warn' : 'score-bad';
@@ -2629,8 +2647,8 @@ function renderBrevo(d) {
   });
 
   // ── Profils par type ────────────────────────────────────────
-  const TP_LABELS = {nl:'Newsletter', club_nl:'Club NL', enq:'Enquête', rel:'Relance', other:'Autre'};
-  const TP_COLORS = {nl:'#0B996E', club_nl:'#D97706', enq:'#0A66C2', rel:'#F97316', other:'#7A7770'};
+  const TP_LABELS = {nl_gen:'NL Générale', nl_theme:'NL Thématique', club_nl:'Club NL', enq:'Enquête', rel:'Relance', other:'Autre'};
+  const TP_COLORS = {nl_gen:'#4F46E5', nl_theme:'#7C3AED', club_nl:'#D97706', enq:'#0A66C2', rel:'#F97316', other:'#7A7770'};
 
   const tpGroups = {};
   campsE.forEach(c => {
@@ -2642,9 +2660,13 @@ function renderBrevo(d) {
     const sorted = [...clist].sort((a,b) => new Date(a.sentDate||0) - new Date(b.sentDate||0));
     const n = sorted.length;
     if (!n) return null;
-    const avgO    = sorted.reduce((s,c) => s + c.openRate,  0) / n;
-    const avgC    = sorted.reduce((s,c) => s + c.clickRate, 0) / n;
-    const avgCTOR = sorted.reduce((s,c) => s + c.ctor,      0) / n;
+    // Pondération par volume livré — plus honnête qu'une moyenne arithmétique
+    const totalDlvr  = sorted.reduce((s,c) => s + c.dlvr,  0) || 1;
+    const totalOpens = sorted.reduce((s,c) => s + c.opens, 0) || 1;
+    const avgO    = sorted.reduce((s,c) => s + c.opens, 0) / totalDlvr * 100;
+    const avgC    = sorted.reduce((s,c) => s + c.clics, 0) / totalDlvr * 100;
+    const avgCTOR = sorted.reduce((s,c) => s + c.clics, 0) / totalOpens * 100;
+    // Tendance : moyenne simple sur les 3 derniers envois (détection de direction)
     const last3   = sorted.slice(-3);
     const prev3   = sorted.slice(-6, -3);
     const avgLast = last3.reduce((s,c) => s + c.openRate, 0) / (last3.length||1);
@@ -2724,7 +2746,7 @@ function renderBrevo(d) {
       <div class="card-head">
         <div>
           <div class="card-title">Profils par thématique</div>
-          <div class="card-sub">Taux d'ouverture moyen · tendance sur les 3 dernières campagnes (↑ +2 pts · ↓ −2 pts · → stable)</div>
+          <div class="card-sub">Taux pondéré par volume d'envoi · tendance sur les 3 derniers envois (↑ +2 pts · ↓ −2 pts · → stable)</div>
         </div>
       </div>
       <div class="card-body" style="padding:16px">
@@ -2739,16 +2761,23 @@ function renderBrevo(d) {
           <div class="card-sub">Taux d'ouverture de chaque envoi, classés chronologiquement</div>
         </div>
         <div class="tl-controls">
-          <button class="tl-metric-btn active" data-tl-metric="openRate">Ouverture %</button>
-          <button class="tl-metric-btn" data-tl-metric="clickRate">Clic %</button>
-          <button class="tl-metric-btn" data-tl-metric="ctor">CTOR %</button>
-          <div class="tl-sep"></div>
-          ${tpTimelineLegend}
-          <div class="tl-sep"></div>
-          <button class="tl-lang-btn active" data-tl-lang="all">Toutes</button>
-          <button class="tl-lang-btn" data-tl-lang="fr">FR</button>
-          <button class="tl-lang-btn" data-tl-lang="de">DE</button>
-          <button class="tl-lang-btn" data-tl-lang="en">EN</button>
+          <div class="tl-grp">
+            <span class="tl-grp-lbl">Métrique</span>
+            <button class="tl-metric-btn active" data-tl-metric="openRate">Ouv. %</button>
+            <button class="tl-metric-btn" data-tl-metric="clickRate">Clic %</button>
+            <button class="tl-metric-btn" data-tl-metric="ctor">CTOR %</button>
+          </div>
+          <div class="tl-grp">
+            <span class="tl-grp-lbl">Type</span>
+            ${tpTimelineLegend}
+          </div>
+          <div class="tl-grp">
+            <span class="tl-grp-lbl">Langue</span>
+            <button class="tl-lang-btn active" data-tl-lang="fr">FR</button>
+            <button class="tl-lang-btn active" data-tl-lang="de">DE</button>
+            <button class="tl-lang-btn active" data-tl-lang="en">EN</button>
+            <button class="tl-lang-btn active" data-tl-lang="nd" title="Langue non détectée dans le nom de la campagne">ND</button>
+          </div>
         </div>
       </div>
       <div class="card-body" style="padding:16px;padding-top:6px">
@@ -2820,14 +2849,14 @@ function initBrevoTimeline(tpData, TP_COLORS, TP_LABELS) {
   if (!cvs) return;
 
   let currentMetric = 'openRate';
-  let currentLang   = 'all';
+  let activeLangs   = new Set(['fr', 'de', 'en', 'nd']);
 
-  function buildDatasets(metric, lang) {
+  function buildDatasets(metric, langs) {
     return Object.entries(tpData).filter(([,p]) => p).map(([type, p]) => ({
       label: TP_LABELS[type],
       data: p.sorted
         .filter(c => c.sentDate)
-        .filter(c => lang === 'all' || c.lang === lang)
+        .filter(c => langs.has(c.lang))
         .map(c => ({
           x: new Date(c.sentDate).getTime(),
           y: metric === 'openRate' ? c.openRate : metric === 'clickRate' ? c.clickRate : c.ctor,
@@ -2845,7 +2874,7 @@ function initBrevoTimeline(tpData, TP_COLORS, TP_LABELS) {
   }
 
   function refreshChart() {
-    chart.data.datasets = buildDatasets(currentMetric, currentLang);
+    chart.data.datasets = buildDatasets(currentMetric, activeLangs);
     typeBtns.forEach((b, i) => chart.setDatasetVisibility(i, b.classList.contains('active')));
     chart.update();
   }
@@ -2917,9 +2946,10 @@ function initBrevoTimeline(tpData, TP_COLORS, TP_LABELS) {
 
   langBtns.forEach(btn => {
     btn.addEventListener('click', () => {
-      langBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      currentLang = btn.dataset.tlLang;
+      btn.classList.toggle('active');
+      const lang = btn.dataset.tlLang;
+      if (btn.classList.contains('active')) activeLangs.add(lang);
+      else activeLangs.delete(lang);
       refreshChart();
     });
   });
