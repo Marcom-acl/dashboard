@@ -1099,7 +1099,7 @@ def brevo():
         return jsonify({'error': 'BREVO_API_KEY manquante'})
 
     start, end = _date_range()
-    key = f'brevo:{start}:{end}'
+    key = 'brevo:recent'  # indépendant de la période — les campagnes sont triées par date d'envoi
     cached = _cache_get(key)
     if cached: return jsonify(cached)
 
@@ -1116,14 +1116,16 @@ def brevo():
                 detail = rcheck.text[:200]
             return jsonify({'error': f'Brevo API inaccessible (HTTP {rcheck.status_code}): {detail}'})
 
-        # Fetch all sent campaigns for the selected period — paginate (Brevo max 50/page)
+        # Fetch last 200 sent campaigns — sans filtre de date (Brevo filtre par date de
+        # création, pas d'envoi, ce qui cause des résultats vides si les campagnes ont
+        # été créées en dehors de la fenêtre sélectionnée)
+        MAX_CAMPAIGNS = 200
         campaigns = []
         offset = 0
-        while True:
+        while len(campaigns) < MAX_CAMPAIGNS:
             rc = _get(f'{BREVO_BASE}/emailCampaigns', headers=headers, params={
                 'status': 'sent', 'limit': 50, 'offset': offset,
                 'sort': 'desc', 'statistics': 'globalStats',
-                'startDate': start, 'endDate': end,
             })
             if not rc.ok:
                 break
