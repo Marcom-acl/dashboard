@@ -2927,6 +2927,16 @@ function renderClub(d) {
   const el = document.getElementById('panel-club');
   if (!el) return;
   if (!d || d.error) { el.innerHTML = errState('ACL Club', d?.error); return; }
+  if (d._loading) {
+    el.innerHTML = `<div class="sec-title"><h2>ACL Club — Leads par offre</h2><div class="line"></div>
+      <span class="src-pill" style="--src:var(--c-club);--src-bg:var(--c-club-bg)">Brevo</span></div>
+      <div style="padding:32px;text-align:center;color:var(--muted)">
+        <div style="font-size:22px;margin-bottom:8px">⏳</div>
+        <div style="font-weight:600;margin-bottom:4px;color:var(--text)">Calcul en cours…</div>
+        <div style="font-size:12px">${d.message || 'Les données Club sont en cours de calcul (60–120 s). Actualisez le dashboard dans un moment.'}</div>
+      </div>`;
+    return;
+  }
 
   const offers     = d.offers      || [];
   const leadsMonth = d.leadsMonth  || 0;

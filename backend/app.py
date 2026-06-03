@@ -1215,12 +1215,16 @@ def _brevo_club_refresh():
     """Calcule les données Brevo Club et met à jour le cache. Toujours exécuté en thread daemon."""
     global _CLUB_REFRESH_IN_PROGRESS
     try:
-        data = _brevo_club_compute()
+        with app.app_context():
+            data = _brevo_club_compute()
         with _CLUB_CACHE_LOCK:
             _CLUB_CACHE['data'] = data
             _CLUB_CACHE['ts']   = time.time()
-    except Exception:
-        pass
+    except Exception as e:
+        # Stocker l'erreur en cache avec TTL court (2 min) pour forcer un retry rapide
+        with _CLUB_CACHE_LOCK:
+            _CLUB_CACHE['data'] = {'error': f'Calcul Brevo Club échoué : {e}', '_computeFailed': True}
+            _CLUB_CACHE['ts']   = time.time() - (_CLUB_CACHE_TTL - 120)
     finally:
         _CLUB_REFRESH_IN_PROGRESS = False
 
@@ -1439,7 +1443,7 @@ def _brevo_club_compute():
         for offer, d in offers_data.items()
     ], key=lambda x: x['leadsYtd'], reverse=True)
 
-    return jsonify({
+    return {
         'offers':       offers_list,
         'leadsMonth':   len(leads_month_g),
         'leadsYtd':     len(leads_ytd_g),
@@ -1460,7 +1464,7 @@ def _brevo_club_compute():
             'activeTemplates':  len(active_tids),
             'totalOpenEvents':  sum(len(v) for v in template_events.values()),
         },
-    })
+    }
 
 
 # ─────────────────────────────────────────────────────────────────────────────
