@@ -725,6 +725,12 @@
     .tl-controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-left:auto;}
     .tl-grp{display:inline-flex;gap:5px;align-items:center;flex-wrap:wrap;background:rgba(0,0,0,.025);border:1px solid var(--border);border-radius:8px;padding:5px 10px;}
     .tl-grp-lbl{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);padding-right:6px;border-right:1px solid var(--border);margin-right:2px;white-space:nowrap;}
+    .tl-lang-legend{display:flex;gap:14px;flex-wrap:wrap;padding-top:8px;}
+    .tl-ll-item{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--muted);font-weight:700;}
+    .tl-ll-line{display:inline-block;width:22px;height:2px;background:var(--muted);}
+    .tl-ll-dashed{background:repeating-linear-gradient(90deg,var(--muted) 0,var(--muted) 6px,transparent 6px,transparent 9px);}
+    .tl-ll-dotted{background:repeating-linear-gradient(90deg,var(--muted) 0,var(--muted) 2px,transparent 2px,transparent 4px);}
+    .tl-ll-dashdot{background:repeating-linear-gradient(90deg,var(--muted) 0,var(--muted) 8px,transparent 8px,transparent 11px,var(--muted) 11px,var(--muted) 13px,transparent 13px,transparent 16px);}
     .tl-metric-btn{border:none;padding:4px 10px;border-radius:20px;font-size:10.5px;font-weight:700;cursor:pointer;transition:all .15s;font-family:inherit;background:var(--border);color:var(--muted);}
     .tl-metric-btn.active{background:var(--n);color:#fff;}
     .tl-sep{width:1px;height:16px;background:var(--border);margin:0 2px;flex-shrink:0;}
@@ -2786,6 +2792,12 @@ function renderBrevo(d) {
         <div style="position:relative;height:210px">
           <canvas id="brevoTLChart"></canvas>
         </div>
+        <div class="tl-lang-legend">
+          <span class="tl-ll-item"><span class="tl-ll-line"></span>FR — trait plein</span>
+          <span class="tl-ll-item"><span class="tl-ll-line tl-ll-dashed"></span>DE — tirets</span>
+          <span class="tl-ll-item"><span class="tl-ll-line tl-ll-dotted"></span>EN — pointillés</span>
+          <span class="tl-ll-item"><span class="tl-ll-line tl-ll-dashdot"></span>ND — tiret-point</span>
+        </div>
       </div>
     </div>
 
@@ -2850,40 +2862,57 @@ function initBrevoTimeline(tpData, TP_COLORS, TP_LABELS) {
   const cvs = document.getElementById('brevoTLChart');
   if (!cvs) return;
 
+  // Trait par langue : plein FR, tirets DE, pointillés EN, tiret-point ND
+  const LANG_ORDER = ['fr', 'de', 'en', 'nd'];
+  const LANG_LABEL = {fr:'FR', de:'DE', en:'EN', nd:'ND'};
+  const LANG_DASH  = {fr:[], de:[6,3], en:[2,2], nd:[8,3,2,3]};
+
   let currentMetric = 'openRate';
   let activeLangs   = new Set(['fr', 'de', 'en', 'nd']);
+  let activeTypes   = new Set(Object.keys(tpData).filter(t => tpData[t]));
 
-  function buildDatasets(metric, langs) {
-    return Object.entries(tpData).filter(([,p]) => p).map(([type, p]) => ({
-      label: TP_LABELS[type],
-      data: p.sorted
-        .filter(c => c.sentDate)
-        .filter(c => langs.has(c.lang))
-        .map(c => ({
-          x: new Date(c.sentDate).getTime(),
-          y: metric === 'openRate' ? c.openRate : metric === 'clickRate' ? c.clickRate : c.ctor,
-          name: c.name,
-          lang: c.lang,
-        })),
-      borderColor: TP_COLORS[type],
-      backgroundColor: TP_COLORS[type] + '18',
-      borderWidth: 2,
-      pointRadius: 4,
-      pointHoverRadius: 7,
-      tension: 0.35,
-      fill: false,
-    }));
+  // Une courbe par combinaison type × langue (seulement si des points existent)
+  function buildDatasets(metric, langs, types) {
+    const datasets = [];
+    for (const [type, p] of Object.entries(tpData)) {
+      if (!p || !types.has(type)) continue;
+      for (const lang of LANG_ORDER) {
+        if (!langs.has(lang)) continue;
+        const points = p.sorted
+          .filter(c => c.sentDate && !isNaN(new Date(c.sentDate).getTime()))
+          .filter(c => c.lang === lang)
+          .map(c => ({
+            x: new Date(c.sentDate).getTime(),
+            y: metric === 'openRate' ? c.openRate : metric === 'clickRate' ? c.clickRate : c.ctor,
+            name: c.name,
+            lang: c.lang,
+          }));
+        if (!points.length) continue;
+        datasets.push({
+          label:           `${TP_LABELS[type] || type} · ${LANG_LABEL[lang]}`,
+          _type:           type,
+          data:            points,
+          borderColor:     TP_COLORS[type],
+          backgroundColor: TP_COLORS[type] + '18',
+          borderDash:      LANG_DASH[lang],
+          borderWidth:     2,
+          pointRadius:     3,
+          pointHoverRadius:6,
+          tension:         0.3,
+          fill:            false,
+        });
+      }
+    }
+    return datasets;
   }
 
-  // Scoper les sélecteurs au bon conteneur pour éviter tout conflit
-  const card      = cvs.closest('.card') || document;
+  const card       = cvs.closest('.card') || document;
   const metricBtns = card.querySelectorAll('.tl-metric-btn');
   const typeBtns   = card.querySelectorAll('[data-tl-type]');
   const langBtns   = card.querySelectorAll('[data-tl-lang]');
 
   function refreshChart() {
-    chart.data.datasets = buildDatasets(currentMetric, activeLangs);
-    typeBtns.forEach((b, i) => chart.setDatasetVisibility(i, b.classList.contains('active')));
+    chart.data.datasets = buildDatasets(currentMetric, activeLangs, activeTypes);
     chart.update();
   }
 
@@ -2891,7 +2920,7 @@ function initBrevoTimeline(tpData, TP_COLORS, TP_LABELS) {
   try {
     chart = new Chart(cvs, {
       type: 'line',
-      data: { datasets: buildDatasets('openRate', activeLangs) },
+      data: { datasets: buildDatasets('openRate', activeLangs, activeTypes) },
       options: {
         responsive: true,
         maintainAspectRatio: false,
@@ -2920,19 +2949,15 @@ function initBrevoTimeline(tpData, TP_COLORS, TP_LABELS) {
           tooltip: {
             displayColors: true,
             callbacks: {
-              title: items => {
-                const raw = items[0]?.raw;
-                const langTag = raw?.lang && raw.lang !== 'fr' ? ` [${raw.lang.toUpperCase()}]` : '';
-                return (raw?.name || '') + langTag;
-              },
-              label: item => ` ${item.dataset.label} : ${item.parsed.y.toFixed(1)}%`,
+              title:  items => items[0]?.raw?.name || '',
+              label:  item  => ` ${item.dataset.label} : ${item.parsed.y.toFixed(1)}%`,
             },
           },
         },
       },
     });
   } catch(e) {
-    cvs.parentElement.innerHTML = `<div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--bad);font-size:12px;gap:6px">⚠ Erreur graphique : ${e.message}</div>`;
+    cvs.parentElement.innerHTML = `<div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--bad);font-size:12px">⚠ Erreur graphique : ${e.message}</div>`;
     return;
   }
   chartInstances['brevoTL'] = chart;
@@ -2946,14 +2971,18 @@ function initBrevoTimeline(tpData, TP_COLORS, TP_LABELS) {
     });
   });
 
-  typeBtns.forEach((btn, i) => {
+  // Type : toggle toutes les courbes de ce type d'un coup
+  typeBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       btn.classList.toggle('active');
-      chart.setDatasetVisibility(i, btn.classList.contains('active'));
-      chart.update();
+      const type = btn.dataset.tlType;
+      if (btn.classList.contains('active')) activeTypes.add(type);
+      else activeTypes.delete(type);
+      refreshChart();
     });
   });
 
+  // Langue : rebuild des datasets pour exclure/inclure la langue
   langBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       btn.classList.toggle('active');
