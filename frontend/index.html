@@ -2881,7 +2881,7 @@ function initBrevoTimeline(tpData, TP_COLORS, TP_LABELS) {
 
   const chart = new Chart(cvs, {
     type: 'line',
-    data: { datasets: buildDatasets('openRate', 'all') },
+    data: { datasets: buildDatasets('openRate', activeLangs) },
     options: {
       responsive: true,
       maintainAspectRatio: false,
