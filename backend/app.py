@@ -1575,17 +1575,15 @@ def _buffer_gql(query, variables=None):
 
 @app.route('/buffer/debug')
 def buffer_debug():
-    """Diagnostic : introspection complète des types Buffer + essais de requêtes."""
+    """Diagnostic : récupère l'account + introspecte PostsFiltersInput/PostStatus."""
     if not BUFFER_API_KEY:
         return jsonify({'error': 'BUFFER_API_KEY manquante'})
 
     queries = {
-        'type_ChannelsInput': '{ __type(name:"ChannelsInput"){ inputFields{ name type{ name kind ofType{ name kind } } } } }',
-        'type_PostsInput':    '{ __type(name:"PostsInput")   { inputFields{ name type{ name kind ofType{ name kind } } } } }',
-        'type_Post':          '{ __type(name:"Post")         { fields     { name type{ name kind ofType{ name kind } } } } }',
-        'type_Channel':       '{ __type(name:"Channel")      { fields     { name type{ name kind ofType{ name kind } } } } }',
-        'channels_empty_input': '{ channels(input:{}) { id name service avatar } }',
-        'posts_input_empty':    '{ posts(input:{}) { edges { node { id text status } } } }',
+        'account':                '{ account { id currentOrganization { id } } }',
+        'type_Account':           '{ __type(name:"Account") { fields { name type { name kind ofType { name kind } } } } }',
+        'type_PostsFiltersInput': '{ __type(name:"PostsFiltersInput") { inputFields { name type { name kind ofType { name kind } } } } }',
+        'type_PostStatus':        '{ __type(name:"PostStatus") { enumValues { name } } }',
     }
 
     results = {}
