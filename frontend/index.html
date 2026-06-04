@@ -4378,6 +4378,51 @@ function _weekBounds() {
   return {mon, sun};
 }
 
+function _postAccordionItem(p, idx, isScheduled) {
+  const col    = SVC_COLORS[(p.service||'').toLowerCase()] || '#888';
+  const text   = p.text || '';
+  const SHORT  = 100;
+  const needsExpand = text.length > SHORT;
+  const itemId = `buf-post-${isScheduled ? 's' : 'r'}-${idx}`;
+  const mediaBadge = p.has_media
+    ? `<span style="display:inline-flex;align-items:center;gap:3px;background:#F3F4F6;color:#6B7280;border-radius:6px;padding:2px 7px;font-size:10px;font-weight:600">🖼 Média</span>`
+    : '';
+  const statusBadge = !isScheduled
+    ? `<span style="font-size:10px;color:#16A34A;font-weight:700;white-space:nowrap">✓ Publié</span>`
+    : `<span style="font-size:10px;color:#E8A838;font-weight:700;white-space:nowrap">⏳ Planifié</span>`;
+
+  return `
+    <div class="buf-item" id="${itemId}" style="border-bottom:1px solid var(--border);transition:background .15s">
+      <div class="buf-header" onclick="bufToggle('${itemId}')" style="display:grid;grid-template-columns:120px auto 1fr auto auto;align-items:center;gap:10px;padding:10px 14px;cursor:pointer;user-select:none">
+        <span style="font-size:12px;color:var(--muted);white-space:nowrap">${_fmtDueAt(p.due_at)}</span>
+        ${_svcBadge(p.service, p.channel_name)}
+        <span class="buf-preview" style="font-size:13px;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${text.slice(0,SHORT)}${needsExpand?'…':''}</span>
+        <div style="display:flex;align-items:center;gap:6px">${mediaBadge}${statusBadge}</div>
+        ${needsExpand ? `<span class="buf-chevron" style="color:var(--muted);font-size:12px;transition:transform .2s">▼</span>` : '<span style="width:16px"></span>'}
+      </div>
+      <div class="buf-body" style="display:none;padding:0 14px 14px;animation:fadeIn .15s">
+        ${p.media_urls?.length ? `
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">
+            ${p.media_urls.map(url => `<img src="${url}" style="max-height:160px;max-width:260px;border-radius:8px;object-fit:cover;border:1px solid var(--border)" onerror="this.style.display='none'">`).join('')}
+          </div>` : (p.has_media ? `<div style="display:flex;align-items:center;gap:6px;margin-bottom:10px;font-size:12px;color:var(--muted)">🖼 Média attaché (aperçu non disponible)</div>` : '')}
+        <div style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:12px 14px;font-size:13px;line-height:1.7;white-space:pre-wrap;color:var(--text)">${text.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>
+      </div>
+    </div>`;
+}
+
+function bufToggle(id) {
+  const item    = document.getElementById(id);
+  if (!item) return;
+  const body    = item.querySelector('.buf-body');
+  const chev    = item.querySelector('.buf-chevron');
+  const preview = item.querySelector('.buf-preview');
+  const open    = body.style.display !== 'none';
+  body.style.display    = open ? 'none'    : 'block';
+  if (chev) chev.style.transform = open ? '' : 'rotate(180deg)';
+  if (preview) preview.style.opacity = open ? '1' : '0.5';
+  item.style.background = open ? '' : 'var(--hover)';
+}
+
 function renderBuffer(d) {
   const el = document.getElementById('panel-buffer');
   if (!el) return;
@@ -4397,37 +4442,32 @@ function renderBuffer(d) {
   const stats     = d.stats     || {};
   const scheduled = d.scheduled || [];
   const sent      = d.sent      || [];
-  const thisWeek  = d.this_week || [];
   const channels  = d.channels  || [];
 
   // ── KPIs ──────────────────────────────────────────────────────
   const nextAt  = stats.next_post_at;
-  const nextCh  = stats.next_post_channel || '';
   const nextSvc = stats.next_post_service || '';
   const nextCol = SVC_COLORS[(nextSvc||'').toLowerCase()] || '#888';
 
   const kpisHtml = `
     <div style="display:flex;gap:12px;flex-wrap:wrap">
-      ${kpiCard({label:'Posts planifiés',  value: String(stats.scheduled_count ?? 0),  src:'#E8A838', srcBg:'#FEF9EC'})}
-      ${kpiCard({label:'Canaux actifs',    value: String(stats.active_channels  ?? 0),  src:'#E8A838', srcBg:'#FEF9EC'})}
-      ${kpiCard({label:'Cette semaine',    value: String(stats.this_week_count  ?? 0),  src:'#E8A838', srcBg:'#FEF9EC'})}
-      ${nextAt ? kpiCard({label:'Prochaine publication', value: _fmtDueAt(nextAt), sub: nextCh, src: nextCol, srcBg: nextCol + '18'}) : ''}
+      ${kpiCard({label:'Posts planifiés',  value: String(stats.scheduled_count ?? 0), src:'#E8A838', srcBg:'#FEF9EC'})}
+      ${kpiCard({label:'Canaux actifs',    value: String(stats.active_channels  ?? 0), src:'#E8A838', srcBg:'#FEF9EC'})}
+      ${kpiCard({label:'Cette semaine',    value: String(stats.this_week_count  ?? 0), src:'#E8A838', srcBg:'#FEF9EC'})}
+      ${nextAt ? kpiCard({label:'Prochaine pub.', value: _fmtDueAt(nextAt), sub: stats.next_post_channel || '', src: nextCol, srcBg: nextCol + '18'}) : ''}
     </div>`;
 
   // ── Planning semaine ──────────────────────────────────────────
   const {mon, sun} = _weekBounds();
-  const DAY_NAMES = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
-  const days = Array.from({length:7}, (_,i) => { const d=new Date(mon); d.setDate(d.getDate()+i); return d; });
+  const DAY_NAMES  = ['Lun','Mar','Mer','Jeu','Ven','Sam','Dim'];
+  const days       = Array.from({length:7}, (_,i) => { const d=new Date(mon); d.setDate(d.getDate()+i); return d; });
+  const todayIdx   = ((new Date().getDay() + 6) % 7);
 
   const postsByDay = days.map(day => {
-    const next = new Date(day); next.setDate(next.getDate()+1);
-    return scheduled.filter(p => {
-      try { const dt = new Date(p.due_at); return dt >= day && dt < next; }
-      catch(e) { return false; }
-    });
+    const nxt = new Date(day); nxt.setDate(nxt.getDate()+1);
+    return scheduled.filter(p => { try { const dt=new Date(p.due_at); return dt>=day&&dt<nxt; } catch(e){ return false; } });
   });
 
-  const todayIdx = ((new Date().getDay() + 6) % 7);
   const weekGridHtml = `
     <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px">
       <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:12px">
@@ -4436,53 +4476,27 @@ function renderBuffer(d) {
       <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:6px">
         ${days.map((day,i) => {
           const isToday = i === todayIdx;
-          const posts = postsByDay[i];
+          const posts   = postsByDay[i];
           return `<div style="min-height:80px;background:${isToday?'var(--hover)':'var(--bg)'};border:1px solid ${isToday?'var(--accent)':'var(--border)'};border-radius:8px;padding:6px">
             <div style="font-size:10px;font-weight:700;color:${isToday?'var(--accent)':'var(--muted)'};margin-bottom:4px">${DAY_NAMES[i]}<br><span style="font-size:11px;color:var(--text)">${day.getDate()}</span></div>
-            ${posts.length === 0 ? '' : posts.map(p => {
-              const s = (p.service||'').toLowerCase();
-              const col = SVC_COLORS[s] || '#888';
-              const lbl = SVC_LABELS[s] || p.channel_name || s;
-              return `<div style="background:${col}20;border-left:2px solid ${col};border-radius:4px;padding:3px 5px;margin-bottom:3px;font-size:9px;font-weight:700;color:${col};overflow:hidden;white-space:nowrap;text-overflow:ellipsis" title="${p.text?.replace(/"/g,'&quot;')}">${lbl}</div>`;
+            ${posts.map(p => {
+              const s=p.service?.toLowerCase(); const col=SVC_COLORS[s]||'#888';
+              return `<div style="background:${col}20;border-left:2px solid ${col};border-radius:4px;padding:3px 5px;margin-bottom:3px;font-size:9px;font-weight:700;color:${col};overflow:hidden;white-space:nowrap;text-overflow:ellipsis" title="${(p.text||'').replace(/"/g,'&quot;')}">${SVC_LABELS[s]||p.channel_name||s}</div>`;
             }).join('')}
           </div>`;
         }).join('')}
       </div>
     </div>`;
 
-  // ── Tableau posts à venir ─────────────────────────────────────
+  // ── Accordéon posts à venir ───────────────────────────────────
   const upcomingHtml = scheduled.length === 0
     ? `<div style="padding:24px;text-align:center;color:var(--muted);font-size:13px">Aucun post planifié</div>`
-    : `<table style="width:100%;border-collapse:collapse;font-size:13px">
-        <thead>
-          <tr style="border-bottom:2px solid var(--border)">
-            <th style="text-align:left;padding:8px 12px;color:var(--muted);font-weight:600;white-space:nowrap">Date / Heure</th>
-            <th style="text-align:left;padding:8px 12px;color:var(--muted);font-weight:600">Réseau</th>
-            <th style="text-align:left;padding:8px 12px;color:var(--muted);font-weight:600">Contenu</th>
-            <th style="text-align:center;padding:8px 12px;color:var(--muted);font-weight:600">Média</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${scheduled.slice(0,20).map((p,i) => `
-            <tr style="border-bottom:1px solid var(--border);background:${i%2===0?'transparent':'var(--hover)'}">
-              <td style="padding:8px 12px;white-space:nowrap;color:var(--muted);font-size:12px">${_fmtDueAt(p.due_at)}</td>
-              <td style="padding:8px 12px">${_svcBadge(p.service, p.channel_name)}</td>
-              <td style="padding:8px 12px;max-width:320px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${(p.text||'').replace(/"/g,'&quot;')}">${p.text ? p.text.slice(0,90)+(p.text.length>90?'…':'') : '<span style="color:var(--muted)">—</span>'}</td>
-              <td style="padding:8px 12px;text-align:center">${p.has_media ? '🖼' : ''}</td>
-            </tr>`).join('')}
-        </tbody>
-      </table>`;
+    : scheduled.slice(0,30).map((p,i) => _postAccordionItem(p, i, true)).join('');
 
-  // ── Posts récents ─────────────────────────────────────────────
+  // ── Accordéon posts récents ───────────────────────────────────
   const sentHtml = sent.length === 0
-    ? `<div style="padding:12px;text-align:center;color:var(--muted);font-size:13px">Aucun post récent</div>`
-    : sent.slice(0,10).map(p => `
-        <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)">
-          <span style="font-size:12px;color:var(--muted);white-space:nowrap;min-width:110px">${_fmtDueAt(p.due_at)}</span>
-          ${_svcBadge(p.service, p.channel_name)}
-          <span style="font-size:13px;color:var(--text);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${p.text ? p.text.slice(0,80)+(p.text.length>80?'…':'') : '—'}</span>
-          <span style="font-size:11px;color:#16A34A;font-weight:700">✓</span>
-        </div>`).join('');
+    ? `<div style="padding:16px;text-align:center;color:var(--muted);font-size:13px">Aucun post récent</div>`
+    : sent.slice(0,20).map((p,i) => _postAccordionItem(p, i, false)).join('');
 
   el.innerHTML = '';
   const wrap = document.createElement('div');
@@ -4494,11 +4508,18 @@ function renderBuffer(d) {
     ${kpisHtml}
     ${weekGridHtml}
     <div class="card" style="padding:0;overflow:hidden">
-      <div style="padding:14px 16px;border-bottom:1px solid var(--border);font-weight:700;font-size:13px">Posts à venir (${scheduled.length})</div>
-      <div style="overflow-x:auto">${upcomingHtml}</div>
+      <div style="padding:12px 14px;border-bottom:2px solid var(--border);font-weight:700;font-size:13px;display:flex;align-items:center;gap:8px">
+        Posts à venir
+        <span style="background:#E8A83820;color:#E8A838;border-radius:20px;padding:1px 9px;font-size:11px;font-weight:800">${scheduled.length}</span>
+        <span style="font-size:11px;color:var(--muted);font-weight:400;margin-left:4px">Cliquer pour voir le contenu complet</span>
+      </div>
+      ${upcomingHtml}
     </div>
-    <div class="card" style="padding:16px">
-      <div style="font-weight:700;font-size:13px;margin-bottom:12px">Récemment publiés</div>
+    <div class="card" style="padding:0;overflow:hidden">
+      <div style="padding:12px 14px;border-bottom:2px solid var(--border);font-weight:700;font-size:13px;display:flex;align-items:center;gap:8px">
+        Récemment publiés
+        <span style="background:#16A34A20;color:#16A34A;border-radius:20px;padding:1px 9px;font-size:11px;font-weight:800">${sent.length}</span>
+      </div>
       ${sentHtml}
     </div>`;
   el.appendChild(wrap);

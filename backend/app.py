@@ -1580,10 +1580,9 @@ def buffer_debug():
         return jsonify({'error': 'BUFFER_API_KEY manquante'})
 
     queries = {
-        'account':                '{ account { id currentOrganization { id } } }',
-        'type_Account':           '{ __type(name:"Account") { fields { name type { name kind ofType { name kind } } } } }',
-        'type_PostsFiltersInput': '{ __type(name:"PostsFiltersInput") { inputFields { name type { name kind ofType { name kind } } } } }',
-        'type_PostStatus':        '{ __type(name:"PostStatus") { enumValues { name } } }',
+        'type_Asset': '{ __type(name:"Asset") { fields { name type { name kind ofType { name kind } } } } }',
+        'type_ImageAsset': '{ __type(name:"ImageAsset") { fields { name type { name kind ofType { name kind } } } } }',
+        'type_VideoAsset': '{ __type(name:"VideoAsset") { fields { name type { name kind ofType { name kind } } } } }',
     }
 
     results = {}
