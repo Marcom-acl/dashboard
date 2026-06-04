@@ -4255,18 +4255,49 @@ document.getElementById('btnRefresh')?.addEventListener('click', loadAll);
 function renderBufferWidget(d) {
   const el = document.getElementById('ov-buffer-posts');
   if (!el) return;
-  if (!d || d.error || !(d.this_week?.length || d.scheduled?.length)) return;
 
-  const thisWeek = d.this_week || d.scheduled?.filter(p => {
-    const {mon, sun} = _weekBounds();
-    try { const dt = new Date(p.due_at); return dt >= mon && dt < sun; } catch(e) { return false; }
-  }) || [];
+  // Erreur API visible
+  if (d && d.error) {
+    el.innerHTML = `
+      <div class="bench-wrap" style="margin-bottom:0">
+        <div class="bench-head">
+          <div class="bench-head-left"><div class="bench-title">Social media — Buffer</div></div>
+          <button class="ap-link" onclick="document.querySelector('[data-tab=buffer]')?.click()" style="font-size:11px">Détails →</button>
+        </div>
+        <div style="padding:10px 16px 12px;font-size:12px;color:var(--warn)">⚠ ${d.error}</div>
+      </div>`;
+    return;
+  }
 
-  if (!thisWeek.length) return;
+  if (!d) return;
 
+  // Priorité : posts de la semaine, sinon les 7 prochains
+  const {mon, sun} = _weekBounds();
+  const thisWeek = (d.this_week && d.this_week.length)
+    ? d.this_week
+    : (d.scheduled || []).filter(p => {
+        try { const dt = new Date(p.due_at); return dt >= mon && dt < sun; } catch(e) { return false; }
+      });
+  const posts = thisWeek.length ? thisWeek : (d.scheduled || []).slice(0, 7);
+
+  if (!posts.length) {
+    el.innerHTML = `
+      <div class="bench-wrap" style="margin-bottom:0">
+        <div class="bench-head">
+          <div class="bench-head-left">
+            <div class="bench-title">Social media</div>
+            <div class="bench-sub">Aucun post planifié · via Buffer</div>
+          </div>
+          <button class="ap-link" onclick="document.querySelector('[data-tab=buffer]')?.click()" style="font-size:11px">Voir tout →</button>
+        </div>
+      </div>`;
+    return;
+  }
+
+  const isThisWeek = thisWeek.length > 0;
   const DAY_SHORT = ['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'];
 
-  const rows = thisWeek.slice(0, 7).map(p => {
+  const rows = posts.slice(0, 7).map(p => {
     const dt = new Date(p.due_at);
     const dayLbl = DAY_SHORT[dt.getDay()] + ' ' + dt.toLocaleDateString('fr-FR', {day:'2-digit', month:'short'});
     const timeLbl = dt.toLocaleTimeString('fr-FR', {hour:'2-digit', minute:'2-digit'});
@@ -4284,8 +4315,8 @@ function renderBufferWidget(d) {
     <div class="bench-wrap" style="margin-bottom:0">
       <div class="bench-head">
         <div class="bench-head-left">
-          <div class="bench-title">Posts planifiés cette semaine</div>
-          <div class="bench-sub">${thisWeek.length} post${thisWeek.length > 1 ? 's' : ''} · via Buffer</div>
+          <div class="bench-title">${isThisWeek ? 'Posts planifiés cette semaine' : 'Prochains posts planifiés'}</div>
+          <div class="bench-sub">${posts.length} post${posts.length > 1 ? 's' : ''} · via Buffer</div>
         </div>
         <button class="ap-link" onclick="document.querySelector('[data-tab=buffer]')?.click()" style="font-size:11px">Voir tout →</button>
       </div>

@@ -1551,22 +1551,50 @@ def youtube():
 BUFFER_GQL = 'https://api.buffer.com/graphql'
 
 def _buffer_gql(query, variables=None):
+    """Run a GraphQL query against Buffer. Returns (data_dict, error_str)."""
     if not BUFFER_API_KEY:
-        return None
-    resp = _get.__func__ if hasattr(_get, '__func__') else None
-    r = requests.post(
-        BUFFER_GQL,
-        headers={'Authorization': f'Bearer {BUFFER_API_KEY}', 'Content-Type': 'application/json'},
-        json={'query': query, 'variables': variables or {}},
-        verify=_VERIFY,
-        timeout=15,
-    )
+        return None, 'BUFFER_API_KEY manquante'
+    try:
+        r = requests.post(
+            BUFFER_GQL,
+            headers={'Authorization': f'Bearer {BUFFER_API_KEY}', 'Content-Type': 'application/json'},
+            json={'query': query, 'variables': variables or {}},
+            verify=_VERIFY,
+            timeout=15,
+        )
+    except Exception as e:
+        return None, f'Réseau : {e}'
     if not r.ok:
-        return None
+        return None, f'HTTP {r.status_code} : {r.text[:300]}'
     body = r.json()
     if 'errors' in body:
-        return None
-    return body.get('data')
+        msgs = [e.get('message','?') for e in body['errors']]
+        return None, 'GraphQL errors : ' + ' | '.join(msgs)
+    return body.get('data'), None
+
+
+@app.route('/buffer/debug')
+def buffer_debug():
+    """Diagnostic : retourne les réponses brutes de l'API Buffer (pas de cache)."""
+    if not BUFFER_API_KEY:
+        return jsonify({'error': 'BUFFER_API_KEY manquante'})
+
+    # Introspection légère : liste des types disponibles à la racine
+    q_intro = '{ __schema { queryType { fields { name } } } }'
+    # Canaux
+    q_ch = '{ channels { id name service avatar isDisconnected } }'
+    # Essai posts scheduled (plusieurs variantes de champ date)
+    q_sched_v1 = '{ posts(status: SCHEDULED, first: 5) { edges { node { id text scheduledAt status } } } }'
+    q_sched_v2 = '{ posts(status: scheduled, first: 5) { edges { node { id text dueAt status } } } }'
+
+    results = {}
+    for label, q in [('introspection', q_intro), ('channels', q_ch),
+                     ('posts_SCHEDULED_scheduledAt', q_sched_v1),
+                     ('posts_scheduled_dueAt', q_sched_v2)]:
+        data, err = _buffer_gql(q)
+        results[label] = {'data': data, 'error': err}
+
+    return jsonify(results)
 
 
 @app.route('/buffer')
@@ -1579,37 +1607,21 @@ def buffer_planning():
         return jsonify(cached)
 
     # ── Channels ──────────────────────────────────────────────────────────────
-    q_channels = """
-    {
-      channels {
-        id
-        name
-        service
-        avatar
-        isDisconnected
-      }
-    }
-    """
+    q_channels = '{ channels { id name service avatar isDisconnected } }'
 
-    # ── Scheduled posts ───────────────────────────────────────────────────────
+    # ── Scheduled posts — on essaie scheduledAt d'abord, fallback dueAt ──────
     q_scheduled = """
     {
-      posts(status: scheduled, limit: 50) {
+      posts(status: SCHEDULED, first: 50) {
         edges {
           node {
             id
             text
+            scheduledAt
             dueAt
             status
-            channel {
-              id
-              name
-              service
-            }
-            assets {
-              url
-              type
-            }
+            channel { id name service }
+            media { url type }
           }
         }
       }
@@ -1619,47 +1631,59 @@ def buffer_planning():
     # ── Sent posts ────────────────────────────────────────────────────────────
     q_sent = """
     {
-      posts(status: sent, limit: 20) {
+      posts(status: SENT, first: 20) {
         edges {
           node {
             id
             text
+            scheduledAt
             dueAt
             status
-            channel {
-              id
-              name
-              service
-            }
+            channel { id name service }
           }
         }
       }
     }
     """
 
+    _api_errors = []
+
     try:
         with concurrent.futures.ThreadPoolExecutor(max_workers=3) as ex:
-            fc = ex.submit(_buffer_gql, q_channels)
-            fs = ex.submit(_buffer_gql, q_scheduled)
+            fc  = ex.submit(_buffer_gql, q_channels)
+            fs  = ex.submit(_buffer_gql, q_scheduled)
             fse = ex.submit(_buffer_gql, q_sent)
-            d_channels = fc.result()
-            d_scheduled = fs.result()
-            d_sent = fse.result()
+            d_channels, e_ch  = fc.result()
+            d_scheduled, e_sc = fs.result()
+            d_sent, e_se      = fse.result()
     except Exception as e:
         return jsonify({'error': str(e)}), 503
 
+    for e in [e_ch, e_sc, e_se]:
+        if e:
+            _api_errors.append(e)
+
+    # Si tout échoue → erreur visible dans le dashboard
+    if _api_errors and not d_channels and not d_scheduled:
+        err_msg = _api_errors[0]
+        _cache_set('buffer_main', {'error': err_msg}, 60)
+        return jsonify({'error': err_msg})
+
+    def _due(node):
+        return node.get('scheduledAt') or node.get('dueAt') or ''
+
     def _norm_post(node):
-        ch = node.get('channel') or {}
-        assets = node.get('assets') or []
+        ch    = node.get('channel') or {}
+        media = node.get('media') or node.get('assets') or []
         return {
             'id':           node.get('id', ''),
             'text':         node.get('text', ''),
-            'due_at':       node.get('dueAt', ''),
+            'due_at':       _due(node),
             'status':       node.get('status', ''),
             'channel_id':   ch.get('id', ''),
             'channel_name': ch.get('name', ''),
             'service':      ch.get('service', '').lower(),
-            'has_media':    len(assets) > 0,
+            'has_media':    len(media) > 0,
         }
 
     channels = []
@@ -1709,6 +1733,7 @@ def buffer_planning():
         'scheduled': scheduled,
         'sent':      sent,
         'this_week': this_week,
+        '_api_errors': _api_errors,
         'stats': {
             'scheduled_count':   len(scheduled),
             'active_channels':   len(channels),
