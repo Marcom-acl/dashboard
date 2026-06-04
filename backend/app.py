@@ -68,6 +68,7 @@ GOOGLE_CLIENT_ID     = os.environ.get('GOOGLE_CLIENT_ID', '')
 GOOGLE_CLIENT_SECRET = os.environ.get('GOOGLE_CLIENT_SECRET', '')
 GOOGLE_REFRESH_TOKEN = os.environ.get('GOOGLE_REFRESH_TOKEN', '')
 SUPERMETRICS_API_KEY = os.environ.get('SUPERMETRICS_API_KEY', '')
+BUFFER_API_KEY       = os.environ.get('BUFFER_API_KEY', '')
 
 # ── Dashboard users (source: GitHub Gist > DASHBOARD_USERS env var > seed) ───
 GITHUB_TOKEN  = os.environ.get('GITHUB_TOKEN', '')
@@ -395,6 +396,7 @@ def status():
         'facebook':        bool(_fb_token()),
         'linkedin':        bool(SUPERMETRICS_API_KEY),
         'brevo':           bool(BREVO_API_KEY),
+        'buffer':          bool(BUFFER_API_KEY),
         'anthropic':       bool(ANTHROPIC_API_KEY),
         'railway_persist': bool(GITHUB_TOKEN and GIST_ID),
         'veille':          veille_ok,
@@ -1540,6 +1542,183 @@ def youtube():
         'topVideos':    sorted(videos, key=lambda x: x['views'], reverse=True),
     }
     _cache_set(key, data, 900)
+    return jsonify(data)
+
+
+# Buffer
+# ─────────────────────────────────────────────────────────────────────────────
+
+BUFFER_GQL = 'https://api.buffer.com/graphql'
+
+def _buffer_gql(query, variables=None):
+    if not BUFFER_API_KEY:
+        return None
+    resp = _get.__func__ if hasattr(_get, '__func__') else None
+    r = requests.post(
+        BUFFER_GQL,
+        headers={'Authorization': f'Bearer {BUFFER_API_KEY}', 'Content-Type': 'application/json'},
+        json={'query': query, 'variables': variables or {}},
+        verify=_VERIFY,
+        timeout=15,
+    )
+    if not r.ok:
+        return None
+    body = r.json()
+    if 'errors' in body:
+        return None
+    return body.get('data')
+
+
+@app.route('/buffer')
+def buffer_planning():
+    if not BUFFER_API_KEY:
+        return jsonify({'error': 'BUFFER_API_KEY manquante'})
+
+    cached = _cache_get('buffer_main')
+    if cached:
+        return jsonify(cached)
+
+    # ── Channels ──────────────────────────────────────────────────────────────
+    q_channels = """
+    {
+      channels {
+        id
+        name
+        service
+        avatar
+        isDisconnected
+      }
+    }
+    """
+
+    # ── Scheduled posts ───────────────────────────────────────────────────────
+    q_scheduled = """
+    {
+      posts(status: scheduled, limit: 50) {
+        edges {
+          node {
+            id
+            text
+            dueAt
+            status
+            channel {
+              id
+              name
+              service
+            }
+            assets {
+              url
+              type
+            }
+          }
+        }
+      }
+    }
+    """
+
+    # ── Sent posts ────────────────────────────────────────────────────────────
+    q_sent = """
+    {
+      posts(status: sent, limit: 20) {
+        edges {
+          node {
+            id
+            text
+            dueAt
+            status
+            channel {
+              id
+              name
+              service
+            }
+          }
+        }
+      }
+    }
+    """
+
+    try:
+        with concurrent.futures.ThreadPoolExecutor(max_workers=3) as ex:
+            fc = ex.submit(_buffer_gql, q_channels)
+            fs = ex.submit(_buffer_gql, q_scheduled)
+            fse = ex.submit(_buffer_gql, q_sent)
+            d_channels = fc.result()
+            d_scheduled = fs.result()
+            d_sent = fse.result()
+    except Exception as e:
+        return jsonify({'error': str(e)}), 503
+
+    def _norm_post(node):
+        ch = node.get('channel') or {}
+        assets = node.get('assets') or []
+        return {
+            'id':           node.get('id', ''),
+            'text':         node.get('text', ''),
+            'due_at':       node.get('dueAt', ''),
+            'status':       node.get('status', ''),
+            'channel_id':   ch.get('id', ''),
+            'channel_name': ch.get('name', ''),
+            'service':      ch.get('service', '').lower(),
+            'has_media':    len(assets) > 0,
+        }
+
+    channels = []
+    if d_channels:
+        for ch in d_channels.get('channels') or []:
+            if not ch.get('isDisconnected'):
+                channels.append({
+                    'id':      ch.get('id', ''),
+                    'name':    ch.get('name', ''),
+                    'service': ch.get('service', '').lower(),
+                    'avatar':  ch.get('avatar', ''),
+                })
+
+    scheduled = []
+    if d_scheduled:
+        for edge in (d_scheduled.get('posts') or {}).get('edges') or []:
+            node = edge.get('node') or {}
+            if node:
+                scheduled.append(_norm_post(node))
+    scheduled.sort(key=lambda x: x['due_at'])
+
+    sent = []
+    if d_sent:
+        for edge in (d_sent.get('posts') or {}).get('edges') or []:
+            node = edge.get('node') or {}
+            if node:
+                sent.append(_norm_post(node))
+    sent.sort(key=lambda x: x['due_at'], reverse=True)
+
+    # ── Stats ─────────────────────────────────────────────────────────────────
+    now = datetime.datetime.utcnow()
+    week_start = now - datetime.timedelta(days=now.weekday())
+    week_end   = week_start + datetime.timedelta(days=7)
+
+    def _in_week(iso):
+        try:
+            dt = datetime.datetime.fromisoformat(iso.replace('Z', '+00:00')).replace(tzinfo=None)
+            return week_start <= dt < week_end
+        except Exception:
+            return False
+
+    this_week = [p for p in scheduled if _in_week(p['due_at'])]
+    next_post = scheduled[0] if scheduled else None
+
+    data = {
+        'channels':  channels,
+        'scheduled': scheduled,
+        'sent':      sent,
+        'this_week': this_week,
+        'stats': {
+            'scheduled_count':   len(scheduled),
+            'active_channels':   len(channels),
+            'this_week_count':   len(this_week),
+            'next_post_at':      next_post['due_at']       if next_post else None,
+            'next_post_channel': next_post['channel_name'] if next_post else None,
+            'next_post_service': next_post['service']      if next_post else None,
+        },
+    }
+    _cache_set('buffer_main', data, 300)
     return jsonify(data)
 
 

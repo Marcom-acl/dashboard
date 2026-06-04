@@ -1134,7 +1134,7 @@
         </button>
         <button class="sb-item tab-btn" data-tab="brevo">
           <svg class="sb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
-          Brevo
+          Marketing Emails
           <span class="sb-dot" id="bs-brevo" style="background:var(--muted-2);"></span>
         </button>
         <button class="sb-item tab-btn" data-tab="club">
@@ -1151,6 +1151,11 @@
           <svg class="sb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="6" width="18" height="12" rx="3"/><path d="m11 9 4 3-4 3z" fill="currentColor"/></svg>
           YouTube
           <span class="sb-dot" id="bs-yt" style="background:var(--muted-2);"></span>
+        </button>
+        <button class="sb-item tab-btn" data-tab="buffer">
+          <svg class="sb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><circle cx="8" cy="15" r="1" fill="currentColor" stroke="none"/><circle cx="12" cy="15" r="1" fill="currentColor" stroke="none"/><circle cx="16" cy="15" r="1" fill="currentColor" stroke="none"/></svg>
+          Social media
+          <span class="sb-dot" id="bs-buffer" style="background:var(--muted-2);"></span>
         </button>
       </nav>
     </div>
@@ -1273,6 +1278,9 @@
 
         <!-- ── VEILLE ────────────────────────────────────────────── -->
         <div id="panel-veille" class="tab-panel"></div>
+
+        <!-- ── BUFFER / SOCIAL MEDIA ─────────────────────────────── -->
+        <div id="panel-buffer" class="tab-panel"></div>
 
       </div>
     </div>
@@ -1443,7 +1451,7 @@ function _renderTab(tab) {
   if (window._tabRendered && window._tabRendered[tab]) return;
   if (window._tabRendered) window._tabRendered[tab] = true;
 
-  if      (tab === 'overview')  renderOverview({dGA4: d.dGA4, dGSC: d.dGSC, dFB: d.dFB, dFBP: d.dFBP, dBrevo: d.dBrevo, dLI: d.dLI, dYT: d.dYT, dGA4T: d.dGA4T, dVeille: d.dVeille, dFBPytd: d.dFBPytd, dFBytd: d.dFBytd});
+  if      (tab === 'overview')  renderOverview({dGA4: d.dGA4, dGSC: d.dGSC, dFB: d.dFB, dFBP: d.dFBP, dBrevo: d.dBrevo, dLI: d.dLI, dYT: d.dYT, dGA4T: d.dGA4T, dVeille: d.dVeille, dFBPytd: d.dFBPytd, dFBytd: d.dFBytd, dBuffer: d.dBuffer});
   else if (tab === 'ga4')       renderGA4(d.dGA4, d.dGA4A, d.dGA4E, d.dGA4T);
   else if (tab === 'fbads')     renderMeta(d.dFB, d.dFBP);
   else if (tab === 'gsc')       renderGSC(d.dGSC);
@@ -1452,6 +1460,7 @@ function _renderTab(tab) {
   else if (tab === 'youtube')   renderYouTube(d.dYT);
   else if (tab === 'linkedin')  renderLinkedIn(d.dLI);
   else if (tab === 'veille')    renderVeille(d.dVeille);
+  else if (tab === 'buffer')    renderBuffer(d.dBuffer);
 }
 
 // ── loadAll ───────────────────────────────────────────────────
@@ -1462,11 +1471,12 @@ async function loadAll() {
   document.getElementById('lastUpd').textContent = 'Chargement…';
 
   try {
-    const [ga4, ga4auto, ga4ext, ga4trend, gsc, fb, fbpage, brevo, club, yt, li, veille, fbpageytd, fbytd] = await Promise.allSettled([
+    const [ga4, ga4auto, ga4ext, ga4trend, gsc, fb, fbpage, brevo, club, yt, li, veille, fbpageytd, fbytd, buffer] = await Promise.allSettled([
       api('/ga4'), api('/ga4/autotouring'), api('/ga4/extended'), api('/ga4/trend'),
       api('/gsc'), api('/fb'), api('/fb/page'), api('/brevo'), api('/brevo/club'),
       api('/youtube'), api('/supermetrics/linkedin'), api('/veille'),
-      apiYtd('/fb/page'), apiYtd('/fb')
+      apiYtd('/fb/page'), apiYtd('/fb'),
+      api('/buffer')
     ]);
 
     const v = r => r.status === 'fulfilled' ? r.value : null;
@@ -1475,6 +1485,7 @@ async function loadAll() {
     const dBrevo = v(brevo), dClub = v(club),     dYT   = v(yt),     dLI   = v(li);
     const dVeille = v(veille);
     const dFBPytd = v(fbpageytd), dFBytd = v(fbytd);
+    const dBuffer = v(buffer);
 
     updateStatus('bs-ga4',    dGA4    && !dGA4.error);
     updateStatus('bs-gsc',    dGSC    && !dGSC.error);
@@ -1484,8 +1495,9 @@ async function loadAll() {
     updateStatus('bs-yt',     dYT     && !dYT.error);
     updateStatus('bs-li',     dLI     && !dLI.error);
     updateStatus('bs-veille', dVeille && !dVeille.error);
+    updateStatus('bs-buffer', dBuffer && !dBuffer.error);
 
-    window._dashData = {dGA4, dGA4A, dGA4E, dGA4T, dGSC, dFB, dFBP, dBrevo, dClub, dYT, dLI, dVeille, dFBPytd, dFBytd};
+    window._dashData = {dGA4, dGA4A, dGA4E, dGA4T, dGSC, dFB, dFBP, dBrevo, dClub, dYT, dLI, dVeille, dFBPytd, dFBytd, dBuffer};
     window._tabRendered = {};
 
     const activeTab = document.querySelector('.tab-btn.active')?.dataset.tab || 'overview';
@@ -1661,7 +1673,7 @@ function renderCalendar() {
 }
 
 // ── OVERVIEW ─────────────────────────────────────────────────
-function renderOverview({dGA4, dGSC, dFB, dFBP, dBrevo, dLI, dYT, dGA4T, dVeille, dFBPytd, dFBytd}) {
+function renderOverview({dGA4, dGSC, dFB, dFBP, dBrevo, dLI, dYT, dGA4T, dVeille, dFBPytd, dFBytd, dBuffer}) {
   const el = document.getElementById('panel-overview');
   if (!el) return;
 
@@ -1723,6 +1735,9 @@ function renderOverview({dGA4, dGSC, dFB, dFBP, dBrevo, dLI, dYT, dGA4T, dVeille
       <button class="cal-more" id="calMore" style="display:none">Voir plus ↓</button>
     </div>
 
+    <!-- 4b. BUFFER — posts planifiés cette semaine -->
+    <div id="ov-buffer-posts"></div>
+
     <!-- 5. TOP BARS 2-COL (compact) -->
     <div class="overview-bars-2">
       <div class="card"><div class="card-head"><div class="card-title">Top pages acl.lu</div></div>
@@ -1782,6 +1797,7 @@ function renderOverview({dGA4, dGSC, dFB, dFBP, dBrevo, dLI, dYT, dGA4T, dVeille
   animateCards(el);
   renderObjectives({dFBP, dFB, dBrevo, dFBPytd, dFBytd});
   renderCalendar();
+  renderBufferWidget(dBuffer);
   renderChannelDonut(dGA4?.channelBreakdown || []);
   renderGSCPositions(dGSC?.topQueries || []);
   renderBenchmarks({dGA4, dGSC, dFB, dBrevo, dLI, dYT});
@@ -2486,7 +2502,7 @@ function renderObjectives({dFBP, dFB, dBrevo, dFBPytd, dFBytd}) {
         ${objMcCard('Facebook · Posts', 'ACL Karting — Rythme 2026', kartingYtdWkly, 1.5, kartingYtdWkly+'/sem', '1.5/sem', `${kartingYtdPosts} posts YTD · ≈${kartingAnnual}/an${trendBadge(kartingPeriodWkly, kartingYtdWkly)}`, '#FEDB00')}
         ${objMcCard('Meta Ads', 'Impressions 2026', metaYtd, metaTarget, fmtN(metaYtd), '2 000 000', `Objectif annuel · période : ${fmtN(metaPeriod)}`, '#F97316')}
         ${engagedYtd ? objMcCard('Facebook · Engagement', 'Utilisateurs engagés 2026', engagedYtd, engagedTarget, fmtN(engagedYtd), '+20%', 'Interactions uniques avec les posts', '#1877F2') : ''}
-        ${objMcCard('Brevo Email', "Taux d'ouverture moyen", openRate, 60, fmtPct(openRate), '60.0%', 'Objectif : 60% d\'ouverture', '#0B996E')}
+        ${objMcCard('Marketing Emails', "Taux d'ouverture moyen", openRate, 60, fmtPct(openRate), '60.0%', 'Objectif : 60% d\'ouverture', '#0B996E')}
       </div>
     </div>`;
 
@@ -2572,11 +2588,11 @@ function renderBrevo(d) {
     const msg = d?.error || 'Données Brevo indisponibles';
     if (errEl) { errEl.textContent = msg; errEl.classList.add('visible'); }
     el.innerHTML = `
-      <div class="sec-title"><h2>Brevo — Email Marketing</h2><div class="line"></div>
+      <div class="sec-title"><h2>Marketing Emails</h2><div class="line"></div>
         <span class="src-pill" style="--src:var(--c-brevo);--src-bg:var(--c-brevo-bg)">Brevo</span>
       </div>
       <div style="margin:16px 0;padding:16px 20px;background:#FEF2F2;border:1px solid #FECACA;border-radius:10px;font-size:13px;line-height:1.7">
-        <div style="font-weight:700;color:#DC2626;margin-bottom:6px">⚠ Erreur de connexion Brevo</div>
+        <div style="font-weight:700;color:#DC2626;margin-bottom:6px">⚠ Erreur de connexion Marketing Emails</div>
         <div style="color:#7F1D1D;word-break:break-word">${msg}</div>
         <div style="margin-top:10px;color:#991B1B;font-size:12px">
           <strong>Vérifier :</strong> la variable <code style="background:#FEE2E2;padding:1px 4px;border-radius:3px">BREVO_API_KEY</code> dans Railway est-elle valide ?
@@ -2714,7 +2730,7 @@ function renderBrevo(d) {
   const wrap = document.createElement('div');
   wrap.style.cssText = 'display:flex;flex-direction:column;gap:20px';
   wrap.innerHTML = `
-    <div class="sec-title"><h2>Brevo — Email Marketing</h2><div class="line"></div>
+    <div class="sec-title"><h2>Marketing Emails</h2><div class="line"></div>
       <span class="src-pill" style="--src:var(--c-brevo);--src-bg:var(--c-brevo-bg)">Brevo</span>
     </div>
     ${sectionAiHtml('brevo')}
@@ -4234,6 +4250,229 @@ document.getElementById('btnRefresh')?.addEventListener('click', loadAll);
     }).observe(drawer, {attributes: true, attributeFilter: ['class']});
   }
 })();
+
+// ── BUFFER WIDGET (Overview) ──────────────────────────────────
+function renderBufferWidget(d) {
+  const el = document.getElementById('ov-buffer-posts');
+  if (!el) return;
+  if (!d || d.error || !(d.this_week?.length || d.scheduled?.length)) return;
+
+  const thisWeek = d.this_week || d.scheduled?.filter(p => {
+    const {mon, sun} = _weekBounds();
+    try { const dt = new Date(p.due_at); return dt >= mon && dt < sun; } catch(e) { return false; }
+  }) || [];
+
+  if (!thisWeek.length) return;
+
+  const DAY_SHORT = ['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'];
+
+  const rows = thisWeek.slice(0, 7).map(p => {
+    const dt = new Date(p.due_at);
+    const dayLbl = DAY_SHORT[dt.getDay()] + ' ' + dt.toLocaleDateString('fr-FR', {day:'2-digit', month:'short'});
+    const timeLbl = dt.toLocaleTimeString('fr-FR', {hour:'2-digit', minute:'2-digit'});
+    const col = SVC_COLORS[(p.service||'').toLowerCase()] || '#888';
+    const svc = SVC_LABELS[(p.service||'').toLowerCase()] || p.channel_name || '—';
+    const txt = p.text ? p.text.slice(0,70) + (p.text.length > 70 ? '…' : '') : '—';
+    return `<div style="display:grid;grid-template-columns:110px 110px 1fr;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid var(--border)">
+      <span style="font-size:12px;color:var(--muted);white-space:nowrap">${dayLbl} ${timeLbl}</span>
+      <span style="display:inline-flex;align-items:center;gap:4px;background:${col}18;color:${col};border:1px solid ${col}33;border-radius:20px;padding:2px 9px;font-size:11px;font-weight:700;white-space:nowrap"><span style="width:7px;height:7px;border-radius:50%;background:${col};display:inline-block"></span>${svc}</span>
+      <span style="font-size:13px;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${txt}</span>
+    </div>`;
+  }).join('');
+
+  el.innerHTML = `
+    <div class="bench-wrap" style="margin-bottom:0">
+      <div class="bench-head">
+        <div class="bench-head-left">
+          <div class="bench-title">Posts planifiés cette semaine</div>
+          <div class="bench-sub">${thisWeek.length} post${thisWeek.length > 1 ? 's' : ''} · via Buffer</div>
+        </div>
+        <button class="ap-link" onclick="document.querySelector('[data-tab=buffer]')?.click()" style="font-size:11px">Voir tout →</button>
+      </div>
+      <div style="padding:0 16px 8px">${rows}</div>
+    </div>`;
+}
+
+// ── SOCIAL MEDIA (BUFFER) ─────────────────────────────────────
+const SVC_COLORS = {
+  linkedin:  '#0077B5',
+  facebook:  '#1877F2',
+  instagram: '#E1306C',
+  twitter:   '#000000',
+  x:         '#000000',
+  tiktok:    '#010101',
+  youtube:   '#FF0000',
+  pinterest: '#E60023',
+  threads:   '#101010',
+};
+const SVC_LABELS = {
+  linkedin:  'LinkedIn',
+  facebook:  'Facebook',
+  instagram: 'Instagram',
+  twitter:   'X / Twitter',
+  x:         'X',
+  tiktok:    'TikTok',
+  youtube:   'YouTube',
+  pinterest: 'Pinterest',
+  threads:   'Threads',
+};
+
+function _svcBadge(service, name) {
+  const s = (service || '').toLowerCase();
+  const col = SVC_COLORS[s] || '#888';
+  const lbl = name || SVC_LABELS[s] || service || '—';
+  return `<span style="display:inline-flex;align-items:center;gap:4px;background:${col}18;color:${col};border:1px solid ${col}33;border-radius:20px;padding:2px 9px;font-size:11px;font-weight:700;white-space:nowrap"><span style="width:7px;height:7px;border-radius:50%;background:${col};display:inline-block"></span>${lbl}</span>`;
+}
+
+function _fmtDueAt(iso) {
+  if (!iso) return '—';
+  try {
+    const d = new Date(iso);
+    const now = new Date();
+    const diffH = (d - now) / 36e5;
+    const opts = {weekday:'short', day:'2-digit', month:'2-digit', hour:'2-digit', minute:'2-digit'};
+    if (diffH < 24 && diffH >= 0) return `Aujourd'hui ${d.toLocaleTimeString('fr-FR', {hour:'2-digit',minute:'2-digit'})}`;
+    if (diffH < 48 && diffH >= 0) return `Demain ${d.toLocaleTimeString('fr-FR', {hour:'2-digit',minute:'2-digit'})}`;
+    return d.toLocaleDateString('fr-FR', {weekday:'short', day:'2-digit', month:'short'}) + ' ' + d.toLocaleTimeString('fr-FR', {hour:'2-digit',minute:'2-digit'});
+  } catch(e) { return iso; }
+}
+
+function _weekBounds() {
+  const now = new Date();
+  const mon = new Date(now);
+  mon.setHours(0,0,0,0);
+  mon.setDate(mon.getDate() - ((mon.getDay() + 6) % 7));
+  const sun = new Date(mon);
+  sun.setDate(sun.getDate() + 7);
+  return {mon, sun};
+}
+
+function renderBuffer(d) {
+  const el = document.getElementById('panel-buffer');
+  if (!el) return;
+
+  if (!d || d.error) {
+    el.innerHTML = `
+      <div class="sec-title"><h2>Social media — Planning Buffer</h2><div class="line"></div>
+        <span class="src-pill" style="--src:#E8A838;--src-bg:#FEF9EC">Buffer</span>
+      </div>
+      <div style="margin:16px 0;padding:16px 20px;background:#FEF2F2;border:1px solid #FECACA;border-radius:10px;font-size:13px;line-height:1.7">
+        <div style="font-weight:700;color:#DC2626;margin-bottom:6px">⚠ Données Buffer indisponibles</div>
+        <div style="color:#7F1D1D">${d?.error || 'BUFFER_API_KEY manquante ou API inaccessible'}</div>
+      </div>`;
+    return;
+  }
+
+  const stats     = d.stats     || {};
+  const scheduled = d.scheduled || [];
+  const sent      = d.sent      || [];
+  const thisWeek  = d.this_week || [];
+  const channels  = d.channels  || [];
+
+  // ── KPIs ──────────────────────────────────────────────────────
+  const nextAt  = stats.next_post_at;
+  const nextCh  = stats.next_post_channel || '';
+  const nextSvc = stats.next_post_service || '';
+  const nextCol = SVC_COLORS[(nextSvc||'').toLowerCase()] || '#888';
+
+  const kpisHtml = `
+    <div style="display:flex;gap:12px;flex-wrap:wrap">
+      ${kpiCard({label:'Posts planifiés',  value: String(stats.scheduled_count ?? 0),  src:'#E8A838', srcBg:'#FEF9EC'})}
+      ${kpiCard({label:'Canaux actifs',    value: String(stats.active_channels  ?? 0),  src:'#E8A838', srcBg:'#FEF9EC'})}
+      ${kpiCard({label:'Cette semaine',    value: String(stats.this_week_count  ?? 0),  src:'#E8A838', srcBg:'#FEF9EC'})}
+      ${nextAt ? kpiCard({label:'Prochaine publication', value: _fmtDueAt(nextAt), sub: nextCh, src: nextCol, srcBg: nextCol + '18'}) : ''}
+    </div>`;
+
+  // ── Planning semaine ──────────────────────────────────────────
+  const {mon, sun} = _weekBounds();
+  const DAY_NAMES = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
+  const days = Array.from({length:7}, (_,i) => { const d=new Date(mon); d.setDate(d.getDate()+i); return d; });
+
+  const postsByDay = days.map(day => {
+    const next = new Date(day); next.setDate(next.getDate()+1);
+    return scheduled.filter(p => {
+      try { const dt = new Date(p.due_at); return dt >= day && dt < next; }
+      catch(e) { return false; }
+    });
+  });
+
+  const todayIdx = ((new Date().getDay() + 6) % 7);
+  const weekGridHtml = `
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px">
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:12px">
+        Planning semaine du ${mon.toLocaleDateString('fr-FR',{day:'2-digit',month:'short'})} au ${new Date(sun.getTime()-1).toLocaleDateString('fr-FR',{day:'2-digit',month:'short'})}
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:6px">
+        ${days.map((day,i) => {
+          const isToday = i === todayIdx;
+          const posts = postsByDay[i];
+          return `<div style="min-height:80px;background:${isToday?'var(--hover)':'var(--bg)'};border:1px solid ${isToday?'var(--accent)':'var(--border)'};border-radius:8px;padding:6px">
+            <div style="font-size:10px;font-weight:700;color:${isToday?'var(--accent)':'var(--muted)'};margin-bottom:4px">${DAY_NAMES[i]}<br><span style="font-size:11px;color:var(--text)">${day.getDate()}</span></div>
+            ${posts.length === 0 ? '' : posts.map(p => {
+              const s = (p.service||'').toLowerCase();
+              const col = SVC_COLORS[s] || '#888';
+              const lbl = SVC_LABELS[s] || p.channel_name || s;
+              return `<div style="background:${col}20;border-left:2px solid ${col};border-radius:4px;padding:3px 5px;margin-bottom:3px;font-size:9px;font-weight:700;color:${col};overflow:hidden;white-space:nowrap;text-overflow:ellipsis" title="${p.text?.replace(/"/g,'&quot;')}">${lbl}</div>`;
+            }).join('')}
+          </div>`;
+        }).join('')}
+      </div>
+    </div>`;
+
+  // ── Tableau posts à venir ─────────────────────────────────────
+  const upcomingHtml = scheduled.length === 0
+    ? `<div style="padding:24px;text-align:center;color:var(--muted);font-size:13px">Aucun post planifié</div>`
+    : `<table style="width:100%;border-collapse:collapse;font-size:13px">
+        <thead>
+          <tr style="border-bottom:2px solid var(--border)">
+            <th style="text-align:left;padding:8px 12px;color:var(--muted);font-weight:600;white-space:nowrap">Date / Heure</th>
+            <th style="text-align:left;padding:8px 12px;color:var(--muted);font-weight:600">Réseau</th>
+            <th style="text-align:left;padding:8px 12px;color:var(--muted);font-weight:600">Contenu</th>
+            <th style="text-align:center;padding:8px 12px;color:var(--muted);font-weight:600">Média</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${scheduled.slice(0,20).map((p,i) => `
+            <tr style="border-bottom:1px solid var(--border);background:${i%2===0?'transparent':'var(--hover)'}">
+              <td style="padding:8px 12px;white-space:nowrap;color:var(--muted);font-size:12px">${_fmtDueAt(p.due_at)}</td>
+              <td style="padding:8px 12px">${_svcBadge(p.service, p.channel_name)}</td>
+              <td style="padding:8px 12px;max-width:320px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${(p.text||'').replace(/"/g,'&quot;')}">${p.text ? p.text.slice(0,90)+(p.text.length>90?'…':'') : '<span style="color:var(--muted)">—</span>'}</td>
+              <td style="padding:8px 12px;text-align:center">${p.has_media ? '🖼' : ''}</td>
+            </tr>`).join('')}
+        </tbody>
+      </table>`;
+
+  // ── Posts récents ─────────────────────────────────────────────
+  const sentHtml = sent.length === 0
+    ? `<div style="padding:12px;text-align:center;color:var(--muted);font-size:13px">Aucun post récent</div>`
+    : sent.slice(0,10).map(p => `
+        <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)">
+          <span style="font-size:12px;color:var(--muted);white-space:nowrap;min-width:110px">${_fmtDueAt(p.due_at)}</span>
+          ${_svcBadge(p.service, p.channel_name)}
+          <span style="font-size:13px;color:var(--text);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${p.text ? p.text.slice(0,80)+(p.text.length>80?'…':'') : '—'}</span>
+          <span style="font-size:11px;color:#16A34A;font-weight:700">✓</span>
+        </div>`).join('');
+
+  el.innerHTML = '';
+  const wrap = document.createElement('div');
+  wrap.style.cssText = 'display:flex;flex-direction:column;gap:20px';
+  wrap.innerHTML = `
+    <div class="sec-title"><h2>Social media — Planning Buffer</h2><div class="line"></div>
+      <span class="src-pill" style="--src:#E8A838;--src-bg:#FEF9EC">Buffer</span>
+    </div>
+    ${kpisHtml}
+    ${weekGridHtml}
+    <div class="card" style="padding:0;overflow:hidden">
+      <div style="padding:14px 16px;border-bottom:1px solid var(--border);font-weight:700;font-size:13px">Posts à venir (${scheduled.length})</div>
+      <div style="overflow-x:auto">${upcomingHtml}</div>
+    </div>
+    <div class="card" style="padding:16px">
+      <div style="font-weight:700;font-size:13px;margin-bottom:12px">Récemment publiés</div>
+      ${sentHtml}
+    </div>`;
+  el.appendChild(wrap);
+  animateCards(el);
+}
 
 // ── Boot ──────────────────────────────────────────────────────
 setDateRange(30);
