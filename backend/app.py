@@ -1603,56 +1603,59 @@ def buffer_planning():
     if cached:
         return jsonify(cached)
 
-    # ── Channels ──────────────────────────────────────────────────────────────
-    q_channels = '{ channels { id name service avatar isDisconnected } }'
+    # ── Step 1 : récupérer l'organizationId ──────────────────────────────────
+    d_account, e_account = _buffer_gql('{ account { currentOrganization { id } } }')
+    if e_account or not d_account:
+        err = e_account or 'Impossible de récupérer le compte Buffer'
+        _cache_set('buffer_main', {'error': err}, 60)
+        return jsonify({'error': err})
 
-    # ── Scheduled posts — on essaie scheduledAt d'abord, fallback dueAt ──────
-    q_scheduled = """
-    {
-      posts(status: SCHEDULED, first: 50) {
-        edges {
-          node {
-            id
-            text
-            scheduledAt
-            dueAt
-            status
-            channel { id name service }
-            media { url type }
-          }
-        }
+    org_id = (d_account.get('account') or {}).get('currentOrganization', {}).get('id', '')
+    if not org_id:
+        err = 'organizationId introuvable dans le compte Buffer'
+        _cache_set('buffer_main', {'error': err}, 60)
+        return jsonify({'error': err})
+
+    # ── Step 2 : channels + posts en parallèle ────────────────────────────────
+    Q_CHANNELS = '''
+    query($orgId: OrganizationId!) {
+      channels(input: { organizationId: $orgId }) {
+        id name service avatar isDisconnected displayName
       }
-    }
-    """
+    }'''
 
-    # ── Sent posts ────────────────────────────────────────────────────────────
-    q_sent = """
-    {
-      posts(status: SENT, first: 20) {
-        edges {
-          node {
-            id
-            text
-            scheduledAt
-            dueAt
-            status
-            channel { id name service }
-          }
-        }
+    Q_SCHEDULED = '''
+    query($orgId: OrganizationId!) {
+      posts(input: { organizationId: $orgId, filter: { status: [scheduled] } }) {
+        edges { node {
+          id text dueAt status
+          channel { id name displayName service }
+          assets { url type }
+        } }
       }
-    }
-    """
+    }'''
 
+    Q_SENT = '''
+    query($orgId: OrganizationId!) {
+      posts(input: { organizationId: $orgId, filter: { status: [sent] } }) {
+        edges { node {
+          id text dueAt sentAt status
+          channel { id name displayName service }
+        } }
+      }
+    }'''
+
+    vars_ = {'orgId': org_id}
     _api_errors = []
 
     try:
         with concurrent.futures.ThreadPoolExecutor(max_workers=3) as ex:
-            fc  = ex.submit(_buffer_gql, q_channels)
-            fs  = ex.submit(_buffer_gql, q_scheduled)
-            fse = ex.submit(_buffer_gql, q_sent)
-            d_channels, e_ch  = fc.result()
+            fc  = ex.submit(_buffer_gql, Q_CHANNELS,  vars_)
+            fs  = ex.submit(_buffer_gql, Q_SCHEDULED, vars_)
+            fse = ex.submit(_buffer_gql, Q_SENT,      vars_)
+            d_channels,  e_ch = fc.result()
             d_scheduled, e_sc = fs.result()
-            d_sent, e_se      = fse.result()
+            d_sent,      e_se = fse.result()
     except Exception as e:
         return jsonify({'error': str(e)}), 503
 
@@ -1660,27 +1663,21 @@ def buffer_planning():
         if e:
             _api_errors.append(e)
 
-    # Si tout échoue → erreur visible dans le dashboard
     if _api_errors and not d_channels and not d_scheduled:
-        err_msg = _api_errors[0]
-        _cache_set('buffer_main', {'error': err_msg}, 60)
-        return jsonify({'error': err_msg})
-
-    def _due(node):
-        return node.get('scheduledAt') or node.get('dueAt') or ''
+        _cache_set('buffer_main', {'error': _api_errors[0]}, 60)
+        return jsonify({'error': _api_errors[0]})
 
     def _norm_post(node):
-        ch    = node.get('channel') or {}
-        media = node.get('media') or node.get('assets') or []
+        ch = node.get('channel') or {}
         return {
             'id':           node.get('id', ''),
             'text':         node.get('text', ''),
-            'due_at':       _due(node),
+            'due_at':       node.get('dueAt') or node.get('sentAt') or '',
             'status':       node.get('status', ''),
             'channel_id':   ch.get('id', ''),
-            'channel_name': ch.get('name', ''),
+            'channel_name': ch.get('displayName') or ch.get('name') or '',
             'service':      ch.get('service', '').lower(),
-            'has_media':    len(media) > 0,
+            'has_media':    len(node.get('assets') or []) > 0,
         }
 
     channels = []
@@ -1689,29 +1686,24 @@ def buffer_planning():
             if not ch.get('isDisconnected'):
                 channels.append({
                     'id':      ch.get('id', ''),
-                    'name':    ch.get('name', ''),
+                    'name':    ch.get('displayName') or ch.get('name') or '',
                     'service': ch.get('service', '').lower(),
                     'avatar':  ch.get('avatar', ''),
                 })
 
-    scheduled = []
-    if d_scheduled:
-        for edge in (d_scheduled.get('posts') or {}).get('edges') or []:
+    def _extract_posts(data_node):
+        posts = []
+        for edge in (data_node.get('posts') or {}).get('edges') or []:
             node = edge.get('node') or {}
             if node:
-                scheduled.append(_norm_post(node))
-    scheduled.sort(key=lambda x: x['due_at'])
+                posts.append(_norm_post(node))
+        return posts
 
-    sent = []
-    if d_sent:
-        for edge in (d_sent.get('posts') or {}).get('edges') or []:
-            node = edge.get('node') or {}
-            if node:
-                sent.append(_norm_post(node))
-    sent.sort(key=lambda x: x['due_at'], reverse=True)
+    scheduled = sorted(_extract_posts(d_scheduled or {}), key=lambda x: x['due_at'])
+    sent      = sorted(_extract_posts(d_sent      or {}), key=lambda x: x['due_at'], reverse=True)
 
     # ── Stats ─────────────────────────────────────────────────────────────────
-    now = datetime.datetime.utcnow()
+    now        = datetime.datetime.utcnow()
     week_start = now - datetime.timedelta(days=now.weekday())
     week_end   = week_start + datetime.timedelta(days=7)
 
@@ -1726,10 +1718,10 @@ def buffer_planning():
     next_post = scheduled[0] if scheduled else None
 
     data = {
-        'channels':  channels,
-        'scheduled': scheduled,
-        'sent':      sent,
-        'this_week': this_week,
+        'channels':    channels,
+        'scheduled':   scheduled,
+        'sent':        sent,
+        'this_week':   this_week,
         '_api_errors': _api_errors,
         'stats': {
             'scheduled_count':   len(scheduled),
