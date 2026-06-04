@@ -1617,42 +1617,24 @@ def buffer_planning():
         return jsonify({'error': err})
 
     # ── Step 2 : channels + posts en parallèle ────────────────────────────────
-    Q_CHANNELS = '''
-    query($orgId: OrganizationId!) {
-      channels(input: { organizationId: $orgId }) {
-        id name service avatar isDisconnected displayName
-      }
-    }'''
+    # Inline string (org_id vient de l'API Buffer, pas de l'utilisateur)
+    oid = org_id
+    Q_CHANNELS  = ('{ channels(input:{organizationId:"%s"})'
+                   '{ id name service avatar isDisconnected displayName } }') % oid
+    Q_SCHEDULED = ('{ posts(input:{organizationId:"%s",filter:{status:[scheduled]}})'
+                   '{ edges { node { id text dueAt status'
+                   '  channel{id name displayName service} assets{url type} } } } }') % oid
+    Q_SENT      = ('{ posts(input:{organizationId:"%s",filter:{status:[sent]}})'
+                   '{ edges { node { id text dueAt sentAt status'
+                   '  channel{id name displayName service} } } } }') % oid
 
-    Q_SCHEDULED = '''
-    query($orgId: OrganizationId!) {
-      posts(input: { organizationId: $orgId, filter: { status: [scheduled] } }) {
-        edges { node {
-          id text dueAt status
-          channel { id name displayName service }
-          assets { url type }
-        } }
-      }
-    }'''
-
-    Q_SENT = '''
-    query($orgId: OrganizationId!) {
-      posts(input: { organizationId: $orgId, filter: { status: [sent] } }) {
-        edges { node {
-          id text dueAt sentAt status
-          channel { id name displayName service }
-        } }
-      }
-    }'''
-
-    vars_ = {'orgId': org_id}
     _api_errors = []
 
     try:
         with concurrent.futures.ThreadPoolExecutor(max_workers=3) as ex:
-            fc  = ex.submit(_buffer_gql, Q_CHANNELS,  vars_)
-            fs  = ex.submit(_buffer_gql, Q_SCHEDULED, vars_)
-            fse = ex.submit(_buffer_gql, Q_SENT,      vars_)
+            fc  = ex.submit(_buffer_gql, Q_CHANNELS)
+            fs  = ex.submit(_buffer_gql, Q_SCHEDULED)
+            fse = ex.submit(_buffer_gql, Q_SENT)
             d_channels,  e_ch = fc.result()
             d_scheduled, e_sc = fs.result()
             d_sent,      e_se = fse.result()
