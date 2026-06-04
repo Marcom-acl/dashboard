@@ -1623,7 +1623,7 @@ def buffer_planning():
                    '{ id name service avatar isDisconnected displayName } }') % oid
     Q_SCHEDULED = ('{ posts(input:{organizationId:"%s",filter:{status:[scheduled]}})'
                    '{ edges { node { id text dueAt status'
-                   '  channel{id name displayName service} assets{url type} } } } }') % oid
+                   '  channel{id name displayName service} assets{__typename} } } } }') % oid
     Q_SENT      = ('{ posts(input:{organizationId:"%s",filter:{status:[sent]}})'
                    '{ edges { node { id text dueAt sentAt status'
                    '  channel{id name displayName service} } } } }') % oid
