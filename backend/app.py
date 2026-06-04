@@ -1575,22 +1575,21 @@ def _buffer_gql(query, variables=None):
 
 @app.route('/buffer/debug')
 def buffer_debug():
-    """Diagnostic : retourne les réponses brutes de l'API Buffer (pas de cache)."""
+    """Diagnostic : introspection complète des types Buffer + essais de requêtes."""
     if not BUFFER_API_KEY:
         return jsonify({'error': 'BUFFER_API_KEY manquante'})
 
-    # Introspection légère : liste des types disponibles à la racine
-    q_intro = '{ __schema { queryType { fields { name } } } }'
-    # Canaux
-    q_ch = '{ channels { id name service avatar isDisconnected } }'
-    # Essai posts scheduled (plusieurs variantes de champ date)
-    q_sched_v1 = '{ posts(status: SCHEDULED, first: 5) { edges { node { id text scheduledAt status } } } }'
-    q_sched_v2 = '{ posts(status: scheduled, first: 5) { edges { node { id text dueAt status } } } }'
+    queries = {
+        'type_ChannelsInput': '{ __type(name:"ChannelsInput"){ inputFields{ name type{ name kind ofType{ name kind } } } } }',
+        'type_PostsInput':    '{ __type(name:"PostsInput")   { inputFields{ name type{ name kind ofType{ name kind } } } } }',
+        'type_Post':          '{ __type(name:"Post")         { fields     { name type{ name kind ofType{ name kind } } } } }',
+        'type_Channel':       '{ __type(name:"Channel")      { fields     { name type{ name kind ofType{ name kind } } } } }',
+        'channels_empty_input': '{ channels(input:{}) { id name service avatar } }',
+        'posts_input_empty':    '{ posts(input:{}) { edges { node { id text status } } } }',
+    }
 
     results = {}
-    for label, q in [('introspection', q_intro), ('channels', q_ch),
-                     ('posts_SCHEDULED_scheduledAt', q_sched_v1),
-                     ('posts_scheduled_dueAt', q_sched_v2)]:
+    for label, q in queries.items():
         data, err = _buffer_gql(q)
         results[label] = {'data': data, 'error': err}
 
