@@ -2767,7 +2767,6 @@ function renderBrevo(d) {
       <span class="src-pill" style="--src:var(--c-brevo);--src-bg:var(--c-brevo-bg)">Brevo</span>
     </div>
     ${sectionAiHtml('brevo')}
-    ${filterBarHtml}
 
     <div class="kpi-grid">
       ${kpiCard({label:'Contacts totaux (liste #64)',   value:fmtN(total),           src:'var(--c-brevo)', srcBg:'var(--c-brevo-bg)'})}
@@ -2860,9 +2859,11 @@ function renderBrevo(d) {
       </div>
     </div>
 
+    ${filterBarHtml}
     <div class="card">
       <div class="card-head">
         <div class="card-title">Campagnes récentes</div>
+        ${filterActive ? `<span style="font-size:11px;color:var(--c-brevo);font-weight:600">${campsF.length} / ${campsE.length} campagnes</span>` : ''}
       </div>
       <div class="card-body flush"><div class="tbl-scroll"><table class="tbl">
         <thead><tr>
@@ -4453,7 +4454,10 @@ function _postAccordionItem(p, idx, isScheduled) {
     <div class="buf-item" id="${itemId}" style="border-bottom:1px solid var(--border);transition:background .15s">
       <div class="buf-header" onclick="bufToggle('${itemId}')" style="display:grid;grid-template-columns:120px auto 1fr auto auto;align-items:center;gap:10px;padding:10px 14px;cursor:pointer;user-select:none">
         <span style="font-size:12px;color:var(--muted);white-space:nowrap">${_fmtDueAt(p.due_at)}</span>
-        ${_svcBadge(p.service, p.channel_name)}
+        <div style="display:flex;flex-direction:column;gap:2px;min-width:0">
+          ${_svcBadge(p.service)}
+          ${p.channel_name ? `<span style="font-size:10px;color:var(--muted);padding-left:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:150px">${p.channel_name}</span>` : ''}
+        </div>
         <span class="buf-preview" style="font-size:13px;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${text.slice(0,SHORT)}${needsExpand?'…':''}</span>
         <div style="display:flex;align-items:center;gap:6px">${mediaBadge}${statusBadge}</div>
         ${needsExpand ? `<span class="buf-chevron" style="color:var(--muted);font-size:12px;transition:transform .2s">▼</span>` : '<span style="width:16px"></span>'}
