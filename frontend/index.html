@@ -2580,7 +2580,12 @@ function getCampaignLang(name) {
   return 'nd';
 }
 
+// ── Email filter state ────────────────────────────────────────
+let _brevoTypeFilter = new Set(['nl_gen','nl_theme','club_nl','enq','rel','other']);
+let _brevoLangFilter = new Set(['fr','de','en','nd']);
+
 function renderBrevo(d) {
+  window._brevoData = d;
   const el    = document.getElementById('panel-brevo');
   const errEl = document.getElementById('errBanner');
   if (!el) return;
@@ -2633,31 +2638,34 @@ function renderBrevo(d) {
     return { ...c, dlvr, opens, clics, unsb, openRate, clickRate, ctor, unsubRate, score, type: getCampaignType(c.name), lang: getCampaignLang(c.name) };
   });
 
-  // Global aggregates
-  const totalDlvr  = campsE.reduce((a,c) => a + c.dlvr,  0);
-  const totalOpens = campsE.reduce((a,c) => a + c.opens, 0);
-  const totalClick = campsE.reduce((a,c) => a + c.clics, 0);
-  const totalUnsub = campsE.reduce((a,c) => a + c.unsb,  0);
+  // Apply active filters (Type + Langue)
+  const campsF = campsE.filter(c =>
+    _brevoTypeFilter.has(c.type) && _brevoLangFilter.has(c.lang)
+  );
+  const filterActive = campsF.length < campsE.length;
+
+  // Global aggregates (filtered)
+  const totalDlvr  = campsF.reduce((a,c) => a + c.dlvr,  0);
+  const totalOpens = campsF.reduce((a,c) => a + c.opens, 0);
+  const totalClick = campsF.reduce((a,c) => a + c.clics, 0);
+  const totalUnsub = campsF.reduce((a,c) => a + c.unsb,  0);
   const avgOpen  = totalDlvr  ? totalOpens / totalDlvr  * 100 : 0;
   const avgClick = totalDlvr  ? totalClick / totalDlvr  * 100 : 0;
   const avgCTOR  = totalOpens ? totalClick / totalOpens * 100 : 0;
   const avgUnsub = totalDlvr  ? totalUnsub / totalDlvr  * 100 : 0;
 
-  // Top by open rate for bar chart
-  const topByOpen = [...campsE].sort((a,b) => b.openRate - a.openRate).slice(0, 6);
+  // Top by open rate for bar chart (filtered)
+  const topByOpen = [...campsF].sort((a,b) => b.openRate - a.openRate).slice(0, 6);
 
-  // Type distribution
-  const typeCounts = {nl:0, enq:0, rel:0, other:0};
-  campsE.forEach(c => { typeCounts[c.type] = (typeCounts[c.type] || 0) + 1; });
-  const typeItems = [
-    {name:'Newsletter', count:typeCounts.nl},
-    {name:'Enquête',    count:typeCounts.enq},
-    {name:'Relance',    count:typeCounts.rel},
-    {name:'Autre',      count:typeCounts.other},
-  ].filter(t => t.count > 0);
+  // Type distribution (filtered)
+  const typeCountsF = {};
+  campsF.forEach(c => { typeCountsF[c.type] = (typeCountsF[c.type] || 0) + 1; });
+  const typeItems = Object.entries(typeCountsF)
+    .map(([t, count]) => ({name: ({nl_gen:'NL Générale', nl_theme:'NL Thématique', club_nl:'Club NL', enq:'Enquête', rel:'Relance', other:'Autre'}[t] || t), count}))
+    .filter(t => t.count > 0);
 
-  // Sparkline: last 10 campaigns open rates (chronological)
-  const sparkBrevo = campsE.slice(0, 10).reverse().map(c => c.openRate);
+  // Sparkline: last 10 campaigns open rates (filtered, chronological)
+  const sparkBrevo = campsF.slice(0, 10).reverse().map(c => c.openRate);
 
   const typeBadgeHtml = type => {
     const labels = {nl_gen:'NL Générale', nl_theme:'NL Thématique', club_nl:'Club NL', enq:'Enquête', rel:'Relance', other:'Autre'};
@@ -2729,11 +2737,37 @@ function renderBrevo(d) {
 
   const wrap = document.createElement('div');
   wrap.style.cssText = 'display:flex;flex-direction:column;gap:20px';
+  const TP_TYPE_OPTS = [
+    {k:'nl_gen',   l:'NL Générale'},
+    {k:'nl_theme', l:'NL Thématique'},
+    {k:'club_nl',  l:'Club NL'},
+    {k:'enq',      l:'Enquête'},
+    {k:'rel',      l:'Relance'},
+    {k:'other',    l:'Autre'},
+  ].filter(o => campsE.some(c => c.type === o.k));
+  const filterBarHtml = `
+    <div class="tl-controls" style="margin:0 0 4px;flex-wrap:wrap">
+      <div class="tl-grp">
+        <span class="tl-grp-lbl">Type</span>
+        ${TP_TYPE_OPTS.map(o =>
+          `<button class="tl-type-btn ${_brevoTypeFilter.has(o.k)?'active':''}" onclick="window._brevoToggleType('${o.k}')" style="color:${TP_COLORS[o.k]||'#888'};border-color:${TP_COLORS[o.k]||'#888'};background:${_brevoTypeFilter.has(o.k)?(TP_COLORS[o.k]||'#888')+'18':'transparent'}">${o.l}</button>`
+        ).join('')}
+      </div>
+      <div class="tl-grp">
+        <span class="tl-grp-lbl">Langue</span>
+        ${['fr','de','en','nd'].map(l =>
+          `<button class="tl-lang-btn ${_brevoLangFilter.has(l)?'active':''}" data-tl-lang="${l}" onclick="window._brevoToggleLang('${l}')">${l.toUpperCase()}</button>`
+        ).join('')}
+      </div>
+      ${filterActive ? `<span style="font-size:11px;color:var(--c-brevo);font-weight:600;align-self:center">${campsF.length} / ${campsE.length} campagnes</span>` : `<span style="font-size:11px;color:var(--muted);align-self:center">${campsE.length} campagnes</span>`}
+    </div>`;
+
   wrap.innerHTML = `
     <div class="sec-title"><h2>Marketing Emails</h2><div class="line"></div>
       <span class="src-pill" style="--src:var(--c-brevo);--src-bg:var(--c-brevo-bg)">Brevo</span>
     </div>
     ${sectionAiHtml('brevo')}
+    ${filterBarHtml}
 
     <div class="kpi-grid">
       ${kpiCard({label:'Contacts totaux (liste #64)',   value:fmtN(total),           src:'var(--c-brevo)', srcBg:'var(--c-brevo-bg)'})}
@@ -2840,7 +2874,7 @@ function renderBrevo(d) {
           <th class="r" title="Benchmark : &lt;0.1% excellent · 0.1–0.5% moyen · &gt;0.5% élevé">Désab. ⬤</th>
           <th style="min-width:90px">Score</th>
         </tr></thead>
-        <tbody>${campsE.slice(0, 15).map(c => {
+        <tbody>${campsF.slice(0, 15).map(c => {
           const openCls  = c.openRate  >= 35 ? 'var(--good)' : c.openRate  >= 20 ? 'var(--warn)' : 'var(--bad)';
           const clicCls  = c.clickRate >= 3  ? 'var(--good)' : c.clickRate >= 1  ? 'var(--warn)' : 'var(--bad)';
           const ctorCls  = c.ctor      >= 10 ? 'var(--good)' : c.ctor      >= 5  ? 'var(--warn)' : 'var(--bad)';
@@ -2870,6 +2904,17 @@ function renderBrevo(d) {
   animateCards(el);
   initBrevoTimeline(tpData, TP_COLORS, TP_LABELS);
   fetchSectionInsight('brevo', {avgOpenRate: avgOpen, avgClick, totalUnsub, campaigns: camps.length});
+
+  window._brevoToggleType = function(t) {
+    if (_brevoTypeFilter.has(t) && _brevoTypeFilter.size > 1) _brevoTypeFilter.delete(t);
+    else _brevoTypeFilter.add(t);
+    renderBrevo(window._brevoData);
+  };
+  window._brevoToggleLang = function(l) {
+    if (_brevoLangFilter.has(l) && _brevoLangFilter.size > 1) _brevoLangFilter.delete(l);
+    else _brevoLangFilter.add(l);
+    renderBrevo(window._brevoData);
+  };
 }
 
 // ── BREVO TIMELINE ────────────────────────────────────────────
@@ -3773,8 +3818,21 @@ async function fetchInsights({dGA4, dGSC, dFB, dBrevo, dLI, dYT}) {
     const data     = await r.json();
     const insights = data.insights || [];
 
+    if (!r.ok || data.error) {
+      const reason = data.error || `HTTP ${r.status}`;
+      el.innerHTML = `<div class="ap-loading" style="color:#999;display:flex;flex-direction:column;gap:10px;align-items:center">
+        <div>Insights IA indisponibles.</div>
+        <div style="font-size:11px;color:var(--muted)">${reason}</div>
+        <button onclick="if(window._lastDashData)fetchInsights(window._lastDashData)" style="background:#1a1a1a;border:1px solid #333;color:#FEDB00;padding:6px 14px;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit">↻ Réessayer</button>
+      </div>`;
+      return;
+    }
+
     if (!insights.length) {
-      el.innerHTML = '<div class="ap-loading" style="color:#999">Aucune recommandation générée.</div>';
+      el.innerHTML = `<div class="ap-loading" style="color:#999;display:flex;flex-direction:column;gap:10px;align-items:center">
+        <div>Aucune recommandation générée.</div>
+        <button onclick="if(window._lastDashData)fetchInsights(window._lastDashData)" style="background:#1a1a1a;border:1px solid #333;color:#FEDB00;padding:6px 14px;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit">↻ Réessayer</button>
+      </div>`;
       return;
     }
 
@@ -4457,6 +4515,43 @@ function renderBuffer(d) {
       ${nextAt ? kpiCard({label:'Prochaine pub.', value: _fmtDueAt(nextAt), sub: stats.next_post_channel || '', src: nextCol, srcBg: nextCol + '18'}) : ''}
     </div>`;
 
+  // ── Breakdown par réseau ──────────────────────────────────────
+  const netScheduled = {}, netSent = {};
+  scheduled.forEach(p => { const s=(p.service||'other').toLowerCase(); netScheduled[s]=(netScheduled[s]||0)+1; });
+  sent.forEach(p => { const s=(p.service||'other').toLowerCase(); netSent[s]=(netSent[s]||0)+1; });
+  const allNets = [...new Set([...Object.keys(netScheduled),...Object.keys(netSent)])];
+  const netBreakdownHtml = allNets.length === 0 ? '' : `
+    <div class="card">
+      <div class="card-head">
+        <div class="card-title">Réseaux</div>
+        <div class="card-sub">Planifiés · Récemment publiés</div>
+      </div>
+      <div class="card-body" style="padding:12px 16px">
+        <div style="display:flex;flex-wrap:wrap;gap:10px">
+          ${allNets.map(s => {
+            const col = SVC_COLORS[s] || '#888';
+            const lbl = SVC_LABELS[s] || s;
+            const nSched = netScheduled[s] || 0;
+            const nSent  = netSent[s]      || 0;
+            return `<div style="display:flex;align-items:center;gap:10px;background:${col}0d;border:1px solid ${col}33;border-radius:10px;padding:10px 14px;min-width:160px">
+              <span style="width:32px;height:32px;border-radius:50%;background:${col}22;border:2px solid ${col};display:grid;place-items:center;flex-shrink:0">
+                <span style="width:10px;height:10px;border-radius:50%;background:${col}"></span>
+              </span>
+              <div>
+                <div style="font-weight:700;font-size:13px;color:${col}">${lbl}</div>
+                <div style="font-size:11px;color:var(--muted);margin-top:2px">
+                  ${nSched > 0 ? `<span style="color:#E8A838;font-weight:600">⏳ ${nSched} planifié${nSched>1?'s':''}</span>` : ''}
+                  ${nSched > 0 && nSent > 0 ? ' · ' : ''}
+                  ${nSent  > 0 ? `<span style="color:#16A34A;font-weight:600">✓ ${nSent} publié${nSent>1?'s':''}</span>` : ''}
+                  ${nSched === 0 && nSent === 0 ? '—' : ''}
+                </div>
+              </div>
+            </div>`;
+          }).join('')}
+        </div>
+      </div>
+    </div>`;
+
   // ── Planning semaine ──────────────────────────────────────────
   const {mon, sun} = _weekBounds();
   const DAY_NAMES  = ['Lun','Mar','Mer','Jeu','Ven','Sam','Dim'];
@@ -4506,6 +4601,7 @@ function renderBuffer(d) {
       <span class="src-pill" style="--src:#E8A838;--src-bg:#FEF9EC">Buffer</span>
     </div>
     ${kpisHtml}
+    ${netBreakdownHtml}
     ${weekGridHtml}
     <div class="card" style="padding:0;overflow:hidden">
       <div style="padding:12px 14px;border-bottom:2px solid var(--border);font-weight:700;font-size:13px;display:flex;align-items:center;gap:8px">

@@ -1,0 +1,39 @@
+name: Veille sectorielle — Mise à jour quotidienne
+
+on:
+  schedule:
+    # Chaque matin à 06:00 heure Luxembourg (05:00 UTC)
+    - cron: '0 5 * * *'
+  workflow_dispatch:
+    # Déclenchement manuel depuis GitHub Actions pour tester
+
+permissions:
+  contents: write
+
+jobs:
+  refresh-veille:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install anthropic feedparser requests
+
+      - name: Run veille refresh script
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python scripts/veille-refresh.py
+
+      - name: Commit updated veille-data.json
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/veille-data.json
+          git diff --cached --quiet || git commit -m "chore: veille sectorielle — $(date +'%Y-%m-%d')"
+          git push

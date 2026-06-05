@@ -2003,16 +2003,20 @@ def build_insights_prompt(data):
         lines.append(f"**YouTube** : {subs} abonnés, {videos} nouvelles vidéos sur {period} jours")
         lines.append(f"  → Benchmark YouTube petites chaînes : 1-4 vidéos/mois pour maintenir l'algorithme")
 
+    has_data = any([ga4, gsc, fb, brevo, li, yt])
+    if not has_data:
+        lines.append("Aucune donnée disponible pour cette période. Génère des recommandations génériques basées sur les bonnes pratiques marketing pour un club automobile au Luxembourg.")
+
     lines += [
         "",
         "## Instructions",
-        "Réponds UNIQUEMENT avec un tableau JSON valide (pas de markdown, pas d'explication).",
-        f"Génère exactement 5 à 6 recommandations prioritaires pour ACL Luxembourg.",
+        "Réponds UNIQUEMENT avec un tableau JSON brut, sans markdown, sans bloc ```json, sans explication avant ou après.",
+        f"Génère exactement 5 recommandations prioritaires pour ACL Luxembourg.",
         "Inclure AU MOINS 1 recommandation de type 'low' (opportunité de croissance identifiée).",
-        "Dans le champ 'insight', comparer le KPI au benchmark fourni et quantifier l'écart.",
+        "Dans le champ 'insight', comparer le KPI au benchmark fourni et quantifier l'écart. Si pas de données, citer la bonne pratique sectorielle.",
         "Dans le champ 'action', proposer une action concrète, mesurable, réalisable sous 2 semaines.",
-        "Format exact (JSON array, rien d'autre) :",
-        '[{"priority":"high|med|low","source":"GA4|Meta|GSC|Brevo|LinkedIn|YouTube","title":"titre court max 8 mots","insight":"observation avec écart au benchmark","action":"action concrète et mesurable"}]',
+        "Ta réponse doit commencer par [ et se terminer par ]. Rien d'autre.",
+        'Exemple de format : [{"priority":"high","source":"GA4","title":"Titre court","insight":"Observation","action":"Action concrète"}]',
     ]
 
     return '\n'.join(lines)
@@ -2181,9 +2185,21 @@ def get_insights():
             messages=[{'role': 'user', 'content': prompt}],
         )
         text = msg.content[0].text
-        # Extract JSON array from response
-        match = re.search(r'\[.*\]', text, re.DOTALL)
-        insights = json.loads(match.group()) if match else []
+        # Extract JSON array — try direct parse first, then regex
+        insights = []
+        try:
+            parsed = json.loads(text.strip())
+            if isinstance(parsed, list):
+                insights = parsed
+        except Exception:
+            # Find the longest JSON array in the response
+            for m in re.finditer(r'\[[\s\S]*?\]', text):
+                try:
+                    candidate = json.loads(m.group())
+                    if isinstance(candidate, list) and len(candidate) > len(insights):
+                        insights = candidate
+                except Exception:
+                    pass
         return jsonify({'insights': insights})
     except Exception as e:
         return jsonify({'error': str(e), 'insights': []}), 500
