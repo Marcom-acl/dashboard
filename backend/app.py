@@ -737,37 +737,82 @@ def ga4_extended():
 @app.route('/ga4/funnel')
 def ga4_funnel():
     start, end = _date_range()
+    cache_key = f'ga4-funnel:{start}:{end}'
+    cached = _cache_get(cache_key)
+    if cached: return jsonify(cached)
+
     headers = _google_headers()
     if not headers:
         return jsonify({'error': 'Google non connecté'})
 
     url = f'https://analyticsdata.googleapis.com/v1beta/properties/{GA4_PROPERTY}:runReport'
 
-    steps_metrics = [
-        ('sessions',    'Sessions'),
-        ('engagedSessions', 'Sessions engagées'),
-        ('conversions', 'Conversions'),
+    def _q(body):
+        return _post(url, headers=headers, json=body)
+
+    # 1. Baseline — sessions totales + utilisateurs
+    r_base = _q({'dateRanges': [{'startDate': start, 'endDate': end}],
+                 'metrics': [{'name': 'sessions'}, {'name': 'totalUsers'}]})
+    total_sessions = total_users = 0
+    if r_base.ok:
+        rows = r_base.json().get('rows', [])
+        if rows:
+            total_sessions = int(float(rows[0]['metricValues'][0]['value']))
+            total_users    = int(float(rows[0]['metricValues'][1]['value']))
+
+    # 2. Page "Devenir membre" — FR + EN + DE
+    membre_prefixes = [
+        '/fr/devenir-membre/',
+        '/en/become-member/',
+        '/de/mitglied-werden/',
+        '/fr/adhesion/',
     ]
+    membre_filter = {'orGroup': {'expressions': [
+        {'filter': {'fieldName': 'pagePath',
+                    'stringFilter': {'matchType': 'BEGINS_WITH', 'value': p}}}
+        for p in membre_prefixes
+    ]}}
+    r_mb = _q({'dateRanges': [{'startDate': start, 'endDate': end}],
+               'metrics': [{'name': 'screenPageViews'}, {'name': 'totalUsers'}],
+               'dimensionFilter': membre_filter})
+    membre_views = membre_users = 0
+    if r_mb.ok:
+        rows = r_mb.json().get('rows', [])
+        if rows:
+            membre_views = int(float(rows[0]['metricValues'][0]['value']))
+            membre_users = int(float(rows[0]['metricValues'][1]['value']))
 
-    body = {
-        'dateRanges': [{'startDate': start, 'endDate': end}],
-        'metrics': [{'name': m} for m, _ in steps_metrics],
-    }
-    r = _post(url, headers=headers, json=body)
+    # 3. Key events par nom d'événement (étapes déjà trackées dans GA4)
+    key_events = []
+    for metric_name in ('keyEvents', 'conversions'):
+        r_ev = _q({'dateRanges': [{'startDate': start, 'endDate': end}],
+                   'dimensions': [{'name': 'eventName'}],
+                   'metrics': [{'name': metric_name}],
+                   'orderBys': [{'metric': {'metricName': metric_name}, 'desc': True}],
+                   'limit': 15})
+        if r_ev.ok and r_ev.json().get('rows'):
+            for row in r_ev.json()['rows']:
+                count = int(float(row['metricValues'][0]['value']))
+                if count > 0:
+                    key_events.append({'label': row['dimensionValues'][0]['value'], 'value': count})
+            break  # succès — pas besoin d'essayer le second nom de métrique
+
+    # 4. Construction des étapes ordonnées
     steps = []
-    conversion_rate = 0
-    if r.ok:
-        try:
-            vals = r.json()['rows'][0]['metricValues']
-            values = [int(float(v['value'])) for v in vals]
-            for i, (_, label) in enumerate(steps_metrics):
-                steps.append({'label': label, 'value': values[i]})
-            if values[0]:
-                conversion_rate = round(values[-1] / values[0] * 100, 2)
-        except Exception:
-            pass
+    if total_sessions:
+        steps.append({'label': 'Sessions totales', 'value': total_sessions, 'key': 'sessions'})
+    if membre_views:
+        steps.append({'label': 'Page "Devenir membre" (FR/EN/DE)',
+                      'value': membre_views, 'key': 'devenir_membre', 'users': membre_users})
+    steps.extend(key_events)
 
-    return jsonify({'steps': steps, 'conversionRate': conversion_rate})
+    top_val = key_events[0]['value'] if key_events else membre_views
+    conversion_rate = round(top_val / total_sessions * 100, 2) if total_sessions and top_val else 0
+
+    data = {'steps': steps, 'conversionRate': conversion_rate,
+            'keyEvents': key_events, 'totalSessions': total_sessions}
+    _cache_set(cache_key, data, 600)
+    return jsonify(data)
 
 
 @app.route('/ga4/trend')
