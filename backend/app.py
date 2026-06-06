@@ -999,13 +999,13 @@ def ga4_sections():
                     'engageRate':  round(float(row['metricValues'][2]['value']) * 100, 1),
                 })
 
-        # Channel breakdown for this section
+        # Channel breakdown for this section (sessions metric — same scope as sessionDefaultChannelGroup)
         chan_body = {
             'dateRanges': [{'startDate': start, 'endDate': end}],
             'dimensions': [{'name': 'sessionDefaultChannelGroup'}],
-            'metrics': [{'name': 'engagedSessions'}],
+            'metrics': [{'name': 'sessions'}],
             'dimensionFilter': dim_filter,
-            'orderBys': [{'metric': {'metricName': 'engagedSessions'}, 'desc': True}],
+            'orderBys': [{'metric': {'metricName': 'sessions'}, 'desc': True}],
             'limit': 8,
         }
         rc = _post(url, headers=headers, json=chan_body)
@@ -1068,6 +1068,39 @@ def ga4_sections():
                     'keyEvents':       int(float(pv[4]['value'])),
                 }
 
+        # Geographic breakdown and new-vs-returning — only for parent sections (skip sub-sections)
+        geo = []
+        nvr = {}
+        if not section.get('parent'):
+            geo_body = {
+                'dateRanges': [{'startDate': start, 'endDate': end}],
+                'dimensions': [{'name': 'country'}],
+                'metrics': [{'name': 'screenPageViews'}],
+                'dimensionFilter': dim_filter,
+                'orderBys': [{'metric': {'metricName': 'screenPageViews'}, 'desc': True}],
+                'limit': 5,
+            }
+            rg = _post(url, headers=headers, json=geo_body)
+            if rg.ok:
+                for row in rg.json().get('rows', []):
+                    geo.append({
+                        'country': row['dimensionValues'][0]['value'],
+                        'views':   int(float(row['metricValues'][0]['value'])),
+                    })
+
+            nvr_body = {
+                'dateRanges': [{'startDate': start, 'endDate': end}],
+                'dimensions': [{'name': 'newVsReturning'}],
+                'metrics': [{'name': 'sessions'}],
+                'dimensionFilter': dim_filter,
+                'limit': 3,
+            }
+            rnvr = _post(url, headers=headers, json=nvr_body)
+            if rnvr.ok:
+                for row in rnvr.json().get('rows', []):
+                    k = row['dimensionValues'][0]['value']  # 'new' or 'returning'
+                    nvr[k] = int(float(row['metricValues'][0]['value']))
+
         return {
             'key':            section['key'],
             'label':          section['label'],
@@ -1079,6 +1112,8 @@ def ga4_sections():
             'keyEvents':      key_events,
             'topPages':       top_pages,
             'channels':       channels,
+            'geo':            geo,
+            'newVsReturning': nvr,
             'monthly':        monthly,
             'prevKpis':       prev_kpis,
         }
