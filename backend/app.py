@@ -874,7 +874,7 @@ _SITE_SECTIONS = [
     },
     {
         'key':    'magazine',
-        'label':  'Magazine',
+        'label':  'Actualités',
         'prefixes': ['/fr/magazine/', '/de/zeitschrift/'],
     },
     {
@@ -886,12 +886,27 @@ _SITE_SECTIONS = [
         'key':    'sport',
         'label':  'Sport Auto',
         'prefixes': [
+            '/sport/',
             '/fr/loisirs/sport-automobile/',
-            '/sport/course-auto/',
-            '/sport/rallye/',
-            '/sport/competition/',
-            '/sport/club-sportif/',
         ],
+    },
+    {
+        'key':    'mobilite-location',
+        'label':  'Location véhicule',
+        'parent': 'mobilite',
+        'prefixes': ['/fr/mobilite/location', '/de/mobilitat/mietwagen'],
+    },
+    {
+        'key':    'mobilite-diagnostic',
+        'label':  'Diagnostic véhicule',
+        'parent': 'mobilite',
+        'prefixes': ['/fr/mobilite/diagnostic', '/de/mobilitat/diagnose'],
+    },
+    {
+        'key':    'mobilite-velo',
+        'label':  'Location vélo',
+        'parent': 'mobilite',
+        'prefixes': ['/fr/mobilite/location-velo', '/fr/mobilite/velo', '/fr/loisirs/velo'],
     },
     {
         'key':    'voyages',
@@ -1056,6 +1071,7 @@ def ga4_sections():
         return {
             'key':            section['key'],
             'label':          section['label'],
+            'parent':         section.get('parent'),
             'views':          views,
             'engagedSessions': eng_sessions,
             'engagementRate': eng_rate,
