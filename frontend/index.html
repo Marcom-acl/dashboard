@@ -2577,10 +2577,69 @@ function renderSections(d, dFunnel) {
   // Active section state (stored on the element to survive re-renders)
   if (!el._activeSec) el._activeSec = sections[0]?.key;
 
+  function renderSectionChart(activeKey) {
+    const sec = sections.find(s => s.key === activeKey);
+    if (!sec?.monthly?.length) return;
+    const canvas = document.getElementById(`chartSec-${activeKey}`);
+    if (!canvas) return;
+    const chartKey = `sec-${activeKey}`;
+    if (chartInstances[chartKey]) { chartInstances[chartKey].destroy(); delete chartInstances[chartKey]; }
+    const labels = sec.monthly.map(m => {
+      const p = m.month.split('-');
+      return p.length === 2 ? `${p[1]}/${p[0].slice(2)}` : m.month;
+    });
+    chartInstances[chartKey] = new Chart(canvas, {
+      type: 'bar',
+      data: {
+        labels,
+        datasets: [
+          {label:'Vues', data:sec.monthly.map(m=>m.views), backgroundColor:'rgba(244,180,0,0.75)', borderColor:'#F4B400', borderWidth:1, borderRadius:4},
+          {label:'Sess. engagées', data:sec.monthly.map(m=>m.sessions), type:'line', borderColor:'#123C62', backgroundColor:'transparent', borderWidth:2, pointRadius:2, tension:0.35},
+        ],
+      },
+      options: {
+        responsive:true, maintainAspectRatio:false,
+        interaction:{mode:'index',intersect:false},
+        plugins:{legend:{display:true,position:'top',labels:{font:{family:'Albert Sans',size:11},boxWidth:12,padding:14}},tooltip:{bodyFont:{family:'Albert Sans'}}},
+        scales:{
+          x:{grid:{display:false},ticks:{font:{size:10,family:'Albert Sans'},color:'#808080',maxRotation:45}},
+          y:{grid:{color:'rgba(0,0,0,0.05)'},ticks:{font:{size:10,family:'Albert Sans'},color:'#808080',callback:v=>v>=1000?(v/1000).toFixed(1)+'k':v}},
+        },
+      },
+    });
+  }
+
   function renderSection(sec) {
-    const maxV = Math.max(...sec.topPages.map(p => p.views), 1);
-    const maxC = Math.max(...sec.channels.map(c => c.sessions), 1);
+    const maxC = Math.max(...(sec.channels||[]).map(c => c.sessions), 1);
+    const compHtml = sec.prevKpis && (sec.prevKpis.views > 0 || sec.prevKpis.engagedSessions > 0) ? `
+    <div class="card" style="margin-bottom:12px"><div class="card-head"><div class="card-title">Comparaison — période précédente</div></div>
+      <div class="card-body" style="padding:10px 16px 14px">
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px">
+          ${[
+            {l:'Vues',          cur:sec.views,           prv:sec.prevKpis.views,           fmt:'n'},
+            {l:'Sess. engagées',cur:sec.engagedSessions, prv:sec.prevKpis.engagedSessions, fmt:'n'},
+            {l:'Tx engagement', cur:sec.engagementRate,  prv:sec.prevKpis.engagementRate,  fmt:'pct'},
+            {l:'Key events',    cur:sec.keyEvents,       prv:sec.prevKpis.keyEvents,       fmt:'n'},
+          ].map(({l,cur,prv,fmt})=>{
+            const pct = prv ? ((cur-prv)/Math.max(prv,1)*100).toFixed(1) : null;
+            const isGood = pct!==null ? parseFloat(pct) >= 0 : null;
+            const fv = fmt==='pct' ? fmtPct : fmtN;
+            return `<div>
+              <div style="font-size:10px;color:var(--muted);margin-bottom:2px">${l}</div>
+              <div style="font-size:18px;font-weight:700;color:var(--c-ga4)">${fv(cur)}</div>
+              ${pct!==null?`<div style="font-size:11px;font-weight:700;color:${isGood?'var(--good)':'var(--bad)'}">${parseFloat(pct)>=0?'+':''}${pct}%</div>
+              <div style="font-size:10px;color:var(--muted)">vs ${fv(prv)}</div>`:''}
+            </div>`;
+          }).join('')}
+        </div>
+      </div>
+    </div>` : '';
     return `
+    ${compHtml}
+    ${sec.monthly?.length ? `<div class="card" style="margin-bottom:12px">
+      <div class="card-head"><div class="card-title">Évolution 12 mois — Vues &amp; Sessions engagées</div></div>
+      <div class="card-body" style="height:200px;padding:12px 16px 8px"><canvas id="chartSec-${sec.key}"></canvas></div>
+    </div>` : ''}
     <div class="kpi-grid" style="margin-bottom:12px">
       ${kpiCard({label:'Vues', value:fmtN(sec.views), src:'var(--c-ga4)', srcBg:'var(--c-ga4-bg)'})}
       ${kpiCard({label:'Sess. engagées', value:fmtN(sec.engagedSessions), src:'var(--c-ga4)', srcBg:'var(--c-ga4-bg)'})}
@@ -2592,10 +2651,10 @@ function renderSections(d, dFunnel) {
       <div class="card"><div class="card-head"><div class="card-title">Top pages</div></div>
         <div class="card-body flush"><div class="tbl-scroll"><table class="tbl">
           <thead><tr><th>Page</th><th class="r">Vues</th><th class="r">Durée</th><th class="r">Engagement</th></tr></thead>
-          <tbody>${sec.topPages.map(p=>`<tr><td class="cn">${p.page}</td><td class="r">${fmtN(p.views)}</td><td class="r">${fmtDur(p.duration)}</td><td class="r">${fmtPct(p.engageRate)}</td></tr>`).join('')}</tbody>
+          <tbody>${(sec.topPages||[]).map(p=>`<tr><td class="cn">${p.page}</td><td class="r">${fmtN(p.views)}</td><td class="r">${fmtDur(p.duration)}</td><td class="r">${fmtPct(p.engageRate)}</td></tr>`).join('')}</tbody>
         </table></div></div></div>
       <div class="card"><div class="card-head"><div class="card-title">Sources de trafic</div></div>
-        <div class="card-body">${sec.channels.map(c=>{
+        <div class="card-body">${(sec.channels||[]).map(c=>{
           const col = CHAN_COLORS[c.channel] || '#94a3b8';
           return `<div class="bar-row"><span class="bar-name">${c.channel}</span><div class="bar-track"><div class="bar-fill" style="--src:${col};width:${Math.round(c.sessions/maxC*100)}%"></div></div><span class="bar-val">${fmtN(c.sessions)}</span></div>`;
         }).join('')}</div></div>
@@ -2653,11 +2712,13 @@ function renderSections(d, dFunnel) {
 
   el.innerHTML = buildHTML(el._activeSec);
   animateCards(el);
+  renderSectionChart(el._activeSec);
 
   window._switchSection = function(key) {
     el._activeSec = key;
     el.innerHTML = buildHTML(key);
     animateCards(el);
+    renderSectionChart(key);
     // Re-bind after innerHTML reset
     el.querySelectorAll('.filter-btn').forEach(btn => btn.classList.toggle('active', btn.textContent === (sections.find(s=>s.key===key)?.label)));
   };
@@ -2681,7 +2742,11 @@ function renderIntelligence() {
 
   // Fetch intelligence data (slow — AI call)
   api('/insights/web').then(d => {
-    if (d.error) { el.innerHTML = errState('Intelligence Web', d.error); return; }
+    if (d.error) {
+      const rawDebug = d.raw ? `<details style="margin-top:12px"><summary style="font-size:11px;color:var(--muted);cursor:pointer">Réponse brute Claude (debug)</summary><pre style="font-size:10px;overflow:auto;max-height:200px;background:#f5f5f5;padding:8px;border-radius:4px;margin-top:6px;white-space:pre-wrap">${String(d.raw).replace(/</g,'&lt;')}</pre></details>` : '';
+      el.innerHTML = errState('Intelligence Web', d.error) + rawDebug;
+      return;
+    }
 
     const PRIO_CFG = {
       P1: { color: '#E53E3E', bg: 'rgba(229,62,62,0.08)', label: 'P1 — Priorité haute' },

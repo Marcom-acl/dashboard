@@ -853,6 +853,21 @@ _SITE_SECTIONS = [
         ],
     },
     {
+        'key':    'mobilite',
+        'label':  'Services Mobilité',
+        'prefixes': [
+            '/fr/mobilite/diagnostic',
+            '/fr/mobilite/location',
+            '/fr/mobilite/controle-technique',
+            '/fr/mobilite/assistance',
+            '/fr/mobilite/formation',
+            '/fr/mobilite/parking',
+            '/de/mobilitat/diagnose',
+            '/de/mobilitat/mietwagen',
+            '/de/mobilitat/fahrzeugpruefung',
+        ],
+    },
+    {
         'key':    'club',
         'label':  'Club Avantages',
         'prefixes': ['/club/'],
@@ -863,9 +878,20 @@ _SITE_SECTIONS = [
         'prefixes': ['/fr/magazine/', '/de/zeitschrift/'],
     },
     {
+        'key':    'karting',
+        'label':  'Karting',
+        'prefixes': ['/fr/loisirs/karting', '/sport/karting/'],
+    },
+    {
         'key':    'sport',
-        'label':  'Sport & Karting',
-        'prefixes': ['/sport/', '/fr/loisirs/karting'],
+        'label':  'Sport Auto',
+        'prefixes': [
+            '/fr/loisirs/sport-automobile/',
+            '/sport/course-auto/',
+            '/sport/rallye/',
+            '/sport/competition/',
+            '/sport/club-sportif/',
+        ],
     },
     {
         'key':    'voyages',
@@ -876,15 +902,6 @@ _SITE_SECTIONS = [
         'key':    'b2b',
         'label':  'B2B',
         'prefixes': ['/business/'],
-    },
-    {
-        'key':    'services',
-        'label':  'Services ACL',
-        'prefixes': [
-            '/fr/services/', '/de/leistungen/',
-            '/fr/assistance-routiere/', '/fr/protection-juridique/',
-            '/fr/assurances/', '/fr/controle-technique/',
-        ],
     },
 ]
 
@@ -985,6 +1002,57 @@ def ga4_sections():
                     'sessions': int(float(row['metricValues'][0]['value'])),
                 })
 
+        # Monthly trend — last 12 months
+        today_dt = datetime.date.today()
+        trend_start_dt = today_dt - datetime.timedelta(days=365)
+        monthly_body = {
+            'dateRanges': [{'startDate': trend_start_dt.isoformat(), 'endDate': today_dt.isoformat()}],
+            'dimensions': [{'name': 'yearMonth'}],
+            'metrics': [{'name': 'screenPageViews'}, {'name': 'engagedSessions'}],
+            'dimensionFilter': dim_filter,
+            'orderBys': [{'dimension': {'dimensionName': 'yearMonth'}, 'desc': False}],
+            'limit': 14,
+        }
+        rm = _post(url, headers=headers, json=monthly_body)
+        monthly = []
+        if rm.ok:
+            for row in rm.json().get('rows', []):
+                ym = row['dimensionValues'][0]['value']  # e.g. "202406"
+                monthly.append({
+                    'month':   f"{ym[:4]}-{ym[4:]}",
+                    'views':   int(float(row['metricValues'][0]['value'])),
+                    'sessions': int(float(row['metricValues'][1]['value'])),
+                })
+
+        # Previous period KPIs (same duration, immediately before current period)
+        days_n = (datetime.date.fromisoformat(end) - datetime.date.fromisoformat(start)).days
+        prev_end_dt   = datetime.date.fromisoformat(start) - datetime.timedelta(days=1)
+        prev_start_dt = prev_end_dt - datetime.timedelta(days=days_n)
+        prev_kpi_body = {
+            'dateRanges': [{'startDate': prev_start_dt.isoformat(), 'endDate': prev_end_dt.isoformat()}],
+            'metrics': [
+                {'name': 'screenPageViews'},
+                {'name': 'engagedSessions'},
+                {'name': 'engagementRate'},
+                {'name': 'averageSessionDuration'},
+                {'name': 'keyEvents'},
+            ],
+            'dimensionFilter': dim_filter,
+        }
+        rp2 = _post(url, headers=headers, json=prev_kpi_body)
+        prev_kpis = None
+        if rp2.ok:
+            prev_rows = rp2.json().get('rows', [])
+            if prev_rows:
+                pv = prev_rows[0]['metricValues']
+                prev_kpis = {
+                    'views':           int(float(pv[0]['value'])),
+                    'engagedSessions': int(float(pv[1]['value'])),
+                    'engagementRate':  round(float(pv[2]['value']) * 100, 1),
+                    'avgDuration':     round(float(pv[3]['value']), 1),
+                    'keyEvents':       int(float(pv[4]['value'])),
+                }
+
         return {
             'key':            section['key'],
             'label':          section['label'],
@@ -995,6 +1063,8 @@ def ga4_sections():
             'keyEvents':      key_events,
             'topPages':       top_pages,
             'channels':       channels,
+            'monthly':        monthly,
+            'prevKpis':       prev_kpis,
         }
 
     # Run all sections in parallel
@@ -2621,21 +2691,29 @@ Utilise les vrais chiffres des données. Pas de platitudes génériques."""
             messages=[{'role': 'user', 'content': prompt}],
         )
         raw = msg.content[0].text.strip()
-        # Strip markdown code fences (```json ... ``` or ``` ... ```)
+        # Strip markdown code fences
         cleaned = re.sub(r'```(?:json)?\s*', '', raw).strip()
         cleaned = re.sub(r'\s*```', '', cleaned).strip()
         result = None
+        # Direct parse
         try:
             result = json.loads(cleaned)
         except Exception:
-            m = re.search(r'\{[\s\S]*\}', cleaned)
-            if m:
-                try:
-                    result = json.loads(m.group())
-                except Exception:
-                    pass
+            pass
+        # raw_decode: find first valid JSON object
         if not result:
-            result = {'error': 'Parsing Claude response failed', 'raw': raw[:500]}
+            decoder = json.JSONDecoder()
+            for i, ch in enumerate(cleaned):
+                if ch == '{':
+                    try:
+                        obj, _ = decoder.raw_decode(cleaned, i)
+                        if isinstance(obj, dict):
+                            result = obj
+                            break
+                    except (json.JSONDecodeError, ValueError):
+                        continue
+        if not result:
+            result = {'error': 'Parsing Claude response failed', 'raw': raw[:800]}
     except Exception as e:
         result = {'error': str(e)}
 
