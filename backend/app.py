@@ -803,6 +803,210 @@ def ga4_trend():
     return jsonify(data)
 
 
+@app.route('/ga4/geographic')
+def ga4_geographic():
+    """Top cities by engaged sessions + engagement rate + key events."""
+    start, end = _date_range()
+    key = f'ga4-geo:{start}:{end}'
+    cached = _cache_get(key)
+    if cached: return jsonify(cached)
+    headers = _google_headers()
+    if not headers:
+        return jsonify({'error': 'Google non connecté'})
+
+    url = f'https://analyticsdata.googleapis.com/v1beta/properties/{GA4_PROPERTY}:runReport'
+    body = {
+        'dateRanges': [{'startDate': start, 'endDate': end}],
+        'dimensions': [{'name': 'city'}],
+        'metrics': [
+            {'name': 'engagedSessions'},
+            {'name': 'engagementRate'},
+            {'name': 'keyEvents'},
+        ],
+        'orderBys': [{'metric': {'metricName': 'engagedSessions'}, 'desc': True}],
+        'limit': 20,
+    }
+    r = _post(url, headers=headers, json=body)
+    cities = []
+    if r.ok:
+        for row in r.json().get('rows', []):
+            cities.append({
+                'city':            row['dimensionValues'][0]['value'],
+                'engagedSessions': int(float(row['metricValues'][0]['value'])),
+                'engagementRate':  round(float(row['metricValues'][1]['value']) * 100, 1),
+                'keyEvents':       int(float(row['metricValues'][2]['value'])),
+            })
+    data = {'cities': cities}
+    _cache_set(key, data, 900)
+    return jsonify(data)
+
+
+# Section definitions for /ga4/sections
+_SITE_SECTIONS = [
+    {
+        'key':    'carburant',
+        'label':  'Carburant',
+        'prefixes': [
+            '/de/mobilitat/kraftstoffpreise',
+            '/fr/mobilite/prix-des-carburants',
+            '/en/mobility/fuel-prices',
+        ],
+    },
+    {
+        'key':    'club',
+        'label':  'Club Avantages',
+        'prefixes': ['/club/'],
+    },
+    {
+        'key':    'magazine',
+        'label':  'Magazine',
+        'prefixes': ['/fr/magazine/', '/de/zeitschrift/'],
+    },
+    {
+        'key':    'sport',
+        'label':  'Sport & Karting',
+        'prefixes': ['/sport/', '/fr/loisirs/karting'],
+    },
+    {
+        'key':    'voyages',
+        'label':  'Voyages',
+        'prefixes': ['/fr/voyages-organises/', '/de/pauschalreisen/'],
+    },
+    {
+        'key':    'b2b',
+        'label':  'B2B',
+        'prefixes': ['/business/'],
+    },
+]
+
+
+@app.route('/ga4/sections')
+def ga4_sections():
+    """Performance KPIs and top pages per website section."""
+    start, end = _date_range()
+    key = f'ga4-sections:{start}:{end}'
+    cached = _cache_get(key)
+    if cached: return jsonify(cached)
+    headers = _google_headers()
+    if not headers:
+        return jsonify({'error': 'Google non connecté'})
+
+    url = f'https://analyticsdata.googleapis.com/v1beta/properties/{GA4_PROPERTY}:runReport'
+
+    def run_section(section):
+        # Build OR filter for all prefixes of this section
+        filter_exprs = [
+            {
+                'filter': {
+                    'fieldName': 'pagePath',
+                    'stringFilter': {'matchType': 'BEGINS_WITH', 'value': pfx},
+                }
+            }
+            for pfx in section['prefixes']
+        ]
+        dim_filter = (
+            {'orGroup': {'expressions': filter_exprs}}
+            if len(filter_exprs) > 1
+            else filter_exprs[0]
+        )
+
+        # Aggregate KPIs
+        kpi_body = {
+            'dateRanges': [{'startDate': start, 'endDate': end}],
+            'metrics': [
+                {'name': 'screenPageViews'},
+                {'name': 'engagedSessions'},
+                {'name': 'engagementRate'},
+                {'name': 'averageSessionDuration'},
+                {'name': 'keyEvents'},
+            ],
+            'dimensionFilter': dim_filter,
+        }
+        rk = _post(url, headers=headers, json=kpi_body)
+        views = eng_sessions = eng_rate = duration = key_events = 0
+        if rk.ok:
+            rows = rk.json().get('rows', [])
+            if rows:
+                v = rows[0]['metricValues']
+                views        = int(float(v[0]['value']))
+                eng_sessions = int(float(v[1]['value']))
+                eng_rate     = round(float(v[2]['value']) * 100, 1)
+                duration     = round(float(v[3]['value']), 1)
+                key_events   = int(float(v[4]['value']))
+
+        # Top pages
+        pages_body = {
+            'dateRanges': [{'startDate': start, 'endDate': end}],
+            'dimensions': [{'name': 'pagePath'}],
+            'metrics': [
+                {'name': 'screenPageViews'},
+                {'name': 'averageSessionDuration'},
+                {'name': 'engagementRate'},
+            ],
+            'dimensionFilter': dim_filter,
+            'orderBys': [{'metric': {'metricName': 'screenPageViews'}, 'desc': True}],
+            'limit': 10,
+        }
+        rp = _post(url, headers=headers, json=pages_body)
+        top_pages = []
+        if rp.ok:
+            for row in rp.json().get('rows', []):
+                top_pages.append({
+                    'page':        row['dimensionValues'][0]['value'],
+                    'views':       int(float(row['metricValues'][0]['value'])),
+                    'duration':    round(float(row['metricValues'][1]['value']), 1),
+                    'engageRate':  round(float(row['metricValues'][2]['value']) * 100, 1),
+                })
+
+        # Channel breakdown for this section
+        chan_body = {
+            'dateRanges': [{'startDate': start, 'endDate': end}],
+            'dimensions': [{'name': 'sessionDefaultChannelGroup'}],
+            'metrics': [{'name': 'engagedSessions'}],
+            'dimensionFilter': dim_filter,
+            'orderBys': [{'metric': {'metricName': 'engagedSessions'}, 'desc': True}],
+            'limit': 8,
+        }
+        rc = _post(url, headers=headers, json=chan_body)
+        channels = []
+        if rc.ok:
+            for row in rc.json().get('rows', []):
+                channels.append({
+                    'channel':  row['dimensionValues'][0]['value'],
+                    'sessions': int(float(row['metricValues'][0]['value'])),
+                })
+
+        return {
+            'key':            section['key'],
+            'label':          section['label'],
+            'views':          views,
+            'engagedSessions': eng_sessions,
+            'engagementRate': eng_rate,
+            'avgDuration':    duration,
+            'keyEvents':      key_events,
+            'topPages':       top_pages,
+            'channels':       channels,
+        }
+
+    # Run all sections in parallel
+    results = []
+    with concurrent.futures.ThreadPoolExecutor(max_workers=6) as ex:
+        futures = {ex.submit(run_section, s): s for s in _SITE_SECTIONS}
+        for fut in concurrent.futures.as_completed(futures):
+            try:
+                results.append(fut.result())
+            except Exception:
+                pass
+
+    # Sort to match original section order
+    order = {s['key']: i for i, s in enumerate(_SITE_SECTIONS)}
+    results.sort(key=lambda x: order.get(x['key'], 99))
+
+    data = {'sections': results}
+    _cache_set(key, data, 1800)
+    return jsonify(data)
+
+
 # ─────────────────────────────────────────────────────────────────────────────
 # Google Search Console
 # ─────────────────────────────────────────────────────────────────────────────
@@ -926,6 +1130,80 @@ def gsc():
         'trend':       trend,
         'opportunities': opportunities,
     }
+    _cache_set(key, data, 900)
+    return jsonify(data)
+
+
+@app.route('/gsc/compare')
+def gsc_compare():
+    """Two-period GSC comparison: current period vs N-1 (90 days before)."""
+    start, end = _date_range()
+    key = f'gsc-cmp:{start}:{end}'
+    cached = _cache_get(key)
+    if cached: return jsonify(cached)
+    headers = _google_headers()
+    if not headers:
+        return jsonify({'error': 'Google non connecté'})
+
+    base_url = f'https://www.googleapis.com/webmasters/v3/sites/{requests.utils.quote(GSC_SITE, safe="")}/searchAnalytics/query'
+
+    def query(body):
+        r = _post(base_url, headers=headers, json=body)
+        return r.json() if r.ok else {}
+
+    days = (datetime.date.fromisoformat(end) - datetime.date.fromisoformat(start)).days
+    # Previous period: same duration, ending 90 days before current start
+    prev_end_dt   = datetime.date.fromisoformat(start) - datetime.timedelta(days=3)
+    prev_start_dt = prev_end_dt - datetime.timedelta(days=days)
+    p_start = prev_start_dt.isoformat()
+    p_end   = prev_end_dt.isoformat()
+
+    def build_period(s, e):
+        # KPIs
+        main = query({'startDate': s, 'endDate': e, 'rowLimit': 1})
+        row = main.get('rows', [{}])[0]
+        kpis = {
+            'clicks':      int(row.get('clicks', 0)),
+            'impressions': int(row.get('impressions', 0)),
+            'ctr':         round(row.get('ctr', 0) * 100, 2),
+            'avgPosition': round(row.get('position', 0), 1),
+            'startDate':   s,
+            'endDate':     e,
+        }
+        # Top queries
+        q_data = query({
+            'startDate': s, 'endDate': e,
+            'dimensions': ['query'],
+            'rowLimit': 15,
+            'orderBy': [{'fieldName': 'clicks', 'sortOrder': 'DESCENDING'}],
+        })
+        queries = [{
+            'query':       r2['keys'][0],
+            'clicks':      int(r2.get('clicks', 0)),
+            'impressions': int(r2.get('impressions', 0)),
+            'ctr':         round(r2.get('ctr', 0) * 100, 2),
+            'position':    round(r2.get('position', 0), 1),
+        } for r2 in q_data.get('rows', [])]
+        # Trend (daily clicks)
+        t_data = query({
+            'startDate': s, 'endDate': e,
+            'dimensions': ['date'],
+            'rowLimit': 500,
+            'orderBy': [{'fieldName': 'date', 'sortOrder': 'ASCENDING'}],
+        })
+        trend = [
+            {'date': r2['keys'][0], 'clicks': int(r2.get('clicks', 0)), 'impressions': int(r2.get('impressions', 0))}
+            for r2 in t_data.get('rows', [])
+        ]
+        return {'kpis': kpis, 'topQueries': queries, 'trend': trend}
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=2) as ex:
+        fut_curr = ex.submit(build_period, start, end)
+        fut_prev = ex.submit(build_period, p_start, p_end)
+        current  = fut_curr.result()
+        previous = fut_prev.result()
+
+    data = {'current': current, 'previous': previous}
     _cache_set(key, data, 900)
     return jsonify(data)
 
@@ -2203,6 +2481,239 @@ def get_insights():
         return jsonify({'insights': insights})
     except Exception as e:
         return jsonify({'error': str(e), 'insights': []}), 500
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Web Intelligence — cross-source AI recommendations (GA4 + GSC)
+# ─────────────────────────────────────────────────────────────────────────────
+
+@app.route('/insights/web')
+def insights_web():
+    """Fetch GA4 + GSC data, cross-correlate, call Claude for prioritised recommendations."""
+    if not ANTHROPIC_API_KEY:
+        return jsonify({'error': 'Anthropic API key manquant'}), 503
+
+    start, end = _date_range()
+    key = f'insights-web:{start}:{end}'
+    cached = _cache_get(key)
+    if cached: return jsonify(cached)
+
+    headers_g = _google_headers()
+    if not headers_g:
+        return jsonify({'error': 'Google non connecté'})
+
+    # Fetch GA4 main + extended + funnel + GSC in parallel
+    with concurrent.futures.ThreadPoolExecutor(max_workers=4) as ex:
+        fut_ga4     = ex.submit(_parse_ga4_main, GA4_PROPERTY, start, end)
+        fut_gsc     = ex.submit(_fetch_gsc_raw, start, end, headers_g)
+        fut_funnel  = ex.submit(_fetch_ga4_funnel_raw, start, end, headers_g)
+        fut_geo     = ex.submit(_fetch_ga4_geo_raw, start, end, headers_g)
+
+        ga4    = fut_ga4.result()
+        gsc    = fut_gsc.result()
+        funnel = fut_funnel.result()
+        geo    = fut_geo.result()
+
+    # Merge GSC topPages with GA4 entryPages by normalised URL
+    def normalise(url):
+        return url.rstrip('/').replace('https://www.acl.lu', '').replace('https://acl.lu', '')
+
+    ga4_entry = {normalise(p['page']): p for p in ga4.get('topPages', [])}
+    merged_pages = []
+    for p in gsc.get('topPages', [])[:20]:
+        norm = normalise(p['page'])
+        ga4p = ga4_entry.get(norm, {})
+        score = round(p['impressions'] * max(0, 0.05 - p['ctr'] / 100) / max(p['position'], 1), 1)
+        merged_pages.append({
+            'url':          norm or p['page'],
+            'gscClicks':    p['clicks'],
+            'gscImpressions': p['impressions'],
+            'gscCtr':       p['ctr'],
+            'gscPosition':  p['position'],
+            'gaViews':      ga4p.get('views', 0),
+            'opportunityScore': score,
+        })
+    merged_pages.sort(key=lambda x: x['opportunityScore'], reverse=True)
+
+    # Build Claude prompt
+    organic_sessions = next(
+        (c['sessions'] for c in ga4.get('channelBreakdown', []) if 'Organic' in c['channel'] and 'Social' not in c['channel']),
+        0
+    )
+    top_opps = merged_pages[:8]
+    top_queries = gsc.get('topQueries', [])[:10]
+    funnel_steps = funnel.get('steps', [])
+
+    prompt = f"""Tu es un analyste marketing digital expert pour ACL Luxembourg (automobile club).
+Analyse ces données de performance web (GA4 + Google Search Console) et génère des recommandations marketing CONCRÈTES et PRIORISÉES.
+
+## Données GA4 (période : {start} → {end})
+- Sessions totales : {ga4.get('sessions', 0):,}
+- Utilisateurs : {ga4.get('users', 0):,}
+- Sessions organiques : {organic_sessions:,}
+- Taux d'engagement : {ga4.get('engagementRate', 0)}%
+- Durée moy. session : {round(ga4.get('avgSessionDuration', 0) / 60, 1)} min
+- Taux de rebond : {ga4.get('bounceRate', 0)}%
+- Top canaux : {json.dumps(ga4.get('channelBreakdown', [])[:5], ensure_ascii=False)}
+
+## Données GSC
+- Clics totaux : {gsc.get('clicks', 0):,}
+- Impressions : {gsc.get('impressions', 0):,}
+- CTR moyen : {gsc.get('ctr', 0)}%
+- Position moyenne : {gsc.get('avgPosition', 0)}
+
+## Top requêtes GSC
+{json.dumps(top_queries, ensure_ascii=False, indent=2)}
+
+## Pages avec opportunités SEO (score = impressions × (5%-CTR actuel) / position)
+{json.dumps(top_opps, ensure_ascii=False, indent=2)}
+
+## Funnel d'adhésion
+{json.dumps(funnel_steps, ensure_ascii=False)}
+
+## Top villes (sessions engagées)
+{json.dumps(geo[:5], ensure_ascii=False)}
+
+## Instructions
+Génère un JSON avec exactement cette structure (réponds UNIQUEMENT avec le JSON, sans markdown) :
+{{
+  "summary": {{
+    "topOpportunity": "phrase courte (max 15 mots)",
+    "biggestRisk": "phrase courte (max 15 mots)",
+    "quickWin": "phrase courte (max 15 mots)"
+  }},
+  "recommendations": [
+    {{
+      "priority": "P1",
+      "category": "SEO",
+      "title": "titre court (max 8 mots)",
+      "rationale": "2 phrases avec chiffres réels des données",
+      "action": "action concrète assignable à une personne",
+      "metrics": {{"current": "valeur actuelle", "target": "cible réaliste", "estimatedImpact": "gain estimé"}}
+    }}
+  ],
+  "anomalies": [
+    {{"type": "warning", "message": "observation courte avec chiffre", "dataPoint": "métrique concernée"}}
+  ]
+}}
+
+Génère 4-5 recommandations (P1, P1, P2, P2, P3) et 2-3 anomalies.
+Priorité P1 = fort impact + réalisable en <30j. P2 = impact moyen ou effort plus long. P3 = backlog.
+Catégories possibles : SEO, CRO, Contenu, UX, Acquisition.
+Utilise les vrais chiffres des données. Pas de platitudes génériques."""
+
+    try:
+        import anthropic
+        client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
+        msg = client.messages.create(
+            model='claude-haiku-4-5-20251001',
+            max_tokens=1500,
+            messages=[{'role': 'user', 'content': prompt}],
+        )
+        raw = msg.content[0].text.strip()
+        # Extract JSON — try direct parse, then regex
+        result = None
+        try:
+            result = json.loads(raw)
+        except Exception:
+            m = re.search(r'\{[\s\S]*\}', raw)
+            if m:
+                try:
+                    result = json.loads(m.group())
+                except Exception:
+                    pass
+        if not result:
+            result = {'error': 'Parsing Claude response failed', 'raw': raw[:500]}
+    except Exception as e:
+        result = {'error': str(e)}
+
+    data = {
+        **result,
+        'mergedPages': merged_pages,
+        'period': {'start': start, 'end': end},
+    }
+    _cache_set(key, data, 1800)
+    return jsonify(data)
+
+
+def _fetch_gsc_raw(start, end, headers):
+    """Internal: fetch GSC top pages + queries without caching."""
+    base_url = f'https://www.googleapis.com/webmasters/v3/sites/{requests.utils.quote(GSC_SITE, safe="")}/searchAnalytics/query'
+
+    def q(body):
+        r = _post(base_url, headers=headers, json=body)
+        return r.json() if r.ok else {}
+
+    main = q({'startDate': start, 'endDate': end, 'rowLimit': 1})
+    row = main.get('rows', [{}])[0]
+    top_queries_data = q({
+        'startDate': start, 'endDate': end,
+        'dimensions': ['query'], 'rowLimit': 15,
+        'orderBy': [{'fieldName': 'clicks', 'sortOrder': 'DESCENDING'}],
+    })
+    top_pages_data = q({
+        'startDate': start, 'endDate': end,
+        'dimensions': ['page'], 'rowLimit': 25,
+        'orderBy': [{'fieldName': 'clicks', 'sortOrder': 'DESCENDING'}],
+    })
+    return {
+        'clicks':      int(row.get('clicks', 0)),
+        'impressions': int(row.get('impressions', 0)),
+        'ctr':         round(row.get('ctr', 0) * 100, 2),
+        'avgPosition': round(row.get('position', 0), 1),
+        'topQueries': [{
+            'query': r2['keys'][0], 'clicks': int(r2.get('clicks', 0)),
+            'impressions': int(r2.get('impressions', 0)),
+            'ctr': round(r2.get('ctr', 0) * 100, 2),
+            'position': round(r2.get('position', 0), 1),
+        } for r2 in top_queries_data.get('rows', [])],
+        'topPages': [{
+            'page': r2['keys'][0], 'clicks': int(r2.get('clicks', 0)),
+            'impressions': int(r2.get('impressions', 0)),
+            'ctr': round(r2.get('ctr', 0) * 100, 2),
+            'position': round(r2.get('position', 0), 1),
+        } for r2 in top_pages_data.get('rows', [])],
+    }
+
+
+def _fetch_ga4_funnel_raw(start, end, headers):
+    url = f'https://analyticsdata.googleapis.com/v1beta/properties/{GA4_PROPERTY}:runReport'
+    step_names = [
+        ('sessions', 'Sessions'),
+        ('engagedSessions', 'Sessions engagées'),
+        ('conversions', 'Conversions'),
+    ]
+    body = {
+        'dateRanges': [{'startDate': start, 'endDate': end}],
+        'metrics': [{'name': m} for m, _ in step_names],
+    }
+    r = _post(url, headers=headers, json=body)
+    steps = []
+    if r.ok:
+        try:
+            vals = r.json()['rows'][0]['metricValues']
+            steps = [{'label': lbl, 'value': int(float(vals[i]['value']))} for i, (_, lbl) in enumerate(step_names)]
+        except Exception:
+            pass
+    return {'steps': steps}
+
+
+def _fetch_ga4_geo_raw(start, end, headers):
+    url = f'https://analyticsdata.googleapis.com/v1beta/properties/{GA4_PROPERTY}:runReport'
+    body = {
+        'dateRanges': [{'startDate': start, 'endDate': end}],
+        'dimensions': [{'name': 'city'}],
+        'metrics': [{'name': 'engagedSessions'}, {'name': 'engagementRate'}],
+        'orderBys': [{'metric': {'metricName': 'engagedSessions'}, 'desc': True}],
+        'limit': 10,
+    }
+    r = _post(url, headers=headers, json=body)
+    if r.ok:
+        return [{'city': row['dimensionValues'][0]['value'],
+                 'engagedSessions': int(float(row['metricValues'][0]['value'])),
+                 'engagementRate': round(float(row['metricValues'][1]['value']) * 100, 1)}
+                for row in r.json().get('rows', [])]
+    return []
 
 
 # ─────────────────────────────────────────────────────────────────────────────

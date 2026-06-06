@@ -1132,6 +1132,11 @@
           Search Console
           <span class="sb-dot" id="bs-gsc" style="background:var(--muted-2);"></span>
         </button>
+        <button class="sb-item tab-btn" data-tab="sections">
+          <svg class="sb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg>
+          Sections du site
+          <span class="sb-dot" id="bs-sections" style="background:var(--muted-2);"></span>
+        </button>
         <button class="sb-item tab-btn" data-tab="brevo">
           <svg class="sb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
           Marketing Emails
@@ -1167,6 +1172,10 @@
           <svg class="sb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="4"/><path d="M11 7v1M11 14v1M7 11h1M14 11h1M8.5 8.5l.7.7M13.1 13.1l.7.7M8.5 13.5l.7-.7M13.1 8.9l.7-.7"/><path d="m20 20-4.3-4.3"/></svg>
           Veille sectorielle
           <span class="sb-dot" id="bs-veille" style="background:var(--muted-2);"></span>
+        </button>
+        <button class="sb-item tab-btn" data-tab="intelligence">
+          <svg class="sb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a7 7 0 0 1 7 7c0 2.5-1.3 4.7-3.3 6L15 17H9l-.7-2C6.3 13.7 5 11.5 5 9a7 7 0 0 1 7-7z"/><path d="M9 21h6M10 17v4M14 17v4"/></svg>
+          Intelligence Web
         </button>
       </nav>
     </div>
@@ -1265,6 +1274,9 @@
         <!-- ── SEARCH CONSOLE ──────────────────────────────────── -->
         <div id="panel-gsc" class="tab-panel"></div>
 
+        <!-- ── SECTIONS DU SITE ─────────────────────────────────── -->
+        <div id="panel-sections" class="tab-panel"></div>
+
         <!-- ── BREVO ────────────────────────────────────────────── -->
         <div id="panel-brevo" class="tab-panel">
           <div class="err-banner" id="errBanner"></div>
@@ -1278,6 +1290,9 @@
 
         <!-- ── VEILLE ────────────────────────────────────────────── -->
         <div id="panel-veille" class="tab-panel"></div>
+
+        <!-- ── INTELLIGENCE WEB ──────────────────────────────────── -->
+        <div id="panel-intelligence" class="tab-panel"></div>
 
         <!-- ── BUFFER / SOCIAL MEDIA ─────────────────────────────── -->
         <div id="panel-buffer" class="tab-panel"></div>
@@ -1451,16 +1466,18 @@ function _renderTab(tab) {
   if (window._tabRendered && window._tabRendered[tab]) return;
   if (window._tabRendered) window._tabRendered[tab] = true;
 
-  if      (tab === 'overview')  renderOverview({dGA4: d.dGA4, dGSC: d.dGSC, dFB: d.dFB, dFBP: d.dFBP, dBrevo: d.dBrevo, dLI: d.dLI, dYT: d.dYT, dGA4T: d.dGA4T, dVeille: d.dVeille, dFBPytd: d.dFBPytd, dFBytd: d.dFBytd, dBuffer: d.dBuffer});
-  else if (tab === 'ga4')       renderGA4(d.dGA4, d.dGA4A, d.dGA4E, d.dGA4T);
-  else if (tab === 'fbads')     renderMeta(d.dFB, d.dFBP);
-  else if (tab === 'gsc')       renderGSC(d.dGSC);
-  else if (tab === 'brevo')     renderBrevo(d.dBrevo);
-  else if (tab === 'club')      renderClub(d.dClub);
-  else if (tab === 'youtube')   renderYouTube(d.dYT);
-  else if (tab === 'linkedin')  renderLinkedIn(d.dLI);
-  else if (tab === 'veille')    renderVeille(d.dVeille);
-  else if (tab === 'buffer')    renderBuffer(d.dBuffer);
+  if      (tab === 'overview')     renderOverview({dGA4: d.dGA4, dGSC: d.dGSC, dFB: d.dFB, dFBP: d.dFBP, dBrevo: d.dBrevo, dLI: d.dLI, dYT: d.dYT, dGA4T: d.dGA4T, dVeille: d.dVeille, dFBPytd: d.dFBPytd, dFBytd: d.dFBytd, dBuffer: d.dBuffer});
+  else if (tab === 'ga4')          renderGA4(d.dGA4, d.dGA4A, d.dGA4E, d.dGA4T, d.dGA4Geo);
+  else if (tab === 'fbads')        renderMeta(d.dFB, d.dFBP);
+  else if (tab === 'gsc')          renderGSC(d.dGSC, d.dGSCCompare);
+  else if (tab === 'sections')     renderSections(d.dSections);
+  else if (tab === 'brevo')        renderBrevo(d.dBrevo);
+  else if (tab === 'club')         renderClub(d.dClub);
+  else if (tab === 'youtube')      renderYouTube(d.dYT);
+  else if (tab === 'linkedin')     renderLinkedIn(d.dLI);
+  else if (tab === 'veille')       renderVeille(d.dVeille);
+  else if (tab === 'buffer')       renderBuffer(d.dBuffer);
+  else if (tab === 'intelligence') renderIntelligence();
 }
 
 // ── loadAll ───────────────────────────────────────────────────
@@ -1471,12 +1488,14 @@ async function loadAll() {
   document.getElementById('lastUpd').textContent = 'Chargement…';
 
   try {
-    const [ga4, ga4auto, ga4ext, ga4trend, gsc, fb, fbpage, brevo, club, yt, li, veille, fbpageytd, fbytd, buffer] = await Promise.allSettled([
+    const [ga4, ga4auto, ga4ext, ga4trend, gsc, fb, fbpage, brevo, club, yt, li, veille, fbpageytd, fbytd, buffer,
+           ga4geo, ga4sections, gsccompare] = await Promise.allSettled([
       api('/ga4'), api('/ga4/autotouring'), api('/ga4/extended'), api('/ga4/trend'),
       api('/gsc'), api('/fb'), api('/fb/page'), api('/brevo'), api('/brevo/club'),
       api('/youtube'), api('/supermetrics/linkedin'), api('/veille'),
       apiYtd('/fb/page'), apiYtd('/fb'),
-      api('/buffer')
+      api('/buffer'),
+      api('/ga4/geographic'), api('/ga4/sections'), api('/gsc/compare')
     ]);
 
     const v = r => r.status === 'fulfilled' ? r.value : null;
@@ -1486,18 +1505,20 @@ async function loadAll() {
     const dVeille = v(veille);
     const dFBPytd = v(fbpageytd), dFBytd = v(fbytd);
     const dBuffer = v(buffer);
+    const dGA4Geo = v(ga4geo), dSections = v(ga4sections), dGSCCompare = v(gsccompare);
 
-    updateStatus('bs-ga4',    dGA4    && !dGA4.error);
-    updateStatus('bs-gsc',    dGSC    && !dGSC.error);
-    updateStatus('bs-fbads',  dFB     && !dFB.error);
-    updateStatus('bs-brevo',  dBrevo  && !dBrevo.error);
-    updateStatus('bs-club',   dClub   && !dClub.error);
-    updateStatus('bs-yt',     dYT     && !dYT.error);
-    updateStatus('bs-li',     dLI     && !dLI.error);
-    updateStatus('bs-veille', dVeille && !dVeille.error);
-    updateStatus('bs-buffer', dBuffer && !dBuffer.error);
+    updateStatus('bs-ga4',      dGA4      && !dGA4.error);
+    updateStatus('bs-gsc',      dGSC      && !dGSC.error);
+    updateStatus('bs-fbads',    dFB       && !dFB.error);
+    updateStatus('bs-brevo',    dBrevo    && !dBrevo.error);
+    updateStatus('bs-club',     dClub     && !dClub.error);
+    updateStatus('bs-yt',       dYT       && !dYT.error);
+    updateStatus('bs-li',       dLI       && !dLI.error);
+    updateStatus('bs-veille',   dVeille   && !dVeille.error);
+    updateStatus('bs-buffer',   dBuffer   && !dBuffer.error);
+    updateStatus('bs-sections', dSections && !dSections.error);
 
-    window._dashData = {dGA4, dGA4A, dGA4E, dGA4T, dGSC, dFB, dFBP, dBrevo, dClub, dYT, dLI, dVeille, dFBPytd, dFBytd, dBuffer};
+    window._dashData = {dGA4, dGA4A, dGA4E, dGA4T, dGSC, dFB, dFBP, dBrevo, dClub, dYT, dLI, dVeille, dFBPytd, dFBytd, dBuffer, dGA4Geo, dSections, dGSCCompare};
     window._tabRendered = {};
 
     const activeTab = document.querySelector('.tab-btn.active')?.dataset.tab || 'overview';
@@ -1882,7 +1903,7 @@ function healthRing(pct) {
 }
 
 // ── GA4 ───────────────────────────────────────────────────────
-function renderGA4(d, dA, dE, dT) {
+function renderGA4(d, dA, dE, dT, dGeo) {
   const el = document.getElementById('panel-ga4');
   if (!el) return;
   if (!d || d.error) { el.innerHTML = errState('GA4', d?.error); return; }
@@ -1933,7 +1954,14 @@ function renderGA4(d, dA, dE, dT) {
       ${kpiCard({label:'Tx engagement', value:fmtPct(dA.engagementRate), src:'var(--c-ga4)', srcBg:'var(--c-ga4-bg)'})}
       ${kpiCard({label:'Durée moyenne', value:fmtDur(dA.avgSessionDuration), src:'var(--c-ga4)', srcBg:'var(--c-ga4-bg)'})}
     </div>` : ''}
-    ${dE ? renderGA4Extended(dE) : ''}`;
+    ${dE ? renderGA4Extended(dE) : ''}
+    ${dGeo?.cities?.length ? `
+    <div class="sec-title" style="margin-top:8px"><h2>Géographie</h2><div class="line"></div></div>
+    <div class="card"><div class="card-head"><div class="card-title">Top villes (sessions engagées)</div></div>
+      <div class="card-body flush"><div class="tbl-scroll"><table class="tbl">
+        <thead><tr><th>Ville</th><th class="r">Sess. engagées</th><th class="r">Tx engagement</th><th class="r">Key events</th></tr></thead>
+        <tbody>${dGeo.cities.slice(0,15).map(c=>`<tr><td>${c.city}</td><td class="r">${fmtN(c.engagedSessions)}</td><td class="r">${fmtPct(c.engagementRate)}</td><td class="r">${fmtN(c.keyEvents)}</td></tr>`).join('')}</tbody>
+      </table></div></div></div>` : ''}`;
 
   animateCards(el);
   renderGA4TrendChart(dT?.trend || []);
@@ -2368,7 +2396,7 @@ function renderFBPage(d) {
 }
 
 // ── GSC ───────────────────────────────────────────────────────
-function renderGSC(d) {
+function renderGSC(d, dCmp) {
   const el = document.getElementById('panel-gsc');
   if (!el) return;
   if (!d || d.error) { el.innerHTML = errState('Search Console', d?.error); return; }
@@ -2390,20 +2418,286 @@ function renderGSC(d) {
       <div class="card"><div class="card-head"><div class="card-title">Top pages</div></div>
         <div class="card-body">${barListHtml((d.topPages||[]).slice(0,8), 'var(--c-gsc)', null, 'page', 'clicks', fmtN)}</div></div>
     </div>
-    ${d.opportunities?.length ? `<div class="card"><div class="card-head"><div class="card-title">Opportunités CTR</div></div>
+    ${d.opportunities?.length ? `<div class="card"><div class="card-head"><div class="card-title">Opportunités CTR — Quick Wins (position 4-20, CTR &lt; 3%)</div></div>
       <div class="card-body flush"><div class="tbl-scroll"><table class="tbl">
-        <thead><tr><th>Page</th><th class="r">Impr.</th><th class="r">CTR act.</th><th class="r">Pos.</th><th class="r">Potentiel</th></tr></thead>
-        <tbody>${d.opportunities.map(o=>`<tr><td class="cn">${o.page}</td><td class="r">${fmtN(o.impressions)}</td><td class="r">${fmtPct(o.ctr)}</td><td class="r">${o.position}</td><td class="r">+${fmtN(o.potential)} clics</td></tr>`).join('')}</tbody>
+        <thead><tr><th>Page</th><th class="r">Impr.</th><th class="r">CTR act.</th><th class="r">Pos.</th><th class="r">Gain estimé à 5%</th></tr></thead>
+        <tbody>${d.opportunities.map(o=>{
+          const score = Math.max(0, 0.05 - o.ctr/100) * o.impressions / Math.max(o.position, 1);
+          const col = score > 50 ? '#e53e3e' : score > 20 ? '#ed8936' : '#38a169';
+          return `<tr><td class="cn">${o.page}</td><td class="r">${fmtN(o.impressions)}</td><td class="r">${fmtPct(o.ctr)}</td><td class="r">${o.position}</td><td class="r"><span style="font-weight:700;color:${col}">+${fmtN(o.potential)} clics</span></td></tr>`;
+        }).join('')}</tbody>
       </table></div></div></div>` : ''}
     <div class="card"><div class="card-head"><div class="card-title">Top requêtes (détail)</div></div>
       <div class="card-body flush"><div class="tbl-scroll"><table class="tbl">
         <thead><tr><th>Requête</th><th class="r">Clics</th><th class="r">Impr.</th><th class="r">CTR</th><th class="r">Position</th></tr></thead>
-        <tbody>${(d.topQueries||[]).slice(0,15).map(q=>`<tr><td>${q.query}</td><td class="r">${fmtN(q.clicks)}</td><td class="r">${fmtN(q.impressions)}</td><td class="r">${fmtPct(q.ctr)}</td><td class="r">${q.position}</td></tr>`).join('')}</tbody>
+        <tbody>${(d.topQueries||[]).slice(0,20).map(q=>`<tr><td>${q.query}</td><td class="r">${fmtN(q.clicks)}</td><td class="r">${fmtN(q.impressions)}</td><td class="r">${fmtPct(q.ctr)}</td><td class="r">${q.position}</td></tr>`).join('')}</tbody>
       </table></div></div>
-    </div>`;
+    </div>
+    ${renderGSCCompare(dCmp)}`;
 
   animateCards(el);
+  renderGSCDualTrend(d.trend || []);
   fetchSectionInsight('gsc', {clicks: d.clicks, ctr: d.ctr, avgPosition: d.avgPosition, deltas: d.deltas});
+}
+
+function renderGSCCompare(dCmp) {
+  if (!dCmp?.current || !dCmp?.previous) return '';
+  const curr = dCmp.current, prev = dCmp.previous;
+  function periodLabel(s, e) {
+    return `${s.slice(5).replace('-','/')} → ${e.slice(5).replace('-','/')}`;
+  }
+  function buildQTable(queries) {
+    return `<table class="tbl"><thead><tr><th>Requête</th><th class="r">Clics</th><th class="r">Impr.</th><th class="r">CTR</th><th class="r">Pos.</th></tr></thead>
+    <tbody>${queries.slice(0,10).map(q=>`<tr><td>${q.query}</td><td class="r">${fmtN(q.clicks)}</td><td class="r">${fmtN(q.impressions)}</td><td class="r">${fmtPct(q.ctr)}</td><td class="r">${q.position}</td></tr>`).join('')}</tbody></table>`;
+  }
+  return `
+  <div class="sec-title" style="margin-top:8px"><h2>Comparaison deux périodes</h2><div class="line"></div></div>
+  <div class="overview-bars">
+    <div class="card">
+      <div class="card-head"><div class="card-title">${periodLabel(curr.kpis.startDate, curr.kpis.endDate)}</div></div>
+      <div class="card-body">
+        <div style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:12px">
+          ${['clicks','impressions','ctr','avgPosition'].map(k=>{
+            const v = curr.kpis[k]; const label = {clicks:'Clics',impressions:'Impressions',ctr:'CTR',avgPosition:'Position'}[k];
+            const fmt = k==='ctr'?fmtPct:k==='avgPosition'?v=>v.toFixed(1):fmtN;
+            return `<div style="min-width:80px"><div style="font-size:11px;color:var(--muted);margin-bottom:2px">${label}</div><div style="font-size:18px;font-weight:700;color:var(--c-gsc)">${fmt(v)}</div></div>`;
+          }).join('')}
+        </div>
+        <div class="tbl-scroll">${buildQTable(curr.topQueries)}</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head"><div class="card-title">${periodLabel(prev.kpis.startDate, prev.kpis.endDate)}</div></div>
+      <div class="card-body">
+        <div style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:12px">
+          ${['clicks','impressions','ctr','avgPosition'].map(k=>{
+            const v = prev.kpis[k]; const label = {clicks:'Clics',impressions:'Impressions',ctr:'CTR',avgPosition:'Position'}[k];
+            const fmt = k==='ctr'?fmtPct:k==='avgPosition'?v=>v.toFixed(1):fmtN;
+            return `<div style="min-width:80px"><div style="font-size:11px;color:var(--muted);margin-bottom:2px">${label}</div><div style="font-size:18px;font-weight:700;color:var(--muted)">${fmt(v)}</div></div>`;
+          }).join('')}
+        </div>
+        <div class="tbl-scroll">${buildQTable(prev.topQueries)}</div>
+      </div>
+    </div>
+  </div>
+  <div class="card"><div class="card-head"><div class="card-title">Tendance comparée — Clics &amp; Impressions</div></div>
+    <div class="card-body" style="height:220px;padding:12px 16px 8px"><canvas id="chartGSCDual"></canvas></div>
+  </div>`;
+}
+
+function renderGSCDualTrend(trend) {
+  if (chartInstances['gscDual']) { chartInstances['gscDual'].destroy(); delete chartInstances['gscDual']; }
+  const canvas = document.getElementById('chartGSCDual');
+  if (!canvas || !trend?.length) return;
+  const labels = trend.map(t => t.date.slice(5).replace('-', '/'));
+  const step = Math.max(1, Math.floor(labels.length / 10));
+  chartInstances['gscDual'] = new Chart(canvas, {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [
+        { label: 'Clics', data: trend.map(t => t.clicks), borderColor: '#34A853', backgroundColor: 'rgba(52,168,83,0.08)', borderWidth: 2, pointRadius: 0, tension: 0.35, fill: true, yAxisID: 'y' },
+        { label: 'Impressions', data: trend.map(t => t.impressions || 0), borderColor: '#aaa', backgroundColor: 'transparent', borderWidth: 1.5, pointRadius: 0, tension: 0.35, borderDash: [5,3], yAxisID: 'y2' },
+      ],
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      plugins: { legend: { display: true, position: 'top', labels: { font: {family:'Albert Sans',size:11}, boxWidth:12, padding:14 } }, tooltip: { bodyFont: {family:'Albert Sans'} } },
+      scales: {
+        x: { grid: { display: false }, ticks: { font:{size:10,family:'Albert Sans'}, color:'#808080', maxTicksLimit:10, maxRotation:0, callback: (_,i) => (i%step===0?labels[i]:'') } },
+        y: { grid: { color:'rgba(0,0,0,0.05)' }, ticks: { font:{size:10,family:'Albert Sans'}, color:'#808080', callback: v=>v>=1000?(v/1000).toFixed(1)+'k':v }, title: { display:true, text:'Clics', font:{size:10}, color:'#34A853' } },
+        y2: { position: 'right', grid: { display:false }, ticks: { font:{size:10,family:'Albert Sans'}, color:'#808080', callback: v=>v>=1000?(v/1000).toFixed(1)+'k':v }, title: { display:true, text:'Impressions', font:{size:10}, color:'#aaa' } },
+      },
+    },
+  });
+}
+
+// ── SECTIONS DU SITE ──────────────────────────────────────────
+function renderSections(d) {
+  const el = document.getElementById('panel-sections');
+  if (!el) return;
+  if (!d || d.error) { el.innerHTML = errState('Sections du site', d?.error); return; }
+
+  const sections = d.sections || [];
+  if (!sections.length) { el.innerHTML = errState('Sections', 'Aucune donnée disponible'); return; }
+
+  const CHAN_COLORS = {'Organic Search':'#34A853','Direct':'#123C62','Email':'#0B996E','Referral':'#8B5CF6','Paid Social':'#F59E0B','Organic Social':'#EC4899','Unassigned':'#94a3b8'};
+
+  // Active section state (stored on the element to survive re-renders)
+  if (!el._activeSec) el._activeSec = sections[0]?.key;
+
+  function renderSection(sec) {
+    const maxV = Math.max(...sec.topPages.map(p => p.views), 1);
+    const maxC = Math.max(...sec.channels.map(c => c.sessions), 1);
+    return `
+    <div class="kpi-grid" style="margin-bottom:12px">
+      ${kpiCard({label:'Vues', value:fmtN(sec.views), src:'var(--c-ga4)', srcBg:'var(--c-ga4-bg)'})}
+      ${kpiCard({label:'Sess. engagées', value:fmtN(sec.engagedSessions), src:'var(--c-ga4)', srcBg:'var(--c-ga4-bg)'})}
+      ${kpiCard({label:'Tx engagement', value:fmtPct(sec.engagementRate), src:'var(--c-ga4)', srcBg:'var(--c-ga4-bg)'})}
+      ${kpiCard({label:'Durée moy.', value:fmtDur(sec.avgDuration), src:'var(--c-ga4)', srcBg:'var(--c-ga4-bg)'})}
+      ${kpiCard({label:'Key events', value:fmtN(sec.keyEvents), src:'var(--c-ga4)', srcBg:'var(--c-ga4-bg)'})}
+    </div>
+    <div class="overview-bars">
+      <div class="card"><div class="card-head"><div class="card-title">Top pages</div></div>
+        <div class="card-body flush"><div class="tbl-scroll"><table class="tbl">
+          <thead><tr><th>Page</th><th class="r">Vues</th><th class="r">Durée</th><th class="r">Engagement</th></tr></thead>
+          <tbody>${sec.topPages.map(p=>`<tr><td class="cn">${p.page}</td><td class="r">${fmtN(p.views)}</td><td class="r">${fmtDur(p.duration)}</td><td class="r">${fmtPct(p.engageRate)}</td></tr>`).join('')}</tbody>
+        </table></div></div></div>
+      <div class="card"><div class="card-head"><div class="card-title">Sources de trafic</div></div>
+        <div class="card-body">${sec.channels.map(c=>{
+          const col = CHAN_COLORS[c.channel] || '#94a3b8';
+          return `<div class="bar-row"><span class="bar-name">${c.channel}</span><div class="bar-track"><div class="bar-fill" style="--src:${col};width:${Math.round(c.sessions/maxC*100)}%"></div></div><span class="bar-val">${fmtN(c.sessions)}</span></div>`;
+        }).join('')}</div></div>
+    </div>`;
+  }
+
+  function buildHTML(activeKey) {
+    const active = sections.find(s => s.key === activeKey) || sections[0];
+    return `
+    <div class="sec-title"><h2>Sections du site</h2><div class="line"></div>
+      <span class="src-pill" style="--src:var(--c-ga4);--src-bg:var(--c-ga4-bg)">GA4</span>
+    </div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px">
+      ${sections.map(s=>`<button class="filter-btn${s.key===activeKey?' active':''}" onclick="window._switchSection('${s.key}')" style="font-size:12px">${s.label}</button>`).join('')}
+    </div>
+    <div id="sec-content">${renderSection(active)}</div>
+    <div class="card" style="margin-top:8px"><div class="card-head"><div class="card-title">Vue comparative — toutes sections</div></div>
+      <div class="card-body flush"><div class="tbl-scroll"><table class="tbl">
+        <thead><tr><th>Section</th><th class="r">Vues</th><th class="r">Sess. engagées</th><th class="r">Tx engagement</th><th class="r">Durée</th><th class="r">Key events</th></tr></thead>
+        <tbody>${sections.map(s=>`<tr><td><button onclick="window._switchSection('${s.key}')" style="background:none;border:none;color:var(--c-ga4);cursor:pointer;font-size:13px;padding:0;text-decoration:underline;text-underline-offset:2px">${s.label}</button></td><td class="r">${fmtN(s.views)}</td><td class="r">${fmtN(s.engagedSessions)}</td><td class="r">${fmtPct(s.engagementRate)}</td><td class="r">${fmtDur(s.avgDuration)}</td><td class="r">${fmtN(s.keyEvents)}</td></tr>`).join('')}</tbody>
+      </table></div></div></div>`;
+  }
+
+  el.innerHTML = buildHTML(el._activeSec);
+  animateCards(el);
+
+  window._switchSection = function(key) {
+    el._activeSec = key;
+    el.innerHTML = buildHTML(key);
+    animateCards(el);
+    // Re-bind after innerHTML reset
+    el.querySelectorAll('.filter-btn').forEach(btn => btn.classList.toggle('active', btn.textContent === (sections.find(s=>s.key===key)?.label)));
+  };
+}
+
+// ── INTELLIGENCE WEB ──────────────────────────────────────────
+function renderIntelligence() {
+  const el = document.getElementById('panel-intelligence');
+  if (!el) return;
+
+  // Show skeleton while loading
+  el.innerHTML = `
+    <div class="sec-title"><h2>Intelligence Web</h2><div class="line"></div>
+      <span class="src-pill" style="--src:#8B5CF6;--src-bg:rgba(139,92,246,0.1)">IA</span>
+    </div>
+    <div style="padding:8px 0 16px;color:var(--muted);font-size:13px;display:flex;align-items:center;gap:8px">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="animation:spin 1.2s linear infinite"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+      Analyse en cours — interrogation des données GA4 + GSC et génération des recommandations IA…
+    </div>
+    <div>${skel(5)}</div>`;
+
+  // Fetch intelligence data (slow — AI call)
+  api('/insights/web').then(d => {
+    if (d.error) { el.innerHTML = errState('Intelligence Web', d.error); return; }
+
+    const PRIO_CFG = {
+      P1: { color: '#E53E3E', bg: 'rgba(229,62,62,0.08)', label: 'P1 — Priorité haute' },
+      P2: { color: '#ED8936', bg: 'rgba(237,137,54,0.08)', label: 'P2 — À planifier' },
+      P3: { color: '#FEDB00', bg: 'rgba(254,219,0,0.12)', label: 'P3 — Backlog' },
+    };
+    const CAT_ICONS = {
+      SEO: '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="6"/><path d="m20 20-4-4"/></svg>',
+      CRO: '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>',
+      Contenu: '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>',
+      UX: '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>',
+      Acquisition: '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
+    };
+
+    const summary = d.summary || {};
+    const recs = d.recommendations || [];
+    const anomalies = d.anomalies || [];
+
+    const summaryHtml = `
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-bottom:16px">
+      ${summary.topOpportunity ? `<div class="card" style="border-left:3px solid #38a169"><div class="card-body" style="padding:12px 14px"><div style="font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:#38a169;font-weight:700;margin-bottom:4px">Opportunité majeure</div><div style="font-size:13px;font-weight:600">${summary.topOpportunity}</div></div></div>` : ''}
+      ${summary.biggestRisk ? `<div class="card" style="border-left:3px solid #E53E3E"><div class="card-body" style="padding:12px 14px"><div style="font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:#E53E3E;font-weight:700;margin-bottom:4px">Risque principal</div><div style="font-size:13px;font-weight:600">${summary.biggestRisk}</div></div></div>` : ''}
+      ${summary.quickWin ? `<div class="card" style="border-left:3px solid #ED8936"><div class="card-body" style="padding:12px 14px"><div style="font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:#ED8936;font-weight:700;margin-bottom:4px">Quick win</div><div style="font-size:13px;font-weight:600">${summary.quickWin}</div></div></div>` : ''}
+    </div>`;
+
+    const recsHtml = recs.map(r => {
+      const cfg = PRIO_CFG[r.priority] || PRIO_CFG.P3;
+      const icon = CAT_ICONS[r.category] || '';
+      const action = (r.action||'').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+      return `<div class="card" style="border-left:3px solid ${cfg.color};background:${cfg.bg}">
+        <div class="card-body" style="padding:14px 16px">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+            <span style="font-size:10px;font-weight:700;color:${cfg.color};background:${cfg.bg};border:1px solid ${cfg.color};border-radius:4px;padding:2px 6px">${cfg.label}</span>
+            <span style="font-size:10px;color:var(--muted);display:flex;align-items:center;gap:4px">${icon}${r.category||''}</span>
+          </div>
+          <div style="font-size:14px;font-weight:700;margin-bottom:4px">${r.title||''}</div>
+          <div style="font-size:12px;color:var(--muted);margin-bottom:8px;line-height:1.5">${r.rationale||''}</div>
+          <div style="font-size:12px;background:rgba(0,0,0,0.03);border-radius:6px;padding:8px 10px;display:flex;align-items:flex-start;gap:6px">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="flex-shrink:0;margin-top:2px"><polyline points="20 6 9 17 4 12"/></svg>
+            <span style="line-height:1.5">${action}</span>
+          </div>
+          ${r.metrics ? `<div style="display:flex;gap:16px;margin-top:8px;flex-wrap:wrap">
+            ${r.metrics.current?`<div style="font-size:11px;color:var(--muted)">Actuel&nbsp;: <b>${r.metrics.current}</b></div>`:''}
+            ${r.metrics.target?`<div style="font-size:11px;color:var(--muted)">Cible&nbsp;: <b style="color:${cfg.color}">${r.metrics.target}</b></div>`:''}
+            ${r.metrics.estimatedImpact?`<div style="font-size:11px;color:var(--muted)">Impact estimé&nbsp;: <b style="color:#38a169">${r.metrics.estimatedImpact}</b></div>`:''}
+          </div>` : ''}
+        </div>
+      </div>`;
+    }).join('');
+
+    const anomalyHtml = anomalies.length ? `
+    <div class="card"><div class="card-head"><div class="card-title">Signaux détectés</div></div>
+      <div class="card-body" style="padding:8px 12px">
+        ${anomalies.map(a=>{
+          const isWarn = a.type === 'warning';
+          const col = isWarn ? '#ED8936' : '#38a169';
+          const icon = isWarn
+            ? '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>'
+            : '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>';
+          return `<div style="display:flex;align-items:flex-start;gap:8px;padding:8px 0;border-bottom:1px solid var(--border-subtle)">
+            <span style="color:${col};flex-shrink:0;margin-top:1px">${icon}</span>
+            <div>
+              <div style="font-size:13px;font-weight:600">${a.message||''}</div>
+              ${a.dataPoint?`<div style="font-size:11px;color:var(--muted);margin-top:2px">${a.dataPoint}</div>`:''}
+            </div>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>` : '';
+
+    // Top opportunities merged table
+    const merged = d.mergedPages || [];
+    const mergedHtml = merged.length ? `
+    <div class="card"><div class="card-head"><div class="card-title">Pages — opportunités SEO priorisées</div></div>
+      <div class="card-body flush"><div class="tbl-scroll"><table class="tbl">
+        <thead><tr><th>Page</th><th class="r">Clics GSC</th><th class="r">Impr.</th><th class="r">CTR</th><th class="r">Position</th><th class="r">Vues GA4</th><th class="r">Score opp.</th></tr></thead>
+        <tbody>${merged.slice(0,12).map(p=>{
+          const col = p.opportunityScore > 50 ? '#e53e3e' : p.opportunityScore > 15 ? '#ed8936' : '#38a169';
+          return `<tr><td class="cn">${p.url}</td><td class="r">${fmtN(p.gscClicks)}</td><td class="r">${fmtN(p.gscImpressions)}</td><td class="r">${fmtPct(p.gscCtr)}</td><td class="r">${p.gscPosition}</td><td class="r">${fmtN(p.gaViews)}</td><td class="r"><span style="font-weight:700;color:${col}">${p.opportunityScore}</span></td></tr>`;
+        }).join('')}</tbody>
+      </table></div></div>
+    </div>` : '';
+
+    el.innerHTML = `
+    <div class="sec-title"><h2>Intelligence Web</h2><div class="line"></div>
+      <span class="src-pill" style="--src:#8B5CF6;--src-bg:rgba(139,92,246,0.1)">IA</span>
+    </div>
+    <p style="font-size:12px;color:var(--muted);margin-bottom:12px">Analyse GA4 + GSC — période : ${d.period?.start} → ${d.period?.end}</p>
+    ${summaryHtml}
+    <div class="sec-title" style="margin-top:4px"><h2>Recommandations priorisées</h2><div class="line"></div></div>
+    <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:16px">${recsHtml}</div>
+    ${anomalyHtml}
+    ${mergedHtml}`;
+
+    animateCards(el);
+  }).catch(err => {
+    el.innerHTML = errState('Intelligence Web', err.message);
+  });
 }
 
 // ── OBJECTIFS ÉQUIPE ──────────────────────────────────────────
