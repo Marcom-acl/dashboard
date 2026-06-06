@@ -2705,14 +2705,12 @@ function renderSections(d, dFunnel) {
         <div class="card"><div class="card-head"><div class="card-title">Sources de trafic</div></div>
           <div class="card-body">${(sec.channels||[]).length ? (sec.channels||[]).map(c=>{
             const col = CHAN_COLORS[c.channel] || '#94a3b8';
-            return `<div class="bar-row"><span class="bar-name">${c.channel}</span><div class="bar-track"><div class="bar-fill" style="--src:${col};width:${Math.round(c.sessions/maxC*100)}%"></div></div><span class="bar-val">${fmtN(c.sessions)}</span></div>`;
+            const pct = Math.round(c.sessions/maxC*100);
+            return `<div class="bar-row"><div class="bar-meta"><span class="bar-name">${c.channel}</span><div class="bar-track"><div class="bar-fill" style="--src:${col};width:${pct}%"></div></div></div><span class="bar-val">${fmtN(c.sessions)}</span></div>`;
           }).join('') : '<div style="color:var(--muted);font-size:12px;padding:8px 0">Aucune donnée canal</div>'}</div>
         </div>
         ${sec.geo?.length ? `<div class="card"><div class="card-head"><div class="card-title">Géographie — top pays</div></div>
-          <div class="card-body">${(()=>{
-            const maxG = Math.max(...sec.geo.map(g=>g.views), 1);
-            return sec.geo.map(g=>`<div class="bar-row"><span class="bar-name">${g.country}</span><div class="bar-track"><div class="bar-fill" style="--src:#123C62;width:${Math.round(g.views/maxG*100)}%"></div></div><span class="bar-val">${fmtN(g.views)}</span></div>`).join('');
-          })()}</div>
+          <div class="card-body">${barListHtml(sec.geo, '#123C62', 0, 'country', 'views', fmtN)}</div>
         </div>` : ''}
         ${sec.newVsReturning && (sec.newVsReturning.new || sec.newVsReturning.returning) ? `<div class="card"><div class="card-head"><div class="card-title">Nouveaux vs récurrents</div></div>
           <div class="card-body" style="padding:12px 16px">${(()=>{
