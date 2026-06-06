@@ -877,6 +877,15 @@ _SITE_SECTIONS = [
         'label':  'B2B',
         'prefixes': ['/business/'],
     },
+    {
+        'key':    'services',
+        'label':  'Services ACL',
+        'prefixes': [
+            '/fr/services/', '/de/leistungen/',
+            '/fr/assistance-routiere/', '/fr/protection-juridique/',
+            '/fr/assurances/', '/fr/controle-technique/',
+        ],
+    },
 ]
 
 
@@ -1101,7 +1110,7 @@ def gsc():
         'orderBy': [{'fieldName': 'date', 'sortOrder': 'ASCENDING'}],
     })
     trend = [
-        {'date': row['keys'][0], 'clicks': int(row.get('clicks', 0))}
+        {'date': row['keys'][0], 'clicks': int(row.get('clicks', 0)), 'impressions': int(row.get('impressions', 0))}
         for row in trend_data.get('rows', [])
     ]
 
@@ -2608,15 +2617,18 @@ Utilise les vrais chiffres des données. Pas de platitudes génériques."""
         msg = client.messages.create(
             model='claude-haiku-4-5-20251001',
             max_tokens=1500,
+            system='Tu réponds UNIQUEMENT avec du JSON valide. Aucun texte avant ou après. Aucun bloc markdown ni balise ```.',
             messages=[{'role': 'user', 'content': prompt}],
         )
         raw = msg.content[0].text.strip()
-        # Extract JSON — try direct parse, then regex
+        # Strip markdown code fences (```json ... ``` or ``` ... ```)
+        cleaned = re.sub(r'```(?:json)?\s*', '', raw).strip()
+        cleaned = re.sub(r'\s*```', '', cleaned).strip()
         result = None
         try:
-            result = json.loads(raw)
+            result = json.loads(cleaned)
         except Exception:
-            m = re.search(r'\{[\s\S]*\}', raw)
+            m = re.search(r'\{[\s\S]*\}', cleaned)
             if m:
                 try:
                     result = json.loads(m.group())

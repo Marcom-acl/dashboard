@@ -1119,8 +1119,13 @@
       <nav class="sb-nav">
         <button class="sb-item tab-btn" data-tab="ga4">
           <svg class="sb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21V10a2 2 0 0 1 4 0v11"/><path d="M10 21V5a2 2 0 0 1 4 0v16"/><path d="M17 21v-7a2 2 0 0 1 4 0v7"/></svg>
-          Google Analytics
+          Sites web
           <span class="sb-dot" id="bs-ga4" style="background:var(--muted-2);"></span>
+        </button>
+        <button class="sb-item tab-btn" data-tab="sections">
+          <svg class="sb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg>
+          Sections du site
+          <span class="sb-dot" id="bs-sections" style="background:var(--muted-2);"></span>
         </button>
         <button class="sb-item tab-btn" data-tab="fbads">
           <svg class="sb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
@@ -1131,11 +1136,6 @@
           <svg class="sb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="6.5"/><path d="m20.5 20.5-4.5-4.5"/></svg>
           Search Console
           <span class="sb-dot" id="bs-gsc" style="background:var(--muted-2);"></span>
-        </button>
-        <button class="sb-item tab-btn" data-tab="sections">
-          <svg class="sb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg>
-          Sections du site
-          <span class="sb-dot" id="bs-sections" style="background:var(--muted-2);"></span>
         </button>
         <button class="sb-item tab-btn" data-tab="brevo">
           <svg class="sb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
@@ -1470,7 +1470,7 @@ function _renderTab(tab) {
   else if (tab === 'ga4')          renderGA4(d.dGA4, d.dGA4A, d.dGA4E, d.dGA4T, d.dGA4Geo);
   else if (tab === 'fbads')        renderMeta(d.dFB, d.dFBP);
   else if (tab === 'gsc')          renderGSC(d.dGSC, d.dGSCCompare);
-  else if (tab === 'sections')     renderSections(d.dSections);
+  else if (tab === 'sections')     renderSections(d.dSections, d.dFunnel);
   else if (tab === 'brevo')        renderBrevo(d.dBrevo);
   else if (tab === 'club')         renderClub(d.dClub);
   else if (tab === 'youtube')      renderYouTube(d.dYT);
@@ -1489,13 +1489,14 @@ async function loadAll() {
 
   try {
     const [ga4, ga4auto, ga4ext, ga4trend, gsc, fb, fbpage, brevo, club, yt, li, veille, fbpageytd, fbytd, buffer,
-           ga4geo, ga4sections, gsccompare] = await Promise.allSettled([
+           ga4geo, ga4sections, gsccompare, ga4funnel] = await Promise.allSettled([
       api('/ga4'), api('/ga4/autotouring'), api('/ga4/extended'), api('/ga4/trend'),
       api('/gsc'), api('/fb'), api('/fb/page'), api('/brevo'), api('/brevo/club'),
       api('/youtube'), api('/supermetrics/linkedin'), api('/veille'),
       apiYtd('/fb/page'), apiYtd('/fb'),
       api('/buffer'),
-      api('/ga4/geographic'), api('/ga4/sections'), api('/gsc/compare')
+      api('/ga4/geographic'), api('/ga4/sections'), api('/gsc/compare'),
+      api('/ga4/funnel')
     ]);
 
     const v = r => r.status === 'fulfilled' ? r.value : null;
@@ -1506,6 +1507,7 @@ async function loadAll() {
     const dFBPytd = v(fbpageytd), dFBytd = v(fbytd);
     const dBuffer = v(buffer);
     const dGA4Geo = v(ga4geo), dSections = v(ga4sections), dGSCCompare = v(gsccompare);
+    const dFunnel = v(ga4funnel);
 
     updateStatus('bs-ga4',      dGA4      && !dGA4.error);
     updateStatus('bs-gsc',      dGSC      && !dGSC.error);
@@ -1518,7 +1520,7 @@ async function loadAll() {
     updateStatus('bs-buffer',   dBuffer   && !dBuffer.error);
     updateStatus('bs-sections', dSections && !dSections.error);
 
-    window._dashData = {dGA4, dGA4A, dGA4E, dGA4T, dGSC, dFB, dFBP, dBrevo, dClub, dYT, dLI, dVeille, dFBPytd, dFBytd, dBuffer, dGA4Geo, dSections, dGSCCompare};
+    window._dashData = {dGA4, dGA4A, dGA4E, dGA4T, dGSC, dFB, dFBP, dBrevo, dClub, dYT, dLI, dVeille, dFBPytd, dFBytd, dBuffer, dGA4Geo, dSections, dGSCCompare, dFunnel};
     window._tabRendered = {};
 
     const activeTab = document.querySelector('.tab-btn.active')?.dataset.tab || 'overview';
@@ -1909,10 +1911,14 @@ function renderGA4(d, dA, dE, dT, dGeo) {
   if (!d || d.error) { el.innerHTML = errState('GA4', d?.error); return; }
 
   el.innerHTML = `
-    <div class="sec-title"><h2>Google Analytics — acl.lu</h2><div class="line"></div>
+    <div class="sec-title"><h2>Sites web</h2><div class="line"></div>
       <span class="src-pill" style="--src:var(--c-ga4);--src-bg:var(--c-ga4-bg)">GA4</span>
     </div>
     ${sectionAiHtml('ga4')}
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+      <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--y);border:1px solid rgba(0,0,0,0.2);flex-shrink:0"></span>
+      <span style="font-size:13px;font-weight:700;color:var(--text)">acl.lu</span>
+    </div>
     <div class="kpi-grid">
       ${kpiCard({label:'Sessions', value:fmtN(d.sessions), badge:trendBadge(d.deltas?.sessions), src:'var(--c-ga4)', srcBg:'var(--c-ga4-bg)'})}
       ${kpiCard({label:'Utilisateurs', value:fmtN(d.users), badge:trendBadge(d.deltas?.users), src:'var(--c-ga4)', srcBg:'var(--c-ga4-bg)'})}
@@ -1947,17 +1953,32 @@ function renderGA4(d, dA, dE, dT, dGeo) {
         <div class="card-body">${barListHtml(d.channelBreakdown, 'var(--c-ga4)', null, 'channel', 'sessions', fmtN)}</div></div>
     </div>
     ${dA ? `
-    <div class="sec-title" style="margin-top:8px"><h2>autotouring.lu</h2><div class="line"></div></div>
+    <div class="sec-title" style="margin-top:20px"><div class="line"></div></div>
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+      <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#f59e0b;flex-shrink:0"></span>
+      <span style="font-size:13px;font-weight:700;color:var(--text)">autotouring.lu</span>
+    </div>
     <div class="kpi-grid">
-      ${kpiCard({label:'Sessions', value:fmtN(dA.sessions), badge:trendBadge(dA.deltas?.sessions), src:'var(--c-ga4)', srcBg:'var(--c-ga4-bg)'})}
-      ${kpiCard({label:'Utilisateurs', value:fmtN(dA.users), badge:trendBadge(dA.deltas?.users), src:'var(--c-ga4)', srcBg:'var(--c-ga4-bg)'})}
-      ${kpiCard({label:'Tx engagement', value:fmtPct(dA.engagementRate), src:'var(--c-ga4)', srcBg:'var(--c-ga4-bg)'})}
-      ${kpiCard({label:'Durée moyenne', value:fmtDur(dA.avgSessionDuration), src:'var(--c-ga4)', srcBg:'var(--c-ga4-bg)'})}
-    </div>` : ''}
+      ${kpiCard({label:'Sessions', value:fmtN(dA.sessions), badge:trendBadge(dA.deltas?.sessions), src:'#f59e0b', srcBg:'rgba(245,158,11,0.1)'})}
+      ${kpiCard({label:'Utilisateurs', value:fmtN(dA.users), badge:trendBadge(dA.deltas?.users), src:'#f59e0b', srcBg:'rgba(245,158,11,0.1)'})}
+      ${kpiCard({label:'Taux de rebond', value:fmtPct(dA.bounceRate||0), badge:trendBadge(dA.deltas?.bounceRate, true), src:'#f59e0b', srcBg:'rgba(245,158,11,0.1)'})}
+      ${kpiCard({label:'Tx engagement', value:fmtPct(dA.engagementRate), badge:trendBadge(dA.deltas?.engagementRate), src:'#f59e0b', srcBg:'rgba(245,158,11,0.1)'})}
+      ${kpiCard({label:'Durée moyenne', value:fmtDur(dA.avgSessionDuration), badge:trendBadge(dA.deltas?.avgSessionDuration), src:'#f59e0b', srcBg:'rgba(245,158,11,0.1)'})}
+    </div>
+    ${dA.topPages?.length ? `<div class="overview-bars">
+      <div class="card"><div class="card-head"><div class="card-title">Top pages — autotouring.lu</div></div>
+        <div class="card-body">${barListHtml(dA.topPages.slice(0,8), '#f59e0b', null, 'page', 'views', fmtN)}</div></div>
+      <div class="card"><div class="card-head"><div class="card-title">Canaux — autotouring.lu</div></div>
+        <div class="card-body">${barListHtml(dA.channelBreakdown||[], '#f59e0b', null, 'channel', 'sessions', fmtN)}</div></div>
+    </div>` : ''}` : ''}
     ${dE ? renderGA4Extended(dE) : ''}
     ${dGeo?.cities?.length ? `
-    <div class="sec-title" style="margin-top:8px"><h2>Géographie</h2><div class="line"></div></div>
-    <div class="card"><div class="card-head"><div class="card-title">Top villes (sessions engagées)</div></div>
+    <div class="sec-title" style="margin-top:20px"><div class="line"></div></div>
+    <div style="display:flex;align-items:center;gap:10px;margin:0 0 10px">
+      <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--y);border:1px solid rgba(0,0,0,0.2);flex-shrink:0"></span>
+      <span style="font-size:13px;font-weight:700;color:var(--text)">Données complémentaires — acl.lu</span>
+    </div>
+    <div class="card"><div class="card-head"><div class="card-title">Géographie — Top villes (sessions engagées)</div></div>
       <div class="card-body flush"><div class="tbl-scroll"><table class="tbl">
         <thead><tr><th>Ville</th><th class="r">Sess. engagées</th><th class="r">Tx engagement</th><th class="r">Key events</th></tr></thead>
         <tbody>${dGeo.cities.slice(0,15).map(c=>`<tr><td>${c.city}</td><td class="r">${fmtN(c.engagedSessions)}</td><td class="r">${fmtPct(c.engagementRate)}</td><td class="r">${fmtN(c.keyEvents)}</td></tr>`).join('')}</tbody>
@@ -2237,7 +2258,7 @@ function renderGA4Extended(d) {
       <div class="card"><div class="card-head"><div class="card-title">Appareils</div></div>
         <div class="card-body">${barListHtml(devs, 'var(--c-ga4)', null, 'name', 'pct', n => n+'%')}</div></div>
     </div>
-    ${d.markets?.length ? `<div class="card"><div class="card-head"><div class="card-title">Marchés linguistiques</div></div>
+    ${d.markets?.length ? `<div class="card"><div class="card-head"><div class="card-title">Marchés linguistiques — acl.lu</div></div>
       <div class="card-body flush"><div class="tbl-scroll"><table class="tbl">
         <thead><tr><th>Langue</th><th class="r">Sessions</th><th class="r">Eng.</th><th class="r">Durée</th></tr></thead>
         <tbody>${d.markets.map(m=>`<tr><td>${m.name}</td><td class="r">${fmtN(m.sessions)}</td><td class="r">${fmtPct(m.engagementRate)}</td><td class="r">${fmtDur(m.duration)}</td></tr>`).join('')}</tbody>
@@ -2436,51 +2457,80 @@ function renderGSC(d, dCmp) {
     ${renderGSCCompare(dCmp)}`;
 
   animateCards(el);
-  renderGSCDualTrend(d.trend || []);
+  // Utiliser le trend de dCmp (qui a clicks + impressions) ou fallback sur d.trend
+  renderGSCDualTrend(dCmp?.current?.trend || d.trend || []);
   fetchSectionInsight('gsc', {clicks: d.clicks, ctr: d.ctr, avgPosition: d.avgPosition, deltas: d.deltas});
 }
 
 function renderGSCCompare(dCmp) {
   if (!dCmp?.current || !dCmp?.previous) return '';
   const curr = dCmp.current, prev = dCmp.previous;
-  function periodLabel(s, e) {
-    return `${s.slice(5).replace('-','/')} → ${e.slice(5).replace('-','/')}`;
+  function fmtDate(s) {
+    // "2026-04-07" → "07/04/2026"
+    return `${s.slice(8)}/${s.slice(5,7)}/${s.slice(0,4)}`;
   }
-  function buildQTable(queries) {
+  function periodLabel(s, e) {
+    return `${fmtDate(s)} → ${fmtDate(e)}`;
+  }
+  function buildQTable(queries, accentColor) {
     return `<table class="tbl"><thead><tr><th>Requête</th><th class="r">Clics</th><th class="r">Impr.</th><th class="r">CTR</th><th class="r">Pos.</th></tr></thead>
-    <tbody>${queries.slice(0,10).map(q=>`<tr><td>${q.query}</td><td class="r">${fmtN(q.clicks)}</td><td class="r">${fmtN(q.impressions)}</td><td class="r">${fmtPct(q.ctr)}</td><td class="r">${q.position}</td></tr>`).join('')}</tbody></table>`;
+    <tbody>${queries.slice(0,10).map(q=>`<tr><td>${q.query}</td><td class="r" style="color:${accentColor};font-weight:600">${fmtN(q.clicks)}</td><td class="r">${fmtN(q.impressions)}</td><td class="r">${fmtPct(q.ctr)}</td><td class="r">${q.position}</td></tr>`).join('')}</tbody></table>`;
+  }
+  // Compute delta for each KPI
+  function delta(cur, prv) {
+    if (!prv) return '';
+    const pct = ((cur - prv) / Math.max(prv, 1) * 100).toFixed(1);
+    const isPos = cur >= prv;
+    return `<span style="font-size:11px;font-weight:700;color:${isPos ? 'var(--good)' : 'var(--bad)'}">${isPos ? '+' : ''}${pct}%</span>`;
   }
   return `
   <div class="sec-title" style="margin-top:8px"><h2>Comparaison deux périodes</h2><div class="line"></div></div>
+  <div style="font-size:12px;color:var(--muted);margin:-6px 0 12px;line-height:1.5">
+    Comparaison de la période actuelle par rapport à la même durée juste avant. Les deux fenêtres ont la même longueur.
+  </div>
   <div class="overview-bars">
-    <div class="card">
-      <div class="card-head"><div class="card-title">${periodLabel(curr.kpis.startDate, curr.kpis.endDate)}</div></div>
+    <div class="card" style="border-top:3px solid var(--c-gsc)">
+      <div class="card-head">
+        <div class="card-title">Période actuelle</div>
+        <div style="font-size:11px;color:var(--muted)">${periodLabel(curr.kpis.startDate, curr.kpis.endDate)}</div>
+      </div>
       <div class="card-body">
-        <div style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:12px">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px">
           ${['clicks','impressions','ctr','avgPosition'].map(k=>{
-            const v = curr.kpis[k]; const label = {clicks:'Clics',impressions:'Impressions',ctr:'CTR',avgPosition:'Position'}[k];
+            const vc = curr.kpis[k], vp = prev.kpis[k];
+            const label = {clicks:'Clics',impressions:'Impressions',ctr:'CTR',avgPosition:'Position'}[k];
             const fmt = k==='ctr'?fmtPct:k==='avgPosition'?v=>v.toFixed(1):fmtN;
-            return `<div style="min-width:80px"><div style="font-size:11px;color:var(--muted);margin-bottom:2px">${label}</div><div style="font-size:18px;font-weight:700;color:var(--c-gsc)">${fmt(v)}</div></div>`;
+            const invDelta = k === 'avgPosition';
+            const d = vp ? (() => {
+              const pct = ((vc - vp) / Math.max(vp, 1) * 100).toFixed(1);
+              const isGood = invDelta ? vc <= vp : vc >= vp;
+              return `<span style="font-size:11px;font-weight:700;color:${isGood ? 'var(--good)' : 'var(--bad)'}">${vc >= vp ? '+' : ''}${pct}%</span>`;
+            })() : '';
+            return `<div><div style="font-size:11px;color:var(--muted);margin-bottom:2px">${label}</div><div style="font-size:20px;font-weight:700;color:var(--c-gsc)">${fmt(vc)}</div>${d}</div>`;
           }).join('')}
         </div>
-        <div class="tbl-scroll">${buildQTable(curr.topQueries)}</div>
+        <div class="tbl-scroll">${buildQTable(curr.topQueries, 'var(--c-gsc)')}</div>
       </div>
     </div>
-    <div class="card">
-      <div class="card-head"><div class="card-title">${periodLabel(prev.kpis.startDate, prev.kpis.endDate)}</div></div>
+    <div class="card" style="border-top:3px solid var(--muted-2)">
+      <div class="card-head">
+        <div class="card-title">Période précédente</div>
+        <div style="font-size:11px;color:var(--muted)">${periodLabel(prev.kpis.startDate, prev.kpis.endDate)}</div>
+      </div>
       <div class="card-body">
-        <div style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:12px">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px">
           ${['clicks','impressions','ctr','avgPosition'].map(k=>{
-            const v = prev.kpis[k]; const label = {clicks:'Clics',impressions:'Impressions',ctr:'CTR',avgPosition:'Position'}[k];
+            const v = prev.kpis[k];
+            const label = {clicks:'Clics',impressions:'Impressions',ctr:'CTR',avgPosition:'Position'}[k];
             const fmt = k==='ctr'?fmtPct:k==='avgPosition'?v=>v.toFixed(1):fmtN;
-            return `<div style="min-width:80px"><div style="font-size:11px;color:var(--muted);margin-bottom:2px">${label}</div><div style="font-size:18px;font-weight:700;color:var(--muted)">${fmt(v)}</div></div>`;
+            return `<div><div style="font-size:11px;color:var(--muted);margin-bottom:2px">${label}</div><div style="font-size:20px;font-weight:700;color:var(--muted)">${fmt(v)}</div></div>`;
           }).join('')}
         </div>
-        <div class="tbl-scroll">${buildQTable(prev.topQueries)}</div>
+        <div class="tbl-scroll">${buildQTable(prev.topQueries, 'var(--muted)')}</div>
       </div>
     </div>
   </div>
-  <div class="card"><div class="card-head"><div class="card-title">Tendance comparée — Clics &amp; Impressions</div></div>
+  <div class="card"><div class="card-head"><div class="card-title">Évolution — Clics &amp; Impressions (période actuelle)</div></div>
     <div class="card-body" style="height:220px;padding:12px 16px 8px"><canvas id="chartGSCDual"></canvas></div>
   </div>`;
 }
@@ -2514,7 +2564,7 @@ function renderGSCDualTrend(trend) {
 }
 
 // ── SECTIONS DU SITE ──────────────────────────────────────────
-function renderSections(d) {
+function renderSections(d, dFunnel) {
   const el = document.getElementById('panel-sections');
   if (!el) return;
   if (!d || d.error) { el.innerHTML = errState('Sections du site', d?.error); return; }
@@ -2552,12 +2602,44 @@ function renderSections(d) {
     </div>`;
   }
 
+  // Funnel block
+  function renderFunnelBlock() {
+    if (!dFunnel?.steps?.length) return '';
+    const steps = dFunnel.steps;
+    const maxVal = steps[0]?.value || 1;
+    return `
+    <div class="card" style="margin-bottom:16px">
+      <div class="card-head">
+        <div class="card-title">Funnel d'adhésion — acl.lu</div>
+        ${dFunnel.conversionRate != null ? `<span style="font-size:11px;color:var(--muted)">Taux global : <b style="color:var(--c-ga4)">${dFunnel.conversionRate}%</b></span>` : ''}
+      </div>
+      <div class="card-body" style="padding:12px 16px 16px">
+        <div style="display:flex;flex-direction:column;gap:10px">
+          ${steps.map((s, i) => {
+            const pct = Math.round(s.value / maxVal * 100);
+            const dropPct = i > 0 ? Math.round((1 - s.value / steps[i-1].value) * 100) : null;
+            return `<div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:4px">
+                <span style="font-size:12px;font-weight:600">${s.label}</span>
+                <span style="font-size:12px;color:var(--muted)">${fmtN(s.value)}${dropPct != null ? `&ensp;<span style="color:var(--bad);font-weight:700">−${dropPct}%</span>` : ''}</span>
+              </div>
+              <div style="height:6px;border-radius:3px;background:var(--border);overflow:hidden">
+                <div style="height:100%;width:${pct}%;background:var(--c-ga4);border-radius:3px;transition:width .4s"></div>
+              </div>
+            </div>`;
+          }).join('')}
+        </div>
+      </div>
+    </div>`;
+  }
+
   function buildHTML(activeKey) {
     const active = sections.find(s => s.key === activeKey) || sections[0];
     return `
     <div class="sec-title"><h2>Sections du site</h2><div class="line"></div>
       <span class="src-pill" style="--src:var(--c-ga4);--src-bg:var(--c-ga4-bg)">GA4</span>
     </div>
+    ${renderFunnelBlock()}
     <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px">
       ${sections.map(s=>`<button class="filter-btn${s.key===activeKey?' active':''}" onclick="window._switchSection('${s.key}')" style="font-size:12px">${s.label}</button>`).join('')}
     </div>
