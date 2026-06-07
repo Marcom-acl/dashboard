@@ -1,0 +1,18 @@
+name: SEO Debug — Test API
+
+on:
+  workflow_dispatch:
+
+jobs:
+  debug-seo:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install requests
+      - name: Run SEO debug script
+        env:
+          DATAFORSEO_AUTH: ${{ secrets.DATAFORSEO_AUTH }}
+        run: python scripts/seo-debug.py
