@@ -1,0 +1,39 @@
+name: SEO Positions — Mise à jour hebdomadaire
+
+on:
+  schedule:
+    # Chaque lundi à 07:00 heure Luxembourg (06:00 UTC)
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
+    # Déclenchement manuel depuis GitHub Actions pour tester
+
+permissions:
+  contents: write
+
+jobs:
+  refresh-seo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run SEO refresh script
+        env:
+          DATAFORSEO_AUTH: ${{ secrets.DATAFORSEO_AUTH }}
+        run: python scripts/seo-refresh.py
+
+      - name: Commit updated seo-positions-data.json
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/seo-positions-data.json
+          git diff --cached --quiet || git commit -m "chore: seo positions — $(date +'%Y-%m-%d')"
+          git push

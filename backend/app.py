@@ -30,7 +30,8 @@ app.secret_key = os.environ.get('FLASK_SECRET', os.urandom(32))
 CORS(app, origins='*')
 
 # ── Constants ────────────────────────────────────────────────────────────────
-VEILLE_DATA_URL = 'https://raw.githubusercontent.com/Marcom-acl/dashboard/main/data/veille-data.json'
+VEILLE_DATA_URL      = 'https://raw.githubusercontent.com/Marcom-acl/dashboard/main/data/veille-data.json'
+SEO_POSITIONS_URL    = 'https://raw.githubusercontent.com/Marcom-acl/dashboard/main/data/seo-positions-data.json'
 
 GA4_PROPERTY              = '267556854'
 GA4_PROPERTY_AUTOTOURING  = '473431929'
@@ -414,6 +415,21 @@ def veille():
             return jsonify({'error': f'GitHub raw HTTP {r.status_code}'}), 503
         data = r.json()
         _cache_set('veille', data, 3600)
+        return jsonify(data)
+    except Exception as e:
+        return jsonify({'error': str(e)}), 503
+
+
+@app.route('/seo-positions')
+def seo_positions():
+    cached = _cache_get('seo-positions')
+    if cached: return jsonify(cached)
+    try:
+        r = _get(SEO_POSITIONS_URL, timeout=10)
+        if not r.ok:
+            return jsonify({'error': f'GitHub raw HTTP {r.status_code}'}), 503
+        data = r.json()
+        _cache_set('seo-positions', data, 3600)
         return jsonify(data)
     except Exception as e:
         return jsonify({'error': str(e)}), 503
