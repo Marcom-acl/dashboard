@@ -750,67 +750,54 @@ def ga4_funnel():
     def _q(body):
         return _post(url, headers=headers, json=body)
 
-    # 1. Baseline — sessions totales + utilisateurs
-    r_base = _q({'dateRanges': [{'startDate': start, 'endDate': end}],
-                 'metrics': [{'name': 'sessions'}, {'name': 'totalUsers'}]})
-    total_sessions = total_users = 0
-    if r_base.ok:
-        rows = r_base.json().get('rows', [])
-        if rows:
-            total_sessions = int(float(rows[0]['metricValues'][0]['value']))
-            total_users    = int(float(rows[0]['metricValues'][1]['value']))
-
-    # 2. Page "Devenir membre" — FR + EN + DE
-    membre_prefixes = [
-        '/fr/devenir-membre/',
-        '/en/become-member/',
-        '/de/mitglied-werden/',
-        '/fr/adhesion/',
-    ]
-    membre_filter = {'orGroup': {'expressions': [
+    # Step 0 — Landing adhésion (page_view sur FR/EN/DE)
+    landing_paths = ['/fr/adhesion/', '/en/membership/', '/de/mitgliedschaft/']
+    landing_filter = {'orGroup': {'expressions': [
         {'filter': {'fieldName': 'pagePath',
                     'stringFilter': {'matchType': 'BEGINS_WITH', 'value': p}}}
-        for p in membre_prefixes
+        for p in landing_paths
     ]}}
-    r_mb = _q({'dateRanges': [{'startDate': start, 'endDate': end}],
-               'metrics': [{'name': 'screenPageViews'}, {'name': 'totalUsers'}],
-               'dimensionFilter': membre_filter})
-    membre_views = membre_users = 0
-    if r_mb.ok:
-        rows = r_mb.json().get('rows', [])
+    r0 = _q({'dateRanges': [{'startDate': start, 'endDate': end}],
+             'metrics': [{'name': 'screenPageViews'}],
+             'dimensionFilter': landing_filter})
+    step0_views = 0
+    if r0.ok:
+        rows = r0.json().get('rows', [])
         if rows:
-            membre_views = int(float(rows[0]['metricValues'][0]['value']))
-            membre_users = int(float(rows[0]['metricValues'][1]['value']))
+            step0_views = int(float(rows[0]['metricValues'][0]['value']))
 
-    # 3. Key events par nom d'événement (étapes déjà trackées dans GA4)
-    key_events = []
-    for metric_name in ('keyEvents', 'conversions'):
-        r_ev = _q({'dateRanges': [{'startDate': start, 'endDate': end}],
-                   'dimensions': [{'name': 'eventName'}],
-                   'metrics': [{'name': metric_name}],
-                   'orderBys': [{'metric': {'metricName': metric_name}, 'desc': True}],
-                   'limit': 15})
-        if r_ev.ok and r_ev.json().get('rows'):
-            for row in r_ev.json()['rows']:
-                count = int(float(row['metricValues'][0]['value']))
-                if count > 0:
-                    key_events.append({'label': row['dimensionValues'][0]['value'], 'value': count})
-            break  # succès — pas besoin d'essayer le second nom de métrique
+    # Steps 1–5 — Événements funnel_step1 à funnel_step5 (un seul appel)
+    funnel_events = {f'funnel_step{i}': 0 for i in range(1, 6)}
+    r_ev = _q({'dateRanges': [{'startDate': start, 'endDate': end}],
+               'dimensions': [{'name': 'eventName'}],
+               'metrics': [{'name': 'eventCount'}],
+               'dimensionFilter': {'orGroup': {'expressions': [
+                   {'filter': {'fieldName': 'eventName',
+                               'stringFilter': {'matchType': 'EXACT', 'value': f'funnel_step{i}'}}}
+                   for i in range(1, 6)
+               ]}}})
+    if r_ev.ok:
+        for row in r_ev.json().get('rows', []):
+            name = row['dimensionValues'][0]['value']
+            if name in funnel_events:
+                funnel_events[name] = int(float(row['metricValues'][0]['value']))
 
-    # 4. Construction des étapes ordonnées
-    steps = []
-    if total_sessions:
-        steps.append({'label': 'Sessions totales', 'value': total_sessions, 'key': 'sessions'})
-    if membre_views:
-        steps.append({'label': 'Page "Devenir membre" (FR/EN/DE)',
-                      'value': membre_views, 'key': 'devenir_membre', 'users': membre_users})
-    steps.extend(key_events)
+    step_defs = [
+        ('step0',  'Landing adhésion (FR · EN · DE)', step0_views),
+        ('step1',  'Carte choisie',                   funnel_events['funnel_step1']),
+        ('step2',  'Infos personnelles remplies',      funnel_events['funnel_step2']),
+        ('step3',  'Extras choisis',                   funnel_events['funnel_step3']),
+        ('step4',  'Mode de paiement sélectionné',     funnel_events['funnel_step4']),
+        ('step5',  'Achat confirmé',                   funnel_events['funnel_step5']),
+    ]
 
-    top_val = key_events[0]['value'] if key_events else membre_views
-    conversion_rate = round(top_val / total_sessions * 100, 2) if total_sessions and top_val else 0
+    steps = [{'key': k, 'label': l, 'value': v} for k, l, v in step_defs]
+    conversion_rate = (
+        round(funnel_events['funnel_step5'] / step0_views * 100, 2)
+        if step0_views and funnel_events['funnel_step5'] else 0
+    )
 
-    data = {'steps': steps, 'conversionRate': conversion_rate,
-            'keyEvents': key_events, 'totalSessions': total_sessions}
+    data = {'steps': steps, 'conversionRate': conversion_rate}
     _cache_set(cache_key, data, 600)
     return jsonify(data)
 
