@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 SEO Positions Tracker — ACL Luxembourg
-Soumet 83 requêtes SERP à l'API DataForSEO (google.lu, mobile),
+Soumet 83 requêtes SERP à l'API DataForSEO (google.lu, mobile, Live Advanced),
 calcule les positions et parts de voix par segment et par marché,
 et écrit data/seo-positions-data.json.
 
@@ -13,6 +13,7 @@ import os
 import time
 import datetime
 import requests
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 
 # ── Chemins ───────────────────────────────────────────────────────────────────
@@ -22,14 +23,15 @@ TODAY     = datetime.date.today().isoformat()
 NOW       = datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ')
 
 # ── DataForSEO ────────────────────────────────────────────────────────────────
-API_BASE = "https://api.dataforseo.com/v3/serp/google/organic"
-HEADERS  = {
+API_URL = "https://api.dataforseo.com/v3/serp/google/organic/live/advanced"
+HEADERS = {
     "Authorization": f"Basic {os.environ.get('DATAFORSEO_AUTH', '')}",
     "Content-Type": "application/json",
 }
 
-LANG_MAP = {"fr": "French", "en": "English", "de": "German"}
+LANG_MAP   = {"fr": "French", "en": "English", "de": "German"}
 ACL_DOMAIN = "acl.lu"
+MAX_WORKERS = 5  # requêtes Live parallèles
 
 # ── Domaines suivis (30) ──────────────────────────────────────────────────────
 TRACKED_DOMAINS = [
@@ -154,7 +156,6 @@ SEGMENT_LABELS = {
 # ── Helpers ───────────────────────────────────────────────────────────────────
 
 def _clean_domain(raw):
-    """Normalise un domaine : retire www., met en minuscules."""
     d = raw.lower().strip()
     if d.startswith("www."):
         d = d[4:]
@@ -162,14 +163,12 @@ def _clean_domain(raw):
 
 
 def _matches(result_domain, tracked):
-    """Vérifie si result_domain correspond à tracked (sous-domaines inclus)."""
     rd = _clean_domain(result_domain)
     td = _clean_domain(tracked)
     return rd == td or rd.endswith("." + td)
 
 
 def build_tasks():
-    """Construit la liste de toutes les tâches SERP (keyword × marché)."""
     tasks = []
     for segment, markets in KEYWORDS.items():
         for lang, kws in markets.items():
@@ -181,85 +180,61 @@ def build_tasks():
                     "se_domain":     "google.lu",
                     "device":        "mobile",
                     "depth":         10,
-                    # Métadonnées pour post-traitement
-                    "_segment": segment,
-                    "_lang":    lang,
+                    "_segment":      segment,
+                    "_lang":         lang,
                 })
     return tasks
 
 
-def post_tasks(tasks):
-    """Soumet les tâches en batch (max 100 par requête). Retourne {tag → task_id}."""
-    tag_to_id = {}
-    batch_size = 100
-    for i in range(0, len(tasks), batch_size):
-        batch = tasks[i:i + batch_size]
-        payload = []
-        for t in batch:
-            payload.append({
-                "keyword":       t["keyword"],
-                "language_name": t["language_name"],
-                "location_name": t["location_name"],
-                "se_domain":     t["se_domain"],
-                "device":        t["device"],
-                "depth":         t["depth"],
-                "tag":           f"{t['_segment']}|{t['_lang']}|{t['keyword']}",
-            })
+def fetch_serp(task, retries=2):
+    """Appelle l'endpoint Live pour une tâche. Retourne (task, items) ou (task, []) en cas d'erreur."""
+    payload = [{
+        "keyword":       task["keyword"],
+        "language_name": task["language_name"],
+        "location_name": task["location_name"],
+        "se_domain":     task["se_domain"],
+        "device":        task["device"],
+        "depth":         task["depth"],
+    }]
+    for attempt in range(retries + 1):
+        try:
+            r = requests.post(API_URL, headers=HEADERS, json=payload, timeout=60)
+            r.raise_for_status()
+            data = r.json()
+            tasks_resp = data.get("tasks", [])
+            if not tasks_resp:
+                return task, []
+            t = tasks_resp[0]
+            if t.get("status_code") != 20000:
+                print(f"  [WARN] {task['keyword']}: status {t.get('status_code')} — {t.get('status_message')}")
+                return task, []
+            result = t.get("result") or []
+            if not result:
+                return task, []
+            items = result[0].get("items") or []
+            return task, items
+        except Exception as e:
+            if attempt < retries:
+                time.sleep(5 * (attempt + 1))
+            else:
+                print(f"  [WARN] Erreur pour '{task['keyword']}': {e}")
+                return task, []
 
-        r = requests.post(f"{API_BASE}/task_post", headers=HEADERS, json=payload, timeout=60)
-        r.raise_for_status()
-        resp = r.json()
 
-        for item in resp.get("tasks", []):
-            tag = item.get("data", {}).get("tag", "")
-            tid = item.get("id")
-            if tag and tid:
-                tag_to_id[tag] = tid
-
-    print(f"[INFO] {len(tag_to_id)} tâches soumises.")
-    return tag_to_id
-
-
-def wait_and_collect(tag_to_id, timeout=300):
-    """Attend que les tâches soient prêtes et récupère les résultats. Retourne {tag → items}."""
-    pending = set(tag_to_id.values())
-    id_to_tag = {v: k for k, v in tag_to_id.items()}
+def fetch_all(tasks):
+    """Soumet toutes les tâches en parallèle (MAX_WORKERS workers simultanés)."""
     results = {}
-    deadline = time.time() + timeout
-    sleep_secs = 30
-
-    print(f"[INFO] Attente des résultats (timeout {timeout}s)…")
-    time.sleep(sleep_secs)
-
-    while pending and time.time() < deadline:
-        r = requests.get(f"{API_BASE}/tasks_ready", headers=HEADERS, timeout=30)
-        r.raise_for_status()
-        ready_ids = [t["id"] for t in r.json().get("tasks", [])]
-
-        for tid in ready_ids:
-            if tid not in pending:
-                continue
-            try:
-                gr = requests.get(f"{API_BASE}/task_get/{tid}", headers=HEADERS, timeout=30)
-                gr.raise_for_status()
-                task_data = gr.json().get("tasks", [{}])[0]
-                items = (task_data.get("result") or [{}])[0].get("items") or []
-                tag = id_to_tag.get(tid, "")
-                if tag:
-                    results[tag] = items
-                pending.discard(tid)
-            except Exception as e:
-                print(f"[WARN] Erreur récupération tâche {tid}: {e}")
-
-        if pending:
-            remaining = int(deadline - time.time())
-            print(f"[INFO] {len(pending)} tâche(s) en attente. Retry dans {sleep_secs}s (reste {remaining}s)…")
-            time.sleep(sleep_secs)
-            sleep_secs = min(sleep_secs + 15, 60)
-
-    if pending:
-        print(f"[WARN] {len(pending)} tâche(s) non résolues après timeout.")
-
+    done = 0
+    total = len(tasks)
+    with ThreadPoolExecutor(max_workers=MAX_WORKERS) as pool:
+        futures = {pool.submit(fetch_serp, t): t for t in tasks}
+        for fut in as_completed(futures):
+            task, items = fut.result()
+            key = (task["_segment"], task["_lang"], task["keyword"])
+            results[key] = items
+            done += 1
+            if done % 10 == 0 or done == total:
+                print(f"  [{done}/{total}] requêtes terminées")
     return results
 
 
@@ -269,11 +244,7 @@ def parse_positions(results):
     Retourne : {(segment, lang, keyword) → {domain → position}}
     """
     positions = {}
-    for tag, items in results.items():
-        parts = tag.split("|", 2)
-        if len(parts) != 3:
-            continue
-        segment, lang, kw = parts
+    for (segment, lang, kw), items in results.items():
         domain_pos = {}
         for item in items:
             if item.get("type") != "organic":
@@ -288,7 +259,6 @@ def parse_positions(results):
 
 
 def load_previous():
-    """Charge le JSON précédent pour calculer les deltas."""
     if not DATA_FILE.exists():
         return None
     try:
@@ -299,10 +269,8 @@ def load_previous():
 
 
 def build_output(positions, previous):
-    """Construit le JSON final."""
-
     # ── Positions ACL précédentes pour les deltas ──
-    prev_acl = {}  # (lang, kw) → pos
+    prev_acl = {}
     if previous:
         for lang in ("fr", "en", "de"):
             mkt = previous.get("markets", {}).get(lang, {})
@@ -312,12 +280,11 @@ def build_output(positions, previous):
     # ── Calcul par marché ──
     markets_out = {}
     for lang in ("fr", "en", "de"):
-        # Tous les mots-clés de ce marché et leurs positions ACL
-        acl_kws = []
+        acl_kws  = []
         kw_gains = []
         kw_losses = []
-        top3 = 0
-        page1 = 0
+        top3     = 0
+        page1    = 0
         total_kws = 0
 
         for segment, markets in KEYWORDS.items():
@@ -331,7 +298,7 @@ def build_output(positions, previous):
                 if acl_pos:
                     if acl_pos <= 3:
                         top3 += 1
-                    page1 += 1  # top 10 = page 1
+                    page1 += 1
                     prev_pos = prev_acl.get((lang, kw))
                     delta = (prev_pos - acl_pos) if prev_pos else 0
                     kw_entry = {"kw": kw, "pos": acl_pos, "delta": delta, "segment": segment}
@@ -341,11 +308,8 @@ def build_output(positions, previous):
                     elif delta < 0:
                         kw_losses.append(kw_entry)
 
-        # Visibilité = % de mots-clés où ACL est en top 10
         visibility = round(page1 / total_kws * 100, 2) if total_kws else 0.0
-
-        # Deltas vs précédent
-        prev_mkt = (previous or {}).get("markets", {}).get(lang, {})
+        prev_mkt   = (previous or {}).get("markets", {}).get(lang, {})
         vis_delta  = round(visibility - prev_mkt.get("visibility_pct", visibility), 2)
         top3_delta = top3  - prev_mkt.get("top3",  {}).get("count", top3)
         p1_delta   = page1 - prev_mkt.get("page1", {}).get("count", page1)
@@ -360,7 +324,7 @@ def build_output(positions, previous):
             "acl_keywords":   sorted(acl_kws,  key=lambda x:  x["pos"]),
         }
 
-    # ── Calcul des parts de voix par segment et par marché ──
+    # ── Parts de voix par segment et par marché ──
     competitors_out = {}
     for lang in ("fr", "en", "de"):
         seg_out = {}
@@ -375,7 +339,7 @@ def build_output(positions, previous):
             for kw in kws:
                 dom_pos = positions.get((segment, lang, kw), {})
                 for dom in TRACKED_DOMAINS:
-                    if dom in dom_pos:  # top 10 par construction (depth=10)
+                    if dom in dom_pos:
                         domain_counts[dom] += 1
 
             total = len(kws)
@@ -384,28 +348,27 @@ def build_output(positions, previous):
                 cnt = domain_counts[dom]
                 if cnt > 0 or dom == ACL_DOMAIN:
                     competitors_list.append({
-                        "domain":     dom,
-                        "voice_pct":  round(cnt / total * 100, 1),
+                        "domain":      dom,
+                        "voice_pct":   round(cnt / total * 100, 1),
                         "top10_count": cnt,
-                        "is_acl":     dom == ACL_DOMAIN,
+                        "is_acl":      dom == ACL_DOMAIN,
                     })
 
             competitors_list.sort(key=lambda x: -x["voice_pct"])
             seg_out[segment] = {
-                "label":        SEGMENT_LABELS.get(segment, segment),
+                "label":          SEGMENT_LABELS.get(segment, segment),
                 "total_keywords": total,
-                "competitors":  competitors_list,
+                "competitors":    competitors_list,
             }
 
         competitors_out[lang] = {"segments": seg_out}
 
-    # ── Assemblage final ──
     week_num = datetime.date.today().isocalendar()[1]
     return {
-        "generated_at":   NOW,
-        "period_label":   f"Semaine {week_num} — {TODAY}",
-        "markets":        markets_out,
-        "competitors":    competitors_out,
+        "generated_at": NOW,
+        "period_label": f"Semaine {week_num} — {TODAY}",
+        "markets":      markets_out,
+        "competitors":  competitors_out,
     }
 
 
@@ -425,18 +388,19 @@ def main():
     previous = load_previous()
 
     tasks = build_tasks()
-    print(f"[INFO] {len(tasks)} tâches à soumettre (83 mots-clés × marchés).")
+    print(f"[INFO] {len(tasks)} requêtes SERP à effectuer (Live Advanced, {MAX_WORKERS} workers).")
 
-    tag_to_id = post_tasks(tasks)
-    results   = wait_and_collect(tag_to_id)
+    results   = fetch_all(tasks)
     positions = parse_positions(results)
-
     print(f"[INFO] {len(positions)} résultats SERP parsés.")
+
+    # Résumé des positions ACL trouvées
+    acl_found = sum(1 for dom_pos in positions.values() if ACL_DOMAIN in dom_pos)
+    print(f"[INFO] ACL trouvé dans {acl_found}/{len(positions)} SERPs.")
 
     data = build_output(positions, previous)
     save(data)
 
-    # Résumé rapide
     for lang in ("fr", "en", "de"):
         m = data["markets"].get(lang, {})
         print(f"  [{lang.upper()}] Visibilité ACL : {m.get('visibility_pct', 0)}% | "
