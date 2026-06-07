@@ -1173,6 +1173,11 @@
           Veille sectorielle
           <span class="sb-dot" id="bs-veille" style="background:var(--muted-2);"></span>
         </button>
+        <button class="sb-item tab-btn" data-tab="seopos">
+          <svg class="sb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          SEO Positions
+          <span class="sb-dot" id="bs-seopos" style="background:var(--muted-2);"></span>
+        </button>
         <button class="sb-item tab-btn" data-tab="intelligence">
           <svg class="sb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a7 7 0 0 1 7 7c0 2.5-1.3 4.7-3.3 6L15 17H9l-.7-2C6.3 13.7 5 11.5 5 9a7 7 0 0 1 7-7z"/><path d="M9 21h6M10 17v4M14 17v4"/></svg>
           Intelligence Web
@@ -1290,6 +1295,9 @@
 
         <!-- ── VEILLE ────────────────────────────────────────────── -->
         <div id="panel-veille" class="tab-panel"></div>
+
+        <!-- ── SEO POSITIONS ─────────────────────────────────────── -->
+        <div id="panel-seopos" class="tab-panel"></div>
 
         <!-- ── INTELLIGENCE WEB ──────────────────────────────────── -->
         <div id="panel-intelligence" class="tab-panel"></div>
@@ -1476,6 +1484,7 @@ function _renderTab(tab) {
   else if (tab === 'youtube')      renderYouTube(d.dYT);
   else if (tab === 'linkedin')     renderLinkedIn(d.dLI);
   else if (tab === 'veille')       renderVeille(d.dVeille);
+  else if (tab === 'seopos')       renderSEOPositions(d.dSEO);
   else if (tab === 'buffer')       renderBuffer(d.dBuffer);
   else if (tab === 'intelligence') renderIntelligence();
 }
@@ -1489,14 +1498,14 @@ async function loadAll() {
 
   try {
     const [ga4, ga4auto, ga4ext, ga4trend, gsc, fb, fbpage, brevo, club, yt, li, veille, fbpageytd, fbytd, buffer,
-           ga4geo, ga4sections, gsccompare, ga4funnel] = await Promise.allSettled([
+           ga4geo, ga4sections, gsccompare, ga4funnel, seopos] = await Promise.allSettled([
       api('/ga4'), api('/ga4/autotouring'), api('/ga4/extended'), api('/ga4/trend'),
       api('/gsc'), api('/fb'), api('/fb/page'), api('/brevo'), api('/brevo/club'),
       api('/youtube'), api('/supermetrics/linkedin'), api('/veille'),
       apiYtd('/fb/page'), apiYtd('/fb'),
       api('/buffer'),
       api('/ga4/geographic'), api('/ga4/sections'), api('/gsc/compare'),
-      api('/ga4/funnel')
+      api('/ga4/funnel'), api('/seo-positions')
     ]);
 
     const v = r => r.status === 'fulfilled' ? r.value : null;
@@ -1508,6 +1517,7 @@ async function loadAll() {
     const dBuffer = v(buffer);
     const dGA4Geo = v(ga4geo), dSections = v(ga4sections), dGSCCompare = v(gsccompare);
     const dFunnel = v(ga4funnel);
+    const dSEO    = v(seopos);
 
     updateStatus('bs-ga4',      dGA4      && !dGA4.error);
     updateStatus('bs-gsc',      dGSC      && !dGSC.error);
@@ -1519,8 +1529,9 @@ async function loadAll() {
     updateStatus('bs-veille',   dVeille   && !dVeille.error);
     updateStatus('bs-buffer',   dBuffer   && !dBuffer.error);
     updateStatus('bs-sections', dSections && !dSections.error);
+    updateStatus('bs-seopos',   dSEO      && !dSEO.error);
 
-    window._dashData = {dGA4, dGA4A, dGA4E, dGA4T, dGSC, dFB, dFBP, dBrevo, dClub, dYT, dLI, dVeille, dFBPytd, dFBytd, dBuffer, dGA4Geo, dSections, dGSCCompare, dFunnel};
+    window._dashData = {dGA4, dGA4A, dGA4E, dGA4T, dGSC, dFB, dFBP, dBrevo, dClub, dYT, dLI, dVeille, dFBPytd, dFBytd, dBuffer, dGA4Geo, dSections, dGSCCompare, dFunnel, dSEO};
     window._tabRendered = {};
 
     const activeTab = document.querySelector('.tab-btn.active')?.dataset.tab || 'overview';
@@ -4340,6 +4351,209 @@ function renderVeille(d) {
   });
   const srch = document.getElementById('vFSearch');
   if (srch) srch.addEventListener('input', e => { vSearch = e.target.value; applyFilters(); });
+
+  animateCards(el);
+}
+
+// ── SEO POSITIONS ─────────────────────────────────────────────
+function renderSEOPositions(d) {
+  const el = document.getElementById('panel-seopos');
+  if (!el) return;
+  if (!d || d.error) {
+    el.innerHTML = errState('SEO Positions', d?.error || 'Données non disponibles — exécutez le workflow GitHub Actions pour générer seo-positions-data.json');
+    return;
+  }
+
+  const SEO_CLR  = '#16a34a';
+  const SEO_SOFT = '#dcfce7';
+  const LANG_LBL = {fr: 'Marché FR', en: 'Marché EN', de: 'Marché DE'};
+
+  const SEGMENT_LBL = {
+    mobilite_carburant: 'Carburant',
+    mobilite_trafic:    'Trafic',
+    assistance:         'Assistance routière',
+    location_voiture:   'Location voiture',
+    location_velo:      'Location vélo',
+    voyage:             'Voyage & Assurance',
+    controle_technique: 'Contrôle technique',
+    peages:             'Péages & Vignettes',
+    parking:            'Parking',
+  };
+
+  function countBadge(n) {
+    if (!n) return '';
+    const cls = n > 0 ? 'good' : 'bad';
+    return `<span class="kpi-badge ${cls}">${n > 0 ? '+' : ''}${n}</span>`;
+  }
+
+  const allSegs = [...new Set(
+    Object.values(d.competitors || {}).flatMap(m => Object.keys(m.segments || {}))
+  )];
+
+  let activeLang = 'fr';
+  let activeSeg  = allSegs[0] || 'mobilite_carburant';
+
+  function mktHtml(lang) {
+    const m      = d.markets?.[lang] || {};
+    const gains  = (m.keyword_gains  || []).slice(0, 10);
+    const losses = (m.keyword_losses || []).slice(0, 10);
+    const acls   = m.acl_keywords    || [];
+
+    function posBar(pos) {
+      return `<div class="bar-track"><div class="bar-fill" style="--src:var(--good);width:${Math.max(8, Math.round((11 - Math.min(pos, 10)) / 10 * 100))}%"></div></div>`;
+    }
+    function negBar(pos) {
+      return `<div class="bar-track"><div class="bar-fill" style="--src:var(--bad);width:${Math.max(8, Math.round((11 - Math.min(pos, 10)) / 10 * 100))}%"></div></div>`;
+    }
+
+    return `
+      <div class="kpi-grid" style="--cols:3">
+        ${kpiCard({label: 'Visibilité mobile', value: fmtPct(m.visibility_pct),  badge: countBadge(m.visibility_delta), src: SEO_CLR, srcBg: SEO_SOFT})}
+        ${kpiCard({label: 'Mots-clés Top 3',   value: m.top3?.count  ?? '—',     badge: countBadge(m.top3?.delta),      src: SEO_CLR, srcBg: SEO_SOFT})}
+        ${kpiCard({label: 'Mots-clés Page 1',  value: m.page1?.count ?? '—',     badge: countBadge(m.page1?.delta),     src: SEO_CLR, srcBg: SEO_SOFT})}
+      </div>
+      <div class="overview-bars">
+        <div class="card">
+          <div class="card-title">Progressions <span style="color:var(--good);font-size:11px">(${gains.length})</span></div>
+          ${gains.length ? gains.map(k => `
+            <div class="bar-row">
+              <div class="bar-meta">
+                <span class="bar-name" title="${k.kw}">${k.kw}</span>
+                ${posBar(k.pos)}
+              </div>
+              <span class="bar-val" style="display:flex;gap:6px;align-items:center">
+                <span style="color:var(--muted);font-size:11px">pos.${k.pos}</span>
+                <span class="kpi-badge good" style="font-size:10px">↑${k.delta}</span>
+              </span>
+            </div>`).join('') : '<p class="tbl-empty">Aucune progression cette semaine</p>'}
+        </div>
+        <div class="card">
+          <div class="card-title">Reculs <span style="color:var(--bad);font-size:11px">(${losses.length})</span></div>
+          ${losses.length ? losses.map(k => `
+            <div class="bar-row">
+              <div class="bar-meta">
+                <span class="bar-name" title="${k.kw}">${k.kw}</span>
+                ${negBar(k.pos)}
+              </div>
+              <span class="bar-val" style="display:flex;gap:6px;align-items:center">
+                <span style="color:var(--muted);font-size:11px">pos.${k.pos}</span>
+                <span class="kpi-badge bad" style="font-size:10px">↓${Math.abs(k.delta)}</span>
+              </span>
+            </div>`).join('') : '<p class="tbl-empty">Aucun recul cette semaine</p>'}
+        </div>
+      </div>
+      ${acls.length ? `<div class="card">
+        <div class="card-title">Toutes les positions ACL — ${LANG_LBL[lang]}</div>
+        <table class="tbl"><thead><tr><th>Mot-clé</th><th>Segment</th><th>Position</th><th>Variation</th></tr></thead>
+        <tbody>${acls.map(k => `<tr>
+          <td style="font-size:12px">${k.kw}</td>
+          <td style="font-size:11px;color:var(--muted)">${SEGMENT_LBL[k.segment] || k.segment}</td>
+          <td><strong>${k.pos}</strong></td>
+          <td>${k.delta > 0
+            ? `<span class="kpi-badge good" style="font-size:10px">↑${k.delta}</span>`
+            : k.delta < 0
+            ? `<span class="kpi-badge bad"  style="font-size:10px">↓${Math.abs(k.delta)}</span>`
+            : '<span style="color:var(--muted)">—</span>'}
+          </td>
+        </tr>`).join('')}</tbody></table>
+      </div>` : ''}`;
+  }
+
+  function compHtml(lang, seg) {
+    const sd = d.competitors?.[lang]?.segments?.[seg];
+    if (!sd) return '<p class="tbl-empty">Aucune donnée</p>';
+    const comps = sd.competitors || [];
+    const maxV  = Math.max(...comps.map(c => c.voice_pct), 1);
+    return `<p style="font-size:11px;color:var(--muted);margin:0 0 8px">${sd.total_keywords} mots-clés</p>` +
+      comps.map(c => `
+        <div class="bar-row" style="${c.is_acl ? 'padding:2px 6px;background:var(--y-soft);border-radius:6px;' : ''}">
+          <div class="bar-meta">
+            <span class="bar-name" title="${c.domain}" style="${c.is_acl ? 'font-weight:700' : ''}">${c.is_acl ? '★ ' : ''}${c.domain}</span>
+            <div class="bar-track"><div class="bar-fill" style="--src:${c.is_acl ? 'var(--y)' : SEO_CLR};width:${Math.round(c.voice_pct / maxV * 100)}%"></div></div>
+          </div>
+          <span class="bar-val">${fmtPct(c.voice_pct)}</span>
+        </div>`).join('');
+  }
+
+  function compGridHtml(seg) {
+    return ['fr', 'en', 'de'].map(l => `
+      <div class="card">
+        <div class="card-title">${LANG_LBL[l]}</div>
+        ${compHtml(l, seg)}
+      </div>`).join('');
+  }
+
+  el.innerHTML = `
+    <div class="sec-title">
+      <h2>SEO Positions</h2><div class="line"></div>
+      <span class="src-pill" style="background:${SEO_SOFT};color:#15803d">DataForSEO · google.lu mobile</span>
+    </div>
+    <p style="font-size:12px;color:var(--muted);margin:0 0 18px">
+      ${d.period_label || ''} · Généré le ${(d.generated_at || '').slice(0, 10)}
+    </p>
+
+    <div style="display:flex;gap:8px;margin-bottom:20px" id="seo-lang-sw">
+      ${['fr', 'en', 'de'].map(l => `
+        <button class="seo-lang-btn" data-lang="${l}" style="
+          padding:6px 18px;border-radius:20px;cursor:pointer;font-size:13px;font-weight:600;transition:.15s;
+          border:1.5px solid ${l === activeLang ? SEO_CLR : 'var(--border)'};
+          background:${l === activeLang ? SEO_SOFT : 'transparent'};
+          color:${l === activeLang ? '#15803d' : 'var(--fg)'}">
+          ${LANG_LBL[l]}
+        </button>`).join('')}
+    </div>
+
+    <div id="seo-mkt"></div>
+
+    <div class="sec-title" style="margin-top:28px">
+      <h2>Parts de voix concurrentes</h2><div class="line"></div>
+    </div>
+    <p style="font-size:12px;color:var(--muted);margin:0 0 12px">
+      % de mots-clés du segment où chaque domaine apparaît en Top 10 · google.lu mobile
+    </p>
+
+    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px" id="seo-seg-sw">
+      ${allSegs.map(s => `
+        <button class="seo-seg-btn" data-seg="${s}" style="
+          padding:4px 12px;border-radius:14px;cursor:pointer;font-size:11px;font-weight:600;transition:.15s;
+          border:1px solid ${s === activeSeg ? SEO_CLR : 'var(--border)'};
+          background:${s === activeSeg ? SEO_SOFT : 'transparent'};
+          color:${s === activeSeg ? '#15803d' : 'var(--muted)'}">
+          ${SEGMENT_LBL[s] || s}
+        </button>`).join('')}
+    </div>
+
+    <div id="seo-comp" style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px"></div>
+  `;
+
+  document.getElementById('seo-mkt').innerHTML  = mktHtml(activeLang);
+  document.getElementById('seo-comp').innerHTML = compGridHtml(activeSeg);
+
+  el.querySelectorAll('.seo-lang-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      activeLang = btn.dataset.lang;
+      el.querySelectorAll('.seo-lang-btn').forEach(b => {
+        const on = b === btn;
+        b.style.borderColor = on ? SEO_CLR : 'var(--border)';
+        b.style.background  = on ? SEO_SOFT : 'transparent';
+        b.style.color       = on ? '#15803d' : 'var(--fg)';
+      });
+      document.getElementById('seo-mkt').innerHTML = mktHtml(activeLang);
+    });
+  });
+
+  el.querySelectorAll('.seo-seg-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      activeSeg = btn.dataset.seg;
+      el.querySelectorAll('.seo-seg-btn').forEach(b => {
+        const on = b === btn;
+        b.style.borderColor = on ? SEO_CLR : 'var(--border)';
+        b.style.background  = on ? SEO_SOFT : 'transparent';
+        b.style.color       = on ? '#15803d' : 'var(--muted)';
+      });
+      document.getElementById('seo-comp').innerHTML = compGridHtml(activeSeg);
+    });
+  });
 
   animateCards(el);
 }
