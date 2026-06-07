@@ -1,0 +1,377 @@
+{
+  "generated_at": "2026-06-07T05:25:20Z",
+  "period_label": "Semaine 23 — 2026-06-07",
+  "markets": {
+    "fr": {
+      "visibility_pct": 0.0,
+      "visibility_delta": 0.0,
+      "top3": {
+        "count": 0,
+        "delta": 0
+      },
+      "page1": {
+        "count": 0,
+        "delta": 0
+      },
+      "keyword_gains": [],
+      "keyword_losses": [],
+      "acl_keywords": []
+    },
+    "en": {
+      "visibility_pct": 0.0,
+      "visibility_delta": 0.0,
+      "top3": {
+        "count": 0,
+        "delta": 0
+      },
+      "page1": {
+        "count": 0,
+        "delta": 0
+      },
+      "keyword_gains": [],
+      "keyword_losses": [],
+      "acl_keywords": []
+    },
+    "de": {
+      "visibility_pct": 0.0,
+      "visibility_delta": 0.0,
+      "top3": {
+        "count": 0,
+        "delta": 0
+      },
+      "page1": {
+        "count": 0,
+        "delta": 0
+      },
+      "keyword_gains": [],
+      "keyword_losses": [],
+      "acl_keywords": []
+    }
+  },
+  "competitors": {
+    "fr": {
+      "segments": {
+        "mobilite_carburant": {
+          "label": "Mobilité — Carburant",
+          "total_keywords": 8,
+          "competitors": [
+            {
+              "domain": "acl.lu",
+              "voice_pct": 0.0,
+              "top10_count": 0,
+              "is_acl": true
+            }
+          ]
+        },
+        "mobilite_trafic": {
+          "label": "Mobilité — Trafic",
+          "total_keywords": 3,
+          "competitors": [
+            {
+              "domain": "acl.lu",
+              "voice_pct": 0.0,
+              "top10_count": 0,
+              "is_acl": true
+            }
+          ]
+        },
+        "assistance": {
+          "label": "Assistance routière",
+          "total_keywords": 4,
+          "competitors": [
+            {
+              "domain": "acl.lu",
+              "voice_pct": 0.0,
+              "top10_count": 0,
+              "is_acl": true
+            }
+          ]
+        },
+        "location_voiture": {
+          "label": "Location voiture",
+          "total_keywords": 3,
+          "competitors": [
+            {
+              "domain": "acl.lu",
+              "voice_pct": 0.0,
+              "top10_count": 0,
+              "is_acl": true
+            }
+          ]
+        },
+        "location_velo": {
+          "label": "Location vélo",
+          "total_keywords": 4,
+          "competitors": [
+            {
+              "domain": "acl.lu",
+              "voice_pct": 0.0,
+              "top10_count": 0,
+              "is_acl": true
+            }
+          ]
+        },
+        "voyage": {
+          "label": "Voyage & Assurance",
+          "total_keywords": 3,
+          "competitors": [
+            {
+              "domain": "acl.lu",
+              "voice_pct": 0.0,
+              "top10_count": 0,
+              "is_acl": true
+            }
+          ]
+        },
+        "controle_technique": {
+          "label": "Contrôle technique",
+          "total_keywords": 2,
+          "competitors": [
+            {
+              "domain": "acl.lu",
+              "voice_pct": 0.0,
+              "top10_count": 0,
+              "is_acl": true
+            }
+          ]
+        },
+        "peages": {
+          "label": "Péages & Vignettes",
+          "total_keywords": 2,
+          "competitors": [
+            {
+              "domain": "acl.lu",
+              "voice_pct": 0.0,
+              "top10_count": 0,
+              "is_acl": true
+            }
+          ]
+        },
+        "parking": {
+          "label": "Parking",
+          "total_keywords": 1,
+          "competitors": [
+            {
+              "domain": "acl.lu",
+              "voice_pct": 0.0,
+              "top10_count": 0,
+              "is_acl": true
+            }
+          ]
+        }
+      }
+    },
+    "en": {
+      "segments": {
+        "mobilite_carburant": {
+          "label": "Mobilité — Carburant",
+          "total_keywords": 8,
+          "competitors": [
+            {
+              "domain": "acl.lu",
+              "voice_pct": 0.0,
+              "top10_count": 0,
+              "is_acl": true
+            }
+          ]
+        },
+        "mobilite_trafic": {
+          "label": "Mobilité — Trafic",
+          "total_keywords": 2,
+          "competitors": [
+            {
+              "domain": "acl.lu",
+              "voice_pct": 0.0,
+              "top10_count": 0,
+              "is_acl": true
+            }
+          ]
+        },
+        "assistance": {
+          "label": "Assistance routière",
+          "total_keywords": 2,
+          "competitors": [
+            {
+              "domain": "acl.lu",
+              "voice_pct": 0.0,
+              "top10_count": 0,
+              "is_acl": true
+            }
+          ]
+        },
+        "location_voiture": {
+          "label": "Location voiture",
+          "total_keywords": 3,
+          "competitors": [
+            {
+              "domain": "acl.lu",
+              "voice_pct": 0.0,
+              "top10_count": 0,
+              "is_acl": true
+            }
+          ]
+        },
+        "location_velo": {
+          "label": "Location vélo",
+          "total_keywords": 3,
+          "competitors": [
+            {
+              "domain": "acl.lu",
+              "voice_pct": 0.0,
+              "top10_count": 0,
+              "is_acl": true
+            }
+          ]
+        },
+        "voyage": {
+          "label": "Voyage & Assurance",
+          "total_keywords": 2,
+          "competitors": [
+            {
+              "domain": "acl.lu",
+              "voice_pct": 0.0,
+              "top10_count": 0,
+              "is_acl": true
+            }
+          ]
+        },
+        "controle_technique": {
+          "label": "Contrôle technique",
+          "total_keywords": 2,
+          "competitors": [
+            {
+              "domain": "acl.lu",
+              "voice_pct": 0.0,
+              "top10_count": 0,
+              "is_acl": true
+            }
+          ]
+        },
+        "peages": {
+          "label": "Péages & Vignettes",
+          "total_keywords": 4,
+          "competitors": [
+            {
+              "domain": "acl.lu",
+              "voice_pct": 0.0,
+              "top10_count": 0,
+              "is_acl": true
+            }
+          ]
+        },
+        "parking": {
+          "label": "Parking",
+          "total_keywords": 1,
+          "competitors": [
+            {
+              "domain": "acl.lu",
+              "voice_pct": 0.0,
+              "top10_count": 0,
+              "is_acl": true
+            }
+          ]
+        }
+      }
+    },
+    "de": {
+      "segments": {
+        "mobilite_carburant": {
+          "label": "Mobilité — Carburant",
+          "total_keywords": 9,
+          "competitors": [
+            {
+              "domain": "acl.lu",
+              "voice_pct": 0.0,
+              "top10_count": 0,
+              "is_acl": true
+            }
+          ]
+        },
+        "mobilite_trafic": {
+          "label": "Mobilité — Trafic",
+          "total_keywords": 2,
+          "competitors": [
+            {
+              "domain": "acl.lu",
+              "voice_pct": 0.0,
+              "top10_count": 0,
+              "is_acl": true
+            }
+          ]
+        },
+        "assistance": {
+          "label": "Assistance routière",
+          "total_keywords": 4,
+          "competitors": [
+            {
+              "domain": "acl.lu",
+              "voice_pct": 0.0,
+              "top10_count": 0,
+              "is_acl": true
+            }
+          ]
+        },
+        "location_voiture": {
+          "label": "Location voiture",
+          "total_keywords": 3,
+          "competitors": [
+            {
+              "domain": "acl.lu",
+              "voice_pct": 0.0,
+              "top10_count": 0,
+              "is_acl": true
+            }
+          ]
+        },
+        "location_velo": {
+          "label": "Location vélo",
+          "total_keywords": 2,
+          "competitors": [
+            {
+              "domain": "acl.lu",
+              "voice_pct": 0.0,
+              "top10_count": 0,
+              "is_acl": true
+            }
+          ]
+        },
+        "voyage": {
+          "label": "Voyage & Assurance",
+          "total_keywords": 2,
+          "competitors": [
+            {
+              "domain": "acl.lu",
+              "voice_pct": 0.0,
+              "top10_count": 0,
+              "is_acl": true
+            }
+          ]
+        },
+        "controle_technique": {
+          "label": "Contrôle technique",
+          "total_keywords": 2,
+          "competitors": [
+            {
+              "domain": "acl.lu",
+              "voice_pct": 0.0,
+              "top10_count": 0,
+              "is_acl": true
+            }
+          ]
+        },
+        "peages": {
+          "label": "Péages & Vignettes",
+          "total_keywords": 2,
+          "competitors": [
+            {
+              "domain": "acl.lu",
+              "voice_pct": 0.0,
+              "top10_count": 0,
+              "is_acl": true
+            }
+          ]
+        }
+      }
+    }
+  }
+}
