@@ -33,12 +33,28 @@ def main():
     }]
 
     print("[INFO] Appel DataForSEO Live (1 mot-clé)…")
-    r = requests.post(f"{API_BASE}/live/advanced", headers=HEADERS, json=payload, timeout=60)
-    print(f"[INFO] HTTP {r.status_code}")
+    print(f"[INFO] Auth header présent: {'Oui' if os.environ.get('DATAFORSEO_AUTH') else 'NON'}")
+    print(f"[INFO] Auth length: {len(os.environ.get('DATAFORSEO_AUTH', ''))}")
 
-    data = r.json()
+    try:
+        r = requests.post(f"{API_BASE}/live/advanced", headers=HEADERS, json=payload, timeout=60)
+        print(f"[INFO] HTTP {r.status_code}")
+        print(f"[INFO] Content-Type: {r.headers.get('Content-Type', '?')}")
+        print(f"[INFO] Response body (500 chars): {r.text[:500]}")
+    except Exception as e:
+        print(f"[ERROR] Erreur HTTP: {type(e).__name__}: {e}")
+        return
+
+    try:
+        data = r.json()
+    except Exception as e:
+        print(f"[ERROR] Impossible de parser le JSON: {e}")
+        print(f"[ERROR] Corps brut: {r.text[:1000]}")
+        return
+
     print("\n=== RÉPONSE BRUTE (top level) ===")
     print(f"status_code: {data.get('status_code')}")
+    print(f"status_message: {data.get('status_message')}")
     print(f"tasks_count: {data.get('tasks_count')}")
     tasks = data.get("tasks", [])
     print(f"len(tasks): {len(tasks)}")
@@ -64,22 +80,18 @@ def main():
     print(f"se_domain: {r0.get('se_domain')}")
     print(f"device: {r0.get('device')}")
 
-    # Affiche les 10 premiers items avec type + domain
     for i, item in enumerate(items[:15]):
         t = item.get("type", "?")
         domain = item.get("domain", "—")
         rank = item.get("rank_absolute", "?")
         url = (item.get("url") or "")[:60]
-        print(f"  [{i+1:2d}] type={t:20s} rank={rank:3s} domain={domain:30s} url={url}")
+        print(f"  [{i+1:2d}] type={t:20s} rank={rank!s:3s} domain={domain:30s} url={url}")
 
-    # Types présents
     types = {}
     for item in items:
         t = item.get("type", "unknown")
         types[t] = types.get(t, 0) + 1
     print(f"\nTypes présents: {types}")
-
-    # Coût
     print(f"\nCoût de la requête: ${task.get('cost', '?')}")
 
 if __name__ == "__main__":
