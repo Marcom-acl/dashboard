@@ -70,6 +70,43 @@ GOOGLE_CLIENT_SECRET = os.environ.get('GOOGLE_CLIENT_SECRET', '')
 GOOGLE_REFRESH_TOKEN = os.environ.get('GOOGLE_REFRESH_TOKEN', '')
 SUPERMETRICS_API_KEY = os.environ.get('SUPERMETRICS_API_KEY', '')
 BUFFER_API_KEY       = os.environ.get('BUFFER_API_KEY', '')
+DATAFORSEO_LOGIN     = os.environ.get('DATAFORSEO_LOGIN', '')
+DATAFORSEO_PASSWORD  = os.environ.get('DATAFORSEO_PASSWORD', '')
+
+# ── CTR curve (expected CTR by position, used in /insights/web score_v2) ─────
+_CTR_CURVE = {1:0.28, 2:0.15, 3:0.11, 4:0.08, 5:0.07, 6:0.065, 7:0.055, 8:0.045, 9:0.035, 10:0.02}
+
+def _expected_ctr(pos):
+    p = max(1, round(float(pos)))
+    return _CTR_CURVE.get(p, max(0.005, 0.02 - (p - 10) * 0.0015))
+
+# ── DataForSEO SERP helper ────────────────────────────────────────────────────
+def _fetch_dataforseo_serp(keyword, location_code=2442, language_code='fr'):
+    """Returns top-10 organic SERP results for keyword on google.lu (LUX = 2442)."""
+    if not DATAFORSEO_LOGIN or not DATAFORSEO_PASSWORD:
+        return []
+    try:
+        import base64
+        creds = base64.b64encode(f'{DATAFORSEO_LOGIN}:{DATAFORSEO_PASSWORD}'.encode()).decode()
+        payload = [{'keyword': keyword, 'location_code': location_code,
+                    'language_code': language_code, 'device': 'desktop', 'depth': 10}]
+        r = requests.post(
+            'https://api.dataforseo.com/v3/serp/google/organic/live/regular',
+            json=payload,
+            headers={'Authorization': f'Basic {creds}', 'Content-Type': 'application/json'},
+            timeout=15, verify=_VERIFY
+        )
+        if not r.ok:
+            return []
+        tasks = r.json().get('tasks', [])
+        items = tasks[0].get('result', [{}])[0].get('items', []) if tasks else []
+        return [
+            {'rank': i.get('rank_absolute'), 'url': i.get('url', ''),
+             'title': i.get('title', ''), 'description': i.get('description', '')}
+            for i in items if i.get('type') == 'organic'
+        ][:10]
+    except Exception:
+        return []
 
 # ── Dashboard users (source: GitHub Gist > DASHBOARD_USERS env var > seed) ───
 GITHUB_TOKEN  = os.environ.get('GITHUB_TOKEN', '')
@@ -1458,7 +1495,9 @@ def fb_ads():
         'cpc':         round(totals['cpc'], 2),
         'cpm':         round(totals['cpm'], 2),
         'roas':        roas,
-        'topCampaigns': sorted(campaigns, key=lambda x: x['spend'], reverse=True),
+        'topCampaigns':     sorted(campaigns, key=lambda x: x['spend'],              reverse=True),
+        'topByImpressions': sorted(campaigns, key=lambda x: x.get('impressions', 0), reverse=True)[:5],
+        'topByRoas':        sorted(campaigns, key=lambda x: x.get('roas', 0),        reverse=True)[:5],
     }
     _cache_set(key, data, 600)
     return jsonify(data)
@@ -1687,6 +1726,63 @@ def _brevo_club_refresh():
             _CLUB_CACHE['ts']   = time.time() - (_CLUB_CACHE_TTL - 120)
     finally:
         _CLUB_REFRESH_IN_PROGRESS = False
+
+
+@app.route('/brevo/thematic-lists')
+def brevo_thematic_lists():
+    """Returns active subscriber counts for thematic newsletter lists (FR/DE/EN)."""
+    key = 'brevo-thematic-lists'
+    cached = _cache_get(key)
+    if cached: return jsonify(cached)
+
+    THEMATIC_IDS = {
+        'motos':     {'fr': 198, 'de': 199, 'en': 200},
+        'camping':   {'fr': 48,  'de': 51,  'en': 52},
+        'velo':      {'fr': 12,  'de': 31,  'en': 21},
+        'oldtimers': {'fr': 10,  'de': 33,  'en': 18},
+        'voyages':   {'fr': 8,   'de': 30,  'en': 19},
+        'sport':     {'fr': 75},
+    }
+    LABELS = {
+        'motos': 'Motos', 'camping': 'Camping', 'velo': 'Vélo',
+        'oldtimers': 'Oldtimers', 'voyages': 'Voyages', 'sport': 'Sport',
+    }
+
+    BREVO_BASE = 'https://api.brevo.com/v3'
+    headers = {'api-key': BREVO_API_KEY, 'accept': 'application/json'}
+
+    def fetch_list(list_id):
+        try:
+            r = requests.get(f'{BREVO_BASE}/contacts/lists/{list_id}',
+                             headers=headers, timeout=8, verify=_VERIFY)
+            if r.ok:
+                data = r.json()
+                return data.get('subscriberCount', data.get('totalSubscribers', 0))
+        except Exception:
+            pass
+        return None
+
+    # Collect all (theme, lang, list_id) triples
+    tasks = [(theme, lang, lid) for theme, langs in THEMATIC_IDS.items()
+             for lang, lid in langs.items()]
+
+    results = {}
+    with __import__('concurrent.futures').ThreadPoolExecutor(max_workers=8) as ex:
+        future_map = {ex.submit(fetch_list, lid): (theme, lang) for theme, lang, lid in tasks}
+        for fut, (theme, lang) in future_map.items():
+            count = fut.result()
+            if theme not in results:
+                results[theme] = {'label': LABELS[theme]}
+            results[theme][lang] = count if count is not None else 0
+
+    # Compute totals
+    for theme in results:
+        results[theme]['total'] = sum(
+            v for k, v in results[theme].items() if k in ('fr', 'de', 'en') and isinstance(v, int)
+        )
+
+    _cache_set(key, results, 3600)
+    return jsonify(results)
 
 
 @app.route('/brevo/club')
@@ -2701,17 +2797,114 @@ def insights_web():
     for p in gsc.get('topPages', [])[:20]:
         norm = normalise(p['page'])
         ga4p = ga4_entry.get(norm, {})
-        score = round(p['impressions'] * max(0, 0.05 - p['ctr'] / 100) / max(p['position'], 1), 1)
+        ctr_act  = p['ctr'] / 100
+        ctr_exp  = _expected_ctr(p['position'])
+        score_v2 = round(p['impressions'] * max(0, ctr_exp - ctr_act), 1)
+        # Legacy score kept for backward compat with old frontend
+        score = round(p['impressions'] * max(0, 0.05 - ctr_act) / max(p['position'], 1), 1)
         merged_pages.append({
-            'url':          norm or p['page'],
-            'gscClicks':    p['clicks'],
-            'gscImpressions': p['impressions'],
-            'gscCtr':       p['ctr'],
-            'gscPosition':  p['position'],
-            'gaViews':      ga4p.get('views', 0),
+            'url':             norm or p['page'],
+            'gscClicks':       p['clicks'],
+            'gscImpressions':  p['impressions'],
+            'gscCtr':          p['ctr'],
+            'gscPosition':     p['position'],
+            'gaViews':         ga4p.get('views', 0),
             'opportunityScore': score,
+            'ctrAttendu':      round(ctr_exp * 100, 1),
+            'scoreV2':         score_v2,
         })
-    merged_pages.sort(key=lambda x: x['opportunityScore'], reverse=True)
+    merged_pages.sort(key=lambda x: x['scoreV2'], reverse=True)
+
+    # ── Step 8c: queries per page (one extra GSC call) ─────────────────────────
+    page_queries = {}
+    try:
+        base_gsc_url = f'https://www.googleapis.com/webmasters/v3/sites/{requests.utils.quote(GSC_SITE, safe="")}/searchAnalytics/query'
+        r_pq = _post(base_gsc_url, headers=headers_g, json={
+            'startDate': start, 'endDate': end,
+            'dimensions': ['page', 'query'], 'rowLimit': 200,
+            'orderBy': [{'fieldName': 'impressions', 'sortOrder': 'DESCENDING'}],
+        })
+        if r_pq.ok:
+            for row in r_pq.json().get('rows', []):
+                pg = normalise(row['keys'][0])
+                kw = row['keys'][1]
+                impr = row.get('impressions', 0)
+                if pg not in page_queries or impr > page_queries[pg]['impressions']:
+                    page_queries[pg] = {'query': kw, 'impressions': int(impr)}
+    except Exception:
+        pass
+
+    for p in merged_pages:
+        p['mainQuery'] = page_queries.get(p['url'], {}).get('query', '')
+
+    # ── Step 8c: DataForSEO SERP enrichment (top 10, concurrent) ───────────────
+    top_enrich = [p for p in merged_pages[:10] if p.get('mainQuery') and p['scoreV2'] > 5]
+    serp_results = {}
+    if DATAFORSEO_LOGIN and top_enrich:
+        def _serp_job(pg):
+            return pg['url'], _fetch_dataforseo_serp(pg['mainQuery'])
+        with concurrent.futures.ThreadPoolExecutor(max_workers=3) as ex2:
+            futs = {ex2.submit(_serp_job, pg): pg for pg in top_enrich}
+            for fut in concurrent.futures.as_completed(futs, timeout=25):
+                try:
+                    url_key, items = fut.result()
+                    serp_results[url_key] = items
+                except Exception:
+                    pass
+
+    def _analyze_serp(items):
+        if not items:
+            return ''
+        n = len(items)
+        patterns = []
+        has_num  = sum(1 for i in items if any(c.isdigit() for c in (i.get('title') or '')))
+        has_year = sum(1 for i in items if re.search(r'202\d', i.get('title') or ''))
+        has_q    = sum(1 for i in items if '?' in (i.get('title') or ''))
+        emo_ws   = ['meilleur', 'guide', 'gratuit', 'essentiel', 'complet', 'rapide', 'facile', 'tout']
+        has_emo  = sum(1 for i in items if any(w in (i.get('title') or '').lower() for w in emo_ws))
+        if has_num  >= n // 2: patterns.append(f'{has_num}/{n} titres contiennent un chiffre')
+        if has_year >= 2:      patterns.append(f"{has_year}/{n} titres mentionnent l'année")
+        if has_q    >= 2:      patterns.append(f'{has_q}/{n} titres formulent une question')
+        if has_emo  >= 2:      patterns.append(f"{has_emo}/{n} titres utilisent un mot fort ({', '.join(emo_ws[:3])}…)")
+        return ' · '.join(patterns)
+
+    for p in merged_pages:
+        serp = serp_results.get(p['url'], [])
+        p['gapConcurrents'] = _analyze_serp(serp)
+
+    # ── Step 8c: Claude batch for intent + title/meta ──────────────────────────
+    pages_for_ai = [p for p in merged_pages[:15] if p.get('mainQuery')]
+    if pages_for_ai:
+        ai_input = [{'url': p['url'], 'query': p['mainQuery'],
+                     'position': p['gscPosition'], 'ctr_actuel': p['gscCtr'],
+                     'serp_patterns': p['gapConcurrents']} for p in pages_for_ai]
+        enrich_prompt = f"""Analyse ces pages d'ACL Luxembourg (acl.lu) dans les SERP Google Luxembourg.
+Pour chaque page génère exactement : intent (informationnel|transactionnel|navigationnel),
+recommandation_title (≤60 car, inclure le mot-clé), recommandation_meta (≤155 car, incitative),
+effort (faible=seul snippet à modifier · moyen=snippet pauvre contenu OK · fort=décalage intention/contenu).
+Réponds UNIQUEMENT avec un JSON array dans le même ordre que l'input.
+{json.dumps(ai_input, ensure_ascii=False)}"""
+        try:
+            import anthropic as _anth
+            _c2 = _anth.Anthropic(api_key=ANTHROPIC_API_KEY)
+            _msg2 = _c2.messages.create(
+                model='claude-haiku-4-5-20251001', max_tokens=2500,
+                system='Réponds UNIQUEMENT avec un JSON array valide. Aucun markdown.',
+                messages=[{'role': 'user', 'content': enrich_prompt}],
+            )
+            raw2 = _msg2.content[0].text.strip()
+            raw2 = re.sub(r'```(?:json)?\s*', '', raw2).strip().strip('`').strip()
+            enrich_data = json.loads(raw2) if raw2.startswith('[') else []
+            if isinstance(enrich_data, list):
+                for i, p in enumerate(pages_for_ai):
+                    if i < len(enrich_data) and isinstance(enrich_data[i], dict):
+                        ed = enrich_data[i]
+                        p['intent']              = ed.get('intent', '')
+                        p['recommandationTitle'] = ed.get('recommandation_title', '')
+                        p['recommandationMeta']  = ed.get('recommandation_meta', '')
+                        p['effort']              = ed.get('effort', '')
+        except Exception:
+            pass
 
     # Build Claude prompt
     organic_sessions = next(
@@ -2743,7 +2936,7 @@ Analyse ces données de performance web (GA4 + Google Search Console) et génèr
 ## Top requêtes GSC
 {json.dumps(top_queries, ensure_ascii=False, indent=2)}
 
-## Pages avec opportunités SEO (score = impressions × (5%-CTR actuel) / position)
+## Pages avec opportunités SEO (scoreV2 = impressions × (CTR_attendu_position − CTR_actuel), trié par scoreV2 décroissant)
 {json.dumps(top_opps, ensure_ascii=False, indent=2)}
 
 ## Funnel d'adhésion
