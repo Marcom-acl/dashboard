@@ -390,6 +390,8 @@ def fb_callback():
     if not code:
         return jsonify({'error': 'Code manquant'}), 400
     redirect_uri = f'{APP_URL}/fb/callback'
+
+    # Échange code → token court (1-2h)
     r = _get(FB_TOKEN_URL, params={
         'client_id':     FB_APP_ID,
         'client_secret': FB_APP_SECRET,
@@ -398,22 +400,33 @@ def fb_callback():
     })
     if not r.ok:
         return jsonify({'error': r.text}), 400
-    token_data = r.json()
+    short_token = r.json().get('access_token', '')
+
+    # Échange token court → token long (60 jours)
+    r2 = _get(FB_TOKEN_URL, params={
+        'grant_type':        'fb_exchange_token',
+        'client_id':         FB_APP_ID,
+        'client_secret':     FB_APP_SECRET,
+        'fb_exchange_token': short_token,
+    })
+    token_data = r2.json() if r2.ok else {'access_token': short_token}
+    access_token = token_data.get('access_token', short_token)
+    expires_in   = token_data.get('expires_in', '?')
+
     _save_json(FB_TOKEN_PATH, token_data)
-    access_token = token_data.get('access_token', '')
     return f'''<h2>✅ Facebook connecté !</h2>
-<p>Token enregistré sur le serveur.</p>
+<p>Token long-durée obtenu (valable ~{expires_in}s ≈ 60 jours).</p>
 <hr>
 <p><strong>Pour rendre la connexion permanente</strong> (survit aux redéploiements Railway) :</p>
 <ol>
-  <li>Copiez ce token :<br>
+  <li>Copiez ce token long-durée :<br>
     <textarea rows="4" style="width:100%;font-family:monospace;font-size:11px">{access_token}</textarea>
   </li>
-  <li>Sur Railway → Variables → ajoutez :<br>
+  <li>Sur Railway → Variables → mettez à jour :<br>
     <code>FB_TOKEN = [valeur ci-dessus]</code>
   </li>
 </ol>
-<p>Vous pouvez fermer cette fenêtre ensuite.</p>'''
+<p>À renouveler dans ~60 jours. Vous pouvez fermer cette fenêtre ensuite.</p>'''
 
 
 
@@ -1516,7 +1529,6 @@ def fb_page():
     all_posts  = []
     impressions_total  = 0
     engaged_total      = 0
-    engagements_total  = 0
     sm_errors    = []
     graph_errors = []
 
@@ -1552,26 +1564,27 @@ def fb_page():
             else:
                 graph_errors.append(f'{page_name} fans: HTTP {ri.status_code} {ri.text[:120]}')
 
-            # Insights
-            rin = _get(f'{FB_GRAPH}/{page_id}/insights', params={
-                'metric':       'page_impressions,page_engaged_users,page_post_engagements',
-                'period':       'day',
-                'since':        start,
-                'until':        end,
-                'access_token': token,
-            })
-            if rin.ok:
-                for metric_data in rin.json().get('data', []):
-                    total_val = sum(v.get('value', 0) for v in metric_data.get('values', []))
-                    mn = metric_data.get('name', '')
-                    if mn == 'page_impressions':
-                        impressions_total += total_val
-                    elif mn == 'page_engaged_users':
-                        engaged_total += total_val
-                    elif mn == 'page_post_engagements':
-                        engagements_total += total_val
-            else:
-                graph_errors.append(f'{page_name} insights: HTTP {rin.status_code} {rin.text[:120]}')
+            # Insights — chaque metric séparément pour isoler les échecs
+            for metric, target in [
+                ('page_impressions',   'impressions'),
+                ('page_engaged_users', 'engaged'),
+            ]:
+                rin = _get(f'{FB_GRAPH}/{page_id}/insights', params={
+                    'metric':       metric,
+                    'period':       'day',
+                    'since':        start,
+                    'until':        end,
+                    'access_token': token,
+                })
+                if rin.ok:
+                    for md in rin.json().get('data', []):
+                        val = sum(v.get('value', 0) for v in md.get('values', []))
+                        if target == 'impressions':
+                            impressions_total += val
+                        elif target == 'engaged':
+                            engaged_total += val
+                else:
+                    graph_errors.append(f'{page_name} insights/{metric}: HTTP {rin.status_code} {rin.text[:100]}')
 
             # Top posts (détail pour l'affichage)
             rp = _get(f'{FB_GRAPH}/{page_id}/posts', params={
@@ -1605,7 +1618,6 @@ def fb_page():
         'totals':   {
             'impressions':       impressions_total,
             'engaged_users':     engaged_total,
-            'post_engagements':  engagements_total,
         },
         'topPosts': all_posts[:10],
         'ytd':      {},
