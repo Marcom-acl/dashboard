@@ -10,6 +10,7 @@ import json
 import re
 import time
 import datetime
+import hashlib
 import threading
 import requests
 import concurrent.futures
@@ -3126,6 +3127,114 @@ Retourne UNIQUEMENT un objet JSON valide (sans texte avant ni après) respectant
 }
 Le tableau sources doit contenir entre 5 et 7 entrées."""
 
+# Requêtes canoniques — doit rester synchronisé avec renderVeilleIA() dans le frontend
+_VEILLE_ALL_QUERIES = [
+    ('ia-marketing', 0,
+     "Quelles sont les dernières avancées en IA générative appliquée au marketing digital ? "
+     "Présente les outils les plus récents, des cas d'usage concrets et des ROI mesurés par des marques européennes."),
+    ('ia-marketing', 1,
+     "Comment les marques utilisent-elles aujourd'hui l'IA générative pour personnaliser leurs "
+     "newsletters et leurs communications avec leurs membres ? Exemples et données récentes."),
+    ('ia-marketing', 2,
+     "Benchmark actuel des outils IA pour petites équipes marketing (Jasper, Copy.ai, Canva Magic Studio, "
+     "Notion AI, ChatGPT) : fonctionnalités, tarifs et adéquation pour une équipe de 3 à 5 personnes."),
+    ('crm-member', 0,
+     "Quelles sont les tendances actuelles en CRM et fidélisation membres pour les associations automobiles, "
+     "clubs et organisations membres en Europe ? Exemples concrets et innovations récentes."),
+    ('crm-member', 1,
+     "Meilleures pratiques actuelles de marketing lifecycle pour les membres d'associations : onboarding, "
+     "rétention long terme, réactivation des membres inactifs — avec des données et exemples récents."),
+    ('crm-member', 2,
+     "Quelles sont les dernières nouveautés en email marketing automation B2C (Brevo, Mailchimp, HubSpot) "
+     "et leur impact mesurable sur l'engagement et la rétention des membres ?"),
+    ('social-ads', 0,
+     "Quelles sont les évolutions récentes des algorithmes Facebook et Instagram et leurs implications "
+     "concrètes pour les marques communautaires et institutionnelles ?"),
+    ('social-ads', 1,
+     "LinkedIn Ads : quelles sont les nouvelles options de ciblage et les formats publicitaires les plus "
+     "performants actuellement pour atteindre les professionnels et membres de clubs automobiles en Europe ?"),
+    ('social-ads', 2,
+     "Benchmarks publicité sociale actuels : CPC, CTR, ROAS par secteur pour l'automobile, "
+     "l'assurance et les services aux membres — données les plus récentes disponibles."),
+    ('design-branding', 0,
+     "Quelles sont les tendances design de marque actuelles (typographie, couleur, identité visuelle) "
+     "pour les associations et marques institutionnelles européennes établies depuis plus de 50 ans ?"),
+    ('design-branding', 1,
+     "Motion design et vidéo courte pour les marques B2C : Reels Instagram, YouTube Shorts — "
+     "quelles sont les meilleures pratiques et métriques de performance actuellement ?"),
+    ('design-branding', 2,
+     "Comment les équipes marketing réduites gèrent-elles la cohérence de leur design system "
+     "à l'ère de l'IA générative ? Défis, solutions et outils recommandés aujourd'hui."),
+]
+
+
+def _extract_json_from_text(text):
+    """Bracket-matching : extrait le premier objet JSON complet, gère les blocs markdown."""
+    clean = re.sub(r'```(?:json)?\s*', '', text).strip()
+    start = clean.find('{')
+    if start < 0:
+        return None
+    depth, in_str, esc = 0, False, False
+    for i, c in enumerate(clean[start:], start):
+        if esc:                  esc = False;          continue
+        if c == '\\' and in_str: esc = True;           continue
+        if c == '"':             in_str = not in_str;  continue
+        if in_str:               continue
+        if c == '{':             depth += 1
+        elif c == '}':
+            depth -= 1
+            if depth == 0:
+                try:    return json.loads(clean[start:i + 1])
+                except: pass
+                break
+    return None
+
+
+def _fetch_single_veille(query):
+    """Appelle Anthropic + web_search pour une requête de veille. Retourne le dict résultat."""
+    import anthropic
+    client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
+    messages = [{'role': 'user', 'content': query}]
+    text = ''
+    for _ in range(8):
+        resp = client.messages.create(
+            model='claude-sonnet-4-6',
+            max_tokens=2000,
+            system=_VEILLE_SYSTEM_PROMPT,
+            tools=[{'type': 'web_search_20250305', 'name': 'web_search'}],
+            messages=messages,
+        )
+        if resp.stop_reason != 'tool_use':
+            text = ''.join(b.text for b in resp.content if getattr(b, 'type', '') == 'text')
+            break
+        messages.append({'role': 'assistant', 'content': [b.model_dump() for b in resp.content]})
+        messages.append({'role': 'user', 'content': [
+            {'type': 'tool_result', 'tool_use_id': b.id, 'content': getattr(b, 'content', []) or []}
+            for b in resp.content if b.type == 'tool_use'
+        ]})
+    result = _extract_json_from_text(text)
+    return result or {'error': 'Réponse non structurée', 'raw': text[:200]}
+
+
+def _refresh_veille_cache(force=False):
+    """Rafraîchit le cache serveur de toutes les requêtes de veille.
+    Si force=False, saute les requêtes déjà en cache (warmup au démarrage).
+    """
+    if not ANTHROPIC_API_KEY:
+        return
+    for theme_id, qi, query in _VEILLE_ALL_QUERIES:
+        ck = f'veille-ia:{hashlib.md5(query.encode()).hexdigest()}'
+        if not force and _cache_get(ck):
+            continue
+        try:
+            result = _fetch_single_veille(query)
+            _cache_set(ck, {
+                'result': result,
+                'cached_at': datetime.datetime.utcnow().isoformat(),
+            }, 604800)
+        except Exception:
+            pass
+
 
 @app.route('/veille-ia')
 def veille_ia():
@@ -3133,77 +3242,20 @@ def veille_ia():
     if not query:
         return jsonify({'error': 'Paramètre q manquant'}), 400
     if not ANTHROPIC_API_KEY:
-        return jsonify({'error': 'ANTHROPIC_API_KEY manquante — configurer la variable d\'environnement sur Railway'}), 503
+        return jsonify({'error': 'ANTHROPIC_API_KEY manquante'}), 503
 
-    import hashlib
     cache_key = f'veille-ia:{hashlib.md5(query.encode()).hexdigest()}'
     cached = _cache_get(cache_key)
     if cached:
         return jsonify(cached)
 
     try:
-        import anthropic
-        client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
-        messages = [{'role': 'user', 'content': query}]
-        text = ''
-
-        for _ in range(8):
-            resp = client.messages.create(
-                model='claude-sonnet-4-6',
-                max_tokens=2000,
-                system=_VEILLE_SYSTEM_PROMPT,
-                tools=[{'type': 'web_search_20250305', 'name': 'web_search'}],
-                messages=messages
-            )
-            if resp.stop_reason != 'tool_use':
-                text = ''.join(
-                    b.text for b in resp.content
-                    if getattr(b, 'type', '') == 'text'
-                )
-                break
-            messages.append({
-                'role': 'assistant',
-                'content': [b.model_dump() for b in resp.content]
-            })
-            tool_results = [
-                {
-                    'type': 'tool_result',
-                    'tool_use_id': b.id,
-                    'content': getattr(b, 'content', []) or []
-                }
-                for b in resp.content if b.type == 'tool_use'
-            ]
-            messages.append({'role': 'user', 'content': tool_results})
-
-        # Bracket-matching pour extraire le premier objet JSON complet
-        text_clean = re.sub(r'```(?:json)?\s*', '', text).strip()
-        result = None
-        start = text_clean.find('{')
-        if start >= 0:
-            depth, in_str, esc = 0, False, False
-            for i, c in enumerate(text_clean[start:], start):
-                if esc:             esc = False; continue
-                if c == '\\' and in_str: esc = True; continue
-                if c == '"':        in_str = not in_str; continue
-                if in_str:          continue
-                if c == '{':        depth += 1
-                elif c == '}':
-                    depth -= 1
-                    if depth == 0:
-                        try: result = json.loads(text_clean[start:i+1])
-                        except json.JSONDecodeError: pass
-                        break
-        if result is None:
-            result = {'error': 'Réponse non structurée', 'raw': text[:500]}
-
+        result = _fetch_single_veille(query)
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
-    data = {
-        'result': result,
-        'cached_at': datetime.datetime.utcnow().isoformat()
-    }
-    _cache_set(cache_key, data, 604800)  # TTL 7 jours
+    data = {'result': result, 'cached_at': datetime.datetime.utcnow().isoformat()}
+    _cache_set(cache_key, data, 604800)
     return jsonify(data)
 
 
@@ -3231,6 +3283,31 @@ def _warmup_cache():
             pass
 
 threading.Thread(target=_warmup_cache, daemon=True).start()
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Veille IA — scheduler hebdomadaire (lundi 07:00 Europe/Luxembourg)
+# ─────────────────────────────────────────────────────────────────────────────
+
+def _start_veille_scheduler():
+    """Démarre APScheduler dans un thread daemon. Warmup immédiat si cache froid."""
+    try:
+        from apscheduler.schedulers.background import BackgroundScheduler
+        scheduler = BackgroundScheduler(timezone='Europe/Luxembourg')
+        # Rafraîchissement forcé chaque lundi à 07:00
+        scheduler.add_job(
+            lambda: _refresh_veille_cache(force=True),
+            'cron', day_of_week='mon', hour=7, minute=0,
+            id='veille_weekly', replace_existing=True,
+        )
+        scheduler.start()
+    except Exception:
+        pass
+    # Warmup au démarrage : ne fetch que ce qui manque dans le cache
+    _refresh_veille_cache(force=False)
+
+# Démarrage différé (90 s) pour laisser gunicorn/Flask s'initialiser
+threading.Timer(90.0, _start_veille_scheduler).start()
 
 
 # ─────────────────────────────────────────────────────────────────────────────
