@@ -1517,7 +1517,29 @@ def fb_page():
     impressions_total  = 0
     engaged_total      = 0
     engagements_total  = 0
-    sm_errors  = []
+    sm_errors    = []
+    graph_errors = []
+
+    # Supermetrics posts_count — cache séparé 24 h pour rester sous la limite de 100 requêtes/jour
+    _SKIP = {'', 'Post ID', 'post_ID'}
+    sm_key = f'fb-sm-posts:{start}:{end}'
+    sm_posts_by_page = _cache_get(sm_key)
+    if sm_posts_by_page is None:
+        sm_posts_by_page = {}
+        for pname, pid in FB_PAGES.items():
+            rows_sm, schema_sm, err_sm = _supermetrics_query(
+                'FB', pid,
+                ['post_ID', 'post_reactions_total'],
+                start, end,
+                max_rows=1000,
+                settings={'include_all_published_posts': 'true'},
+            )
+            if err_sm:
+                sm_errors.append(f'{pname}: {err_sm}')
+                sm_posts_by_page[pid] = 0
+            else:
+                sm_posts_by_page[pid] = len([r for r in (rows_sm or []) if r and str(r[0]) not in _SKIP])
+        _cache_set(sm_key, sm_posts_by_page, 86400)  # 24 h
 
     for page_name, page_id in FB_PAGES.items():
         fans = 0
@@ -1527,6 +1549,8 @@ def fb_page():
             if ri.ok:
                 d = ri.json()
                 fans = d.get('fan_count') or d.get('followers_count', 0)
+            else:
+                graph_errors.append(f'{page_name} fans: HTTP {ri.status_code} {ri.text[:120]}')
 
             # Insights
             rin = _get(f'{FB_GRAPH}/{page_id}/insights', params={
@@ -1546,6 +1570,8 @@ def fb_page():
                         engaged_total += total_val
                     elif mn == 'page_post_engagements':
                         engagements_total += total_val
+            else:
+                graph_errors.append(f'{page_name} insights: HTTP {rin.status_code} {rin.text[:120]}')
 
             # Top posts (détail pour l'affichage)
             rp = _get(f'{FB_GRAPH}/{page_id}/posts', params={
@@ -1566,21 +1592,11 @@ def fb_page():
                         'comments':   comments,
                         'engagement': likes + comments,
                     })
+            else:
+                graph_errors.append(f'{page_name} posts: HTTP {rp.status_code} {rp.text[:120]}')
 
-        # Posts count via Supermetrics — indépendant du token FB
-        rows_sm, schema_sm, err_sm = _supermetrics_query(
-            'FB', page_id,
-            ['post_ID', 'post_reactions_total'],
-            start, end,
-            max_rows=1000,
-            settings={'include_all_published_posts': 'true'},
-        )
-        if err_sm:
-            sm_errors.append(f'{page_name}: {err_sm}')
-        _SKIP = {'', 'Post ID', 'post_ID'}
-        posts_count = len([r for r in (rows_sm or []) if r and str(r[0]) not in _SKIP])
-
-        pages_data.append({'name': page_name, 'id': page_id, 'fans': fans, 'posts_count': posts_count})
+        pages_data.append({'name': page_name, 'id': page_id, 'fans': fans,
+                           'posts_count': sm_posts_by_page.get(page_id, 0)})
 
     all_posts.sort(key=lambda x: x['engagement'], reverse=True)
 
@@ -1594,8 +1610,9 @@ def fb_page():
         'topPosts': all_posts[:10],
         'ytd':      {},
         '_debug': {
-            'fb_token':  bool(token),
-            'sm_errors': sm_errors or None,
+            'fb_token':     bool(token),
+            'sm_errors':    sm_errors or None,
+            'graph_errors': graph_errors or None,
         },
     }
     _cache_set(key, data, 900)
