@@ -3173,6 +3173,9 @@ def veille_ia():
         return jsonify(cached)
     try:
         r = requests.get(VEILLE_IA_DATA_URL, timeout=10, verify=_VERIFY)
+        if r.status_code == 404:
+            # Fichier pas encore créé par la tâche planifiée
+            return jsonify({'generated_at': None, 'items': []})
         if not r.ok:
             return jsonify({'error': f'GitHub HTTP {r.status_code}'}), 503
         data = r.json()

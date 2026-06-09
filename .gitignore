@@ -1,0 +1,3 @@
+# Données veille IA — gérées exclusivement par POST /veille-ia/ingest via GitHub API
+# Ne jamais committer ce fichier manuellement (écrase l'historique accumulé)
+data/veille-ia-data.json
