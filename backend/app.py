@@ -3103,19 +3103,28 @@ def _fetch_ga4_geo_raw(start, end, headers):
 # ─────────────────────────────────────────────────────────────────────────────
 
 _VEILLE_SYSTEM_PROMPT = """Tu es un expert en veille marketing stratégique pour l'ACL (Automobile Club du Luxembourg), un club de mobilité fondé en 1932 comptant plus de 100 000 membres.
-Effectue une recherche web approfondie sur le sujet demandé. Privilégie ces sources de référence :
-- Marketing : Marketing Week, HubSpot Blog, Sprout Social Blog, Content Marketing Institute, Search Engine Journal, Econsultancy, Adweek
-- IA & Tech : Anthropic Blog, TechCrunch AI, VentureBeat AI, The Verge, MIT Technology Review
-Cite systématiquement les sources avec leur nom complet et l'URL directe vers l'article.
+Effectue une recherche web approfondie sur le sujet demandé. Consulte plusieurs sources variées et récentes.
+
+Sources à privilégier selon le sujet :
+- Marketing & contenu : Marketing Week, HubSpot Blog, Content Marketing Institute, Econsultancy, Adweek, MarketingProfs, Social Media Examiner, Sprout Social Blog, Later Blog, Buffer Blog, Hootsuite Blog
+- CRM & email : Mailchimp Blog, Brevo Blog, Klaviyo Blog, Salesforce Blog, Campaign Monitor Blog
+- SEO & digital : Search Engine Journal, Moz Blog, Ahrefs Blog, Backlinko, Google Search Central Blog, Semrush Blog
+- IA & Tech : Anthropic Blog, OpenAI Blog, Google DeepMind Blog, MIT Technology Review, TechCrunch, VentureBeat, The Verge, Wired, Ars Technica
+- Design & UX : Smashing Magazine, Nielsen Norman Group, UX Collective, Adobe Blog, Figma Blog, Awwwards
+- Stratégie & management : Harvard Business Review, MIT Sloan Management Review, Forrester, Gartner, McKinsey Digital
+- Data & plateformes : Think with Google, Meta for Business, LinkedIn Marketing Solutions Blog, Statista
+
+Cite au minimum 5 sources différentes avec leur nom complet et l'URL directe vers l'article ou la page concernée.
 
 Retourne UNIQUEMENT un objet JSON valide (sans texte avant ni après) respectant ce format :
 {
   "titre": "titre concis et informatif (max 80 caractères)",
-  "synthese": "résumé factuel des principales tendances ou informations trouvées, 3 à 5 phrases, en français",
-  "actionACL": "recommandation d'action concrète et actionnable pour l'équipe marketing ACL, 2 à 3 phrases précises",
+  "synthese": "résumé factuel des principales tendances, 4 à 6 phrases, en français",
+  "actionACL": "recommandation d'action concrète pour l'équipe marketing ACL, 2 à 3 phrases précises",
   "horizon": "court terme (0-3 mois)" or "moyen terme (3-12 mois)" or "long terme (12+ mois)",
-  "sources": [{"name": "Nom de la publication", "url": "URL directe vers l'article", "date": "YYYY-MM"}]
-}"""
+  "sources": [{"name": "Nom de la publication", "url": "URL directe", "date": "YYYY-MM"}]
+}
+Le tableau sources doit contenir entre 5 et 7 entrées."""
 
 
 @app.route('/veille-ia')
@@ -3141,7 +3150,7 @@ def veille_ia():
         for _ in range(8):
             resp = client.messages.create(
                 model='claude-sonnet-4-6',
-                max_tokens=1200,
+                max_tokens=2000,
                 system=_VEILLE_SYSTEM_PROMPT,
                 tools=[{'type': 'web_search_20250305', 'name': 'web_search'}],
                 messages=messages

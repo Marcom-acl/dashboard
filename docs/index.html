@@ -3137,7 +3137,7 @@ function renderVeilleIA() {
   function resultCard(d) {
     if (!d) return `<div style="font-size:12px;color:var(--muted);padding:8px 0;font-style:italic">Réponse non structurée — relancez la requête.</div>`;
     const [hc, hbg] = horizonStyle(d.horizon);
-    const srcs = (d.sources || []).slice(0, 4);
+    const srcs = (d.sources || []).slice(0, 7);
     return `<div style="margin-top:10px;border:1px solid var(--border);border-radius:var(--r-md);overflow:hidden;background:var(--surface)">
       <div style="padding:12px 14px 0">
         <div style="font-size:13px;font-weight:700;line-height:1.4;margin-bottom:6px">${escHtml(d.titre)}</div>
@@ -3308,6 +3308,15 @@ function renderVeilleIA() {
 
   THEMES.forEach(t => t.queries.forEach((_, qi) => updateCell(t.id, qi)));
   updateDateBadge();
+
+  // Auto-lance les requêtes sans cache avec un léger échelonnement
+  let delay = 0;
+  THEMES.forEach(t => t.queries.forEach((_, qi) => {
+    if (!getCached(t.id, qi)) {
+      setTimeout(() => runQuery(t.id, qi), delay);
+      delay += 800;
+    }
+  }));
 }
 
 function renderIntelligence() {
