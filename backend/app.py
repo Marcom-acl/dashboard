@@ -3155,16 +3155,46 @@ def veille_ia():
 
 @app.route('/veille-ia/ingest', methods=['POST'])
 def veille_ia_ingest():
-    """Reçoit les données de veille depuis la tâche planifiée Claude.ai."""
+    """Reçoit les données de veille depuis la tâche planifiée Claude.ai.
+    Fusionne avec l'historique existant : rétention 6 mois, dédoublonnage
+    par (date + titre), les nouveaux items écrasent les doublons."""
     auth = request.headers.get('Authorization', '').replace('Bearer ', '').strip()
     if not VEILLE_INGEST_TOKEN or auth != VEILLE_INGEST_TOKEN:
         return jsonify({'error': 'Non autorisé'}), 401
-    data = request.get_json(silent=True)
-    if not data or 'items' not in data:
+    incoming = request.get_json(silent=True)
+    if not incoming or 'items' not in incoming:
         return jsonify({'error': 'Body invalide — champ items requis'}), 400
+
+    # Charger l'historique existant depuis GitHub ou le cache
+    existing_items = []
+    cached = _cache_get('veille-ia-data')
+    if cached and 'items' in cached:
+        existing_items = cached['items']
+    else:
+        try:
+            r = requests.get(VEILLE_IA_DATA_URL, timeout=10, verify=_VERIFY)
+            if r.ok:
+                existing_items = r.json().get('items', [])
+        except Exception:
+            pass
+
+    # Fusionner : les nouveaux items écrasent les doublons (date + titre)
+    new_items = incoming.get('items', [])
+    new_keys = {(i.get('date', ''), i.get('titre', '')) for i in new_items}
+    merged = [i for i in existing_items if (i.get('date', ''), i.get('titre', '')) not in new_keys]
+    merged.extend(new_items)
+
+    # Rétention 6 mois
+    cutoff = (datetime.date.today() - datetime.timedelta(days=183)).isoformat()
+    merged = [i for i in merged if i.get('date', '') >= cutoff]
+
+    # Trier du plus récent au plus ancien
+    merged.sort(key=lambda i: i.get('date', ''), reverse=True)
+
+    data = {'generated_at': incoming.get('generated_at', datetime.date.today().isoformat()), 'items': merged}
     written = _write_veille_ia_to_github(data)
     _cache_set('veille-ia-data', data, 3600)
-    return jsonify({'ok': True, 'items': len(data.get('items', [])), 'github': written})
+    return jsonify({'ok': True, 'items': len(merged), 'added': len(new_items), 'github': written})
 
 
 # ─────────────────────────────────────────────────────────────────────────────
