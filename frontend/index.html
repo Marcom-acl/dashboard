@@ -3234,8 +3234,14 @@ function renderObjectives({dFBP, dFB, dBrevo, dFBPytd, dFBytd}) {
   const camps         = dBrevo?.campaigns || [];
   const totalDlvr     = camps.reduce((a,c) => a + (c.statistics?.globalStats?.delivered  || 0), 0);
   const totalOpens    = camps.reduce((a,c) => a + ((c.statistics?.globalStats?.uniqueOpens || c.statistics?.globalStats?.uniqueViews) || 0), 0);
-  const openRateLocal = totalDlvr ? totalOpens / totalDlvr * 100 : 0;
-  const openRate      = dBrevo?.avgOpenRate != null ? dBrevo.avgOpenRate : openRateLocal;
+  const openRateAll   = dBrevo?.avgOpenRate != null ? dBrevo.avgOpenRate : (totalDlvr ? totalOpens / totalDlvr * 100 : 0);
+
+  // Hors relances (réactivation membres) et enquêtes — objectif Marketing
+  const _isRelanceOrEnquete = n => /relance|reactivat|desactiv|dormant/.test((n||'').toLowerCase()) || /enquete|sondage|survey|satisfaction/.test((n||'').toLowerCase());
+  const campsFiltered = camps.filter(c => !_isRelanceOrEnquete(c.name));
+  const dlvrFiltered  = campsFiltered.reduce((a,c) => a + (c.statistics?.globalStats?.delivered || 0), 0);
+  const opensFiltered = campsFiltered.reduce((a,c) => a + ((c.statistics?.globalStats?.uniqueOpens || c.statistics?.globalStats?.uniqueViews) || 0), 0);
+  const openRate      = dlvrFiltered ? opensFiltered / dlvrFiltered * 100 : openRateAll;
 
   function objMcCard(group, label, current, target, display, targetDisplay, note, color) {
     const pct = Math.min(100, target ? Math.round(current / target * 100) : 0);
@@ -3278,7 +3284,7 @@ function renderObjectives({dFBP, dFB, dBrevo, dFBPytd, dFBytd}) {
         ${objMcCard('Facebook · Posts', 'ACL Karting — Rythme 2026', kartingYtdWkly, 1.5, kartingYtdWkly+'/sem', '1.5/sem', `${kartingYtdPosts} posts YTD · ≈${kartingAnnual}/an${trendBadge(kartingPeriodWkly, kartingYtdWkly)}`, '#FEDB00')}
         ${objMcCard('Meta Ads', 'Impressions 2026', metaYtd, metaTarget, fmtN(metaYtd), '2 000 000', `Objectif annuel · période : ${fmtN(metaPeriod)}`, '#F97316')}
         ${engagedYtd ? objMcCard('Facebook · Engagement', 'Utilisateurs engagés 2026', engagedYtd, engagedTarget, fmtN(engagedYtd), '+20%', 'Interactions uniques avec les posts', '#1877F2') : ''}
-        ${objMcCard('Marketing Emails', "Taux d'ouverture moyen", openRate, 60, fmtPct(openRate), '60.0%', 'Objectif : 60% d\'ouverture', '#0B996E')}
+        ${objMcCard('Marketing Emails', "Taux d'ouverture moyen", openRate, 65, fmtPct(openRate), '65.0%', `Hors relances &amp; enquêtes · Toutes campagnes : ${fmtPct(openRateAll)}`, '#0B996E')}
       </div>
     </div>`;
 
