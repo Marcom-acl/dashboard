@@ -3029,88 +3029,6 @@ function renderVeilleIA() {
   const el = document.getElementById('panel-veille-ia');
   if (!el) return;
 
-  const THEMES = [
-    {
-      id: 'ia-marketing',
-      label: 'IA générative en marketing',
-      color: '#8B5CF6',
-      bg: 'rgba(139,92,246,0.08)',
-      queries: [
-        'Quelles sont les dernières avancées en IA générative appliquée au marketing digital ? Présente les outils les plus récents, des cas d\'usage concrets et des ROI mesurés par des marques européennes.',
-        'Comment les marques utilisent-elles aujourd\'hui l\'IA générative pour personnaliser leurs newsletters et leurs communications avec leurs membres ? Exemples et données récentes.',
-        'Benchmark actuel des outils IA pour petites équipes marketing (Jasper, Copy.ai, Canva Magic Studio, Notion AI, ChatGPT) : fonctionnalités, tarifs et adéquation pour une équipe de 3 à 5 personnes.'
-      ]
-    },
-    {
-      id: 'crm-member',
-      label: 'CRM & member marketing',
-      color: '#0B996E',
-      bg: 'rgba(11,153,110,0.08)',
-      queries: [
-        'Quelles sont les tendances actuelles en CRM et fidélisation membres pour les associations automobiles, clubs et organisations membres en Europe ? Exemples concrets et innovations récentes.',
-        'Meilleures pratiques actuelles de marketing lifecycle pour les membres d\'associations : onboarding, rétention long terme, réactivation des membres inactifs — avec des données et exemples récents.',
-        'Quelles sont les dernières nouveautés en email marketing automation B2C (Brevo, Mailchimp, HubSpot) et leur impact mesurable sur l\'engagement et la rétention des membres ?'
-      ]
-    },
-    {
-      id: 'social-ads',
-      label: 'Social & Ads',
-      color: '#1877F2',
-      bg: 'rgba(24,119,242,0.08)',
-      queries: [
-        'Quelles sont les évolutions récentes des algorithmes Facebook et Instagram et leurs implications concrètes pour les marques communautaires et institutionnelles ?',
-        'LinkedIn Ads : quelles sont les nouvelles options de ciblage et les formats publicitaires les plus performants actuellement pour atteindre les professionnels et membres de clubs automobiles en Europe ?',
-        'Benchmarks publicité sociale actuels : CPC, CTR, ROAS par secteur pour l\'automobile, l\'assurance et les services aux membres — données les plus récentes disponibles.'
-      ]
-    },
-    {
-      id: 'design-branding',
-      label: 'Design & branding',
-      color: '#F97316',
-      bg: 'rgba(249,115,22,0.08)',
-      queries: [
-        'Quelles sont les tendances design de marque actuelles (typographie, couleur, identité visuelle) pour les associations et marques institutionnelles européennes établies depuis plus de 50 ans ?',
-        'Motion design et vidéo courte pour les marques B2C : Reels Instagram, YouTube Shorts — quelles sont les meilleures pratiques et métriques de performance actuellement ?',
-        'Comment les équipes marketing réduites gèrent-elles la cohérence de leur design system à l\'ère de l\'IA générative ? Défis, solutions et outils recommandés aujourd\'hui.'
-      ]
-    }
-  ];
-
-  const CACHE_TTL_MS = 7 * 24 * 60 * 60 * 1000;
-  const loading = {};
-
-  function cacheKey(tid, qi) { return 'vi_cache_' + tid + '_' + qi; }
-
-  function getCached(tid, qi) {
-    try {
-      const raw = localStorage.getItem(cacheKey(tid, qi));
-      if (!raw) return null;
-      const entry = JSON.parse(raw);
-      if (Date.now() - new Date(entry.cachedAt).getTime() > CACHE_TTL_MS) {
-        localStorage.removeItem(cacheKey(tid, qi));
-        return null;
-      }
-      return entry;
-    } catch { return null; }
-  }
-
-  function setCached(tid, qi, data, cachedAt) {
-    try { localStorage.setItem(cacheKey(tid, qi), JSON.stringify({ data, cachedAt })); } catch {}
-  }
-
-  function latestVeilleDate() {
-    let latest = null;
-    THEMES.forEach(t => t.queries.forEach((_, qi) => {
-      try {
-        const raw = localStorage.getItem(cacheKey(t.id, qi));
-        if (!raw) return;
-        const d = new Date(JSON.parse(raw).cachedAt);
-        if (!isNaN(d) && (!latest || d > latest)) latest = d;
-      } catch {}
-    }));
-    return latest ? latest.toLocaleDateString('fr-LU', { day: '2-digit', month: '2-digit', year: 'numeric' }) : null;
-  }
-
   function escHtml(s) { return (s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
 
   function horizonStyle(h) {
@@ -3121,146 +3039,39 @@ function renderVeilleIA() {
     return ['#0A66C2', '#DBEAFE'];
   }
 
+  const extIcoXs = '<svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>';
+  const extIcoSm = '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>';
+  const linkStyle = 'font-size:12.5px;color:var(--n);text-decoration:none;display:flex;align-items:center;gap:5px';
+
   function renderSource(s) {
     if (!s) return '';
     const isObj = typeof s === 'object';
     const name = isObj ? (s.name || 'Source') : String(s).substring(0, 50);
-    const url = isObj ? s.url : (String(s).startsWith('http') ? s : null);
+    const url  = isObj ? s.url : (String(s).startsWith('http') ? s : null);
     const date = isObj && s.date ? ' · ' + s.date : '';
     const label = escHtml(name) + escHtml(date);
     const style = 'font-size:11px;color:var(--n);text-decoration:underline;text-underline-offset:2px;display:inline-flex;align-items:center;gap:3px;white-space:nowrap;line-height:1';
-    const extIco = '<svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>';
-    if (url) return `<a href="${escHtml(url)}" target="_blank" rel="noopener" style="${style}">${label} ${extIco}</a>`;
+    if (url) return `<a href="${escHtml(url)}" target="_blank" rel="noopener" style="${style}">${label} ${extIcoXs}</a>`;
     return `<span style="font-size:11px;color:var(--muted)">${label}</span>`;
   }
 
-  function resultCard(d) {
-    if (!d) return `<div style="font-size:12px;color:var(--muted);padding:8px 0;font-style:italic">Réponse non structurée — relancez la requête.</div>`;
-    const [hc, hbg] = horizonStyle(d.horizon);
-    const srcs = (d.sources || []).slice(0, 7);
-    return `<div style="margin-top:10px;border:1px solid var(--border);border-radius:var(--r-md);overflow:hidden;background:var(--surface)">
-      <div style="padding:12px 14px 0">
-        <div style="font-size:13px;font-weight:700;line-height:1.4;margin-bottom:6px">${escHtml(d.titre)}</div>
-        <div style="font-size:12.5px;line-height:1.65;color:var(--text);margin-bottom:10px">${escHtml(d.synthese)}</div>
+  function resultCard(item) {
+    if (!item) return `<p style="font-size:12px;color:var(--muted);font-style:italic;margin:8px 0">Données non disponibles.</p>`;
+    if (item.error) return `<p style="font-size:12px;color:var(--bad);margin:8px 0">⚠ ${escHtml(item.error)}</p>`;
+    const [hc, hbg] = horizonStyle(item.horizon);
+    const srcs = (item.sources || []).slice(0, 7);
+    return `
+      <div style="font-size:13px;font-weight:700;line-height:1.4;margin-bottom:6px">${escHtml(item.titre)}</div>
+      <div style="font-size:12.5px;line-height:1.65;color:var(--text);margin-bottom:10px">${escHtml(item.synthese)}</div>
+      <div style="background:rgba(0,0,0,.025);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:8px 0;margin:0 0 8px">
+        <div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:3px">Action ACL</div>
+        <div style="font-size:12.5px;line-height:1.6;color:var(--text)">${escHtml(item.actionACL)}</div>
       </div>
-      <div style="background:rgba(0,0,0,.025);border-top:1px solid var(--border);padding:10px 14px">
-        <div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:4px">Action ACL</div>
-        <div style="font-size:12.5px;line-height:1.6;color:var(--text)">${escHtml(d.actionACL)}</div>
-      </div>
-      <div style="padding:8px 14px 10px;display:flex;align-items:center;gap:8px;flex-wrap:wrap">
-        <span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px;background:${hbg};color:${hc};white-space:nowrap">${escHtml(d.horizon)}</span>
+      <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+        <span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px;background:${hbg};color:${hc};white-space:nowrap">${escHtml(item.horizon)}</span>
         ${srcs.map(s => renderSource(s)).join('')}
-      </div>
-    </div>`;
+      </div>`;
   }
-
-  function cellId(tid, qi) { return 'vi-cell-' + tid + '-' + qi; }
-  function btnId(tid, qi)  { return 'vi-btn-'  + tid + '-' + qi; }
-
-  function updateCell(tid, qi) {
-    const cell = document.getElementById(cellId(tid, qi));
-    const btn  = document.getElementById(btnId(tid, qi));
-    if (!cell) return;
-    const lk = tid + '-' + qi;
-    const cached = getCached(tid, qi);
-    const isLoading = !!loading[lk];
-
-    if (isLoading) {
-      cell.innerHTML = `<div style="display:flex;align-items:center;gap:8px;padding:8px 0;font-size:12px;color:var(--muted)">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="animation:spin 1.2s linear infinite;flex-shrink:0"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
-        Recherche web + synthèse en cours…</div>`;
-    } else if (loading[lk + '-err']) {
-      cell.innerHTML = `<div style="font-size:12px;color:var(--bad);padding:8px 0;line-height:1.5">⚠ ${escHtml(loading[lk + '-err'])}</div>`;
-    } else if (cached) {
-      cell.innerHTML = resultCard(cached.data);
-    } else {
-      cell.innerHTML = '';
-    }
-
-    if (btn) {
-      btn.disabled = isLoading;
-      btn.style.opacity = isLoading ? '0.45' : '1';
-      btn.textContent = cached ? '↺' : '▶';
-      btn.title = cached ? 'Rafraîchir' : 'Lancer la recherche';
-    }
-  }
-
-  function updateDateBadge() {
-    const badge = document.getElementById('vi-last-date');
-    if (badge) {
-      const d = latestVeilleDate();
-      badge.textContent = d ? 'Dernière mise à jour : ' + d : 'Aucune veille en cache';
-    }
-    const btn = document.getElementById('vi-run-all-btn');
-    if (!btn) return;
-    const anyLoading = THEMES.some(t => t.queries.some((_, qi) => !!loading[t.id + '-' + qi]));
-    const allCached  = THEMES.every(t => t.queries.every((_, qi) => !!getCached(t.id, qi)));
-    btn.disabled = anyLoading;
-    btn.style.opacity = anyLoading ? '0.5' : '1';
-    if (anyLoading) {
-      btn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="animation:spin 1.2s linear infinite"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg> En cours…';
-    } else if (allCached) {
-      btn.innerHTML = '↺ Rafraîchir la veille';
-    } else {
-      btn.innerHTML = '▶ Lancer la veille';
-    }
-  }
-
-  async function runQuery(tid, qi) {
-    const theme = THEMES.find(t => t.id === tid);
-    if (!theme) return;
-    const query = theme.queries[qi];
-    const lk = tid + '-' + qi;
-
-    loading[lk] = true;
-    delete loading[lk + '-err'];
-    updateCell(tid, qi);
-    updateDateBadge();
-
-    try {
-      const url = `${API_BASE}/veille-ia?q=${encodeURIComponent(query)}`;
-      const resp = await fetch(url, { signal: AbortSignal.timeout(90000) });
-      if (!resp.ok) {
-        const e = await resp.json().catch(() => ({}));
-        throw new Error(e.error || 'HTTP ' + resp.status);
-      }
-      const data = await resp.json();
-      if (data.error) throw new Error(data.error);
-      const result = data.result ?? data;
-      const cachedAt = data.cached_at || new Date().toISOString();
-      setCached(tid, qi, result, cachedAt);
-    } catch(e) {
-      loading[lk + '-err'] = e.message;
-    }
-    delete loading[lk];
-    updateCell(tid, qi);
-    updateDateBadge();
-  }
-
-  window._viRun    = (tid, qi) => runQuery(tid, qi);
-  window._viRunAll = () => THEMES.forEach(t => t.queries.forEach((_, qi) => runQuery(t.id, qi)));
-
-  const extIcoSm = '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>';
-  const linkStyle = 'font-size:12.5px;color:var(--n);text-decoration:none;display:flex;align-items:center;gap:5px';
-
-  const themesHtml = THEMES.map(t => `
-    <div class="card" style="border-top:3px solid ${t.color}">
-      <div style="padding:12px 16px 10px;border-bottom:1px solid var(--border)">
-        <span style="font-size:13px;font-weight:700">${escHtml(t.label)}</span>
-      </div>
-      <div style="padding:12px 16px;display:flex;flex-direction:column;gap:8px">
-        ${t.queries.map((q, qi) => `
-          <div style="border:1px solid var(--border);border-radius:var(--r-md);padding:10px 12px;background:var(--surface)">
-            <div style="display:flex;align-items:flex-start;gap:8px">
-              <div style="flex:1;font-size:12.5px;line-height:1.55;color:var(--text)">${escHtml(q)}</div>
-              <button id="${btnId(t.id, qi)}" onclick="window._viRun('${t.id}',${qi})" title="Lancer la recherche"
-                style="flex-shrink:0;width:28px;height:28px;border-radius:6px;border:1px solid ${t.color};color:${t.color};background:${t.bg};cursor:pointer;font-size:13px;font-family:inherit;display:grid;place-items:center;transition:opacity .15s"
-              >▶</button>
-            </div>
-            <div id="${cellId(t.id, qi)}"></div>
-          </div>`).join('')}
-      </div>
-    </div>`).join('');
 
   const ressourcesHtml = `
     <div class="card" style="margin-top:4px">
@@ -3273,60 +3084,87 @@ function renderVeilleIA() {
         <div>
           <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:8px">Newsletters</div>
           <div style="display:flex;flex-direction:column;gap:7px">
-            <a href="https://www.therundown.ai/" target="_blank" rel="noopener" style="${linkStyle}">
-              ${extIcoSm} The Rundown AI</a>
-            <a href="https://tldr.tech/ai" target="_blank" rel="noopener" style="${linkStyle}">
-              ${extIcoSm} TLDR AI</a>
-            <a href="https://bensbites.com/" target="_blank" rel="noopener" style="${linkStyle}">
-              ${extIcoSm} Ben's Bites</a>
+            <a href="https://www.therundown.ai/" target="_blank" rel="noopener" style="${linkStyle}">${extIcoSm} The Rundown AI</a>
+            <a href="https://tldr.tech/ai" target="_blank" rel="noopener" style="${linkStyle}">${extIcoSm} TLDR AI</a>
+            <a href="https://bensbites.com/" target="_blank" rel="noopener" style="${linkStyle}">${extIcoSm} Ben's Bites</a>
           </div>
         </div>
         <div>
           <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:8px">Twitter / X</div>
           <div style="display:flex;flex-direction:column;gap:7px">
-            <a href="https://x.com/AnthropicAI" target="_blank" rel="noopener" style="${linkStyle}">
-              ${extIcoSm} @AnthropicAI</a>
-            <a href="https://x.com/alexalbert__" target="_blank" rel="noopener" style="${linkStyle}">
-              ${extIcoSm} @alexalbert__</a>
+            <a href="https://x.com/AnthropicAI" target="_blank" rel="noopener" style="${linkStyle}">${extIcoSm} @AnthropicAI</a>
+            <a href="https://x.com/alexalbert__" target="_blank" rel="noopener" style="${linkStyle}">${extIcoSm} @alexalbert__</a>
           </div>
         </div>
         <div>
           <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:8px">Reddit</div>
           <div style="display:flex;flex-direction:column;gap:7px">
-            <a href="https://www.reddit.com/r/ClaudeAI/" target="_blank" rel="noopener" style="${linkStyle}">
-              ${extIcoSm} r/ClaudeAI</a>
-            <a href="https://www.reddit.com/r/ChatGPT/" target="_blank" rel="noopener" style="${linkStyle}">
-              ${extIcoSm} r/ChatGPT</a>
+            <a href="https://www.reddit.com/r/ClaudeAI/" target="_blank" rel="noopener" style="${linkStyle}">${extIcoSm} r/ClaudeAI</a>
+            <a href="https://www.reddit.com/r/ChatGPT/" target="_blank" rel="noopener" style="${linkStyle}">${extIcoSm} r/ChatGPT</a>
           </div>
         </div>
       </div>
     </div>`;
 
+  // Squelette initial pendant le chargement
   el.innerHTML = `
     <div class="sec-title">
       <h2>Veille IA &amp; Marcom</h2><div class="line"></div>
       <span class="src-pill" style="--src:#8B5CF6;--src-bg:rgba(139,92,246,0.1)">Anthropic</span>
       <span class="src-pill" style="--src:#0B996E;--src-bg:rgba(11,153,110,0.1)">Web Search</span>
     </div>
-
-    <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;flex-wrap:wrap">
-      <button id="vi-run-all-btn" onclick="window._viRunAll()"
-        style="display:inline-flex;align-items:center;gap:7px;padding:7px 16px;border-radius:var(--r-sm);background:var(--n);color:#fff;border:none;cursor:pointer;font-size:13px;font-weight:600;font-family:inherit;transition:opacity .15s;flex-shrink:0">
-        ▶ Lancer la veille
-      </button>
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px">
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--muted);flex-shrink:0"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-      <span style="font-size:12px;color:var(--muted)" id="vi-last-date">Aucune veille en cache</span>
-      <span style="font-size:12px;color:var(--muted)">· Mise à jour automatique chaque lundi</span>
+      <span style="font-size:12px;color:var(--muted)" id="vi-last-date">Chargement…</span>
+      <span style="font-size:12px;color:var(--muted)">· Mise à jour automatique chaque lundi via GitHub Actions</span>
     </div>
-
-    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(500px,1fr));gap:16px">
-      ${themesHtml}
-    </div>
-
+    <div id="vi-themes-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(500px,1fr));gap:16px">${skel(4)}</div>
     ${ressourcesHtml}`;
 
-  THEMES.forEach(t => t.queries.forEach((_, qi) => updateCell(t.id, qi)));
-  updateDateBadge();
+  api('/veille-ia').then(d => {
+    const grid  = document.getElementById('vi-themes-grid');
+    const dateEl = document.getElementById('vi-last-date');
+    if (!grid) return;
+
+    if (d.error) {
+      grid.innerHTML = errState('Veille IA', d.error);
+      return;
+    }
+
+    if (!d.themes || !d.themes.length) {
+      grid.innerHTML = `<div class="card" style="padding:24px;color:var(--muted);font-size:13px;text-align:center;grid-column:1/-1">
+        <div style="font-size:22px;margin-bottom:10px">⏳</div>
+        <div style="font-weight:600;margin-bottom:6px">Veille en cours de génération</div>
+        <div style="font-size:12px">Le premier run GitHub Actions génèrera les données chaque lundi matin.<br>
+          Déclenchez-le manuellement depuis l'onglet <strong>Actions</strong> du repo pour accélérer.</div>
+      </div>`;
+      if (dateEl) dateEl.textContent = 'Aucune donnée disponible';
+      return;
+    }
+
+    if (dateEl && d.generated_at) {
+      try {
+        const dt = new Date(d.generated_at + 'T00:00:00');
+        dateEl.textContent = 'Générée le ' + dt.toLocaleDateString('fr-LU', { day: '2-digit', month: 'long', year: 'numeric' });
+      } catch { dateEl.textContent = d.generated_at; }
+    }
+
+    grid.innerHTML = d.themes.map(t => `
+      <div class="card" style="border-top:3px solid ${escHtml(t.color)}">
+        <div style="padding:12px 16px 10px;border-bottom:1px solid var(--border)">
+          <span style="font-size:13px;font-weight:700">${escHtml(t.label)}</span>
+        </div>
+        <div style="padding:12px 16px;display:flex;flex-direction:column;gap:16px">
+          ${(t.results || []).map(item => `
+            <div style="border:1px solid var(--border);border-radius:var(--r-md);overflow:hidden;background:var(--surface)">
+              <div style="padding:8px 12px 7px;background:rgba(0,0,0,.025);border-bottom:1px solid var(--border)">
+                <div style="font-size:11px;color:var(--muted);line-height:1.4">${escHtml(item.query)}</div>
+              </div>
+              <div style="padding:12px 12px 10px">${resultCard(item)}</div>
+            </div>`).join('')}
+        </div>
+      </div>`).join('');
+  });
 }
 
 function renderIntelligence() {

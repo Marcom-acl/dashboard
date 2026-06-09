@@ -1,0 +1,47 @@
+name: Veille IA & Marcom — Déclenchement manuel
+
+# Ce workflow n'est plus nécessaire pour la génération automatique.
+# Le backend Railway (APScheduler) génère les données chaque lundi 06:00 LU
+# et les écrit directement sur GitHub via GITHUB_TOKEN (configuré dans Railway).
+#
+# Ce workflow reste disponible pour forcer un refresh immédiat depuis GitHub Actions
+# si nécessaire (ex. : test, contenu vide après un redéploiement).
+
+on:
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: 'Raison du déclenchement manuel'
+        required: false
+        default: 'Refresh forcé'
+
+permissions:
+  contents: write
+
+jobs:
+  refresh-veille-ia:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install anthropic
+
+      - name: Run veille IA refresh script
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python scripts/veille-ia-refresh.py
+
+      - name: Commit updated veille-ia-data.json
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/veille-ia-data.json
+          git diff --cached --quiet || git commit -m "chore: veille IA — $(date +'%Y-%m-%d') (manuel)"
+          git push

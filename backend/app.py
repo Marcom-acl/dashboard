@@ -10,7 +10,6 @@ import json
 import re
 import time
 import datetime
-import hashlib
 import threading
 import requests
 import concurrent.futures
@@ -32,6 +31,7 @@ CORS(app, origins='*')
 
 # ── Constants ────────────────────────────────────────────────────────────────
 VEILLE_DATA_URL      = 'https://raw.githubusercontent.com/Marcom-acl/dashboard/main/data/veille-data.json'
+VEILLE_IA_DATA_URL   = 'https://raw.githubusercontent.com/Marcom-acl/dashboard/main/data/veille-ia-data.json'
 SEO_POSITIONS_URL    = 'https://raw.githubusercontent.com/Marcom-acl/dashboard/main/data/seo-positions-data.json'
 
 GA4_PROPERTY              = '267556854'
@@ -3101,70 +3101,69 @@ def _fetch_ga4_geo_raw(start, end, headers):
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Veille IA & Marcom
+# Génération : APScheduler (lundi 06:00 LU) → appels Anthropic séquentiels
+#              → écriture du JSON sur GitHub via API (GITHUB_TOKEN requis)
+# Lecture    : /veille-ia lit depuis GitHub raw URL, cache 1 h
 # ─────────────────────────────────────────────────────────────────────────────
 
-_VEILLE_SYSTEM_PROMPT = """Tu es un expert en veille marketing stratégique pour l'ACL (Automobile Club du Luxembourg), un club de mobilité fondé en 1932 comptant plus de 100 000 membres.
-Effectue une recherche web approfondie sur le sujet demandé. Consulte plusieurs sources variées et récentes.
+GITHUB_REPO      = 'Marcom-acl/dashboard'
+GITHUB_FILE_PATH = 'data/veille-ia-data.json'
 
-Sources à privilégier selon le sujet :
-- Marketing & contenu : Marketing Week, HubSpot Blog, Content Marketing Institute, Econsultancy, Adweek, MarketingProfs, Social Media Examiner, Sprout Social Blog, Later Blog, Buffer Blog, Hootsuite Blog
-- CRM & email : Mailchimp Blog, Brevo Blog, Klaviyo Blog, Salesforce Blog, Campaign Monitor Blog
-- SEO & digital : Search Engine Journal, Moz Blog, Ahrefs Blog, Backlinko, Google Search Central Blog, Semrush Blog
-- IA & Tech : Anthropic Blog, OpenAI Blog, Google DeepMind Blog, MIT Technology Review, TechCrunch, VentureBeat, The Verge, Wired, Ars Technica
-- Design & UX : Smashing Magazine, Nielsen Norman Group, UX Collective, Adobe Blog, Figma Blog, Awwwards
-- Stratégie & management : Harvard Business Review, MIT Sloan Management Review, Forrester, Gartner, McKinsey Digital
-- Data & plateformes : Think with Google, Meta for Business, LinkedIn Marketing Solutions Blog, Statista
+_VEILLE_SYSTEM_PROMPT = (
+    "Tu es un expert en veille marketing stratégique pour une équipe marketing de club automobile européen.\n"
+    "Effectue une recherche web approfondie sur le sujet demandé. Consulte plusieurs sources variées et récentes.\n\n"
+    "Sources à privilégier selon le sujet :\n"
+    "- Marketing & contenu : Marketing Week, HubSpot Blog, Content Marketing Institute, Econsultancy, Adweek, "
+    "MarketingProfs, Social Media Examiner, Sprout Social Blog, Later Blog, Buffer Blog, Hootsuite Blog\n"
+    "- CRM & email : Mailchimp Blog, Brevo Blog, Klaviyo Blog, Salesforce Blog, Campaign Monitor Blog\n"
+    "- SEO & digital : Search Engine Journal, Moz Blog, Ahrefs Blog, Backlinko, Google Search Central Blog, Semrush Blog\n"
+    "- IA & Tech : Anthropic Blog, OpenAI Blog, Google DeepMind Blog, MIT Technology Review, TechCrunch, "
+    "VentureBeat, The Verge, Wired, Ars Technica\n"
+    "- Design & UX : Smashing Magazine, Nielsen Norman Group, UX Collective, Adobe Blog, Figma Blog, Awwwards\n"
+    "- Stratégie & management : Harvard Business Review, MIT Sloan Management Review, Forrester, Gartner, McKinsey Digital\n"
+    "- Data & plateformes : Think with Google, Meta for Business, LinkedIn Marketing Solutions Blog, Statista\n\n"
+    "Cite au minimum 5 sources différentes avec leur nom complet et l'URL directe vers l'article ou la page concernée.\n\n"
+    "Retourne UNIQUEMENT un objet JSON valide (sans texte avant ni après) respectant ce format :\n"
+    '{"titre":"titre concis et informatif (max 80 car.)","synthese":"résumé factuel 4-6 phrases en français",'
+    '"actionACL":"recommandation concrète pour l\'équipe marketing 2-3 phrases",'
+    '"horizon":"court terme (0-3 mois)" or "moyen terme (3-12 mois)" or "long terme (12+ mois)",'
+    '"sources":[{"name":"Nom de la publication","url":"URL directe","date":"YYYY-MM"}]}\n'
+    "Le tableau sources doit contenir entre 5 et 7 entrées."
+)
 
-Cite au minimum 5 sources différentes avec leur nom complet et l'URL directe vers l'article ou la page concernée.
-
-Retourne UNIQUEMENT un objet JSON valide (sans texte avant ni après) respectant ce format :
-{
-  "titre": "titre concis et informatif (max 80 caractères)",
-  "synthese": "résumé factuel des principales tendances, 4 à 6 phrases, en français",
-  "actionACL": "recommandation d'action concrète pour l'équipe marketing ACL, 2 à 3 phrases précises",
-  "horizon": "court terme (0-3 mois)" or "moyen terme (3-12 mois)" or "long terme (12+ mois)",
-  "sources": [{"name": "Nom de la publication", "url": "URL directe", "date": "YYYY-MM"}]
-}
-Le tableau sources doit contenir entre 5 et 7 entrées."""
-
-# Requêtes canoniques — doit rester synchronisé avec renderVeilleIA() dans le frontend
 _VEILLE_ALL_QUERIES = [
-    ('ia-marketing', 0,
-     "Quelles sont les dernières avancées en IA générative appliquée au marketing digital ? "
-     "Présente les outils les plus récents, des cas d'usage concrets et des ROI mesurés par des marques européennes."),
-    ('ia-marketing', 1,
-     "Comment les marques utilisent-elles aujourd'hui l'IA générative pour personnaliser leurs "
-     "newsletters et leurs communications avec leurs membres ? Exemples et données récentes."),
-    ('ia-marketing', 2,
-     "Benchmark actuel des outils IA pour petites équipes marketing (Jasper, Copy.ai, Canva Magic Studio, "
-     "Notion AI, ChatGPT) : fonctionnalités, tarifs et adéquation pour une équipe de 3 à 5 personnes."),
-    ('crm-member', 0,
-     "Quelles sont les tendances actuelles en CRM et fidélisation membres pour les associations automobiles, "
-     "clubs et organisations membres en Europe ? Exemples concrets et innovations récentes."),
-    ('crm-member', 1,
-     "Meilleures pratiques actuelles de marketing lifecycle pour les membres d'associations : onboarding, "
-     "rétention long terme, réactivation des membres inactifs — avec des données et exemples récents."),
-    ('crm-member', 2,
-     "Quelles sont les dernières nouveautés en email marketing automation B2C (Brevo, Mailchimp, HubSpot) "
-     "et leur impact mesurable sur l'engagement et la rétention des membres ?"),
-    ('social-ads', 0,
-     "Quelles sont les évolutions récentes des algorithmes Facebook et Instagram et leurs implications "
-     "concrètes pour les marques communautaires et institutionnelles ?"),
-    ('social-ads', 1,
-     "LinkedIn Ads : quelles sont les nouvelles options de ciblage et les formats publicitaires les plus "
-     "performants actuellement pour atteindre les professionnels et membres de clubs automobiles en Europe ?"),
-    ('social-ads', 2,
-     "Benchmarks publicité sociale actuels : CPC, CTR, ROAS par secteur pour l'automobile, "
-     "l'assurance et les services aux membres — données les plus récentes disponibles."),
-    ('design-branding', 0,
-     "Quelles sont les tendances design de marque actuelles (typographie, couleur, identité visuelle) "
-     "pour les associations et marques institutionnelles européennes établies depuis plus de 50 ans ?"),
-    ('design-branding', 1,
-     "Motion design et vidéo courte pour les marques B2C : Reels Instagram, YouTube Shorts — "
-     "quelles sont les meilleures pratiques et métriques de performance actuellement ?"),
-    ('design-branding', 2,
-     "Comment les équipes marketing réduites gèrent-elles la cohérence de leur design system "
-     "à l'ère de l'IA générative ? Défis, solutions et outils recommandés aujourd'hui."),
+    ('ia-marketing', 'IA générative en marketing', '#8B5CF6', [
+        ("Quelles sont les dernières avancées en IA générative appliquée au marketing digital ? "
+         "Présente les outils les plus récents, des cas d'usage concrets et des ROI mesurés par des marques européennes."),
+        ("Comment les marques utilisent-elles aujourd'hui l'IA générative pour personnaliser leurs "
+         "newsletters et leurs communications avec leurs membres ? Exemples et données récentes."),
+        ("Benchmark actuel des outils IA pour petites équipes marketing (Jasper, Copy.ai, Canva Magic Studio, "
+         "Notion AI, ChatGPT) : fonctionnalités, tarifs et adéquation pour une équipe de 3 à 5 personnes."),
+    ]),
+    ('crm-member', 'CRM & member marketing', '#0B996E', [
+        ("Quelles sont les tendances actuelles en CRM et fidélisation membres pour les associations automobiles, "
+         "clubs et organisations membres en Europe ? Exemples concrets et innovations récentes."),
+        ("Meilleures pratiques actuelles de marketing lifecycle pour les membres d'associations : onboarding, "
+         "rétention long terme, réactivation des membres inactifs — avec des données et exemples récents."),
+        ("Quelles sont les dernières nouveautés en email marketing automation B2C (Brevo, Mailchimp, HubSpot) "
+         "et leur impact mesurable sur l'engagement et la rétention des membres ?"),
+    ]),
+    ('social-ads', 'Social & Ads', '#1877F2', [
+        ("Quelles sont les évolutions récentes des algorithmes Facebook et Instagram et leurs implications "
+         "concrètes pour les marques communautaires et institutionnelles ?"),
+        ("LinkedIn Ads : quelles sont les nouvelles options de ciblage et les formats publicitaires les plus "
+         "performants actuellement pour atteindre les professionnels et membres de clubs automobiles en Europe ?"),
+        ("Benchmarks publicité sociale actuels : CPC, CTR, ROAS par secteur pour l'automobile, "
+         "l'assurance et les services aux membres — données les plus récentes disponibles."),
+    ]),
+    ('design-branding', 'Design & branding', '#F97316', [
+        ("Quelles sont les tendances design de marque actuelles (typographie, couleur, identité visuelle) "
+         "pour les associations et marques institutionnelles européennes établies depuis plus de 50 ans ?"),
+        ("Motion design et vidéo courte pour les marques B2C : Reels Instagram, YouTube Shorts — "
+         "quelles sont les meilleures pratiques et métriques de performance actuellement ?"),
+        ("Comment les équipes marketing réduites gèrent-elles la cohérence de leur design system "
+         "à l'ère de l'IA générative ? Défis, solutions et outils recommandés aujourd'hui."),
+    ]),
 ]
 
 
@@ -3191,12 +3190,12 @@ def _extract_json_from_text(text):
 
 
 def _fetch_single_veille(query):
-    """Appelle Anthropic + web_search pour une requête de veille. Retourne le dict résultat."""
+    """Appelle Anthropic + web_search pour une requête. Retourne le dict résultat."""
     import anthropic
     client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
     messages = [{'role': 'user', 'content': query}]
     text = ''
-    for _ in range(8):
+    for _ in range(10):
         resp = client.messages.create(
             model='claude-sonnet-4-6',
             max_tokens=2000,
@@ -3216,46 +3215,81 @@ def _fetch_single_veille(query):
     return result or {'error': 'Réponse non structurée', 'raw': text[:200]}
 
 
-def _refresh_veille_cache(force=False):
-    """Rafraîchit le cache serveur de toutes les requêtes de veille.
-    Si force=False, saute les requêtes déjà en cache (warmup au démarrage).
-    """
+def _write_veille_ia_to_github(data):
+    """Écrit data/veille-ia-data.json sur GitHub via l'API REST. Nécessite GITHUB_TOKEN."""
+    if not GITHUB_TOKEN:
+        return False
+    import base64
+    content_b64 = base64.b64encode(
+        json.dumps(data, ensure_ascii=False, indent=2).encode('utf-8')
+    ).decode('ascii')
+    api_url = f'https://api.github.com/repos/{GITHUB_REPO}/contents/{GITHUB_FILE_PATH}'
+    headers = {
+        'Authorization': f'token {GITHUB_TOKEN}',
+        'Accept': 'application/vnd.github.v3+json',
+    }
+    sha = None
+    try:
+        r = requests.get(api_url, headers=headers, timeout=10)
+        if r.ok:
+            sha = r.json().get('sha')
+    except Exception:
+        pass
+    payload = {
+        'message': f'chore: veille IA — {datetime.date.today().isoformat()}',
+        'content': content_b64,
+    }
+    if sha:
+        payload['sha'] = sha
+    try:
+        r = requests.put(api_url, headers=headers, json=payload, timeout=15)
+        return r.ok
+    except Exception:
+        return False
+
+
+def _run_veille_ia_refresh():
+    """Génère les 12 résultats de veille séquentiellement (15 s entre chaque requête)
+    et écrit le JSON sur GitHub. Conçu pour s'exécuter en thread daemon via APScheduler."""
     if not ANTHROPIC_API_KEY:
         return
-    for theme_id, qi, query in _VEILLE_ALL_QUERIES:
-        ck = f'veille-ia:{hashlib.md5(query.encode()).hexdigest()}'
-        if not force and _cache_get(ck):
-            continue
-        try:
-            result = _fetch_single_veille(query)
-            _cache_set(ck, {
-                'result': result,
-                'cached_at': datetime.datetime.utcnow().isoformat(),
-            }, 604800)
-        except Exception:
-            pass
+    today = datetime.date.today().isoformat()
+    output = {'generated_at': today, 'themes': []}
+    total  = sum(len(queries) for _, _, _, queries in _VEILLE_ALL_QUERIES)
+    done   = 0
+
+    for theme_id, label, color, queries in _VEILLE_ALL_QUERIES:
+        theme_out = {'id': theme_id, 'label': label, 'color': color, 'results': []}
+        for query in queries:
+            done += 1
+            try:
+                result = _fetch_single_veille(query)
+            except Exception as e:
+                result = {'error': str(e)}
+            theme_out['results'].append({'query': query, **result})
+            if done < total:
+                time.sleep(15)  # 15 s entre appels → ≤ 4 req/min, sous la limite de 5
+        output['themes'].append(theme_out)
+
+    # Persiste sur GitHub (survit aux redémarrages Railway)
+    _write_veille_ia_to_github(output)
+    # Met aussi à jour le cache mémoire pour les requêtes immédiates
+    _cache_set('veille-ia-data', output, 3600)
 
 
 @app.route('/veille-ia')
 def veille_ia():
-    query = request.args.get('q', '').strip()
-    if not query:
-        return jsonify({'error': 'Paramètre q manquant'}), 400
-    if not ANTHROPIC_API_KEY:
-        return jsonify({'error': 'ANTHROPIC_API_KEY manquante'}), 503
-
-    cache_key = f'veille-ia:{hashlib.md5(query.encode()).hexdigest()}'
-    cached = _cache_get(cache_key)
+    cached = _cache_get('veille-ia-data')
     if cached:
         return jsonify(cached)
-
     try:
-        result = _fetch_single_veille(query)
+        r = requests.get(VEILLE_IA_DATA_URL, timeout=10, verify=_VERIFY)
+        if not r.ok:
+            return jsonify({'error': f'GitHub HTTP {r.status_code}'}), 503
+        data = r.json()
     except Exception as e:
-        return jsonify({'error': str(e)}), 500
-
-    data = {'result': result, 'cached_at': datetime.datetime.utcnow().isoformat()}
-    _cache_set(cache_key, data, 604800)
+        return jsonify({'error': str(e)}), 503
+    _cache_set('veille-ia-data', data, 3600)
     return jsonify(data)
 
 
@@ -3286,28 +3320,38 @@ threading.Thread(target=_warmup_cache, daemon=True).start()
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# Veille IA — scheduler hebdomadaire (lundi 07:00 Europe/Luxembourg)
+# Veille IA — scheduler hebdomadaire (lundi 06:00 Europe/Luxembourg)
 # ─────────────────────────────────────────────────────────────────────────────
 
-def _start_veille_scheduler():
-    """Démarre APScheduler dans un thread daemon. Warmup immédiat si cache froid."""
+def _start_veille_ia_scheduler():
+    """Démarre APScheduler en thread daemon. Lance un premier refresh au démarrage
+    si le fichier GitHub est vide (themes: [])."""
     try:
         from apscheduler.schedulers.background import BackgroundScheduler
         scheduler = BackgroundScheduler(timezone='Europe/Luxembourg')
-        # Rafraîchissement forcé chaque lundi à 07:00
         scheduler.add_job(
-            lambda: _refresh_veille_cache(force=True),
-            'cron', day_of_week='mon', hour=7, minute=0,
-            id='veille_weekly', replace_existing=True,
+            _run_veille_ia_refresh,
+            'cron', day_of_week='mon', hour=6, minute=0,
+            id='veille_ia_weekly', replace_existing=True,
         )
         scheduler.start()
     except Exception:
         pass
-    # Warmup au démarrage : ne fetch que ce qui manque dans le cache
-    _refresh_veille_cache(force=False)
 
-# Démarrage différé (90 s) pour laisser gunicorn/Flask s'initialiser
-threading.Timer(90.0, _start_veille_scheduler).start()
+    # Warmup : si le JSON GitHub est vide, lance un premier refresh
+    try:
+        r = requests.get(VEILLE_IA_DATA_URL, timeout=10, verify=_VERIFY)
+        if r.ok:
+            d = r.json()
+            if not d.get('themes'):
+                threading.Thread(target=_run_veille_ia_refresh, daemon=True).start()
+            else:
+                _cache_set('veille-ia-data', d, 3600)
+    except Exception:
+        pass
+
+# Démarrage différé (120 s) pour laisser gunicorn/Flask s'initialiser
+threading.Timer(120.0, _start_veille_ia_scheduler).start()
 
 
 # ─────────────────────────────────────────────────────────────────────────────
