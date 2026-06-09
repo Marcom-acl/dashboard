@@ -61,7 +61,7 @@
     body{
       font-family:'Albert Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
       background:var(--bg); color:var(--text);
-      font-size:14px; line-height:1.5;
+      font-size:15px; line-height:1.5;
       -webkit-font-smoothing:antialiased;
       font-feature-settings:"ss01","cv11";
       overflow-x:hidden;
@@ -75,14 +75,42 @@
     .hl-y{background:var(--y);padding:0 8px 3px;display:inline;line-height:1.1;}
 
     /* ─── APP LAYOUT ─────────────────────────────────────────────── */
-    .app{display:grid;grid-template-columns:248px 1fr;min-height:100vh;}
+    .app{display:flex;flex-direction:row;min-height:100vh;}
 
     /* ─── SIDEBAR ────────────────────────────────────────────────── */
     .sb{
+      width:248px;flex-shrink:0;overflow:hidden;
       background:var(--surface);border-right:1px solid var(--border);
       display:flex;flex-direction:column;
       position:sticky;top:0;height:100vh;overflow-y:auto;
+      transition:width 250ms ease-in-out;
     }
+    .sb.collapsed{width:64px;}
+    .sb.collapsed .sb-brand-meta,
+    .sb.collapsed .sb-section-title,
+    .sb.collapsed .sb-item-label,
+    .sb.collapsed .sb-badge,
+    .sb.collapsed .sb-dot,
+    .sb.collapsed .sb-user-meta{display:none;}
+    .sb.collapsed .sb-item{justify-content:center;padding:9px 0;}
+    .sb.collapsed .sb-foot{padding:8px 4px;}
+    .sb.collapsed .sb-user{justify-content:center;}
+    .sb.collapsed .sb-toggle svg{transform:rotate(180deg);}
+    .app.floating .sb{
+      position:fixed;left:0;top:0;height:100vh;z-index:200;
+      box-shadow:4px 0 24px rgba(0,0,0,.12);overflow-y:auto;
+    }
+    .app.floating .main{margin-left:64px;}
+    .app.floating:not(.sb-expanded) .sb{width:64px;}
+    .app.floating:not(.sb-expanded) .sb .sb-brand-meta,
+    .app.floating:not(.sb-expanded) .sb .sb-section-title,
+    .app.floating:not(.sb-expanded) .sb .sb-item-label,
+    .app.floating:not(.sb-expanded) .sb .sb-badge,
+    .app.floating:not(.sb-expanded) .sb .sb-dot,
+    .app.floating:not(.sb-expanded) .sb .sb-user-meta{display:none;}
+    .app.floating:not(.sb-expanded) .sb .sb-item{justify-content:center;padding:9px 0;}
+    .app.floating.sb-expanded .sb{width:248px;}
+    .app.floating.sb-expanded .main{margin-left:248px;}
     [data-sidebar="dark"] .sb{background:#0F0E0C;border-right:1px solid #1f1d18;color:#fff;}
 
     .sb-brand{
@@ -104,7 +132,7 @@
     [data-sidebar="dark"] .sb-brand-sub{color:#9a958a;}
 
     .sb-section{padding:16px 12px 4px;}
-    .sb-section-title{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted-2);padding:0 10px 8px;}
+    .sb-section-title{font-size:11.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted-2);padding:0 10px 8px;}
     [data-sidebar="dark"] .sb-section-title{color:#6a665d;}
 
     .sb-nav{display:flex;flex-direction:column;gap:2px;}
@@ -112,7 +140,7 @@
     .sb-item{
       display:flex;align-items:center;gap:10px;
       padding:9px 12px;border-radius:8px;
-      font-size:13.5px;font-weight:500;color:var(--text);
+      font-size:14px;font-weight:500;color:var(--text);
       cursor:pointer;position:relative;
       border:1px solid transparent;
       background:none;font-family:inherit;width:100%;text-align:left;
@@ -122,7 +150,22 @@
     [data-sidebar="dark"] .sb-item{color:#d5d2c8;}
     [data-sidebar="dark"] .sb-item:hover{background:rgba(255,255,255,.05);color:#fff;}
 
-    .sb-ic{width:18px;height:18px;flex-shrink:0;color:var(--muted);}
+    .sb-ic-wrap{width:32px;height:32px;border-radius:8px;display:grid;place-items:center;flex-shrink:0;}
+    .sb-ic{width:16px;height:16px;flex-shrink:0;color:var(--ic-color,var(--muted));}
+    .sb-item-label{min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .sb-toggle{margin-left:auto;background:none;border:none;cursor:pointer;color:var(--muted);border-radius:6px;padding:4px;display:grid;place-items:center;transition:color 150ms,background 150ms;flex-shrink:0;}
+    .sb-toggle:hover{background:rgba(0,0,0,.05);color:var(--text);}
+    .sb-toggle svg{width:16px;height:16px;transition:transform 250ms ease-in-out;}
+    .sb-float-toggle{background:none;border:none;cursor:pointer;color:var(--muted);border-radius:6px;padding:6px 8px;display:flex;align-items:center;gap:6px;font-size:11px;font-family:inherit;font-weight:500;transition:color 150ms,background 150ms;width:100%;}
+    .sb-float-toggle:hover{background:rgba(0,0,0,.04);color:var(--text);}
+    .app.floating .sb-float-toggle{color:var(--n);font-weight:700;}
+    .sb-pill{
+      position:absolute;left:52px;top:50%;transform:translateY(-50%);
+      background:#1A1A1A;color:#fff;border-radius:6px;
+      padding:4px 10px;font-size:12px;font-weight:600;white-space:nowrap;
+      opacity:0;pointer-events:none;transition:opacity 150ms ease;z-index:210;
+    }
+    .app.floating .sb .sb-item:hover .sb-pill{opacity:1;}
     [data-sidebar="dark"] .sb-item .sb-ic{color:#9a958a;}
 
     .sb-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-left:auto;box-shadow:0 0 0 2px var(--surface);}
@@ -140,11 +183,11 @@
     [data-sidebar="dark"] .sb-item.active .sb-ic{color:var(--y);}
 
     .sb-badge{
-      margin-left:auto;font-size:10.5px;font-weight:700;
+      margin-left:auto;font-size:11.5px;font-weight:700;
       padding:2px 7px;border-radius:99px;background:var(--y);color:#000;
     }
     .sb-status{
-      margin-left:auto;font-size:9px;font-weight:700;padding:1px 5px;
+      margin-left:auto;font-size:10px;font-weight:700;padding:1px 5px;
       border-radius:99px;background:var(--border);color:var(--muted);
       font-variant-numeric:tabular-nums;display:none;
     }
@@ -174,7 +217,7 @@
       display:flex;align-items:center;gap:10px;
       flex-shrink:0;flex-wrap:wrap;min-height:54px;
     }
-    .crumb{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted);flex-shrink:0;}
+    .crumb{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--muted);flex-shrink:0;}
     .crumb b{color:var(--text);font-weight:700;}
     .crumb svg{opacity:.4;}
 
@@ -183,7 +226,7 @@
     .tb-actions{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
 
     .tb-filter{display:flex;align-items:center;gap:8px;}
-    .tb-filter-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted-2);white-space:nowrap;}
+    .tb-filter-label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted-2);white-space:nowrap;}
     .filter-bar{
       display:flex;align-items:center;gap:0;
       background:var(--surface);border:1px solid var(--border);
@@ -191,7 +234,7 @@
     }
     .filter-btn{
       background:none;border:none;font-family:inherit;
-      font-size:11.5px;font-weight:600;color:var(--muted);
+      font-size:12.5px;font-weight:600;color:var(--muted);
       padding:5px 11px;cursor:pointer;border-radius:4px;position:relative;z-index:1;
       transition:color .15s;white-space:nowrap;
     }
@@ -333,7 +376,7 @@
     .kpi-head{display:flex;align-items:center;gap:10px;}
     .kpi-icon{width:34px;height:34px;border-radius:8px;background:var(--src-bg,#FFF8DC);display:grid;place-items:center;flex-shrink:0;}
     .kpi-icon svg{width:18px;height:18px;}
-    .kpi-label{font-size:11.5px;font-weight:600;color:var(--muted);line-height:1.35;}
+    .kpi-label{font-size:12.5px;font-weight:600;color:var(--muted);line-height:1.35;}
     .kpi-label b{color:var(--text);font-weight:700;display:block;font-size:13px;letter-spacing:-0.01em;}
     .kpi-more{margin-left:auto;color:var(--muted-2);width:22px;height:22px;display:grid;place-items:center;border-radius:5px;cursor:pointer;}
     .kpi-more:hover{background:rgba(0,0,0,.04);}
@@ -377,7 +420,7 @@
       display:flex;align-items:flex-start;gap:12px;
     }
     .card-title{font-size:14.5px;font-weight:700;letter-spacing:-0.01em;color:#000;display:flex;align-items:center;gap:10px;}
-    .card-sub{font-size:11.5px;color:var(--muted);margin-top:3px;}
+    .card-sub{font-size:12.5px;color:var(--muted);margin-top:3px;}
     .card-actions{margin-left:auto;display:flex;align-items:center;gap:6px;}
     .card-link{font-size:12px;font-weight:600;color:var(--n);text-decoration:none;padding:4px 8px;border-radius:6px;}
     .card-link:hover{background:var(--n);color:#fff;}
@@ -386,7 +429,7 @@
 
     .src-pill{
       display:inline-flex;align-items:center;gap:5px;
-      font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+      font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
       padding:2px 8px;border-radius:99px;background:var(--src-bg,#f1efeb);color:#000;
     }
     .src-pill::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--src,var(--y));}
@@ -638,7 +681,7 @@
     /* ─── RESPONSIVE ──────────────────────────────────────────────── */
     @media(max-width:1100px){.kpi-row{grid-template-columns:repeat(2,1fr);}}
     @media(max-width:768px){
-      .app{grid-template-columns:1fr;}
+      .app{flex-direction:column;}
       .sb{display:none;}
       .hamburger-btn{display:flex;}
       .kpi-row{grid-template-columns:1fr 1fr;}
@@ -1104,14 +1147,18 @@
         <span class="sb-brand-name">Marcom</span>
         <span class="sb-brand-sub">Dashboard · 2026</span>
       </div>
+      <button class="sb-toggle" id="sbToggle" title="Réduire la sidebar">
+        <svg class="sb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
     </div>
 
     <div class="sb-section">
       <div class="sb-section-title">Synthèse</div>
       <nav class="sb-nav" id="navTop">
-        <button class="sb-item tab-btn active" data-tab="overview">
-          <svg class="sb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>
-          Vue d'ensemble
+        <button class="sb-item tab-btn active" data-tab="overview" title="Vue d'ensemble">
+          <span class="sb-ic-wrap" style="background:rgba(254,219,0,.15);--ic-color:#FEDB00"><svg class="sb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg></span>
+          <span class="sb-item-label">Vue d'ensemble</span>
+          <span class="sb-pill">Vue d'ensemble</span>
         </button>
       </nav>
     </div>
@@ -1119,49 +1166,58 @@
     <div class="sb-section">
       <div class="sb-section-title">Canaux</div>
       <nav class="sb-nav">
-        <button class="sb-item tab-btn" data-tab="ga4">
-          <svg class="sb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21V10a2 2 0 0 1 4 0v11"/><path d="M10 21V5a2 2 0 0 1 4 0v16"/><path d="M17 21v-7a2 2 0 0 1 4 0v7"/></svg>
-          Sites web
+        <button class="sb-item tab-btn" data-tab="ga4" title="Sites web">
+          <span class="sb-ic-wrap" style="background:rgba(59,130,246,.15);--ic-color:#3B82F6"><svg class="sb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span>
+          <span class="sb-item-label">Sites web</span>
+          <span class="sb-pill">Sites web</span>
           <span class="sb-dot" id="bs-ga4" style="background:var(--muted-2);"></span>
         </button>
-        <button class="sb-item tab-btn" data-tab="sections">
-          <svg class="sb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg>
-          Sections acl.lu
+        <button class="sb-item tab-btn" data-tab="sections" title="Sections acl.lu">
+          <span class="sb-ic-wrap" style="background:rgba(6,182,212,.15);--ic-color:#06B6D4"><svg class="sb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></span>
+          <span class="sb-item-label">Sections acl.lu</span>
+          <span class="sb-pill">Sections acl.lu</span>
           <span class="sb-dot" id="bs-sections" style="background:var(--muted-2);"></span>
         </button>
-        <button class="sb-item tab-btn" data-tab="fbads">
-          <svg class="sb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-          Meta Ads &amp; FB
+        <button class="sb-item tab-btn" data-tab="fbads" title="Meta Ads &amp; FB">
+          <span class="sb-ic-wrap" style="background:rgba(24,119,242,.15);--ic-color:#1877F2"><svg class="sb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></span>
+          <span class="sb-item-label">Meta Ads &amp; FB</span>
+          <span class="sb-pill">Meta Ads &amp; FB</span>
           <span class="sb-dot" id="bs-fbads" style="background:var(--muted-2);"></span>
         </button>
-        <button class="sb-item tab-btn" data-tab="gsc">
-          <svg class="sb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="6.5"/><path d="m20.5 20.5-4.5-4.5"/></svg>
-          Search Console
+        <button class="sb-item tab-btn" data-tab="gsc" title="Search Console">
+          <span class="sb-ic-wrap" style="background:rgba(52,168,83,.15);--ic-color:#34A853"><svg class="sb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="6.5"/><path d="m20.5 20.5-4.5-4.5"/></svg></span>
+          <span class="sb-item-label">Search Console</span>
+          <span class="sb-pill">Search Console</span>
           <span class="sb-dot" id="bs-gsc" style="background:var(--muted-2);"></span>
         </button>
-        <button class="sb-item tab-btn" data-tab="brevo">
-          <svg class="sb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
-          Marketing Emails
+        <button class="sb-item tab-btn" data-tab="brevo" title="Marketing Emails">
+          <span class="sb-ic-wrap" style="background:rgba(11,153,110,.15);--ic-color:#0B996E"><svg class="sb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span>
+          <span class="sb-item-label">Marketing Emails</span>
+          <span class="sb-pill">Marketing Emails</span>
           <span class="sb-dot" id="bs-brevo" style="background:var(--muted-2);"></span>
         </button>
-        <button class="sb-item tab-btn" data-tab="club">
-          <svg class="sb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          ACL Club
+        <button class="sb-item tab-btn" data-tab="club" title="ACL Club">
+          <span class="sb-ic-wrap" style="background:rgba(245,158,11,.15);--ic-color:#F59E0B"><svg class="sb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span>
+          <span class="sb-item-label">ACL Club</span>
+          <span class="sb-pill">ACL Club</span>
           <span class="sb-dot" id="bs-club" style="background:var(--muted-2);"></span>
         </button>
-        <button class="sb-item tab-btn" data-tab="linkedin">
-          <svg class="sb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 11v6M8 8v.01M12 17v-4a2 2 0 0 1 4 0v4M12 17v-6"/></svg>
-          LinkedIn
+        <button class="sb-item tab-btn" data-tab="linkedin" title="LinkedIn">
+          <span class="sb-ic-wrap" style="background:rgba(10,102,194,.15);--ic-color:#0A66C2"><svg class="sb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 11v6M8 8v.01M12 17v-4a2 2 0 0 1 4 0v4M12 17v-6"/></svg></span>
+          <span class="sb-item-label">LinkedIn</span>
+          <span class="sb-pill">LinkedIn</span>
           <span class="sb-dot" id="bs-li" style="background:var(--muted-2);"></span>
         </button>
-        <button class="sb-item tab-btn" data-tab="youtube">
-          <svg class="sb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="6" width="18" height="12" rx="3"/><path d="m11 9 4 3-4 3z" fill="currentColor"/></svg>
-          YouTube
+        <button class="sb-item tab-btn" data-tab="youtube" title="YouTube">
+          <span class="sb-ic-wrap" style="background:rgba(255,0,0,.15);--ic-color:#FF0000"><svg class="sb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="6" width="18" height="12" rx="3"/><path d="m11 9 4 3-4 3z" fill="currentColor"/></svg></span>
+          <span class="sb-item-label">YouTube</span>
+          <span class="sb-pill">YouTube</span>
           <span class="sb-dot" id="bs-yt" style="background:var(--muted-2);"></span>
         </button>
-        <button class="sb-item tab-btn" data-tab="buffer">
-          <svg class="sb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><circle cx="8" cy="15" r="1" fill="currentColor" stroke="none"/><circle cx="12" cy="15" r="1" fill="currentColor" stroke="none"/><circle cx="16" cy="15" r="1" fill="currentColor" stroke="none"/></svg>
-          Social media
+        <button class="sb-item tab-btn" data-tab="buffer" title="Social media">
+          <span class="sb-ic-wrap" style="background:rgba(236,72,153,.15);--ic-color:#EC4899"><svg class="sb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></span>
+          <span class="sb-item-label">Social media</span>
+          <span class="sb-pill">Social media</span>
           <span class="sb-dot" id="bs-buffer" style="background:var(--muted-2);"></span>
         </button>
       </nav>
@@ -1170,23 +1226,27 @@
     <div class="sb-section">
       <div class="sb-section-title">Intelligence</div>
       <nav class="sb-nav">
-        <button class="sb-item tab-btn" data-tab="veille">
-          <svg class="sb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="4"/><path d="M11 7v1M11 14v1M7 11h1M14 11h1M8.5 8.5l.7.7M13.1 13.1l.7.7M8.5 13.5l.7-.7M13.1 8.9l.7-.7"/><path d="m20 20-4.3-4.3"/></svg>
-          Veille sectorielle
+        <button class="sb-item tab-btn" data-tab="veille" title="Veille sectorielle">
+          <span class="sb-ic-wrap" style="background:rgba(139,92,246,.15);--ic-color:#8B5CF6"><svg class="sb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19.07 4.93A10 10 0 0 0 6.99 3.34"/><path d="M4 6h.01"/><path d="M2.29 9.62A10 10 0 1 0 21.31 8.35"/><path d="M16.24 7.76A6 6 0 1 0 8.23 16.67"/><line x1="12" y1="12" x2="19.07" y2="4.93"/></svg></span>
+          <span class="sb-item-label">Veille sectorielle</span>
+          <span class="sb-pill">Veille sectorielle</span>
           <span class="sb-dot" id="bs-veille" style="background:var(--muted-2);"></span>
         </button>
-        <button class="sb-item tab-btn" data-tab="seopos">
-          <svg class="sb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-          SEO Positions
+        <button class="sb-item tab-btn" data-tab="seopos" title="SEO Positions">
+          <span class="sb-ic-wrap" style="background:rgba(245,166,35,.15);--ic-color:#F5A623"><svg class="sb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></span>
+          <span class="sb-item-label">SEO Positions</span>
+          <span class="sb-pill">SEO Positions</span>
           <span class="sb-dot" id="bs-seopos" style="background:var(--muted-2);"></span>
         </button>
-        <button class="sb-item tab-btn" data-tab="veille-ia">
-          <svg class="sb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l1.5 4.5L18 8l-4.5 1.5L12 14l-1.5-4.5L6 8l4.5-1.5z"/><path d="M19 15l.75 2.25L22 18l-2.25.75L19 21l-.75-2.25L16 18l2.25-.75z"/></svg>
-          Veille IA &amp; Marcom
+        <button class="sb-item tab-btn" data-tab="veille-ia" title="Veille IA &amp; Marcom">
+          <span class="sb-ic-wrap" style="background:rgba(168,85,247,.15);--ic-color:#A855F7"><svg class="sb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l1.5 4.5L18 8l-4.5 1.5L12 14l-1.5-4.5L6 8l4.5-1.5z"/><path d="M19 15l.75 2.25L22 18l-2.25.75L19 21l-.75-2.25L16 18l2.25-.75z"/></svg></span>
+          <span class="sb-item-label">Veille IA &amp; Marcom</span>
+          <span class="sb-pill">Veille IA &amp; Marcom</span>
         </button>
-        <button class="sb-item tab-btn" data-tab="intelligence">
-          <svg class="sb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a7 7 0 0 1 7 7c0 2.5-1.3 4.7-3.3 6L15 17H9l-.7-2C6.3 13.7 5 11.5 5 9a7 7 0 0 1 7-7z"/><path d="M9 21h6M10 17v4M14 17v4"/></svg>
-          Intelligence Web
+        <button class="sb-item tab-btn" data-tab="intelligence" title="Intelligence Web">
+          <span class="sb-ic-wrap" style="background:rgba(20,184,166,.15);--ic-color:#14B8A6"><svg class="sb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z"/><path d="M2 12h20"/><path d="M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg></span>
+          <span class="sb-item-label">Intelligence Web</span>
+          <span class="sb-pill">Intelligence Web</span>
         </button>
       </nav>
     </div>
@@ -1194,14 +1254,18 @@
     <div class="sb-section">
       <div class="sb-section-title">Outils</div>
       <nav class="sb-nav">
-        <button class="sb-item" id="openCfg">
-          <svg class="sb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h0a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h0a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v0a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-          Configuration
+        <button class="sb-item" id="openCfg" title="Configuration">
+          <span class="sb-ic-wrap" style="background:rgba(107,114,128,.15);--ic-color:#6B7280"><svg class="sb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h0a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h0a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v0a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span>
+          <span class="sb-item-label">Configuration</span>
+          <span class="sb-pill">Configuration</span>
         </button>
       </nav>
     </div>
 
     <div class="sb-foot">
+      <button class="sb-float-toggle" id="sbFloatToggle" title="Mode flottant">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><rect x="3" y="3" width="7" height="18" rx="1"/><path d="M14 3h7M14 9h7M14 15h7"/></svg>
+      </button>
       <div class="sb-user">
         <div class="sb-avatar" id="sbAvatar">VH</div>
         <div class="sb-user-meta">
@@ -3009,36 +3073,68 @@ function renderVeilleIA() {
     }
   ];
 
-  const SYSTEM_PROMPT = `Tu es un expert en veille marketing stratégique pour l'ACL (Automobile Club du Luxembourg), un club de mobilité fondé en 1932 comptant plus de 100 000 membres.
-Effectue une recherche web approfondie sur le sujet demandé. Synthétise les informations les plus récentes, fiables et pertinentes.
+  const CACHE_TTL_MS = 7 * 24 * 60 * 60 * 1000;
+  const loading = {};
 
-Réponds UNIQUEMENT avec un objet JSON valide (sans texte avant ni après) respectant exactement ce format :
-{
-  "titre": "titre de la fiche de veille, concis et informatif (max 80 caractères)",
-  "synthese": "synthèse factuelle des principales tendances ou informations trouvées, 3 à 5 phrases, en français",
-  "actionACL": "recommandation d'action concrète et actionnable pour l'équipe marketing ACL, 2 à 3 phrases précises",
-  "horizon": "court terme (0-3 mois)" ou "moyen terme (3-12 mois)" ou "long terme (12+ mois)",
-  "sources": ["nom ou URL de la source 1", "nom ou URL de la source 2"]
-}`;
+  function cacheKey(tid, qi) { return 'vi_cache_' + tid + '_' + qi; }
 
-  const state = {};
+  function getCached(tid, qi) {
+    try {
+      const raw = localStorage.getItem(cacheKey(tid, qi));
+      if (!raw) return null;
+      const entry = JSON.parse(raw);
+      if (Date.now() - new Date(entry.cachedAt).getTime() > CACHE_TTL_MS) {
+        localStorage.removeItem(cacheKey(tid, qi));
+        return null;
+      }
+      return entry;
+    } catch { return null; }
+  }
 
-  function key(themeId, qi) { return themeId + '-' + qi; }
+  function setCached(tid, qi, data, cachedAt) {
+    try { localStorage.setItem(cacheKey(tid, qi), JSON.stringify({ data, cachedAt })); } catch {}
+  }
+
+  function latestVeilleDate() {
+    let latest = null;
+    THEMES.forEach(t => t.queries.forEach((_, qi) => {
+      try {
+        const raw = localStorage.getItem(cacheKey(t.id, qi));
+        if (!raw) return;
+        const d = new Date(JSON.parse(raw).cachedAt);
+        if (!isNaN(d) && (!latest || d > latest)) latest = d;
+      } catch {}
+    }));
+    return latest ? latest.toLocaleDateString('fr-LU', { day: '2-digit', month: '2-digit', year: 'numeric' }) : null;
+  }
+
+  function escHtml(s) { return (s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
 
   function horizonStyle(h) {
     if (!h) return ['#7A7770', '#F4F4F2'];
-    const l = (h || '').toLowerCase();
-    if (l.includes('court'))  return ['#16A34A', '#DCFCE7'];
-    if (l.includes('moyen'))  return ['#F97316', '#FFF7ED'];
+    const l = h.toLowerCase();
+    if (l.includes('court')) return ['#16A34A', '#DCFCE7'];
+    if (l.includes('moyen')) return ['#F97316', '#FFF7ED'];
     return ['#0A66C2', '#DBEAFE'];
   }
 
-  function escHtml(s) { return (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  function renderSource(s) {
+    if (!s) return '';
+    const isObj = typeof s === 'object';
+    const name = isObj ? (s.name || 'Source') : String(s).substring(0, 50);
+    const url = isObj ? s.url : (String(s).startsWith('http') ? s : null);
+    const date = isObj && s.date ? ' · ' + s.date : '';
+    const label = escHtml(name) + escHtml(date);
+    const style = 'font-size:11px;color:var(--n);text-decoration:underline;text-underline-offset:2px;display:inline-flex;align-items:center;gap:3px;white-space:nowrap;line-height:1';
+    const extIco = '<svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>';
+    if (url) return `<a href="${escHtml(url)}" target="_blank" rel="noopener" style="${style}">${label} ${extIco}</a>`;
+    return `<span style="font-size:11px;color:var(--muted)">${label}</span>`;
+  }
 
   function resultCard(d) {
     if (!d) return `<div style="font-size:12px;color:var(--muted);padding:8px 0;font-style:italic">Réponse non structurée — relancez la requête.</div>`;
     const [hc, hbg] = horizonStyle(d.horizon);
-    const srcs = (d.sources || []).slice(0, 3);
+    const srcs = (d.sources || []).slice(0, 4);
     return `<div style="margin-top:10px;border:1px solid var(--border);border-radius:var(--r-md);overflow:hidden;background:var(--surface)">
       <div style="padding:12px 14px 0">
         <div style="font-size:13px;font-weight:700;line-height:1.4;margin-bottom:6px">${escHtml(d.titre)}</div>
@@ -3050,49 +3146,59 @@ Réponds UNIQUEMENT avec un objet JSON valide (sans texte avant ni après) respe
       </div>
       <div style="padding:8px 14px 10px;display:flex;align-items:center;gap:8px;flex-wrap:wrap">
         <span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px;background:${hbg};color:${hc};white-space:nowrap">${escHtml(d.horizon)}</span>
-        ${srcs.map(s => `<span style="font-size:10px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:220px" title="${(s||'').replace(/"/g,'&quot;')}">${escHtml((s||'').substring(0, 45))}${(s||'').length > 45 ? '…' : ''}</span>`).join('')}
+        ${srcs.map(s => renderSource(s)).join('')}
       </div>
     </div>`;
   }
 
-  function cellId(themeId, qi) { return 'vi-cell-' + themeId + '-' + qi; }
-  function btnId(themeId, qi)  { return 'vi-btn-' + themeId + '-' + qi; }
+  function cellId(tid, qi) { return 'vi-cell-' + tid + '-' + qi; }
+  function btnId(tid, qi)  { return 'vi-btn-'  + tid + '-' + qi; }
 
-  function updateCell(themeId, qi) {
-    const s = state[key(themeId, qi)];
-    const cell = document.getElementById(cellId(themeId, qi));
-    const btn  = document.getElementById(btnId(themeId, qi));
+  function updateCell(tid, qi) {
+    const cell = document.getElementById(cellId(tid, qi));
+    const btn  = document.getElementById(btnId(tid, qi));
     if (!cell) return;
+    const lk = tid + '-' + qi;
+    const cached = getCached(tid, qi);
+    const isLoading = !!loading[lk];
 
-    if (!s) {
-      cell.innerHTML = '';
-    } else if (s.status === 'loading') {
+    if (isLoading) {
       cell.innerHTML = `<div style="display:flex;align-items:center;gap:8px;padding:8px 0;font-size:12px;color:var(--muted)">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="animation:spin 1.2s linear infinite;flex-shrink:0"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
         Recherche web + synthèse en cours…</div>`;
-    } else if (s.status === 'error') {
-      cell.innerHTML = `<div style="font-size:12px;color:var(--bad);padding:8px 0;line-height:1.5">⚠ ${escHtml(s.error)}</div>`;
-    } else if (s.status === 'done') {
-      cell.innerHTML = resultCard(s.data);
+    } else if (loading[lk + '-err']) {
+      cell.innerHTML = `<div style="font-size:12px;color:var(--bad);padding:8px 0;line-height:1.5">⚠ ${escHtml(loading[lk + '-err'])}</div>`;
+    } else if (cached) {
+      cell.innerHTML = resultCard(cached.data);
+    } else {
+      cell.innerHTML = '';
     }
 
     if (btn) {
-      const loading = s?.status === 'loading';
-      btn.disabled = loading;
-      btn.style.opacity = loading ? '0.45' : '1';
-      btn.textContent = s?.status === 'done' ? '↺' : '▶';
-      btn.title = s?.status === 'done' ? 'Relancer' : 'Lancer';
+      btn.disabled = isLoading;
+      btn.style.opacity = isLoading ? '0.45' : '1';
+      btn.textContent = cached ? '↺' : '▶';
+      btn.title = cached ? 'Rafraîchir' : 'Lancer la recherche';
     }
   }
 
-  async function runQuery(themeId, qi) {
-    const theme = THEMES.find(t => t.id === themeId);
+  function updateDateBadge() {
+    const badge = document.getElementById('vi-last-date');
+    if (!badge) return;
+    const d = latestVeilleDate();
+    badge.textContent = d ? 'Dernière mise à jour : ' + d : 'Aucune veille en cache';
+  }
+
+  async function runQuery(tid, qi) {
+    const theme = THEMES.find(t => t.id === tid);
     if (!theme) return;
     const query = theme.queries[qi];
-    const k = key(themeId, qi);
+    const lk = tid + '-' + qi;
 
-    state[k] = { status: 'loading' };
-    updateCell(themeId, qi);
+    loading[lk] = true;
+    delete loading[lk + '-err'];
+    updateCell(tid, qi);
+    updateDateBadge();
 
     try {
       const url = `${API_BASE}/veille-ia?q=${encodeURIComponent(query)}`;
@@ -3103,32 +3209,33 @@ Réponds UNIQUEMENT avec un objet JSON valide (sans texte avant ni après) respe
       }
       const data = await resp.json();
       if (data.error) throw new Error(data.error);
-      state[k] = { status: 'done', data: data.result ?? data };
+      const result = data.result ?? data;
+      const cachedAt = data.cached_at || new Date().toISOString();
+      setCached(tid, qi, result, cachedAt);
     } catch(e) {
-      state[k] = { status: 'error', error: e.message };
+      loading[lk + '-err'] = e.message;
     }
-    updateCell(themeId, qi);
+    delete loading[lk];
+    updateCell(tid, qi);
+    updateDateBadge();
   }
 
-  window._viRun      = (tid, qi)  => runQuery(tid, qi);
-  window._viRunTheme = (tid)      => { const t = THEMES.find(x => x.id === tid); if (t) t.queries.forEach((_,i) => runQuery(tid, i)); };
-  window._viRunAll   = ()         => THEMES.forEach(t => t.queries.forEach((_,i) => runQuery(t.id, i)));
+  window._viRun = (tid, qi) => runQuery(tid, qi);
+
+  const extIcoSm = '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>';
+  const linkStyle = 'font-size:12.5px;color:var(--n);text-decoration:none;display:flex;align-items:center;gap:5px';
 
   const themesHtml = THEMES.map(t => `
     <div class="card" style="border-top:3px solid ${t.color}">
-      <div style="padding:12px 16px 10px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--border)">
-        <span style="font-size:13px;font-weight:700;flex:1">${escHtml(t.label)}</span>
-        <button onclick="window._viRunTheme('${t.id}')" style="font-size:11px;font-weight:700;padding:4px 11px;border-radius:var(--r-sm);background:${t.color};color:#fff;border:none;cursor:pointer;font-family:inherit;white-space:nowrap">▶ Les 3</button>
+      <div style="padding:12px 16px 10px;border-bottom:1px solid var(--border)">
+        <span style="font-size:13px;font-weight:700">${escHtml(t.label)}</span>
       </div>
       <div style="padding:12px 16px;display:flex;flex-direction:column;gap:8px">
         ${t.queries.map((q, qi) => `
           <div style="border:1px solid var(--border);border-radius:var(--r-md);padding:10px 12px;background:var(--surface)">
             <div style="display:flex;align-items:flex-start;gap:8px">
               <div style="flex:1;font-size:12.5px;line-height:1.55;color:var(--text)">${escHtml(q)}</div>
-              <button
-                id="${btnId(t.id, qi)}"
-                onclick="window._viRun('${t.id}',${qi})"
-                title="Lancer"
+              <button id="${btnId(t.id, qi)}" onclick="window._viRun('${t.id}',${qi})" title="Lancer la recherche"
                 style="flex-shrink:0;width:28px;height:28px;border-radius:6px;border:1px solid ${t.color};color:${t.color};background:${t.bg};cursor:pointer;font-size:13px;font-family:inherit;display:grid;place-items:center;transition:opacity .15s"
               >▶</button>
             </div>
@@ -3137,6 +3244,46 @@ Réponds UNIQUEMENT avec un objet JSON valide (sans texte avant ni après) respe
       </div>
     </div>`).join('');
 
+  const ressourcesHtml = `
+    <div class="card" style="margin-top:4px">
+      <div style="padding:12px 16px 10px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;color:var(--muted)"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        <span style="font-size:13px;font-weight:700">Ressources à suivre</span>
+        <span style="font-size:11px;color:var(--muted)">Veille quotidienne recommandée</span>
+      </div>
+      <div style="padding:12px 16px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+        <div>
+          <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:8px">Newsletters</div>
+          <div style="display:flex;flex-direction:column;gap:7px">
+            <a href="https://www.therundown.ai/" target="_blank" rel="noopener" style="${linkStyle}">
+              ${extIcoSm} The Rundown AI</a>
+            <a href="https://tldr.tech/ai" target="_blank" rel="noopener" style="${linkStyle}">
+              ${extIcoSm} TLDR AI</a>
+            <a href="https://bensbites.com/" target="_blank" rel="noopener" style="${linkStyle}">
+              ${extIcoSm} Ben's Bites</a>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:8px">Twitter / X</div>
+          <div style="display:flex;flex-direction:column;gap:7px">
+            <a href="https://x.com/AnthropicAI" target="_blank" rel="noopener" style="${linkStyle}">
+              ${extIcoSm} @AnthropicAI</a>
+            <a href="https://x.com/alexalbert__" target="_blank" rel="noopener" style="${linkStyle}">
+              ${extIcoSm} @alexalbert__</a>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:8px">Reddit</div>
+          <div style="display:flex;flex-direction:column;gap:7px">
+            <a href="https://www.reddit.com/r/ClaudeAI/" target="_blank" rel="noopener" style="${linkStyle}">
+              ${extIcoSm} r/ClaudeAI</a>
+            <a href="https://www.reddit.com/r/ChatGPT/" target="_blank" rel="noopener" style="${linkStyle}">
+              ${extIcoSm} r/ChatGPT</a>
+          </div>
+        </div>
+      </div>
+    </div>`;
+
   el.innerHTML = `
     <div class="sec-title">
       <h2>Veille IA &amp; Marcom</h2><div class="line"></div>
@@ -3144,14 +3291,20 @@ Réponds UNIQUEMENT avec un objet JSON valide (sans texte avant ni après) respe
       <span class="src-pill" style="--src:#0B996E;--src-bg:rgba(11,153,110,0.1)">Web Search</span>
     </div>
 
-    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:4px">
-      <div style="font-size:12px;color:var(--muted)">4 thèmes · 3 requêtes · Recherche web temps réel via claude-sonnet-4-20250514</div>
-      <button onclick="window._viRunAll()" style="font-size:11.5px;font-weight:700;padding:6px 14px;border-radius:var(--r-sm);background:var(--y);color:#000;border:none;cursor:pointer;font-family:inherit">▶ Tout lancer (12 requêtes)</button>
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;flex-wrap:wrap">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--muted);flex-shrink:0"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+      <span style="font-size:12px;color:var(--muted)" id="vi-last-date">Aucune veille en cache</span>
+      <span style="font-size:12px;color:var(--muted)">· Cache hebdomadaire · 4 thèmes · 12 requêtes</span>
     </div>
 
     <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(500px,1fr));gap:16px">
       ${themesHtml}
-    </div>`;
+    </div>
+
+    ${ressourcesHtml}`;
+
+  THEMES.forEach(t => t.queries.forEach((_, qi) => updateCell(t.id, qi)));
+  updateDateBadge();
 }
 
 function renderIntelligence() {
@@ -5993,6 +6146,30 @@ function renderBuffer(d) {
 // ── Boot ──────────────────────────────────────────────────────
 setDateRange(30);
 loadAll();
+
+// ── Sidebar collapse ──────────────────────────────────────────
+(function() {
+  const sb  = document.querySelector('.sb');
+  const btn = document.getElementById('sbToggle');
+  const KEY = 'marcom_sidebar_collapsed';
+  if (localStorage.getItem(KEY) === 'true') sb.classList.add('collapsed');
+  btn?.addEventListener('click', () => {
+    const collapsed = sb.classList.toggle('collapsed');
+    localStorage.setItem(KEY, collapsed);
+  });
+})();
+
+// ── Sidebar floating panel ────────────────────────────────────
+(function() {
+  const app = document.querySelector('.app');
+  const btn = document.getElementById('sbFloatToggle');
+  const KEY = 'marcom_sidebar_floating';
+  if (localStorage.getItem(KEY) === 'true') app.classList.add('floating');
+  btn?.addEventListener('click', () => {
+    const floating = app.classList.toggle('floating');
+    localStorage.setItem(KEY, floating);
+  });
+})();
 </script>
 </body>
 </html>

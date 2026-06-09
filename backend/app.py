@@ -3099,6 +3099,88 @@ def _fetch_ga4_geo_raw(start, end, headers):
 
 
 # ─────────────────────────────────────────────────────────────────────────────
+# Veille IA & Marcom
+# ─────────────────────────────────────────────────────────────────────────────
+
+_VEILLE_SYSTEM_PROMPT = """Tu es un expert en veille marketing stratégique pour l'ACL (Automobile Club du Luxembourg), un club de mobilité fondé en 1932 comptant plus de 100 000 membres.
+Effectue une recherche web approfondie sur le sujet demandé. Privilégie ces sources de référence :
+- Marketing : Marketing Week, HubSpot Blog, Sprout Social Blog, Content Marketing Institute, Search Engine Journal, Econsultancy, Adweek
+- IA & Tech : Anthropic Blog, TechCrunch AI, VentureBeat AI, The Verge, MIT Technology Review
+Cite systématiquement les sources avec leur nom complet et l'URL directe vers l'article.
+
+Retourne UNIQUEMENT un objet JSON valide (sans texte avant ni après) respectant ce format :
+{
+  "titre": "titre concis et informatif (max 80 caractères)",
+  "synthese": "résumé factuel des principales tendances ou informations trouvées, 3 à 5 phrases, en français",
+  "actionACL": "recommandation d'action concrète et actionnable pour l'équipe marketing ACL, 2 à 3 phrases précises",
+  "horizon": "court terme (0-3 mois)" or "moyen terme (3-12 mois)" or "long terme (12+ mois)",
+  "sources": [{"name": "Nom de la publication", "url": "URL directe vers l'article", "date": "YYYY-MM"}]
+}"""
+
+
+@app.route('/veille-ia')
+def veille_ia():
+    query = request.args.get('q', '').strip()
+    if not query:
+        return jsonify({'error': 'Paramètre q manquant'}), 400
+    if not ANTHROPIC_API_KEY:
+        return jsonify({'error': 'ANTHROPIC_API_KEY manquante — configurer la variable d\'environnement sur Railway'}), 503
+
+    import hashlib
+    cache_key = f'veille-ia:{hashlib.md5(query.encode()).hexdigest()}'
+    cached = _cache_get(cache_key)
+    if cached:
+        return jsonify(cached)
+
+    try:
+        import anthropic
+        client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
+        messages = [{'role': 'user', 'content': query}]
+        text = ''
+
+        for _ in range(8):
+            resp = client.messages.create(
+                model='claude-sonnet-4-20250514',
+                max_tokens=1200,
+                system=_VEILLE_SYSTEM_PROMPT,
+                tools=[{'type': 'web_search_20250305', 'name': 'web_search'}],
+                messages=messages
+            )
+            if resp.stop_reason != 'tool_use':
+                text = ''.join(
+                    b.text for b in resp.content
+                    if getattr(b, 'type', '') == 'text'
+                )
+                break
+            messages.append({
+                'role': 'assistant',
+                'content': [b.model_dump() for b in resp.content]
+            })
+            tool_results = [
+                {
+                    'type': 'tool_result',
+                    'tool_use_id': b.id,
+                    'content': getattr(b, 'content', []) or []
+                }
+                for b in resp.content if b.type == 'tool_use'
+            ]
+            messages.append({'role': 'user', 'content': tool_results})
+
+        m = re.search(r'\{[\s\S]*\}', text)
+        result = json.loads(m.group(0)) if m else {'error': 'Réponse non structurée', 'raw': text[:500]}
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+    data = {
+        'result': result,
+        'cached_at': datetime.datetime.utcnow().isoformat()
+    }
+    _cache_set(cache_key, data, 604800)  # TTL 7 jours
+    return jsonify(data)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
 # Startup — préchauffage des caches (Brevo Club + GA4 + GSC pour 30j)
 # ─────────────────────────────────────────────────────────────────────────────
 
