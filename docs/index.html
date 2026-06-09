@@ -4680,21 +4680,35 @@ function renderSEOPositions(d) {
             </div>`).join('') : '<p class="tbl-empty">Aucun recul cette semaine</p>'}
         </div>
       </div>
-      ${acls.length ? `<div class="card">
-        <div class="card-title">Toutes les positions ACL — ${LANG_LBL[lang]}</div>
-        <table class="tbl"><thead><tr><th>Mot-clé</th><th>Segment</th><th>Position</th><th>Variation</th></tr></thead>
-        <tbody>${acls.map(k => `<tr>
-          <td style="font-size:12px">${k.kw}</td>
-          <td style="font-size:11px;color:var(--muted)">${SEGMENT_LBL[k.segment] || k.segment}</td>
-          <td><strong>${k.pos}</strong></td>
-          <td>${k.delta > 0
-            ? `<span class="kpi-badge good" style="font-size:10px">↑${k.delta}</span>`
-            : k.delta < 0
-            ? `<span class="kpi-badge bad"  style="font-size:10px">↓${Math.abs(k.delta)}</span>`
-            : '<span style="color:var(--muted)">—</span>'}
-          </td>
-        </tr>`).join('')}</tbody></table>
-      </div>` : ''}`;
+      ${acls.length ? (() => {
+        const segsInLang = [...new Set(acls.map(k => k.segment))].sort();
+        const tblId = `seo-pos-tbl-${lang}`;
+        const segBtnsId = `seo-pos-seg-${lang}`;
+        return `<div class="card">
+          <div class="card-head" style="flex-wrap:wrap;gap:8px;align-items:flex-start">
+            <div class="card-title">Toutes les positions ACL — ${LANG_LBL[lang]}</div>
+            <div id="${segBtnsId}" style="display:flex;flex-wrap:wrap;gap:5px">
+              <button class="seo-pos-seg-btn active" data-seg-filter="" style="font-size:10px;padding:2px 8px;border-radius:99px;border:1px solid ${SEO_CLR};background:${SEO_SOFT};color:#15803d;cursor:pointer;font-family:inherit;font-weight:600">Tous (${acls.length})</button>
+              ${segsInLang.map(sg => {
+                const cnt = acls.filter(k => k.segment === sg).length;
+                return `<button class="seo-pos-seg-btn" data-seg-filter="${sg}" style="font-size:10px;padding:2px 8px;border-radius:99px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;font-family:inherit">${SEGMENT_LBL[sg]||sg} (${cnt})</button>`;
+              }).join('')}
+            </div>
+          </div>
+          <table class="tbl" id="${tblId}"><thead><tr><th>Mot-clé</th><th>Segment</th><th>Position</th><th>Variation</th></tr></thead>
+          <tbody>${acls.map(k => `<tr data-seg="${k.segment}">
+            <td style="font-size:12px">${k.kw}</td>
+            <td style="font-size:11px;color:var(--muted)">${SEGMENT_LBL[k.segment] || k.segment}</td>
+            <td><strong>${k.pos}</strong></td>
+            <td>${k.delta > 0
+              ? `<span class="kpi-badge good" style="font-size:10px">↑${k.delta}</span>`
+              : k.delta < 0
+              ? `<span class="kpi-badge bad"  style="font-size:10px">↓${Math.abs(k.delta)}</span>`
+              : '<span style="color:var(--muted)">—</span>'}
+            </td>
+          </tr>`).join('')}</tbody></table>
+        </div>`;
+      })() : ''}`;
   }
 
   function compHtml(lang, seg) {
@@ -4720,7 +4734,12 @@ function renderSEOPositions(d) {
         .filter(k => k.segment === seg)
         .map(k => ({kw: k.kw, pos: k.pos, lang: l.toUpperCase()}))
     );
-    if (!allKws.length) return '';
+    if (!allKws.length) {
+      // Show note if segment exists in competitors data but ACL has no ranking
+      const hasSegment = ['fr','en','de'].some(l => d.competitors?.[l]?.segments?.[seg]);
+      if (!hasSegment) return '';
+      return `<div style="margin-top:12px;font-size:11px;color:var(--muted);font-style:italic">ACL non classé Top 10 sur ce segment — aucun mot-clé suivi ne génère de position visible.</div>`;
+    }
     const seen = new Set();
     const unique = allKws.filter(k => { if (seen.has(k.kw)) return false; seen.add(k.kw); return true; });
     return `<details class="kw-list-details" style="margin-top:12px">
@@ -4804,6 +4823,27 @@ function renderSEOPositions(d) {
         b.style.color       = on ? '#15803d' : 'var(--fg)';
       });
       document.getElementById('seo-mkt').innerHTML = mktHtml(activeLang);
+    });
+  });
+
+  // Segment filter on positions table (event delegation — table is re-rendered on lang change)
+  el.addEventListener('click', function(e) {
+    const btn = e.target.closest('.seo-pos-seg-btn');
+    if (!btn) return;
+    const segFilter = btn.dataset.segFilter;
+    const wrap = btn.closest('.card');
+    if (!wrap) return;
+    wrap.querySelectorAll('.seo-pos-seg-btn').forEach(b => {
+      const on = b === btn;
+      b.style.borderColor = on ? SEO_CLR : 'var(--border)';
+      b.style.background  = on ? SEO_SOFT : 'transparent';
+      b.style.color       = on ? '#15803d' : 'var(--muted)';
+      b.classList.toggle('active', on);
+    });
+    const tbl = wrap.querySelector('table tbody');
+    if (!tbl) return;
+    tbl.querySelectorAll('tr').forEach(row => {
+      row.style.display = (!segFilter || row.dataset.seg === segFilter) ? '' : 'none';
     });
   });
 

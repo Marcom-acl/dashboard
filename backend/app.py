@@ -1767,7 +1767,7 @@ def brevo_thematic_lists():
              for lang, lid in langs.items()]
 
     results = {}
-    with __import__('concurrent.futures').ThreadPoolExecutor(max_workers=8) as ex:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=8) as ex:
         future_map = {ex.submit(fetch_list, lid): (theme, lang) for theme, lang, lid in tasks}
         for fut, (theme, lang) in future_map.items():
             count = fut.result()
