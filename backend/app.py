@@ -3140,7 +3140,7 @@ def veille_ia():
 
         for _ in range(8):
             resp = client.messages.create(
-                model='claude-sonnet-4-20250514',
+                model='claude-sonnet-4-6',
                 max_tokens=1200,
                 system=_VEILLE_SYSTEM_PROMPT,
                 tools=[{'type': 'web_search_20250305', 'name': 'web_search'}],
