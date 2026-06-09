@@ -3187,9 +3187,23 @@ function renderVeilleIA() {
 
   function updateDateBadge() {
     const badge = document.getElementById('vi-last-date');
-    if (!badge) return;
-    const d = latestVeilleDate();
-    badge.textContent = d ? 'Dernière mise à jour : ' + d : 'Aucune veille en cache';
+    if (badge) {
+      const d = latestVeilleDate();
+      badge.textContent = d ? 'Dernière mise à jour : ' + d : 'Aucune veille en cache';
+    }
+    const btn = document.getElementById('vi-run-all-btn');
+    if (!btn) return;
+    const anyLoading = THEMES.some(t => t.queries.some((_, qi) => !!loading[t.id + '-' + qi]));
+    const allCached  = THEMES.every(t => t.queries.every((_, qi) => !!getCached(t.id, qi)));
+    btn.disabled = anyLoading;
+    btn.style.opacity = anyLoading ? '0.5' : '1';
+    if (anyLoading) {
+      btn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="animation:spin 1.2s linear infinite"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg> En cours…';
+    } else if (allCached) {
+      btn.innerHTML = '↺ Rafraîchir la veille';
+    } else {
+      btn.innerHTML = '▶ Lancer la veille';
+    }
   }
 
   async function runQuery(tid, qi) {
@@ -3223,7 +3237,8 @@ function renderVeilleIA() {
     updateDateBadge();
   }
 
-  window._viRun = (tid, qi) => runQuery(tid, qi);
+  window._viRun    = (tid, qi) => runQuery(tid, qi);
+  window._viRunAll = () => THEMES.forEach(t => t.queries.forEach((_, qi) => runQuery(t.id, qi)));
 
   const extIcoSm = '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>';
   const linkStyle = 'font-size:12.5px;color:var(--n);text-decoration:none;display:flex;align-items:center;gap:5px';
@@ -3294,10 +3309,14 @@ function renderVeilleIA() {
       <span class="src-pill" style="--src:#0B996E;--src-bg:rgba(11,153,110,0.1)">Web Search</span>
     </div>
 
-    <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;flex-wrap:wrap">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;flex-wrap:wrap">
+      <button id="vi-run-all-btn" onclick="window._viRunAll()"
+        style="display:inline-flex;align-items:center;gap:7px;padding:7px 16px;border-radius:var(--r-sm);background:var(--n);color:#fff;border:none;cursor:pointer;font-size:13px;font-weight:600;font-family:inherit;transition:opacity .15s;flex-shrink:0">
+        ▶ Lancer la veille
+      </button>
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--muted);flex-shrink:0"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
       <span style="font-size:12px;color:var(--muted)" id="vi-last-date">Aucune veille en cache</span>
-      <span style="font-size:12px;color:var(--muted)">· Mise à jour automatique chaque lundi · 4 thèmes · 12 requêtes</span>
+      <span style="font-size:12px;color:var(--muted)">· Mise à jour automatique chaque lundi</span>
     </div>
 
     <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(500px,1fr));gap:16px">
