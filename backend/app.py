@@ -955,7 +955,7 @@ _SITE_SECTIONS = [
     {
         'key':    'club',
         'label':  'Club Avantages',
-        'prefixes': ['/club/'],
+        'prefixes': ['/club/', '/club'],
     },
     {
         'key':    'magazine',
@@ -1071,7 +1071,7 @@ def ga4_sections():
             ],
             'dimensionFilter': dim_filter,
             'orderBys': [{'metric': {'metricName': 'screenPageViews'}, 'desc': True}],
-            'limit': 10,
+            'limit': 50,
         }
         rp = _post(url, headers=headers, json=pages_body)
         top_pages = []

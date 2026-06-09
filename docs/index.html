@@ -1180,6 +1180,10 @@
           SEO Positions
           <span class="sb-dot" id="bs-seopos" style="background:var(--muted-2);"></span>
         </button>
+        <button class="sb-item tab-btn" data-tab="veille-ia">
+          <svg class="sb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l1.5 4.5L18 8l-4.5 1.5L12 14l-1.5-4.5L6 8l4.5-1.5z"/><path d="M19 15l.75 2.25L22 18l-2.25.75L19 21l-.75-2.25L16 18l2.25-.75z"/></svg>
+          Veille IA &amp; Marcom
+        </button>
         <button class="sb-item tab-btn" data-tab="intelligence">
           <svg class="sb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a7 7 0 0 1 7 7c0 2.5-1.3 4.7-3.3 6L15 17H9l-.7-2C6.3 13.7 5 11.5 5 9a7 7 0 0 1 7-7z"/><path d="M9 21h6M10 17v4M14 17v4"/></svg>
           Intelligence Web
@@ -1303,6 +1307,9 @@
 
         <!-- ── INTELLIGENCE WEB ──────────────────────────────────── -->
         <div id="panel-intelligence" class="tab-panel"></div>
+
+        <!-- ── VEILLE IA & MARCOM ────────────────────────────────── -->
+        <div id="panel-veille-ia" class="tab-panel"></div>
 
         <!-- ── BUFFER / SOCIAL MEDIA ─────────────────────────────── -->
         <div id="panel-buffer" class="tab-panel"></div>
@@ -1519,6 +1526,7 @@ function _renderTab(tab) {
   else if (tab === 'seopos')       renderSEOPositions(d.dSEO);
   else if (tab === 'buffer')       renderBuffer(d.dBuffer);
   else if (tab === 'intelligence') renderIntelligence();
+  else if (tab === 'veille-ia')   renderVeilleIA();
 }
 
 // ── loadAll ───────────────────────────────────────────────────
@@ -2929,7 +2937,7 @@ function renderSections(d) {
           const _d = (c,v) => p && v > 0 ? (c-v)/v*100 : null;
           const dv = _d(s.views, p?.views), de = _d(s.engagedSessions, p?.engagedSessions), der = _d(s.engagementRate, p?.engagementRate);
           const dspan = (delta, inv) => { if (delta==null) return ''; const good=(inv?delta<0:delta>0); return `<span style="font-size:10px;font-weight:700;color:${good?'var(--good)':'var(--bad)'}"> ${delta>0?'+':''}${delta.toFixed(0)}%</span>`; };
-          return `<tr><td><button onclick="window._switchSection('${s.key}')" style="background:none;border:none;color:var(--c-ga4);cursor:pointer;font-size:13px;padding:0;text-decoration:underline;text-underline-offset:2px">${s.label}</button></td><td class="r">${fmtN(s.views)}${dspan(dv,false)}</td><td class="r">${fmtN(s.engagedSessions)}${dspan(de,false)}</td><td class="r">${fmtPct(s.engagementRate)}${dspan(der,false)}</td><td class="r">${fmtDur(s.avgDuration)}</td><td class="r">${fmtN(s.keyEvents)}</td></tr>`;
+          return `<tr><td><button onclick="window._switchSection('${s.key}')" style="background:none;border:none;color:var(--n);cursor:pointer;font-size:13px;padding:0;text-decoration:underline;text-underline-offset:2px">${s.label}</button></td><td class="r">${fmtN(s.views)}${dspan(dv,false)}</td><td class="r">${fmtN(s.engagedSessions)}${dspan(de,false)}</td><td class="r">${fmtPct(s.engagementRate)}${dspan(der,false)}</td><td class="r">${fmtDur(s.avgDuration)}</td><td class="r">${fmtN(s.keyEvents)}</td></tr>`;
         }).join('')}</tbody>
       </table></div></div></div>`;
   }
@@ -2949,6 +2957,203 @@ function renderSections(d) {
 }
 
 // ── INTELLIGENCE WEB ──────────────────────────────────────────
+// ── VEILLE IA & MARCOM ────────────────────────────────────────
+function renderVeilleIA() {
+  const el = document.getElementById('panel-veille-ia');
+  if (!el) return;
+
+  const THEMES = [
+    {
+      id: 'ia-marketing',
+      label: 'IA générative en marketing',
+      color: '#8B5CF6',
+      bg: 'rgba(139,92,246,0.08)',
+      queries: [
+        'Recherche les dernières tendances IA générative en marketing digital en 2025 : outils, cas d\'usage concrets et ROI mesurés par des marques européennes.',
+        'Comment les marques européennes utilisent-elles l\'IA générative pour personnaliser leurs communications avec leurs membres et leurs newsletters en 2025 ?',
+        'Fais un benchmark 2025 des outils IA pour petites équipes marketing (Jasper, Copy.ai, Canva Magic Studio, Notion AI, etc.) : fonctionnalités, tarifs et adéquation pour une équipe de 3-5 personnes.'
+      ]
+    },
+    {
+      id: 'crm-member',
+      label: 'CRM & member marketing',
+      color: '#0B996E',
+      bg: 'rgba(11,153,110,0.08)',
+      queries: [
+        'Quelles sont les tendances CRM et fidélisation membres pour les associations automobiles, clubs et organisations membres en Europe en 2025 ? Exemples concrets et innovations.',
+        'Meilleures pratiques 2025 de marketing lifecycle pour les membres d\'associations : onboarding, rétention long terme, réactivation des membres inactifs — avec des données et exemples.',
+        'Quelles sont les nouveautés en email marketing automation B2C en 2025 (Brevo, Mailchimp, HubSpot) et leur impact mesurable sur l\'engagement et la rétention des membres ?'
+      ]
+    },
+    {
+      id: 'social-ads',
+      label: 'Social & Ads',
+      color: '#1877F2',
+      bg: 'rgba(24,119,242,0.08)',
+      queries: [
+        'Quelles sont les évolutions majeures des algorithmes Facebook et Instagram en 2025 et leurs implications concrètes pour les marques communautaires et institutionnelles ?',
+        'LinkedIn Ads en 2025 : nouvelles options de ciblage, formats publicitaires et meilleures pratiques pour atteindre les professionnels conducteurs et membres de clubs automobiles en Europe.',
+        'Benchmarks publicité sociale 2025 : CPC, CTR, ROAS par secteur pour l\'automobile, l\'assurance et les services aux membres — données récentes et comparaisons sectorielles.'
+      ]
+    },
+    {
+      id: 'design-branding',
+      label: 'Design & branding',
+      color: '#F97316',
+      bg: 'rgba(249,115,22,0.08)',
+      queries: [
+        'Quelles sont les tendances design de marque en 2025 (typographie, couleur, identité visuelle) pour les associations et marques institutionnelles européennes établies depuis plus de 50 ans ?',
+        'Motion design et vidéo courte pour les marques B2C en 2025 : Reels Instagram, YouTube Shorts — meilleures pratiques, durées optimales et métriques de performance.',
+        'Comment les équipes marketing réduites gèrent-elles la cohérence de leur design system à l\'ère de l\'IA générative ? Défis, solutions et outils en 2025.'
+      ]
+    }
+  ];
+
+  const SYSTEM_PROMPT = `Tu es un expert en veille marketing stratégique pour l'ACL (Automobile Club du Luxembourg), un club de mobilité fondé en 1932 comptant plus de 100 000 membres.
+Effectue une recherche web approfondie sur le sujet demandé. Synthétise les informations les plus récentes, fiables et pertinentes.
+
+Réponds UNIQUEMENT avec un objet JSON valide (sans texte avant ni après) respectant exactement ce format :
+{
+  "titre": "titre de la fiche de veille, concis et informatif (max 80 caractères)",
+  "synthese": "synthèse factuelle des principales tendances ou informations trouvées, 3 à 5 phrases, en français",
+  "actionACL": "recommandation d'action concrète et actionnable pour l'équipe marketing ACL, 2 à 3 phrases précises",
+  "horizon": "court terme (0-3 mois)" ou "moyen terme (3-12 mois)" ou "long terme (12+ mois)",
+  "sources": ["nom ou URL de la source 1", "nom ou URL de la source 2"]
+}`;
+
+  const state = {};
+
+  function key(themeId, qi) { return themeId + '-' + qi; }
+
+  function horizonStyle(h) {
+    if (!h) return ['#7A7770', '#F4F4F2'];
+    const l = (h || '').toLowerCase();
+    if (l.includes('court'))  return ['#16A34A', '#DCFCE7'];
+    if (l.includes('moyen'))  return ['#F97316', '#FFF7ED'];
+    return ['#0A66C2', '#DBEAFE'];
+  }
+
+  function escHtml(s) { return (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+  function resultCard(d) {
+    if (!d) return `<div style="font-size:12px;color:var(--muted);padding:8px 0;font-style:italic">Réponse non structurée — relancez la requête.</div>`;
+    const [hc, hbg] = horizonStyle(d.horizon);
+    const srcs = (d.sources || []).slice(0, 3);
+    return `<div style="margin-top:10px;border:1px solid var(--border);border-radius:var(--r-md);overflow:hidden;background:var(--surface)">
+      <div style="padding:12px 14px 0">
+        <div style="font-size:13px;font-weight:700;line-height:1.4;margin-bottom:6px">${escHtml(d.titre)}</div>
+        <div style="font-size:12.5px;line-height:1.65;color:var(--text);margin-bottom:10px">${escHtml(d.synthese)}</div>
+      </div>
+      <div style="background:rgba(0,0,0,.025);border-top:1px solid var(--border);padding:10px 14px">
+        <div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:4px">Action ACL</div>
+        <div style="font-size:12.5px;line-height:1.6;color:var(--text)">${escHtml(d.actionACL)}</div>
+      </div>
+      <div style="padding:8px 14px 10px;display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+        <span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px;background:${hbg};color:${hc};white-space:nowrap">${escHtml(d.horizon)}</span>
+        ${srcs.map(s => `<span style="font-size:10px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:220px" title="${(s||'').replace(/"/g,'&quot;')}">${escHtml((s||'').substring(0, 45))}${(s||'').length > 45 ? '…' : ''}</span>`).join('')}
+      </div>
+    </div>`;
+  }
+
+  function cellId(themeId, qi) { return 'vi-cell-' + themeId + '-' + qi; }
+  function btnId(themeId, qi)  { return 'vi-btn-' + themeId + '-' + qi; }
+
+  function updateCell(themeId, qi) {
+    const s = state[key(themeId, qi)];
+    const cell = document.getElementById(cellId(themeId, qi));
+    const btn  = document.getElementById(btnId(themeId, qi));
+    if (!cell) return;
+
+    if (!s) {
+      cell.innerHTML = '';
+    } else if (s.status === 'loading') {
+      cell.innerHTML = `<div style="display:flex;align-items:center;gap:8px;padding:8px 0;font-size:12px;color:var(--muted)">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="animation:spin 1.2s linear infinite;flex-shrink:0"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+        Recherche web + synthèse en cours…</div>`;
+    } else if (s.status === 'error') {
+      cell.innerHTML = `<div style="font-size:12px;color:var(--bad);padding:8px 0;line-height:1.5">⚠ ${escHtml(s.error)}</div>`;
+    } else if (s.status === 'done') {
+      cell.innerHTML = resultCard(s.data);
+    }
+
+    if (btn) {
+      const loading = s?.status === 'loading';
+      btn.disabled = loading;
+      btn.style.opacity = loading ? '0.45' : '1';
+      btn.textContent = s?.status === 'done' ? '↺' : '▶';
+      btn.title = s?.status === 'done' ? 'Relancer' : 'Lancer';
+    }
+  }
+
+  async function runQuery(themeId, qi) {
+    const theme = THEMES.find(t => t.id === themeId);
+    if (!theme) return;
+    const query = theme.queries[qi];
+    const k = key(themeId, qi);
+
+    state[k] = { status: 'loading' };
+    updateCell(themeId, qi);
+
+    try {
+      const url = `${API_BASE}/veille-ia?q=${encodeURIComponent(query)}`;
+      const resp = await fetch(url, { signal: AbortSignal.timeout(90000) });
+      if (!resp.ok) {
+        const e = await resp.json().catch(() => ({}));
+        throw new Error(e.error || 'HTTP ' + resp.status);
+      }
+      const data = await resp.json();
+      if (data.error) throw new Error(data.error);
+      state[k] = { status: 'done', data: data.result ?? data };
+    } catch(e) {
+      state[k] = { status: 'error', error: e.message };
+    }
+    updateCell(themeId, qi);
+  }
+
+  window._viRun      = (tid, qi)  => runQuery(tid, qi);
+  window._viRunTheme = (tid)      => { const t = THEMES.find(x => x.id === tid); if (t) t.queries.forEach((_,i) => runQuery(tid, i)); };
+  window._viRunAll   = ()         => THEMES.forEach(t => t.queries.forEach((_,i) => runQuery(t.id, i)));
+
+  const themesHtml = THEMES.map(t => `
+    <div class="card" style="border-top:3px solid ${t.color}">
+      <div style="padding:12px 16px 10px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--border)">
+        <span style="font-size:13px;font-weight:700;flex:1">${escHtml(t.label)}</span>
+        <button onclick="window._viRunTheme('${t.id}')" style="font-size:11px;font-weight:700;padding:4px 11px;border-radius:var(--r-sm);background:${t.color};color:#fff;border:none;cursor:pointer;font-family:inherit;white-space:nowrap">▶ Les 3</button>
+      </div>
+      <div style="padding:12px 16px;display:flex;flex-direction:column;gap:8px">
+        ${t.queries.map((q, qi) => `
+          <div style="border:1px solid var(--border);border-radius:var(--r-md);padding:10px 12px;background:var(--surface)">
+            <div style="display:flex;align-items:flex-start;gap:8px">
+              <div style="flex:1;font-size:12.5px;line-height:1.55;color:var(--text)">${escHtml(q)}</div>
+              <button
+                id="${btnId(t.id, qi)}"
+                onclick="window._viRun('${t.id}',${qi})"
+                title="Lancer"
+                style="flex-shrink:0;width:28px;height:28px;border-radius:6px;border:1px solid ${t.color};color:${t.color};background:${t.bg};cursor:pointer;font-size:13px;font-family:inherit;display:grid;place-items:center;transition:opacity .15s"
+              >▶</button>
+            </div>
+            <div id="${cellId(t.id, qi)}"></div>
+          </div>`).join('')}
+      </div>
+    </div>`).join('');
+
+  el.innerHTML = `
+    <div class="sec-title">
+      <h2>Veille IA &amp; Marcom</h2><div class="line"></div>
+      <span class="src-pill" style="--src:#8B5CF6;--src-bg:rgba(139,92,246,0.1)">Anthropic</span>
+      <span class="src-pill" style="--src:#0B996E;--src-bg:rgba(11,153,110,0.1)">Web Search</span>
+    </div>
+
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:4px">
+      <div style="font-size:12px;color:var(--muted)">4 thèmes · 3 requêtes · Recherche web temps réel via claude-sonnet-4-20250514</div>
+      <button onclick="window._viRunAll()" style="font-size:11.5px;font-weight:700;padding:6px 14px;border-radius:var(--r-sm);background:var(--y);color:#000;border:none;cursor:pointer;font-family:inherit">▶ Tout lancer (12 requêtes)</button>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(500px,1fr));gap:16px">
+      ${themesHtml}
+    </div>`;
+}
+
 function renderIntelligence() {
   const el = document.getElementById('panel-intelligence');
   if (!el) return;
@@ -5145,8 +5350,8 @@ function applyGlobalRange() {
   const drawer   = document.getElementById('cfgDrawer');
   const openBtns = [document.getElementById('openCfg'), document.getElementById('openCfgTop')];
   const closeBtn = document.getElementById('cfgClose');
-  const saveBtn  = document.getElementById('cfgSave');
-  const inp      = document.getElementById('brevoKey');
+  const saveBtn = document.getElementById('cfgSave');
+  const inp     = document.getElementById('brevoKey');
 
   if (inp) inp.value = API_BASE;
 
