@@ -356,9 +356,9 @@ def google_callback():
 # ─────────────────────────────────────────────────────────────────────────────
 
 FB_TOKEN_PATH = _token_path('fb_token.json')
-FB_AUTH_URL   = 'https://www.facebook.com/v19.0/dialog/oauth'
-FB_TOKEN_URL  = 'https://graph.facebook.com/v19.0/oauth/access_token'
-FB_GRAPH      = 'https://graph.facebook.com/v19.0'
+FB_AUTH_URL   = 'https://www.facebook.com/v22.0/dialog/oauth'
+FB_TOKEN_URL  = 'https://graph.facebook.com/v22.0/oauth/access_token'
+FB_GRAPH      = 'https://graph.facebook.com/v22.0'
 
 FB_SCOPES = [
     'ads_read', 'read_insights', 'pages_read_engagement',
@@ -1517,6 +1517,7 @@ def fb_page():
     impressions_total  = 0
     engaged_total      = 0
     engagements_total  = 0
+    sm_errors  = []
 
     for page_name, page_id in FB_PAGES.items():
         fans = 0
@@ -1567,7 +1568,17 @@ def fb_page():
                     })
 
         # Posts count via Supermetrics — indépendant du token FB
-        posts_count = _supermetrics_fb_posts_count(page_id, start, end)
+        rows_sm, schema_sm, err_sm = _supermetrics_query(
+            'FB', page_id,
+            ['post_ID', 'post_reactions_total'],
+            start, end,
+            max_rows=1000,
+            settings={'include_all_published_posts': 'true'},
+        )
+        if err_sm:
+            sm_errors.append(f'{page_name}: {err_sm}')
+        _SKIP = {'', 'Post ID', 'post_ID'}
+        posts_count = len([r for r in (rows_sm or []) if r and str(r[0]) not in _SKIP])
 
         pages_data.append({'name': page_name, 'id': page_id, 'fans': fans, 'posts_count': posts_count})
 
@@ -1582,6 +1593,10 @@ def fb_page():
         },
         'topPosts': all_posts[:10],
         'ytd':      {},
+        '_debug': {
+            'fb_token':  bool(token),
+            'sm_errors': sm_errors or None,
+        },
     }
     _cache_set(key, data, 900)
     return jsonify(data)
@@ -2345,21 +2360,6 @@ def _n(v, default=0.0):
         return default
 
 
-def _supermetrics_fb_posts_count(page_id, start, end):
-    """Nombre de posts publiés sur une page FB via Supermetrics (indépendant du token Graph API).
-    Retourne 0 si Supermetrics n'a pas FB Insights connecté ou si la clé manque.
-    """
-    rows, schema, err = _supermetrics_query(
-        'FB', page_id,
-        ['post_ID', 'post_reactions_total'],
-        start, end,
-        max_rows=1000,
-        settings={'include_all_published_posts': 'true'},
-    )
-    if err or not rows:
-        return 0
-    _SKIP = {'', 'Post ID', 'post_ID'}
-    return len([r for r in rows if r and str(r[0]) not in _SKIP])
 
 
 @app.route('/supermetrics/linkedin')
