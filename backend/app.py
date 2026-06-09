@@ -3166,8 +3166,26 @@ def veille_ia():
             ]
             messages.append({'role': 'user', 'content': tool_results})
 
-        m = re.search(r'\{[\s\S]*\}', text)
-        result = json.loads(m.group(0)) if m else {'error': 'Réponse non structurée', 'raw': text[:500]}
+        # Bracket-matching pour extraire le premier objet JSON complet
+        text_clean = re.sub(r'```(?:json)?\s*', '', text).strip()
+        result = None
+        start = text_clean.find('{')
+        if start >= 0:
+            depth, in_str, esc = 0, False, False
+            for i, c in enumerate(text_clean[start:], start):
+                if esc:             esc = False; continue
+                if c == '\\' and in_str: esc = True; continue
+                if c == '"':        in_str = not in_str; continue
+                if in_str:          continue
+                if c == '{':        depth += 1
+                elif c == '}':
+                    depth -= 1
+                    if depth == 0:
+                        try: result = json.loads(text_clean[start:i+1])
+                        except json.JSONDecodeError: pass
+                        break
+        if result is None:
+            result = {'error': 'Réponse non structurée', 'raw': text[:500]}
 
     except Exception as e:
         return jsonify({'error': str(e)}), 500
