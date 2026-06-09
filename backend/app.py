@@ -3101,122 +3101,17 @@ def _fetch_ga4_geo_raw(start, end, headers):
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Veille IA & Marcom
-# Génération : APScheduler (lundi 06:00 LU) → appels Anthropic séquentiels
-#              → écriture du JSON sur GitHub via API (GITHUB_TOKEN requis)
-# Lecture    : /veille-ia lit depuis GitHub raw URL, cache 1 h
+# Génération : tâche planifiée Claude.ai → POST /veille-ia/ingest
+# Lecture    : GET /veille-ia lit depuis GitHub raw URL, cache 1 h
 # ─────────────────────────────────────────────────────────────────────────────
 
-GITHUB_REPO      = 'Marcom-acl/dashboard'
-GITHUB_FILE_PATH = 'data/veille-ia-data.json'
-
-_VEILLE_SYSTEM_PROMPT = (
-    "Tu es un expert en veille marketing stratégique pour une équipe marketing de club automobile européen.\n"
-    "Effectue une recherche web approfondie sur le sujet demandé. Consulte plusieurs sources variées et récentes.\n\n"
-    "Sources à privilégier selon le sujet :\n"
-    "- Marketing & contenu : Marketing Week, HubSpot Blog, Content Marketing Institute, Econsultancy, Adweek, "
-    "MarketingProfs, Social Media Examiner, Sprout Social Blog, Later Blog, Buffer Blog, Hootsuite Blog\n"
-    "- CRM & email : Mailchimp Blog, Brevo Blog, Klaviyo Blog, Salesforce Blog, Campaign Monitor Blog\n"
-    "- SEO & digital : Search Engine Journal, Moz Blog, Ahrefs Blog, Backlinko, Google Search Central Blog, Semrush Blog\n"
-    "- IA & Tech : Anthropic Blog, OpenAI Blog, Google DeepMind Blog, MIT Technology Review, TechCrunch, "
-    "VentureBeat, The Verge, Wired, Ars Technica\n"
-    "- Design & UX : Smashing Magazine, Nielsen Norman Group, UX Collective, Adobe Blog, Figma Blog, Awwwards\n"
-    "- Stratégie & management : Harvard Business Review, MIT Sloan Management Review, Forrester, Gartner, McKinsey Digital\n"
-    "- Data & plateformes : Think with Google, Meta for Business, LinkedIn Marketing Solutions Blog, Statista\n\n"
-    "Cite au minimum 5 sources différentes avec leur nom complet et l'URL directe vers l'article ou la page concernée.\n\n"
-    "Retourne UNIQUEMENT un objet JSON valide (sans texte avant ni après) respectant ce format :\n"
-    '{"titre":"titre concis et informatif (max 80 car.)","synthese":"résumé factuel 4-6 phrases en français",'
-    '"actionACL":"recommandation concrète pour l\'équipe marketing 2-3 phrases",'
-    '"horizon":"court terme (0-3 mois)" or "moyen terme (3-12 mois)" or "long terme (12+ mois)",'
-    '"sources":[{"name":"Nom de la publication","url":"URL directe","date":"YYYY-MM"}]}\n'
-    "Le tableau sources doit contenir entre 5 et 7 entrées."
-)
-
-_VEILLE_ALL_QUERIES = [
-    ('ia-marketing', 'IA générative en marketing', '#8B5CF6', [
-        ("Quelles sont les dernières avancées en IA générative appliquée au marketing digital ? "
-         "Présente les outils les plus récents, des cas d'usage concrets et des ROI mesurés par des marques européennes."),
-        ("Comment les marques utilisent-elles aujourd'hui l'IA générative pour personnaliser leurs "
-         "newsletters et leurs communications avec leurs membres ? Exemples et données récentes."),
-        ("Benchmark actuel des outils IA pour petites équipes marketing (Jasper, Copy.ai, Canva Magic Studio, "
-         "Notion AI, ChatGPT) : fonctionnalités, tarifs et adéquation pour une équipe de 3 à 5 personnes."),
-    ]),
-    ('crm-member', 'CRM & member marketing', '#0B996E', [
-        ("Quelles sont les tendances actuelles en CRM et fidélisation membres pour les associations automobiles, "
-         "clubs et organisations membres en Europe ? Exemples concrets et innovations récentes."),
-        ("Meilleures pratiques actuelles de marketing lifecycle pour les membres d'associations : onboarding, "
-         "rétention long terme, réactivation des membres inactifs — avec des données et exemples récents."),
-        ("Quelles sont les dernières nouveautés en email marketing automation B2C (Brevo, Mailchimp, HubSpot) "
-         "et leur impact mesurable sur l'engagement et la rétention des membres ?"),
-    ]),
-    ('social-ads', 'Social & Ads', '#1877F2', [
-        ("Quelles sont les évolutions récentes des algorithmes Facebook et Instagram et leurs implications "
-         "concrètes pour les marques communautaires et institutionnelles ?"),
-        ("LinkedIn Ads : quelles sont les nouvelles options de ciblage et les formats publicitaires les plus "
-         "performants actuellement pour atteindre les professionnels et membres de clubs automobiles en Europe ?"),
-        ("Benchmarks publicité sociale actuels : CPC, CTR, ROAS par secteur pour l'automobile, "
-         "l'assurance et les services aux membres — données les plus récentes disponibles."),
-    ]),
-    ('design-branding', 'Design & branding', '#F97316', [
-        ("Quelles sont les tendances design de marque actuelles (typographie, couleur, identité visuelle) "
-         "pour les associations et marques institutionnelles européennes établies depuis plus de 50 ans ?"),
-        ("Motion design et vidéo courte pour les marques B2C : Reels Instagram, YouTube Shorts — "
-         "quelles sont les meilleures pratiques et métriques de performance actuellement ?"),
-        ("Comment les équipes marketing réduites gèrent-elles la cohérence de leur design system "
-         "à l'ère de l'IA générative ? Défis, solutions et outils recommandés aujourd'hui."),
-    ]),
-]
-
-
-def _extract_json_from_text(text):
-    """Bracket-matching : extrait le premier objet JSON complet, gère les blocs markdown."""
-    clean = re.sub(r'```(?:json)?\s*', '', text).strip()
-    start = clean.find('{')
-    if start < 0:
-        return None
-    depth, in_str, esc = 0, False, False
-    for i, c in enumerate(clean[start:], start):
-        if esc:                  esc = False;          continue
-        if c == '\\' and in_str: esc = True;           continue
-        if c == '"':             in_str = not in_str;  continue
-        if in_str:               continue
-        if c == '{':             depth += 1
-        elif c == '}':
-            depth -= 1
-            if depth == 0:
-                try:    return json.loads(clean[start:i + 1])
-                except: pass
-                break
-    return None
-
-
-def _fetch_single_veille(query):
-    """Appelle Anthropic + web_search pour une requête. Retourne le dict résultat."""
-    import anthropic
-    client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
-    messages = [{'role': 'user', 'content': query}]
-    text = ''
-    for _ in range(10):
-        resp = client.messages.create(
-            model='claude-sonnet-4-6',
-            max_tokens=2000,
-            system=_VEILLE_SYSTEM_PROMPT,
-            tools=[{'type': 'web_search_20250305', 'name': 'web_search'}],
-            messages=messages,
-        )
-        if resp.stop_reason != 'tool_use':
-            text = ''.join(b.text for b in resp.content if getattr(b, 'type', '') == 'text')
-            break
-        messages.append({'role': 'assistant', 'content': [b.model_dump() for b in resp.content]})
-        messages.append({'role': 'user', 'content': [
-            {'type': 'tool_result', 'tool_use_id': b.id, 'content': getattr(b, 'content', []) or []}
-            for b in resp.content if b.type == 'tool_use'
-        ]})
-    result = _extract_json_from_text(text)
-    return result or {'error': 'Réponse non structurée', 'raw': text[:200]}
+VEILLE_INGEST_TOKEN = os.environ.get('VEILLE_INGEST_TOKEN', '')
+GITHUB_REPO         = 'Marcom-acl/dashboard'
+GITHUB_FILE_PATH    = 'data/veille-ia-data.json'
 
 
 def _write_veille_ia_to_github(data):
-    """Écrit data/veille-ia-data.json sur GitHub via l'API REST. Nécessite GITHUB_TOKEN."""
+    """Écrit data/veille-ia-data.json sur GitHub via l'API REST."""
     if not GITHUB_TOKEN:
         return False
     import base64
@@ -3224,10 +3119,7 @@ def _write_veille_ia_to_github(data):
         json.dumps(data, ensure_ascii=False, indent=2).encode('utf-8')
     ).decode('ascii')
     api_url = f'https://api.github.com/repos/{GITHUB_REPO}/contents/{GITHUB_FILE_PATH}'
-    headers = {
-        'Authorization': f'token {GITHUB_TOKEN}',
-        'Accept': 'application/vnd.github.v3+json',
-    }
+    headers = {'Authorization': f'token {GITHUB_TOKEN}', 'Accept': 'application/vnd.github.v3+json'}
     sha = None
     try:
         r = requests.get(api_url, headers=headers, timeout=10)
@@ -3235,10 +3127,7 @@ def _write_veille_ia_to_github(data):
             sha = r.json().get('sha')
     except Exception:
         pass
-    payload = {
-        'message': f'chore: veille IA — {datetime.date.today().isoformat()}',
-        'content': content_b64,
-    }
+    payload = {'message': f'chore: veille IA — {datetime.date.today().isoformat()}', 'content': content_b64}
     if sha:
         payload['sha'] = sha
     try:
@@ -3246,35 +3135,6 @@ def _write_veille_ia_to_github(data):
         return r.ok
     except Exception:
         return False
-
-
-def _run_veille_ia_refresh():
-    """Génère les 12 résultats de veille séquentiellement (15 s entre chaque requête)
-    et écrit le JSON sur GitHub. Conçu pour s'exécuter en thread daemon via APScheduler."""
-    if not ANTHROPIC_API_KEY:
-        return
-    today = datetime.date.today().isoformat()
-    output = {'generated_at': today, 'themes': []}
-    total  = sum(len(queries) for _, _, _, queries in _VEILLE_ALL_QUERIES)
-    done   = 0
-
-    for theme_id, label, color, queries in _VEILLE_ALL_QUERIES:
-        theme_out = {'id': theme_id, 'label': label, 'color': color, 'results': []}
-        for query in queries:
-            done += 1
-            try:
-                result = _fetch_single_veille(query)
-            except Exception as e:
-                result = {'error': str(e)}
-            theme_out['results'].append({'query': query, **result})
-            if done < total:
-                time.sleep(15)  # 15 s entre appels → ≤ 4 req/min, sous la limite de 5
-        output['themes'].append(theme_out)
-
-    # Persiste sur GitHub (survit aux redémarrages Railway)
-    _write_veille_ia_to_github(output)
-    # Met aussi à jour le cache mémoire pour les requêtes immédiates
-    _cache_set('veille-ia-data', output, 3600)
 
 
 @app.route('/veille-ia')
@@ -3291,6 +3151,20 @@ def veille_ia():
         return jsonify({'error': str(e)}), 503
     _cache_set('veille-ia-data', data, 3600)
     return jsonify(data)
+
+
+@app.route('/veille-ia/ingest', methods=['POST'])
+def veille_ia_ingest():
+    """Reçoit les données de veille depuis la tâche planifiée Claude.ai."""
+    auth = request.headers.get('Authorization', '').replace('Bearer ', '').strip()
+    if not VEILLE_INGEST_TOKEN or auth != VEILLE_INGEST_TOKEN:
+        return jsonify({'error': 'Non autorisé'}), 401
+    data = request.get_json(silent=True)
+    if not data or 'items' not in data:
+        return jsonify({'error': 'Body invalide — champ items requis'}), 400
+    written = _write_veille_ia_to_github(data)
+    _cache_set('veille-ia-data', data, 3600)
+    return jsonify({'ok': True, 'items': len(data.get('items', [])), 'github': written})
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -3318,40 +3192,6 @@ def _warmup_cache():
 
 threading.Thread(target=_warmup_cache, daemon=True).start()
 
-
-# ─────────────────────────────────────────────────────────────────────────────
-# Veille IA — scheduler hebdomadaire (lundi 06:00 Europe/Luxembourg)
-# ─────────────────────────────────────────────────────────────────────────────
-
-def _start_veille_ia_scheduler():
-    """Démarre APScheduler en thread daemon. Lance un premier refresh au démarrage
-    si le fichier GitHub est vide (themes: [])."""
-    try:
-        from apscheduler.schedulers.background import BackgroundScheduler
-        scheduler = BackgroundScheduler(timezone='Europe/Luxembourg')
-        scheduler.add_job(
-            _run_veille_ia_refresh,
-            'cron', day_of_week='mon', hour=6, minute=0,
-            id='veille_ia_weekly', replace_existing=True,
-        )
-        scheduler.start()
-    except Exception:
-        pass
-
-    # Warmup : si le JSON GitHub est vide, lance un premier refresh
-    try:
-        r = requests.get(VEILLE_IA_DATA_URL, timeout=10, verify=_VERIFY)
-        if r.ok:
-            d = r.json()
-            if not d.get('themes'):
-                threading.Thread(target=_run_veille_ia_refresh, daemon=True).start()
-            else:
-                _cache_set('veille-ia-data', d, 3600)
-    except Exception:
-        pass
-
-# Démarrage différé (120 s) pour laisser gunicorn/Flask s'initialiser
-threading.Timer(120.0, _start_veille_ia_scheduler).start()
 
 
 # ─────────────────────────────────────────────────────────────────────────────

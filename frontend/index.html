@@ -3029,148 +3029,151 @@ function renderVeilleIA() {
   const el = document.getElementById('panel-veille-ia');
   if (!el) return;
 
-  function escHtml(s) { return (s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
-
-  function horizonStyle(h) {
-    if (!h) return ['#7A7770', '#F4F4F2'];
-    const l = h.toLowerCase();
-    if (l.includes('court')) return ['#16A34A', '#DCFCE7'];
-    if (l.includes('moyen')) return ['#F97316', '#FFF7ED'];
-    return ['#0A66C2', '#DBEAFE'];
-  }
-
-  const extIcoXs = '<svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>';
-  const extIcoSm = '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>';
-  const linkStyle = 'font-size:12.5px;color:var(--n);text-decoration:none;display:flex;align-items:center;gap:5px';
-
-  function renderSource(s) {
-    if (!s) return '';
-    const isObj = typeof s === 'object';
-    const name = isObj ? (s.name || 'Source') : String(s).substring(0, 50);
-    const url  = isObj ? s.url : (String(s).startsWith('http') ? s : null);
-    const date = isObj && s.date ? ' · ' + s.date : '';
-    const label = escHtml(name) + escHtml(date);
-    const style = 'font-size:11px;color:var(--n);text-decoration:underline;text-underline-offset:2px;display:inline-flex;align-items:center;gap:3px;white-space:nowrap;line-height:1';
-    if (url) return `<a href="${escHtml(url)}" target="_blank" rel="noopener" style="${style}">${label} ${extIcoXs}</a>`;
-    return `<span style="font-size:11px;color:var(--muted)">${label}</span>`;
-  }
-
-  function resultCard(item) {
-    if (!item) return `<p style="font-size:12px;color:var(--muted);font-style:italic;margin:8px 0">Données non disponibles.</p>`;
-    if (item.error) return `<p style="font-size:12px;color:var(--bad);margin:8px 0">⚠ ${escHtml(item.error)}</p>`;
-    const [hc, hbg] = horizonStyle(item.horizon);
-    const srcs = (item.sources || []).slice(0, 7);
-    return `
-      <div style="font-size:13px;font-weight:700;line-height:1.4;margin-bottom:6px">${escHtml(item.titre)}</div>
-      <div style="font-size:12.5px;line-height:1.65;color:var(--text);margin-bottom:10px">${escHtml(item.synthese)}</div>
-      <div style="background:rgba(0,0,0,.025);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:8px 0;margin:0 0 8px">
-        <div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:3px">Action ACL</div>
-        <div style="font-size:12.5px;line-height:1.6;color:var(--text)">${escHtml(item.actionACL)}</div>
-      </div>
-      <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
-        <span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px;background:${hbg};color:${hc};white-space:nowrap">${escHtml(item.horizon)}</span>
-        ${srcs.map(s => renderSource(s)).join('')}
-      </div>`;
-  }
-
-  const ressourcesHtml = `
-    <div class="card" style="margin-top:4px">
-      <div style="padding:12px 16px 10px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;color:var(--muted)"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-        <span style="font-size:13px;font-weight:700">Ressources à suivre</span>
-        <span style="font-size:11px;color:var(--muted)">Veille quotidienne recommandée</span>
-      </div>
-      <div style="padding:12px 16px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
-        <div>
-          <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:8px">Newsletters</div>
-          <div style="display:flex;flex-direction:column;gap:7px">
-            <a href="https://www.therundown.ai/" target="_blank" rel="noopener" style="${linkStyle}">${extIcoSm} The Rundown AI</a>
-            <a href="https://tldr.tech/ai" target="_blank" rel="noopener" style="${linkStyle}">${extIcoSm} TLDR AI</a>
-            <a href="https://bensbites.com/" target="_blank" rel="noopener" style="${linkStyle}">${extIcoSm} Ben's Bites</a>
-          </div>
-        </div>
-        <div>
-          <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:8px">Twitter / X</div>
-          <div style="display:flex;flex-direction:column;gap:7px">
-            <a href="https://x.com/AnthropicAI" target="_blank" rel="noopener" style="${linkStyle}">${extIcoSm} @AnthropicAI</a>
-            <a href="https://x.com/alexalbert__" target="_blank" rel="noopener" style="${linkStyle}">${extIcoSm} @alexalbert__</a>
-          </div>
-        </div>
-        <div>
-          <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:8px">Reddit</div>
-          <div style="display:flex;flex-direction:column;gap:7px">
-            <a href="https://www.reddit.com/r/ClaudeAI/" target="_blank" rel="noopener" style="${linkStyle}">${extIcoSm} r/ClaudeAI</a>
-            <a href="https://www.reddit.com/r/ChatGPT/" target="_blank" rel="noopener" style="${linkStyle}">${extIcoSm} r/ChatGPT</a>
-          </div>
-        </div>
-      </div>
-    </div>`;
-
-  // Squelette initial pendant le chargement
-  el.innerHTML = `
-    <div class="sec-title">
-      <h2>Veille IA &amp; Marcom</h2><div class="line"></div>
-      <span class="src-pill" style="--src:#8B5CF6;--src-bg:rgba(139,92,246,0.1)">Anthropic</span>
-      <span class="src-pill" style="--src:#0B996E;--src-bg:rgba(11,153,110,0.1)">Web Search</span>
-    </div>
-    <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--muted);flex-shrink:0"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-      <span style="font-size:12px;color:var(--muted)" id="vi-last-date">Chargement…</span>
-      <span style="font-size:12px;color:var(--muted)">· Mise à jour automatique chaque lundi via GitHub Actions</span>
-    </div>
-    <div id="vi-themes-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(500px,1fr));gap:16px">${skel(4)}</div>
-    ${ressourcesHtml}`;
+  el.innerHTML = `<div class="sec-title"><h2>Veille IA &amp; Marcom</h2><div class="line"></div>
+    <span class="src-pill" style="--src:#8B5CF6;--src-bg:rgba(139,92,246,0.1)">IA</span>
+    <span class="src-pill" style="--src:#0B996E;--src-bg:rgba(11,153,110,0.1)">Web Search</span>
+  </div><div>${skel(3)}</div>`;
 
   api('/veille-ia').then(d => {
-    const grid  = document.getElementById('vi-themes-grid');
-    const dateEl = document.getElementById('vi-last-date');
-    if (!grid) return;
+    if (!d || d.error) { el.innerHTML = errState('Veille IA', d?.error || 'Données non disponibles'); return; }
 
-    if (d.error) {
-      grid.innerHTML = errState('Veille IA', d.error);
-      if (dateEl) dateEl.textContent = 'Erreur de chargement';
-      return;
+    const ALL      = d.items || [];
+    const lastUpd  = d.generated_at || '—';
+    const nNotable = ALL.filter(i => i.badge === 'NOTABLE').length;
+    const nSurv    = ALL.filter(i => i.badge === 'SURVEILLER').length;
+    const nInfo    = ALL.filter(i => i.badge === 'INFO').length;
+
+    const PAGE_SIZE = 12;
+    let filtered = ALL.slice().sort((a,b) => b.date.localeCompare(a.date));
+    let vPage = 1, vSortCol = 'date', vSortDir = 'desc';
+    let vTheme = '', vBadge = '', vSearch = '';
+
+    function dateLabel(iso) {
+      const m = ['','jan.','fév.','mars','avr.','mai','juin','juil.','août','sep.','oct.','nov.','déc.'];
+      const p = iso.split('-'); return parseInt(p[2])+' '+m[parseInt(p[1])]+' '+p[0];
     }
-
-    if (!d.themes || !d.themes.length) {
-      grid.innerHTML = `<div class="card" style="padding:24px;color:var(--muted);font-size:13px;text-align:center;grid-column:1/-1">
-        <div style="font-size:22px;margin-bottom:10px">⏳</div>
-        <div style="font-weight:600;margin-bottom:6px">Génération en cours</div>
-        <div style="font-size:12px">Le backend Railway génère la veille au premier démarrage.<br>
-          Cela prend environ 5 minutes — rechargez la page dans un moment.</div>
-      </div>`;
-      if (dateEl) dateEl.textContent = 'Aucune donnée disponible';
-      return;
+    function badgeHtml(b) {
+      const s={NOTABLE:'background:#e8f4e8;color:#2d6a2d;',SURVEILLER:'background:#FFF8DC;color:#8B6914;',INFO:'background:#f0f0f0;color:#666;'};
+      return `<span style="display:inline-block;font-size:10px;font-weight:700;padding:2px 7px;border-radius:3px;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap;${s[b]||s.INFO}">${b||'INFO'}</span>`;
     }
-
-    if (dateEl && d.generated_at) {
-      try {
-        const dt = new Date(d.generated_at + 'T00:00:00');
-        dateEl.textContent = 'Générée le ' + dt.toLocaleDateString('fr-LU', { day: '2-digit', month: 'long', year: 'numeric' });
-      } catch { dateEl.textContent = d.generated_at; }
+    function horizonHtml(h) {
+      if (!h) return '';
+      const l=h.toLowerCase(); let c='#0A66C2',bg='#DBEAFE';
+      if(l.includes('court')){c='#16A34A';bg='#DCFCE7';}else if(l.includes('moyen')){c='#F97316';bg='#FFF7ED';}
+      return `<span style="font-size:10px;font-weight:600;padding:2px 6px;border-radius:3px;background:${bg};color:${c};white-space:nowrap">${h}</span>`;
     }
+    const THEME_COLORS={'IA générative':'#8B5CF6','CRM':'#0B996E','Social':'#1877F2','Design':'#F97316'};
+    function themeColor(t) {
+      if(!t) return '#6B7280';
+      for(const[k,v] of Object.entries(THEME_COLORS)) if(t.includes(k)) return v;
+      return '#6B7280';
+    }
+    function applyFilters() {
+      const s=vSearch.toLowerCase().trim();
+      filtered=ALL.filter(i=>{
+        if(vTheme && i.theme!==vTheme) return false;
+        if(vBadge && i.badge!==vBadge) return false;
+        if(s){const h=((i.titre||'')+' '+(i.synthese||'')+' '+(i.actionACL||'')+' '+(i.theme||'')).toLowerCase();if(!h.includes(s))return false;}
+        return true;
+      });
+      filtered.sort((a,b)=>{const va=a[vSortCol]||'',vb=b[vSortCol]||'';if(va<vb)return vSortDir==='asc'?-1:1;if(va>vb)return vSortDir==='asc'?1:-1;return 0;});
+      vPage=1; updateCount(); renderRows(); renderPagination();
+    }
+    function updateCount(){const e=document.getElementById('viaCount');if(e)e.textContent=filtered.length+' résultat'+(filtered.length>1?'s':'');}
+    function renderRows(){
+      const tb=document.getElementById('viaTbody'),em=document.getElementById('viaEmpty');
+      if(!tb)return;
+      const page=filtered.slice((vPage-1)*PAGE_SIZE,vPage*PAGE_SIZE);
+      if(!page.length){tb.innerHTML='';if(em)em.style.display='block';return;}
+      if(em)em.style.display='none';
+      const ico='<svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>';
+      tb.innerHTML=page.map(item=>{
+        const url=(item.sources||[])[0]?.url;
+        const ls=url?`<a href="${url}" target="_blank" rel="noopener" style="color:inherit">`:'';
+        const le=url?'</a>':'';
+        const tc=themeColor(item.theme);
+        const srcLinks=(item.sources||[]).slice(0,3).map(s=>s.url?`<a href="${s.url}" target="_blank" rel="noopener" style="font-size:10px;color:var(--n);text-decoration:underline;text-underline-offset:2px;display:inline-flex;align-items:center;gap:2px;white-space:nowrap">${(s.name||'').substring(0,20)} ${ico}</a>`:`<span style="font-size:10px;color:var(--muted)">${s.name||''}</span>`).join(' ');
+        return `<tr>
+          <td style="white-space:nowrap;color:#888;font-size:12px;font-weight:700;vertical-align:top">${dateLabel(item.date||'')}</td>
+          <td style="white-space:nowrap;vertical-align:top"><span style="font-size:12px;font-weight:600;color:${tc};display:inline-flex;align-items:center;gap:4px"><span style="width:6px;height:6px;border-radius:50%;background:${tc};flex-shrink:0"></span>${item.theme||''}</span></td>
+          <td style="white-space:nowrap;vertical-align:top">${badgeHtml(item.badge)}</td>
+          <td style="white-space:normal;word-break:break-word;max-width:220px;font-size:13px;font-weight:600;line-height:1.45;vertical-align:top">${ls}${item.titre||''}${le}<br><span style="font-weight:400">${horizonHtml(item.horizon)}</span></td>
+          <td style="white-space:normal;word-break:break-word;max-width:280px;font-size:12.5px;line-height:1.5;vertical-align:top">${item.synthese||''}</td>
+          <td style="white-space:normal;word-break:break-word;color:#555;font-style:italic;font-size:12px;max-width:200px;line-height:1.45;vertical-align:top">${item.actionACL||''}<br>${srcLinks}</td>
+        </tr>`;
+      }).join('');
+    }
+    function pgBtn(dis,act){const b='border:1px solid var(--border);border-radius:4px;padding:5px 10px;font-size:13px;cursor:pointer;font-family:inherit;';if(dis)return b+'opacity:.4;pointer-events:none;background:var(--surface);color:var(--text);';if(act)return b+'background:#000;color:#FEDB00;font-weight:700;border-color:#000;';return b+'background:var(--surface);color:var(--text);';}
+    function renderPagination(){
+      const pag=document.getElementById('viaPag');if(!pag)return;
+      const tot=Math.ceil(filtered.length/PAGE_SIZE);if(tot<=1){pag.innerHTML='';return;}
+      let h=`<button onclick="window._vIAPage(${vPage-1})" style="${pgBtn(vPage===1)}">&#8249;</button>`;
+      for(let i=1;i<=tot;i++){if(i===1||i===tot||(i>=vPage-2&&i<=vPage+2))h+=`<button onclick="window._vIAPage(${i})" style="${pgBtn(false,i===vPage)}">${i}</button>`;else if(i===vPage-3||i===vPage+3)h+=`<span style="padding:0 4px;color:var(--muted)">…</span>`;}
+      h+=`<button onclick="window._vIAPage(${vPage+1})" style="${pgBtn(vPage===tot)}">&#8250;</button><span style="font-size:11px;color:var(--muted);margin-left:8px">Page ${vPage} / ${tot}</span>`;
+      pag.innerHTML=h;
+    }
+    function sortHdr(label,col){const ind=vSortCol===col?(vSortDir==='asc'?' ↑':' ↓'):'';return `<th id="viaTh-${col}" onclick="window._vIASort('${col}')" style="cursor:pointer;user-select:none;white-space:nowrap">${label}${ind}</th>`;}
 
-    grid.innerHTML = d.themes.map(t => `
-      <div class="card" style="border-top:3px solid ${escHtml(t.color)}">
-        <div style="padding:12px 16px 10px;border-bottom:1px solid var(--border)">
-          <span style="font-size:13px;font-weight:700">${escHtml(t.label)}</span>
+    const uniqThemes=[...new Set(ALL.map(i=>i.theme).filter(Boolean))].sort();
+
+    el.innerHTML=`
+      <div class="sec-title"><h2>Veille IA &amp; Marcom</h2><div class="line"></div>
+        <span class="src-pill" style="--src:#8B5CF6;--src-bg:rgba(139,92,246,0.1)">IA</span>
+        <span class="src-pill" style="--src:#0B996E;--src-bg:rgba(11,153,110,0.1)">Web Search</span>
+      </div>
+
+      <div style="background:var(--surface);border:1px solid var(--border);border-bottom:3px solid #8B5CF6;border-radius:var(--r-md) var(--r-md) 0 0;padding:14px 20px;display:flex;gap:32px;flex-wrap:wrap;margin-bottom:0">
+        <div style="text-align:center"><div style="font-size:24px;font-weight:700;font-family:'FaricyNew','Albert Sans',sans-serif;font-style:italic">${ALL.length}</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em">Items</div></div>
+        <div style="text-align:center"><div style="font-size:24px;font-weight:700;font-family:'FaricyNew','Albert Sans',sans-serif;font-style:italic;color:#2d6a2d">${nNotable}</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em">Notable</div></div>
+        <div style="text-align:center"><div style="font-size:24px;font-weight:700;font-family:'FaricyNew','Albert Sans',sans-serif;font-style:italic;color:#8B6914">${nSurv}</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em">Surveiller</div></div>
+        <div style="text-align:center"><div style="font-size:24px;font-weight:700;font-family:'FaricyNew','Albert Sans',sans-serif;font-style:italic;color:var(--muted)">${nInfo}</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em">Info</div></div>
+        <div style="margin-left:auto;display:flex;flex-direction:column;justify-content:center;text-align:right">
+          <div style="font-size:11px;color:var(--muted)">Générée le</div>
+          <div style="font-size:13px;font-weight:600">${lastUpd}</div>
         </div>
-        <div style="padding:12px 16px;display:flex;flex-direction:column;gap:16px">
-          ${(t.results || []).map(item => `
-            <div style="border:1px solid var(--border);border-radius:var(--r-md);overflow:hidden;background:var(--surface)">
-              <div style="padding:8px 12px 7px;background:rgba(0,0,0,.025);border-bottom:1px solid var(--border)">
-                <div style="font-size:11px;color:var(--muted);line-height:1.4">${escHtml(item.query)}</div>
-              </div>
-              <div style="padding:12px 12px 10px">${resultCard(item)}</div>
-            </div>`).join('')}
-        </div>
-      </div>`).join('');
-  }).catch(e => {
-    const grid  = document.getElementById('vi-themes-grid');
-    const dateEl = document.getElementById('vi-last-date');
-    if (grid) grid.innerHTML = errState('Veille IA', e.message);
-    if (dateEl) dateEl.textContent = 'Erreur de chargement';
-  });
+      </div>
+
+      <div style="background:var(--surface);border:1px solid var(--border);border-top:none;padding:10px 20px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:4px">
+        <select id="viaFilterTheme" onchange="window._vIAFilter()" style="font-size:13px;padding:5px 10px;border:1px solid var(--border);border-radius:var(--r-sm);background:var(--bg);color:var(--text);font-family:inherit;cursor:pointer">
+          <option value="">Tous les thèmes</option>
+          ${uniqThemes.map(t=>`<option value="${t}">${t}</option>`).join('')}
+        </select>
+        <select id="viaFilterBadge" onchange="window._vIAFilter()" style="font-size:13px;padding:5px 10px;border:1px solid var(--border);border-radius:var(--r-sm);background:var(--bg);color:var(--text);font-family:inherit;cursor:pointer">
+          <option value="">Tous les badges</option>
+          <option value="NOTABLE">NOTABLE</option>
+          <option value="SURVEILLER">SURVEILLER</option>
+          <option value="INFO">INFO</option>
+        </select>
+        <input id="viaSearch" type="search" placeholder="Rechercher…" oninput="window._vIAFilter()"
+          style="font-size:13px;padding:5px 10px;border:1px solid var(--border);border-radius:var(--r-sm);background:var(--bg);color:var(--text);font-family:inherit;min-width:180px">
+        <span id="viaCount" style="font-size:12px;color:var(--muted);margin-left:auto"></span>
+      </div>
+
+      <div style="overflow-x:auto">
+        <table class="tbl" style="width:100%;border-collapse:collapse">
+          <thead><tr>
+            ${sortHdr('Date','date')}
+            ${sortHdr('Thème','theme')}
+            <th>Badge</th>
+            ${sortHdr('Titre','titre')}
+            <th>Synthèse</th>
+            <th>Action ACL</th>
+          </tr></thead>
+          <tbody id="viaTbody"></tbody>
+        </table>
+        <div id="viaEmpty" style="display:none;padding:32px;text-align:center;color:var(--muted);font-size:13px">Aucun résultat pour ces filtres.</div>
+      </div>
+      <div id="viaPag" style="display:flex;align-items:center;gap:4px;padding:12px 0;flex-wrap:wrap"></div>`;
+
+    window._vIAPage  = p=>{if(p>=1&&p<=Math.ceil(filtered.length/PAGE_SIZE)){vPage=p;renderRows();renderPagination();}};
+    window._vIASort  = col=>{vSortDir=vSortCol===col&&vSortDir==='asc'?'desc':'asc';vSortCol=col;applyFilters();document.querySelectorAll('[id^="viaTh-"]').forEach(t=>t.style.background='');const t=document.getElementById('viaTh-'+col);if(t)t.style.background='rgba(0,0,0,.04)';};
+    window._vIAFilter= ()=>{vTheme=document.getElementById('viaFilterTheme')?.value||'';vBadge=document.getElementById('viaFilterBadge')?.value||'';vSearch=document.getElementById('viaSearch')?.value||'';applyFilters();};
+
+    if(!ALL.length){
+      el.innerHTML+=`<div class="card" style="padding:24px;text-align:center;color:var(--muted);font-size:13px">
+        Aucune donnée — la tâche planifiée Claude.ai n'a pas encore envoyé de veille.</div>`;
+    } else { renderRows(); renderPagination(); updateCount(); }
+  }).catch(e=>{ el.innerHTML=errState('Veille IA',e.message); });
 }
 
 function renderIntelligence() {
