@@ -3128,15 +3128,16 @@ function renderVeilleIA() {
 
     if (d.error) {
       grid.innerHTML = errState('Veille IA', d.error);
+      if (dateEl) dateEl.textContent = 'Erreur de chargement';
       return;
     }
 
     if (!d.themes || !d.themes.length) {
       grid.innerHTML = `<div class="card" style="padding:24px;color:var(--muted);font-size:13px;text-align:center;grid-column:1/-1">
         <div style="font-size:22px;margin-bottom:10px">⏳</div>
-        <div style="font-weight:600;margin-bottom:6px">Veille en cours de génération</div>
-        <div style="font-size:12px">Le premier run GitHub Actions génèrera les données chaque lundi matin.<br>
-          Déclenchez-le manuellement depuis l'onglet <strong>Actions</strong> du repo pour accélérer.</div>
+        <div style="font-weight:600;margin-bottom:6px">Génération en cours</div>
+        <div style="font-size:12px">Le backend Railway génère la veille au premier démarrage.<br>
+          Cela prend environ 5 minutes — rechargez la page dans un moment.</div>
       </div>`;
       if (dateEl) dateEl.textContent = 'Aucune donnée disponible';
       return;
@@ -3164,6 +3165,11 @@ function renderVeilleIA() {
             </div>`).join('')}
         </div>
       </div>`).join('');
+  }).catch(e => {
+    const grid  = document.getElementById('vi-themes-grid');
+    const dateEl = document.getElementById('vi-last-date');
+    if (grid) grid.innerHTML = errState('Veille IA', e.message);
+    if (dateEl) dateEl.textContent = 'Erreur de chargement';
   });
 }
 
