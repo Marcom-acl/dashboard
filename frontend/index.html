@@ -586,6 +586,25 @@
     .partner-header{display:flex;align-items:center;gap:14px;margin-bottom:18px;padding:16px 20px;border-radius:var(--r-lg);background:var(--surface);border:1px solid var(--border);box-shadow:var(--shadow-1);border-left-width:4px;}
     .partner-header-name{font-size:19px;font-weight:800;font-family:'FaricyNew','Albert Sans',sans-serif;line-height:1.1;}
     .partner-no-data{text-align:center;padding:22px 12px;color:var(--muted);font-size:11px;background:var(--bg);border-radius:var(--r-sm);border:1px dashed var(--border);line-height:1.7;}
+    /* ── Avantages Club — Partners tab ───────────────────────── */
+    .ptn-toolbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:20px;}
+    .ptn-select{height:34px;padding:0 10px;border:1.5px solid var(--border);border-radius:8px;background:var(--surface);font:600 12.5px 'Albert Sans',sans-serif;color:var(--text);cursor:pointer;min-width:200px;}
+    .ptn-select:focus{outline:none;border-color:var(--y);}
+    .ptn-gran-btns{display:flex;gap:3px;}
+    .ptn-gran-btn{padding:5px 13px;border-radius:6px;border:1.5px solid var(--border);background:var(--surface);font-size:11px;font-weight:600;cursor:pointer;color:var(--muted);transition:all .12s;}
+    .ptn-gran-btn.active{background:var(--y);border-color:var(--y);color:#231f20;}
+    .ptn-gran-btn:hover:not(.active){background:var(--y-soft);border-color:var(--y-deep);}
+    .ptn-donut-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-bottom:16px;}
+    .ptn-donut-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:14px;display:flex;flex-direction:column;align-items:center;gap:8px;box-shadow:var(--shadow-1);}
+    .ptn-donut-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);}
+    .ptn-ads-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:10px;}
+    .ptn-ad-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-sm);overflow:hidden;transition:box-shadow .12s;}
+    .ptn-ad-card:hover{box-shadow:var(--shadow-2);}
+    .ptn-ad-card img{width:100%;aspect-ratio:1/1;object-fit:cover;background:var(--bg);display:block;}
+    .ptn-ad-meta{padding:8px;}
+    .ptn-copy-btn{padding:6px 14px;border-radius:8px;border:1.5px solid var(--border);background:var(--surface);font-size:11px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:6px;color:var(--text);transition:all .12s;white-space:nowrap;}
+    .ptn-copy-btn:hover{background:var(--y);border-color:var(--y);color:#231f20;}
+    .ptn-meta-err{padding:14px;background:var(--bg);border-radius:var(--r-sm);border:1px dashed var(--border);font-size:11px;color:var(--muted);text-align:center;}
 
     /* ─── CONFIG DRAWER ───────────────────────────────────────────── */
     .cfg-overlay{position:fixed;inset:0;background:rgba(0,0,0,.3);z-index:300;opacity:0;pointer-events:none;transition:opacity .2s;}
@@ -1205,6 +1224,12 @@
           <span class="sb-pill">ACL Club</span>
           <span class="sb-dot" id="bs-club" style="background:var(--muted-2);"></span>
         </button>
+        <button class="sb-item tab-btn" data-tab="partners" title="Avantages Club — Partenaires">
+          <span class="sb-ic-wrap" style="background:rgba(254,219,0,.15);--ic-color:#FEDB00"><svg class="sb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></span>
+          <span class="sb-item-label">Avantages Club</span>
+          <span class="sb-pill">Avantages Club</span>
+          <span class="sb-dot" id="bs-partners" style="background:var(--muted-2);"></span>
+        </button>
         <button class="sb-item tab-btn" data-tab="linkedin" title="LinkedIn">
           <span class="sb-ic-wrap" style="background:rgba(10,102,194,.15);--ic-color:#0A66C2"><svg class="sb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 11v6M8 8v.01M12 17v-4a2 2 0 0 1 4 0v4M12 17v-6"/></svg></span>
           <span class="sb-item-label">LinkedIn</span>
@@ -1362,6 +1387,9 @@
 
         <!-- ── ACL CLUB ─────────────────────────────────────────── -->
         <div id="panel-club" class="tab-panel"></div>
+
+        <!-- ── AVANTAGES CLUB PARTENAIRES ───────────────────────── -->
+        <div id="panel-partners" class="tab-panel"></div>
 
         <!-- ── LINKEDIN ─────────────────────────────────────────── -->
         <div id="panel-linkedin" class="tab-panel"></div>
@@ -1592,6 +1620,7 @@ function _renderTab(tab) {
   else if (tab === 'veille')       renderVeille(d.dVeille);
   else if (tab === 'seopos')       renderSEOPositions(d.dSEO);
   else if (tab === 'buffer')       renderBuffer(d.dBuffer);
+  else if (tab === 'partners')     renderPartners(d.dPartners, d.dPartnerList);
   else if (tab === 'intelligence') renderIntelligence();
   else if (tab === 'veille-ia')   renderVeilleIA();
 }
@@ -1605,14 +1634,15 @@ async function loadAll() {
 
   try {
     const [ga4, ga4auto, ga4ext, ga4trend, gsc, fb, fbpage, brevo, club, yt, li, veille, fbpageytd, fbytd, buffer,
-           ga4geo, ga4sections, gsccompare, ga4funnel, seopos] = await Promise.allSettled([
+           ga4geo, ga4sections, gsccompare, ga4funnel, seopos, clubglobal, clublist] = await Promise.allSettled([
       api('/ga4'), api('/ga4/autotouring'), api('/ga4/extended'), api('/ga4/trend'),
       api('/gsc'), api('/fb'), api('/fb/page'), api('/brevo'), api('/brevo/club'),
       api('/youtube'), api('/supermetrics/linkedin'), api('/veille'),
       apiYtd('/fb/page'), apiYtd('/fb'),
       api('/buffer'),
       api('/ga4/geographic'), api('/ga4/sections'), api('/gsc/compare'),
-      api('/ga4/funnel'), api('/seo-positions')
+      api('/ga4/funnel'), api('/seo-positions'),
+      api('/club-partners/global'), api('/club-partners/list')
     ]);
 
     const v = r => r.status === 'fulfilled' ? r.value : null;
@@ -1625,6 +1655,8 @@ async function loadAll() {
     const dGA4Geo = v(ga4geo), dSections = v(ga4sections), dGSCCompare = v(gsccompare);
     const dFunnel = v(ga4funnel);
     const dSEO    = v(seopos);
+    const dPartners    = v(clubglobal);
+    const dPartnerList = v(clublist);
 
     updateStatus('bs-ga4',      dGA4      && !dGA4.error);
     updateStatus('bs-gsc',      dGSC      && !dGSC.error);
@@ -1637,8 +1669,9 @@ async function loadAll() {
     updateStatus('bs-buffer',   dBuffer   && !dBuffer.error);
     updateStatus('bs-sections', dSections && !dSections.error);
     updateStatus('bs-seopos',   dSEO      && !dSEO.error);
+    updateStatus('bs-partners', dPartners && !dPartners.error);
 
-    window._dashData = {dGA4, dGA4A, dGA4E, dGA4T, dGSC, dFB, dFBP, dBrevo, dClub, dYT, dLI, dVeille, dFBPytd, dFBytd, dBuffer, dGA4Geo, dSections, dGSCCompare, dFunnel, dSEO};
+    window._dashData = {dGA4, dGA4A, dGA4E, dGA4T, dGSC, dFB, dFBP, dBrevo, dClub, dYT, dLI, dVeille, dFBPytd, dFBytd, dBuffer, dGA4Geo, dSections, dGSCCompare, dFunnel, dSEO, dPartners, dPartnerList};
     window._tabRendered = {};
 
     const activeTab = document.querySelector('.tab-btn.active')?.dataset.tab || 'overview';
@@ -5317,6 +5350,324 @@ async function fetchGreeting({dGA4, dGSC, dFB, dBrevo}) {
 }
 
 // ── Utilities ─────────────────────────────────────────────────
+// ════════════════════════════════════════════════════════════════
+// AVANTAGES CLUB — Performances partenaires
+// ════════════════════════════════════════════════════════════════
+
+let _ptnKey  = null;   // clé partenaire sélectionnée (null = global)
+let _ptnGran = 'day';  // granularité courante
+let _ptnGlobalData = null;
+let _ptnListData   = null;
+
+function renderPartners(gdata, listData) {
+  const el = document.getElementById('panel-partners');
+  if (!el) return;
+  _ptnGlobalData = gdata;
+  _ptnListData   = listData;
+  _ptnKey  = null;
+  _ptnGran = 'day';
+
+  const partners = listData?.partners || [];
+
+  el.innerHTML = `
+    <div class="sec-title">
+      <h2>Avantages Club — Performances partenaires</h2>
+      <div class="line"></div>
+      <span class="src-pill" style="--src:#34A853;--src-bg:#E0F2E6">Sheets</span>
+      <span class="src-pill" style="--src:var(--c-ga4);--src-bg:var(--c-ga4-bg)">GA4</span>
+      <span class="src-pill" style="--src:var(--c-fb);--src-bg:var(--c-fb-bg)">Meta</span>
+    </div>
+
+    <div class="ptn-toolbar">
+      <select id="ptnSelect" class="ptn-select" onchange="_ptnOnSelectChange(this.value)">
+        <option value="">Vue globale (tous partenaires)</option>
+        ${partners.map(p => `<option value="${p.key}">${p.label}</option>`).join('')}
+      </select>
+      <div class="ptn-gran-btns">
+        <button class="ptn-gran-btn active" onclick="_ptnSetGran('day',this)">Jour</button>
+        <button class="ptn-gran-btn" onclick="_ptnSetGran('week',this)">Semaine</button>
+        <button class="ptn-gran-btn" onclick="_ptnSetGran('month',this)">Mois</button>
+      </div>
+      <button class="ptn-copy-btn" id="ptnCopyBtn" style="display:none" onclick="_ptnCopyLink()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        Copier lien partenaire
+      </button>
+    </div>
+
+    <div id="ptnContent"></div>
+  `;
+
+  _ptnRenderView(gdata, true);
+}
+
+function _ptnOnSelectChange(key) {
+  _ptnKey = key || null;
+  const copyBtn = document.getElementById('ptnCopyBtn');
+  if (copyBtn) copyBtn.style.display = key ? '' : 'none';
+  if (!key) {
+    _ptnRenderView(_ptnGlobalData, true);
+  } else {
+    _ptnFetchPartner(key);
+  }
+}
+
+async function _ptnFetchPartner(key) {
+  const el = document.getElementById('ptnContent');
+  if (!el) return;
+  el.innerHTML = `<div style="padding:32px;text-align:center;color:var(--muted);font-size:12px">Chargement…</div>`;
+  try {
+    const qs = new URLSearchParams({p: key, granularity: _ptnGran});
+    if (globalStart) qs.set('start', globalStart);
+    if (globalEnd)   qs.set('end',   globalEnd);
+    const r = await fetch(`${API_BASE}/club-partners/partner?${qs}`, {signal: AbortSignal.timeout(30000)});
+    if (!r.ok) throw new Error(`HTTP ${r.status}`);
+    const data = await r.json();
+    _ptnRenderView(data, false);
+  } catch(e) {
+    if (el) el.innerHTML = `<div class="no-key">Erreur lors du chargement : ${e.message}</div>`;
+  }
+}
+
+function _ptnSetGran(gran, btn) {
+  _ptnGran = gran;
+  document.querySelectorAll('.ptn-gran-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  if (!_ptnKey) {
+    const qs = new URLSearchParams({granularity: gran});
+    if (globalStart) qs.set('start', globalStart);
+    if (globalEnd)   qs.set('end',   globalEnd);
+    fetch(`${API_BASE}/club-partners/global?${qs}`, {signal: AbortSignal.timeout(30000)})
+      .then(r => r.json())
+      .then(data => { _ptnGlobalData = data; _ptnRenderView(data, true); })
+      .catch(() => {});
+  } else {
+    _ptnFetchPartner(_ptnKey);
+  }
+}
+
+function _ptnCopyLink() {
+  if (!_ptnKey || !_ptnListData) return;
+  const partner = (_ptnListData.partners || []).find(p => p.key === _ptnKey);
+  if (!partner?.shareUrl) return;
+  navigator.clipboard.writeText(partner.shareUrl)
+    .then(() => showToast(`Lien copié pour ${partner.label}`, 'success'))
+    .catch(() => showToast('Impossible de copier dans le presse-papiers', 'error'));
+}
+
+function _ptnRenderView(data, isGlobal) {
+  const el = document.getElementById('ptnContent');
+  if (!el) return;
+  if (!data) {
+    el.innerHTML = `<div class="partner-no-data">Données non disponibles pour cette source.</div>`;
+    return;
+  }
+  if (data.error) {
+    el.innerHTML = `<div class="no-key">${data.error}</div>`;
+    return;
+  }
+
+  const leads  = data.leads        || {};
+  const ga4    = data.ga4          || {};
+  const nl     = data.newsletter   || {};
+  const meta   = data.meta         || {};
+  const year   = new Date().getFullYear();
+
+  // KPI cards — ligne principale
+  const metaOk = !meta.error;
+  const kpiHtml = `<div class="kpi-row">
+    ${kpiCard({label:'Leads (période)', value:fmtN(leads.total||0), src:'var(--y)', srcBg:'var(--y-soft)', spark:(leads.series||[]).map(s=>s.value)})}
+    ${kpiCard({label:'Sessions GA4', value:fmtN(ga4.sessions||0), src:'var(--n)', srcBg:'var(--c-club-bg)'})}
+    ${kpiCard({label:'Utilisateurs GA4', value:fmtN(ga4.totalUsers||0), src:'var(--n)', srcBg:'var(--c-club-bg)'})}
+    ${kpiCard({label:'Sessions engagées GA4', value:fmtN(ga4.engagedSessions||0), src:'var(--n)', srcBg:'var(--c-club-bg)'})}
+    ${kpiCard({label:'Emails délivrés', value:fmtN(nl.delivered||0), src:'var(--c-brevo)', srcBg:'var(--c-brevo-bg)'})}
+    ${kpiCard({label:"Taux d'ouverture NL", value:fmtPct(nl.openRate||0), src:'var(--c-brevo)', srcBg:'var(--c-brevo-bg)'})}
+    ${metaOk ? kpiCard({label:'Clics Meta', value:fmtN(meta.linkClicks||0), src:'var(--c-fb)', srcBg:'var(--c-fb-bg)', spark:(meta.clicksSeries||[]).map(s=>s.value)}) : ''}
+    ${metaOk ? kpiCard({label:'Reach Meta', value:fmtN(meta.reach||0), src:'var(--c-fb)', srcBg:'var(--c-fb-bg)'}) : ''}
+  </div>`;
+
+  // KPIs supplémentaires vue globale (membres + ratios)
+  const globalKpiHtml = isGlobal ? `<div class="kpi-row" style="margin-top:8px">
+    ${kpiCard({label:'Membres uniques (période)', value:fmtN(leads.membersUnique||0), src:'var(--y)', srcBg:'var(--y-soft)'})}
+    ${kpiCard({label:'Leads / membre (période)', value:fmtN(leads.leadsPerMember||0, 2), src:'var(--y)', srcBg:'var(--y-soft)'})}
+    ${kpiCard({label:'Membres uniques ('+year+')', value:fmtN(leads.membersTotalYear||0), src:'var(--y)', srcBg:'var(--y-soft)'})}
+    ${kpiCard({label:'Leads / membre ('+year+')', value:fmtN(leads.leadsPerMemberYear||0, 2), src:'var(--y)', srcBg:'var(--y-soft)'})}
+    ${kpiCard({label:'Clics NL total', value:fmtN(nl.totalClicks||0), src:'var(--c-brevo)', srcBg:'var(--c-brevo-bg)'})}
+    ${kpiCard({label:'CTR NL moyen', value:fmtPct(nl.avgCtr||0), src:'var(--c-brevo)', srcBg:'var(--c-brevo-bg)'})}
+  </div>` : `<div class="kpi-row" style="margin-top:8px">
+    ${kpiCard({label:'Clics NL', value:fmtN(nl.totalClicks||0), src:'var(--c-brevo)', srcBg:'var(--c-brevo-bg)'})}
+    ${kpiCard({label:'CTR NL', value:fmtPct(nl.avgCtr||0), src:'var(--c-brevo)', srcBg:'var(--c-brevo-bg)'})}
+    ${metaOk ? kpiCard({label:'Impressions Meta', value:fmtN(meta.impressions||0), src:'var(--c-fb)', srcBg:'var(--c-fb-bg)'}) : ''}
+    ${metaOk ? kpiCard({label:'CTR Meta', value:fmtPct(meta.ctr||0), src:'var(--c-fb)', srcBg:'var(--c-fb-bg)'}) : ''}
+  </div>`;
+
+  // Graphique leads mensuels (vue globale uniquement)
+  const monthlyHtml = isGlobal && (leads.monthly||[]).length ? `
+    <div class="card" style="margin-bottom:16px">
+      <div class="card-head">
+        <div class="card-title">Leads mensuels ${year}</div>
+        <span class="src-pill" style="--src:var(--y);--src-bg:var(--y-soft)">Objectif : ${fmtN(leads.target||2085)}</span>
+      </div>
+      <div class="card-body" style="position:relative;height:170px">
+        <canvas id="ptnMonthlyChart"></canvas>
+      </div>
+    </div>` : '';
+
+  // GA4 donuts (4)
+  const donutsHtml = (ga4.languages||ga4.channels) ? `
+    <div class="ptn-donut-grid" style="margin-bottom:16px">
+      <div class="ptn-donut-wrap">
+        <div class="ptn-donut-title">Langue · Pages vues</div>
+        <canvas id="ptnDonutLang" width="130" height="130"></canvas>
+        <div id="ptnLegLang" class="channel-legend"></div>
+      </div>
+      <div class="ptn-donut-wrap">
+        <div class="ptn-donut-title">Pays · Sessions engagées</div>
+        <canvas id="ptnDonutCtry" width="130" height="130"></canvas>
+        <div id="ptnLegCtry" class="channel-legend"></div>
+      </div>
+      <div class="ptn-donut-wrap">
+        <div class="ptn-donut-title">Canal · Sessions engagées</div>
+        <canvas id="ptnDonutChan" width="130" height="130"></canvas>
+        <div id="ptnLegChan" class="channel-legend"></div>
+      </div>
+      <div class="ptn-donut-wrap">
+        <div class="ptn-donut-title">Appareil · Sessions engagées</div>
+        <canvas id="ptnDonutDev" width="130" height="130"></canvas>
+        <div id="ptnLegDev" class="channel-legend"></div>
+      </div>
+    </div>` : '';
+
+  // Détail NL par envoi (vue partenaire uniquement)
+  const nlSendsHtml = !isGlobal && (nl.sends||[]).length ? `
+    <div class="card" style="margin-bottom:16px">
+      <div class="card-head"><div class="card-title">Newsletter — Détail par langue / envoi</div></div>
+      <div class="card-body">
+        <table class="tbl" style="width:100%">
+          <thead><tr><th>Partenaire</th><th>Délivré</th><th>Ouvertures</th><th>Clics</th><th>CTR</th></tr></thead>
+          <tbody>${(nl.sends||[]).map(s=>`<tr>
+            <td>${s.label||''}</td>
+            <td>${fmtN(s.delivered||0)}</td>
+            <td>${fmtPct(s.openRate||0)}</td>
+            <td>${fmtN(s.clicks||0)}</td>
+            <td>${fmtPct(s.clickRate||0)}</td>
+          </tr>`).join('')}</tbody>
+        </table>
+      </div>
+    </div>` : '';
+
+  // Meta par partenaire (vue globale)
+  const metaByPartnerHtml = isGlobal && metaOk && (meta.byPartner||[]).length ? `
+    <div class="card" style="margin-bottom:16px">
+      <div class="card-head">
+        <div class="card-title">Meta Ads — Clics par partenaire</div>
+        <span class="src-pill" style="--src:var(--c-fb);--src-bg:var(--c-fb-bg)">SOME × CLUB</span>
+      </div>
+      <div class="card-body">${barListHtml(meta.byPartner,'var(--c-fb)',null,'label','linkClicks',fmtN)}</div>
+    </div>` : '';
+
+  // Alerte Meta non connecté
+  const metaErrHtml = meta.error ? `
+    <div class="ptn-meta-err">Meta Ads — ${meta.error}
+      <a href="${API_BASE}/fb/auth" target="_blank" style="margin-left:8px;color:var(--n);font-weight:600">→ Connecter Meta</a>
+    </div>` : '';
+
+  // Grille d'ads Meta avec images
+  const adsHtml = metaOk && (meta.ads||[]).length ? `
+    <div class="card">
+      <div class="card-head">
+        <div class="card-title">Publicités Meta</div>
+        <span class="src-pill" style="--src:var(--c-fb);--src-bg:var(--c-fb-bg)">${fmtN((meta.ads||[]).length)} ad${(meta.ads||[]).length>1?'s':''}</span>
+      </div>
+      <div class="card-body">
+        <div class="ptn-ads-grid">
+          ${(meta.ads||[]).slice(0,18).map(ad=>`<div class="ptn-ad-card">
+            ${ad.image ? `<img src="${ad.image}" alt="" loading="lazy" onerror="this.remove()">` : ''}
+            <div class="ptn-ad-meta">
+              <div style="font-weight:600;font-size:11px;line-height:1.3;margin-bottom:3px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">${ad.name||''}</div>
+              <div style="color:var(--muted);font-size:10px">${fmtN(ad.linkClicks||0)} clics &middot; ${fmtPct(ad.ctr||0)} CTR</div>
+            </div>
+          </div>`).join('')}
+        </div>
+      </div>
+    </div>` : '';
+
+  el.innerHTML = kpiHtml + globalKpiHtml + monthlyHtml + donutsHtml + nlSendsHtml + metaByPartnerHtml + metaErrHtml + adsHtml;
+
+  requestAnimationFrame(() => {
+    _ptnDrawDonut('ptnDonutLang','ptnLegLang', ga4.languages||[]);
+    _ptnDrawDonut('ptnDonutCtry','ptnLegCtry', ga4.countries||[]);
+    _ptnDrawDonut('ptnDonutChan','ptnLegChan', ga4.channels||[]);
+    _ptnDrawDonut('ptnDonutDev', 'ptnLegDev',  ga4.devices||[]);
+    if (isGlobal && (leads.monthly||[]).length) _ptnDrawMonthly(leads.monthly, leads.target||2085);
+  });
+  animateCards(el);
+}
+
+function _ptnDrawDonut(canvasId, legendId, items) {
+  if (chartInstances[canvasId]) { chartInstances[canvasId].destroy(); delete chartInstances[canvasId]; }
+  const canvas = document.getElementById(canvasId);
+  const legend = document.getElementById(legendId);
+  if (!canvas) return;
+  if (!items?.length) {
+    if (legend) legend.innerHTML = '<span style="color:#999;font-size:10px">Aucune donnée</span>';
+    return;
+  }
+  const COLORS = ['#FEDB00','#123C62','#34A853','#1877F2','#F59E0B','#EC4899','#8B5CF6','#6B7280','#14B8A6','#F97316'];
+  const labels = items.map(i => i.label);
+  const data   = items.map(i => i.value);
+  const total  = data.reduce((s,v) => s+v, 0) || 1;
+  const colors = items.map((_,i) => COLORS[i % COLORS.length]);
+
+  chartInstances[canvasId] = new Chart(canvas, {
+    type: 'doughnut',
+    data: {labels, datasets:[{data, backgroundColor:colors, borderColor:'#fff', borderWidth:2, hoverOffset:4}]},
+    options: {
+      responsive:false, maintainAspectRatio:false, cutout:'68%',
+      plugins:{
+        legend:{display:false},
+        tooltip:{callbacks:{label:ctx=>` ${ctx.label}: ${((ctx.raw/total)*100).toFixed(1)}%`}, bodyFont:{family:'Albert Sans',size:11}},
+      },
+    },
+  });
+
+  if (legend) {
+    legend.innerHTML = items.slice(0,5).map((item,i) => `<div class="channel-leg-item">
+      <div class="channel-leg-dot" style="background:${colors[i]}"></div>
+      <span>${item.label}</span>
+      <span class="channel-leg-val">${((item.value/total)*100).toFixed(0)}%</span>
+    </div>`).join('');
+  }
+}
+
+function _ptnDrawMonthly(monthly, target) {
+  if (chartInstances['ptnMonthly']) { chartInstances['ptnMonthly'].destroy(); delete chartInstances['ptnMonthly']; }
+  const canvas = document.getElementById('ptnMonthlyChart');
+  if (!canvas || !monthly?.length) return;
+  const MONTHS_FR = ['Jan','Fév','Mar','Avr','Mai','Jun','Jul','Aoû','Sep','Oct','Nov','Déc'];
+  const labels = monthly.map(m => { const mo = parseInt(m.month.split('-')[1])-1; return MONTHS_FR[mo]||m.month; });
+  const values = monthly.map(m => m.value);
+  const targetArr = monthly.map(() => target);
+  chartInstances['ptnMonthly'] = new Chart(canvas, {
+    data: {
+      labels,
+      datasets: [
+        {type:'bar',  label:'Leads',                data:values,     backgroundColor:'#FEDB00', borderRadius:4, borderSkipped:false},
+        {type:'line', label:`Objectif ${fmtN(target)}`, data:targetArr, borderColor:'#EF4444', borderDash:[5,3], borderWidth:1.5, pointRadius:0, fill:false, tension:0},
+      ],
+    },
+    options: {
+      responsive:true, maintainAspectRatio:false,
+      plugins:{legend:{display:true, labels:{font:{family:'Albert Sans',size:11}, boxWidth:12, padding:14}}},
+      scales:{
+        x:{ticks:{font:{family:'Albert Sans',size:11}}, grid:{display:false}},
+        y:{ticks:{font:{family:'Albert Sans',size:11}}, beginAtZero:true},
+      },
+    },
+  });
+}
+
+// ════════════════════════════════════════════════════════════════
+
 function errState(src, msg) {
   const slug = src.toLowerCase().replace(/\s+/g,'').replace('searchconsole','gsc').replace('metaads','fb');
   return `<div class="no-key"><strong>${src}</strong><br>${msg||'Source non connectée ou erreur API.'}<br><br>

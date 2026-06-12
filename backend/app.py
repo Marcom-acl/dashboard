@@ -541,7 +541,8 @@ def google_debug():
 # GA4 route — acl.lu
 # ─────────────────────────────────────────────────────────────────────────────
 
-def _ga4_run_report(property_id, start, end, dimensions, metrics):
+def _ga4_run_report(property_id, start, end, dimensions, metrics,
+                    dimension_filter=None, order_bys=None, limit=None):
     headers = _google_headers()
     if not headers:
         return None
@@ -551,6 +552,12 @@ def _ga4_run_report(property_id, start, end, dimensions, metrics):
         'dimensions': [{'name': d} for d in dimensions],
         'metrics':    [{'name': m} for m in metrics],
     }
+    if dimension_filter:
+        body['dimensionFilter'] = dimension_filter
+    if order_bys:
+        body['orderBys'] = order_bys
+    if limit:
+        body['limit'] = limit
     r = _post(url, headers=headers, json=body)
     if r.ok:
         return r.json()
@@ -3254,6 +3261,689 @@ def _warmup_cache():
 
 threading.Thread(target=_warmup_cache, daemon=True).start()
 
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# AVANTAGES CLUB — Performance des partenaires
+# Dashboard global (tous partenaires) + dashboard par partenaire.
+# Sources : Google Sheets publics (Leads + Newsletter), GA4, Meta Ads.
+# Le dashboard partenaire est partageable via une URL publique sans mot de passe,
+# protégée par un token non devinable (voir _CLUB_PARTNERS).
+# ═════════════════════════════════════════════════════════════════════════════
+
+import csv as _csv
+import io as _io
+import unicodedata as _ud
+
+# Base de l'URL frontend (GitHub Pages) pour générer les liens de partage partenaire
+FRONTEND_URL = os.environ.get('FRONTEND_URL', 'https://marcom-acl.github.io/dashboard')
+
+# Google Sheets (publics — export CSV sans OAuth)
+LEADS_SHEET_ID = '1ahpl5NzgV5Ifk3yFwhMrFGSvgjCxZ_dkVM7trEIBE1o'
+NL_SHEET_ID    = '1cFNRYfQ2rE84Vn-hr1ghRaOnyLwxEiahMdWaCXzNWCs'
+LEADS_GIDS     = {'leads': 0, 'membres': 397652234, 'membres_total': 1929980711}
+_SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/{sid}/export?format=csv&gid={gid}'
+
+# Préfixes pagePath GA4 pour la vue globale "club" (repris de _SITE_SECTIONS)
+_CLUB_GA4_PREFIXES = ['/club/', '/club']
+
+# Config des partenaires.
+# clé = identifiant interne. token = code de partage non devinable.
+# 'match' = mot-clé normalisé (alphanumérique) recherché par "contient" dans
+# toutes les sources (leads, newsletter, ga4 pagePath, meta adset). Surcharger
+# 'leads'/'nl'/'ga4'/'meta' uniquement si le nom diffère selon la source.
+_CLUB_PARTNERS_RAW = {
+    'shell':        {'label': 'Shell',                      'token': 'shell-9728a13e'},
+    'autera':       {'label': 'Autera',                     'token': 'autera-49dca0f6'},
+    'bestwash':     {'label': 'Best Wash',                  'token': 'bestwash-738a59db'},
+    'wolt':         {'label': 'Wolt',                       'token': 'wolt-74de07ac'},
+    'auchan':       {'label': 'Auchan',                     'token': 'auchan-2942e3e8'},
+    'casino2000':   {'label': 'Casino 2000',               'token': 'casino2000-c097962d'},
+    'wort':         {'label': 'Luxemburger Wort',          'token': 'wort-ad6fcd0a', 'leads': 'wort'},
+    'autoglas':     {'label': 'Autoglas',                   'token': 'autoglas-5aad6b2c'},
+    'bestcharge':   {'label': 'Best Charge',               'token': 'bestcharge-167515c4'},
+    'autopolis':    {'label': 'Autopolis',                  'token': 'autopolis-1215b252'},
+    'baloise':      {'label': 'Baloise',                    'token': 'baloise-3162df68'},
+    'hellotaxi':    {'label': 'Hello Taxi',                'token': 'hellotaxi-ab12d267'},
+    'losch':        {'label': 'VW Losch',                  'token': 'losch-a2d628c3'},
+    'arval':        {'label': 'Arval',                      'token': 'arval-c3148b02'},
+    'orange':       {'label': 'Orange',                     'token': 'orange-243a5546'},
+    'kinepolis':    {'label': 'Kinepolis',                  'token': 'kinepolis-80ed8ff1'},
+    'luxtimes':     {'label': 'Luxembourg Times',          'token': 'luxtimes-2519ca47'},
+    'autosphere':   {'label': 'Autosphère',                'token': 'autosphere-f109e77e'},
+    'enersun':      {'label': 'Enersun',                    'token': 'enersun-d6682d2b'},
+    'polestar':     {'label': 'Polestar',                   'token': 'polestar-c390ff1c'},
+    'acl-location': {'label': 'ACL Location',              'token': 'acl-location-35444984', 'leads': 'acllocation'},
+    'bgl':          {'label': 'BGL BNP Paribas',           'token': 'bgl-bfe692df'},
+    'breuninger':   {'label': 'Breuninger',                'token': 'breuninger-c6ae1493'},
+    'brinks':       {'label': 'Brinks',                     'token': 'brinks-c60563b8'},
+    'cewe':         {'label': 'Cewe',                       'token': 'cewe-d39f9017'},
+    'coyote':       {'label': 'Coyote',                     'token': 'coyote-0ff31489'},
+    'emotion':      {'label': 'E-Motion',                  'token': 'emotion-20bf92d3'},
+    'euroasie':     {'label': 'Euro-Asie',                 'token': 'euroasie-f57bc953'},
+    'fischer':      {'label': 'Fischer',                    'token': 'fischer-750d5b8d'},
+    'francofolies': {'label': 'Francofolies',              'token': 'francofolies-99d511d5'},
+    'kravmaga':     {'label': 'Krav Maga',                 'token': 'kravmaga-532df50e'},
+    'luxauto':      {'label': 'Luxauto',                    'token': 'luxauto-d1a549c0'},
+    'rockhal':      {'label': 'Rockhal',                    'token': 'rockhal-b3fbbb25'},
+    'rodighiero':   {'label': 'Rodighiero',                'token': 'rodighiero-6c0ac7b8'},
+    'ult':          {'label': 'ULT',                        'token': 'ult-9f27b5f5'},
+    'vandivinit':   {'label': 'Vandivinit',                'token': 'vandivinit-c39c5718'},
+    'xcrossroads':  {'label': 'X Crossroads',              'token': 'xcrossroads-ffc6b416'},
+}
+
+
+def _norm(s):
+    """Minuscule + suppression des accents (NFKD)."""
+    if not s:
+        return ''
+    s = _ud.normalize('NFKD', str(s))
+    s = ''.join(c for c in s if not _ud.combining(c))
+    return s.lower().strip()
+
+
+def _alnum(s):
+    """Normalise puis ne garde que les caractères alphanumériques (pour matcher
+    'hello taxi' / 'hellotaxi', 'x crossroads' / 'xcrossroads', 'ACL LOCATION'...)."""
+    return ''.join(c for c in _norm(s) if c.isalnum())
+
+
+def _match(keyword, value):
+    """True si keyword (mot-clé partenaire) est contenu dans value, en ignorant
+    casse, accents, espaces et ponctuation."""
+    return _alnum(keyword) in _alnum(value)
+
+
+def _partner_cfg(key):
+    """Retourne la config résolue d'un partenaire (avec mots-clés par défaut)."""
+    raw = _CLUB_PARTNERS_RAW.get(key)
+    if not raw:
+        return None
+    return {
+        'key':   key,
+        'label': raw['label'],
+        'token': raw['token'],
+        'leads': raw.get('leads', key),
+        'nl':    raw.get('nl', key),
+        'ga4':   raw.get('ga4', key),
+        'meta':  raw.get('meta', key),
+    }
+
+
+def _partner_from_token(token):
+    """Retourne (key, cfg) pour un token de partage, ou (None, None)."""
+    if not token:
+        return None, None
+    for key, raw in _CLUB_PARTNERS_RAW.items():
+        if raw['token'] == token:
+            return key, _partner_cfg(key)
+    return None, None
+
+
+def _share_url(token):
+    return f'{FRONTEND_URL}/partner.html?t={token}'
+
+
+# ── Helpers CSV / parsing FR ──────────────────────────────────────────────────
+
+def _fetch_sheet_rows(sheet_id, gid):
+    """Télécharge un onglet Google Sheet en CSV → list[dict]. Caché 600s."""
+    cache_key = f'sheet:{sheet_id}:{gid}'
+    cached = _cache_get(cache_key)
+    if cached:
+        return cached.get('rows', [])
+    url = _SHEET_CSV_URL.format(sid=sheet_id, gid=gid)
+    r = _get(url, timeout=20)
+    if not r.ok:
+        return []
+    text = r.content.decode('utf-8-sig', errors='replace')
+    reader = _csv.reader(_io.StringIO(text))
+    rows = list(reader)
+    if not rows:
+        return []
+    headers = [h.strip() for h in rows[0]]
+    out = []
+    for raw in rows[1:]:
+        if not any(c.strip() for c in raw):
+            continue
+        out.append({headers[i]: (raw[i] if i < len(raw) else '') for i in range(len(headers))})
+    _cache_set(cache_key, {'rows': out}, 600)
+    return out
+
+
+def _fr_num(s):
+    """Parse un nombre au format FR ('69,06%', '1 234', '2.085') → float."""
+    if s is None:
+        return 0.0
+    s = str(s).strip().replace('%', '').replace('\xa0', '').replace(' ', '')
+    if not s:
+        return 0.0
+    s = s.replace(',', '.')
+    try:
+        return float(s)
+    except ValueError:
+        return 0.0
+
+
+def _fr_dt(s):
+    """Parse une date FR (dd/MM/yyyy [HH:mm[:ss]]) → datetime.date, ou None."""
+    if not s:
+        return None
+    s = str(s).strip()
+    for fmt in ('%d/%m/%Y %H:%M:%S', '%d/%m/%Y %H:%M', '%d/%m/%Y'):
+        try:
+            return datetime.datetime.strptime(s, fmt).date()
+        except ValueError:
+            continue
+    try:
+        return datetime.date.fromisoformat(s[:10])
+    except ValueError:
+        return None
+
+
+def _bucket(d, gran):
+    """Regroupe une date selon la granularité : day/week(lundi ISO)/month."""
+    if gran == 'month':
+        return d.strftime('%Y-%m')
+    if gran == 'week':
+        monday = d - datetime.timedelta(days=d.weekday())
+        return monday.isoformat()
+    return d.isoformat()
+
+
+def _granularity():
+    g = (request.args.get('granularity') or 'day').lower()
+    return g if g in ('day', 'week', 'month') else 'day'
+
+
+def _series_from_counts(counts):
+    """dict {bucket: value} → liste triée [{'date','value'}]."""
+    return [{'date': k, 'value': counts[k]} for k in sorted(counts)]
+
+
+# ── Briques de données ─────────────────────────────────────────────────────────
+
+def _club_leads(start, end, gran, partner=None):
+    """Leads depuis le Sheet Leads (gid 0). Filtre partenaire optionnel.
+    Pour la vue globale, ajoute les membres uniques et ratios leads/membre."""
+    s_date = datetime.date.fromisoformat(start)
+    e_date = datetime.date.fromisoformat(end)
+    rows = _fetch_sheet_rows(LEADS_SHEET_ID, LEADS_GIDS['leads'])
+
+    total = 0
+    counts = {}
+    for row in rows:
+        d = _fr_dt(row.get('ts'))
+        if not d or d < s_date or d > e_date:
+            continue
+        if partner and not _match(partner['leads'], row.get('Partenaire', '')):
+            continue
+        n = int(_fr_num(row.get('Number', 0)) or 0)
+        total += n
+        counts[_bucket(d, gran)] = counts.get(_bucket(d, gran), 0) + n
+
+    result = {'total': total, 'series': _series_from_counts(counts)}
+
+    if partner is None:
+        # Vue globale : membres uniques + mensuel + ratios annuels
+        year = e_date.year
+        y_start = datetime.date(year, 1, 1)
+        y_end = datetime.date(year, 12, 31)
+
+        # Leads mensuels sur l'année courante (12 colonnes + repère 2085)
+        monthly = {f'{year}-{m:02d}': 0 for m in range(1, 13)}
+        year_leads_total = 0
+        for row in rows:
+            d = _fr_dt(row.get('ts'))
+            if not d or d < y_start or d > y_end:
+                continue
+            n = int(_fr_num(row.get('Number', 0)) or 0)
+            key = f'{year}-{d.month:02d}'
+            if key in monthly:
+                monthly[key] += n
+            year_leads_total += n
+        result['monthly'] = [{'month': k, 'value': monthly[k]} for k in sorted(monthly)]
+        result['target'] = 2085
+
+        # Membres uniques (dédup email) sur la période
+        m_rows = _fetch_sheet_rows(LEADS_SHEET_ID, LEADS_GIDS['membres'])
+        emails_period = set()
+        for row in m_rows:
+            d = _fr_dt(row.get('ts'))
+            if not d or d < s_date or d > e_date:
+                continue
+            em = (row.get('email') or '').strip().lower()
+            if em:
+                emails_period.add(em)
+        members_unique = len(emails_period)
+        result['membersUnique'] = members_unique
+        result['leadsPerMember'] = round(total / members_unique, 2) if members_unique else 0
+
+        # Membres uniques TOTAL sur l'année (gid dédié) + ratio annuel
+        mt_rows = _fetch_sheet_rows(LEADS_SHEET_ID, LEADS_GIDS['membres_total'])
+        emails_year = set()
+        for row in mt_rows:
+            d = _fr_dt(row.get('ts'))
+            if not d or d < y_start or d > y_end:
+                continue
+            em = (row.get('email') or '').strip().lower()
+            if em:
+                emails_year.add(em)
+        members_year = len(emails_year)
+        result['membersTotalYear'] = members_year
+        result['leadsTotalYear'] = year_leads_total
+        result['leadsPerMemberYear'] = round(year_leads_total / members_year, 2) if members_year else 0
+
+    return result
+
+
+def _club_newsletter(start, end, partner=None):
+    """Newsletter depuis le Sheet NL. delivered/openRate = lignes Compte='Compte' ;
+    clicks/ctr = lignes du partenaire ; sends = détail par envoi/langue (donuts)."""
+    s_date = datetime.date.fromisoformat(start)
+    e_date = datetime.date.fromisoformat(end)
+    rows = _fetch_sheet_rows(NL_SHEET_ID, LEADS_GIDS['leads'])  # gid 0
+
+    def in_range(row):
+        d = _fr_dt(row.get('Date'))
+        return d is not None and s_date <= d <= e_date
+
+    # Délivré + taux d'ouverture global (lignes "Compte")
+    delivered = 0
+    open_weighted = 0.0
+    open_base = 0
+    for row in rows:
+        if not in_range(row):
+            continue
+        if _norm(row.get('Compte', '')) != 'compte':
+            continue
+        tot_deliv = _fr_num(row.get('Total Délivré') or row.get('Délivré'))
+        delivered += int(tot_deliv)
+        ouv = _fr_num(row.get("Taux d'ouv total") or row.get("Taux d'ouv."))
+        open_weighted += ouv * tot_deliv
+        open_base += tot_deliv
+    open_rate = round(open_weighted / open_base, 2) if open_base else 0
+
+    # Clics / CTR + détail par envoi (filtre partenaire le cas échéant)
+    # Les colonnes agrégées par partenaire ("Total clicks", "Click Rate total")
+    # ne sont remplies que sur la ligne de tête (1ʳᵉ langue) de chaque partenaire.
+    total_clicks = 0
+    ctr_values = []
+    sends = []
+    for row in rows:
+        if not in_range(row):
+            continue
+        pname = row.get('Partenaire', '')
+        if partner and not _match(partner['nl'], pname):
+            continue
+        agg_clicks_raw = (row.get('Total clicks') or '').strip()
+        agg_ctr_raw    = (row.get('Click Rate total') or '').strip()
+        # Agrégat partenaire (présent uniquement sur la ligne de tête)
+        if agg_clicks_raw:
+            total_clicks += int(_fr_num(agg_clicks_raw))
+        if agg_ctr_raw:
+            ctr_values.append(_fr_num(agg_ctr_raw))
+        # Détail par langue pour les donuts (vue partenaire)
+        if partner:
+            sends.append({
+                'label':     pname,
+                'delivered': int(_fr_num(row.get('Délivré'))),
+                'openRate':  _fr_num(row.get("Taux d'ouv.")),
+                'clickRate': _fr_num(row.get('Click Rate')),
+                'clicks':    int(_fr_num(row.get('Total Clics'))),
+            })
+    avg_ctr = round(sum(ctr_values) / len(ctr_values), 2) if ctr_values else 0
+
+    out = {
+        'delivered':   delivered,
+        'openRate':    open_rate,
+        'totalClicks': total_clicks,
+        'avgCtr':      avg_ctr,
+    }
+    if partner:
+        out['sends'] = sends
+    return out
+
+
+def _ga4_club_filter(partner):
+    """Construit le dimensionFilter GA4 : pagePath CONTAINS partenaire,
+    ou orGroup BEGINS_WITH sur les préfixes club pour la vue globale."""
+    if partner:
+        return {
+            'filter': {
+                'fieldName': 'pagePath',
+                'stringFilter': {'matchType': 'CONTAINS', 'value': partner['ga4'], 'caseSensitive': False},
+            }
+        }
+    return {
+        'orGroup': {
+            'expressions': [
+                {'filter': {'fieldName': 'pagePath',
+                            'stringFilter': {'matchType': 'BEGINS_WITH', 'value': pfx}}}
+                for pfx in _CLUB_GA4_PREFIXES
+            ]
+        }
+    }
+
+
+def _ga4_donut(property_id, start, end, dim, metric, dfilter, top=8):
+    """Retourne [{'label','value'}] trié desc, limité à top."""
+    data = _ga4_run_report(
+        property_id, start, end, [dim], [metric],
+        dimension_filter=dfilter,
+        order_bys=[{'metric': {'metricName': metric}, 'desc': True}],
+        limit=top,
+    )
+    out = []
+    if data:
+        for row in data.get('rows', []):
+            out.append({
+                'label': row['dimensionValues'][0]['value'],
+                'value': int(float(row['metricValues'][0]['value'])),
+            })
+    return out
+
+
+def _club_ga4(start, end, partner=None):
+    """KPIs GA4 (views, users, engaged sessions, sessions) + 4 donuts,
+    filtrés sur le partenaire (pagePath CONTAINS) ou la section club globale."""
+    headers = _google_headers()
+    if not headers:
+        return {'error': 'Google non connecté'}
+    dfilter = _ga4_club_filter(partner)
+
+    kpi = _ga4_run_report(
+        GA4_PROPERTY, start, end, [],
+        ['screenPageViews', 'totalUsers', 'engagedSessions', 'sessions'],
+        dimension_filter=dfilter,
+    )
+    views = users = engaged = sessions = 0
+    if kpi and kpi.get('rows'):
+        v = kpi['rows'][0]['metricValues']
+        views    = int(float(v[0]['value']))
+        users    = int(float(v[1]['value']))
+        engaged  = int(float(v[2]['value']))
+        sessions = int(float(v[3]['value']))
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=4) as ex:
+        f_lang = ex.submit(_ga4_donut, GA4_PROPERTY, start, end, 'language', 'screenPageViews', dfilter)
+        f_ctry = ex.submit(_ga4_donut, GA4_PROPERTY, start, end, 'country', 'engagedSessions', dfilter)
+        f_chan = ex.submit(_ga4_donut, GA4_PROPERTY, start, end, 'sessionDefaultChannelGroup', 'engagedSessions', dfilter)
+        f_dev  = ex.submit(_ga4_donut, GA4_PROPERTY, start, end, 'deviceCategory', 'engagedSessions', dfilter)
+        languages = f_lang.result()
+        countries = f_ctry.result()
+        channels  = f_chan.result()
+        devices   = f_dev.result()
+
+    return {
+        'views':           views,
+        'totalUsers':      users,
+        'engagedSessions': engaged,
+        'sessions':        sessions,
+        'languages':       languages,
+        'countries':       countries,
+        'channels':        channels,
+        'devices':         devices,
+    }
+
+
+def _club_meta(start, end, gran, partner=None):
+    """Meta Ads : campagnes contenant SOME ET CLUB. Filtre adset partenaire
+    optionnel. Renvoie clics (série + total), reach, impressions, CTR, ads (images)."""
+    token = _fb_token()
+    if not token:
+        return {'error': 'Meta non connecté — visiter /fb/auth'}
+
+    time_range = json.dumps({'since': start, 'until': end})
+    # filtering Graph : campaign.name CONTAIN SOME ET CONTAIN CLUB
+    filtering = json.dumps([
+        {'field': 'campaign.name', 'operator': 'CONTAIN', 'value': 'SOME'},
+        {'field': 'campaign.name', 'operator': 'CONTAIN', 'value': 'CLUB'},
+    ])
+
+    def keep(name):
+        n = name.lower()
+        return 'some' in n and 'club' in n
+
+    link_clicks = reach = impressions = 0
+    ctr = 0.0
+    clicks_counts = {}
+    by_partner = {}
+    ads = []
+
+    for account_id in FB_ACCOUNTS:
+        base = {
+            'access_token': token,
+            'time_range':   time_range,
+            'filtering':    filtering,
+            'level':        'adset',
+            'fields':       'campaign_name,adset_name,impressions,reach,inline_link_clicks,ctr',
+            'limit':        500,
+        }
+
+        # 1) Série journalière des clics (time_increment=1)
+        rday = _get(f'{FB_GRAPH}/{account_id}/insights',
+                    params={**base, 'time_increment': 1,
+                            'fields': 'campaign_name,adset_name,inline_link_clicks,date_start'})
+        if rday.ok:
+            for row in rday.json().get('data', []):
+                if not keep(row.get('campaign_name', '')):
+                    continue
+                if partner and not _match(partner['meta'], row.get('adset_name', '')):
+                    continue
+                d = _fr_dt_iso(row.get('date_start'))
+                if not d:
+                    continue
+                clicks = int(row.get('inline_link_clicks', 0) or 0)
+                b = _bucket(d, gran)
+                clicks_counts[b] = clicks_counts.get(b, 0) + clicks
+
+        # 2) Totaux période (reach non additif → pas de time_increment)
+        rtot = _get(f'{FB_GRAPH}/{account_id}/insights', params=base)
+        if rtot.ok:
+            rows = rtot.json().get('data', [])
+            kept = [r for r in rows if keep(r.get('campaign_name', ''))]
+            for r in kept:
+                aset = r.get('adset_name', '')
+                if partner and not _match(partner['meta'], aset):
+                    continue
+                link_clicks += int(r.get('inline_link_clicks', 0) or 0)
+                reach       += int(r.get('reach', 0) or 0)
+                impressions += int(r.get('impressions', 0) or 0)
+                # agrégat par partenaire (vue globale)
+                if not partner:
+                    pk = _resolve_partner_from_adset(aset)
+                    if pk:
+                        agg = by_partner.setdefault(pk, {'label': _CLUB_PARTNERS_RAW[pk]['label'],
+                                                         'linkClicks': 0, 'impressions': 0, 'reach': 0})
+                        agg['linkClicks'] += int(r.get('inline_link_clicks', 0) or 0)
+                        agg['impressions'] += int(r.get('impressions', 0) or 0)
+                        agg['reach'] += int(r.get('reach', 0) or 0)
+            ctr = round(link_clicks / impressions * 100, 2) if impressions else 0
+
+        # 3) Publicités + images (level=ad)
+        rad = _get(f'{FB_GRAPH}/{account_id}/insights',
+                   params={**base, 'level': 'ad',
+                           'fields': 'ad_id,ad_name,adset_name,campaign_name,inline_link_clicks,impressions,reach,ctr'})
+        ad_metrics = {}
+        if rad.ok:
+            for r in rad.json().get('data', []):
+                if not keep(r.get('campaign_name', '')):
+                    continue
+                if partner and not _match(partner['meta'], r.get('adset_name', '')):
+                    continue
+                ad_metrics[r.get('ad_id')] = {
+                    'name':        r.get('ad_name', ''),
+                    'linkClicks':  int(r.get('inline_link_clicks', 0) or 0),
+                    'impressions': int(r.get('impressions', 0) or 0),
+                    'reach':       int(r.get('reach', 0) or 0),
+                    'ctr':         round(float(r.get('ctr', 0) or 0), 2),
+                }
+        # images des creatives (caché 1h)
+        imgs = _fb_ad_images(account_id, token, list(ad_metrics.keys()))
+        for ad_id, m in ad_metrics.items():
+            m['image'] = imgs.get(ad_id, '')
+            ads.append(m)
+
+    out = {
+        'linkClicks':   link_clicks,
+        'reach':        reach,
+        'impressions':  impressions,
+        'ctr':          ctr,
+        'clicksSeries': _series_from_counts(clicks_counts),
+        'ads':          sorted(ads, key=lambda a: a['linkClicks'], reverse=True),
+    }
+    if not partner:
+        out['byPartner'] = sorted(by_partner.values(), key=lambda x: x['linkClicks'], reverse=True)
+    return out
+
+
+def _fr_dt_iso(s):
+    """date_start Meta = 'YYYY-MM-DD' → date."""
+    if not s:
+        return None
+    try:
+        return datetime.date.fromisoformat(s[:10])
+    except ValueError:
+        return None
+
+
+def _resolve_partner_from_adset(adset_name):
+    """Retourne la clé partenaire correspondant à un nom d'ad set, ou None."""
+    for key in _CLUB_PARTNERS_RAW:
+        cfg = _partner_cfg(key)
+        if _match(cfg['meta'], adset_name):
+            return key
+    return None
+
+
+def _fb_ad_images(account_id, token, ad_ids):
+    """Récupère l'URL d'image des creatives pour une liste d'ads. Caché 1h."""
+    if not ad_ids:
+        return {}
+    cache_key = f'fb-creatives:{account_id}'
+    cached = _cache_get(cache_key)
+    cache = cached.get('imgs', {}) if cached else {}
+    missing = [a for a in ad_ids if a not in cache]
+    if missing:
+        r = _get(f'{FB_GRAPH}/{account_id}/ads', params={
+            'access_token': token,
+            'fields': 'id,creative{thumbnail_url,image_url,object_story_spec}',
+            'thumbnail_width': 300, 'thumbnail_height': 300,
+            'limit': 200,
+        })
+        if r.ok:
+            for ad in r.json().get('data', []):
+                cr = ad.get('creative', {}) or {}
+                img = cr.get('image_url')
+                if not img:
+                    spec = cr.get('object_story_spec', {}) or {}
+                    img = (spec.get('link_data', {}) or {}).get('picture')
+                if not img:
+                    img = cr.get('thumbnail_url', '')
+                cache[ad.get('id')] = img or ''
+        _cache_set(cache_key, {'imgs': cache}, 3600)
+    return {a: cache.get(a, '') for a in ad_ids}
+
+
+# ── Routes ──────────────────────────────────────────────────────────────────────
+
+@app.route('/club-partners/list')
+def club_partners_list():
+    """Liste des partenaires configurés + ceux découverts dans les sheets."""
+    configured = []
+    for key in _CLUB_PARTNERS_RAW:
+        cfg = _partner_cfg(key)
+        configured.append({
+            'key':       key,
+            'label':     cfg['label'],
+            'token':     cfg['token'],
+            'shareUrl':  _share_url(cfg['token']),
+            'configured': True,
+        })
+
+    # Découverte : valeurs distinctes non couvertes par la config
+    discovered = set()
+    try:
+        for row in _fetch_sheet_rows(LEADS_SHEET_ID, LEADS_GIDS['leads']):
+            v = (row.get('Partenaire') or '').strip()
+            if v and not _resolve_partner_from_leads(v):
+                discovered.add(v[:60])
+    except Exception:
+        pass
+
+    return jsonify({
+        'partners':   sorted(configured, key=lambda p: p['label']),
+        'discovered': sorted(discovered)[:50],
+    })
+
+
+def _resolve_partner_from_leads(value):
+    for key in _CLUB_PARTNERS_RAW:
+        if _match(_partner_cfg(key)['leads'], value):
+            return key
+    return None
+
+
+def _club_payload(start, end, gran, partner=None):
+    """Assemble les 4 briques en parallèle, chaque échec isolé."""
+    with concurrent.futures.ThreadPoolExecutor(max_workers=4) as ex:
+        f_leads = ex.submit(_club_leads, start, end, gran, partner)
+        f_nl    = ex.submit(_club_newsletter, start, end, partner)
+        f_ga4   = ex.submit(_club_ga4, start, end, partner)
+        f_meta  = ex.submit(_club_meta, start, end, gran, partner)
+
+        def safe(f):
+            try:
+                return f.result()
+            except Exception as e:
+                return {'error': str(e)[:200]}
+
+        return {
+            'leads':      safe(f_leads),
+            'ga4':        safe(f_ga4),
+            'newsletter': safe(f_nl),
+            'meta':       safe(f_meta),
+        }
+
+
+@app.route('/club-partners/global')
+def club_partners_global():
+    start, end = _date_range()
+    gran = _granularity()
+    key = f'club:global:{start}:{end}:{gran}'
+    cached = _cache_get(key)
+    if cached:
+        return jsonify(cached)
+    data = _club_payload(start, end, gran, partner=None)
+    _cache_set(key, data, 600)
+    return jsonify(data)
+
+
+@app.route('/club-partners/partner')
+def club_partners_partner():
+    token = request.args.get('t')
+    pkey = request.args.get('p')  # usage interne (dashboard Marcom)
+    if token:
+        key, cfg = _partner_from_token(token)
+    elif pkey:
+        cfg = _partner_cfg(pkey)
+        key = pkey if cfg else None
+    else:
+        return jsonify({'error': 'Token manquant'}), 400
+    if not cfg:
+        return jsonify({'error': 'Partenaire ou token inconnu'}), 404
+
+    start, end = _date_range()
+    gran = _granularity()
+    cache_key = f'club:{key}:{start}:{end}:{gran}'
+    cached = _cache_get(cache_key)
+    if cached:
+        return jsonify(cached)
+    data = _club_payload(start, end, gran, partner=cfg)
+    data['partner'] = {'key': key, 'label': cfg['label']}
+    _cache_set(cache_key, data, 600)
+    return jsonify(data)
 
 
 # ─────────────────────────────────────────────────────────────────────────────

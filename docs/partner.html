@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ACL Avantages Club — Dashboard Partenaire</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+<style>
+  :root{
+    --y:#FEDB00;--y-deep:#F4C400;--y-soft:#FFF4A8;
+    --n:#123C62;--n-deep:#0B2A45;
+    --bg:#F4F4F2;--surface:#fff;--border:#E8E6E0;--border-strong:#C8C4BC;
+    --text:#161513;--muted:#7A7770;--muted-2:#A8A49B;
+    --c-fb:#1877F2;--c-fb-bg:#E3EEFE;
+    --c-brevo:#0B996E;--c-brevo-bg:#DEF1EA;
+    --c-ga4:#F4B400;--c-ga4-bg:#FFF5D1;
+    --c-club:#123C62;--c-club-bg:#E8EEF4;
+    --good:#16A34A;--bad:#DC2626;--warn:#F97316;
+    --r-sm:6px;--r-md:10px;--r-lg:14px;
+    --shadow-1:0 1px 0 rgba(0,0,0,.02),0 1px 2px rgba(20,20,15,.04);
+    --shadow-2:0 1px 0 rgba(0,0,0,.02),0 6px 18px rgba(20,20,15,.06);
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html,body{min-height:100%;background:var(--bg);}
+  body{font-family:'Albert Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:var(--text);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased;}
+
+  /* ── Layout ── */
+  .page{max-width:1100px;margin:0 auto;padding:28px 20px 60px;}
+  .top-bar{display:flex;align-items:center;gap:14px;margin-bottom:28px;flex-wrap:wrap;}
+  .logo-wrap{display:flex;align-items:center;gap:10px;}
+  .top-title{font-size:20px;font-weight:800;color:var(--n);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;}
+  .top-sub{font-size:12px;color:var(--muted);}
+  .top-spacer{flex:1;}
+  .partner-badge{padding:5px 14px;border-radius:99px;background:var(--y);color:var(--n);font-weight:700;font-size:13px;}
+
+  /* ── Toolbar ── */
+  .toolbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:20px;padding:14px 16px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);box-shadow:var(--shadow-1);}
+  .toolbar-sep{width:1px;height:24px;background:var(--border);flex-shrink:0;}
+  .date-label{font-size:11px;font-weight:600;color:var(--muted);white-space:nowrap;}
+  .date-inp{height:32px;padding:0 10px;border:1.5px solid var(--border);border-radius:6px;background:var(--surface);font:600 12px 'Albert Sans',sans-serif;color:var(--text);}
+  .date-inp:focus{outline:none;border-color:var(--y);}
+  .preset-btns{display:flex;gap:3px;}
+  .preset-btn{padding:5px 12px;border-radius:6px;border:1.5px solid var(--border);background:var(--surface);font-size:11px;font-weight:600;cursor:pointer;color:var(--muted);transition:all .12s;}
+  .preset-btn.active,.preset-btn:hover{background:var(--y);border-color:var(--y);color:#231f20;}
+  .gran-btns{display:flex;gap:3px;}
+  .gran-btn{padding:5px 12px;border-radius:6px;border:1.5px solid var(--border);background:var(--surface);font-size:11px;font-weight:600;cursor:pointer;color:var(--muted);transition:all .12s;}
+  .gran-btn.active,.gran-btn:hover{background:var(--n);border-color:var(--n);color:#fff;}
+
+  /* ── KPI cards ── */
+  .kpi-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px;margin-bottom:16px;}
+  .kpi-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:14px 16px;border-top:3px solid var(--src,var(--y));box-shadow:var(--shadow-1);position:relative;overflow:hidden;}
+  .kpi-label{font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-bottom:6px;}
+  .kpi-val{font-size:26px;font-weight:800;color:var(--text);font-variant-numeric:tabular-nums;font-style:italic;letter-spacing:-0.02em;line-height:1;}
+
+  /* ── Cards ── */
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);box-shadow:var(--shadow-1);margin-bottom:16px;overflow:hidden;}
+  .card-head{display:flex;align-items:center;gap:10px;padding:14px 16px 0;flex-wrap:wrap;}
+  .card-title{font-size:13px;font-weight:700;color:var(--text);flex:1;}
+  .card-body{padding:14px 16px;}
+  .src-pill{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:99px;font-size:10.5px;font-weight:600;background:var(--src-bg,#f5f5f5);color:var(--src,var(--n));}
+  .src-pill::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--src,var(--y));}
+
+  /* ── Bar list ── */
+  .bar-row{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+  .bar-meta{flex:1;min-width:0;}
+  .bar-name{font-size:12px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;margin-bottom:2px;}
+  .bar-track{height:5px;background:var(--bg);border-radius:99px;overflow:hidden;}
+  .bar-fill{height:100%;border-radius:99px;background:var(--src,var(--y));}
+  .bar-val{font-size:12px;font-weight:700;font-variant-numeric:tabular-nums;min-width:48px;text-align:right;}
+
+  /* ── Donuts grid ── */
+  .donut-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-bottom:16px;}
+  .donut-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:14px;display:flex;flex-direction:column;align-items:center;gap:8px;box-shadow:var(--shadow-1);}
+  .donut-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);}
+  .legend{display:flex;flex-direction:column;gap:4px;width:100%;}
+  .leg-item{display:flex;align-items:center;gap:6px;font-size:10.5px;}
+  .leg-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+  .leg-val{margin-left:auto;font-weight:700;font-variant-numeric:tabular-nums;}
+
+  /* ── NL table ── */
+  table{width:100%;border-collapse:collapse;font-size:12px;}
+  th{text-align:left;padding:6px 8px;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--muted);border-bottom:1px solid var(--border);}
+  td{padding:7px 8px;border-bottom:1px solid var(--border);}
+  tr:last-child td{border-bottom:none;}
+  tr:hover td{background:var(--bg);}
+
+  /* ── Ads grid ── */
+  .ads-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:10px;}
+  .ad-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-sm);overflow:hidden;}
+  .ad-card img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block;background:var(--bg);}
+  .ad-meta{padding:8px;}
+  .ad-name{font-weight:600;font-size:11px;line-height:1.3;margin-bottom:3px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+  .ad-kpi{color:var(--muted);font-size:10px;}
+
+  /* ── States ── */
+  .loading{text-align:center;padding:60px;color:var(--muted);font-size:13px;}
+  .err-screen{text-align:center;padding:80px 20px;}
+  .err-title{font-size:22px;font-weight:800;color:var(--n);margin-bottom:8px;}
+  .err-msg{color:var(--muted);font-size:13px;}
+  .meta-err{padding:14px;background:var(--bg);border-radius:var(--r-sm);border:1px dashed var(--border);font-size:11px;color:var(--muted);text-align:center;margin-bottom:16px;}
+
+  /* ── Watermark ── */
+  .watermark{text-align:center;color:var(--muted-2);font-size:10px;margin-top:40px;}
+
+  @media(max-width:600px){
+    .top-bar{flex-direction:column;align-items:flex-start;}
+    .toolbar{flex-direction:column;align-items:flex-start;}
+    .kpi-row{grid-template-columns:repeat(2,1fr);}
+    .donut-grid{grid-template-columns:1fr 1fr;}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Top bar -->
+  <div class="top-bar">
+    <div class="logo-wrap">
+      <!-- Logo ACL inline — version jaune fond blanc -->
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 60" width="90" height="30" aria-label="ACL">
+        <rect width="180" height="60" rx="4" fill="#ffdc18"/>
+        <text x="90" y="42" text-anchor="middle" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="28" fill="#231f20">ACL</text>
+      </svg>
+    </div>
+    <div>
+      <div class="top-title">Avantages Club</div>
+      <div class="top-sub">Dashboard de performance partenaire</div>
+    </div>
+    <div class="top-spacer"></div>
+    <div class="partner-badge" id="partnerBadge">Chargement…</div>
+  </div>
+
+  <!-- Toolbar -->
+  <div class="toolbar">
+    <span class="date-label">Période :</span>
+    <input class="date-inp" type="date" id="dateFrom">
+    <span class="date-label" style="color:var(--muted-2)">→</span>
+    <input class="date-inp" type="date" id="dateTo">
+    <div class="preset-btns">
+      <button class="preset-btn" data-days="7" onclick="applyPreset(7,this)">7j</button>
+      <button class="preset-btn active" data-days="30" onclick="applyPreset(30,this)">30j</button>
+      <button class="preset-btn" data-days="90" onclick="applyPreset(90,this)">90j</button>
+    </div>
+    <div class="toolbar-sep"></div>
+    <span class="date-label">Granularité :</span>
+    <div class="gran-btns">
+      <button class="gran-btn active" onclick="applyGran('day',this)">Jour</button>
+      <button class="gran-btn" onclick="applyGran('week',this)">Semaine</button>
+      <button class="gran-btn" onclick="applyGran('month',this)">Mois</button>
+    </div>
+    <button style="margin-left:auto;padding:6px 16px;border-radius:8px;border:1.5px solid var(--n);background:var(--n);color:#fff;font-size:11px;font-weight:700;cursor:pointer" onclick="loadData()">Actualiser</button>
+  </div>
+
+  <!-- Main content -->
+  <div id="mainContent">
+    <div class="loading">Chargement des données…</div>
+  </div>
+
+  <div class="watermark">Dashboard ACL Marcom · Données actualisées depuis le serveur Railway · Accès réservé au partenaire</div>
+</div>
+
+<script>
+// ── Config ────────────────────────────────────────────────────
+const API_BASE = 'https://dashboard-production-482e.up.railway.app';
+const token = new URLSearchParams(location.search).get('t') || '';
+let gran = 'day';
+let chartInstances = {};
+
+// ── Date helpers ──────────────────────────────────────────────
+function today() { return new Date().toISOString().slice(0,10); }
+function daysAgo(n) {
+  const d = new Date(); d.setDate(d.getDate()-n); return d.toISOString().slice(0,10);
+}
+function fmtN(n, dec=0) { return (n||0).toLocaleString('fr-BE', {maximumFractionDigits:dec}); }
+function fmtPct(n) { return (n||0).toFixed(1)+'%'; }
+
+// ── Init ──────────────────────────────────────────────────────
+if (!token) {
+  document.getElementById('mainContent').innerHTML = `
+    <div class="err-screen">
+      <div class="err-title">Lien invalide</div>
+      <div class="err-msg">Ce lien de partage est incorrect ou a expiré. Contactez votre interlocuteur ACL.</div>
+    </div>`;
+} else {
+  // Dates par défaut : 30 derniers jours
+  document.getElementById('dateFrom').value = daysAgo(30);
+  document.getElementById('dateTo').value   = today();
+  document.getElementById('dateFrom').addEventListener('change', loadData);
+  document.getElementById('dateTo').addEventListener('change', loadData);
+  loadData();
+}
+
+function applyPreset(days, btn) {
+  document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  document.getElementById('dateFrom').value = daysAgo(days);
+  document.getElementById('dateTo').value   = today();
+  loadData();
+}
+
+function applyGran(g, btn) {
+  gran = g;
+  document.querySelectorAll('.gran-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  loadData();
+}
+
+// ── Fetch ─────────────────────────────────────────────────────
+async function loadData() {
+  if (!token) return;
+  const start = document.getElementById('dateFrom').value;
+  const end   = document.getElementById('dateTo').value;
+  if (!start || !end) return;
+
+  document.getElementById('mainContent').innerHTML = '<div class="loading">Chargement…</div>';
+
+  try {
+    const qs = new URLSearchParams({t: token, start, end, granularity: gran});
+    const r  = await fetch(`${API_BASE}/club-partners/partner?${qs}`, {signal: AbortSignal.timeout(30000)});
+    if (r.status === 404) {
+      document.getElementById('mainContent').innerHTML = `
+        <div class="err-screen">
+          <div class="err-title">Lien invalide</div>
+          <div class="err-msg">Ce lien de partage est incorrect ou a expiré. Contactez votre interlocuteur ACL.</div>
+        </div>`;
+      return;
+    }
+    if (!r.ok) throw new Error(`HTTP ${r.status}`);
+    const data = await r.json();
+    render(data);
+  } catch(e) {
+    document.getElementById('mainContent').innerHTML = `
+      <div class="err-screen">
+        <div class="err-title">Erreur de chargement</div>
+        <div class="err-msg">${e.message}</div>
+      </div>`;
+  }
+}
+
+// ── Render ────────────────────────────────────────────────────
+function render(data) {
+  const partner = data.partner || {};
+  const leads   = data.leads        || {};
+  const ga4     = data.ga4          || {};
+  const nl      = data.newsletter   || {};
+  const meta    = data.meta         || {};
+  const metaOk  = !meta.error;
+
+  // Badge partenaire
+  document.getElementById('partnerBadge').textContent = partner.label || 'Partenaire';
+  document.title = `ACL Club · ${partner.label || 'Dashboard'}`;
+
+  // KPI cards
+  const kpiHtml = `<div class="kpi-row">
+    ${kpi('Leads (période)',      fmtN(leads.total||0),           'var(--y)')}
+    ${kpi('Sessions GA4',         fmtN(ga4.sessions||0),          'var(--n)')}
+    ${kpi('Utilisateurs GA4',     fmtN(ga4.totalUsers||0),        'var(--n)')}
+    ${kpi('Sessions engagées',    fmtN(ga4.engagedSessions||0),   'var(--n)')}
+    ${kpi('Emails délivrés',      fmtN(nl.delivered||0),          'var(--c-brevo)')}
+    ${kpi("Taux d'ouverture NL",  fmtPct(nl.openRate||0),         'var(--c-brevo)')}
+    ${kpi('Clics NL',             fmtN(nl.totalClicks||0),        'var(--c-brevo)')}
+    ${kpi('CTR NL',               fmtPct(nl.avgCtr||0),           'var(--c-brevo)')}
+    ${metaOk ? kpi('Clics Meta',   fmtN(meta.linkClicks||0),  'var(--c-fb)') : ''}
+    ${metaOk ? kpi('Reach Meta',   fmtN(meta.reach||0),       'var(--c-fb)') : ''}
+    ${metaOk ? kpi('CTR Meta',     fmtPct(meta.ctr||0),       'var(--c-fb)') : ''}
+  </div>`;
+
+  // GA4 donuts
+  const donutsHtml = `<div class="donut-grid">
+    <div class="donut-wrap"><div class="donut-title">Langue · Pages vues</div>
+      <canvas id="dLang" width="130" height="130"></canvas><div class="legend" id="lLang"></div></div>
+    <div class="donut-wrap"><div class="donut-title">Pays · Sessions engagées</div>
+      <canvas id="dCtry" width="130" height="130"></canvas><div class="legend" id="lCtry"></div></div>
+    <div class="donut-wrap"><div class="donut-title">Canal · Sessions engagées</div>
+      <canvas id="dChan" width="130" height="130"></canvas><div class="legend" id="lChan"></div></div>
+    <div class="donut-wrap"><div class="donut-title">Appareil · Sessions engagées</div>
+      <canvas id="dDev" width="130" height="130"></canvas><div class="legend" id="lDev"></div></div>
+  </div>`;
+
+  // NL sends detail
+  const nlSendsHtml = (nl.sends||[]).length ? `
+    <div class="card">
+      <div class="card-head"><div class="card-title">Newsletter — Détail par envoi</div></div>
+      <div class="card-body">
+        <table>
+          <thead><tr><th>Partenaire</th><th>Délivré</th><th>Ouvertures</th><th>Clics</th><th>CTR</th></tr></thead>
+          <tbody>${(nl.sends||[]).map(s=>`<tr>
+            <td>${s.label||''}</td>
+            <td>${fmtN(s.delivered||0)}</td>
+            <td>${fmtPct(s.openRate||0)}</td>
+            <td>${fmtN(s.clicks||0)}</td>
+            <td>${fmtPct(s.clickRate||0)}</td>
+          </tr>`).join('')}</tbody>
+        </table>
+      </div>
+    </div>` : '';
+
+  // Meta erreur
+  const metaErrHtml = meta.error ? `<div class="meta-err">Meta Ads — ${meta.error}</div>` : '';
+
+  // Meta ads grid
+  const adsHtml = metaOk && (meta.ads||[]).length ? `
+    <div class="card">
+      <div class="card-head">
+        <div class="card-title">Publicités Meta</div>
+        <span class="src-pill" style="--src:var(--c-fb);--src-bg:var(--c-fb-bg)">${fmtN((meta.ads||[]).length)} ad${(meta.ads||[]).length>1?'s':''}</span>
+      </div>
+      <div class="card-body">
+        <div class="ads-grid">
+          ${(meta.ads||[]).slice(0,18).map(ad=>`<div class="ad-card">
+            ${ad.image ? `<img src="${ad.image}" alt="" loading="lazy" onerror="this.remove()">` : ''}
+            <div class="ad-meta">
+              <div class="ad-name">${ad.name||''}</div>
+              <div class="ad-kpi">${fmtN(ad.linkClicks||0)} clics &middot; ${fmtPct(ad.ctr||0)} CTR</div>
+            </div>
+          </div>`).join('')}
+        </div>
+      </div>
+    </div>` : '';
+
+  document.getElementById('mainContent').innerHTML = kpiHtml + donutsHtml + nlSendsHtml + metaErrHtml + adsHtml;
+
+  requestAnimationFrame(() => {
+    drawDonut('dLang','lLang', ga4.languages||[]);
+    drawDonut('dCtry','lCtry', ga4.countries||[]);
+    drawDonut('dChan','lChan', ga4.channels||[]);
+    drawDonut('dDev', 'lDev',  ga4.devices||[]);
+  });
+}
+
+function kpi(label, value, color) {
+  return `<div class="kpi-card" style="--src:${color}">
+    <div class="kpi-label">${label}</div>
+    <div class="kpi-val">${value}</div>
+  </div>`;
+}
+
+function drawDonut(canvasId, legendId, items) {
+  if (chartInstances[canvasId]) { chartInstances[canvasId].destroy(); delete chartInstances[canvasId]; }
+  const canvas = document.getElementById(canvasId);
+  const legend = document.getElementById(legendId);
+  if (!canvas || !items?.length) {
+    if (legend) legend.innerHTML = '<span style="color:#999;font-size:10px">Aucune donnée</span>';
+    return;
+  }
+  const COLORS = ['#FEDB00','#123C62','#34A853','#1877F2','#F59E0B','#EC4899','#8B5CF6','#6B7280','#14B8A6','#F97316'];
+  const labels = items.map(i => i.label);
+  const data   = items.map(i => i.value);
+  const total  = data.reduce((s,v) => s+v, 0) || 1;
+  const colors = items.map((_,i) => COLORS[i % COLORS.length]);
+
+  chartInstances[canvasId] = new Chart(canvas, {
+    type:'doughnut',
+    data:{labels, datasets:[{data, backgroundColor:colors, borderColor:'#fff', borderWidth:2, hoverOffset:4}]},
+    options:{
+      responsive:false, maintainAspectRatio:false, cutout:'68%',
+      plugins:{
+        legend:{display:false},
+        tooltip:{callbacks:{label:ctx=>` ${ctx.label}: ${((ctx.raw/total)*100).toFixed(1)}%`}},
+      },
+    },
+  });
+
+  if (legend) {
+    legend.innerHTML = items.slice(0,5).map((item,i) => `
+      <div class="leg-item">
+        <div class="leg-dot" style="background:${colors[i]}"></div>
+        <span>${item.label}</span>
+        <span class="leg-val">${((item.value/total)*100).toFixed(0)}%</span>
+      </div>`).join('');
+  }
+}
+</script>
+</body>
+</html>
