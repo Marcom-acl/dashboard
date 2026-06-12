@@ -3662,7 +3662,8 @@ def _brevo_leads_compute(start, end, gran, partner=None):
         result['leadsTotalYear']     = year_total
         result['leadsPerMemberYear'] = round(year_total / len(all_emails_year), 2) if all_emails_year else 0
 
-    _cache_set(cache_key, result, 3600)
+    # Ne pas cacher les résultats vides (rate limit ou réellement vide) : réessayer dans 90s
+    _cache_set(cache_key, result, 3600 if total > 0 else 90)
     return result
 
 
