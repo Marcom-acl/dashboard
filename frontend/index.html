@@ -1218,12 +1218,6 @@
           <span class="sb-pill">Marketing Emails</span>
           <span class="sb-dot" id="bs-brevo" style="background:var(--muted-2);"></span>
         </button>
-        <button class="sb-item tab-btn" data-tab="club" title="ACL Club">
-          <span class="sb-ic-wrap" style="background:rgba(245,158,11,.15);--ic-color:#F59E0B"><svg class="sb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span>
-          <span class="sb-item-label">ACL Club</span>
-          <span class="sb-pill">ACL Club</span>
-          <span class="sb-dot" id="bs-club" style="background:var(--muted-2);"></span>
-        </button>
         <button class="sb-item tab-btn" data-tab="partners" title="Avantages Club — Partenaires">
           <span class="sb-ic-wrap" style="background:rgba(254,219,0,.15);--ic-color:#FEDB00"><svg class="sb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></span>
           <span class="sb-item-label">Avantages Club</span>
@@ -1333,10 +1327,9 @@
           <div class="filter-ind" id="globalFilterInd"></div>
         </div>
         <div class="custom-range" id="globalCustomRange">
-          <span style="font-size:10px;color:var(--muted);white-space:nowrap">JJ/MM/AAAA</span>
-          <input type="date" class="date-inp" id="globalDateFrom" />
+          <input type="text" class="date-inp" id="globalDateFrom" placeholder="JJ/MM/AAAA" maxlength="10" inputmode="numeric" style="width:106px" />
           <span style="font-size:11px;color:var(--muted)">→</span>
-          <input type="date" class="date-inp" id="globalDateTo" />
+          <input type="text" class="date-inp" id="globalDateTo" placeholder="JJ/MM/AAAA" maxlength="10" inputmode="numeric" style="width:106px" />
           <button class="btn-ok" onclick="applyGlobalRange()">OK</button>
         </div>
         <span id="gsc-period-note" style="display:none;" title="Google Search Console requiert au moins 28 jours">GSC : plancher 28j</span>
@@ -5375,9 +5368,10 @@ let _ptnListData   = null;
 function renderPartners(gdata, listData) {
   const el = document.getElementById('panel-partners');
   if (!el) return;
+  const prevKey  = _ptnKey;  // conserver le partenaire sélectionné au changement de période
   _ptnGlobalData = gdata;
   _ptnListData   = listData;
-  _ptnKey  = null;
+  _ptnKey        = prevKey;
   // Ne pas réinitialiser _ptnGran — on conserve la granularité choisie par l'utilisateur
 
   const partners = listData?.partners || [];
@@ -5409,7 +5403,16 @@ function renderPartners(gdata, listData) {
     <div id="ptnContent"></div>
   `;
 
-  _ptnRenderView(gdata, true);
+  if (prevKey) {
+    // Restaurer le partenaire sélectionné après rebuild HTML du dropdown
+    const sel = document.getElementById('ptnSelect');
+    if (sel) sel.value = prevKey;
+    const copyBtn = document.getElementById('ptnCopyBtn');
+    if (copyBtn) copyBtn.style.display = '';
+    _ptnFetchPartner(prevKey);
+  } else {
+    _ptnRenderView(gdata, true);
+  }
 }
 
 function _ptnOnSelectChange(key) {
@@ -5478,11 +5481,19 @@ function _ptnRenderView(data, isGlobal) {
     return;
   }
 
-  const leads  = data.leads        || {};
-  const ga4    = data.ga4          || {};
-  const nl     = data.newsletter   || {};
-  const meta   = data.meta         || {};
-  const year   = new Date().getFullYear();
+  const leads   = data.leads        || {};
+  const ga4     = data.ga4          || {};
+  const nl      = data.newsletter   || {};
+  const meta    = data.meta         || {};
+  const partner = data.partner      || {};
+  const year    = new Date().getFullYear();
+
+  // Titre partenaire (vue détail uniquement)
+  const partnerTitleHtml = !isGlobal && partner.label ? `
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+      <h3 style="font-size:18px;font-weight:800;color:var(--text);margin:0">${partner.label}</h3>
+      <span style="font-size:11px;color:var(--muted);font-weight:500;background:var(--y-soft);padding:2px 8px;border-radius:99px;border:1px solid var(--y)">Partenaire</span>
+    </div>` : '';
 
   // KPI cards — ligne principale
   const metaOk = !meta.error;
@@ -5620,7 +5631,7 @@ function _ptnRenderView(data, isGlobal) {
       </div>
     </div>` : '';
 
-  el.innerHTML = kpiHtml + globalKpiHtml + periodChartHtml + monthlyHtml + donutsHtml + nlSendsHtml + metaByPartnerHtml + metaErrHtml + adsHtml;
+  el.innerHTML = partnerTitleHtml + kpiHtml + globalKpiHtml + periodChartHtml + monthlyHtml + donutsHtml + nlSendsHtml + metaByPartnerHtml + metaErrHtml + adsHtml;
 
   requestAnimationFrame(() => {
     if (hasLeadsSeries || hasMetaSeries) _ptnDrawPeriod(leads.series||[], hasMetaSeries ? (meta.clicksSeries||[]) : []);
@@ -5759,6 +5770,12 @@ function animateCards(el) {
       if (p === 'custom') {
         document.getElementById('globalCustomRange').classList.add('visible');
         document.getElementById('gsc-period-note').style.display = '';
+        // Pré-remplir avec la période courante en DD/MM/AAAA
+        const isoToDmy = iso => iso ? iso.slice(8,10)+'/'+iso.slice(5,7)+'/'+iso.slice(0,4) : '';
+        const fromInp = document.getElementById('globalDateFrom');
+        const toInp   = document.getElementById('globalDateTo');
+        if (fromInp && !fromInp.value) fromInp.value = isoToDmy(globalStart);
+        if (toInp   && !toInp.value)   toInp.value   = isoToDmy(globalEnd);
       } else if (p === 'ytd') {
         document.getElementById('globalCustomRange').classList.remove('visible');
         document.getElementById('gsc-period-note').style.display = 'none';
@@ -5781,11 +5798,43 @@ function animateCards(el) {
   setTimeout(() => updateInd(document.querySelector('.filter-btn.active')), 100);
 })();
 
-function applyGlobalRange() {
-  globalStart = document.getElementById('globalDateFrom').value;
-  globalEnd   = document.getElementById('globalDateTo').value;
-  if (globalStart && globalEnd) loadAll();
+function _dmyToIso(s) {
+  // Accepte DD/MM/AAAA ou YYYY-MM-DD
+  if (!s) return '';
+  if (/^\d{4}-\d{2}-\d{2}$/.test(s)) return s;
+  const m = s.match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})$/);
+  if (!m) return '';
+  return `${m[3]}-${m[2].padStart(2,'0')}-${m[1].padStart(2,'0')}`;
 }
+function applyGlobalRange() {
+  const rawFrom = document.getElementById('globalDateFrom').value;
+  const rawTo   = document.getElementById('globalDateTo').value;
+  const isoFrom = _dmyToIso(rawFrom);
+  const isoTo   = _dmyToIso(rawTo);
+  if (!isoFrom || !isoTo) return;
+  globalStart = isoFrom;
+  globalEnd   = isoTo;
+  globalDays  = Math.round((new Date(isoTo) - new Date(isoFrom)) / 86400000);
+  loadAll();
+}
+// Auto-format DD/MM/AAAA dans les champs texte
+(function() {
+  function autoFmtDate(inp) {
+    inp.addEventListener('input', function() {
+      let v = this.value.replace(/\D/g, '');
+      if (v.length > 2) v = v.slice(0,2) + '/' + v.slice(2);
+      if (v.length > 5) v = v.slice(0,5) + '/' + v.slice(5,9);
+      this.value = v;
+    });
+    inp.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') applyGlobalRange();
+    });
+  }
+  const f = document.getElementById('globalDateFrom');
+  const t = document.getElementById('globalDateTo');
+  if (f) autoFmtDate(f);
+  if (t) autoFmtDate(t);
+})();
 
 // ── Config drawer ─────────────────────────────────────────────
 (function() {
