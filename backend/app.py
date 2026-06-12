@@ -3662,7 +3662,7 @@ def _brevo_leads_compute(start, end, gran, partner=None):
         result['leadsTotalYear']     = year_total
         result['leadsPerMemberYear'] = round(year_total / len(all_emails_year), 2) if all_emails_year else 0
 
-    _cache_set(cache_key, result, 600)
+    _cache_set(cache_key, result, 3600)
     return result
 
 
@@ -3716,7 +3716,7 @@ def _brevo_newsletter_compute(start, end, partner=None):
     if not campaigns:
         if partner:
             empty['sends'] = []
-        _cache_set(cache_key, empty, 600)
+        _cache_set(cache_key, empty, 3600)
         return empty
 
     nl_patterns = partner['nl_url_patterns'] if partner else None
@@ -3805,7 +3805,7 @@ def _brevo_newsletter_compute(start, end, partner=None):
     if partner:
         out['sends'] = sends
 
-    _cache_set(cache_key, out, 600)
+    _cache_set(cache_key, out, 3600)
     return out
 
 
@@ -4052,63 +4052,6 @@ def _fb_ad_images(account_id, token, ad_ids):
 
 # ── Routes ──────────────────────────────────────────────────────────────────────
 
-@app.route('/brevo-debug')
-def brevo_debug():
-    """Diagnostic : teste les endpoints Brevo et les permissions de la clé API."""
-    if not BREVO_API_KEY:
-        return jsonify({'error': 'BREVO_API_KEY absent'}), 500
-    hdrs = {'api-key': BREVO_API_KEY, 'Accept': 'application/json'}
-    start = request.args.get('start', '2026-05-01')
-    end   = request.args.get('end',   '2026-06-12')
-    results = {}
-
-    def call(label, url, params=None):
-        import time as _time
-        _time.sleep(0.5)
-        r = _get(url, headers=hdrs, params=params or {})
-        body = {}
-        try:
-            body = r.json()
-        except Exception:
-            body = {'raw': r.text[:500]}
-        return {
-            'status': r.status_code,
-            'ok': r.ok,
-            'headers': dict(r.headers),
-            'body': body if not r.ok else None,
-            'count': (
-                len(body.get('events', []) or body.get('transactionalEmails', []) or [])
-                if r.ok else None
-            ),
-            'sample': (body.get('events') or body.get('transactionalEmails') or [])[:2] if r.ok else None,
-            'field_keys': list((body.get('events') or body.get('transactionalEmails') or [{}])[0].keys())
-                          if r.ok and (body.get('events') or body.get('transactionalEmails')) else [],
-        }
-
-    # 1. Compte Brevo (vérifie les permissions de la clé)
-    results['account'] = call('account', f'{_BREVO_CLUB_BASE}/account')
-
-    # 2. Statistics events sans filtre
-    results['events_no_filter'] = call('events_no_filter',
-        f'{_BREVO_CLUB_BASE}/smtp/statistics/events',
-        {'startDate': start, 'endDate': end, 'limit': 3})
-
-    # 3. Statistics events avec tags
-    results['events_with_tag'] = call('events_with_tag',
-        f'{_BREVO_CLUB_BASE}/smtp/statistics/events',
-        {'tags': 'club-member', 'startDate': start, 'endDate': end, 'limit': 3})
-
-    # 4. /smtp/emails avec un email test (vérifie l'accès email)
-    results['smtp_emails_by_email'] = call('smtp_emails_by_email',
-        f'{_BREVO_CLUB_BASE}/smtp/emails',
-        {'email': 'test@example.com', 'startDate': start, 'endDate': end, 'limit': 3})
-
-    # 5. Liste des templates (vérifie l'accès templates)
-    results['templates'] = call('templates',
-        f'{_BREVO_CLUB_BASE}/smtp/templates',
-        {'limit': 3})
-
-    return jsonify(results)
 
 
 @app.route('/club-partners/list')
@@ -4187,7 +4130,7 @@ def club_partners_global():
             'newsletter': {'error': str(e)[:200], 'delivered': 0, 'openRate': 0, 'totalClicks': 0, 'avgCtr': 0},
             'meta':       {'error': str(e)[:200]},
         }
-    _cache_set(key, data, 600)
+    _cache_set(key, data, 3600)
     return jsonify(data)
 
 
@@ -4221,7 +4164,7 @@ def club_partners_partner():
             'meta':       {'error': str(e)[:200]},
         }
     data['partner'] = {'key': key, 'label': cfg['label']}
-    _cache_set(cache_key, data, 600)
+    _cache_set(cache_key, data, 3600)
     return jsonify(data)
 
 
