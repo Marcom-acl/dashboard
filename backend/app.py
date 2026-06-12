@@ -3529,18 +3529,31 @@ def _brevo_events_paginate(params_extra, start_iso, end_iso):
 
 def _brevo_year_events(year):
     """Charge tous les events club-member d'une année entière, mis en cache 1h.
-    Permet de servir n'importe quelle sous-période sans rappel API Brevo."""
+    Brevo limite la plage de /smtp/statistics/events à ~30 jours par appel —
+    on découpe l'année en fenêtres de 28 jours et on agrège."""
     key = f'brevo_ev_raw:{year}'
     hit = _cache_get(key)
     if hit:
         return hit.get('events', [])
-    events = _brevo_events_paginate(
-        {'tags': 'club-member'},
-        f'{year}-01-01',
-        f'{year}-12-31',
-    )
-    _cache_set(key, {'events': events}, 3600)
-    return events
+
+    today       = datetime.date.today()
+    year_start  = datetime.date(year, 1, 1)
+    year_end    = min(datetime.date(year, 12, 31), today)
+    all_events  = []
+    chunk_start = year_start
+
+    while chunk_start <= year_end:
+        chunk_end = min(chunk_start + datetime.timedelta(days=27), year_end)
+        chunk = _brevo_events_paginate(
+            {'tags': 'club-member'},
+            chunk_start.isoformat(),
+            chunk_end.isoformat(),
+        )
+        all_events.extend(chunk)
+        chunk_start = chunk_end + datetime.timedelta(days=1)
+
+    _cache_set(key, {'events': all_events}, 3600)
+    return all_events
 
 
 def _brevo_year_campaigns(year):
