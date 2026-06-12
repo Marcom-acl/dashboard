@@ -3567,7 +3567,7 @@ def _brevo_year_campaigns(year):
     hdrs    = {'api-key': BREVO_API_KEY, 'Accept': 'application/json'}
     s_date  = datetime.date(year, 1, 1)
     e_date  = datetime.date(year, 12, 31)
-    campaigns, offset = [], 0
+    campaigns, offset, fetched_ok = [], 0, False
     try:
         while True:
             r = _get(f'{_BREVO_CLUB_BASE}/emailCampaigns', headers=hdrs, params={
@@ -3576,6 +3576,7 @@ def _brevo_year_campaigns(year):
             })
             if not r.ok:
                 break
+            fetched_ok = True
             batch = r.json().get('campaigns', [])
             if not batch:
                 break
@@ -3595,7 +3596,9 @@ def _brevo_year_campaigns(year):
             offset += 50
     except Exception:
         pass
-    _cache_set(key, {'campaigns': campaigns}, 3600)
+    # Ne cacher que si l'API a répondu — évite de cacher une liste vide due à une erreur transitoire
+    if fetched_ok:
+        _cache_set(key, {'campaigns': campaigns}, 3600)
     return campaigns
 
 
@@ -3850,7 +3853,8 @@ def _brevo_newsletter_compute(start, end, partner=None):
     if not campaigns:
         if partner:
             empty['sends'] = []
-        _cache_set(cache_key, empty, 3600)
+        # TTL court — l'absence de campagnes peut être due à une erreur API ou à un cache vide
+        _cache_set(cache_key, empty, 300)
         return empty
 
     nl_patterns = partner['nl_url_patterns'] if partner else None
@@ -4201,6 +4205,54 @@ def club_diag():
         return jsonify({'error': str(e)})
 
 
+@app.route('/nl-test')
+def nl_test():
+    """Diagnostic newsletter : force recompute sans cache et affiche le détail étape par étape."""
+    start = request.args.get('start', (datetime.date.today() - datetime.timedelta(days=30)).isoformat())
+    end   = request.args.get('end',   datetime.date.today().isoformat())
+    try:
+        year   = datetime.date.fromisoformat(end).year
+        s_date = datetime.date.fromisoformat(start)
+        e_date = datetime.date.fromisoformat(end)
+    except ValueError as e:
+        return jsonify({'error': f'Dates invalides : {e}'}), 400
+
+    camp_key = f'brevo_camp_raw:{year}'
+    nl_key   = f'brevo_nl:{start}:{end}:all'
+    with _API_CACHE_LOCK:
+        _API_CACHE.pop(camp_key, None)
+        _API_CACHE.pop(nl_key,   None)
+
+    year_camps = _brevo_year_campaigns(year)
+    period_camps = []
+    for c in year_camps:
+        try:
+            d = datetime.date.fromisoformat((c.get('sentDate') or '')[:10])
+        except ValueError:
+            continue
+        if s_date <= d <= e_date:
+            period_camps.append(c)
+
+    camp_debug = []
+    for c in period_camps:
+        gstats = (c.get('statistics') or {}).get('globalStats', {})
+        camp_debug.append({
+            'name':         c.get('name'),
+            'sentDate':     (c.get('sentDate') or '')[:10],
+            'has_stats':    bool(c.get('statistics')),
+            'delivered':    int(gstats.get('delivered', 0)),
+            'uniqueClicks': int(gstats.get('uniqueClicks', gstats.get('clickers', 0))),
+        })
+
+    result = _brevo_newsletter_compute(start, end, None)
+    return jsonify({
+        'period':               {'start': start, 'end': end},
+        'year_campaigns_total': len(year_camps),
+        'period_campaigns':     camp_debug,
+        'computed':             result,
+    })
+
+
 @app.route('/nl-diag')
 def nl_diag():
     """Diagnostic newsletter : globalStats des campagnes matching NL_CLUB_CAMPAIGN_PATTERN."""
@@ -4320,7 +4372,8 @@ def club_partners_global():
             'meta':       {'error': str(e)[:200]},
         }
     leads_total = (data.get('leads') or {}).get('total', 0)
-    _cache_set(key, data, 300 if leads_total == 0 else 3600)
+    nl_error    = bool((data.get('newsletter') or {}).get('error'))
+    _cache_set(key, data, 3600 if (leads_total > 0 and not nl_error) else 300)
     return jsonify(data)
 
 
@@ -4355,7 +4408,8 @@ def club_partners_partner():
         }
     data['partner'] = {'key': key, 'label': cfg['label']}
     leads_total = (data.get('leads') or {}).get('total', 0)
-    _cache_set(cache_key, data, 300 if leads_total == 0 else 3600)
+    nl_error    = bool((data.get('newsletter') or {}).get('error'))
+    _cache_set(cache_key, data, 3600 if (leads_total > 0 and not nl_error) else 300)
     return jsonify(data)
 
 
