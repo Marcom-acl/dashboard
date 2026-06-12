@@ -8,13 +8,12 @@
 <style>
   :root{
     --y:#FEDB00;--y-deep:#F4C400;--y-soft:#FFF4A8;
-    --n:#123C62;--n-deep:#0B2A45;
+    --n:#231f20;
     --bg:#F4F4F2;--surface:#fff;--border:#E8E6E0;--border-strong:#C8C4BC;
     --text:#161513;--muted:#7A7770;--muted-2:#A8A49B;
     --c-fb:#1877F2;--c-fb-bg:#E3EEFE;
     --c-brevo:#0B996E;--c-brevo-bg:#DEF1EA;
     --c-ga4:#F4B400;--c-ga4-bg:#FFF5D1;
-    --c-club:#123C62;--c-club-bg:#E8EEF4;
     --good:#16A34A;--bad:#DC2626;--warn:#F97316;
     --r-sm:6px;--r-md:10px;--r-lg:14px;
     --shadow-1:0 1px 0 rgba(0,0,0,.02),0 1px 2px rgba(20,20,15,.04);
@@ -28,10 +27,10 @@
   .page{max-width:1100px;margin:0 auto;padding:28px 20px 60px;}
   .top-bar{display:flex;align-items:center;gap:14px;margin-bottom:28px;flex-wrap:wrap;}
   .logo-wrap{display:flex;align-items:center;gap:10px;}
-  .top-title{font-size:20px;font-weight:800;color:var(--n);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;}
+  .top-title{font-size:20px;font-weight:800;color:#231f20;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;}
   .top-sub{font-size:12px;color:var(--muted);}
   .top-spacer{flex:1;}
-  .partner-badge{padding:5px 14px;border-radius:99px;background:var(--y);color:var(--n);font-weight:700;font-size:13px;}
+  .partner-badge{padding:5px 14px;border-radius:99px;background:var(--y);color:#231f20;font-weight:700;font-size:13px;}
 
   /* ── Toolbar ── */
   .toolbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:20px;padding:14px 16px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);box-shadow:var(--shadow-1);}
@@ -44,7 +43,7 @@
   .preset-btn.active,.preset-btn:hover{background:var(--y);border-color:var(--y);color:#231f20;}
   .gran-btns{display:flex;gap:3px;}
   .gran-btn{padding:5px 12px;border-radius:6px;border:1.5px solid var(--border);background:var(--surface);font-size:11px;font-weight:600;cursor:pointer;color:var(--muted);transition:all .12s;}
-  .gran-btn.active,.gran-btn:hover{background:var(--n);border-color:var(--n);color:#fff;}
+  .gran-btn.active,.gran-btn:hover{background:#231f20;border-color:#231f20;color:#fff;}
 
   /* ── KPI cards ── */
   .kpi-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px;margin-bottom:16px;}
@@ -116,15 +115,10 @@
   <!-- Top bar -->
   <div class="top-bar">
     <div class="logo-wrap">
-      <!-- Logo ACL inline — version jaune fond blanc -->
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 60" width="90" height="30" aria-label="ACL">
-        <rect width="180" height="60" rx="4" fill="#ffdc18"/>
-        <text x="90" y="42" text-anchor="middle" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="28" fill="#231f20">ACL</text>
-      </svg>
+      <img src="acl-club-logo.png" alt="ACL Club" height="40" style="display:block">
     </div>
     <div>
-      <div class="top-title">Avantages Club</div>
-      <div class="top-sub">Dashboard de performance partenaire</div>
+      <div class="top-sub" style="margin-top:2px">Dashboard de performance partenaire</div>
     </div>
     <div class="top-spacer"></div>
     <div class="partner-badge" id="partnerBadge">Chargement…</div>
@@ -148,7 +142,7 @@
       <button class="gran-btn" onclick="applyGran('week',this)">Semaine</button>
       <button class="gran-btn" onclick="applyGran('month',this)">Mois</button>
     </div>
-    <button style="margin-left:auto;padding:6px 16px;border-radius:8px;border:1.5px solid var(--n);background:var(--n);color:#fff;font-size:11px;font-weight:700;cursor:pointer" onclick="loadData()">Actualiser</button>
+    <button style="margin-left:auto;padding:6px 16px;border-radius:8px;border:1.5px solid #231f20;background:#231f20;color:#fff;font-size:11px;font-weight:700;cursor:pointer" onclick="loadData()">Actualiser</button>
   </div>
 
   <!-- Main content -->
@@ -253,9 +247,9 @@ function render(data) {
   // KPI cards
   const kpiHtml = `<div class="kpi-row">
     ${kpi('Leads (période)',      fmtN(leads.total||0),           'var(--y)')}
-    ${kpi('Sessions GA4',         fmtN(ga4.sessions||0),          'var(--n)')}
-    ${kpi('Utilisateurs GA4',     fmtN(ga4.totalUsers||0),        'var(--n)')}
-    ${kpi('Sessions engagées',    fmtN(ga4.engagedSessions||0),   'var(--n)')}
+    ${kpi('Sessions GA4',         fmtN(ga4.sessions||0),          'var(--c-ga4)')}
+    ${kpi('Utilisateurs GA4',     fmtN(ga4.totalUsers||0),        'var(--c-ga4)')}
+    ${kpi('Sessions engagées',    fmtN(ga4.engagedSessions||0),   'var(--c-ga4)')}
     ${kpi('Emails délivrés',      fmtN(nl.delivered||0),          'var(--c-brevo)')}
     ${kpi("Taux d'ouverture NL",  fmtPct(nl.openRate||0),         'var(--c-brevo)')}
     ${kpi('Clics NL',             fmtN(nl.totalClicks||0),        'var(--c-brevo)')}

@@ -5476,9 +5476,9 @@ function _ptnRenderView(data, isGlobal) {
   const metaOk = !meta.error;
   const kpiHtml = `<div class="kpi-row">
     ${kpiCard({label:'Leads (période)', value:fmtN(leads.total||0), src:'var(--y)', srcBg:'var(--y-soft)', spark:(leads.series||[]).map(s=>s.value)})}
-    ${kpiCard({label:'Sessions GA4', value:fmtN(ga4.sessions||0), src:'var(--n)', srcBg:'var(--c-club-bg)'})}
-    ${kpiCard({label:'Utilisateurs GA4', value:fmtN(ga4.totalUsers||0), src:'var(--n)', srcBg:'var(--c-club-bg)'})}
-    ${kpiCard({label:'Sessions engagées GA4', value:fmtN(ga4.engagedSessions||0), src:'var(--n)', srcBg:'var(--c-club-bg)'})}
+    ${kpiCard({label:'Sessions GA4', value:fmtN(ga4.sessions||0), src:'var(--c-ga4)', srcBg:'var(--c-ga4-bg)'})}
+    ${kpiCard({label:'Utilisateurs GA4', value:fmtN(ga4.totalUsers||0), src:'var(--c-ga4)', srcBg:'var(--c-ga4-bg)'})}
+    ${kpiCard({label:'Sessions engagées GA4', value:fmtN(ga4.engagedSessions||0), src:'var(--c-ga4)', srcBg:'var(--c-ga4-bg)'})}
     ${kpiCard({label:'Emails délivrés', value:fmtN(nl.delivered||0), src:'var(--c-brevo)', srcBg:'var(--c-brevo-bg)'})}
     ${kpiCard({label:"Taux d'ouverture NL", value:fmtPct(nl.openRate||0), src:'var(--c-brevo)', srcBg:'var(--c-brevo-bg)'})}
     ${metaOk ? kpiCard({label:'Clics Meta', value:fmtN(meta.linkClicks||0), src:'var(--c-fb)', srcBg:'var(--c-fb-bg)', spark:(meta.clicksSeries||[]).map(s=>s.value)}) : ''}
