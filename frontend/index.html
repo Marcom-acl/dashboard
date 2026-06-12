@@ -1577,15 +1577,24 @@ async function api(path) {
   return r.json();
 }
 
-// Variante avec timeout allongé (45s) pour les endpoints lourds
+// Cache JS pour les endpoints lourds (évite les refetch sur changement de période)
+const _slowCache = new Map();
+const _SLOW_TTL  = 3600000; // 1h
+
+// Variante avec timeout allongé (45s) pour les endpoints lourds + cache côté client
 async function apiSlow(path) {
+  const key = `${path}:${globalStart}:${globalEnd}`;
+  const hit = _slowCache.get(key);
+  if (hit && Date.now() - hit.ts < _SLOW_TTL) return hit.data;
   const params = new URLSearchParams();
   if (globalStart) params.set('start', globalStart);
   if (globalEnd)   params.set('end',   globalEnd);
   const url = `${API_BASE}${path}?${params}`;
   const r = await fetch(url, {signal: AbortSignal.timeout(45000)});
   if (!r.ok) throw new Error(`${path}: HTTP ${r.status}`);
-  return r.json();
+  const data = await r.json();
+  _slowCache.set(key, {data, ts: Date.now()});
+  return data;
 }
 
 // Variante YTD — ignore le filtre de période, force 2026-01-01 → aujourd'hui
@@ -5426,9 +5435,17 @@ function _ptnOnSelectChange(key) {
   }
 }
 
+const _ptnCache = new Map();
+
 async function _ptnFetchPartner(key) {
   const el = document.getElementById('ptnContent');
   if (!el) return;
+  const cacheKey = `${key}:${globalStart}:${globalEnd}:${_ptnGran}`;
+  const hit = _ptnCache.get(cacheKey);
+  if (hit && Date.now() - hit.ts < _SLOW_TTL) {
+    _ptnRenderView(hit.data, false);
+    return;
+  }
   el.innerHTML = `<div style="padding:32px;text-align:center;color:var(--muted);font-size:12px">Chargement…</div>`;
   try {
     const qs = new URLSearchParams({p: key, granularity: _ptnGran});
@@ -5437,6 +5454,7 @@ async function _ptnFetchPartner(key) {
     const r = await fetch(`${API_BASE}/club-partners/partner?${qs}`, {signal: AbortSignal.timeout(45000)});
     if (!r.ok) throw new Error(`HTTP ${r.status}`);
     const data = await r.json();
+    _ptnCache.set(cacheKey, {data, ts: Date.now()});
     _ptnRenderView(data, false);
   } catch(e) {
     if (el) el.innerHTML = `<div class="no-key">Erreur lors du chargement : ${e.message}</div>`;

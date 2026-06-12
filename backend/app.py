@@ -3527,6 +3527,96 @@ def _brevo_events_paginate(params_extra, start_iso, end_iso):
     return results
 
 
+def _brevo_year_events(year):
+    """Charge tous les events club-member d'une année entière, mis en cache 1h.
+    Permet de servir n'importe quelle sous-période sans rappel API Brevo."""
+    key = f'brevo_ev_raw:{year}'
+    hit = _cache_get(key)
+    if hit:
+        return hit.get('events', [])
+    events = _brevo_events_paginate(
+        {'tags': 'club-member'},
+        f'{year}-01-01',
+        f'{year}-12-31',
+    )
+    _cache_set(key, {'events': events}, 3600)
+    return events
+
+
+def _brevo_year_campaigns(year):
+    """Charge toutes les campagnes Club Newsletter d'une année, mises en cache 1h."""
+    key = f'brevo_camp_raw:{year}'
+    hit = _cache_get(key)
+    if hit:
+        return hit.get('campaigns', [])
+    if not BREVO_API_KEY:
+        return []
+    hdrs    = {'api-key': BREVO_API_KEY, 'Accept': 'application/json'}
+    s_date  = datetime.date(year, 1, 1)
+    e_date  = datetime.date(year, 12, 31)
+    campaigns, offset = [], 0
+    try:
+        while True:
+            r = _get(f'{_BREVO_CLUB_BASE}/emailCampaigns', headers=hdrs, params={
+                'status': 'sent', 'limit': 50, 'offset': offset,
+                'sort': 'desc', 'statistics': 'globalStats',
+            })
+            if not r.ok:
+                break
+            batch = r.json().get('campaigns', [])
+            if not batch:
+                break
+            past = False
+            for c in batch:
+                try:
+                    d = datetime.date.fromisoformat((c.get('sentDate') or '')[:10])
+                except ValueError:
+                    continue
+                if d < s_date:
+                    past = True
+                    break
+                if d <= e_date and NL_CLUB_CAMPAIGN_PATTERN.lower() in (c.get('name') or '').lower():
+                    campaigns.append(c)
+            if len(batch) < 50 or past:
+                break
+            offset += 50
+    except Exception:
+        pass
+    _cache_set(key, {'campaigns': campaigns}, 3600)
+    return campaigns
+
+
+def _brevo_campaign_clicks_cached(cid):
+    """Retourne les liens cliqués d'une campagne (structure brute), cachés 24h.
+    Les clics d'une campagne passée ne changent pas — TTL long intentionnel."""
+    key = f'brevo_clicks:{cid}'
+    hit = _cache_get(key)
+    if hit:
+        return hit.get('links', [])
+    if not BREVO_API_KEY:
+        return []
+    hdrs = {'api-key': BREVO_API_KEY, 'Accept': 'application/json'}
+    links, off = [], 0
+    try:
+        while True:
+            r = _get(f'{_BREVO_CLUB_BASE}/emailCampaigns/{cid}/clicksDetail',
+                     headers=hdrs, params={'limit': 500, 'offset': off})
+            if not r.ok:
+                break
+            detail = r.json()
+            batch  = detail.get('links') or detail.get('clicksDetail') or []
+            if not batch:
+                break
+            links.extend(batch)
+            if len(batch) < 500:
+                break
+            off += 500
+    except Exception:
+        pass
+    _cache_set(key, {'links': links}, 86400)
+    return links
+
+
 def _brevo_emails_paginate(start_iso, end_iso):
     """Pagine sur /smtp/emails (tag club-member). Le sujet est inclus — aucun lookup secondaire."""
     hdrs = {'api-key': BREVO_API_KEY, 'Accept': 'application/json'}
@@ -3615,10 +3705,6 @@ def _brevo_leads_compute(start, end, gran, partner=None):
     e_date  = datetime.date.fromisoformat(end)
     year    = e_date.year
 
-    base_params = {'tags': 'club-member'}
-
-    period_events = _brevo_events_paginate(base_params, s_date.isoformat(), e_date.isoformat())
-
     def parse_ev_date(ev):
         try:
             return datetime.date.fromisoformat((ev.get('date') or '')[:10])
@@ -3627,6 +3713,13 @@ def _brevo_leads_compute(start, end, gran, partner=None):
 
     def ev_subject(ev):
         return (ev.get('subject') or '').strip()
+
+    # Charger depuis le cache annuel et filtrer sur la période demandée
+    all_year_events = _brevo_year_events(year)
+    if s_date.year != year:
+        all_year_events = _brevo_year_events(s_date.year) + all_year_events
+    period_events = [ev for ev in all_year_events
+                     if (lambda d: d and s_date <= d <= e_date)(parse_ev_date(ev))]
 
     # Séries : emails uniques par bucket de granularité
     bucket_seen      = {}  # {bucket_key: set(emails)}
@@ -3652,10 +3745,11 @@ def _brevo_leads_compute(start, end, gran, partner=None):
     result = {'total': total, 'series': _series_from_counts(series_counts)}
 
     if partner is None:
-        monthly_seen   = {f'{year}-{m:02d}': set() for m in range(1, 13)}
+        # Stats annuelles calculées sur l'ensemble de l'année (pas seulement la période affichée)
+        monthly_seen    = {f'{year}-{m:02d}': set() for m in range(1, 13)}
         all_emails_year = set()
 
-        for ev in period_events:
+        for ev in all_year_events:
             if ev.get('event') in ('loadedByProxy', 'proxy'):
                 continue
             d = parse_ev_date(ev)
@@ -3678,8 +3772,8 @@ def _brevo_leads_compute(start, end, gran, partner=None):
         result['leadsTotalYear']     = year_total
         result['leadsPerMemberYear'] = round(year_total / len(all_emails_year), 2) if all_emails_year else 0
 
-    # Ne pas cacher les résultats vides (rate limit ou réellement vide) : réessayer dans 90s
-    _cache_set(cache_key, result, 3600 if total > 0 else 300)
+    # Les données viennent du cache annuel — un résultat vide est légitime (aucun lead sur la période)
+    _cache_set(cache_key, result, 3600)
     return result
 
 
@@ -3695,42 +3789,21 @@ def _brevo_newsletter_compute(start, end, partner=None):
     if cached:
         return cached
 
-    hdrs   = {'api-key': BREVO_API_KEY, 'Accept': 'application/json'}
     s_date = datetime.date.fromisoformat(start)
     e_date = datetime.date.fromisoformat(end)
 
-    # 1. Lister les campagnes club dans la fenêtre temporelle
-    # Triées desc → on s'arrête dès qu'on dépasse s_date (early-exit)
+    # 1. Récupérer les campagnes depuis le cache annuel et filtrer sur la période
+    year_campaigns = _brevo_year_campaigns(e_date.year)
+    if s_date.year != e_date.year:
+        year_campaigns = _brevo_year_campaigns(s_date.year) + year_campaigns
     campaigns = []
-    offset = 0
-    try:
-        while True:
-            r = _get(f'{_BREVO_CLUB_BASE}/emailCampaigns', headers=hdrs, params={
-                'status': 'sent', 'limit': 50, 'offset': offset, 'sort': 'desc',
-                'statistics': 'globalStats',
-            })
-            if not r.ok:
-                break
-            batch = r.json().get('campaigns', [])
-            if not batch:
-                break
-            past_window = False
-            for c in batch:
-                sent_at = (c.get('sentDate') or '')[:10]
-                try:
-                    d = datetime.date.fromisoformat(sent_at)
-                except ValueError:
-                    continue
-                if d < s_date:
-                    past_window = True
-                    break
-                if d <= e_date and NL_CLUB_CAMPAIGN_PATTERN.lower() in (c.get('name') or '').lower():
-                    campaigns.append(c)
-            if len(batch) < 50 or past_window:
-                break
-            offset += 50
-    except Exception:
-        pass
+    for c in year_campaigns:
+        try:
+            d = datetime.date.fromisoformat((c.get('sentDate') or '')[:10])
+        except ValueError:
+            continue
+        if s_date <= d <= e_date:
+            campaigns.append(c)
 
     empty = {'delivered': 0, 'openRate': 0, 'totalClicks': 0, 'uniqueClicks': 0, 'avgCtr': 0}
     if not campaigns:
@@ -3766,36 +3839,20 @@ def _brevo_newsletter_compute(start, end, partner=None):
             camp_clicks = 0
             camp_unique = set()
             approx_uniq = 0
-            off = 0
-            try:
-                while True:
-                    r = _get(f'{_BREVO_CLUB_BASE}/emailCampaigns/{cid}/clicksDetail',
-                             headers=hdrs, params={'limit': 500, 'offset': off})
-                    if not r.ok:
-                        break
-                    detail = r.json()
-                    links  = detail.get('links') or detail.get('clicksDetail') or []
-                    if not links:
-                        break
-                    for lobj in links:
-                        url = (lobj.get('link') or lobj.get('url') or '')
-                        if not _match_nl_url(nl_patterns, url):
-                            continue
-                        clickers = lobj.get('clickers')
-                        if isinstance(clickers, list):
-                            for em in clickers:
-                                em = str(em).lower().strip()
-                                if em and '@' in em:
-                                    camp_clicks += 1
-                                    camp_unique.add(em)
-                        else:
-                            camp_clicks += int(lobj.get('totalClicks', lobj.get('clicked', 0)))
-                            approx_uniq += int(lobj.get('uniqueClicks', 0))
-                    if not isinstance(links, list) or len(links) < 500:
-                        break
-                    off += 500
-            except Exception:
-                pass
+            for lobj in _brevo_campaign_clicks_cached(cid):
+                url = (lobj.get('link') or lobj.get('url') or '')
+                if not _match_nl_url(nl_patterns, url):
+                    continue
+                clickers = lobj.get('clickers')
+                if isinstance(clickers, list):
+                    for em in clickers:
+                        em = str(em).lower().strip()
+                        if em and '@' in em:
+                            camp_clicks += 1
+                            camp_unique.add(em)
+                else:
+                    camp_clicks += int(lobj.get('totalClicks', lobj.get('clicked', 0)))
+                    approx_uniq += int(lobj.get('uniqueClicks', 0))
 
             final_uniq = len(camp_unique) if camp_unique else approx_uniq
             total_clicks += camp_clicks
@@ -4177,8 +4234,7 @@ def club_partners_global():
             'newsletter': {'error': str(e)[:200], 'delivered': 0, 'openRate': 0, 'totalClicks': 0, 'avgCtr': 0},
             'meta':       {'error': str(e)[:200]},
         }
-    leads_total = (data.get('leads') or {}).get('total', 0)
-    _cache_set(key, data, 300 if leads_total == 0 else 3600)
+    _cache_set(key, data, 3600)
     return jsonify(data)
 
 
