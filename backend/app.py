@@ -4351,6 +4351,30 @@ def nl_diag():
     return jsonify({'pattern': NL_CLUB_CAMPAIGN_PATTERN, 'found': len(matched), 'campaigns': matched})
 
 
+@app.route('/club-partners/debug-fba')
+def club_partners_debug_fba():
+    """Debug : retourne la réponse brute Supermetrics FBA pour voir les noms de champs."""
+    if not SUPERMETRICS_API_KEY:
+        return jsonify({'error': 'SUPERMETRICS_API_KEY manquant'})
+    sm_account = FB_ACCOUNTS[0].replace('act_', '') if FB_ACCOUNTS else None
+    if not sm_account:
+        return jsonify({'error': 'FB_ACCOUNTS non configuré'})
+    start, end = _date_range()
+    # Requête minimale : 3 lignes pour voir le schéma réel
+    rows, schema, err = _supermetrics_query('FBA', sm_account,
+        ['campaign_name', 'adset_name', 'impressions', 'reach',
+         'link_click', 'link_clicks', 'inline_link_clicks', 'ctr', 'ctr_link'],
+        start, end, max_rows=3)
+    return jsonify({
+        'sm_account': sm_account,
+        'start': start, 'end': end,
+        'error': err,
+        'schema': schema,
+        'rows': rows,
+        'rows_as_dicts': _sm_rows_to_dicts(rows, schema or []) if rows else [],
+    })
+
+
 @app.route('/club-partners/list')
 def club_partners_list():
     """Liste des partenaires configurés + ceux découverts dans les sheets."""
