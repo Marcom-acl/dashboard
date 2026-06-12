@@ -4052,6 +4052,58 @@ def _fb_ad_images(account_id, token, ad_ids):
 
 # ── Routes ──────────────────────────────────────────────────────────────────────
 
+@app.route('/brevo-debug')
+def brevo_debug():
+    """Diagnostic temporaire : teste plusieurs variantes de l'appel events Brevo."""
+    if not BREVO_API_KEY:
+        return jsonify({'error': 'BREVO_API_KEY absent'}), 500
+    hdrs = {'api-key': BREVO_API_KEY, 'Accept': 'application/json'}
+    start = request.args.get('start', '2026-05-01')
+    end   = request.args.get('end',   '2026-06-12')
+    results = {}
+
+    # Test 1 : filtre event=delivered + tags=club-member
+    r1 = _get(f'{_BREVO_CLUB_BASE}/smtp/statistics/events', headers=hdrs,
+              params={'event': 'delivered', 'tags': 'club-member',
+                      'startDate': start, 'endDate': end, 'limit': 5, 'sort': 'desc'})
+    results['test1_delivered_tag'] = {
+        'status': r1.status_code,
+        'count': len(r1.json().get('events', [])) if r1.ok else None,
+        'sample': r1.json().get('events', [])[:2] if r1.ok else r1.text[:300],
+    }
+
+    # Test 2 : seulement tags=club-member, sans filtre event
+    r2 = _get(f'{_BREVO_CLUB_BASE}/smtp/statistics/events', headers=hdrs,
+              params={'tags': 'club-member',
+                      'startDate': start, 'endDate': end, 'limit': 5, 'sort': 'desc'})
+    results['test2_tag_only'] = {
+        'status': r2.status_code,
+        'count': len(r2.json().get('events', [])) if r2.ok else None,
+        'sample': r2.json().get('events', [])[:2] if r2.ok else r2.text[:300],
+    }
+
+    # Test 3 : sans aucun filtre (vérifier que l'API répond)
+    r3 = _get(f'{_BREVO_CLUB_BASE}/smtp/statistics/events', headers=hdrs,
+              params={'startDate': start, 'endDate': end, 'limit': 3, 'sort': 'desc'})
+    results['test3_no_filter'] = {
+        'status': r3.status_code,
+        'count': len(r3.json().get('events', [])) if r3.ok else None,
+        'sample': r3.json().get('events', [])[:2] if r3.ok else r3.text[:300],
+        'keys': list(r3.json().get('events', [{}])[0].keys()) if r3.ok and r3.json().get('events') else [],
+    }
+
+    # Test 4 : /smtp/emails sans filtre (vérifier BREVO_API_KEY fonctionne)
+    r4 = _get(f'{_BREVO_CLUB_BASE}/smtp/emails', headers=hdrs,
+              params={'startDate': start, 'endDate': end, 'limit': 3, 'sort': 'desc'})
+    results['test4_smtp_emails'] = {
+        'status': r4.status_code,
+        'count': len(r4.json().get('transactionalEmails', [])) if r4.ok else None,
+        'sample': r4.json().get('transactionalEmails', [])[:1] if r4.ok else r4.text[:300],
+    }
+
+    return jsonify(results)
+
+
 @app.route('/club-partners/list')
 def club_partners_list():
     """Liste des partenaires configurés + ceux découverts dans les sheets."""
