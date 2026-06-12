@@ -4022,102 +4022,107 @@ def _club_ga4(start, end, partner=None):
 
 
 def _club_meta(start, end, gran, partner=None):
-    """Meta Ads : campagnes contenant SOME ET CLUB. Filtre adset partenaire
-    optionnel. Renvoie clics (série + total), reach, impressions, CTR, ads (images)."""
-    token = _fb_token()
-    if not token:
-        return {'error': 'Meta non connecté — visiter /fb/auth'}
+    """Meta Ads SOME×CLUB via Supermetrics FBA. Filtre adset partenaire optionnel.
+    Images en best-effort via Graph API si FB_TOKEN est disponible."""
+    if not SUPERMETRICS_API_KEY:
+        return {'error': 'SUPERMETRICS_API_KEY manquant'}
 
-    time_range = json.dumps({'since': start, 'until': end})
-    # filtering Graph : campaign.name CONTAIN SOME ET CONTAIN CLUB
-    filtering = json.dumps([
-        {'field': 'campaign.name', 'operator': 'CONTAIN', 'value': 'SOME'},
-        {'field': 'campaign.name', 'operator': 'CONTAIN', 'value': 'CLUB'},
-    ])
+    # Supermetrics FBA attend l'ID numérique sans préfixe act_
+    sm_account = FB_ACCOUNTS[0].replace('act_', '') if FB_ACCOUNTS else None
+    if not sm_account:
+        return {'error': 'FB_ACCOUNTS non configuré'}
 
-    def keep(name):
-        n = name.lower()
+    def keep(campaign_name):
+        n = (campaign_name or '').lower()
         return 'some' in n and 'club' in n
+
+    def lc_val(row):
+        """Clics liens — tente plusieurs noms de champ Supermetrics."""
+        return int(_n(row.get('link_click') or row.get('link_clicks') or row.get('inline_link_clicks', 0)))
 
     link_clicks = reach = impressions = 0
     ctr = 0.0
     clicks_counts = {}
     by_partner = {}
-    ads = []
+    ad_metrics = {}
+    sm_errors = []
 
-    for account_id in FB_ACCOUNTS:
-        base = {
-            'access_token': token,
-            'time_range':   time_range,
-            'filtering':    filtering,
-            'level':        'adset',
-            'fields':       'campaign_name,adset_name,impressions,reach,inline_link_clicks,ctr',
-            'limit':        500,
-        }
+    # 1) Série journalière des clics
+    fields_day = ['date', 'campaign_name', 'adset_name', 'link_click']
+    rows_d, sc_d, err_d = _supermetrics_query('FBA', sm_account, fields_day, start, end, max_rows=5000)
+    if err_d:
+        sm_errors.append(f'daily: {err_d}')
+    else:
+        for row in _sm_rows_to_dicts(rows_d, sc_d or fields_day):
+            if not keep(row.get('campaign_name', '')):
+                continue
+            if partner and not _match(partner['meta'], row.get('adset_name', '')):
+                continue
+            d = _fr_dt_iso(row.get('date', ''))
+            if not d:
+                continue
+            b = _bucket(d, gran)
+            clicks_counts[b] = clicks_counts.get(b, 0) + lc_val(row)
 
-        # 1) Série journalière des clics (time_increment=1)
-        rday = _get(f'{FB_GRAPH}/{account_id}/insights',
-                    params={**base, 'time_increment': 1,
-                            'fields': 'campaign_name,adset_name,inline_link_clicks,date_start'})
-        if rday.ok:
-            for row in rday.json().get('data', []):
-                if not keep(row.get('campaign_name', '')):
-                    continue
-                if partner and not _match(partner['meta'], row.get('adset_name', '')):
-                    continue
-                d = _fr_dt_iso(row.get('date_start'))
-                if not d:
-                    continue
-                clicks = int(row.get('inline_link_clicks', 0) or 0)
-                b = _bucket(d, gran)
-                clicks_counts[b] = clicks_counts.get(b, 0) + clicks
+    # 2) Totaux période (niveau adset, agrégé sur la plage)
+    fields_tot = ['campaign_name', 'adset_name', 'link_click', 'impressions', 'reach']
+    rows_t, sc_t, err_t = _supermetrics_query('FBA', sm_account, fields_tot, start, end, max_rows=2000)
+    if err_t:
+        sm_errors.append(f'totals: {err_t}')
+    else:
+        for row in _sm_rows_to_dicts(rows_t, sc_t or fields_tot):
+            if not keep(row.get('campaign_name', '')):
+                continue
+            aset = row.get('adset_name', '')
+            if partner and not _match(partner['meta'], aset):
+                continue
+            lc = lc_val(row)
+            rc = int(_n(row.get('reach', 0)))
+            im = int(_n(row.get('impressions', 0)))
+            link_clicks += lc
+            reach       += rc
+            impressions += im
+            if not partner:
+                pk = _resolve_partner_from_adset(aset)
+                if pk:
+                    agg = by_partner.setdefault(pk, {
+                        'label': _CLUB_PARTNERS_RAW[pk]['label'],
+                        'linkClicks': 0, 'impressions': 0, 'reach': 0,
+                    })
+                    agg['linkClicks'] += lc
+                    agg['impressions'] += im
+                    agg['reach'] += rc
+        ctr = round(link_clicks / impressions * 100, 2) if impressions else 0
 
-        # 2) Totaux période (reach non additif → pas de time_increment)
-        rtot = _get(f'{FB_GRAPH}/{account_id}/insights', params=base)
-        if rtot.ok:
-            rows = rtot.json().get('data', [])
-            kept = [r for r in rows if keep(r.get('campaign_name', ''))]
-            for r in kept:
-                aset = r.get('adset_name', '')
-                if partner and not _match(partner['meta'], aset):
-                    continue
-                link_clicks += int(r.get('inline_link_clicks', 0) or 0)
-                reach       += int(r.get('reach', 0) or 0)
-                impressions += int(r.get('impressions', 0) or 0)
-                # agrégat par partenaire (vue globale)
-                if not partner:
-                    pk = _resolve_partner_from_adset(aset)
-                    if pk:
-                        agg = by_partner.setdefault(pk, {'label': _CLUB_PARTNERS_RAW[pk]['label'],
-                                                         'linkClicks': 0, 'impressions': 0, 'reach': 0})
-                        agg['linkClicks'] += int(r.get('inline_link_clicks', 0) or 0)
-                        agg['impressions'] += int(r.get('impressions', 0) or 0)
-                        agg['reach'] += int(r.get('reach', 0) or 0)
-            ctr = round(link_clicks / impressions * 100, 2) if impressions else 0
+    # 3) Niveau ad — grille de publicités
+    fields_ad = ['ad_id', 'ad_name', 'adset_name', 'campaign_name', 'link_click', 'impressions', 'reach', 'ctr_link']
+    rows_a, sc_a, err_a = _supermetrics_query('FBA', sm_account, fields_ad, start, end, max_rows=500)
+    if not err_a:
+        for row in _sm_rows_to_dicts(rows_a, sc_a or fields_ad):
+            if not keep(row.get('campaign_name', '')):
+                continue
+            if partner and not _match(partner['meta'], row.get('adset_name', '')):
+                continue
+            ad_id = str(row.get('ad_id', '')).strip()
+            if not ad_id or ad_id in ('', 'ad_id', 'Ad ID'):
+                continue
+            ad_metrics[ad_id] = {
+                'name':        row.get('ad_name', ''),
+                'linkClicks':  lc_val(row),
+                'impressions': int(_n(row.get('impressions', 0))),
+                'reach':       int(_n(row.get('reach', 0))),
+                'ctr':         round(float(_n(row.get('ctr_link') or row.get('ctr', 0))), 2),
+                'image':       '',
+            }
 
-        # 3) Publicités + images (level=ad)
-        rad = _get(f'{FB_GRAPH}/{account_id}/insights',
-                   params={**base, 'level': 'ad',
-                           'fields': 'ad_id,ad_name,adset_name,campaign_name,inline_link_clicks,impressions,reach,ctr'})
-        ad_metrics = {}
-        if rad.ok:
-            for r in rad.json().get('data', []):
-                if not keep(r.get('campaign_name', '')):
-                    continue
-                if partner and not _match(partner['meta'], r.get('adset_name', '')):
-                    continue
-                ad_metrics[r.get('ad_id')] = {
-                    'name':        r.get('ad_name', ''),
-                    'linkClicks':  int(r.get('inline_link_clicks', 0) or 0),
-                    'impressions': int(r.get('impressions', 0) or 0),
-                    'reach':       int(r.get('reach', 0) or 0),
-                    'ctr':         round(float(r.get('ctr', 0) or 0), 2),
-                }
-        # images des creatives (caché 1h)
-        imgs = _fb_ad_images(account_id, token, list(ad_metrics.keys()))
+    # Images via Graph API (best effort — sans bloquer si token absent ou expiré)
+    token = _fb_token()
+    if token and ad_metrics and FB_ACCOUNTS:
+        imgs = _fb_ad_images(FB_ACCOUNTS[0], token, list(ad_metrics.keys()))
         for ad_id, m in ad_metrics.items():
             m['image'] = imgs.get(ad_id, '')
-            ads.append(m)
+
+    ads = sorted(ad_metrics.values(), key=lambda a: a['linkClicks'], reverse=True)
 
     out = {
         'linkClicks':   link_clicks,
@@ -4125,10 +4130,12 @@ def _club_meta(start, end, gran, partner=None):
         'impressions':  impressions,
         'ctr':          ctr,
         'clicksSeries': _series_from_counts(clicks_counts),
-        'ads':          sorted(ads, key=lambda a: a['linkClicks'], reverse=True),
+        'ads':          ads,
     }
     if not partner:
         out['byPartner'] = sorted(by_partner.values(), key=lambda x: x['linkClicks'], reverse=True)
+    if sm_errors:
+        out['_smErrors'] = sm_errors
     return out
 
 
