@@ -4353,26 +4353,31 @@ def nl_diag():
 
 @app.route('/club-partners/debug-fba')
 def club_partners_debug_fba():
-    """Debug : retourne la réponse brute Supermetrics FBA pour voir les noms de champs."""
+    """Debug : teste plusieurs formats d'ID de compte Supermetrics FA pour trouver le bon."""
     if not SUPERMETRICS_API_KEY:
         return jsonify({'error': 'SUPERMETRICS_API_KEY manquant'})
-    sm_account = FB_ACCOUNTS[0].replace('act_', '') if FB_ACCOUNTS else None
-    if not sm_account:
-        return jsonify({'error': 'FB_ACCOUNTS non configuré'})
     start, end = _date_range()
-    # Requête minimale : 3 lignes pour voir le schéma réel
-    rows, schema, err = _supermetrics_query('FA', sm_account,
-        ['campaign_name', 'adset_name', 'impressions', 'reach',
-         'link_click', 'link_clicks', 'inline_link_clicks', 'ctr', 'ctr_link'],
-        start, end, max_rows=3)
-    return jsonify({
-        'sm_account': sm_account,
-        'start': start, 'end': end,
-        'error': err,
-        'schema': schema,
-        'rows': rows,
-        'rows_as_dicts': _sm_rows_to_dicts(rows, schema or []) if rows else [],
-    })
+    fields = ['campaign_name', 'impressions', 'reach']
+
+    # Tester les formats d'ID possibles
+    candidates = []
+    if FB_ACCOUNTS:
+        raw = FB_ACCOUNTS[0]
+        candidates = [
+            raw,                        # act_1192620784140333
+            raw.replace('act_', ''),    # 1192620784140333
+        ]
+
+    results = {}
+    for cid in candidates:
+        rows, schema, err = _supermetrics_query('FA', cid, fields, start, end, max_rows=3)
+        results[cid] = {
+            'error':  err,
+            'schema': schema,
+            'rows':   _sm_rows_to_dicts(rows, schema or fields) if rows else [],
+        }
+
+    return jsonify({'start': start, 'end': end, 'tested_accounts': results})
 
 
 @app.route('/club-partners/list')
