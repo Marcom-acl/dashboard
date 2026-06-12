@@ -2333,6 +2333,7 @@ def buffer_planning():
 
 SUPERMETRICS_QUERY_URL  = 'https://api.supermetrics.com/enterprise/v2/query/data/json'
 SUPERMETRICS_LI_ACCOUNT = '10097790'  # ACL - Automobile Club du Luxembourg
+SUPERMETRICS_FA_ACCOUNT = '10162592032151860'  # Vincent Huwer — connexion Facebook Ads
 
 
 def _supermetrics_query(ds_id, ds_accounts, fields, start_date, end_date, max_rows=500, report_type=None, settings=None):
@@ -4027,10 +4028,7 @@ def _club_meta(start, end, gran, partner=None):
     if not SUPERMETRICS_API_KEY:
         return {'error': 'SUPERMETRICS_API_KEY manquant'}
 
-    # Supermetrics FBA attend l'ID numérique sans préfixe act_
-    sm_account = FB_ACCOUNTS[0].replace('act_', '') if FB_ACCOUNTS else None
-    if not sm_account:
-        return {'error': 'FB_ACCOUNTS non configuré'}
+    sm_account = SUPERMETRICS_FA_ACCOUNT
 
     def keep(campaign_name):
         n = (campaign_name or '').lower()
@@ -4357,27 +4355,16 @@ def club_partners_debug_fba():
     if not SUPERMETRICS_API_KEY:
         return jsonify({'error': 'SUPERMETRICS_API_KEY manquant'})
     start, end = _date_range()
-    fields = ['campaign_name', 'impressions', 'reach']
-
-    # Tester les formats d'ID possibles
-    candidates = []
-    if FB_ACCOUNTS:
-        raw = FB_ACCOUNTS[0]
-        candidates = [
-            raw,                        # act_1192620784140333
-            raw.replace('act_', ''),    # 1192620784140333
-        ]
-
-    results = {}
-    for cid in candidates:
-        rows, schema, err = _supermetrics_query('FA', cid, fields, start, end, max_rows=3)
-        results[cid] = {
-            'error':  err,
-            'schema': schema,
-            'rows':   _sm_rows_to_dicts(rows, schema or fields) if rows else [],
-        }
-
-    return jsonify({'start': start, 'end': end, 'tested_accounts': results})
+    fields = ['campaign_name', 'adset_name', 'impressions', 'reach',
+              'link_click', 'link_clicks', 'inline_link_clicks', 'ctr', 'ctr_link']
+    rows, schema, err = _supermetrics_query('FA', SUPERMETRICS_FA_ACCOUNT, fields, start, end, max_rows=3)
+    return jsonify({
+        'start': start, 'end': end,
+        'sm_account': SUPERMETRICS_FA_ACCOUNT,
+        'error':  err,
+        'schema': schema,
+        'rows_as_dicts': _sm_rows_to_dicts(rows, schema or fields) if rows else [],
+    })
 
 
 @app.route('/club-partners/list')
