@@ -1657,7 +1657,10 @@ def brevo():
         BREVO_BASE = 'https://api.brevo.com/v3'
 
         # Verify API key is valid before proceeding
-        rcheck = _get(f'{BREVO_BASE}/account', headers=headers)
+        try:
+            rcheck = _get(f'{BREVO_BASE}/account', headers=headers)
+        except Exception as e:
+            return jsonify({'error': f'Brevo API injoignable : {e}'})
         if not rcheck.ok:
             try:
                 detail = rcheck.json().get('message', rcheck.text[:200])
@@ -1672,10 +1675,13 @@ def brevo():
         campaigns = []
         offset = 0
         while len(campaigns) < MAX_CAMPAIGNS:
-            rc = _get(f'{BREVO_BASE}/emailCampaigns', headers=headers, params={
-                'status': 'sent', 'limit': 50, 'offset': offset,
-                'sort': 'desc', 'statistics': 'globalStats',
-            })
+            try:
+                rc = _get(f'{BREVO_BASE}/emailCampaigns', headers=headers, params={
+                    'status': 'sent', 'limit': 50, 'offset': offset,
+                    'sort': 'desc', 'statistics': 'globalStats',
+                })
+            except Exception:
+                break
             if not rc.ok:
                 break
             try:
@@ -1700,8 +1706,8 @@ def brevo():
 
         # Contact stats — liste #64 (membres ACL)
         LIST_ID = 64
-        rl = _get(f'{BREVO_BASE}/contacts/lists/{LIST_ID}', headers=headers)
         try:
+            rl = _get(f'{BREVO_BASE}/contacts/lists/{LIST_ID}', headers=headers)
             list_data = rl.json() if rl.ok else {}
         except Exception:
             list_data = {}
@@ -1710,19 +1716,19 @@ def brevo():
         total_64       = subscribed_64 + blacklisted_64
 
         # Hard bounces — 6 derniers mois via smtp/statistics/globalStats
-        today_str       = datetime.datetime.utcnow().strftime('%Y-%m-%d')
-        six_months_ago  = (datetime.datetime.utcnow() - datetime.timedelta(days=180)).strftime('%Y-%m-%d')
-        rh = _get(f'{BREVO_BASE}/smtp/statistics/globalStats', headers=headers,
-                  params={'startDate': six_months_ago, 'endDate': today_str})
+        today_str      = datetime.datetime.utcnow().strftime('%Y-%m-%d')
+        six_months_ago = (datetime.datetime.utcnow() - datetime.timedelta(days=180)).strftime('%Y-%m-%d')
         try:
+            rh = _get(f'{BREVO_BASE}/smtp/statistics/globalStats', headers=headers,
+                      params={'startDate': six_months_ago, 'endDate': today_str})
             hard_bounces = rh.json().get('hardBounces', 0) if rh.ok else 0
         except Exception:
             hard_bounces = 0
 
         # Désinscriptions totales — cumul depuis 2015
-        ru = _get(f'{BREVO_BASE}/smtp/statistics/globalStats', headers=headers,
-                  params={'startDate': '2015-01-01', 'endDate': today_str})
         try:
+            ru = _get(f'{BREVO_BASE}/smtp/statistics/globalStats', headers=headers,
+                      params={'startDate': '2015-01-01', 'endDate': today_str})
             global_unsubscribed = ru.json().get('unsubscriptions', 0) if ru.ok else 0
         except Exception:
             global_unsubscribed = 0
@@ -4104,7 +4110,9 @@ def _club_payload(start, end, gran, partner=None):
 
         def safe(f):
             try:
-                return f.result()
+                return f.result(timeout=25)
+            except concurrent.futures.TimeoutError:
+                return {'error': 'timeout', 'total': 0, 'series': []}
             except BaseException as e:
                 return {'error': str(e)[:200]}
 
@@ -4133,7 +4141,8 @@ def club_partners_global():
             'newsletter': {'error': str(e)[:200], 'delivered': 0, 'openRate': 0, 'totalClicks': 0, 'avgCtr': 0},
             'meta':       {'error': str(e)[:200]},
         }
-    _cache_set(key, data, 3600)
+    leads_total = (data.get('leads') or {}).get('total', 0)
+    _cache_set(key, data, 90 if leads_total == 0 else 3600)
     return jsonify(data)
 
 
@@ -4167,7 +4176,8 @@ def club_partners_partner():
             'meta':       {'error': str(e)[:200]},
         }
     data['partner'] = {'key': key, 'label': cfg['label']}
-    _cache_set(cache_key, data, 3600)
+    leads_total = (data.get('leads') or {}).get('total', 0)
+    _cache_set(cache_key, data, 90 if leads_total == 0 else 3600)
     return jsonify(data)
 
 
