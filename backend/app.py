@@ -3552,7 +3552,9 @@ def _brevo_year_events(year):
         all_events.extend(chunk)
         chunk_start = chunk_end + datetime.timedelta(days=1)
 
-    _cache_set(key, {'events': all_events}, 3600)
+    # Ne cacher que si on a obtenu des events — évite de cacher une liste vide due à une erreur API
+    if all_events:
+        _cache_set(key, {'events': all_events}, 3600)
     return all_events
 
 
