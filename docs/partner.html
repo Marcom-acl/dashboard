@@ -318,13 +318,62 @@ function render(data) {
       </div>
     </div>` : '';
 
-  document.getElementById('mainContent').innerHTML = kpiHtml + donutsHtml + nlSendsHtml + metaErrHtml + adsHtml;
+  // Graphique de la période (change avec la granularité)
+  const hasLeadsSeries = (leads.series||[]).length > 0;
+  const hasMetaSeries  = metaOk && (meta.clicksSeries||[]).length > 0;
+  const periodChartHtml = (hasLeadsSeries || hasMetaSeries) ? `
+    <div class="card" style="margin-bottom:16px">
+      <div class="card-head">
+        <div class="card-title">Évolution sur la période</div>
+        <div style="display:flex;gap:6px">
+          ${hasLeadsSeries ? '<span class="src-pill" style="--src:var(--y);--src-bg:#FFF4A8">Leads</span>' : ''}
+          ${hasMetaSeries  ? '<span class="src-pill" style="--src:var(--c-fb);--src-bg:var(--c-fb-bg)">Clics Meta</span>' : ''}
+        </div>
+      </div>
+      <div class="card-body" style="position:relative;height:190px">
+        <canvas id="periodChart"></canvas>
+      </div>
+    </div>` : '';
+
+  document.getElementById('mainContent').innerHTML = kpiHtml + periodChartHtml + donutsHtml + nlSendsHtml + metaErrHtml + adsHtml;
 
   requestAnimationFrame(() => {
+    if (hasLeadsSeries || hasMetaSeries) drawPeriod(leads.series||[], hasMetaSeries ? (meta.clicksSeries||[]) : []);
     drawDonut('dLang','lLang', ga4.languages||[]);
     drawDonut('dCtry','lCtry', ga4.countries||[]);
     drawDonut('dChan','lChan', ga4.channels||[]);
     drawDonut('dDev', 'lDev',  ga4.devices||[]);
+  });
+}
+
+function drawPeriod(leadsArr, metaArr) {
+  if (chartInstances['period']) { chartInstances['period'].destroy(); delete chartInstances['period']; }
+  const canvas = document.getElementById('periodChart');
+  if (!canvas) return;
+  const allDates = [...new Set([...leadsArr.map(s=>s.date), ...metaArr.map(s=>s.date)])].sort();
+  if (!allDates.length) return;
+  const leadsMap = Object.fromEntries(leadsArr.map(s=>[s.date,s.value]));
+  const metaMap  = Object.fromEntries(metaArr.map(s=>[s.date,s.value]));
+  const datasets = [];
+  if (leadsArr.length) datasets.push({
+    type:'bar', label:'Leads', data:allDates.map(d=>leadsMap[d]||0),
+    backgroundColor:'rgba(254,219,0,.85)', borderRadius:3, borderSkipped:false, yAxisID:'y',
+  });
+  if (metaArr.length) datasets.push({
+    type:'line', label:'Clics Meta', data:allDates.map(d=>metaMap[d]||0),
+    borderColor:'#1877F2', backgroundColor:'rgba(24,119,242,.08)', pointRadius:2, fill:true, tension:.3, yAxisID:'y2',
+  });
+  chartInstances['period'] = new Chart(canvas, {
+    data: {labels:allDates, datasets},
+    options: {
+      responsive:true, maintainAspectRatio:false,
+      plugins:{legend:{display:true, labels:{font:{size:11}, boxWidth:12, padding:12}}},
+      scales:{
+        x:{ticks:{font:{size:11}, maxTicksLimit:14, maxRotation:0}, grid:{display:false}},
+        y:{position:'left', ticks:{font:{size:11}}, beginAtZero:true, grid:{color:'rgba(0,0,0,.05)'}},
+        y2:{position:'right', display:metaArr.length>0, ticks:{font:{size:11}}, beginAtZero:true, grid:{display:false}},
+      },
+    },
   });
 }
 

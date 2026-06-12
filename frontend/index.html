@@ -5591,9 +5591,27 @@ function _ptnRenderView(data, isGlobal) {
       </div>
     </div>` : '';
 
-  el.innerHTML = kpiHtml + globalKpiHtml + monthlyHtml + donutsHtml + nlSendsHtml + metaByPartnerHtml + metaErrHtml + adsHtml;
+  // Graphique de la période — barre leads + ligne meta clics (change avec la granularité)
+  const hasLeadsSeries = (leads.series||[]).length > 0;
+  const hasMetaSeries  = metaOk && (meta.clicksSeries||[]).length > 0;
+  const periodChartHtml = (hasLeadsSeries || hasMetaSeries) ? `
+    <div class="card" style="margin-bottom:16px">
+      <div class="card-head">
+        <div class="card-title">Évolution sur la période</div>
+        <div style="display:flex;gap:6px">
+          ${hasLeadsSeries ? '<span class="src-pill" style="--src:var(--y);--src-bg:var(--y-soft)">Leads</span>' : ''}
+          ${hasMetaSeries  ? '<span class="src-pill" style="--src:var(--c-fb);--src-bg:var(--c-fb-bg)">Clics Meta</span>' : ''}
+        </div>
+      </div>
+      <div class="card-body" style="position:relative;height:190px">
+        <canvas id="ptnPeriodChart"></canvas>
+      </div>
+    </div>` : '';
+
+  el.innerHTML = kpiHtml + globalKpiHtml + periodChartHtml + monthlyHtml + donutsHtml + nlSendsHtml + metaByPartnerHtml + metaErrHtml + adsHtml;
 
   requestAnimationFrame(() => {
+    if (hasLeadsSeries || hasMetaSeries) _ptnDrawPeriod(leads.series||[], hasMetaSeries ? (meta.clicksSeries||[]) : []);
     _ptnDrawDonut('ptnDonutLang','ptnLegLang', ga4.languages||[]);
     _ptnDrawDonut('ptnDonutCtry','ptnLegCtry', ga4.countries||[]);
     _ptnDrawDonut('ptnDonutChan','ptnLegChan', ga4.channels||[]);
@@ -5601,6 +5619,37 @@ function _ptnRenderView(data, isGlobal) {
     if (isGlobal && (leads.monthly||[]).length) _ptnDrawMonthly(leads.monthly, leads.target||2085);
   });
   animateCards(el);
+}
+
+function _ptnDrawPeriod(leadsArr, metaArr) {
+  if (chartInstances['ptnPeriod']) { chartInstances['ptnPeriod'].destroy(); delete chartInstances['ptnPeriod']; }
+  const canvas = document.getElementById('ptnPeriodChart');
+  if (!canvas) return;
+  const allDates = [...new Set([...leadsArr.map(s=>s.date), ...metaArr.map(s=>s.date)])].sort();
+  if (!allDates.length) return;
+  const leadsMap = Object.fromEntries(leadsArr.map(s=>[s.date,s.value]));
+  const metaMap  = Object.fromEntries(metaArr.map(s=>[s.date,s.value]));
+  const datasets = [];
+  if (leadsArr.length) datasets.push({
+    type:'bar', label:'Leads', data:allDates.map(d=>leadsMap[d]||0),
+    backgroundColor:'rgba(254,219,0,.85)', borderRadius:3, borderSkipped:false, yAxisID:'y',
+  });
+  if (metaArr.length) datasets.push({
+    type:'line', label:'Clics Meta', data:allDates.map(d=>metaMap[d]||0),
+    borderColor:'#1877F2', backgroundColor:'rgba(24,119,242,.08)', pointRadius:2, fill:true, tension:.3, yAxisID:'y2',
+  });
+  chartInstances['ptnPeriod'] = new Chart(canvas, {
+    data: {labels: allDates, datasets},
+    options: {
+      responsive:true, maintainAspectRatio:false,
+      plugins:{legend:{display:true, labels:{font:{family:'Albert Sans',size:11}, boxWidth:12, padding:12}}},
+      scales:{
+        x:{ticks:{font:{family:'Albert Sans',size:11}, maxTicksLimit:14, maxRotation:0}, grid:{display:false}},
+        y:{position:'left', ticks:{font:{family:'Albert Sans',size:11}}, beginAtZero:true, grid:{color:'rgba(0,0,0,.05)'}},
+        y2:{position:'right', display:metaArr.length>0, ticks:{font:{family:'Albert Sans',size:11}}, beginAtZero:true, grid:{display:false}},
+      },
+    },
+  });
 }
 
 function _ptnDrawDonut(canvasId, legendId, items) {
