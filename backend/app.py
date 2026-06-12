@@ -3278,7 +3278,11 @@ import unicodedata as _ud
 # Base de l'URL frontend (GitHub Pages) pour générer les liens de partage partenaire
 FRONTEND_URL = os.environ.get('FRONTEND_URL', 'https://marcom-acl.github.io/dashboard')
 
-# Google Sheets (publics — export CSV sans OAuth)
+# Filtre sur le nom des campagnes Brevo pour identifier les newsletters club mensuelles.
+# Modifiable via la variable d'environnement Railway NL_CLUB_PATTERN.
+NL_CLUB_CAMPAIGN_PATTERN = os.environ.get('NL_CLUB_PATTERN', 'Club ACL')
+
+# Google Sheets (publics — export CSV sans OAuth, conservés comme archive historique)
 LEADS_SHEET_ID = '1ahpl5NzgV5Ifk3yFwhMrFGSvgjCxZ_dkVM7trEIBE1o'
 NL_SHEET_ID    = '1cFNRYfQ2rE84Vn-hr1ghRaOnyLwxEiahMdWaCXzNWCs'
 LEADS_GIDS     = {'leads': 0, 'membres': 397652234, 'membres_total': 1929980711}
@@ -3302,7 +3306,7 @@ _CLUB_PARTNERS_RAW = {
     'wort':         {'label': 'Luxemburger Wort',          'token': 'wort-ad6fcd0a', 'leads': 'wort'},
     'autoglas':     {'label': 'Autoglas',                   'token': 'autoglas-5aad6b2c'},
     'bestcharge':   {'label': 'Best Charge',               'token': 'bestcharge-167515c4'},
-    'autopolis':    {'label': 'Autopolis',                  'token': 'autopolis-1215b252'},
+    'autopolis':    {'label': 'Autopolis',                  'token': 'autopolis-1215b252',   'nl_url_patterns': ['autopolis', 'maserati-autopolis']},
     'baloise':      {'label': 'Baloise',                    'token': 'baloise-3162df68'},
     'hellotaxi':    {'label': 'Hello Taxi',                'token': 'hellotaxi-ab12d267'},
     'losch':        {'label': 'VW Losch',                  'token': 'losch-a2d628c3'},
@@ -3313,7 +3317,7 @@ _CLUB_PARTNERS_RAW = {
     'autosphere':   {'label': 'Autosphère',                'token': 'autosphere-f109e77e'},
     'enersun':      {'label': 'Enersun',                    'token': 'enersun-d6682d2b'},
     'polestar':     {'label': 'Polestar',                   'token': 'polestar-c390ff1c'},
-    'acl-location': {'label': 'ACL Location',              'token': 'acl-location-35444984', 'leads': 'acllocation'},
+    'acl-location': {'label': 'ACL Location',              'token': 'acl-location-35444984', 'leads': 'acllocation', 'nl_url_patterns': ['acl-location', 'sunnycars']},
     'bgl':          {'label': 'BGL BNP Paribas',           'token': 'bgl-bfe692df'},
     'breuninger':   {'label': 'Breuninger',                'token': 'breuninger-c6ae1493'},
     'brinks':       {'label': 'Brinks',                     'token': 'brinks-c60563b8'},
@@ -3359,14 +3363,16 @@ def _partner_cfg(key):
     raw = _CLUB_PARTNERS_RAW.get(key)
     if not raw:
         return None
+    raw_nl_url = raw.get('nl_url_patterns', key)
     return {
-        'key':   key,
-        'label': raw['label'],
-        'token': raw['token'],
-        'leads': raw.get('leads', key),
-        'nl':    raw.get('nl', key),
-        'ga4':   raw.get('ga4', key),
-        'meta':  raw.get('meta', key),
+        'key':             key,
+        'label':           raw['label'],
+        'token':           raw['token'],
+        'leads':           raw.get('leads', key),
+        'nl':              raw.get('nl', key),
+        'ga4':             raw.get('ga4', key),
+        'meta':            raw.get('meta', key),
+        'nl_url_patterns': [raw_nl_url] if isinstance(raw_nl_url, str) else list(raw_nl_url),
     }
 
 
@@ -3464,144 +3470,334 @@ def _series_from_counts(counts):
 # ── Briques de données ─────────────────────────────────────────────────────────
 
 def _club_leads(start, end, gran, partner=None):
-    """Leads depuis le Sheet Leads (gid 0). Filtre partenaire optionnel.
-    Pour la vue globale, ajoute les membres uniques et ratios leads/membre."""
-    s_date = datetime.date.fromisoformat(start)
-    e_date = datetime.date.fromisoformat(end)
-    rows = _fetch_sheet_rows(LEADS_SHEET_ID, LEADS_GIDS['leads'])
-
-    total = 0
-    counts = {}
-    for row in rows:
-        d = _fr_dt(row.get('ts'))
-        if not d or d < s_date or d > e_date:
-            continue
-        if partner and not _match(partner['leads'], row.get('Partenaire', '')):
-            continue
-        n = int(_fr_num(row.get('Number', 0)) or 0)
-        total += n
-        counts[_bucket(d, gran)] = counts.get(_bucket(d, gran), 0) + n
-
-    result = {'total': total, 'series': _series_from_counts(counts)}
-
-    if partner is None:
-        # Vue globale : membres uniques + mensuel + ratios annuels
-        year = e_date.year
-        y_start = datetime.date(year, 1, 1)
-        y_end = datetime.date(year, 12, 31)
-
-        # Leads mensuels sur l'année courante (12 colonnes + repère 2085)
-        monthly = {f'{year}-{m:02d}': 0 for m in range(1, 13)}
-        year_leads_total = 0
-        for row in rows:
-            d = _fr_dt(row.get('ts'))
-            if not d or d < y_start or d > y_end:
-                continue
-            n = int(_fr_num(row.get('Number', 0)) or 0)
-            key = f'{year}-{d.month:02d}'
-            if key in monthly:
-                monthly[key] += n
-            year_leads_total += n
-        result['monthly'] = [{'month': k, 'value': monthly[k]} for k in sorted(monthly)]
-        result['target'] = 2085
-
-        # Membres uniques (dédup email) sur la période
-        m_rows = _fetch_sheet_rows(LEADS_SHEET_ID, LEADS_GIDS['membres'])
-        emails_period = set()
-        for row in m_rows:
-            d = _fr_dt(row.get('ts'))
-            if not d or d < s_date or d > e_date:
-                continue
-            em = (row.get('email') or '').strip().lower()
-            if em:
-                emails_period.add(em)
-        members_unique = len(emails_period)
-        result['membersUnique'] = members_unique
-        result['leadsPerMember'] = round(total / members_unique, 2) if members_unique else 0
-
-        # Membres uniques TOTAL sur l'année (gid dédié) + ratio annuel
-        mt_rows = _fetch_sheet_rows(LEADS_SHEET_ID, LEADS_GIDS['membres_total'])
-        emails_year = set()
-        for row in mt_rows:
-            d = _fr_dt(row.get('ts'))
-            if not d or d < y_start or d > y_end:
-                continue
-            em = (row.get('email') or '').strip().lower()
-            if em:
-                emails_year.add(em)
-        members_year = len(emails_year)
-        result['membersTotalYear'] = members_year
-        result['leadsTotalYear'] = year_leads_total
-        result['leadsPerMemberYear'] = round(year_leads_total / members_year, 2) if members_year else 0
-
-    return result
+    """Leads Avantages Club. Délègue à _brevo_leads_compute() (source : API Brevo)."""
+    return _brevo_leads_compute(start, end, gran, partner)
 
 
 def _club_newsletter(start, end, partner=None):
-    """Newsletter depuis le Sheet NL. delivered/openRate = lignes Compte='Compte' ;
-    clicks/ctr = lignes du partenaire ; sends = détail par envoi/langue (donuts)."""
+    """Newsletter Avantages Club. Délègue à _brevo_newsletter_compute() (source : API Brevo)."""
+    return _brevo_newsletter_compute(start, end, partner)
+
+
+# ── Implémentation Brevo : leads transactionnels + clics newsletter Club ──────────
+
+_BREVO_CLUB_BASE    = 'https://api.brevo.com/v3'
+_BREVO_EXCL_DOMAINS = {'acl.lu', 'epic.net'}
+_BREVO_EXCL_EMAILS  = {'pierreyvesmeert@gmail.com', 'conrardykim@gmail.com'}
+
+
+def _brevo_email_ok(email):
+    """True si l'adresse n'est pas dans les listes d'exclusion."""
+    e = email.lower().strip()
+    return '@' in e and e.split('@')[-1] not in _BREVO_EXCL_DOMAINS and e not in _BREVO_EXCL_EMAILS
+
+
+def _brevo_events_paginate(params_extra, start_iso, end_iso):
+    """Pagine sur /smtp/statistics/events pour un chunk de dates. Retourne list[dict]."""
+    hdrs = {'api-key': BREVO_API_KEY, 'Accept': 'application/json'}
+    results, off = [], 0
+    try:
+        while True:
+            r = _get(f'{_BREVO_CLUB_BASE}/smtp/statistics/events', headers=hdrs,
+                     params={**params_extra, 'startDate': start_iso, 'endDate': end_iso,
+                             'limit': 500, 'offset': off, 'sort': 'desc'})
+            if not r.ok:
+                break
+            batch = r.json().get('events', [])
+            if not batch:
+                break
+            results.extend(batch)
+            if len(batch) < 500:
+                break
+            off += 500
+    except Exception:
+        pass
+    return results
+
+
+def _brevo_fetch_subject(message_id):
+    """Récupère le sujet d'un email transactionnel par messageId (cache 1h).
+    Utilisé comme fallback si 'subject' est absent de la réponse events."""
+    if not message_id:
+        return ''
+    ckey = f'brevo_subj:{message_id}'
+    cached = _cache_get(ckey)
+    if cached:
+        return cached.get('subject', '')
+    hdrs = {'api-key': BREVO_API_KEY, 'Accept': 'application/json'}
+    try:
+        r = _get(f'{_BREVO_CLUB_BASE}/smtp/emails', headers=hdrs,
+                 params={'messageId': message_id, 'limit': 1})
+        if r.ok:
+            emails = r.json().get('transactionalEmails', [])
+            subj = emails[0].get('subject', '') if emails else ''
+            _cache_set(ckey, {'subject': subj}, 3600)
+            return subj
+    except Exception:
+        pass
+    return ''
+
+
+def _match_partner_subject(partner_cfg, subject):
+    """True si le sujet email contient le mot-clé leads du partenaire."""
+    kw = partner_cfg['leads']
+    kws = [kw] if isinstance(kw, str) else list(kw)
+    return any(_match(k, subject) for k in kws)
+
+
+def _match_nl_url(patterns, url):
+    """True si l'URL newsletter correspond au partenaire via le slug /offers/{slug}/."""
+    m = re.search(r'/offers/([^/?#]+)', url)
+    if not m:
+        return False
+    slug_alnum = _alnum(m.group(1))
+    return any(_alnum(p) in slug_alnum for p in patterns)
+
+
+def _date_chunks_28(s_date, e_date):
+    """Découpe [s_date, e_date] en tranches de 28 jours max (limite API Brevo ~30j)."""
+    chunks, cur = [], s_date
+    while cur <= e_date:
+        chunks.append((cur.isoformat(),
+                       min(cur + datetime.timedelta(days=27), e_date).isoformat()))
+        cur += datetime.timedelta(days=28)
+    return chunks
+
+
+def _brevo_leads_compute(start, end, gran, partner=None):
+    """Leads Avantages Club via API Brevo (emails transactionnels tagués club-member).
+    Source : /v3/smtp/statistics/events?event=delivered&tags=club-member.
+    Retourne la même structure JSON que l'ancienne _club_leads()."""
+    if not BREVO_API_KEY:
+        return {'total': 0, 'series': [], 'error': 'BREVO_API_KEY manquant'}
+
+    cache_key = f'brevo_leads:{start}:{end}:{gran}:{partner["key"] if partner else "all"}'
+    cached = _cache_get(cache_key)
+    if cached:
+        return cached
+
+    s_date  = datetime.date.fromisoformat(start)
+    e_date  = datetime.date.fromisoformat(end)
+    year    = e_date.year
+    y_start = datetime.date(year, 1, 1)
+    y_end   = datetime.date(year, 12, 31)
+
+    base_params = {'event': 'delivered', 'tags': 'club-member'}
+
+    def fetch_range(sd, ed):
+        evs = []
+        for cs, ce in _date_chunks_28(sd, ed):
+            evs.extend(_brevo_events_paginate(base_params, cs, ce))
+        return evs
+
+    period_events = fetch_range(s_date, e_date)
+
+    # Vue globale : données annuelles nécessaires pour monthly / YTD
+    covers_year = (s_date <= y_start and e_date >= y_end)
+    if partner is None and not covers_year:
+        year_events = fetch_range(y_start, y_end)
+    else:
+        year_events = period_events if partner is None else None
+
+    def parse_ev_date(ev):
+        try:
+            return datetime.date.fromisoformat((ev.get('date') or '')[:10])
+        except (ValueError, TypeError):
+            return None
+
+    def ev_subject(ev):
+        s = (ev.get('subject') or '').strip()
+        return s or _brevo_fetch_subject(ev.get('messageId', ''))
+
+    # Séries : emails uniques par bucket de granularité
+    bucket_seen      = {}  # {bucket_key: set(emails)}
+    all_emails_period = set()
+
+    for ev in period_events:
+        d = parse_ev_date(ev)
+        if not d:
+            continue
+        email = (ev.get('email') or '').lower().strip()
+        if not email or not _brevo_email_ok(email):
+            continue
+        if partner and not _match_partner_subject(partner, ev_subject(ev)):
+            continue
+        bk = _bucket(d, gran)
+        bucket_seen.setdefault(bk, set()).add(email)
+        all_emails_period.add(email)
+
+    series_counts = {bk: len(emails) for bk, emails in bucket_seen.items()}
+    total  = sum(series_counts.values())
+    result = {'total': total, 'series': _series_from_counts(series_counts)}
+
+    if partner is None:
+        monthly_seen   = {f'{year}-{m:02d}': set() for m in range(1, 13)}
+        all_emails_year = set()
+
+        for ev in (year_events or []):
+            d = parse_ev_date(ev)
+            if not d or d.year != year:
+                continue
+            email = (ev.get('email') or '').lower().strip()
+            if not email or not _brevo_email_ok(email):
+                continue
+            ym = f'{year}-{d.month:02d}'
+            if ym in monthly_seen:
+                monthly_seen[ym].add(email)
+                all_emails_year.add(email)
+
+        year_total = sum(len(v) for v in monthly_seen.values())
+        result['monthly']            = [{'month': k, 'value': len(v)} for k in sorted(monthly_seen)]
+        result['target']             = 2085
+        result['membersUnique']      = len(all_emails_period)
+        result['leadsPerMember']     = round(total / len(all_emails_period), 2) if all_emails_period else 0
+        result['membersTotalYear']   = len(all_emails_year)
+        result['leadsTotalYear']     = year_total
+        result['leadsPerMemberYear'] = round(year_total / len(all_emails_year), 2) if all_emails_year else 0
+
+    _cache_set(cache_key, result, 600)
+    return result
+
+
+def _brevo_newsletter_compute(start, end, partner=None):
+    """Performances newsletters Club ACL via API Brevo.
+    Source : /v3/emailCampaigns (filtre NL_CLUB_CAMPAIGN_PATTERN) + /clicksDetail.
+    Retourne la même structure JSON que l'ancienne _club_newsletter()."""
+    if not BREVO_API_KEY:
+        return {'delivered': 0, 'openRate': 0, 'totalClicks': 0, 'avgCtr': 0}
+
+    cache_key = f'brevo_nl:{start}:{end}:{partner["key"] if partner else "all"}'
+    cached = _cache_get(cache_key)
+    if cached:
+        return cached
+
+    hdrs   = {'api-key': BREVO_API_KEY, 'Accept': 'application/json'}
     s_date = datetime.date.fromisoformat(start)
     e_date = datetime.date.fromisoformat(end)
-    rows = _fetch_sheet_rows(NL_SHEET_ID, LEADS_GIDS['leads'])  # gid 0
 
-    def in_range(row):
-        d = _fr_dt(row.get('Date'))
-        return d is not None and s_date <= d <= e_date
-
-    # Délivré + taux d'ouverture global (lignes "Compte")
-    delivered = 0
-    open_weighted = 0.0
-    open_base = 0
-    for row in rows:
-        if not in_range(row):
-            continue
-        if _norm(row.get('Compte', '')) != 'compte':
-            continue
-        tot_deliv = _fr_num(row.get('Total Délivré') or row.get('Délivré'))
-        delivered += int(tot_deliv)
-        ouv = _fr_num(row.get("Taux d'ouv total") or row.get("Taux d'ouv."))
-        open_weighted += ouv * tot_deliv
-        open_base += tot_deliv
-    open_rate = round(open_weighted / open_base, 2) if open_base else 0
-
-    # Clics / CTR + détail par envoi (filtre partenaire le cas échéant)
-    # Les colonnes agrégées par partenaire ("Total clicks", "Click Rate total")
-    # ne sont remplies que sur la ligne de tête (1ʳᵉ langue) de chaque partenaire.
-    total_clicks = 0
-    ctr_values = []
-    sends = []
-    for row in rows:
-        if not in_range(row):
-            continue
-        pname = row.get('Partenaire', '')
-        if partner and not _match(partner['nl'], pname):
-            continue
-        agg_clicks_raw = (row.get('Total clicks') or '').strip()
-        agg_ctr_raw    = (row.get('Click Rate total') or '').strip()
-        # Agrégat partenaire (présent uniquement sur la ligne de tête)
-        if agg_clicks_raw:
-            total_clicks += int(_fr_num(agg_clicks_raw))
-        if agg_ctr_raw:
-            ctr_values.append(_fr_num(agg_ctr_raw))
-        # Détail par langue pour les donuts (vue partenaire)
-        if partner:
-            sends.append({
-                'label':     pname,
-                'delivered': int(_fr_num(row.get('Délivré'))),
-                'openRate':  _fr_num(row.get("Taux d'ouv.")),
-                'clickRate': _fr_num(row.get('Click Rate')),
-                'clicks':    int(_fr_num(row.get('Total Clics'))),
+    # 1. Lister les campagnes club dans la fenêtre temporelle
+    campaigns = []
+    offset = 0
+    try:
+        while True:
+            r = _get(f'{_BREVO_CLUB_BASE}/emailCampaigns', headers=hdrs, params={
+                'status': 'sent', 'limit': 50, 'offset': offset, 'sort': 'desc',
             })
-    avg_ctr = round(sum(ctr_values) / len(ctr_values), 2) if ctr_values else 0
+            if not r.ok:
+                break
+            batch = r.json().get('campaigns', [])
+            if not batch:
+                break
+            for c in batch:
+                if NL_CLUB_CAMPAIGN_PATTERN.lower() not in (c.get('name') or '').lower():
+                    continue
+                sent_at = (c.get('sentDate') or '')[:10]
+                try:
+                    d = datetime.date.fromisoformat(sent_at)
+                    if s_date <= d <= e_date:
+                        campaigns.append(c)
+                except ValueError:
+                    pass
+            if len(batch) < 50:
+                break
+            offset += 50
+    except Exception:
+        pass
+
+    empty = {'delivered': 0, 'openRate': 0, 'totalClicks': 0, 'uniqueClicks': 0, 'avgCtr': 0}
+    if not campaigns:
+        if partner:
+            empty['sends'] = []
+        _cache_set(cache_key, empty, 600)
+        return empty
+
+    nl_patterns = partner['nl_url_patterns'] if partner else None
+
+    # 2. Agréger statistiques globales + clics par partenaire
+    total_delivered = 0
+    open_weighted   = 0.0
+    open_base       = 0
+    total_clicks    = 0
+    unique_emails   = set()
+    ctr_values      = []
+    sends           = []
+
+    for camp in campaigns:
+        cid    = camp['id']
+        cname  = camp.get('name', '')
+        gstats = (camp.get('statistics') or {}).get('globalStats', {})
+        deliv  = int(gstats.get('delivered', 0))
+        u_open = int(gstats.get('uniqueOpens', gstats.get('uniqueViews', 0)))
+
+        total_delivered += deliv
+        if deliv:
+            open_weighted += (u_open / deliv * 100) * deliv
+            open_base     += deliv
+
+        if nl_patterns:
+            camp_clicks = 0
+            camp_unique = set()
+            approx_uniq = 0
+            off = 0
+            try:
+                while True:
+                    r = _get(f'{_BREVO_CLUB_BASE}/emailCampaigns/{cid}/clicksDetail',
+                             headers=hdrs, params={'limit': 500, 'offset': off})
+                    if not r.ok:
+                        break
+                    detail = r.json()
+                    links  = detail.get('links') or detail.get('clicksDetail') or []
+                    if not links:
+                        break
+                    for lobj in links:
+                        url = (lobj.get('link') or lobj.get('url') or '')
+                        if not _match_nl_url(nl_patterns, url):
+                            continue
+                        clickers = lobj.get('clickers')
+                        if isinstance(clickers, list):
+                            for em in clickers:
+                                em = str(em).lower().strip()
+                                if em and '@' in em:
+                                    camp_clicks += 1
+                                    camp_unique.add(em)
+                        else:
+                            camp_clicks += int(lobj.get('totalClicks', lobj.get('clicked', 0)))
+                            approx_uniq += int(lobj.get('uniqueClicks', 0))
+                    if not isinstance(links, list) or len(links) < 500:
+                        break
+                    off += 500
+            except Exception:
+                pass
+
+            final_uniq = len(camp_unique) if camp_unique else approx_uniq
+            total_clicks += camp_clicks
+            unique_emails.update(camp_unique)
+            if deliv and camp_clicks:
+                ctr_values.append(camp_clicks / deliv * 100)
+
+            sends.append({
+                'label':        cname,
+                'delivered':    deliv,
+                'openRate':     round(u_open / deliv * 100, 2) if deliv else 0,
+                'clickRate':    round(camp_clicks / deliv * 100, 2) if deliv else 0,
+                'clicks':       camp_clicks,
+                'uniqueClicks': final_uniq,
+            })
+
+    open_rate = round(open_weighted / open_base, 2) if open_base else 0
+    avg_ctr   = round(sum(ctr_values) / len(ctr_values), 2) if ctr_values else 0
 
     out = {
-        'delivered':   delivered,
-        'openRate':    open_rate,
-        'totalClicks': total_clicks,
-        'avgCtr':      avg_ctr,
+        'delivered':    total_delivered,
+        'openRate':     open_rate,
+        'totalClicks':  total_clicks,
+        'uniqueClicks': len(unique_emails),
+        'avgCtr':       avg_ctr,
     }
     if partner:
         out['sends'] = sends
+
+    _cache_set(cache_key, out, 600)
     return out
 
 
