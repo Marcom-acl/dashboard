@@ -3515,6 +3515,29 @@ def _brevo_events_paginate(params_extra, start_iso, end_iso):
     return results
 
 
+def _brevo_emails_paginate(start_iso, end_iso):
+    """Pagine sur /smtp/emails (tag club-member). Le sujet est inclus — aucun lookup secondaire."""
+    hdrs = {'api-key': BREVO_API_KEY, 'Accept': 'application/json'}
+    results, off = [], 0
+    try:
+        while True:
+            r = _get(f'{_BREVO_CLUB_BASE}/smtp/emails', headers=hdrs,
+                     params={'startDate': start_iso, 'endDate': end_iso,
+                             'tags': 'club-member', 'limit': 500, 'offset': off, 'sort': 'desc'})
+            if not r.ok:
+                break
+            batch = r.json().get('transactionalEmails', [])
+            if not batch:
+                break
+            results.extend(batch)
+            if len(batch) < 500:
+                break
+            off += 500
+    except Exception:
+        pass
+    return results
+
+
 def _brevo_fetch_subject(message_id):
     """Récupère le sujet d'un email transactionnel par messageId (cache 1h).
     Utilisé comme fallback si 'subject' est absent de la réponse events."""
@@ -3582,12 +3605,14 @@ def _brevo_leads_compute(start, end, gran, partner=None):
     y_start = datetime.date(year, 1, 1)
     y_end   = min(datetime.date(year, 12, 31), datetime.date.today())
 
-    base_params = {'event': 'delivered', 'tags': 'club-member'}
-
     def fetch_range(sd, ed):
+        chunks = _date_chunks_28(sd, ed)
+        if not chunks:
+            return []
         evs = []
-        for cs, ce in _date_chunks_28(sd, ed):
-            evs.extend(_brevo_events_paginate(base_params, cs, ce))
+        with concurrent.futures.ThreadPoolExecutor(max_workers=min(len(chunks), 4)) as chunk_ex:
+            for batch in chunk_ex.map(lambda c: _brevo_emails_paginate(c[0], c[1]), chunks):
+                evs.extend(batch)
         return evs
 
     period_events = fetch_range(s_date, e_date)
@@ -3606,8 +3631,7 @@ def _brevo_leads_compute(start, end, gran, partner=None):
             return None
 
     def ev_subject(ev):
-        s = (ev.get('subject') or '').strip()
-        return s or _brevo_fetch_subject(ev.get('messageId', ''))
+        return (ev.get('subject') or '').strip()
 
     # Séries : emails uniques par bucket de granularité
     bucket_seen      = {}  # {bucket_key: set(emails)}
