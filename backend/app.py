@@ -3580,7 +3580,7 @@ def _brevo_leads_compute(start, end, gran, partner=None):
     e_date  = datetime.date.fromisoformat(end)
     year    = e_date.year
     y_start = datetime.date(year, 1, 1)
-    y_end   = datetime.date(year, 12, 31)
+    y_end   = min(datetime.date(year, 12, 31), datetime.date.today())
 
     base_params = {'event': 'delivered', 'tags': 'club-member'}
 
@@ -3646,8 +3646,8 @@ def _brevo_leads_compute(start, end, gran, partner=None):
                 monthly_seen[ym].add(email)
                 all_emails_year.add(email)
 
-        year_total = sum(len(v) for v in monthly_seen.values())
-        result['monthly']            = [{'month': k, 'value': len(v)} for k in sorted(monthly_seen)]
+        year_total = sum(len(s) for s in monthly_seen.values())
+        result['monthly']            = [{'month': k, 'value': len(monthly_seen[k])} for k in sorted(monthly_seen)]
         result['target']             = 2085
         result['membersUnique']      = len(all_emails_period)
         result['leadsPerMember']     = round(total / len(all_emails_period), 2) if all_emails_period else 0
@@ -3682,6 +3682,7 @@ def _brevo_newsletter_compute(start, end, partner=None):
         while True:
             r = _get(f'{_BREVO_CLUB_BASE}/emailCampaigns', headers=hdrs, params={
                 'status': 'sent', 'limit': 50, 'offset': offset, 'sort': 'desc',
+                'statistics': 'globalStats',
             })
             if not r.ok:
                 break
@@ -4092,7 +4093,7 @@ def _club_payload(start, end, gran, partner=None):
         def safe(f):
             try:
                 return f.result()
-            except Exception as e:
+            except BaseException as e:
                 return {'error': str(e)[:200]}
 
         return {
@@ -4111,7 +4112,15 @@ def club_partners_global():
     cached = _cache_get(key)
     if cached:
         return jsonify(cached)
-    data = _club_payload(start, end, gran, partner=None)
+    try:
+        data = _club_payload(start, end, gran, partner=None)
+    except Exception as e:
+        data = {
+            'leads':      {'error': str(e)[:200], 'total': 0, 'series': []},
+            'ga4':        {'error': str(e)[:200]},
+            'newsletter': {'error': str(e)[:200], 'delivered': 0, 'openRate': 0, 'totalClicks': 0, 'avgCtr': 0},
+            'meta':       {'error': str(e)[:200]},
+        }
     _cache_set(key, data, 600)
     return jsonify(data)
 
@@ -4136,7 +4145,15 @@ def club_partners_partner():
     cached = _cache_get(cache_key)
     if cached:
         return jsonify(cached)
-    data = _club_payload(start, end, gran, partner=cfg)
+    try:
+        data = _club_payload(start, end, gran, partner=cfg)
+    except Exception as e:
+        data = {
+            'leads':      {'error': str(e)[:200], 'total': 0, 'series': []},
+            'ga4':        {'error': str(e)[:200]},
+            'newsletter': {'error': str(e)[:200], 'delivered': 0, 'openRate': 0, 'totalClicks': 0, 'avgCtr': 0},
+            'meta':       {'error': str(e)[:200]},
+        }
     data['partner'] = {'key': key, 'label': cfg['label']}
     _cache_set(cache_key, data, 600)
     return jsonify(data)
