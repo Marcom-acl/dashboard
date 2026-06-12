@@ -4049,7 +4049,7 @@ def _club_meta(start, end, gran, partner=None):
 
     # 1) Série journalière des clics
     fields_day = ['date', 'campaign_name', 'adset_name', 'link_click']
-    rows_d, sc_d, err_d = _supermetrics_query('FBA', sm_account, fields_day, start, end, max_rows=5000)
+    rows_d, sc_d, err_d = _supermetrics_query('FA', sm_account, fields_day, start, end, max_rows=5000)
     if err_d:
         sm_errors.append(f'daily: {err_d}')
     else:
@@ -4066,7 +4066,7 @@ def _club_meta(start, end, gran, partner=None):
 
     # 2) Totaux période (niveau adset, agrégé sur la plage)
     fields_tot = ['campaign_name', 'adset_name', 'link_click', 'impressions', 'reach']
-    rows_t, sc_t, err_t = _supermetrics_query('FBA', sm_account, fields_tot, start, end, max_rows=2000)
+    rows_t, sc_t, err_t = _supermetrics_query('FA', sm_account, fields_tot, start, end, max_rows=2000)
     if err_t:
         sm_errors.append(f'totals: {err_t}')
     else:
@@ -4096,7 +4096,7 @@ def _club_meta(start, end, gran, partner=None):
 
     # 3) Niveau ad — grille de publicités
     fields_ad = ['ad_id', 'ad_name', 'adset_name', 'campaign_name', 'link_click', 'impressions', 'reach', 'ctr_link']
-    rows_a, sc_a, err_a = _supermetrics_query('FBA', sm_account, fields_ad, start, end, max_rows=500)
+    rows_a, sc_a, err_a = _supermetrics_query('FA', sm_account, fields_ad, start, end, max_rows=500)
     if not err_a:
         for row in _sm_rows_to_dicts(rows_a, sc_a or fields_ad):
             if not keep(row.get('campaign_name', '')):
@@ -4361,7 +4361,7 @@ def club_partners_debug_fba():
         return jsonify({'error': 'FB_ACCOUNTS non configuré'})
     start, end = _date_range()
     # Requête minimale : 3 lignes pour voir le schéma réel
-    rows, schema, err = _supermetrics_query('FBA', sm_account,
+    rows, schema, err = _supermetrics_query('FA', sm_account,
         ['campaign_name', 'adset_name', 'impressions', 'reach',
          'link_click', 'link_clicks', 'inline_link_clicks', 'ctr', 'ctr_link'],
         start, end, max_rows=3)
