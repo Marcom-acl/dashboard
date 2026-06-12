@@ -4207,6 +4207,43 @@ def club_diag():
         return jsonify({'error': str(e)})
 
 
+@app.route('/leads-test')
+def leads_test():
+    """Debug leads : force recompute, montre les events bruts et le résultat calculé."""
+    start = request.args.get('start', (datetime.date.today() - datetime.timedelta(days=30)).isoformat())
+    end   = request.args.get('end',   datetime.date.today().isoformat())
+    gran  = request.args.get('gran',  'day')
+    try:
+        year = datetime.date.fromisoformat(end).year
+    except ValueError as e:
+        return jsonify({'error': str(e)}), 400
+
+    leads_key = f'brevo_leads:{start}:{end}:{gran}:all'
+    year_key  = f'brevo_ev_raw:{year}'
+
+    with _API_CACHE_LOCK:
+        year_was_cached = year_key in _API_CACHE
+        _API_CACHE.pop(leads_key, None)
+        _API_CACHE.pop(year_key,  None)
+
+    # Fetch direct des events sur la période (bypass cache)
+    raw = _brevo_events_paginate(
+        {'tags': 'club-member', 'event': 'delivered'},
+        start, end,
+    )
+
+    result = _brevo_leads_compute(start, end, gran, None)
+
+    return jsonify({
+        'period':           {'start': start, 'end': end},
+        'year_was_cached':  year_was_cached,
+        'raw_events_count': len(raw),
+        'sample_events':    raw[:3],
+        'computed_total':   result.get('total'),
+        'computed_error':   result.get('error'),
+    })
+
+
 @app.route('/nl-test')
 def nl_test():
     """Diagnostic newsletter : force recompute sans cache et affiche le détail étape par étape."""
