@@ -3756,8 +3756,10 @@ def _brevo_leads_compute(start, end, gran, partner=None):
         threading.Thread(target=_warm_year, daemon=True).start()
 
     # Séries : emails uniques par bucket de granularité
-    bucket_seen       = {}  # {bucket_key: set(emails)}
-    all_emails_period = set()
+    # + déduplication mensuelle pour le total (1 email = 1 lead par mois par avantage)
+    bucket_seen        = {}  # {bucket_key: set(emails)}
+    monthly_seen_total = {}  # {YYYY-MM: set(emails)} — pour total dédupliqué par mois
+    all_emails_period  = set()
 
     for ev in period_events:
         if ev.get('event') in ('loadedByProxy', 'proxy'):
@@ -3772,10 +3774,13 @@ def _brevo_leads_compute(start, end, gran, partner=None):
             continue
         bk = _bucket(d, gran)
         bucket_seen.setdefault(bk, set()).add(email)
+        mk = f'{d.year}-{d.month:02d}'
+        monthly_seen_total.setdefault(mk, set()).add(email)
         all_emails_period.add(email)
 
     series_counts = {bk: len(emails) for bk, emails in bucket_seen.items()}
-    total  = sum(series_counts.values())
+    # Total = somme des emails uniques par mois (pas par jour/semaine)
+    total  = sum(len(s) for s in monthly_seen_total.values())
     result = {'total': total, 'series': _series_from_counts(series_counts)}
 
     if partner is None:
@@ -3903,6 +3908,12 @@ def _brevo_newsletter_compute(start, end, partner=None):
                 'clicks':       camp_clicks,
                 'uniqueClicks': final_uniq,
             })
+        else:
+            # Vue globale (sans partenaire) : stats de clics depuis globalStats de la campagne
+            g_uniq = int(gstats.get('uniqueClicks', gstats.get('clickers', 0)))
+            total_clicks += g_uniq
+            if deliv and g_uniq:
+                ctr_values.append(g_uniq / deliv * 100)
 
     open_rate = round(open_weighted / open_base, 2) if open_base else 0
     avg_ctr   = round(sum(ctr_values) / len(ctr_values), 2) if ctr_values else 0
