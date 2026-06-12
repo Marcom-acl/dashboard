@@ -3602,8 +3602,8 @@ def _brevo_leads_compute(start, end, gran, partner=None):
     s_date  = datetime.date.fromisoformat(start)
     e_date  = datetime.date.fromisoformat(end)
     year    = e_date.year
-    y_start = datetime.date(year, 1, 1)
-    y_end   = min(datetime.date(year, 12, 31), datetime.date.today())
+
+    base_params = {'event': 'delivered', 'tags': 'club-member'}
 
     def fetch_range(sd, ed):
         chunks = _date_chunks_28(sd, ed)
@@ -3611,18 +3611,11 @@ def _brevo_leads_compute(start, end, gran, partner=None):
             return []
         evs = []
         with concurrent.futures.ThreadPoolExecutor(max_workers=min(len(chunks), 4)) as chunk_ex:
-            for batch in chunk_ex.map(lambda c: _brevo_emails_paginate(c[0], c[1]), chunks):
+            for batch in chunk_ex.map(lambda c: _brevo_events_paginate(base_params, c[0], c[1]), chunks):
                 evs.extend(batch)
         return evs
 
     period_events = fetch_range(s_date, e_date)
-
-    # Vue globale : données annuelles nécessaires pour monthly / YTD
-    covers_year = (s_date <= y_start and e_date >= y_end)
-    if partner is None and not covers_year:
-        year_events = fetch_range(y_start, y_end)
-    else:
-        year_events = period_events if partner is None else None
 
     def parse_ev_date(ev):
         try:
@@ -3658,7 +3651,7 @@ def _brevo_leads_compute(start, end, gran, partner=None):
         monthly_seen   = {f'{year}-{m:02d}': set() for m in range(1, 13)}
         all_emails_year = set()
 
-        for ev in (year_events or []):
+        for ev in period_events:
             d = parse_ev_date(ev)
             if not d or d.year != year:
                 continue
