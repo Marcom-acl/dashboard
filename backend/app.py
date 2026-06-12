@@ -3603,7 +3603,7 @@ def _brevo_leads_compute(start, end, gran, partner=None):
     e_date  = datetime.date.fromisoformat(end)
     year    = e_date.year
 
-    base_params = {'event': 'delivered', 'tags': 'club-member'}
+    base_params = {'tags': 'club-member'}
 
     period_events = _brevo_events_paginate(base_params, s_date.isoformat(), e_date.isoformat())
 
@@ -4052,6 +4052,31 @@ def _fb_ad_images(account_id, token, ad_ids):
 
 # ── Routes ──────────────────────────────────────────────────────────────────────
 
+@app.route('/brevo-debug')
+def brevo_debug():
+    """Diagnostic léger : 1 seul appel pour vérifier l'état de l'API Brevo."""
+    if not BREVO_API_KEY:
+        return jsonify({'error': 'BREVO_API_KEY absent'}), 500
+    hdrs  = {'api-key': BREVO_API_KEY, 'Accept': 'application/json'}
+    start = request.args.get('start', '2026-05-01')
+    end   = request.args.get('end',   '2026-06-12')
+
+    # Test A : events sans aucun filtre (vérifie le rate limit)
+    rA = _get(f'{_BREVO_CLUB_BASE}/smtp/statistics/events', headers=hdrs,
+              params={'startDate': start, 'endDate': end, 'limit': 5, 'sort': 'desc'})
+    bodyA = rA.json() if rA.ok else {'raw': rA.text[:300]}
+
+    # Test B : events avec tags=club-member uniquement (no event type filter)
+    rB = _get(f'{_BREVO_CLUB_BASE}/smtp/statistics/events', headers=hdrs,
+              params={'tags': 'club-member', 'startDate': start, 'endDate': end, 'limit': 5})
+    bodyB = rB.json() if rB.ok else {'raw': rB.text[:300]}
+
+    return jsonify({
+        'A_no_filter':   {'status': rA.status_code, 'rl_remaining': rA.headers.get('x-sib-ratelimit-remaining'),
+                          'count': len(bodyA.get('events', [])), 'sample': bodyA.get('events', [])[:2]},
+        'B_tag_filter':  {'status': rB.status_code, 'rl_remaining': rB.headers.get('x-sib-ratelimit-remaining'),
+                          'count': len(bodyB.get('events', [])), 'sample': bodyB.get('events', [])[:2]},
+    })
 
 
 @app.route('/club-partners/list')
