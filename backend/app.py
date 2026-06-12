@@ -4063,6 +4063,33 @@ def _fb_ad_images(account_id, token, ad_ids):
 
 # ── Routes ──────────────────────────────────────────────────────────────────────
 
+@app.route('/club-diag')
+def club_diag():
+    """Diagnostic Brevo club : 2 appels max, pas de pagination."""
+    if not BREVO_API_KEY:
+        return jsonify({'error': 'BREVO_API_KEY absent'}), 500
+    hdrs  = {'api-key': BREVO_API_KEY, 'Accept': 'application/json'}
+    start = request.args.get('start', '2026-05-01')
+    end   = request.args.get('end',   '2026-06-12')
+    out   = {}
+    for lim in [5, 2500]:
+        try:
+            r = _get(f'{_BREVO_CLUB_BASE}/smtp/statistics/events', headers=hdrs,
+                     params={'tags': 'club-member', 'startDate': start, 'endDate': end,
+                             'limit': lim, 'sort': 'desc'})
+            body = r.json() if r.ok else {}
+            out[f'limit{lim}'] = {
+                'status':   r.status_code,
+                'rl_rem':   r.headers.get('x-sib-ratelimit-remaining'),
+                'count':    len(body.get('events', [])),
+                'sample':   body.get('events', [])[:2],
+                'raw_err':  body.get('message') or body.get('error') if not r.ok else None,
+            }
+        except Exception as e:
+            out[f'limit{lim}'] = {'error': str(e)}
+    return jsonify(out)
+
+
 @app.route('/club-partners/list')
 def club_partners_list():
     """Liste des partenaires configurés + ceux découverts dans les sheets."""
@@ -4102,26 +4129,28 @@ def _resolve_partner_from_leads(value):
 
 def _club_payload(start, end, gran, partner=None):
     """Assemble les 4 briques en parallèle, chaque échec isolé."""
-    with concurrent.futures.ThreadPoolExecutor(max_workers=4) as ex:
-        f_leads = ex.submit(_club_leads, start, end, gran, partner)
-        f_nl    = ex.submit(_club_newsletter, start, end, partner)
-        f_ga4   = ex.submit(_club_ga4, start, end, partner)
-        f_meta  = ex.submit(_club_meta, start, end, gran, partner)
+    ex = concurrent.futures.ThreadPoolExecutor(max_workers=4)
+    f_leads = ex.submit(_club_leads, start, end, gran, partner)
+    f_nl    = ex.submit(_club_newsletter, start, end, partner)
+    f_ga4   = ex.submit(_club_ga4, start, end, partner)
+    f_meta  = ex.submit(_club_meta, start, end, gran, partner)
 
-        def safe(f):
-            try:
-                return f.result(timeout=25)
-            except concurrent.futures.TimeoutError:
-                return {'error': 'timeout', 'total': 0, 'series': []}
-            except BaseException as e:
-                return {'error': str(e)[:200]}
+    def safe(f):
+        try:
+            return f.result(timeout=25)
+        except concurrent.futures.TimeoutError:
+            return {'error': 'timeout', 'total': 0, 'series': []}
+        except BaseException as e:
+            return {'error': str(e)[:200]}
 
-        return {
-            'leads':      safe(f_leads),
-            'ga4':        safe(f_ga4),
-            'newsletter': safe(f_nl),
-            'meta':       safe(f_meta),
-        }
+    result = {
+        'leads':      safe(f_leads),
+        'ga4':        safe(f_ga4),
+        'newsletter': safe(f_nl),
+        'meta':       safe(f_meta),
+    }
+    ex.shutdown(wait=False)  # ne pas bloquer sur les threads encore en cours
+    return result
 
 
 @app.route('/club-partners/global')
