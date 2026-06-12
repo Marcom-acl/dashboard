@@ -3727,15 +3727,36 @@ def _brevo_leads_compute(start, end, gran, partner=None):
     def ev_subject(ev):
         return (ev.get('subject') or '').strip()
 
-    # Charger depuis le cache annuel et filtrer sur la période demandée
-    all_year_events = _brevo_year_events(year)
-    if s_date.year != year:
-        all_year_events = _brevo_year_events(s_date.year) + all_year_events
-    period_events = [ev for ev in all_year_events
-                     if (lambda d: d and s_date <= d <= e_date)(parse_ev_date(ev))]
+    # Stratégie hybride :
+    # - Si le cache annuel est chaud → filtrer directement (0 appel Brevo)
+    # - Sinon → fetch direct sur la période (rapide, comportement original)
+    #           + pré-chauffe du cache annuel en arrière-plan
+    year_key = f'brevo_ev_raw:{year}'
+    year_hit = _cache_get(year_key)
+
+    if year_hit is not None:
+        all_year_events = year_hit.get('events', [])
+        if s_date.year != year:
+            prev = _cache_get(f'brevo_ev_raw:{s_date.year}')
+            if prev:
+                all_year_events = prev.get('events', []) + all_year_events
+        period_events = [ev for ev in all_year_events
+                         if (lambda d: d and s_date <= d <= e_date)(parse_ev_date(ev))]
+    else:
+        # Cache froid : fetch sur la période demandée uniquement (original)
+        period_events = _brevo_events_paginate({'tags': 'club-member'},
+                                               s_date.isoformat(), e_date.isoformat())
+        all_year_events = None  # pas encore disponible
+        # Pré-chauffer le cache annuel en arrière-plan pour les prochains changements de période
+        def _warm_year():
+            try:
+                _brevo_year_events(year)
+            except Exception:
+                pass
+        threading.Thread(target=_warm_year, daemon=True).start()
 
     # Séries : emails uniques par bucket de granularité
-    bucket_seen      = {}  # {bucket_key: set(emails)}
+    bucket_seen       = {}  # {bucket_key: set(emails)}
     all_emails_period = set()
 
     for ev in period_events:
@@ -3758,11 +3779,12 @@ def _brevo_leads_compute(start, end, gran, partner=None):
     result = {'total': total, 'series': _series_from_counts(series_counts)}
 
     if partner is None:
-        # Stats annuelles calculées sur l'ensemble de l'année (pas seulement la période affichée)
         monthly_seen    = {f'{year}-{m:02d}': set() for m in range(1, 13)}
         all_emails_year = set()
+        # Utiliser les events annuels si disponibles, sinon period_events en fallback
+        events_for_year = (all_year_events if all_year_events is not None else period_events)
 
-        for ev in all_year_events:
+        for ev in events_for_year:
             if ev.get('event') in ('loadedByProxy', 'proxy'):
                 continue
             d = parse_ev_date(ev)
@@ -3785,8 +3807,8 @@ def _brevo_leads_compute(start, end, gran, partner=None):
         result['leadsTotalYear']     = year_total
         result['leadsPerMemberYear'] = round(year_total / len(all_emails_year), 2) if all_emails_year else 0
 
-    # Les données viennent du cache annuel — un résultat vide est légitime (aucun lead sur la période)
-    _cache_set(cache_key, result, 3600)
+    # TTL court si vide (possible erreur API), long si données présentes
+    _cache_set(cache_key, result, 3600 if total > 0 else 300)
     return result
 
 
@@ -4247,7 +4269,8 @@ def club_partners_global():
             'newsletter': {'error': str(e)[:200], 'delivered': 0, 'openRate': 0, 'totalClicks': 0, 'avgCtr': 0},
             'meta':       {'error': str(e)[:200]},
         }
-    _cache_set(key, data, 3600)
+    leads_total = (data.get('leads') or {}).get('total', 0)
+    _cache_set(key, data, 300 if leads_total == 0 else 3600)
     return jsonify(data)
 
 
