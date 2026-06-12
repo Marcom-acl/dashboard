@@ -4203,30 +4203,40 @@ def club_diag():
 
 @app.route('/nl-diag')
 def nl_diag():
-    """Diagnostic newsletter : retourne les globalStats brutes des 3 dernières campagnes Club Newsletter."""
+    """Diagnostic newsletter : globalStats des campagnes matching NL_CLUB_CAMPAIGN_PATTERN."""
     if not BREVO_API_KEY:
         return jsonify({'error': 'BREVO_API_KEY absent'}), 500
-    hdrs = {'api-key': BREVO_API_KEY, 'Accept': 'application/json'}
+    hdrs    = {'api-key': BREVO_API_KEY, 'Accept': 'application/json'}
+    pattern = NL_CLUB_CAMPAIGN_PATTERN.lower()
+    matched, offset = [], 0
     try:
-        r = _get(f'{_BREVO_CLUB_BASE}/emailCampaigns', headers=hdrs, params={
-            'status': 'sent', 'limit': 5, 'sort': 'desc', 'statistics': 'globalStats',
-        })
-        if not r.ok:
-            return jsonify({'error': r.status_code, 'body': r.text[:500]})
-        camps = r.json().get('campaigns', [])
-        result = []
-        for c in camps:
-            gstats = (c.get('statistics') or {}).get('globalStats', {})
-            result.append({
-                'id':      c.get('id'),
-                'name':    c.get('name'),
-                'sent':    c.get('sentDate', '')[:10],
-                'gstats_keys': list(gstats.keys()),
-                'gstats':  gstats,
+        while len(matched) < 5:
+            r = _get(f'{_BREVO_CLUB_BASE}/emailCampaigns', headers=hdrs, params={
+                'status': 'sent', 'limit': 50, 'offset': offset,
+                'sort': 'desc', 'statistics': 'globalStats',
             })
-        return jsonify({'campaigns': result})
+            if not r.ok:
+                return jsonify({'error': r.status_code, 'body': r.text[:500]})
+            batch = r.json().get('campaigns', [])
+            if not batch:
+                break
+            for c in batch:
+                if pattern in (c.get('name') or '').lower():
+                    gstats = (c.get('statistics') or {}).get('globalStats', {})
+                    matched.append({
+                        'id':    c.get('id'),
+                        'name':  c.get('name'),
+                        'sent':  c.get('sentDate', '')[:10],
+                        'gstats': gstats,
+                    })
+                    if len(matched) >= 5:
+                        break
+            if len(batch) < 50:
+                break
+            offset += 50
     except Exception as e:
         return jsonify({'error': str(e)})
+    return jsonify({'pattern': NL_CLUB_CAMPAIGN_PATTERN, 'found': len(matched), 'campaigns': matched})
 
 
 @app.route('/club-partners/list')
