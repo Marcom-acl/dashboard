@@ -1328,10 +1328,12 @@
           <button class="filter-btn active" data-gperiod="30">30j</button>
           <button class="filter-btn" data-gperiod="90">90j</button>
           <button class="filter-btn" data-gperiod="365">12 mois</button>
+          <button class="filter-btn" data-gperiod="ytd">YTD</button>
           <button class="filter-btn" data-gperiod="custom">Personnalisé</button>
           <div class="filter-ind" id="globalFilterInd"></div>
         </div>
         <div class="custom-range" id="globalCustomRange">
+          <span style="font-size:10px;color:var(--muted);white-space:nowrap">JJ/MM/AAAA</span>
           <input type="date" class="date-inp" id="globalDateFrom" />
           <span style="font-size:11px;color:var(--muted)">→</span>
           <input type="date" class="date-inp" id="globalDateTo" />
@@ -1582,6 +1584,17 @@ async function api(path) {
   return r.json();
 }
 
+// Variante avec timeout allongé (45s) pour les endpoints lourds
+async function apiSlow(path) {
+  const params = new URLSearchParams();
+  if (globalStart) params.set('start', globalStart);
+  if (globalEnd)   params.set('end',   globalEnd);
+  const url = `${API_BASE}${path}?${params}`;
+  const r = await fetch(url, {signal: AbortSignal.timeout(45000)});
+  if (!r.ok) throw new Error(`${path}: HTTP ${r.status}`);
+  return r.json();
+}
+
 // Variante YTD — ignore le filtre de période, force 2026-01-01 → aujourd'hui
 async function apiYtd(path) {
   const today  = new Date().toISOString().slice(0, 10);
@@ -1642,7 +1655,7 @@ async function loadAll() {
       api('/buffer'),
       api('/ga4/geographic'), api('/ga4/sections'), api('/gsc/compare'),
       api('/ga4/funnel'), api('/seo-positions'),
-      api('/club-partners/global'), api('/club-partners/list')
+      apiSlow('/club-partners/global'), apiSlow('/club-partners/list')
     ]);
 
     const v = r => r.status === 'fulfilled' ? r.value : null;
@@ -5365,15 +5378,16 @@ function renderPartners(gdata, listData) {
   _ptnGlobalData = gdata;
   _ptnListData   = listData;
   _ptnKey  = null;
-  _ptnGran = 'day';
+  // Ne pas réinitialiser _ptnGran — on conserve la granularité choisie par l'utilisateur
 
   const partners = listData?.partners || [];
+  const granLabels = {day: 'Jour', week: 'Semaine', month: 'Mois'};
 
   el.innerHTML = `
     <div class="sec-title">
       <h2>Avantages Club — Performances partenaires</h2>
       <div class="line"></div>
-      <span class="src-pill" style="--src:#34A853;--src-bg:#E0F2E6">Sheets</span>
+      <span class="src-pill" style="--src:var(--c-brevo);--src-bg:var(--c-brevo-bg)">Brevo</span>
       <span class="src-pill" style="--src:var(--c-ga4);--src-bg:var(--c-ga4-bg)">GA4</span>
       <span class="src-pill" style="--src:var(--c-fb);--src-bg:var(--c-fb-bg)">Meta</span>
     </div>
@@ -5383,10 +5397,8 @@ function renderPartners(gdata, listData) {
         <option value="">Vue globale (tous partenaires)</option>
         ${partners.map(p => `<option value="${p.key}">${p.label}</option>`).join('')}
       </select>
-      <div class="ptn-gran-btns">
-        <button class="ptn-gran-btn active" onclick="_ptnSetGran('day',this)">Jour</button>
-        <button class="ptn-gran-btn" onclick="_ptnSetGran('week',this)">Semaine</button>
-        <button class="ptn-gran-btn" onclick="_ptnSetGran('month',this)">Mois</button>
+      <div class="ptn-gran-btns" title="Granularité du graphique — la période est définie par le filtre global en haut">
+        ${['day','week','month'].map(g => `<button class="ptn-gran-btn${_ptnGran===g?' active':''}" onclick="_ptnSetGran('${g}',this)" title="${{day:'1 barre = 1 jour calendaire',week:'1 barre = 1 semaine (lun → dim)',month:'1 barre = 1 mois calendaire'}[g]}">${granLabels[g]}</button>`).join('')}
       </div>
       <button class="ptn-copy-btn" id="ptnCopyBtn" style="display:none" onclick="_ptnCopyLink()">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
@@ -5419,7 +5431,7 @@ async function _ptnFetchPartner(key) {
     const qs = new URLSearchParams({p: key, granularity: _ptnGran});
     if (globalStart) qs.set('start', globalStart);
     if (globalEnd)   qs.set('end',   globalEnd);
-    const r = await fetch(`${API_BASE}/club-partners/partner?${qs}`, {signal: AbortSignal.timeout(30000)});
+    const r = await fetch(`${API_BASE}/club-partners/partner?${qs}`, {signal: AbortSignal.timeout(45000)});
     if (!r.ok) throw new Error(`HTTP ${r.status}`);
     const data = await r.json();
     _ptnRenderView(data, false);
@@ -5436,7 +5448,7 @@ function _ptnSetGran(gran, btn) {
     const qs = new URLSearchParams({granularity: gran});
     if (globalStart) qs.set('start', globalStart);
     if (globalEnd)   qs.set('end',   globalEnd);
-    fetch(`${API_BASE}/club-partners/global?${qs}`, {signal: AbortSignal.timeout(30000)})
+    fetch(`${API_BASE}/club-partners/global?${qs}`, {signal: AbortSignal.timeout(45000)})
       .then(r => r.json())
       .then(data => { _ptnGlobalData = data; _ptnRenderView(data, true); })
       .catch(() => {});
@@ -5747,6 +5759,15 @@ function animateCards(el) {
       if (p === 'custom') {
         document.getElementById('globalCustomRange').classList.add('visible');
         document.getElementById('gsc-period-note').style.display = '';
+      } else if (p === 'ytd') {
+        document.getElementById('globalCustomRange').classList.remove('visible');
+        document.getElementById('gsc-period-note').style.display = 'none';
+        const todayStr = new Date().toISOString().slice(0,10);
+        const year = new Date().getFullYear();
+        globalStart = `${year}-01-01`;
+        globalEnd   = todayStr;
+        globalDays  = Math.round((new Date(todayStr) - new Date(globalStart)) / 86400000);
+        loadAll();
       } else {
         document.getElementById('globalCustomRange').classList.remove('visible');
         const days = parseInt(p);

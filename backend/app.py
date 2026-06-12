@@ -3286,7 +3286,7 @@ FRONTEND_URL = os.environ.get('FRONTEND_URL', 'https://marcom-acl.github.io/dash
 
 # Filtre sur le nom des campagnes Brevo pour identifier les newsletters club mensuelles.
 # Modifiable via la variable d'environnement Railway NL_CLUB_PATTERN.
-NL_CLUB_CAMPAIGN_PATTERN = os.environ.get('NL_CLUB_PATTERN', 'Club ACL')
+NL_CLUB_CAMPAIGN_PATTERN = os.environ.get('NL_CLUB_PATTERN', 'Club Newsletter')
 
 # Google Sheets (publics — export CSV sans OAuth, conservés comme archive historique)
 LEADS_SHEET_ID = '1ahpl5NzgV5Ifk3yFwhMrFGSvgjCxZ_dkVM7trEIBE1o'
@@ -3507,13 +3507,19 @@ def _brevo_events_paginate(params_extra, start_iso, end_iso):
             r = _get(f'{_BREVO_CLUB_BASE}/smtp/statistics/events', headers=hdrs,
                      params={**params_extra, 'startDate': start_iso, 'endDate': end_iso,
                              'limit': 2500, 'offset': off, 'sort': 'desc'})
+            # Garde-fou rate-limit : si rl_remaining est critique, on s'arrête
+            rl_rem = r.headers.get('x-sib-ratelimit-remaining', '999')
+            try:
+                rl_rem_int = int(rl_rem)
+            except (ValueError, TypeError):
+                rl_rem_int = 999
             if not r.ok:
                 break
             batch = r.json().get('events', [])
             if not batch:
                 break
             results.extend(batch)
-            if len(batch) < 2500:
+            if len(batch) < 2500 or rl_rem_int < 10:
                 break
             off += 2500
     except Exception:
@@ -3694,6 +3700,7 @@ def _brevo_newsletter_compute(start, end, partner=None):
     e_date = datetime.date.fromisoformat(end)
 
     # 1. Lister les campagnes club dans la fenêtre temporelle
+    # Triées desc → on s'arrête dès qu'on dépasse s_date (early-exit)
     campaigns = []
     offset = 0
     try:
@@ -3707,17 +3714,19 @@ def _brevo_newsletter_compute(start, end, partner=None):
             batch = r.json().get('campaigns', [])
             if not batch:
                 break
+            past_window = False
             for c in batch:
-                if NL_CLUB_CAMPAIGN_PATTERN.lower() not in (c.get('name') or '').lower():
-                    continue
                 sent_at = (c.get('sentDate') or '')[:10]
                 try:
                     d = datetime.date.fromisoformat(sent_at)
-                    if s_date <= d <= e_date:
-                        campaigns.append(c)
                 except ValueError:
-                    pass
-            if len(batch) < 50:
+                    continue
+                if d < s_date:
+                    past_window = True
+                    break
+                if d <= e_date and NL_CLUB_CAMPAIGN_PATTERN.lower() in (c.get('name') or '').lower():
+                    campaigns.append(c)
+            if len(batch) < 50 or past_window:
                 break
             offset += 50
     except Exception:
