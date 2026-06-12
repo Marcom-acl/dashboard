@@ -4355,16 +4355,23 @@ def club_partners_debug_fba():
     if not SUPERMETRICS_API_KEY:
         return jsonify({'error': 'SUPERMETRICS_API_KEY manquant'})
     start, end = _date_range()
-    fields = ['campaign_name', 'adset_name', 'impressions', 'reach',
-              'link_click', 'link_clicks', 'inline_link_clicks', 'ctr', 'ctr_link']
-    rows, schema, err = _supermetrics_query('FA', SUPERMETRICS_FA_ACCOUNT, fields, start, end, max_rows=3)
-    return jsonify({
-        'start': start, 'end': end,
-        'sm_account': SUPERMETRICS_FA_ACCOUNT,
-        'error':  err,
-        'schema': schema,
-        'rows_as_dicts': _sm_rows_to_dicts(rows, schema or fields) if rows else [],
-    })
+    fields = ['campaign_name', 'adset_name', 'impressions']
+    # Tester plusieurs formats d'ID de compte publicitaire
+    candidates = {
+        'profil_perso':      SUPERMETRICS_FA_ACCOUNT,
+        'ad_account_num':    '1192620784140333',
+        'ad_account_act':    'act_1192620784140333',
+    }
+    results = {}
+    for label, cid in candidates.items():
+        rows, schema, err = _supermetrics_query('FA', cid, fields, start, end, max_rows=3)
+        results[label] = {
+            'id':    cid,
+            'error': err,
+            'schema': schema,
+            'rows':  _sm_rows_to_dicts(rows, schema or fields) if rows else [],
+        }
+    return jsonify({'start': start, 'end': end, 'results': results})
 
 
 @app.route('/club-partners/list')
