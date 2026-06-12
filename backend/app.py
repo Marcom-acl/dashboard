@@ -4209,7 +4209,7 @@ def club_diag():
 
 @app.route('/leads-test')
 def leads_test():
-    """Debug leads : force recompute, montre les events bruts et le résultat calculé."""
+    """Debug leads : appel brut à l'API Brevo + recompute sans cache."""
     start = request.args.get('start', (datetime.date.today() - datetime.timedelta(days=30)).isoformat())
     end   = request.args.get('end',   datetime.date.today().isoformat())
     gran  = request.args.get('gran',  'day')
@@ -4220,27 +4220,41 @@ def leads_test():
 
     leads_key = f'brevo_leads:{start}:{end}:{gran}:all'
     year_key  = f'brevo_ev_raw:{year}'
-
     with _API_CACHE_LOCK:
         year_was_cached = year_key in _API_CACHE
         _API_CACHE.pop(leads_key, None)
         _API_CACHE.pop(year_key,  None)
 
-    # Fetch direct des events sur la période (bypass cache)
-    raw = _brevo_events_paginate(
-        {'tags': 'club-member', 'event': 'delivered'},
-        start, end,
-    )
+    # Appel direct à l'API Brevo — montre le statut HTTP et la réponse brute
+    hdrs = {'api-key': BREVO_API_KEY, 'Accept': 'application/json'}
+    try:
+        r = _get(f'{_BREVO_CLUB_BASE}/smtp/statistics/events', headers=hdrs,
+                 params={'tags': 'club-member', 'event': 'delivered',
+                         'startDate': start, 'endDate': end,
+                         'limit': 10, 'sort': 'desc'})
+        brevo_status  = r.status_code
+        brevo_ok      = r.ok
+        brevo_sample  = r.text[:800]
+        brevo_rl_rem  = r.headers.get('x-sib-ratelimit-remaining', 'n/a')
+        try:
+            parsed = r.json().get('events', []) if r.ok else []
+        except Exception:
+            parsed = []
+    except Exception as e:
+        brevo_status, brevo_ok, brevo_sample, brevo_rl_rem, parsed = 0, False, str(e), 'n/a', []
 
     result = _brevo_leads_compute(start, end, gran, None)
 
     return jsonify({
-        'period':           {'start': start, 'end': end},
-        'year_was_cached':  year_was_cached,
-        'raw_events_count': len(raw),
-        'sample_events':    raw[:3],
-        'computed_total':   result.get('total'),
-        'computed_error':   result.get('error'),
+        'period':              {'start': start, 'end': end},
+        'year_was_cached':     year_was_cached,
+        'brevo_status':        brevo_status,
+        'brevo_ok':            brevo_ok,
+        'brevo_rl_remaining':  brevo_rl_rem,
+        'brevo_sample':        brevo_sample,
+        'brevo_events_count':  len(parsed),
+        'computed_total':      result.get('total'),
+        'computed_error':      result.get('error'),
     })
 
 
