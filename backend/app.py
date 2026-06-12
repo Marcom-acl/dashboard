@@ -3673,7 +3673,7 @@ def _brevo_leads_compute(start, end, gran, partner=None):
         result['leadsPerMemberYear'] = round(year_total / len(all_emails_year), 2) if all_emails_year else 0
 
     # Ne pas cacher les résultats vides (rate limit ou réellement vide) : réessayer dans 90s
-    _cache_set(cache_key, result, 3600 if total > 0 else 90)
+    _cache_set(cache_key, result, 3600 if total > 0 else 300)
     return result
 
 
@@ -4065,29 +4065,27 @@ def _fb_ad_images(account_id, token, ad_ids):
 
 @app.route('/club-diag')
 def club_diag():
-    """Diagnostic Brevo club : 2 appels max, pas de pagination."""
+    """Diagnostic Brevo club : 1 seul appel pour économiser le quota."""
     if not BREVO_API_KEY:
         return jsonify({'error': 'BREVO_API_KEY absent'}), 500
     hdrs  = {'api-key': BREVO_API_KEY, 'Accept': 'application/json'}
     start = request.args.get('start', '2026-05-01')
     end   = request.args.get('end',   '2026-06-12')
-    out   = {}
-    for lim in [5, 2500]:
-        try:
-            r = _get(f'{_BREVO_CLUB_BASE}/smtp/statistics/events', headers=hdrs,
-                     params={'tags': 'club-member', 'startDate': start, 'endDate': end,
-                             'limit': lim, 'sort': 'desc'})
-            body = r.json() if r.ok else {}
-            out[f'limit{lim}'] = {
-                'status':   r.status_code,
-                'rl_rem':   r.headers.get('x-sib-ratelimit-remaining'),
-                'count':    len(body.get('events', [])),
-                'sample':   body.get('events', [])[:2],
-                'raw_err':  body.get('message') or body.get('error') if not r.ok else None,
-            }
-        except Exception as e:
-            out[f'limit{lim}'] = {'error': str(e)}
-    return jsonify(out)
+    try:
+        r    = _get(f'{_BREVO_CLUB_BASE}/smtp/statistics/events', headers=hdrs,
+                    params={'tags': 'club-member', 'startDate': start, 'endDate': end,
+                            'limit': 5, 'sort': 'desc'})
+        body = r.json() if r.ok else {}
+        return jsonify({
+            'status':      r.status_code,
+            'rl_rem':      r.headers.get('x-sib-ratelimit-remaining'),
+            'rl_reset':    r.headers.get('x-sib-ratelimit-reset'),
+            'count':       len(body.get('events', [])),
+            'sample':      body.get('events', [])[:3],
+            'brevo_error': body.get('message') if not r.ok else None,
+        })
+    except Exception as e:
+        return jsonify({'error': str(e)})
 
 
 @app.route('/club-partners/list')
@@ -4171,7 +4169,7 @@ def club_partners_global():
             'meta':       {'error': str(e)[:200]},
         }
     leads_total = (data.get('leads') or {}).get('total', 0)
-    _cache_set(key, data, 90 if leads_total == 0 else 3600)
+    _cache_set(key, data, 300 if leads_total == 0 else 3600)
     return jsonify(data)
 
 
@@ -4206,7 +4204,7 @@ def club_partners_partner():
         }
     data['partner'] = {'key': key, 'label': cfg['label']}
     leads_total = (data.get('leads') or {}).get('total', 0)
-    _cache_set(cache_key, data, 90 if leads_total == 0 else 3600)
+    _cache_set(cache_key, data, 300 if leads_total == 0 else 3600)
     return jsonify(data)
 
 
