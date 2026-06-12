@@ -3545,7 +3545,7 @@ def _brevo_year_events(year):
     while chunk_start <= year_end:
         chunk_end = min(chunk_start + datetime.timedelta(days=27), year_end)
         chunk = _brevo_events_paginate(
-            {'tags': 'club-member'},
+            {'tags': 'club-member', 'event': 'delivered'},
             chunk_start.isoformat(),
             chunk_end.isoformat(),
         )
@@ -3744,7 +3744,8 @@ def _brevo_leads_compute(start, end, gran, partner=None):
                          if (lambda d: d and s_date <= d <= e_date)(parse_ev_date(ev))]
     else:
         # Cache froid : fetch sur la période demandée uniquement (original)
-        period_events = _brevo_events_paginate({'tags': 'club-member'},
+        # event=delivered : seuls les emails effectivement délivrés comptent comme lead
+        period_events = _brevo_events_paginate({'tags': 'club-member', 'event': 'delivered'},
                                                s_date.isoformat(), e_date.isoformat())
         all_year_events = None  # pas encore disponible
         # Pré-chauffer le cache annuel en arrière-plan pour les prochains changements de période
@@ -4196,6 +4197,34 @@ def club_diag():
             'sample':      body.get('events', [])[:3],
             'brevo_error': body.get('message') if not r.ok else None,
         })
+    except Exception as e:
+        return jsonify({'error': str(e)})
+
+
+@app.route('/nl-diag')
+def nl_diag():
+    """Diagnostic newsletter : retourne les globalStats brutes des 3 dernières campagnes Club Newsletter."""
+    if not BREVO_API_KEY:
+        return jsonify({'error': 'BREVO_API_KEY absent'}), 500
+    hdrs = {'api-key': BREVO_API_KEY, 'Accept': 'application/json'}
+    try:
+        r = _get(f'{_BREVO_CLUB_BASE}/emailCampaigns', headers=hdrs, params={
+            'status': 'sent', 'limit': 5, 'sort': 'desc', 'statistics': 'globalStats',
+        })
+        if not r.ok:
+            return jsonify({'error': r.status_code, 'body': r.text[:500]})
+        camps = r.json().get('campaigns', [])
+        result = []
+        for c in camps:
+            gstats = (c.get('statistics') or {}).get('globalStats', {})
+            result.append({
+                'id':      c.get('id'),
+                'name':    c.get('name'),
+                'sent':    c.get('sentDate', '')[:10],
+                'gstats_keys': list(gstats.keys()),
+                'gstats':  gstats,
+            })
+        return jsonify({'campaigns': result})
     except Exception as e:
         return jsonify({'error': str(e)})
 
