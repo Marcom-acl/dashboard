@@ -3493,23 +3493,23 @@ def _brevo_email_ok(email):
 
 
 def _brevo_events_paginate(params_extra, start_iso, end_iso):
-    """Pagine sur /smtp/statistics/events pour un chunk de dates. Retourne list[dict]."""
+    """Pagine sur /smtp/statistics/events (plage de dates libre, limit max 2500). Retourne list[dict]."""
     hdrs = {'api-key': BREVO_API_KEY, 'Accept': 'application/json'}
     results, off = [], 0
     try:
         while True:
             r = _get(f'{_BREVO_CLUB_BASE}/smtp/statistics/events', headers=hdrs,
                      params={**params_extra, 'startDate': start_iso, 'endDate': end_iso,
-                             'limit': 500, 'offset': off, 'sort': 'desc'})
+                             'limit': 2500, 'offset': off, 'sort': 'desc'})
             if not r.ok:
                 break
             batch = r.json().get('events', [])
             if not batch:
                 break
             results.extend(batch)
-            if len(batch) < 500:
+            if len(batch) < 2500:
                 break
-            off += 500
+            off += 2500
     except Exception:
         pass
     return results
@@ -3605,17 +3605,7 @@ def _brevo_leads_compute(start, end, gran, partner=None):
 
     base_params = {'event': 'delivered', 'tags': 'club-member'}
 
-    def fetch_range(sd, ed):
-        chunks = _date_chunks_28(sd, ed)
-        if not chunks:
-            return []
-        evs = []
-        with concurrent.futures.ThreadPoolExecutor(max_workers=min(len(chunks), 4)) as chunk_ex:
-            for batch in chunk_ex.map(lambda c: _brevo_events_paginate(base_params, c[0], c[1]), chunks):
-                evs.extend(batch)
-        return evs
-
-    period_events = fetch_range(s_date, e_date)
+    period_events = _brevo_events_paginate(base_params, s_date.isoformat(), e_date.isoformat())
 
     def parse_ev_date(ev):
         try:
