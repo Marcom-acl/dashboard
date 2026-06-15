@@ -3779,6 +3779,22 @@ def _match_partner_subject(partner_cfg, subject):
     return any(_match(k, subject) for k in kws)
 
 
+def _match_partner_tag(partner_cfg, tag_str):
+    """True si le champ tag Brevo de l'événement contient le mot-clé leads du partenaire.
+    Le tag peut être une chaîne simple ou un tableau JSON ['club-member','autopolis']."""
+    if not tag_str:
+        return False
+    kw = partner_cfg['leads']
+    kws = [kw] if isinstance(kw, str) else list(kw)
+    tag_norm = _alnum(tag_str)
+    return any(_alnum(k) in tag_norm for k in kws)
+
+
+def _ev_matches_partner(partner_cfg, subject, tag_str):
+    """True si l'événement correspond au partenaire : matching tag (priorité) ou sujet."""
+    return _match_partner_tag(partner_cfg, tag_str) or _match_partner_subject(partner_cfg, subject)
+
+
 def _match_nl_url(patterns, url):
     """True si l'URL newsletter correspond au partenaire via le slug /offers/{slug}/."""
     m = re.search(r'/offers/([^/?#]+)', url)
@@ -3821,7 +3837,10 @@ def _brevo_leads_compute(start, end, gran, partner=None):
             return None
 
     def ev_subject(ev):
-        return (ev.get('subject') or '').strip()
+        s = (ev.get('subject') or '').strip()
+        if not s:
+            s = _brevo_fetch_subject(ev.get('messageId') or '')
+        return s
 
     # Stratégie hybride :
     # - Si le cache annuel est chaud → filtrer directement (0 appel Brevo)
@@ -3867,7 +3886,7 @@ def _brevo_leads_compute(start, end, gran, partner=None):
         email = (ev.get('email') or '').lower().strip()
         if not email or not _brevo_email_ok(email):
             continue
-        if partner and not _match_partner_subject(partner, ev_subject(ev)):
+        if partner and not _ev_matches_partner(partner, ev_subject(ev), (ev.get('tag') or '').strip()):
             continue
         bk = _bucket(d, gran)
         bucket_seen.setdefault(bk, set()).add(email)
@@ -4594,14 +4613,15 @@ def _compute_partner_leads_from_cache(start, end):
             email = (ev.get('email') or '').lower().strip()
             if not email or not _brevo_email_ok(email):
                 continue
-            subj = (ev.get('subject') or '').strip()
+            subj    = (ev.get('subject') or '').strip()
+            tag_str = (ev.get('tag') or '').strip()
             try:
                 d = datetime.date.fromisoformat((ev.get('date') or '')[:10])
             except (ValueError, TypeError):
                 continue
             mk = f'{d.year}-{d.month:02d}'
             for k, cfg in partner_cfgs.items():
-                if _match_partner_subject(cfg, subj):
+                if _ev_matches_partner(cfg, subj, tag_str):
                     ptn_monthly[k].setdefault(mk, set()).add(email)
         return sorted(
             [{'key': k, 'label': _CLUB_PARTNERS_RAW[k]['label'],
@@ -4675,6 +4695,37 @@ def club_partners_partner():
     nl_error    = bool((data.get('newsletter') or {}).get('error'))
     _cache_set(cache_key, data, 3600 if (leads_total > 0 and not nl_error) else 300)
     return jsonify(data)
+
+
+@app.route('/club-partners/debug/leads-sample')
+def club_debug_leads_sample():
+    """Endpoint de diagnostic : retourne un échantillon des événements Brevo club-member
+    pour la période donnée, avec les champs subject, tag et messageId visibles.
+    Usage : /club-partners/debug/leads-sample?start=2026-06-01&end=2026-06-15&limit=50"""
+    if not BREVO_API_KEY:
+        return jsonify({'error': 'BREVO_API_KEY manquant'}), 500
+    start, end = _date_range()
+    try:
+        limit = min(int(request.args.get('limit', 50)), 200)
+    except (ValueError, TypeError):
+        limit = 50
+    events = _brevo_events_paginate({'tags': 'club-member', 'event': 'delivered'},
+                                    start, end)
+    sample = []
+    for ev in events[:limit]:
+        sample.append({
+            'date':      (ev.get('date') or '')[:10],
+            'subject':   ev.get('subject') or '',
+            'tag':       ev.get('tag') or '',
+            'messageId': ev.get('messageId') or '',
+            'event':     ev.get('event') or '',
+        })
+    return jsonify({
+        'period':       {'start': start, 'end': end},
+        'total_fetched': len(events),
+        'sample_size':   len(sample),
+        'events':        sample,
+    })
 
 
 # ─────────────────────────────────────────────────────────────────────────────

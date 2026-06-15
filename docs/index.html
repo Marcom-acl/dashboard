@@ -590,10 +590,12 @@
     .ptn-toolbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:20px;}
     .ptn-select{height:34px;padding:0 10px;border:1.5px solid var(--border);border-radius:8px;background:var(--surface);font:600 12.5px 'Albert Sans',sans-serif;color:var(--text);cursor:pointer;min-width:200px;}
     .ptn-select:focus{outline:none;border-color:var(--y);}
+    .ptn-gran-group{display:flex;align-items:center;gap:6px;padding-left:10px;border-left:1.5px solid var(--border);}
+    .ptn-gran-label{font-size:10.5px;font-weight:600;color:var(--muted);white-space:nowrap;}
     .ptn-gran-btns{display:flex;gap:3px;}
     .ptn-gran-btn{padding:5px 13px;border-radius:6px;border:1.5px solid var(--border);background:var(--surface);font-size:11px;font-weight:600;cursor:pointer;color:var(--muted);transition:all .12s;}
-    .ptn-gran-btn.active{background:var(--y);border-color:var(--y);color:#231f20;}
-    .ptn-gran-btn:hover:not(.active){background:var(--y-soft);border-color:var(--y-deep);}
+    .ptn-gran-btn.active{background:#231f20;border-color:#231f20;color:#fff;}
+    .ptn-gran-btn:hover:not(.active){background:var(--bg);border-color:#231f20;color:#231f20;}
     .ptn-donut-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-bottom:16px;}
     .ptn-donut-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:14px;display:flex;flex-direction:column;align-items:center;gap:8px;box-shadow:var(--shadow-1);}
     .ptn-donut-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);}
@@ -5400,8 +5402,11 @@ function renderPartners(gdata, listData) {
         <option value="">Vue globale (tous partenaires)</option>
         ${partners.map(p => `<option value="${p.key}">${p.label}</option>`).join('')}
       </select>
-      <div class="ptn-gran-btns" title="Granularité du graphique — la période est définie par le filtre global en haut">
-        ${['day','week','month'].map(g => `<button class="ptn-gran-btn${_ptnGran===g?' active':''}" onclick="_ptnSetGran('${g}',this)" title="${{day:'1 barre = 1 jour calendaire',week:'1 barre = 1 semaine (lun → dim)',month:'1 barre = 1 mois calendaire'}[g]}">${granLabels[g]}</button>`).join('')}
+      <div class="ptn-gran-group" title="Granularité du graphique — la période est définie par le filtre global en haut">
+        <span class="ptn-gran-label">Courbe&nbsp;:</span>
+        <div class="ptn-gran-btns">
+          ${['day','week','month'].map(g => `<button class="ptn-gran-btn${_ptnGran===g?' active':''}" onclick="_ptnSetGran('${g}',this)" title="${{day:'1 barre = 1 jour calendaire',week:'1 barre = 1 semaine (lun → dim)',month:'1 barre = 1 mois calendaire'}[g]}">${granLabels[g]}</button>`).join('')}
+        </div>
       </div>
       <button class="ptn-copy-btn" id="ptnCopyBtn" style="display:none" onclick="_ptnCopyLink()">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>

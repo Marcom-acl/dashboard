@@ -134,6 +134,7 @@
       <button class="preset-btn" data-days="7" onclick="applyPreset(7,this)">7j</button>
       <button class="preset-btn active" data-days="30" onclick="applyPreset(30,this)">30j</button>
       <button class="preset-btn" data-days="90" onclick="applyPreset(90,this)">90j</button>
+      <button class="preset-btn" id="presetMois" onclick="applyCurrentMonth(this)">Mois</button>
     </div>
     <div class="toolbar-sep"></div>
     <span class="date-label">Granularité :</span>
@@ -188,6 +189,16 @@ function applyPreset(days, btn) {
   document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
   if (btn) btn.classList.add('active');
   document.getElementById('dateFrom').value = daysAgo(days);
+  document.getElementById('dateTo').value   = today();
+  loadData();
+}
+
+function applyCurrentMonth(btn) {
+  document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  const now = new Date();
+  const first = new Date(now.getFullYear(), now.getMonth(), 1).toISOString().slice(0, 10);
+  document.getElementById('dateFrom').value = first;
   document.getElementById('dateTo').value   = today();
   loadData();
 }
