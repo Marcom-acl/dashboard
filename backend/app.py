@@ -471,6 +471,96 @@ def veille():
         return jsonify({'error': str(e)}), 503
 
 
+VEILLE_CLUBS_FILE_PATH = 'data/veille-data.json'
+
+
+def _write_veille_clubs_to_github(data):
+    """Écrit data/veille-data.json sur GitHub via l'API REST."""
+    if not GITHUB_TOKEN:
+        return False
+    import base64
+    content_b64 = base64.b64encode(
+        json.dumps(data, ensure_ascii=False, indent=2).encode('utf-8')
+    ).decode('ascii')
+    api_url = f'https://api.github.com/repos/{GITHUB_REPO}/contents/{VEILLE_CLUBS_FILE_PATH}'
+    headers = {'Authorization': f'token {GITHUB_TOKEN}', 'Accept': 'application/vnd.github.v3+json'}
+    sha = None
+    try:
+        r = requests.get(api_url, headers=headers, timeout=10)
+        if r.ok:
+            sha = r.json().get('sha')
+    except Exception:
+        pass
+    payload = {'message': f'chore: veille clubs — {datetime.date.today().isoformat()}', 'content': content_b64}
+    if sha:
+        payload['sha'] = sha
+    try:
+        r = requests.put(api_url, headers=headers, json=payload, timeout=15)
+        return r.ok
+    except Exception:
+        return False
+
+
+@app.route('/veille/ingest', methods=['POST'])
+def veille_ingest():
+    """Reçoit les données de veille clubs depuis la tâche planifiée Claude.ai.
+    Fusionne avec l'historique existant : rétention 6 mois, dédoublonnage par id."""
+    auth = request.headers.get('Authorization', '').replace('Bearer ', '').strip()
+    if not VEILLE_INGEST_TOKEN or auth != VEILLE_INGEST_TOKEN:
+        return jsonify({'error': 'Non autorisé'}), 401
+    incoming = request.get_json(silent=True)
+    if not incoming or 'items' not in incoming:
+        return jsonify({'error': 'Body invalide — champ items requis'}), 400
+
+    # Charger l'historique existant depuis cache ou GitHub
+    existing = {}
+    cached = _cache_get('veille')
+    if cached:
+        existing = cached
+    else:
+        try:
+            r = requests.get(VEILLE_DATA_URL, timeout=10, verify=_VERIFY)
+            if r.ok:
+                existing = r.json()
+        except Exception:
+            pass
+
+    existing_items = existing.get('items', [])
+    new_items = incoming.get('items', [])
+
+    # Déduplication par id
+    new_ids = {i.get('id') for i in new_items if i.get('id')}
+    merged = [i for i in existing_items if i.get('id') not in new_ids]
+    merged = new_items + merged
+
+    # Rétention 6 mois
+    cutoff = (datetime.date.today() - datetime.timedelta(days=183)).isoformat()
+    merged = [i for i in merged if i.get('date', '') >= cutoff]
+    merged.sort(key=lambda i: i.get('date', ''), reverse=True)
+
+    # Fusionner les éditions (dédupliquées par date, rétention 6 mois)
+    today_str = datetime.date.today().isoformat()
+    existing_editions = existing.get('editions', [])
+    edition_dates = {e['date'] for e in existing_editions}
+    if today_str not in edition_dates:
+        existing_editions.append({'date': today_str, 'label': f'Semaine du {today_str}'})
+    existing_editions = [e for e in existing_editions if e.get('date', '') >= cutoff]
+    existing_editions.sort(key=lambda e: e.get('date', ''))
+
+    data = {
+        'generated_at': today_str,
+        'next_edition': incoming.get('next_edition', ''),
+        'editions': existing_editions,
+        'items': merged,
+        'trends': incoming.get('trends', existing.get('trends', [])),
+        'signals': incoming.get('signals', existing.get('signals', [])),
+    }
+
+    written = _write_veille_clubs_to_github(data)
+    _cache_set('veille', data, 3600)
+    return jsonify({'ok': True, 'items': len(merged), 'added': len(new_items), 'github': written})
+
+
 @app.route('/seo-positions')
 def seo_positions():
     cached = _cache_get('seo-positions')
