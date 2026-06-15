@@ -5606,6 +5606,25 @@ function _ptnRenderView(data, isGlobal) {
       <div class="card-body">${barListHtml(meta.byPartner,'var(--c-fb)',null,'label','linkClicks',fmtN)}</div>
     </div>` : '';
 
+  // Tableau leads par partenaire (vue globale)
+  const leadsByPartnerHtml = isGlobal && (leads.byPartner||[]).length ? `
+    <div class="card" style="margin-bottom:16px">
+      <div class="card-head">
+        <div class="card-title">Leads par partenaire — période</div>
+        <span class="src-pill" style="--src:var(--y);--src-bg:var(--y-soft)">Brevo</span>
+      </div>
+      <div class="card-body flush"><div class="tbl-scroll"><table class="tbl">
+        <thead><tr>
+          <th>Partenaire</th>
+          <th class="r" title="Emails uniques ayant reçu un email Club pour cette offre sur la période">Leads (période)</th>
+        </tr></thead>
+        <tbody>${(leads.byPartner||[]).map(p=>`<tr style="cursor:pointer" onclick="_ptnOnSelectChange('${p.key}');document.getElementById('ptnSelect').value='${p.key}'">
+          <td style="font-weight:600">${p.label}</td>
+          <td class="r" style="font-weight:700;color:var(--y-dark,#b59a00)">${fmtN(p.leads)}</td>
+        </tr>`).join('')}</tbody>
+      </table></div></div>
+    </div>` : '';
+
   // Alerte Meta non connecté
   const metaErrHtml = meta.error ? `
     <div class="ptn-meta-err">Meta Ads — ${meta.error}
@@ -5649,7 +5668,7 @@ function _ptnRenderView(data, isGlobal) {
       </div>
     </div>` : '';
 
-  el.innerHTML = partnerTitleHtml + kpiHtml + globalKpiHtml + periodChartHtml + monthlyHtml + donutsHtml + nlSendsHtml + metaByPartnerHtml + metaErrHtml + adsHtml;
+  el.innerHTML = partnerTitleHtml + kpiHtml + globalKpiHtml + periodChartHtml + monthlyHtml + donutsHtml + nlSendsHtml + metaByPartnerHtml + leadsByPartnerHtml + metaErrHtml + adsHtml;
 
   requestAnimationFrame(() => {
     if (hasLeadsSeries || hasMetaSeries) _ptnDrawPeriod(leads.series||[], hasMetaSeries ? (meta.clicksSeries||[]) : []);

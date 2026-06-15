@@ -3819,6 +3819,30 @@ def _brevo_leads_compute(start, end, gran, partner=None):
         result['leadsTotalYear']     = year_total
         result['leadsPerMemberYear'] = round(year_total / len(all_emails_year), 2) if all_emails_year else 0
 
+        # Leads par partenaire sur la période (vue globale uniquement)
+        partner_cfgs = {key: _partner_cfg(key) for key in _CLUB_PARTNERS_RAW}
+        ptn_monthly = {key: {} for key in _CLUB_PARTNERS_RAW}
+        for ev in period_events:
+            if ev.get('event') in ('loadedByProxy', 'proxy'):
+                continue
+            d = parse_ev_date(ev)
+            if not d:
+                continue
+            email = (ev.get('email') or '').lower().strip()
+            if not email or not _brevo_email_ok(email):
+                continue
+            subj = ev_subject(ev)
+            mk = f'{d.year}-{d.month:02d}'
+            for key, cfg in partner_cfgs.items():
+                if _match_partner_subject(cfg, subj):
+                    ptn_monthly[key].setdefault(mk, set()).add(email)
+        result['byPartner'] = sorted(
+            [{'key': k, 'label': _CLUB_PARTNERS_RAW[k]['label'],
+              'leads': sum(len(s) for s in ptn_monthly[k].values())}
+             for k in _CLUB_PARTNERS_RAW if sum(len(s) for s in ptn_monthly[k].values()) > 0],
+            key=lambda x: x['leads'], reverse=True
+        )
+
     # TTL court si vide (possible erreur API), long si données présentes
     _cache_set(cache_key, result, 3600 if total > 0 else 300)
     return result
