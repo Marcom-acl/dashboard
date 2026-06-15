@@ -3932,8 +3932,8 @@ def _brevo_leads_compute(start, end, gran, partner=None):
 
     # Stratégie hybride :
     # - Si le cache annuel est chaud → filtrer directement (0 appel Brevo)
-    # - Sinon → fetch direct sur la période (rapide, comportement original)
-    #           + pré-chauffe du cache annuel en arrière-plan
+    # - Sinon, plage > 28j → _brevo_year_events (découpe en fenêtres de 28j, Brevo limite ~30j/appel)
+    # - Sinon, plage ≤ 28j → fetch direct sur la période + pré-chauffe en arrière-plan
     year_key = f'brevo_ev_raw:{year}'
     year_hit = _cache_get(year_key)
 
@@ -3945,9 +3945,14 @@ def _brevo_leads_compute(start, end, gran, partner=None):
                 all_year_events = prev.get('events', []) + all_year_events
         period_events = [ev for ev in all_year_events
                          if (lambda d: d and s_date <= d <= e_date)(parse_ev_date(ev))]
+    elif (e_date - s_date).days > 28:
+        # Plage > 28j (ex. YTD = 165j) : Brevo refuse les plages longues en 1 appel.
+        # _brevo_year_events découpe automatiquement en fenêtres de 28j et met en cache.
+        all_year_events = _brevo_year_events(year)
+        period_events = [ev for ev in all_year_events
+                         if (lambda d: d and s_date <= d <= e_date)(parse_ev_date(ev))]
     else:
-        # Cache froid : fetch sur la période demandée uniquement (original)
-        # event=delivered : seuls les emails effectivement délivrés comptent comme lead
+        # Cache froid + plage courte (≤28j) : fetch direct sur la période (1 appel Brevo rapide)
         period_events = _brevo_events_paginate({'tags': 'club-member', 'event': 'delivered'},
                                                s_date.isoformat(), e_date.isoformat())
         all_year_events = None  # pas encore disponible
