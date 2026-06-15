@@ -3819,30 +3819,6 @@ def _brevo_leads_compute(start, end, gran, partner=None):
         result['leadsTotalYear']     = year_total
         result['leadsPerMemberYear'] = round(year_total / len(all_emails_year), 2) if all_emails_year else 0
 
-        # Leads par partenaire sur la période (vue globale uniquement)
-        partner_cfgs = {key: _partner_cfg(key) for key in _CLUB_PARTNERS_RAW}
-        ptn_monthly = {key: {} for key in _CLUB_PARTNERS_RAW}
-        for ev in period_events:
-            if ev.get('event') in ('loadedByProxy', 'proxy'):
-                continue
-            d = parse_ev_date(ev)
-            if not d:
-                continue
-            email = (ev.get('email') or '').lower().strip()
-            if not email or not _brevo_email_ok(email):
-                continue
-            subj = ev_subject(ev)
-            mk = f'{d.year}-{d.month:02d}'
-            for key, cfg in partner_cfgs.items():
-                if _match_partner_subject(cfg, subj):
-                    ptn_monthly[key].setdefault(mk, set()).add(email)
-        result['byPartner'] = sorted(
-            [{'key': k, 'label': _CLUB_PARTNERS_RAW[k]['label'],
-              'leads': sum(len(s) for s in ptn_monthly[k].values())}
-             for k in _CLUB_PARTNERS_RAW if sum(len(s) for s in ptn_monthly[k].values()) > 0],
-            key=lambda x: x['leads'], reverse=True
-        )
-
     # TTL court si vide (possible erreur API), long si données présentes
     _cache_set(cache_key, result, 3600 if total > 0 else 300)
     return result
@@ -4461,6 +4437,51 @@ def _club_payload(start, end, gran, partner=None):
     return result
 
 
+def _compute_partner_leads_from_cache(start, end):
+    """Agrège les leads par partenaire depuis le cache Brevo annuel uniquement.
+    Ne fait aucun appel réseau — retourne [] si le cache est froid."""
+    try:
+        s_date = datetime.date.fromisoformat(start)
+        e_date = datetime.date.fromisoformat(end)
+        year   = e_date.year
+        year_hit = _cache_get(f'brevo_ev_raw:{year}')
+        if year_hit is None:
+            return []  # cache froid — disponible au prochain appel
+        period_events = []
+        for ev in year_hit.get('events', []):
+            try:
+                d = datetime.date.fromisoformat((ev.get('date') or '')[:10])
+                if s_date <= d <= e_date:
+                    period_events.append(ev)
+            except (ValueError, TypeError):
+                pass
+        partner_cfgs = {k: _partner_cfg(k) for k in _CLUB_PARTNERS_RAW}
+        ptn_monthly  = {k: {} for k in _CLUB_PARTNERS_RAW}
+        for ev in period_events:
+            if ev.get('event') in ('loadedByProxy', 'proxy'):
+                continue
+            email = (ev.get('email') or '').lower().strip()
+            if not email or not _brevo_email_ok(email):
+                continue
+            subj = (ev.get('subject') or '').strip()
+            try:
+                d = datetime.date.fromisoformat((ev.get('date') or '')[:10])
+            except (ValueError, TypeError):
+                continue
+            mk = f'{d.year}-{d.month:02d}'
+            for k, cfg in partner_cfgs.items():
+                if _match_partner_subject(cfg, subj):
+                    ptn_monthly[k].setdefault(mk, set()).add(email)
+        return sorted(
+            [{'key': k, 'label': _CLUB_PARTNERS_RAW[k]['label'],
+              'leads': sum(len(s) for s in ptn_monthly[k].values())}
+             for k in _CLUB_PARTNERS_RAW if sum(len(s) for s in ptn_monthly[k].values()) > 0],
+            key=lambda x: x['leads'], reverse=True
+        )
+    except Exception:
+        return []
+
+
 @app.route('/club-partners/global')
 def club_partners_global():
     start, end = _date_range()
@@ -4478,6 +4499,11 @@ def club_partners_global():
             'newsletter': {'error': str(e)[:200], 'delivered': 0, 'openRate': 0, 'totalClicks': 0, 'avgCtr': 0},
             'meta':       {'error': str(e)[:200]},
         }
+    # Leads par partenaire — uniquement depuis le cache (ne rallonge pas le timeout)
+    bp = _compute_partner_leads_from_cache(start, end)
+    if bp and isinstance(data.get('leads'), dict):
+        data['leads']['byPartner'] = bp
+
     leads_total = (data.get('leads') or {}).get('total', 0)
     nl_error    = bool((data.get('newsletter') or {}).get('error'))
     _cache_set(key, data, 3600 if (leads_total > 0 and not nl_error) else 300)
