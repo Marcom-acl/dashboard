@@ -4032,7 +4032,7 @@ def _club_meta(start, end, gran, partner=None):
 
     def keep(campaign_name):
         n = (campaign_name or '').lower()
-        return 'some' in n and 'club' in n
+        return 'offre' in n or 'avantage' in n
 
     def lc_val(row):
         """Clics liens — tente plusieurs noms de champ Supermetrics."""
@@ -4072,7 +4072,8 @@ def _club_meta(start, end, gran, partner=None):
             if not keep(row.get('campaign_name', '')):
                 continue
             aset = row.get('adset_name', '')
-            if partner and not _match(partner['meta'], aset):
+            camp = row.get('campaign_name', '')
+            if partner and not (_match(partner['meta'], aset) or _match(partner['meta'], camp)):
                 continue
             lc = lc_val(row)
             rc = int(_n(row.get('reach', 0)))
@@ -4081,7 +4082,8 @@ def _club_meta(start, end, gran, partner=None):
             reach       += rc
             impressions += im
             if not partner:
-                pk = _resolve_partner_from_adset(aset)
+                camp = row.get('campaign_name', '')
+                pk = _resolve_partner_from_adset(aset) or _resolve_partner_from_adset(camp)
                 if pk:
                     agg = by_partner.setdefault(pk, {
                         'label': _CLUB_PARTNERS_RAW[pk]['label'],
@@ -4099,7 +4101,7 @@ def _club_meta(start, end, gran, partner=None):
         for row in _sm_rows_to_dicts(rows_a, sc_a or fields_ad):
             if not keep(row.get('campaign_name', '')):
                 continue
-            if partner and not _match(partner['meta'], row.get('adset_name', '')):
+            if partner and not (_match(partner['meta'], row.get('adset_name', '')) or _match(partner['meta'], row.get('campaign_name', ''))):
                 continue
             ad_id = str(row.get('ad_id', '')).strip()
             if not ad_id or ad_id in ('', 'ad_id', 'Ad ID'):
