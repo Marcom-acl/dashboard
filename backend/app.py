@@ -4374,6 +4374,45 @@ def club_partners_debug_fba():
     return jsonify({'start': start, 'end': end, 'results': results})
 
 
+@app.route('/club-partners/debug-campaigns')
+def club_partners_debug_campaigns():
+    """Debug : liste tous les noms de campagnes Meta Ads sans filtre."""
+    if not SUPERMETRICS_API_KEY:
+        return jsonify({'error': 'SUPERMETRICS_API_KEY manquant'})
+    start, end = _date_range()
+    rows, schema, err = _supermetrics_query(
+        'FA', SUPERMETRICS_FA_ACCOUNT,
+        ['campaign_name', 'impressions', 'link_click'],
+        start, end, max_rows=200
+    )
+    if err:
+        return jsonify({'error': err})
+    dicts = _sm_rows_to_dicts(rows, schema or ['campaign_name', 'impressions', 'link_click'])
+    # Dédupliquer par nom de campagne + exclure la ligne d'en-tête Supermetrics
+    seen, campaigns = set(), []
+    for r in dicts:
+        name = (r.get('campaign_name') or '').strip()
+        if not name or name.lower() in ('campaign name', 'campaign_name'):
+            continue
+        if name not in seen:
+            seen.add(name)
+            matches_keep = 'some' in name.lower() and 'club' in name.lower()
+            campaigns.append({
+                'name':         name,
+                'impressions':  int(_n(r.get('impressions', 0))),
+                'link_clicks':  int(_n(r.get('link_click', 0))),
+                'matches_filter': matches_keep,
+            })
+    campaigns.sort(key=lambda x: x['impressions'], reverse=True)
+    return jsonify({
+        'account': SUPERMETRICS_FA_ACCOUNT,
+        'period':  {'start': start, 'end': end},
+        'total_campaigns': len(campaigns),
+        'matching_filter': sum(1 for c in campaigns if c['matches_filter']),
+        'campaigns': campaigns,
+    })
+
+
 @app.route('/club-partners/list')
 def club_partners_list():
     """Liste des partenaires configurés + ceux découverts dans les sheets."""
