@@ -3964,11 +3964,12 @@ def _brevo_leads_compute(start, end, gran, partner=None):
                 pass
         threading.Thread(target=_warm_year, daemon=True).start()
 
-    # Séries : emails uniques par bucket de granularité
-    # + déduplication mensuelle pour le total (1 email = 1 lead par mois par avantage)
-    bucket_seen        = {}  # {bucket_key: set(emails)}
-    monthly_seen_total = {}  # {YYYY-MM: set(emails)} — pour total dédupliqué par mois
-    all_emails_period  = set()
+    # Séries : activations uniques par bucket de granularité
+    # Déduplication : 1 lead = (email, templateId) par mois — un même membre peut compter
+    # plusieurs fois s'il a activé des avantages différents (templates différents).
+    bucket_seen        = {}  # {bucket_key: set((email, offer_id))}
+    monthly_seen_total = {}  # {YYYY-MM: set((email, offer_id))}
+    all_emails_period  = set()  # emails uniques (pour membersUnique, indépendant des offres)
 
     for ev in period_events:
         if ev.get('event') in ('loadedByProxy', 'proxy'):
@@ -3981,14 +3982,16 @@ def _brevo_leads_compute(start, end, gran, partner=None):
             continue
         if partner and not _ev_matches_partner(partner, ev_subject(ev), (ev.get('tag') or '').strip()):
             continue
+        # templateId identifie l'offre/avantage — fallback sur subject si absent
+        offer_id = ev.get('templateId') or (ev.get('subject') or '').strip()
         bk = _bucket(d, gran)
-        bucket_seen.setdefault(bk, set()).add(email)
+        bucket_seen.setdefault(bk, set()).add((email, offer_id))
         mk = f'{d.year}-{d.month:02d}'
-        monthly_seen_total.setdefault(mk, set()).add(email)
+        monthly_seen_total.setdefault(mk, set()).add((email, offer_id))
         all_emails_period.add(email)
 
-    series_counts = {bk: len(emails) for bk, emails in bucket_seen.items()}
-    # Total = somme des emails uniques par mois (pas par jour/semaine)
+    series_counts = {bk: len(pairs) for bk, pairs in bucket_seen.items()}
+    # Total = somme des (email, offre) uniques par mois
     total  = sum(len(s) for s in monthly_seen_total.values())
     result = {'total': total, 'series': _series_from_counts(series_counts)}
 
@@ -4007,9 +4010,10 @@ def _brevo_leads_compute(start, end, gran, partner=None):
             email = (ev.get('email') or '').lower().strip()
             if not email or not _brevo_email_ok(email):
                 continue
+            offer_id = ev.get('templateId') or (ev.get('subject') or '').strip()
             ym = f'{year}-{d.month:02d}'
             if ym in monthly_seen:
-                monthly_seen[ym].add(email)
+                monthly_seen[ym].add((email, offer_id))
                 all_emails_year.add(email)
 
         year_total = sum(len(s) for s in monthly_seen.values())
@@ -4809,11 +4813,12 @@ def club_debug_leads_sample():
     sample = []
     for ev in events[:limit]:
         sample.append({
-            'date':      (ev.get('date') or '')[:10],
-            'subject':   ev.get('subject') or '',
-            'tag':       ev.get('tag') or '',
-            'messageId': ev.get('messageId') or '',
-            'event':     ev.get('event') or '',
+            'date':       (ev.get('date') or '')[:10],
+            'subject':    ev.get('subject') or '',
+            'tag':        ev.get('tag') or '',
+            'templateId': ev.get('templateId') or 0,
+            'messageId':  ev.get('messageId') or '',
+            'event':      ev.get('event') or '',
         })
     return jsonify({
         'period':       {'start': start, 'end': end},
