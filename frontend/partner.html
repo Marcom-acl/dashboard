@@ -100,6 +100,9 @@
 
   /* ── Watermark ── */
   .watermark{text-align:center;color:var(--muted-2);font-size:10px;margin-top:40px;}
+  .contact-footer{text-align:center;font-size:12px;color:var(--muted);padding:10px 0 4px;}
+  .contact-footer a{color:#231f20;font-weight:600;text-decoration:none;}
+  .contact-footer a:hover{text-decoration:underline;}
 
   @media(max-width:600px){
     .top-bar{flex-direction:column;align-items:flex-start;}
@@ -151,7 +154,8 @@
     <div class="loading">Chargement des données…</div>
   </div>
 
-  <div class="watermark">Dashboard ACL Marcom · Données actualisées depuis le serveur Railway · Accès réservé au partenaire</div>
+  <div class="watermark">Dashboard ACL Marcom · Accès réservé au partenaire</div>
+  <div class="contact-footer">Une question ? <a href="mailto:b2b@acl.lu">b2b@acl.lu</a></div>
 </div>
 
 <script>
@@ -222,11 +226,11 @@ async function loadData() {
   try {
     const qs = new URLSearchParams({t: token, start, end, granularity: gran});
     const r  = await fetch(`${API_BASE}/club-partners/partner?${qs}`, {signal: AbortSignal.timeout(30000)});
-    if (r.status === 404) {
+    if (r.status === 404 || r.status === 400) {
       document.getElementById('mainContent').innerHTML = `
         <div class="err-screen">
-          <div class="err-title">Lien invalide</div>
-          <div class="err-msg">Ce lien de partage est incorrect ou a expiré. Contactez votre interlocuteur ACL.</div>
+          <div class="err-title">Lien invalide ou expiré</div>
+          <div class="err-msg">Ce lien de partage n'est plus valide. Contactez votre interlocuteur ACL à <a href="mailto:b2b@acl.lu" style="color:#231f20;font-weight:700">b2b@acl.lu</a> pour en obtenir un nouveau.</div>
         </div>`;
       return;
     }
@@ -234,10 +238,16 @@ async function loadData() {
     const data = await r.json();
     render(data);
   } catch(e) {
+    let msg = e.message;
+    if (e.name === 'TimeoutError' || e.name === 'AbortError')
+      msg = 'Le serveur met trop de temps à répondre (délai 30 s). Réessayez dans quelques instants.';
+    else if (!navigator.onLine)
+      msg = 'Pas de connexion Internet détectée. Vérifiez votre réseau et réessayez.';
     document.getElementById('mainContent').innerHTML = `
       <div class="err-screen">
         <div class="err-title">Erreur de chargement</div>
-        <div class="err-msg">${e.message}</div>
+        <div class="err-msg">${msg}</div>
+        <button onclick="loadData()" style="margin-top:16px;padding:8px 22px;border-radius:8px;border:1.5px solid #231f20;background:#231f20;color:#fff;font-size:12px;font-weight:700;cursor:pointer">Réessayer</button>
       </div>`;
   }
 }

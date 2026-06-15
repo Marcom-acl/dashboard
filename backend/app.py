@@ -201,8 +201,16 @@ def _save_json(path, data):
     with open(path, 'w') as f:
         json.dump(data, f)
 
+class DateRangeError(ValueError):
+    pass
+
+@app.errorhandler(DateRangeError)
+def handle_date_range_error(e):
+    return jsonify({'error': str(e)}), 400
+
 def _date_range():
-    """Parse start/end query params; defaults to last 30 days."""
+    """Parse start/end query params; defaults to last 30 days.
+    Lève DateRangeError si format invalide ou start > end."""
     end_str   = request.args.get('end')
     start_str = request.args.get('start')
     today = datetime.date.today()
@@ -210,16 +218,18 @@ def _date_range():
         try:
             end = datetime.date.fromisoformat(end_str)
         except ValueError:
-            end = today
+            raise DateRangeError(f"Paramètre 'end' invalide : {end_str!r} (format attendu : YYYY-MM-DD)")
     else:
         end = today
     if start_str:
         try:
             start = datetime.date.fromisoformat(start_str)
         except ValueError:
-            start = end - datetime.timedelta(days=30)
+            raise DateRangeError(f"Paramètre 'start' invalide : {start_str!r} (format attendu : YYYY-MM-DD)")
     else:
         start = end - datetime.timedelta(days=30)
+    if start > end:
+        raise DateRangeError(f"'start' ({start}) doit être <= 'end' ({end})")
     return start.isoformat(), end.isoformat()
 
 def _delta(curr, prev):
@@ -235,6 +245,14 @@ def _delta(curr, prev):
 
 GOOGLE_TOKEN_PATH   = _token_path('google_token.json')
 GOOGLE_SECRETS_PATH = _token_path('google_client_secret.json')
+
+# Cache en mémoire de l'access_token Google (TTL 50 min — le token Google dure 1h)
+_GOOGLE_ACCESS_TOKEN_CACHE: dict = {}
+_GOOGLE_TOKEN_LOCK = threading.Lock()
+_GOOGLE_NEEDS_RECONNECTION = False
+
+# Nom de fichier Gist pour persister le token Google entre les redéploiements Railway
+_GIST_GOOGLE_FILENAME = 'google_token.json'
 
 GOOGLE_AUTH_URL  = 'https://accounts.google.com/o/oauth2/v2/auth'
 GOOGLE_TOKEN_URL = 'https://oauth2.googleapis.com/token'
@@ -254,15 +272,53 @@ def _google_secrets():
     web = s.get('web') or s.get('installed') or {}
     return web.get('client_id'), web.get('client_secret')
 
+def _gist_save_google_token(token_data):
+    """Persiste le token Google dans le Gist GitHub pour survivre aux redéploiements Railway."""
+    if not GITHUB_TOKEN or not GIST_ID:
+        return
+    try:
+        requests.patch(
+            f'https://api.github.com/gists/{GIST_ID}',
+            headers=_GH_HEADERS(),
+            json={'files': {_GIST_GOOGLE_FILENAME: {'content': json.dumps(token_data)}}},
+            timeout=6, verify=_VERIFY,
+        )
+    except Exception:
+        pass
+
+def _gist_load_google_token():
+    """Charge le token Google depuis le Gist GitHub."""
+    if not GITHUB_TOKEN or not GIST_ID:
+        return None
+    try:
+        r = requests.get(f'https://api.github.com/gists/{GIST_ID}',
+                         headers=_GH_HEADERS(), timeout=6, verify=_VERIFY)
+        if r.ok:
+            content = r.json()['files'].get(_GIST_GOOGLE_FILENAME, {}).get('content', '')
+            if content:
+                return json.loads(content)
+    except Exception:
+        pass
+    return None
+
 def _google_token():
+    # Priorité : fichier local (rapide) → Gist (persistant) → env var (manuel)
     stored = _load_json(GOOGLE_TOKEN_PATH)
     if stored:
         return stored
+    gist_token = _gist_load_google_token()
+    if gist_token:
+        try:
+            _save_json(GOOGLE_TOKEN_PATH, gist_token)
+        except Exception:
+            pass
+        return gist_token
     if GOOGLE_REFRESH_TOKEN:
         return {'refresh_token': GOOGLE_REFRESH_TOKEN}
     return None
 
 def _refresh_google_token(token_data):
+    global _GOOGLE_NEEDS_RECONNECTION
     client_id, client_secret = _google_secrets()
     if not client_id:
         return None
@@ -273,24 +329,48 @@ def _refresh_google_token(token_data):
         'grant_type':    'refresh_token',
     })
     if r.ok:
+        _GOOGLE_NEEDS_RECONNECTION = False
         new_token = {**token_data, **r.json()}
         try:
             _save_json(GOOGLE_TOKEN_PATH, new_token)
         except Exception:
             pass
+        _gist_save_google_token(new_token)
         return new_token
+    # Détecter expiration/révocation du refresh token
+    try:
+        err_body = r.json()
+    except Exception:
+        err_body = {}
+    if r.status_code in (400, 401) and err_body.get('error') in ('invalid_grant', 'invalid_token'):
+        _GOOGLE_NEEDS_RECONNECTION = True
+        print(f'[ALERT] Google refresh token expiré ou révoqué : {err_body}', flush=True)
+    else:
+        print(f'[WARN] Échec refresh Google token HTTP {r.status_code}: {r.text[:200]}', flush=True)
     return None
 
 def _get_google_access_token():
+    now = time.time()
+    with _GOOGLE_TOKEN_LOCK:
+        c = _GOOGLE_ACCESS_TOKEN_CACHE
+        if c.get('token') and now < c.get('expires_at', 0):
+            return c['token']
     token_data = _google_token()
     if not token_data:
         return None
-    refresh_token = token_data.get('refresh_token')
-    if refresh_token:
-        refreshed = _refresh_google_token(token_data)
-        if refreshed:
-            return refreshed.get('access_token')
-    return token_data.get('access_token')
+    if not token_data.get('refresh_token'):
+        return token_data.get('access_token')
+    refreshed = _refresh_google_token(token_data)
+    if not refreshed:
+        return None
+    access = refreshed.get('access_token')
+    expires_in = int(refreshed.get('expires_in', 3600))
+    with _GOOGLE_TOKEN_LOCK:
+        _GOOGLE_ACCESS_TOKEN_CACHE.update({
+            'token':      access,
+            'expires_at': now + min(expires_in - 300, 3000),  # marge 5 min, max 50 min
+        })
+    return access
 
 def _google_headers():
     token = _get_google_access_token()
@@ -335,11 +415,16 @@ def google_callback():
     })
     if not r.ok:
         return jsonify({'error': r.text}), 400
+    global _GOOGLE_NEEDS_RECONNECTION, _GOOGLE_ACCESS_TOKEN_CACHE
     token_data = r.json()
     try:
         _save_json(GOOGLE_TOKEN_PATH, token_data)
     except Exception:
         pass
+    _gist_save_google_token(token_data)
+    _GOOGLE_NEEDS_RECONNECTION = False
+    with _GOOGLE_TOKEN_LOCK:
+        _GOOGLE_ACCESS_TOKEN_CACHE.clear()
     refresh_token = token_data.get('refresh_token', '')
     return f'''<!DOCTYPE html><html><body style="font-family:sans-serif;padding:2rem;max-width:600px">
 <h2 style="color:#22c55e">✅ Google connecté !</h2>
@@ -443,16 +528,17 @@ def status():
     except Exception:
         veille_ok = False
     return jsonify({
-        'status':          'ok',
-        'google':          bool(_google_token()),
-        'facebook':        bool(_fb_token()),
-        'linkedin':        bool(SUPERMETRICS_API_KEY),
-        'brevo':           bool(BREVO_API_KEY),
-        'buffer':          bool(BUFFER_API_KEY),
-        'anthropic':       bool(ANTHROPIC_API_KEY),
-        'railway_persist': bool(GITHUB_TOKEN and GIST_ID),
-        'veille':          veille_ok,
-        'user_count':      len(_RUNTIME_USERS),
+        'status':                    'ok',
+        'google':                    bool(_google_token()),
+        'google_needs_reconnection': _GOOGLE_NEEDS_RECONNECTION,
+        'facebook':                  bool(_fb_token()),
+        'linkedin':                  bool(SUPERMETRICS_API_KEY),
+        'brevo':                     bool(BREVO_API_KEY),
+        'buffer':                    bool(BUFFER_API_KEY),
+        'anthropic':                 bool(ANTHROPIC_API_KEY),
+        'railway_persist':           bool(GITHUB_TOKEN and GIST_ID),
+        'veille':                    veille_ok,
+        'user_count':                len(_RUNTIME_USERS),
     })
 
 
@@ -3403,7 +3489,7 @@ _CLUB_PARTNERS_RAW = {
     'wort':         {'label': 'Luxemburger Wort',          'token': 'wort-ad6fcd0a', 'leads': 'wort'},
     'autoglas':     {'label': 'Autoglas',                   'token': 'autoglas-5aad6b2c'},
     'bestcharge':   {'label': 'Best Charge',               'token': 'bestcharge-167515c4'},
-    'autopolis':    {'label': 'Autopolis',                  'token': 'autopolis-1215b252',   'nl_url_patterns': ['autopolis', 'maserati-autopolis']},
+    'autopolis':    {'label': 'Autopolis',                  'token': 'autopolis-1215b252',   'leads': ['autopolis', 'maserati'], 'nl_url_patterns': ['autopolis', 'maserati-autopolis']},
     'baloise':      {'label': 'Baloise',                    'token': 'baloise-3162df68'},
     'hellotaxi':    {'label': 'Hello Taxi',                'token': 'hellotaxi-ab12d267'},
     'losch':        {'label': 'VW Losch',                  'token': 'losch-a2d628c3'},
@@ -3678,6 +3764,8 @@ def _brevo_year_campaigns(year):
                 try:
                     d = datetime.date.fromisoformat((c.get('sentDate') or '')[:10])
                 except ValueError:
+                    print(f'[WARN] Campagne Brevo ignorée — sentDate invalide : '
+                          f'id={c.get("id")} name={c.get("name")!r} sentDate={c.get("sentDate")!r}', flush=True)
                     continue
                 if d < s_date:
                     past = True
@@ -3957,6 +4045,8 @@ def _brevo_newsletter_compute(start, end, partner=None):
         try:
             d = datetime.date.fromisoformat((c.get('sentDate') or '')[:10])
         except ValueError:
+            print(f'[WARN] NL compute — campagne ignorée sentDate invalide : '
+                  f'id={c.get("id")} name={c.get("name")!r} sentDate={c.get("sentDate")!r}', flush=True)
             continue
         if s_date <= d <= e_date:
             campaigns.append(c)
@@ -4725,6 +4815,101 @@ def club_debug_leads_sample():
         'total_fetched': len(events),
         'sample_size':   len(sample),
         'events':        sample,
+    })
+
+
+@app.route('/club-partners/debug/nl-patterns')
+def club_debug_nl_patterns():
+    """Diagnostic : pour un partenaire et une période, retourne les campagnes NL matchées,
+    les URLs testées et les patterns nl_url_patterns utilisés.
+    Usage : /club-partners/debug/nl-patterns                           → tous les partenaires + patterns
+            /club-partners/debug/nl-patterns?p=autopolis&start=...&end=... → test détaillé
+            /club-partners/debug/nl-patterns?t=<token>&start=...&end=...  → via token partenaire"""
+    if not BREVO_API_KEY:
+        return jsonify({'error': 'BREVO_API_KEY manquant'}), 500
+
+    token = request.args.get('t')
+    pkey  = request.args.get('p')
+
+    if not token and not pkey:
+        summary = {}
+        for k, raw in _CLUB_PARTNERS_RAW.items():
+            cfg = _partner_cfg(k)
+            summary[k] = {
+                'label':               raw['label'],
+                'nl_url_patterns':     cfg['nl_url_patterns'],
+                'has_explicit_patterns': 'nl_url_patterns' in raw,
+                'leads_keywords':      cfg['leads'] if isinstance(cfg['leads'], list) else [cfg['leads']],
+            }
+        return jsonify({'partners_patterns': summary})
+
+    if token:
+        key, cfg = _partner_from_token(token)
+    else:
+        cfg = _partner_cfg(pkey)
+        key = pkey if cfg else None
+
+    if not cfg:
+        return jsonify({'error': 'Partenaire ou token inconnu'}), 404
+
+    start, end = _date_range()
+    s_date = datetime.date.fromisoformat(start)
+    e_date = datetime.date.fromisoformat(end)
+
+    year_campaigns = _brevo_year_campaigns(e_date.year)
+    if s_date.year != e_date.year:
+        year_campaigns = _brevo_year_campaigns(s_date.year) + year_campaigns
+
+    period_campaigns = []
+    skipped_no_date  = []
+    for c in year_campaigns:
+        try:
+            d = datetime.date.fromisoformat((c.get('sentDate') or '')[:10])
+        except ValueError:
+            skipped_no_date.append({'id': c.get('id'), 'name': c.get('name'), 'sentDate': c.get('sentDate')})
+            continue
+        if s_date <= d <= e_date:
+            period_campaigns.append(c)
+
+    nl_patterns = cfg['nl_url_patterns']
+    result_campaigns = []
+    for camp in period_campaigns:
+        cid    = camp['id']
+        cname  = camp.get('name', '')
+        links  = _brevo_campaign_clicks_cached(cid)
+        tested = []
+        for lobj in links:
+            url     = (lobj.get('link') or lobj.get('url') or '')
+            matched = _match_nl_url(nl_patterns, url)
+            m       = re.search(r'/offers/([^/?#]+)', url)
+            slug    = m.group(1) if m else None
+            tested.append({
+                'url':     url,
+                'slug':    slug,
+                'matched': matched,
+                'clicks':  int(lobj.get('totalClicks', lobj.get('clicked', 0))),
+            })
+        gstats = (camp.get('statistics') or {}).get('globalStats', {})
+        result_campaigns.append({
+            'id':             cid,
+            'name':           cname,
+            'sentDate':       (camp.get('sentDate') or '')[:10],
+            'delivered':      int(gstats.get('delivered', 0)),
+            'total_links':    len(tested),
+            'matched_links':  sum(1 for t in tested if t['matched']),
+            'matched_clicks': sum(t['clicks'] for t in tested if t['matched']),
+            'matched_urls':   [t for t in tested if t['matched']],
+            'all_urls':       tested,
+        })
+
+    return jsonify({
+        'partner':              {'key': key, 'label': cfg['label']},
+        'nl_url_patterns':      nl_patterns,
+        'has_explicit_patterns': 'nl_url_patterns' in _CLUB_PARTNERS_RAW.get(key, {}),
+        'period':               {'start': start, 'end': end},
+        'campaigns_in_period':  len(period_campaigns),
+        'skipped_no_date':      skipped_no_date,
+        'campaigns':            result_campaigns,
     })
 
 
