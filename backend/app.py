@@ -2333,7 +2333,7 @@ def buffer_planning():
 
 SUPERMETRICS_QUERY_URL  = 'https://api.supermetrics.com/enterprise/v2/query/data/json'
 SUPERMETRICS_LI_ACCOUNT = '10097790'  # ACL - Automobile Club du Luxembourg
-SUPERMETRICS_FA_ACCOUNT = '10162592032151860'  # Vincent Huwer — connexion Facebook Ads
+SUPERMETRICS_FA_ACCOUNT = 'act_1192620784140333'  # ACL — compte publicitaire Meta Ads
 
 
 def _supermetrics_query(ds_id, ds_accounts, fields, start_date, end_date, max_rows=500, report_type=None, settings=None):
