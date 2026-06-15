@@ -1,334 +1,196 @@
 {
-  "generated_at": "2026-06-01",
-  "next_edition": "2026-06-15",
+  "generated_at": "2026-06-15",
+  "next_edition": "29-06-2026",
   "editions": [
-    {"date": "2026-05-03", "label": "Semaine du 3 mai 2026"},
-    {"date": "2026-05-04", "label": "Semaine du 4 mai 2026"},
-    {"date": "2026-05-11", "label": "Semaine du 11 mai 2026"},
-    {"date": "2026-05-18", "label": "Semaine du 18 mai 2026"},
-    {"date": "2026-05-28", "label": "Semaine du 28 mai 2026"},
-    {"date": "2026-06-01", "label": "Semaine du 1er juin 2026"}
+    {
+      "date": "2026-05-03",
+      "label": "Semaine du 3 mai 2026"
+    },
+    {
+      "date": "2026-05-04",
+      "label": "Semaine du 4 mai 2026"
+    },
+    {
+      "date": "2026-05-11",
+      "label": "Semaine du 11 mai 2026"
+    },
+    {
+      "date": "2026-05-18",
+      "label": "Semaine du 18 mai 2026"
+    },
+    {
+      "date": "2026-05-28",
+      "label": "Semaine du 28 mai 2026"
+    },
+    {
+      "date": "2026-06-01",
+      "label": "Semaine du 1er juin 2026"
+    },
+    {
+      "date": "2026-06-15",
+      "label": "Semaine du 2026-06-15"
+    }
   ],
   "items": [
     {
-      "id": "2026-05-03-race-1",
-      "date": "2026-05-03",
-      "club": "RACE",
-      "category": "EU",
-      "content": "App RACE SOS ouverte aux non-membres : comparaison prix carburant en temps réel, géolocalisation électrolineras et parkings dans 50 km. 28% des demandes d'assistance passent par l'app (x2 depuis 2020).",
-      "relevance": "Stratégie d'acquisition freemium très pertinente. L'app comme porte d'entrée pour les non-membres crée un entonnoir d'adhésion digital. L'ACL n'a pas encore d'équivalent.",
-      "badge": "NOTABLE",
-      "url": "https://www.race.es/revista-autoclub/race/race-actualiza-su-app-race-sos/?n=marzo-abril-2026"
-    },
-    {
-      "id": "2026-05-03-adac-1",
-      "date": "2026-05-03",
-      "club": "ADAC",
-      "category": "EU",
-      "content": "Révision tarifaire soumise au vote AG du 23 mai 2026 : première hausse depuis 2020, justifiée par +31% des coûts automobiles. Entrée en vigueur au 1er janvier 2027 si approuvée.",
-      "relevance": "Signal d'alerte sur la pression inflationniste que subissent tous les clubs. La communication de l'ADAC (transparente et proactive) est un modèle à suivre.",
-      "badge": "SURVEILLER",
-      "url": "https://www.adac.de/der-adac/verein/corporate-news/adac-zukunftssicher/"
-    },
-    {
-      "id": "2026-05-03-touring-1",
-      "date": "2026-05-03",
-      "club": "Touring Belgique",
-      "category": "EU",
-      "content": "Flotte d'intervention 100% électrique en 2026 avec VW ID.Buzz. Partenariat avec AG Insurance pour créer un 'écosystème global de mobilité'.",
-      "relevance": "Question concrète pour l'ACL : quelle est la feuille de route pour l'électrification de ses propres véhicules d'assistance ?",
-      "badge": "SURVEILLER",
-      "url": "https://www.touring.be/fr/articles/services-dassistance-touring-nouveaux-actionnaires"
-    },
-    {
-      "id": "2026-05-03-roole-1",
-      "date": "2026-05-03",
-      "club": "Roole",
-      "category": "EU",
-      "content": "Retour du leasing social électrique en juin 2026 : voiture électrique à 100€/mois, critères d'éligibilité élargis. Mobilisation de 1,5M de membres.",
-      "relevance": "Les offres d'essai et la mobilité inclusive sont des leviers de recrutement membres à explorer.",
-      "badge": "SURVEILLER",
-      "url": "https://media.roole.fr/transition/voiture-propre/leasing-social-2026-la-voiture-electrique-a-100-euros-par-mois-revient-des-juin-avec-un-dispositif-elargi"
-    },
-    {
-      "id": "2026-05-03-rac-1",
-      "date": "2026-05-03",
-      "club": "RAC",
-      "category": "EU",
-      "content": "Lancement de la RAC Academy : programme d'apprentissage pour former des techniciens de patrouille, avec expansion nationale planifiée.",
-      "relevance": "Investissement dans la formation interne comme différenciateur qualité de service.",
-      "badge": "INFO",
-      "url": "https://media.rac.co.uk/rac-academy-salutes-first-graduates-2150297"
-    },
-    {
-      "id": "2026-05-03-race-2",
-      "date": "2026-05-03",
-      "club": "RACE",
-      "category": "EU",
-      "content": "Étude RACE : la crainte d'une cyberattaque sur son véhicule dépasse désormais celle d'une panne mécanique chez les conducteurs de voitures connectées.",
-      "relevance": "Signal fort pour positionner l'ACL sur des services de cybersécurité automobile.",
-      "badge": "SURVEILLER",
-      "url": "https://www.race.es/revista-autoclub/race/un-ciberataque-ya-preocupa-mas-que-una-averia/?n=marzo-abril-2026"
-    },
-    {
-      "id": "2026-05-03-adac-2",
-      "date": "2026-05-03",
-      "club": "ADAC",
-      "category": "EU",
-      "content": "Nouveaux services membres : Schlüsselnotdienst (urgence clé) et Fahrradpannenhilfe (assistance panne vélo) avec 290+ stations nationales.",
-      "relevance": "Extension au vélo et services 'maison' comme vecteur de fidélisation.",
-      "badge": "INFO",
-      "url": "https://www.adac.de/der-adac/verein/corporate-news/"
-    },
-    {
-      "id": "2026-05-04-adac-1",
-      "date": "2026-05-04",
-      "club": "ADAC",
-      "category": "EU",
-      "content": "L'ADAC Autovermietung permet de réserver un véhicule directement via ChatGPT en langage naturel. Premier grand club automobile à intégrer l'IA conversationnelle dans un parcours transactionnel.",
-      "relevance": "Piste d'innovation à surveiller pour les services membres ACL (location, assistance, voyages). L'IA conversationnelle réduit la friction des interfaces complexes.",
-      "badge": "NOTABLE",
-      "url": "https://presse.adac.de/meldungen/adac-se/reisen-unterwegs/neu-bei-der-adac-autovermietung-mietwagen-bequem-ueber-chatgpt-buchen.html"
-    },
-    {
-      "id": "2026-05-04-adac-2",
-      "date": "2026-05-04",
-      "club": "ADAC",
-      "category": "EU",
-      "content": "Pannenstatistik 2026 : les VE sont nettement plus fiables que les thermiques sur toutes les classes d'âge (PKZ 6,5 vs 12,5 pour 4 ans). La batterie 12V reste la première cause de panne (50% des interventions).",
-      "relevance": "Données utiles pour conseiller les membres ACL sur le choix de véhicule et anticiper l'évolution des interventions dépannage.",
-      "badge": "INFO",
-      "url": "https://presse.adac.de/meldungen/adac-ev/technik/adac-pannenstatistik-2026.html"
-    },
-    {
-      "id": "2026-05-04-rac-1",
-      "date": "2026-05-04",
-      "club": "RAC",
-      "category": "EU",
-      "content": "RAC Connected intègre CalAmp CrashBoxx pour détecter les accidents en temps réel via l'IA. Reconstruction instantanée des incidents, accélération des déclarations pour les flottes professionnelles.",
-      "relevance": "Innovation dans la télématique connectée et les services aux flottes professionnelles.",
-      "badge": "SURVEILLER",
-      "url": "https://media.rac.co.uk/rac-connected-introduces-real-time-crash-intelligence-with-calamp-crashboxx"
-    },
-    {
-      "id": "2026-05-04-aa-1",
-      "date": "2026-05-04",
-      "club": "AA",
-      "category": "EU",
-      "content": "The AA soutient la stratégie nationale sécurité routière britannique : objectif -65% décès/blessés graves d'ici 2035. La AA obtient l'introduction de points de pénalité pour non-port de ceinture (campagne Buckle Up).",
-      "relevance": "Positionnement fort de la AA en lobbying sécurité routière. Inspiration pour l'ACL dans son rôle de défense des automobilistes.",
-      "badge": "SURVEILLER",
-      "url": "https://www.theaa.com/about-us/newsroom/road-safety-strategy-2026"
-    },
-    {
-      "id": "2026-05-04-touring-1",
-      "date": "2026-05-04",
-      "club": "Touring Belgique",
-      "category": "EU",
-      "content": "Test ADAS par mauvais temps (ADAC + Touring, chambre AVL à Roding) : systèmes d'assistance (AEB, maintien voie, régulateur adaptatif) non fiables sous pluie intense.",
-      "relevance": "Contenu éditorial à forte valeur ajoutée. Les clubs automobiles pourraient être sollicités pour conseils juridiques en cas d'accident impliquant défaillance ADAS.",
-      "badge": "SURVEILLER",
-      "url": "https://www.touring.be/fr/articles/aides-a-la-conduite-par-mauvais-temps"
-    },
-    {
-      "id": "2026-05-04-tcs-1",
-      "date": "2026-05-04",
-      "club": "TCS",
-      "category": "EU",
-      "content": "TCS couvre l'arrivée des premiers robotaxis autonomes en Suisse : projet AmiGo de CarPostal utilisant le logiciel Baidu dans certaines régions.",
-      "relevance": "La mobilité autonome devient réalité dans des marchés proches du Luxembourg. L'ACL doit anticiper comment accompagner ses membres.",
-      "badge": "SURVEILLER",
-      "url": "https://www.tcs.ch/fr/camping-voyages/informations-touristiques/news-actualites/news-2026.php"
-    },
-    {
-      "id": "2026-05-04-aci-1",
-      "date": "2026-05-04",
-      "club": "ACI",
-      "category": "EU",
-      "content": "Spot sécurité routière '#rispettiamoci' diffusé sur RAI pendant le Giro d'Italia (8-30 mai 2026). Message de coexistence entre tous les usagers de la route.",
-      "relevance": "Stratégie de communication sécurité routière intégrée à un grand événement sportif. Modèle de campagne à fort impact médiatique.",
-      "badge": "INFO",
-      "url": "https://www.aci.it/comunicati/"
-    },
-    {
-      "id": "2026-05-11-race-1",
-      "date": "2026-05-11",
-      "club": "RACE",
-      "category": "EU",
-      "content": "1er Congrès Mondial Tourisme & Motorsport (WMTC) organisé avec FIA et ONU Tourisme les 15-16 juin au Circuit Madrid Jarama. 300 professionnels attendus.",
-      "relevance": "Positionnement institutionnel fort du RACE à l'intersection sport automobile / tourisme / durabilité.",
-      "badge": "INFO",
-      "url": "https://www.race.es/area-de-prensa/la-fundacion-race-en-colaboracion-con-la-fia-y-onu-turismo-organiza-primer-congreso-mundial-de-turismo-y-motorsport"
-    },
-    {
-      "id": "2026-05-11-rac-1",
-      "date": "2026-05-11",
-      "club": "RAC",
-      "category": "EU",
-      "content": "Plaidoyer RAC pour une refonte de la signalisation 'route barrée' au Royaume-Uni : les panneaux actuels sont trop imprécis, sans itinéraire de substitution.",
-      "relevance": "Modèle de plaidoyer public ancré dans des données d'enquête membres.",
-      "badge": "INFO",
-      "url": "https://media.rac.co.uk/drivers-say-road-ahead-closed-signs-are-uninformative-and-need-to-be-improved"
-    },
-    {
-      "id": "2026-05-11-touring-1",
-      "date": "2026-05-11",
-      "club": "Touring Belgique",
-      "category": "EU",
-      "content": "Badge de télépéage Fulli promu comme avantage membre : une seule puce pour accéder aux réseaux autoroutiers de plusieurs pays européens sans friction.",
-      "relevance": "Avantage membres concret lié aux mobilités transfrontalières, pertinent pour un pays comme le Luxembourg.",
-      "badge": "INFO",
-      "url": "https://www.touring.be/fr/articles/badge-telepeage-fulli"
-    },
-    {
-      "id": "2026-05-11-aci-1",
-      "date": "2026-05-11",
-      "club": "ACI",
-      "category": "EU",
-      "content": "ACI Editore se repositionne comme 'hub culturel de la mobilité' : refonte graphique et éditoriale complète du magazine L'Automobile, nouveaux formats de contenu.",
-      "relevance": "Mouvement de fond chez les clubs vers une identité de 'hub de mobilité'. Piste de réflexion pour le positionnement éditorial de l'ACL.",
-      "badge": "SURVEILLER",
-      "url": "https://www.lautomobile.aci.it/attualita/aci-editore-diventa-hub-culturale-della-mobilita/"
-    },
-    {
-      "id": "2026-05-11-aaa-1",
-      "date": "2026-05-11",
-      "club": "AAA",
-      "category": "Monde",
-      "content": "Étude AAA sur l'impact des températures extrêmes sur VE et hybrides : à -7°C, les VE perdent 39% d'autonomie et 35,6% d'efficacité. Les hybrides perdent 22,8% d'économie en hiver.",
-      "relevance": "Données chiffrées directement exploitables pour des communications membres sur les VE au Luxembourg, notamment en hiver.",
-      "badge": "NOTABLE",
-      "url": "https://newsroom.aaa.com/2026/05/aaa-study-reveals-temperature-impacts-on-ev-and-hybrid-performance-efficiency-and-costs/"
-    },
-    {
-      "id": "2026-05-11-waymo-1",
-      "date": "2026-05-11",
+      "id": "2026-06-15-waymo-1",
       "club": "Waymo",
       "category": "Mobilité",
-      "content": "Expansion couverture robotaxi à 1400 miles carrés (+27%) dans 11 villes américaines. Objectif 1M courses/semaine fin 2026. Préparation marché Londres et Tokyo.",
-      "relevance": "L'arrivée à Londres marque une première hors États-Unis. Les clubs européens devront se positionner sur l'assistance aux robotaxis avant l'arrivée sur le continent.",
       "badge": "SURVEILLER",
-      "url": "https://electrek.co/2026/05/13/waymo-expands-coverage-1400-square-miles-11-cities/"
+      "content": "Lancement de l'abonnement Premier à 29,99 $/mois (invitation uniquement, SF/LA/Phoenix) : accès prioritaire, 10% Waymo Cash, early access nouvelles villes, 5 annulations gratuites/mois. 500 000 courses payantes/semaine dans 10 villes.",
+      "relevance": "Premier modèle d'abonnement mensuel dans l'industrie robotaxi — concept de fidélisation qui rapproche les plateformes autonomes du modèle de membership des clubs automobiles.",
+      "url": "https://www.techtimes.com/articles/318347/20260613/waymo-launches-2999-premier-robotaxi-subscription-monthly-driverless-membership-worth-it.htm",
+      "date": "2026-06-13"
     },
     {
-      "id": "2026-05-18-oeamtc-1",
-      "date": "2026-05-18",
-      "club": "ÖAMTC",
-      "category": "EU",
-      "content": "36e novelle StVO autrichienne (1er mai 2026) : e-scooters deviennent des véhicules officiels (équipement obligatoire, alcootest, casque -16 ans). E-mopeds soumis à immatriculation dès octobre 2026.",
-      "relevance": "Le Luxembourg devrait suivre cette évolution réglementaire européenne. L'ÖAMTC se positionne comme référence d'orientation réglementaire.",
-      "badge": "NOTABLE",
-      "url": "https://www.oeamtc.at/presse/oeamtc-36-stvo-novelle-welche-neuerungen-gelten-ab-1-mai-2026-86402001"
-    },
-    {
-      "id": "2026-05-18-touring-1",
-      "date": "2026-05-18",
-      "club": "Touring Belgique",
-      "category": "EU",
-      "content": "Baromètre des vacances 2026 : 8 Belges sur 10 prévoient de partir malgré tensions géopolitiques et hausse des prix. Niveau de résilience remarquable.",
-      "relevance": "Les clubs peuvent fidéliser leurs membres via des services voyage. L'ACL pourrait produire un baromètre similaire sur les Luxembourgeois.",
-      "badge": "INFO",
-      "url": "https://www.touring.be/fr/articles/vacances-2026-les-nouvelles-habitudes-des-belges"
-    },
-    {
-      "id": "2026-05-18-oeamtc-2",
-      "date": "2026-05-18",
-      "club": "ÖAMTC",
-      "category": "EU",
-      "content": "Wiener Elektro Tage 2026 (29-31 mai) avec 19 constructeurs VE. Nouveauté : service ÖAMTC ePower accessible directement depuis l'application mobile du club.",
-      "relevance": "L'ÖAMTC intègre ses services mobilité électrique dans son écosystème numérique. Piste pour enrichir l'offre numérique ACL autour de la recharge EV.",
-      "badge": "INFO",
-      "url": "https://www.oeamtc.at/news/wien/wiener-elektro-tage-2026-61812915"
-    },
-    {
-      "id": "2026-05-18-adac-1",
-      "date": "2026-05-18",
-      "club": "ADAC",
-      "category": "EU",
-      "content": "ADAC Stiftung : enquête nationale (340 enseignants) — 47% des enfants présentent déficits d'attention dans la circulation, écoles manquent 5h/an d'éducation mobilité.",
-      "relevance": "L'ACL dispose de programmes de sensibilisation scolaire. Cette étude fournit des arguments chiffrés pour étendre les partenariats avec le monde éducatif luxembourgeois.",
-      "badge": "INFO",
-      "url": "https://presse.adac.de/meldungen/adac-stiftung/adac-stiftung/kinder-im-strassenverkehr-ueberfordert-lehrkraefte-fordern-mehr-mobilitaetsbildung-im-unterricht.html"
-    },
-    {
-      "id": "2026-05-18-aaa-1",
-      "date": "2026-05-18",
+      "id": "2026-06-15-aaa-1",
       "club": "AAA",
       "category": "Monde",
-      "content": "Projection AAA : 45 millions d'Américains en déplacement pour le Memorial Day 2026 (nouveau record). 39,1M en voiture malgré prix carburants au plus haut depuis l'été 2022.",
-      "relevance": "Les baromètres de déplacement des grandes fêtes sont un outil de notoriété. Format transposable : l'ACL pourrait produire un baromètre Ascension/Pentecôte.",
-      "badge": "INFO",
-      "url": "https://newsroom.aaa.com/2026/05/45-million-americans-planning-memorial-day-weekend-getaways/"
+      "badge": "SURVEILLER",
+      "content": "Palmarès du AAA Car Guide 2026 : la Lucid Gravity Touring remporte le titre général. Pour la première fois dans l'histoire du guide, tous les lauréats de catégories sont électriques ou hybrides.",
+      "relevance": "Le guide de référence automobile américain sacre l'électrique systématiquement pour la première fois. Signal fort sur l'évolution des critères d'évaluation.",
+      "url": "https://newsroom.aaa.com/",
+      "date": "2026-06-12"
     },
     {
-      "id": "2026-05-28-adac-1",
-      "date": "2026-05-28",
+      "id": "2026-06-15-adac-1",
       "club": "ADAC",
       "category": "EU",
-      "content": "L'ADAC Autovermietung intègre ChatGPT pour la réservation de voitures de location en langage naturel : première mondiale parmi les clubs automobiles.",
-      "relevance": "Signal fort d'innovation digitale. L'ACL pourrait explorer des intégrations IA pour ses services membres (assistance, voyage).",
-      "badge": "NOTABLE",
-      "url": "https://presse.adac.de/meldungen/adac-se/reisen-unterwegs/neu-bei-der-adac-autovermietung-mietwagen-bequem-ueber-chatgpt-buchen.html"
+      "badge": "SURVEILLER",
+      "content": "La filiale Aero-Dienst (100% ADAC SE) commande un second Bombardier Challenger 650 pour ses missions médicales (medevac), annoncé au salon ILA Berlin le 10 juin 2026. Capacité jusqu'à 4 brancards, fiabilité de dispatch >99,9%.",
+      "relevance": "L'assistance médicale aérienne est une prestation premium. L'ADAC renforce sa capacité de rapatriement sanitaire international, intégrée dans ses offres membres Premium.",
+      "url": "https://www.globenewswire.com/news-release/2026/06/10/3309528/0/en/Bombardier-Defense-Expands-Collaboration-with-Aero-Dienst-ADAC-with-a-Second-Challenger-650-Aircraft-for-Medevac.html",
+      "date": "2026-06-10"
     },
     {
-      "id": "2026-05-28-anwb-1",
-      "date": "2026-05-28",
+      "id": "2026-06-15-aci-1",
+      "club": "ACI",
+      "category": "EU",
+      "badge": "INFO",
+      "content": "Communiqué du 10 juin 2026 : l'ACI affirme que la décarbonisation nécessite une stratégie intégrée et la coexistence de différentes solutions énergétiques — positionnement nuancé face aux objectifs UE 2035.",
+      "relevance": "Positionnement pragmatique sur la transition énergétique, cohérent avec plusieurs clubs FIA.",
+      "url": "https://aci.gov.it/comunicati-stampa/",
+      "date": "2026-06-10"
+    },
+    {
+      "id": "2026-06-15-arc-1",
+      "club": "ARC Europe",
+      "category": "Mobilité",
+      "badge": "NOTABLE",
+      "content": "Partner Forum 2026 à Bruxelles (4 juin) : alignement du réseau (40 pays, 2,5M interventions/an) sur la croissance VE (+25-30%), l'offensive des constructeurs chinois (Xiaomi : un véhicule/76 secondes, BYD : recharge 20-80% en <5 min) et le déploiement de SPARX, backbone opérationnel harmonisé.",
+      "relevance": "Événement stratégique du réseau dont l'ACL est membre. Les priorités annoncées concernent directement les services d'assistance de l'ACL.",
+      "url": "https://arceurope.com/blog/2026/06/10/partner-forum-2026-one-network-one-direction/",
+      "date": "2026-06-10"
+    },
+    {
+      "id": "2026-06-15-waymo-2",
+      "club": "Waymo",
+      "category": "Mobilité",
+      "badge": "INFO",
+      "content": "Publication d'un benchmark Waymo vs conducteurs humains dans Nature Communications (co-auteurs TU Delft). Objectif : 1 million de courses/semaine fin 2026, expansion vers Londres et 12 nouvelles villes.",
+      "relevance": "La validation scientifique de la supériorité sécuritaire des robotaxis renforce les arguments réglementaires pour leur déploiement en Europe.",
+      "url": "https://techcrunch.com/2026/06/10/waymo-says-it-built-a-better-benchmark-for-comparing-robotaxis-to-humans/",
+      "date": "2026-06-10"
+    },
+    {
+      "id": "2026-06-15-anwb-1",
       "club": "ANWB",
       "category": "EU",
-      "content": "ANWB célèbre les 80 ans du Wegenwacht (assistance routière) avec exposition au musée automobile Visscher Classique, valorisant les véhicules d'intervention historiques.",
-      "relevance": "Modèle de valorisation de l'histoire du club à des fins de communication mémorielle. L'ACL (fondé en 1927) dispose d'un patrimoine comparable.",
       "badge": "INFO",
-      "url": "https://kampioen.anwb.nl/2026-05/leuke-dingen-doen-in-mei"
+      "content": "L'ANWB se déclare satisfaite des règles existantes de compensation pour retards de vols, malgré l'absence d'accord UE sur un nouveau règlement passagers aériens (5 juin 2026).",
+      "relevance": "Position de lobbying voyage aérien - pertinente pour les clubs proposant assistance voyage.",
+      "url": "https://www.anwb.nl/nieuws",
+      "date": "2026-06-05"
     },
     {
-      "id": "2026-05-28-oeamtc-1",
-      "date": "2026-05-28",
+      "id": "2026-06-15-fdm-1",
+      "club": "FDM",
+      "category": "EU",
+      "badge": "SURVEILLER",
+      "content": "Discours du Grundlovsdag (5 juin 2026) : le FDM, représentant plus de 284 000 foyers, appelle le nouveau gouvernement danois à une réforme fiscale automobile, au gel des hausses de taxes prévues et à une harmonisation nationale des règles de stationnement.",
+      "relevance": "Lobbying politique institutionnel fort d'un club de taille comparable. Illustre comment un club peut peser dans le débat fiscal automobile en s'appuyant sur sa base membre.",
+      "url": "https://fdm.dk/nyheder/fdm-mener/grundlovstale-2026",
+      "date": "2026-06-04"
+    },
+    {
+      "id": "2026-06-15-arc-2",
+      "club": "ARC Europe",
+      "category": "Mobilité",
+      "badge": "SURVEILLER",
+      "content": "Partenariat avec DRVN Solutions pour intégrer les données des voitures connectées dans l'assistance : diagnostic précoce, résolution à distance, dispatch optimisé. La voiture connectée devient le déclencheur d'une assistance prédictive.",
+      "relevance": "Transformation de l'assistance de réactive vers prédictive grâce aux données véhicule connecté. Chantier technologique qui concerne l'ACL en tant que membre du réseau ARC.",
+      "url": "https://arceurope.com/blog/2026/06/04/how-connected-cars-are-transforming-roadside-assistance/",
+      "date": "2026-06-04"
+    },
+    {
+      "id": "2026-06-15-oeamtc-1",
       "club": "ÖAMTC",
       "category": "EU",
-      "content": "Sondage ÖAMTC : 68% des Autrichiens veulent maintenir la limite à 130 km/h sur autoroute. 65% adoptent déjà une conduite sobre. Le club s'oppose à toute réduction contraignante.",
-      "relevance": "Illustration d'un club qui utilise les sondages d'opinion pour peser dans le débat politique sur la mobilité.",
-      "badge": "INFO",
-      "url": "https://www.oeamtc.at/presse/oeamtc-umfrage-68-prozent-wollen-bei-tempo-130-auf-autobahnen-bleiben-86337522"
+      "badge": "NOTABLE",
+      "content": "79e Assemblée générale du 2 juin 2026 : l'ÖAMTC dépasse les 2,6 millions de membres, bilan 2025 positif malgré l'inflation. Préparation renforcée de la saison estivale (115 bases, 8 centres de conduite, 24 hélicoptères SMUR).",
+      "relevance": "Croissance continue d'un club en contexte économique difficile. Démontre que la valeur perçue du club résiste à la pression inflationniste.",
+      "url": "https://www.oeamtc.at/news/mehr-als-2-6-millionen-menschen-vertrauen-auf-den-mobilitaetsclub-79855174",
+      "date": "2026-06-03"
     },
     {
-      "id": "2026-05-28-touring-1",
-      "date": "2026-05-28",
-      "club": "Touring Belgique",
+      "id": "2026-06-15-aa-1",
+      "club": "AA",
       "category": "EU",
-      "content": "Test collectif ADAC + Touring (chambre climatique AVL Roding) : systèmes de détection de lignes et radars significativement moins fiables sous pluie et brouillard.",
-      "relevance": "La fiabilité des ADAS par mauvais temps devient un sujet de litiges potentiels. Les clubs pourraient être sollicités pour conseils juridiques/techniques.",
       "badge": "SURVEILLER",
-      "url": "https://www.touring.be/fr/articles/aides-a-la-conduite-par-mauvais-temps"
+      "content": "EV Readiness Index Q1 2026 (score 53,8 vs 48,8 en Q4 2025) : les VE d'occasion sont désormais 10% moins chers que les équivalents thermiques, mais les signaux politiques mitigés risquent de fragiliser la transition.",
+      "relevance": "Indicateur de maturité du marché VE. La baisse des prix des VE d'occasion crée un nouveau public, potentiellement moins familier avec ces véhicules et plus susceptible de solliciter une assistance.",
+      "url": "https://www.bodyshopmag.com/2026/news/aa-ev-readiness-index-warns-of-fragile-transition/",
+      "date": "2026-06-01"
     },
     {
-      "id": "2026-05-28-byd-1",
-      "date": "2026-05-28",
+      "id": "2026-06-15-naf-1",
+      "club": "NAF",
+      "category": "EU",
+      "badge": "NOTABLE",
+      "content": "Partenariat avec Vianor (65 centres auto) effectif au 1er juin 2026 : plus de 500 000 membres NAF accèdent à des offres préférentielles et à un accompagnement expert pour la transition vers l'électrique.",
+      "relevance": "Modèle de partenariat club/réseau de services automobiles centré sur la transition VE. Directement transposable à l'ACL dans sa stratégie partenariat mobilité électrique.",
+      "url": "https://kommunikasjon.ntb.no/pressemelding/18930623/vianor-og-naf-inngar-samarbeid-for-a-gjore-kjoringen-tryggere-og-enklere-for-over-en-halv-million-norske-sjaforer?publisherId=17849010&lang=no",
+      "date": "2026-06-01"
+    },
+    {
+      "id": "2026-06-15-aanz-1",
+      "club": "AA New Zealand",
+      "category": "Monde",
+      "badge": "NOTABLE",
+      "content": "Lancement de l'assurance panne mécanique (MBI) Advantage et Advantage Plus avec Autosure Insurance. Lancement simultané d'un Trip Tracker pour estimer le coût et l'impact CO2 par trajet.",
+      "relevance": "Double innovation produit : assurance panne mécanique comme nouvelle source de revenus membres + outil digital d'empreinte carbone. Deux pistes concrètes à évaluer pour l'ACL.",
+      "url": "https://www.aa.co.nz/about/newsroom/media-releases/",
+      "date": "2026-06-01"
+    },
+    {
+      "id": "2026-06-15-nrma-1",
+      "club": "NRMA",
+      "category": "Monde",
+      "badge": "SURVEILLER",
+      "content": "Les demandes de souscription d'assurance VE chez NRMA Insurance ont bondi de +81% en glissement annuel, avec +42% en mars 2026 seul, en réponse à la hausse du prix des carburants.",
+      "relevance": "Signal fort sur la demande d'assurance spécifique VE. Les clubs avec activités assurantielles ont intérêt à anticiper cette demande croissante.",
+      "url": "https://www.carexpert.com.au/car-news/electric-car-charging-discounts-halved-for-motoring-club-members",
+      "date": "2026-06-01"
+    },
+    {
+      "id": "2026-06-15-byd-1",
       "club": "BYD",
       "category": "Mobilité",
-      "content": "BYD négocie le rachat d'usines européennes (Stellantis et autres). Vente UK : BYD désormais 1ère marque VE devant Tesla et Kia. Usine Hongrie opérationnelle, Turquie fin 2026.",
-      "relevance": "BYD sera un acteur européen à part entière d'ici 2027-2028. Les clubs doivent intégrer BYD dans leurs grilles de tests et anticiper l'assistance sur ces architectures.",
       "badge": "NOTABLE",
-      "url": "https://electrek.co/2026/05/13/byd-eyes-stellantis-eu-plant-ev-sales-surge-others-too/"
+      "content": "Démarrage de la production en essai à l'usine de Szeged (Hongrie), premier site européen BYD. Premier modèle : Dolphin Surf. Ventes européennes +144% sur les 5 premiers mois 2026 (>100 000 unités).",
+      "relevance": "L'implantation industrielle de BYD en Hongrie marque un tournant. Sa croissance explosive et sa présence en Europe centrale renforcent son importance pour les clubs d'assistance, dont l'ACL.",
+      "url": "https://www.aol.com/articles/byd-begins-trial-production-hungarian-173020803.html",
+      "date": "2026-06-01"
     },
     {
-      "id": "2026-05-28-waymo-1",
-      "date": "2026-05-28",
-      "club": "Waymo",
-      "category": "Mobilité",
-      "content": "Expansion à 1400 miles² dans 11 villes US. Flotte ~3000 véhicules, 20M+ courses cumulées. Objectif 1M courses/semaine fin 2026. Prochains marchés : Londres et Tokyo.",
-      "relevance": "Écart opérationnel croissant avec Tesla. L'arrivée à Londres signal que les clubs européens devront bientôt prendre position sur les robotaxis.",
-      "badge": "SURVEILLER",
-      "url": "https://electrek.co/2026/05/13/waymo-expands-coverage-1400-square-miles-11-cities/"
-    },
-    {
-      "id": "2026-05-28-tesla-1",
-      "date": "2026-05-28",
+      "id": "2026-06-15-tesla-1",
       "club": "Tesla Robotaxi",
       "category": "Mobilité",
-      "content": "Production Cybercab démarrée à Giga Texas. Service commercial lancé à Houston et Dallas. Déploiement prévu dans 7 villes US au S1 2026.",
-      "relevance": "Deux écosystèmes robotaxi (Waymo, Tesla) en phase commerciale simultanée. L'écart opérationnel se creuse (périmètre réduit vs Waymo).",
-      "badge": "SURVEILLER",
-      "url": "https://electrek.co/2026/04/23/tesla-cybercab-production-starts-no-nhtsa-2500-vehicle-cap/"
+      "badge": "INFO",
+      "content": "Déploiement des Cybercab (sans volant ni pédales) en service commercial sans conducteur à Dallas, Texas. Couverture étendue à l'ensemble de l'aire métropolitaine d'Austin.",
+      "relevance": "Production série confirmée, déploiement progressif. L'arrivée en Europe reste à moyen terme mais le rythme s'accélère.",
+      "url": "https://www.tesery.com/blogs/news/tesla-blanketed-all-of-austin-with-robotaxis-only-20-cars-are-running",
+      "date": "2026-06-01"
     },
     {
       "id": "2026-06-01-adac-1",
@@ -439,20 +301,347 @@
       "relevance": "La visibilité via les événements sportifs est une stratégie d'activation de marque efficace pour les clubs automobiles.",
       "badge": "INFO",
       "url": "https://www.tcs.ch/fr/news-events/evenements/tour-de-suisse.php"
+    },
+    {
+      "id": "2026-06-15-tcb-1",
+      "club": "Touring Belgique",
+      "category": "EU",
+      "badge": "NOTABLE",
+      "content": "AG Insurance rachète la participation de BNP Paribas Fortis (25%) dans Touring SA au 29 mai 2026, devenant l'actionnaire unique à 100%. Un programme d'investissement accompagne cette consolidation.",
+      "relevance": "Rapprochement structurel entre clubs automobiles et acteurs de l'assurance. AG Insurance contrôle désormais la totalité de la chaîne de valeur assistance + assurance en Belgique.",
+      "url": "https://newsroom.ag.be/ag-insurance-rachete-la-participation-de-bnp-paribas-fortis-dans-touring-sa",
+      "date": "2026-05-29"
+    },
+    {
+      "id": "2026-05-28-adac-1",
+      "date": "2026-05-28",
+      "club": "ADAC",
+      "category": "EU",
+      "content": "L'ADAC Autovermietung intègre ChatGPT pour la réservation de voitures de location en langage naturel : première mondiale parmi les clubs automobiles.",
+      "relevance": "Signal fort d'innovation digitale. L'ACL pourrait explorer des intégrations IA pour ses services membres (assistance, voyage).",
+      "badge": "NOTABLE",
+      "url": "https://presse.adac.de/meldungen/adac-se/reisen-unterwegs/neu-bei-der-adac-autovermietung-mietwagen-bequem-ueber-chatgpt-buchen.html"
+    },
+    {
+      "id": "2026-05-28-anwb-1",
+      "date": "2026-05-28",
+      "club": "ANWB",
+      "category": "EU",
+      "content": "ANWB célèbre les 80 ans du Wegenwacht (assistance routière) avec exposition au musée automobile Visscher Classique, valorisant les véhicules d'intervention historiques.",
+      "relevance": "Modèle de valorisation de l'histoire du club à des fins de communication mémorielle. L'ACL (fondé en 1927) dispose d'un patrimoine comparable.",
+      "badge": "INFO",
+      "url": "https://kampioen.anwb.nl/2026-05/leuke-dingen-doen-in-mei"
+    },
+    {
+      "id": "2026-05-28-oeamtc-1",
+      "date": "2026-05-28",
+      "club": "ÖAMTC",
+      "category": "EU",
+      "content": "Sondage ÖAMTC : 68% des Autrichiens veulent maintenir la limite à 130 km/h sur autoroute. 65% adoptent déjà une conduite sobre. Le club s'oppose à toute réduction contraignante.",
+      "relevance": "Illustration d'un club qui utilise les sondages d'opinion pour peser dans le débat politique sur la mobilité.",
+      "badge": "INFO",
+      "url": "https://www.oeamtc.at/presse/oeamtc-umfrage-68-prozent-wollen-bei-tempo-130-auf-autobahnen-bleiben-86337522"
+    },
+    {
+      "id": "2026-05-28-touring-1",
+      "date": "2026-05-28",
+      "club": "Touring Belgique",
+      "category": "EU",
+      "content": "Test collectif ADAC + Touring (chambre climatique AVL Roding) : systèmes de détection de lignes et radars significativement moins fiables sous pluie et brouillard.",
+      "relevance": "La fiabilité des ADAS par mauvais temps devient un sujet de litiges potentiels. Les clubs pourraient être sollicités pour conseils juridiques/techniques.",
+      "badge": "SURVEILLER",
+      "url": "https://www.touring.be/fr/articles/aides-a-la-conduite-par-mauvais-temps"
+    },
+    {
+      "id": "2026-05-28-byd-1",
+      "date": "2026-05-28",
+      "club": "BYD",
+      "category": "Mobilité",
+      "content": "BYD négocie le rachat d'usines européennes (Stellantis et autres). Vente UK : BYD désormais 1ère marque VE devant Tesla et Kia. Usine Hongrie opérationnelle, Turquie fin 2026.",
+      "relevance": "BYD sera un acteur européen à part entière d'ici 2027-2028. Les clubs doivent intégrer BYD dans leurs grilles de tests et anticiper l'assistance sur ces architectures.",
+      "badge": "NOTABLE",
+      "url": "https://electrek.co/2026/05/13/byd-eyes-stellantis-eu-plant-ev-sales-surge-others-too/"
+    },
+    {
+      "id": "2026-05-28-waymo-1",
+      "date": "2026-05-28",
+      "club": "Waymo",
+      "category": "Mobilité",
+      "content": "Expansion à 1400 miles² dans 11 villes US. Flotte ~3000 véhicules, 20M+ courses cumulées. Objectif 1M courses/semaine fin 2026. Prochains marchés : Londres et Tokyo.",
+      "relevance": "Écart opérationnel croissant avec Tesla. L'arrivée à Londres signal que les clubs européens devront bientôt prendre position sur les robotaxis.",
+      "badge": "SURVEILLER",
+      "url": "https://electrek.co/2026/05/13/waymo-expands-coverage-1400-square-miles-11-cities/"
+    },
+    {
+      "id": "2026-05-28-tesla-1",
+      "date": "2026-05-28",
+      "club": "Tesla Robotaxi",
+      "category": "Mobilité",
+      "content": "Production Cybercab démarrée à Giga Texas. Service commercial lancé à Houston et Dallas. Déploiement prévu dans 7 villes US au S1 2026.",
+      "relevance": "Deux écosystèmes robotaxi (Waymo, Tesla) en phase commerciale simultanée. L'écart opérationnel se creuse (périmètre réduit vs Waymo).",
+      "badge": "SURVEILLER",
+      "url": "https://electrek.co/2026/04/23/tesla-cybercab-production-starts-no-nhtsa-2500-vehicle-cap/"
+    },
+    {
+      "id": "2026-05-18-oeamtc-1",
+      "date": "2026-05-18",
+      "club": "ÖAMTC",
+      "category": "EU",
+      "content": "36e novelle StVO autrichienne (1er mai 2026) : e-scooters deviennent des véhicules officiels (équipement obligatoire, alcootest, casque -16 ans). E-mopeds soumis à immatriculation dès octobre 2026.",
+      "relevance": "Le Luxembourg devrait suivre cette évolution réglementaire européenne. L'ÖAMTC se positionne comme référence d'orientation réglementaire.",
+      "badge": "NOTABLE",
+      "url": "https://www.oeamtc.at/presse/oeamtc-36-stvo-novelle-welche-neuerungen-gelten-ab-1-mai-2026-86402001"
+    },
+    {
+      "id": "2026-05-18-touring-1",
+      "date": "2026-05-18",
+      "club": "Touring Belgique",
+      "category": "EU",
+      "content": "Baromètre des vacances 2026 : 8 Belges sur 10 prévoient de partir malgré tensions géopolitiques et hausse des prix. Niveau de résilience remarquable.",
+      "relevance": "Les clubs peuvent fidéliser leurs membres via des services voyage. L'ACL pourrait produire un baromètre similaire sur les Luxembourgeois.",
+      "badge": "INFO",
+      "url": "https://www.touring.be/fr/articles/vacances-2026-les-nouvelles-habitudes-des-belges"
+    },
+    {
+      "id": "2026-05-18-oeamtc-2",
+      "date": "2026-05-18",
+      "club": "ÖAMTC",
+      "category": "EU",
+      "content": "Wiener Elektro Tage 2026 (29-31 mai) avec 19 constructeurs VE. Nouveauté : service ÖAMTC ePower accessible directement depuis l'application mobile du club.",
+      "relevance": "L'ÖAMTC intègre ses services mobilité électrique dans son écosystème numérique. Piste pour enrichir l'offre numérique ACL autour de la recharge EV.",
+      "badge": "INFO",
+      "url": "https://www.oeamtc.at/news/wien/wiener-elektro-tage-2026-61812915"
+    },
+    {
+      "id": "2026-05-18-adac-1",
+      "date": "2026-05-18",
+      "club": "ADAC",
+      "category": "EU",
+      "content": "ADAC Stiftung : enquête nationale (340 enseignants) — 47% des enfants présentent déficits d'attention dans la circulation, écoles manquent 5h/an d'éducation mobilité.",
+      "relevance": "L'ACL dispose de programmes de sensibilisation scolaire. Cette étude fournit des arguments chiffrés pour étendre les partenariats avec le monde éducatif luxembourgeois.",
+      "badge": "INFO",
+      "url": "https://presse.adac.de/meldungen/adac-stiftung/adac-stiftung/kinder-im-strassenverkehr-ueberfordert-lehrkraefte-fordern-mehr-mobilitaetsbildung-im-unterricht.html"
+    },
+    {
+      "id": "2026-05-18-aaa-1",
+      "date": "2026-05-18",
+      "club": "AAA",
+      "category": "Monde",
+      "content": "Projection AAA : 45 millions d'Américains en déplacement pour le Memorial Day 2026 (nouveau record). 39,1M en voiture malgré prix carburants au plus haut depuis l'été 2022.",
+      "relevance": "Les baromètres de déplacement des grandes fêtes sont un outil de notoriété. Format transposable : l'ACL pourrait produire un baromètre Ascension/Pentecôte.",
+      "badge": "INFO",
+      "url": "https://newsroom.aaa.com/2026/05/45-million-americans-planning-memorial-day-weekend-getaways/"
+    },
+    {
+      "id": "2026-05-11-race-1",
+      "date": "2026-05-11",
+      "club": "RACE",
+      "category": "EU",
+      "content": "1er Congrès Mondial Tourisme & Motorsport (WMTC) organisé avec FIA et ONU Tourisme les 15-16 juin au Circuit Madrid Jarama. 300 professionnels attendus.",
+      "relevance": "Positionnement institutionnel fort du RACE à l'intersection sport automobile / tourisme / durabilité.",
+      "badge": "INFO",
+      "url": "https://www.race.es/area-de-prensa/la-fundacion-race-en-colaboracion-con-la-fia-y-onu-turismo-organiza-primer-congreso-mundial-de-turismo-y-motorsport"
+    },
+    {
+      "id": "2026-05-11-rac-1",
+      "date": "2026-05-11",
+      "club": "RAC",
+      "category": "EU",
+      "content": "Plaidoyer RAC pour une refonte de la signalisation 'route barrée' au Royaume-Uni : les panneaux actuels sont trop imprécis, sans itinéraire de substitution.",
+      "relevance": "Modèle de plaidoyer public ancré dans des données d'enquête membres.",
+      "badge": "INFO",
+      "url": "https://media.rac.co.uk/drivers-say-road-ahead-closed-signs-are-uninformative-and-need-to-be-improved"
+    },
+    {
+      "id": "2026-05-11-touring-1",
+      "date": "2026-05-11",
+      "club": "Touring Belgique",
+      "category": "EU",
+      "content": "Badge de télépéage Fulli promu comme avantage membre : une seule puce pour accéder aux réseaux autoroutiers de plusieurs pays européens sans friction.",
+      "relevance": "Avantage membres concret lié aux mobilités transfrontalières, pertinent pour un pays comme le Luxembourg.",
+      "badge": "INFO",
+      "url": "https://www.touring.be/fr/articles/badge-telepeage-fulli"
+    },
+    {
+      "id": "2026-05-11-aci-1",
+      "date": "2026-05-11",
+      "club": "ACI",
+      "category": "EU",
+      "content": "ACI Editore se repositionne comme 'hub culturel de la mobilité' : refonte graphique et éditoriale complète du magazine L'Automobile, nouveaux formats de contenu.",
+      "relevance": "Mouvement de fond chez les clubs vers une identité de 'hub de mobilité'. Piste de réflexion pour le positionnement éditorial de l'ACL.",
+      "badge": "SURVEILLER",
+      "url": "https://www.lautomobile.aci.it/attualita/aci-editore-diventa-hub-culturale-della-mobilita/"
+    },
+    {
+      "id": "2026-05-11-aaa-1",
+      "date": "2026-05-11",
+      "club": "AAA",
+      "category": "Monde",
+      "content": "Étude AAA sur l'impact des températures extrêmes sur VE et hybrides : à -7°C, les VE perdent 39% d'autonomie et 35,6% d'efficacité. Les hybrides perdent 22,8% d'économie en hiver.",
+      "relevance": "Données chiffrées directement exploitables pour des communications membres sur les VE au Luxembourg, notamment en hiver.",
+      "badge": "NOTABLE",
+      "url": "https://newsroom.aaa.com/2026/05/aaa-study-reveals-temperature-impacts-on-ev-and-hybrid-performance-efficiency-and-costs/"
+    },
+    {
+      "id": "2026-05-11-waymo-1",
+      "date": "2026-05-11",
+      "club": "Waymo",
+      "category": "Mobilité",
+      "content": "Expansion couverture robotaxi à 1400 miles carrés (+27%) dans 11 villes américaines. Objectif 1M courses/semaine fin 2026. Préparation marché Londres et Tokyo.",
+      "relevance": "L'arrivée à Londres marque une première hors États-Unis. Les clubs européens devront se positionner sur l'assistance aux robotaxis avant l'arrivée sur le continent.",
+      "badge": "SURVEILLER",
+      "url": "https://electrek.co/2026/05/13/waymo-expands-coverage-1400-square-miles-11-cities/"
+    },
+    {
+      "id": "2026-05-04-adac-1",
+      "date": "2026-05-04",
+      "club": "ADAC",
+      "category": "EU",
+      "content": "L'ADAC Autovermietung permet de réserver un véhicule directement via ChatGPT en langage naturel. Premier grand club automobile à intégrer l'IA conversationnelle dans un parcours transactionnel.",
+      "relevance": "Piste d'innovation à surveiller pour les services membres ACL (location, assistance, voyages). L'IA conversationnelle réduit la friction des interfaces complexes.",
+      "badge": "NOTABLE",
+      "url": "https://presse.adac.de/meldungen/adac-se/reisen-unterwegs/neu-bei-der-adac-autovermietung-mietwagen-bequem-ueber-chatgpt-buchen.html"
+    },
+    {
+      "id": "2026-05-04-adac-2",
+      "date": "2026-05-04",
+      "club": "ADAC",
+      "category": "EU",
+      "content": "Pannenstatistik 2026 : les VE sont nettement plus fiables que les thermiques sur toutes les classes d'âge (PKZ 6,5 vs 12,5 pour 4 ans). La batterie 12V reste la première cause de panne (50% des interventions).",
+      "relevance": "Données utiles pour conseiller les membres ACL sur le choix de véhicule et anticiper l'évolution des interventions dépannage.",
+      "badge": "INFO",
+      "url": "https://presse.adac.de/meldungen/adac-ev/technik/adac-pannenstatistik-2026.html"
+    },
+    {
+      "id": "2026-05-04-rac-1",
+      "date": "2026-05-04",
+      "club": "RAC",
+      "category": "EU",
+      "content": "RAC Connected intègre CalAmp CrashBoxx pour détecter les accidents en temps réel via l'IA. Reconstruction instantanée des incidents, accélération des déclarations pour les flottes professionnelles.",
+      "relevance": "Innovation dans la télématique connectée et les services aux flottes professionnelles.",
+      "badge": "SURVEILLER",
+      "url": "https://media.rac.co.uk/rac-connected-introduces-real-time-crash-intelligence-with-calamp-crashboxx"
+    },
+    {
+      "id": "2026-05-04-aa-1",
+      "date": "2026-05-04",
+      "club": "AA",
+      "category": "EU",
+      "content": "The AA soutient la stratégie nationale sécurité routière britannique : objectif -65% décès/blessés graves d'ici 2035. La AA obtient l'introduction de points de pénalité pour non-port de ceinture (campagne Buckle Up).",
+      "relevance": "Positionnement fort de la AA en lobbying sécurité routière. Inspiration pour l'ACL dans son rôle de défense des automobilistes.",
+      "badge": "SURVEILLER",
+      "url": "https://www.theaa.com/about-us/newsroom/road-safety-strategy-2026"
+    },
+    {
+      "id": "2026-05-04-touring-1",
+      "date": "2026-05-04",
+      "club": "Touring Belgique",
+      "category": "EU",
+      "content": "Test ADAS par mauvais temps (ADAC + Touring, chambre AVL à Roding) : systèmes d'assistance (AEB, maintien voie, régulateur adaptatif) non fiables sous pluie intense.",
+      "relevance": "Contenu éditorial à forte valeur ajoutée. Les clubs automobiles pourraient être sollicités pour conseils juridiques en cas d'accident impliquant défaillance ADAS.",
+      "badge": "SURVEILLER",
+      "url": "https://www.touring.be/fr/articles/aides-a-la-conduite-par-mauvais-temps"
+    },
+    {
+      "id": "2026-05-04-tcs-1",
+      "date": "2026-05-04",
+      "club": "TCS",
+      "category": "EU",
+      "content": "TCS couvre l'arrivée des premiers robotaxis autonomes en Suisse : projet AmiGo de CarPostal utilisant le logiciel Baidu dans certaines régions.",
+      "relevance": "La mobilité autonome devient réalité dans des marchés proches du Luxembourg. L'ACL doit anticiper comment accompagner ses membres.",
+      "badge": "SURVEILLER",
+      "url": "https://www.tcs.ch/fr/camping-voyages/informations-touristiques/news-actualites/news-2026.php"
+    },
+    {
+      "id": "2026-05-04-aci-1",
+      "date": "2026-05-04",
+      "club": "ACI",
+      "category": "EU",
+      "content": "Spot sécurité routière '#rispettiamoci' diffusé sur RAI pendant le Giro d'Italia (8-30 mai 2026). Message de coexistence entre tous les usagers de la route.",
+      "relevance": "Stratégie de communication sécurité routière intégrée à un grand événement sportif. Modèle de campagne à fort impact médiatique.",
+      "badge": "INFO",
+      "url": "https://www.aci.it/comunicati/"
+    },
+    {
+      "id": "2026-05-03-race-1",
+      "date": "2026-05-03",
+      "club": "RACE",
+      "category": "EU",
+      "content": "App RACE SOS ouverte aux non-membres : comparaison prix carburant en temps réel, géolocalisation électrolineras et parkings dans 50 km. 28% des demandes d'assistance passent par l'app (x2 depuis 2020).",
+      "relevance": "Stratégie d'acquisition freemium très pertinente. L'app comme porte d'entrée pour les non-membres crée un entonnoir d'adhésion digital. L'ACL n'a pas encore d'équivalent.",
+      "badge": "NOTABLE",
+      "url": "https://www.race.es/revista-autoclub/race/race-actualiza-su-app-race-sos/?n=marzo-abril-2026"
+    },
+    {
+      "id": "2026-05-03-adac-1",
+      "date": "2026-05-03",
+      "club": "ADAC",
+      "category": "EU",
+      "content": "Révision tarifaire soumise au vote AG du 23 mai 2026 : première hausse depuis 2020, justifiée par +31% des coûts automobiles. Entrée en vigueur au 1er janvier 2027 si approuvée.",
+      "relevance": "Signal d'alerte sur la pression inflationniste que subissent tous les clubs. La communication de l'ADAC (transparente et proactive) est un modèle à suivre.",
+      "badge": "SURVEILLER",
+      "url": "https://www.adac.de/der-adac/verein/corporate-news/adac-zukunftssicher/"
+    },
+    {
+      "id": "2026-05-03-touring-1",
+      "date": "2026-05-03",
+      "club": "Touring Belgique",
+      "category": "EU",
+      "content": "Flotte d'intervention 100% électrique en 2026 avec VW ID.Buzz. Partenariat avec AG Insurance pour créer un 'écosystème global de mobilité'.",
+      "relevance": "Question concrète pour l'ACL : quelle est la feuille de route pour l'électrification de ses propres véhicules d'assistance ?",
+      "badge": "SURVEILLER",
+      "url": "https://www.touring.be/fr/articles/services-dassistance-touring-nouveaux-actionnaires"
+    },
+    {
+      "id": "2026-05-03-roole-1",
+      "date": "2026-05-03",
+      "club": "Roole",
+      "category": "EU",
+      "content": "Retour du leasing social électrique en juin 2026 : voiture électrique à 100€/mois, critères d'éligibilité élargis. Mobilisation de 1,5M de membres.",
+      "relevance": "Les offres d'essai et la mobilité inclusive sont des leviers de recrutement membres à explorer.",
+      "badge": "SURVEILLER",
+      "url": "https://media.roole.fr/transition/voiture-propre/leasing-social-2026-la-voiture-electrique-a-100-euros-par-mois-revient-des-juin-avec-un-dispositif-elargi"
+    },
+    {
+      "id": "2026-05-03-rac-1",
+      "date": "2026-05-03",
+      "club": "RAC",
+      "category": "EU",
+      "content": "Lancement de la RAC Academy : programme d'apprentissage pour former des techniciens de patrouille, avec expansion nationale planifiée.",
+      "relevance": "Investissement dans la formation interne comme différenciateur qualité de service.",
+      "badge": "INFO",
+      "url": "https://media.rac.co.uk/rac-academy-salutes-first-graduates-2150297"
+    },
+    {
+      "id": "2026-05-03-race-2",
+      "date": "2026-05-03",
+      "club": "RACE",
+      "category": "EU",
+      "content": "Étude RACE : la crainte d'une cyberattaque sur son véhicule dépasse désormais celle d'une panne mécanique chez les conducteurs de voitures connectées.",
+      "relevance": "Signal fort pour positionner l'ACL sur des services de cybersécurité automobile.",
+      "badge": "SURVEILLER",
+      "url": "https://www.race.es/revista-autoclub/race/un-ciberataque-ya-preocupa-mas-que-una-averia/?n=marzo-abril-2026"
+    },
+    {
+      "id": "2026-05-03-adac-2",
+      "date": "2026-05-03",
+      "club": "ADAC",
+      "category": "EU",
+      "content": "Nouveaux services membres : Schlüsselnotdienst (urgence clé) et Fahrradpannenhilfe (assistance panne vélo) avec 290+ stations nationales.",
+      "relevance": "Extension au vélo et services 'maison' comme vecteur de fidélisation.",
+      "badge": "INFO",
+      "url": "https://www.adac.de/der-adac/verein/corporate-news/"
     }
   ],
   "trends": [
-    "La numérisation de l'assistance routière devient un standard industriel — ARC Europe SmartRSA atteint 60%+ d'adoption digitale. Les clubs qui n'auront pas digitalisé leur parcours client d'ici 2-3 ans risquent d'être contournés.",
-    "Les robotaxis passent du stade pilote au déploiement commercial — Waymo et Tesla opèrent des flottes commerciales en 2026. L'arrivée de Waymo à Londres va créer les premières frictions avec les régulations locales.",
-    "La pression réglementaire sur la transparence tarifaire s'intensifie — Le cas AA/CMA illustre un mouvement vers le contrôle des pratiques tarifaires en ligne. Les clubs avec des abonnements et options payantes au checkout doivent revoir leurs parcours.",
-    "L'IA conversationnelle entre dans les services clubs — L'ADAC intègre ChatGPT dans la réservation. Cette évolution est susceptible de se propager rapidement à d'autres clubs et types de services.",
-    "BYD s'impose comme acteur industriel européen — En négociant des usines existantes (pas de construction ex nihilo), BYD sera un acteur européen à part entière d'ici 2027-2028."
+    "Consolidation capitalistique des clubs autour des assureurs : AG Insurance prend 100% de Touring SA en Belgique. Les clubs automobiles deviennent des actifs stratégiques pour les groupes d'assurance cherchant à contrôler la chaîne de valeur de la mobilité.",
+    "L'abonnement comme nouveau modèle de fidélisation dans la mobilité : Waymo lance le premier abonnement mensuel robotaxi de l'industrie. Les clubs comme le NAF structurent également des partenariats membres autour de services récurrents.",
+    "La voiture connectée comme déclencheur d'une assistance prédictive : ARC Europe publie deux contenus en juin autour de l'intégration des données véhicule dans l'assistance, transformant le modèle réactif vers un modèle proactif et data-driven."
   ],
   "signals": [
-    "Restructuration des métiers de l'assistance due à l'IA — ARC Europe France supprime jusqu'à 80 postes. Les clubs gérant leur assistance en interne devraient auditer leur exposition à cette substitution technologique dans 2-3 ans.",
-    "Le parc VE de marques chinoises (BYD, Zeekr/Geely) s'impose en Europe — Le parc luxembourgeois va s'enrichir de modèles pour lesquels les techniciens d'assistance manquent de formation spécifique.",
-    "La transparence tarifaire comme risque réputationnel et réglementaire — La sanction AA est probablement la première d'une série en Europe. Les clubs avec frais différés doivent anticiper un contrôle accru.",
-    "La fiabilité des ADAS par mauvais temps devient un sujet de litiges potentiels — Le test Touring/ADAC révèle des défaillances sous pluie et brouillard des systèmes obligatoires depuis juillet 2024.",
-    "Les apps clubs comme portails d'acquisition freemium — Le RACE ouvre ses services numériques aux non-membres. Les clubs risquent de se trouver en compétition avec des agrégateurs (Waze, Google Maps) s'ils n'intègrent pas des fonctionnalités différenciantes."
+    "Consolidation clubs/assureurs (récurrence) : pour la 2e édition consécutive, un assureur prend le contrôle d'un club automobile. Cette dynamique de rapprochement structurel semble s'accélérer en Europe et dans le monde.",
+    "Pression des constructeurs chinois (récurrence) : BYD et Xiaomi cités dans plusieurs sources. Croissance BYD en Europe +144% sur 5 mois, implantation industrielle en Hongrie — préparation nécessaire des services d'assistance pour ces véhicules.",
+    "Modèle d'abonnement pour la mobilité (nouveauté émergente) : le lancement du Premier de Waymo introduit un abonnement mensuel dans les services robotaxi, reflétant une logique de fidélisation proche du modèle club.",
+    "Lobbying politique des clubs automobiles (récurrence) : pour la 2e fois ce mois, un club (FDM Danemark) utilise une occasion institutionnelle nationale pour un plaidoyer fiscal en faveur des automobilistes."
   ]
 }
