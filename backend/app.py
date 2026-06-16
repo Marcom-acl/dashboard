@@ -73,6 +73,7 @@ SUPERMETRICS_API_KEY = os.environ.get('SUPERMETRICS_API_KEY', '')
 BUFFER_API_KEY       = os.environ.get('BUFFER_API_KEY', '')
 DATAFORSEO_LOGIN     = os.environ.get('DATAFORSEO_LOGIN', '')
 DATAFORSEO_PASSWORD  = os.environ.get('DATAFORSEO_PASSWORD', '')
+GOOGLE_API_KEY       = os.environ.get('GOOGLE_API_KEY', '')
 
 # ── CTR curve (expected CTR by position, used in /insights/web score_v2) ─────
 _CTR_CURVE = {1:0.28, 2:0.15, 3:0.11, 4:0.08, 5:0.07, 6:0.065, 7:0.055, 8:0.045, 9:0.035, 10:0.02}
@@ -2946,6 +2947,20 @@ def get_insights():
         except Exception as e:
             return jsonify({'error': str(e)}), 500
 
+    if mode == 'partners':
+        prompt = build_partners_prompt(data)
+        try:
+            import anthropic
+            client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
+            msg = client.messages.create(
+                model='claude-haiku-4-5-20251001',
+                max_tokens=1024,
+                messages=[{'role': 'user', 'content': prompt}],
+            )
+            return jsonify({'analysis': msg.content[0].text})
+        except Exception as e:
+            return jsonify({'error': str(e)}), 500
+
     prompt = build_insights_prompt(data)
 
     try:
@@ -4927,6 +4942,124 @@ def club_debug_nl_patterns():
         'skipped_no_date':      skipped_no_date,
         'campaigns':            result_campaigns,
     })
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Partenaires Avantages Club — prompt IA
+# ─────────────────────────────────────────────────────────────────────────────
+
+def build_partners_prompt(data):
+    period   = data.get('period', 30)
+    d        = data.get('data', {})
+    leads    = d.get('leads', {})
+    nl       = d.get('newsletter', {})
+    ga4      = d.get('ga4', {})
+    meta     = d.get('meta', {})
+
+    by_partner = leads.get('byPartner', [])
+    total_leads      = leads.get('total', 0)
+    members_unique   = leads.get('membersUnique', 0)
+    leads_per_member = leads.get('leadsPerMember', 0)
+    nl_open_rate     = nl.get('openRate', 0)
+    nl_delivered     = nl.get('delivered', 0)
+    ga4_sessions     = ga4.get('sessions', 0)
+    meta_clicks      = meta.get('linkClicks', 0) if not meta.get('error') else 'N/A'
+
+    partner_lines = ''
+    if by_partner:
+        sorted_p = sorted(by_partner, key=lambda x: x.get('leads', 0), reverse=True)
+        for p in sorted_p[:15]:
+            partner_lines += f"  - {p.get('label','?')}: {p.get('leads',0)} leads\n"
+
+    return f"""Tu es analyste marketing pour l'ACL (Automobile Club du Luxembourg).
+Analyse les performances du programme Avantages Club sur les {period} derniers jours.
+
+## Données globales
+- Leads générés : {total_leads}
+- Membres uniques ayant cliqué : {members_unique}
+- Leads par membre : {leads_per_member:.2f}
+- Emails délivrés (newsletter Club) : {nl_delivered}
+- Taux d'ouverture NL : {nl_open_rate:.1f}%
+- Sessions GA4 pages partenaires : {ga4_sessions}
+- Clics Meta Ads (programme Club) : {meta_clicks}
+
+## Leads par partenaire (top 15)
+{partner_lines or '  Données non disponibles'}
+
+## Ta mission
+Rédige une analyse concise en français (5 à 8 phrases maximum) qui :
+1. Évalue la santé globale du programme (momentum, tendances clés)
+2. Met en avant 2-3 partenaires aux performances remarquables (positifs ET négatifs)
+3. Propose 1-2 actions concrètes prioritaires
+
+Sois direct, factuel, et actionnable. Pas de mise en forme markdown — texte brut uniquement."""
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# PageSpeed Insights — Core Web Vitals pour acl.lu et autotouring.lu
+# ─────────────────────────────────────────────────────────────────────────────
+
+@app.route('/pagespeed')
+def pagespeed():
+    cache_key = 'pagespeed'
+    cached = _cache_get(cache_key)
+    if cached:
+        return jsonify(cached)
+
+    sites      = ['https://www.acl.lu', 'https://www.autotouring.lu']
+    strategies = ['mobile', 'desktop']
+
+    def fetch_psi(site, strategy):
+        params = {'url': site, 'strategy': strategy}
+        if GOOGLE_API_KEY:
+            params['key'] = GOOGLE_API_KEY
+        try:
+            r = requests.get(
+                'https://www.googleapis.com/pagespeedonline/v5/runPagespeed',
+                params=params, timeout=30, verify=_VERIFY
+            )
+            if not r.ok:
+                return {'error': f'HTTP {r.status_code}'}
+            body  = r.json()
+            lhr   = body.get('lighthouseResult', {})
+            cats  = lhr.get('categories', {})
+            audits = lhr.get('audits', {})
+            perf  = cats.get('performance', {})
+            score = perf.get('score')
+            def av(k):
+                return audits.get(k, {}).get('displayValue', '—')
+            def nv(k):
+                return audits.get(k, {}).get('numericValue')
+            return {
+                'performance': round(score * 100) if score is not None else None,
+                'fcp':  av('first-contentful-paint'),
+                'fcp_ms': nv('first-contentful-paint'),
+                'lcp':  av('largest-contentful-paint'),
+                'lcp_ms': nv('largest-contentful-paint'),
+                'tbt':  av('total-blocking-time'),
+                'tbt_ms': nv('total-blocking-time'),
+                'cls':  av('cumulative-layout-shift'),
+                'cls_v': nv('cumulative-layout-shift'),
+                'si':   av('speed-index'),
+                'si_ms': nv('speed-index'),
+                'tti':  av('interactive'),
+                'tti_ms': nv('interactive'),
+            }
+        except Exception as e:
+            return {'error': str(e)}
+
+    results = {}
+    with concurrent.futures.ThreadPoolExecutor(max_workers=4) as ex:
+        futures = {(site, strat): ex.submit(fetch_psi, site, strat)
+                   for site in sites for strat in strategies}
+
+    for site in sites:
+        results[site] = {}
+        for strat in strategies:
+            results[site][strat] = futures[(site, strat)].result()
+
+    _cache_set(cache_key, results, 3600)
+    return jsonify(results)
 
 
 # ─────────────────────────────────────────────────────────────────────────────
