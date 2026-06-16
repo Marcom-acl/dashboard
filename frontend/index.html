@@ -5354,12 +5354,12 @@ async function fetchPageSpeed(cachedData) {
   if (!psi) {
     el.innerHTML = `<div class="sec-title" style="margin-top:0"><h2>Performance technique</h2><div class="line"></div><span class="src-pill" style="--src:#34A853;--src-bg:#E0F2E6">PageSpeed</span></div><div style="padding:16px;text-align:center;color:var(--muted);font-size:12px">Chargement des scores PageSpeed…</div>`;
     try {
-      const r = await fetch(`${API_BASE}/pagespeed`, {signal: AbortSignal.timeout(35000)});
-      if (!r.ok) throw new Error(`HTTP ${r.status}`);
+      const r = await fetch(`${API_BASE}/pagespeed`, {signal: AbortSignal.timeout(60000)});
+      if (!r.ok) throw new Error(`HTTP ${r.status} — endpoint introuvable (Railway déploie encore ?)`);
       psi = await r.json();
       if (window._dashData) window._dashData.dPageSpeed = psi;
     } catch(e) {
-      el.innerHTML = `<div class="sec-title" style="margin-top:0"><h2>Performance technique</h2><div class="line"></div></div><div style="color:var(--muted);font-size:12px;padding:8px 0">PageSpeed indisponible — <button onclick="fetchPageSpeed()" style="background:none;border:none;color:var(--y);font-weight:700;cursor:pointer;font-family:inherit;font-size:12px">Réessayer</button></div>`;
+      el.innerHTML = `<div class="sec-title" style="margin-top:0"><h2>Performance technique</h2><div class="line"></div></div><div style="color:var(--muted);font-size:12px;padding:8px 0">PageSpeed indisponible : <em>${e.message}</em> — <button onclick="if(window._dashData)delete window._dashData.dPageSpeed;fetchPageSpeed()" style="background:none;border:none;color:var(--y);font-weight:700;cursor:pointer;font-family:inherit;font-size:12px">Réessayer</button></div>`;
       return;
     }
   }
@@ -5398,10 +5398,26 @@ function renderPageSpeed(psi) {
   }
 
   function siteCard(siteUrl, label, dot) {
-    const d = psi[siteUrl] || {};
-    const mob = d.mobile || {};
+    const d = psi[siteUrl];
+    if (!d) return `<div class="card" style="margin-bottom:12px"><div class="card-body" style="padding:12px 16px;color:var(--muted);font-size:12px">${label} — données non reçues</div></div>`;
+    const mob = d.mobile  || {};
     const des = d.desktop || {};
-    if (mob.error && des.error) return '';
+
+    if (mob.error && des.error) {
+      return `
+      <div class="card" style="margin-bottom:12px">
+        <div class="card-head">
+          <div style="display:flex;align-items:center;gap:8px">
+            <span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:${dot};flex-shrink:0"></span>
+            <div class="card-title">${label}</div>
+          </div>
+        </div>
+        <div class="card-body" style="padding:12px 16px;color:var(--muted);font-size:12px">
+          Analyse indisponible — ${mob.error || des.error}
+          <button onclick="if(window._dashData)delete window._dashData.dPageSpeed;fetchPageSpeed()" style="margin-left:8px;background:none;border:none;color:var(--y);font-weight:700;cursor:pointer;font-family:inherit;font-size:12px">↻ Réessayer</button>
+        </div>
+      </div>`;
+    }
 
     const cols = (strategy, sd) => METRICS.map(m => {
       const raw = sd[m.k];
@@ -5429,8 +5445,8 @@ function renderPageSpeed(psi) {
             ${METRICS.map(m => `<th style="text-align:center" title="${m.tip}">${m.label}</th>`).join('')}
           </tr></thead>
           <tbody>
-            ${!mob.error ? `<tr><td style="font-weight:600;font-size:12px;white-space:nowrap;padding:8px 12px">📱 Mobile</td>${cols('mobile',mob)}</tr>` : ''}
-            ${!des.error ? `<tr><td style="font-weight:600;font-size:12px;white-space:nowrap;padding:8px 12px">🖥 Desktop</td>${cols('desktop',des)}</tr>` : ''}
+            ${!mob.error ? `<tr><td style="font-weight:600;font-size:12px;white-space:nowrap;padding:8px 12px">📱 Mobile</td>${cols('mobile',mob)}</tr>` : `<tr><td colspan="${METRICS.length+1}" style="padding:8px 12px;color:var(--muted);font-size:12px">Mobile — ${mob.error}</td></tr>`}
+            ${!des.error ? `<tr><td style="font-weight:600;font-size:12px;white-space:nowrap;padding:8px 12px">🖥 Desktop</td>${cols('desktop',des)}</tr>` : `<tr><td colspan="${METRICS.length+1}" style="padding:8px 12px;color:var(--muted);font-size:12px">Desktop — ${des.error}</td></tr>`}
           </tbody>
         </table></div>
       </div>
