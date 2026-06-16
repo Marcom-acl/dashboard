@@ -1,4 +1,267 @@
 {
-  "generated_at": null,
-  "items": []
+  "generated_at": "2026-06-16",
+  "items": [
+    {
+      "date": "2026-06-16",
+      "theme": "IA générative en marketing",
+      "titre": "Adobe lance un Creative Agent autonome intégré à toute la Creative Cloud",
+      "synthese": "En avril 2026, Adobe a dévoilé un Creative Agent capable d'exécuter des workflows complexes en langage naturel à travers Photoshop, Premiere, Lightroom, Illustrator et Firefly. L'agent peut décrire un objectif créatif et enchaîner les opérations sans intervention manuelle. Cette évolution positionne l'IA comme un copilote créatif complet plutôt qu'un simple outil de génération d'images. Les équipes marketing peuvent déléguer la production d'assets répétitifs tout en conservant le contrôle éditorial. L'intégration native dans Creative Cloud évite la fragmentation des outils IA.",
+      "actionACL": "Tester Adobe Creative Agent pour automatiser la déclinaison des visuels de campagne (formats réseaux sociaux, bannières, prints) à partir d'un master. Évaluer le gain de temps sur les productions récurrentes.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "Adobe Newsroom — New Creative Agent & Firefly AI Innovations",
+          "url": "https://news.adobe.com/news/2026/04/adobe-new-creative-agent"
+        },
+        {
+          "name": "Creative Bloq — How Adobe thinks creatives will use AI in 2026",
+          "url": "https://www.creativebloq.com/tech/from-firefly-to-graph-how-adobe-thinks-creatives-will-use-ai-in-2026"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-16",
+      "theme": "IA générative en marketing",
+      "titre": "L'IA agentique s'impose dans le marketing : Salesforce, HubSpot et Adobe en tête",
+      "synthese": "En 2026, les agents IA autonomes (Salesforce Agentforce, HubSpot Breeze AI Agents, Adobe Agent Orchestrator) sont devenus opérationnels dans les équipes marketing. Ces agents gèrent de bout en bout la qualification de leads, la création de contenu, le lancement de campagnes et l'optimisation des performances sans supervision permanente. Selon les données sectorielles, 74 % des marketeurs américains utilisent l'IA régulièrement, et 88 % des équipes marketing déclarent l'adopter, plaçant ce secteur en tête de l'adoption IA. La production de contenu est 10x plus rapide avec des coûts réduits de 40 % en moyenne.",
+      "actionACL": "Identifier dans le workflow marketing ACL les tâches répétitives (newsletters, posts réseaux sociaux, rapports de campagne) éligibles à une automatisation agentique. Réaliser un benchmark Breeze AI vs Agentforce.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "MarTech — AI-powered martech news and releases",
+          "url": "https://martech.org/the-latest-ai-powered-martech-news-and-releases/"
+        },
+        {
+          "name": "Spark Novus — Top 10 AI Driven Marketing Shifts 2026",
+          "url": "https://sparknovus.com/blog/top-10-ai-driven-marketing-shifts-to-watch-closely-in-2026"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-16",
+      "theme": "IA générative en marketing",
+      "titre": "AEO : l'optimisation pour les moteurs IA devient une priorité SEO en 2026",
+      "synthese": "L'Answer Engine Optimization (AEO) s'impose comme une nouvelle discipline : il ne s'agit plus seulement d'être visible sur Google, mais d'être cité par les IA génératives (ChatGPT, Gemini, Claude, Perplexity). Les marques doivent se comporter comme des rédactions, publiant des contenus fiables, bien structurés et compréhensibles par les LLM. HubSpot a intégré un module AEO dans Breeze AI pour auditer et reformuler les contenus existants. Ce pivot stratégique concerne directement la visibilité en ligne des organisations.",
+      "actionACL": "Auditer les pages clés du site ACL (adhésion, services, clubs) pour vérifier leur structuration en vue d'une citation par les assistants IA. Tester les outils AEO disponibles sur les contenus prioritaires.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "Viuz — 2026, l'année où l'IA devient concrète",
+          "url": "https://viuz.com/2026/03/29/2026-lannee-ou-lia-devient-concrete-cinq-actions-pour-le-marketing/"
+        },
+        {
+          "name": "Taliju — Tendances marketing 2026",
+          "url": "https://www.taliju.fr/tendances-marketing-2026"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-16",
+      "theme": "IA générative en marketing",
+      "titre": "AdRoll connecte ses campagnes publicitaires à ChatGPT et Claude via MCP",
+      "synthese": "AdRoll a lancé un serveur MCP (Model Context Protocol) permettant de connecter ses insights de performance publicitaire directement dans des plateformes IA comme ChatGPT et Claude. Les équipes marketing peuvent interroger leurs données de campagne en langage naturel et déclencher des actions opérationnelles sans quitter leur interface IA. Cette intégration représente une étape vers un marketing ops entièrement piloté par IA. Le MCP devient un standard d'interopérabilité entre outils martech et LLM.",
+      "actionACL": "Surveiller l'émergence des intégrations MCP dans les outils utilisés par ACL (publicité, analytics, CRM). Anticiper la connexion des données de performance à des assistants IA pour accélérer les analyses.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "INFO",
+      "sources": [
+        {
+          "name": "MarTech — Latest AI-powered martech news",
+          "url": "https://martech.org/the-latest-ai-powered-martech-news-and-releases/"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-16",
+      "theme": "CRM & member marketing",
+      "titre": "Hyper-personnalisation CRM : Salesforce Data Cloud + IA accessible aux mid-market",
+      "synthese": "En 2026, la combinaison de Salesforce Marketing Cloud, Data Cloud et de l'IA agentique permet aux organisations de taille intermédiaire de personnaliser chaque interaction comme le faisaient autrefois seules les grandes entreprises. Les organisations qui adoptent ce type de CRM IA rapportent 20 à 30 % d'augmentation de revenus dans la première année, avec une amélioration mesurable de la rétention membres. La personnalisation s'étend désormais au-delà du marketing vers les ventes et le service client. 87 % des dirigeants considèrent la personnalisation comme critique pour leur compétitivité.",
+      "actionACL": "Évaluer la maturité de la personnalisation dans le CRM actuel d'ACL. Identifier les segments membres pour lesquels une communication hyper-personnalisée (renouvellement, upgrade, services) pourrait améliorer la rétention.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "Amroar — Salesforce CRM Trends 2026",
+          "url": "https://amroar.com/salesforce-crm-trends-2026/"
+        },
+        {
+          "name": "TechImplement — AI-Powered CRM Personalization 2026",
+          "url": "https://techimplement.com/tech-center/ai-powered-crm-personalization/"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-16",
+      "theme": "CRM & member marketing",
+      "titre": "Klaviyo s'impose comme CRM B2C autonome avec intégration loyalty native",
+      "synthese": "Klaviyo se positionne en 2026 comme un CRM B2C autonome intégrant nativement les programmes de fidélité, le marketing automation multicanal (email, SMS, RCS, WhatsApp, push) et l'IA prédictive. L'intégration entre données de fidélité et segmentation CRM permet de déclencher des communications personnalisées basées sur les points gagnés, les comportements d'engagement et les probabilités de rachat. Cette approche all-in-one réduit la fragmentation technologique pour les équipes marketing.",
+      "actionACL": "Explorer Klaviyo comme alternative ou complément au CRM existant pour l'ACL, notamment pour les membres avec programme de fidélité ou avantages exclusifs. Tester les workflows automation basés sur les étapes du cycle de vie membre.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "Klaviyo — 19 Best Loyalty Program Software for B2C Brands",
+          "url": "https://www.klaviyo.com/blog/best-loyalty-program-software"
+        },
+        {
+          "name": "Media Poste Martech — How Klaviyo Works with CRM and Loyalty Platforms",
+          "url": "https://blog.mediaposte-martech.com/how-klaviyo-works-with-crm-and-loyalty-platforms"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-16",
+      "theme": "CRM & member marketing",
+      "titre": "Marketing automation 2026 : privacy-first et no-code au cœur des nouvelles pratiques",
+      "synthese": "Les tendances 2026 en marketing automation combinent IA prédictive, messaging omnicanal, chatbots avancés et workflows no-code, le tout dans une logique privacy-first. Les données first-party deviennent la clé de voûte face au déclin des cookies tiers. Les plateformes comme HubSpot et Klaviyo proposent des workflows construits sans code, réduisant la dépendance aux équipes techniques. 42 % des commerciaux utilisent désormais des intégrations IA+CRM pour personnaliser leurs communications prospects.",
+      "actionACL": "Revoir la stratégie de collecte de données first-party d'ACL (formulaires, préférences membres, comportements digitaux). Mettre en place des flows automation no-code pour les parcours clés (bienvenue, renouvellement, engagement clubs).",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "INFO",
+      "sources": [
+        {
+          "name": "Klaviyo — 8 Marketing Automation Trends for 2026",
+          "url": "https://www.klaviyo.com/blog/marketing-automation-trends"
+        },
+        {
+          "name": "G2 — The State of AI in CRM: A Sneak Peek Into 2026",
+          "url": "https://learn.g2.com/state-of-ai-in-crm"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-16",
+      "theme": "Social & Ads",
+      "titre": "Meta dépasse Google en revenus publicitaires : l'IA Advantage+ en est le moteur",
+      "synthese": "Pour la première fois en 2026, Meta dépasse Google en revenus publicitaires digitaux mondiaux (243,5 Mds$ vs 239,5 Mds$), porté par les campagnes Advantage+ dont le ROAS est 22 % supérieur aux campagnes manuelles. Meta a réalisé ses annonces publicitaires entièrement automatisées : l'annonceur fournit une URL et un budget, l'IA génère les visuels, rédige les textes, sélectionne les audiences et optimise les enchères. Plus d'un million d'annonceurs ont créé 15 millions de publicités en un seul mois via ces outils.",
+      "actionACL": "Basculer les prochaines campagnes ACL sur Meta en mode Advantage+ pour bénéficier de l'optimisation automatique des créatifs et audiences. Comparer les performances vs campagnes manuelles sur un test A/B d'un mois.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "The Next Web — Meta set to overtake Google in digital ad revenue 2026",
+          "url": "https://thenextweb.com/news/meta-surpass-google-digital-ad-revenue-emarketer-2026"
+        },
+        {
+          "name": "Digital Applied — Meta AI Automated Ads 2026",
+          "url": "https://www.digitalapplied.com/blog/meta-ai-automated-ads-2026-marketing-guide"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-16",
+      "theme": "Social & Ads",
+      "titre": "TikTok World 2026 : Smart+ et Symphony Dreamina 2.0 révolutionnent la création publicitaire",
+      "synthese": "TikTok a dévoilé lors de TikTok World 2026 une suite d'outils IA publicitaires majeurs. Smart+ automatise la gestion complète des campagnes (sélection créative, ajustement des enchères, optimisation placements) depuis le TikTok Ads Manager. Symphony Dreamina 2.0 permet de générer des vidéos publicitaires de haute qualité depuis un brief texte. Creator AI Search facilite la découverte de créateurs via une analyse IA des briefs de campagne. Ces outils visent à démocratiser la publicité TikTok pour les annonceurs sans grandes équipes créatives.",
+      "actionACL": "Tester TikTok Smart+ sur une campagne de recrutement membres ou de promotion d'événement ACL. Évaluer Symphony Dreamina 2.0 pour produire des spots vidéo courts à partir des briefs existants.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "ContentGrip — TikTok World 2026 AI ad tools",
+          "url": "https://www.contentgrip.com/tiktok-world-2026-ai-ad-tools/"
+        },
+        {
+          "name": "Segwise — Best AI Tools for TikTok Ads 2026",
+          "url": "https://segwise.ai/blog/best-ai-tools-tiktok-ads-2026"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-16",
+      "theme": "Social & Ads",
+      "titre": "Google intègre Veo 3.1 dans Google Ads : génération vidéo depuis le gestionnaire de campagnes",
+      "synthese": "Google a intégré Veo 3.1, son modèle de génération vidéo IA, directement dans l'interface Google Ads. Les annonceurs peuvent désormais créer des assets vidéo depuis un prompt texte ou animer des images statiques sans quitter leur tableau de bord publicitaire. En parallèle, Google a lancé des shopping ads avec Direct Offers dans le mode IA de la recherche (AI Mode), plaçant des recommandations produits sponsorisées dans les résultats conversationnels. Ces évolutions redéfinissent les formats publicitaires sur la recherche.",
+      "actionACL": "Anticiper les nouveaux formats publicitaires de la recherche IA (AI Mode de Google). Tester la création d'assets vidéo via Veo 3.1 dans Google Ads pour les campagnes nécessitant du contenu vidéo sans budget production.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "Digital Applied — Social Media AI Advertising Meta and Google Updates April 2026",
+          "url": "https://www.digitalapplied.com/blog/social-media-ai-advertising-april-2026-meta-google"
+        },
+        {
+          "name": "JumpFly — AI in Online Advertising 5 Key Trends April 2026",
+          "url": "https://www.jumpfly.com/blog/ai-in-online-advertising-5-key-trends-from-april-2026/"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-16",
+      "theme": "Social & Ads",
+      "titre": "Meta Creator Assistant : un outil IA pour analyser la performance des contenus créateurs",
+      "synthese": "Meta a lancé Creator Assistant, un outil IA directement intégré à Facebook permettant aux créateurs d'analyser en langage naturel leurs performances, comportements d'audience et opportunités de croissance. En parallèle, Meta a ouvert Creator Fast Track, un programme de monétisation de contenu pour les créateurs présents sur Instagram, TikTok et YouTube via Facebook. Ces outils visent à renforcer l'attractivité de l'écosystème Meta pour les créateurs face à la concurrence TikTok/YouTube.",
+      "actionACL": "Explorer Creator Assistant pour analyser les performances des pages Facebook et Instagram d'ACL. Identifier les types de contenus qui génèrent le plus d'engagement auprès des membres et prospects.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "INFO",
+      "sources": [
+        {
+          "name": "Boot Camp Digital — June 2026 Digital News Updates",
+          "url": "https://bootcampdigital.com/blog/june-2026-digital-news-updates/"
+        },
+        {
+          "name": "SocialBee — June 2026 Meta & Facebook updates",
+          "url": "https://socialbee.com/blog/facebook-updates/"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-16",
+      "theme": "Design & branding",
+      "titre": "Adobe Firefly : update mai 2026 améliore la cohérence de marque et réduit les retouches",
+      "synthese": "La mise à jour du modèle Adobe Firefly de mai 2026 apporte des améliorations significatives : meilleure qualité au premier passage, remplacements plus propres, réalisme accru et réduction des retouches manuelles. L'indemnisation IP (IP indemnification) d'Adobe pour les contenus Firefly sécurise l'utilisation commerciale pour les entreprises. Cette maturité du modèle fait de Firefly un outil de production d'assets de marque fiable pour les équipes qui ont besoin de cohérence visuelle à l'échelle.",
+      "actionACL": "Valider l'utilisation d'Adobe Firefly avec IP indemnification pour la production d'assets visuels ACL (photos, illustrations) en remplacement partiel des banques d'images. Tester la génération de visuels cohérents avec la charte graphique.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "AI Photo Generator — Adobe Firefly Model Update May 2026",
+          "url": "https://www.aiphotogenerator.net/blog/2026/05/adobe-firefly-model-update-may-2026-practical-photoshop-workflow-for-sharper-ai-edits"
+        },
+        {
+          "name": "eMarketer — Adobe AI-powered Firefly update genAI standard feature",
+          "url": "https://www.emarketer.com/content/adobe-ai-powered-firefly-update-makes-genai-standard-feature"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-16",
+      "theme": "Design & branding",
+      "titre": "Canva AI 2.0 Brand Intelligence : la cohérence de marque automatisée pour les équipes marketing",
+      "synthese": "Canva AI 2.0 intègre un layer Brand Intelligence qui apprend les éléments de charte graphique (couleurs, typographies, ton) pour garantir la cohérence visuelle dans toutes les productions. Canva Magic Studio génère des visuels, vidéos et textes depuis un prompt, avec les droits commerciaux inclus pour les plans payants. La plateforme reste la plus accessible pour les équipes sans designers dédiés, avec un avantage fort sur la rapidité de production pour les formats digitaux et réseaux sociaux. La résolution d'export a cependant été limitée, ce qui restreint l'usage print.",
+      "actionACL": "Évaluer Canva AI 2.0 pour les productions digitales récurrentes de l'ACL (posts réseaux sociaux, newsletters visuelles, bannières événements). Configurer le Brand Kit ACL dans Canva pour garantir la cohérence de marque dans les productions décentralisées.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "Flatline Agency — AI design tools for brands 5 tools 2026",
+          "url": "https://www.flatlineagency.com/blog/ai-design-tools-for-brands-2026/"
+        },
+        {
+          "name": "Genesys Growth — Canva Magic Write vs Adobe Firefly vs Figma AI 2026",
+          "url": "https://genesysgrowth.com/blog/canva-magic-write-vs-adobe-firefly-vs-figma-ai"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-16",
+      "theme": "Design & branding",
+      "titre": "Vidéo générative IA : Veo 3, Sora et Runway démocratisent la production vidéo de marque",
+      "synthese": "En 2026, les modèles de génération vidéo IA (Google Veo 3, OpenAI Sora, Runway, HeyGen) permettent à des équipes sans budget production de créer des vidéos de marque de qualité professionnelle. Une PME peut désormais produire ce que seuls les grands annonceurs réalisaient. HeyGen se distingue pour les vidéos avec porte-paroles IA et la déclinaison multilingue automatique. Ces outils réduisent les délais de production de semaines à heures, avec un impact direct sur les coûts de campagne.",
+      "actionACL": "Piloter une production vidéo test avec un outil IA (HeyGen ou Runway) pour un contenu de communication ACL (présentation service, teaser événement). Comparer qualité, délai et coût vs production classique.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "Viuz — 2026 l'année où l'IA devient concrète",
+          "url": "https://viuz.com/2026/03/29/2026-lannee-ou-lia-devient-concrete-cinq-actions-pour-le-marketing/"
+        },
+        {
+          "name": "Newpubmarketing — IA Marketing 2026 la création publicitaire redéfinie",
+          "url": "https://newpubmarketing.over-blog.fr/2026/03/ia/marketing-en-2026-l-ia-redefinit-la-creation-publicitaire-et-les-marques-n-ont-plus-le-choix.html"
+        }
+      ]
+    }
+  ]
 }
