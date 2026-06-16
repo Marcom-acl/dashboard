@@ -4252,6 +4252,7 @@ def _club_meta(start, end, gran, partner=None):
     by_partner = {}
     ad_metrics = {}
     sm_errors = []
+    has_data = False  # au moins une row a matché le filtre partenaire
 
     # 1) Série journalière des clics
     fields_day = ['date', 'campaign_name', 'adset_name', 'link_click']
@@ -4264,6 +4265,7 @@ def _club_meta(start, end, gran, partner=None):
                 continue
             if partner and not _match(partner['meta'], row.get('adset_name', '')):
                 continue
+            has_data = True
             d = _fr_dt_iso(row.get('date', ''))
             if not d:
                 continue
@@ -4283,6 +4285,7 @@ def _club_meta(start, end, gran, partner=None):
             camp = row.get('campaign_name', '')
             if partner and not (_match(partner['meta'], aset) or _match(partner['meta'], camp)):
                 continue
+            has_data = True
             lc = lc_val(row)
             rc = int(_n(row.get('reach', 0)))
             im = int(_n(row.get('impressions', 0)))
@@ -4311,6 +4314,7 @@ def _club_meta(start, end, gran, partner=None):
                 continue
             if partner and not (_match(partner['meta'], row.get('adset_name', '')) or _match(partner['meta'], row.get('campaign_name', ''))):
                 continue
+            has_data = True
             ad_id = str(row.get('ad_id', '')).strip()
             if not ad_id or ad_id in ('', 'ad_id', 'Ad ID'):
                 continue
@@ -4342,6 +4346,8 @@ def _club_meta(start, end, gran, partner=None):
     }
     if not partner:
         out['byPartner'] = sorted(by_partner.values(), key=lambda x: x['linkClicks'], reverse=True)
+    else:
+        out['noCampaign'] = not has_data
     if sm_errors:
         out['_smErrors'] = sm_errors
     return out

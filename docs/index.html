@@ -5540,10 +5540,13 @@ function _ptnRenderView(data, isGlobal) {
     ${kpiCard({label:'Clics NL total', value:fmtN(nl.totalClicks||0), src:'var(--c-brevo)', srcBg:'var(--c-brevo-bg)'})}
     ${kpiCard({label:'CTR NL moyen', value:fmtPct(nl.avgCtr||0), src:'var(--c-brevo)', srcBg:'var(--c-brevo-bg)'})}
   </div>` : `<div class="kpi-row" style="margin-top:8px">
-    ${kpiCard({label:'Clics NL', value:fmtN(nl.totalClicks||0), src:'var(--c-brevo)', srcBg:'var(--c-brevo-bg)'})}
-    ${kpiCard({label:'CTR NL', value:fmtPct(nl.avgCtr||0), src:'var(--c-brevo)', srcBg:'var(--c-brevo-bg)'})}
-    ${metaOk ? kpiCard({label:'Impressions Meta', value:fmtN(meta.impressions||0), src:'var(--c-fb)', srcBg:'var(--c-fb-bg)'}) : ''}
-    ${metaOk ? kpiCard({label:'CTR Meta', value:fmtPct(meta.ctr||0), src:'var(--c-fb)', srcBg:'var(--c-fb-bg)'}) : ''}
+    ${(nl.sends && nl.sends.length > 0)
+      ? kpiCard({label:'Clics NL', value:fmtN(nl.totalClicks||0), src:'var(--c-brevo)', srcBg:'var(--c-brevo-bg)'}) +
+        kpiCard({label:'CTR NL', value:fmtPct(nl.avgCtr||0), src:'var(--c-brevo)', srcBg:'var(--c-brevo-bg)'})
+      : '<div style="color:#999;font-size:.78rem;padding:6px 8px;align-self:center;font-style:italic">Aucune newsletter envoyée sur cette période</div>'}
+    ${metaOk && !meta.noCampaign ? kpiCard({label:'Impressions Meta', value:fmtN(meta.impressions||0), src:'var(--c-fb)', srcBg:'var(--c-fb-bg)'}) : ''}
+    ${metaOk && !meta.noCampaign ? kpiCard({label:'CTR Meta', value:fmtPct(meta.ctr||0), src:'var(--c-fb)', srcBg:'var(--c-fb-bg)'}) : ''}
+    ${metaOk && meta.noCampaign ? '<div style="color:#999;font-size:.78rem;padding:6px 8px;align-self:center;font-style:italic">Aucune campagne Meta pour ce partenaire</div>' : ''}
   </div>`;
 
   // Graphique leads mensuels (vue globale uniquement)
