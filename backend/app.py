@@ -5158,14 +5158,15 @@ def wrike():
     try:
         hdrs = {'Authorization': f'Bearer {WRIKE_API_KEY}', 'Accept': 'application/json'}
 
-        # Fetch project folders
+        # Fetch all folders with project metadata
+        # Note: no 'project=true' filter (not a valid v4 param) — filter in Python instead
         rf = _get(f'{_WRIKE_BASE}/folders', headers=hdrs, params={
-            'project': 'true',
-            'fields': json.dumps(['project', 'briefDescription']),
+            'fields': '["project"]',
         })
         if not rf.ok:
-            return jsonify({'error': f'Wrike API erreur HTTP {rf.status_code}'})
-        folders = rf.json().get('data', [])
+            return jsonify({'error': f'Wrike API erreur HTTP {rf.status_code}', 'detail': rf.text[:300]})
+        # Keep only folders that are projects (have a non-empty 'project' sub-object)
+        folders = [f for f in rf.json().get('data', []) if f.get('project')]
 
         # Fetch contacts for owner display names (best-effort)
         contacts = {}
