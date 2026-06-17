@@ -6252,6 +6252,7 @@ const TAB_ENDPOINTS = {
   veille:       ['veille'],
   seopos:       ['seo-positions'],
   buffer:       ['buffer'],
+  wrike:        ['wrike'],
   partners:     ['club-partners/global','club-partners/list'],
   intelligence: ['ga4','gsc','fb','brevo','supermetrics/linkedin','youtube'],
   'veille-ia':  [],
@@ -6265,14 +6266,14 @@ const EP_TO_KEY = {
   'buffer':'dBuffer','ga4/geographic':'dGA4Geo','ga4/sections':'dSections',
   'gsc/compare':'dGSCCompare','ga4/funnel':'dFunnel','seo-positions':'dSEO',
   'club-partners/global':'dPartners','club-partners/list':'dPartnerList',
-  'pagespeed':'dPageSpeed',
+  'pagespeed':'dPageSpeed','wrike':'dWrike',
 };
 const EP_SLOW = new Set(['club-partners/global','club-partners/list']);
 
 const STATUS_MAP = {
   dGA4:'bs-ga4',dGSC:'bs-gsc',dFB:'bs-fbads',dBrevo:'bs-brevo',dClub:'bs-club',
   dYT:'bs-yt',dLI:'bs-li',dVeille:'bs-veille',dBuffer:'bs-buffer',
-  dSections:'bs-sections',dSEO:'bs-seopos',dPartners:'bs-partners',
+  dSections:'bs-sections',dSEO:'bs-seopos',dPartners:'bs-partners',dWrike:'bs-wrike',
 };
 
 async function refreshTab(tabName) {
