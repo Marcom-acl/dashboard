@@ -33,6 +33,9 @@ CORS(app, origins='*')
 VEILLE_DATA_URL      = 'https://raw.githubusercontent.com/Marcom-acl/dashboard/main/data/veille-data.json'
 VEILLE_IA_DATA_URL   = 'https://raw.githubusercontent.com/Marcom-acl/dashboard/main/data/veille-ia-data.json'
 SEO_POSITIONS_URL    = 'https://raw.githubusercontent.com/Marcom-acl/dashboard/main/data/seo-positions-data.json'
+PSI_HISTORY_URL      = 'https://raw.githubusercontent.com/Marcom-acl/dashboard/main/data/pagespeed-history.json'
+GITHUB_REPO          = 'Marcom-acl/dashboard'
+PSI_HISTORY_PATH     = 'data/pagespeed-history.json'
 
 GA4_PROPERTY              = '267556854'
 GA4_PROPERTY_AUTOTOURING  = '473431929'
@@ -74,6 +77,7 @@ BUFFER_API_KEY       = os.environ.get('BUFFER_API_KEY', '')
 DATAFORSEO_LOGIN     = os.environ.get('DATAFORSEO_LOGIN', '')
 DATAFORSEO_PASSWORD  = os.environ.get('DATAFORSEO_PASSWORD', '')
 GOOGLE_API_KEY       = os.environ.get('GOOGLE_API_KEY', '')
+GITHUB_TOKEN         = os.environ.get('GITHUB_TOKEN', '')
 
 # ── CTR curve (expected CTR by position, used in /insights/web score_v2) ─────
 _CTR_CURVE = {1:0.28, 2:0.15, 3:0.11, 4:0.08, 5:0.07, 6:0.065, 7:0.055, 8:0.045, 9:0.035, 10:0.02}
@@ -1739,12 +1743,15 @@ def fb_page():
 
     for page_name, page_id in FB_PAGES.items():
         fans = 0
+        ig_fans = 0
         if token:
-            # Fan count
-            ri = _get(f'{FB_GRAPH}/{page_id}', params={'fields': 'fan_count,followers_count', 'access_token': token})
+            # Fan count + Instagram Business Account followers
+            ri = _get(f'{FB_GRAPH}/{page_id}', params={'fields': 'fan_count,followers_count,instagram_business_account{followers_count}', 'access_token': token})
             if ri.ok:
                 d = ri.json()
                 fans = d.get('fan_count') or d.get('followers_count', 0)
+                ig_acc = d.get('instagram_business_account') or {}
+                ig_fans = ig_acc.get('followers_count', 0)
             else:
                 graph_errors.append(f'{page_name} fans: HTTP {ri.status_code} {ri.text[:120]}')
 
@@ -1793,6 +1800,7 @@ def fb_page():
                 graph_errors.append(f'{page_name} posts: HTTP {rp.status_code} {rp.text[:120]}')
 
         pages_data.append({'name': page_name, 'id': page_id, 'fans': fans,
+                           'ig_fans': ig_fans,
                            'posts_count': sm_posts_by_page.get(page_id, 0)})
 
     all_posts.sort(key=lambda x: x['engagement'], reverse=True)
@@ -4999,6 +5007,76 @@ Sois direct, factuel, et actionnable. Pas de mise en forme markdown — texte br
 # PageSpeed Insights — Core Web Vitals pour acl.lu et autotouring.lu
 # ─────────────────────────────────────────────────────────────────────────────
 
+def _psi_history_append(results):
+    """Sauvegarde un snapshot quotidien dans data/pagespeed-history.json via GitHub API.
+    Tourne dans un thread daemon — non bloquant pour l'endpoint /pagespeed."""
+    if not GITHUB_TOKEN:
+        return
+    try:
+        import base64
+        today = datetime.date.today().isoformat()
+
+        def score(site_key, strategy):
+            return (results.get(site_key) or {}).get(strategy, {}).get('performance')
+
+        entry = {
+            'date': today,
+            'acl':  {'mobile': score('https://www.acl.lu', 'mobile'),
+                     'desktop': score('https://www.acl.lu', 'desktop')},
+            'auto': {'mobile': score('https://www.autotouring.lu', 'mobile'),
+                     'desktop': score('https://www.autotouring.lu', 'desktop')},
+        }
+
+        api_url = f'https://api.github.com/repos/{GITHUB_REPO}/contents/{PSI_HISTORY_PATH}'
+        headers = {
+            'Authorization': f'token {GITHUB_TOKEN}',
+            'Accept': 'application/vnd.github.v3+json',
+        }
+
+        r = requests.get(api_url, headers=headers, timeout=10, verify=_VERIFY)
+        if r.ok:
+            body    = r.json()
+            history = json.loads(base64.b64decode(body['content']).decode())
+            sha     = body['sha']
+        else:
+            history = []
+            sha     = None
+
+        # Remplacer l'entrée du jour si elle existe déjà
+        history = [e for e in history if e.get('date') != today]
+        history.append(entry)
+        history = sorted(history, key=lambda e: e['date'])[-365:]  # max 1 an
+
+        payload = {
+            'message': f'pagespeed: snapshot {today}',
+            'content': base64.b64encode(json.dumps(history, indent=2).encode()).decode(),
+            'branch':  'main',
+        }
+        if sha:
+            payload['sha'] = sha
+
+        requests.put(api_url, headers=headers, json=payload, timeout=10, verify=_VERIFY)
+    except Exception:
+        pass  # silencieux — ne doit jamais faire planter /pagespeed
+
+
+@app.route('/pagespeed/history')
+def pagespeed_history():
+    key    = 'pagespeed-history'
+    cached = _cache_get(key)
+    if cached:
+        return jsonify(cached)
+    try:
+        r = requests.get(PSI_HISTORY_URL, timeout=10, verify=_VERIFY)
+        if r.ok:
+            data = r.json()
+            _cache_set(key, data, 3600)
+            return jsonify(data)
+    except Exception:
+        pass
+    return jsonify([])
+
+
 @app.route('/pagespeed')
 def pagespeed():
     cache_key = 'pagespeed'
@@ -5059,6 +5137,8 @@ def pagespeed():
             results[site][strat] = futures[(site, strat)].result()
 
     _cache_set(cache_key, results, 3600)
+    # Snapshot historique asynchrone (non bloquant)
+    threading.Thread(target=_psi_history_append, args=(results,), daemon=True).start()
     return jsonify(results)
 
 
