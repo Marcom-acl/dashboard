@@ -1,1 +1,13 @@
-[]
+[
+  {
+    "date": "2026-06-17",
+    "acl": {
+      "mobile": 52,
+      "desktop": 33
+    },
+    "auto": {
+      "mobile": 51,
+      "desktop": 70
+    }
+  }
+]
