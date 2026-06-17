@@ -74,6 +74,7 @@ GOOGLE_CLIENT_SECRET = os.environ.get('GOOGLE_CLIENT_SECRET', '')
 GOOGLE_REFRESH_TOKEN = os.environ.get('GOOGLE_REFRESH_TOKEN', '')
 SUPERMETRICS_API_KEY = os.environ.get('SUPERMETRICS_API_KEY', '')
 BUFFER_API_KEY       = os.environ.get('BUFFER_API_KEY', '')
+WRIKE_API_KEY        = os.environ.get('WRIKE_API_KEY', '')
 DATAFORSEO_LOGIN     = os.environ.get('DATAFORSEO_LOGIN', '')
 DATAFORSEO_PASSWORD  = os.environ.get('DATAFORSEO_PASSWORD', '')
 GOOGLE_API_KEY       = os.environ.get('GOOGLE_API_KEY', '')
@@ -5140,6 +5141,102 @@ def pagespeed():
     # Snapshot historique asynchrone (non bloquant)
     threading.Thread(target=_psi_history_append, args=(results,), daemon=True).start()
     return jsonify(results)
+
+
+# ── Wrike ─────────────────────────────────────────────────────────────────────
+
+_WRIKE_BASE = 'https://app-eu.wrike.com/api/v4'
+
+@app.route('/wrike')
+def wrike():
+    if not WRIKE_API_KEY:
+        return jsonify({'error': 'WRIKE_API_KEY manquante'})
+
+    cached = _cache_get('wrike:projects')
+    if cached: return jsonify(cached)
+
+    try:
+        hdrs = {'Authorization': f'Bearer {WRIKE_API_KEY}', 'Accept': 'application/json'}
+
+        # Fetch project folders
+        rf = _get(f'{_WRIKE_BASE}/folders', headers=hdrs, params={
+            'project': 'true',
+            'fields': json.dumps(['project', 'briefDescription']),
+        })
+        if not rf.ok:
+            return jsonify({'error': f'Wrike API erreur HTTP {rf.status_code}'})
+        folders = rf.json().get('data', [])
+
+        # Fetch contacts for owner display names (best-effort)
+        contacts = {}
+        try:
+            rc = _get(f'{_WRIKE_BASE}/contacts', headers=hdrs)
+            if rc.ok:
+                for c in rc.json().get('data', []):
+                    full = f"{c.get('firstName', '')} {c.get('lastName', '')}".strip()
+                    contacts[c['id']] = full or c.get('profiles', [{}])[0].get('email', c['id'])
+        except Exception:
+            pass
+
+        today = datetime.date.today()
+        projects = []
+        for folder in folders:
+            proj = folder.get('project', {})
+            status = proj.get('status', '')
+            if status in ('Completed', 'Cancelled'):
+                continue
+
+            end_date = proj.get('endDate') or proj.get('dueDate')
+            days_left = None
+            urgency = 'none'
+            if end_date:
+                try:
+                    due = datetime.date.fromisoformat(end_date[:10])
+                    days_left = (due - today).days
+                    if days_left < 0:
+                        urgency = 'overdue'
+                    elif days_left <= 3:
+                        urgency = 'critical'
+                    elif days_left <= 7:
+                        urgency = 'high'
+                    else:
+                        urgency = 'normal'
+                except ValueError:
+                    pass
+
+            owner_ids = proj.get('ownerIds', [])
+            owners = [contacts.get(uid, uid) for uid in owner_ids]
+
+            projects.append({
+                'id':        folder['id'],
+                'title':     folder['title'],
+                'status':    status,
+                'due_date':  end_date,
+                'days_left': days_left,
+                'urgency':   urgency,
+                'owners':    owners,
+            })
+
+        def _sort_key(p):
+            order = {'overdue': 0, 'critical': 1, 'high': 2, 'normal': 3, 'none': 4}
+            return (order.get(p['urgency'], 9), p['days_left'] if p['days_left'] is not None else 9999)
+
+        projects.sort(key=_sort_key)
+
+        result = {
+            'projects': projects,
+            'summary': {
+                'active':        len(projects),
+                'overdue':       sum(1 for p in projects if p['urgency'] == 'overdue'),
+                'critical':      sum(1 for p in projects if p['urgency'] == 'critical'),
+                'due_this_week': sum(1 for p in projects if p['days_left'] is not None and 0 <= p['days_left'] <= 7),
+            },
+        }
+        _cache_set('wrike:projects', result, 600)
+        return jsonify(result)
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 
 # ─────────────────────────────────────────────────────────────────────────────

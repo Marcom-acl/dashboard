@@ -1248,6 +1248,18 @@
     </div>
 
     <div class="sb-section">
+      <div class="sb-section-title">Pilotage</div>
+      <nav class="sb-nav">
+        <button class="sb-item tab-btn" data-tab="wrike" title="Projets en cours">
+          <span class="sb-ic-wrap" style="background:rgba(5,193,215,.15);--ic-color:#05C1D7"><svg class="sb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span>
+          <span class="sb-item-label">Projets</span>
+          <span class="sb-pill">Projets</span>
+          <span class="sb-dot" id="bs-wrike" style="background:var(--muted-2);"></span>
+        </button>
+      </nav>
+    </div>
+
+    <div class="sb-section">
       <div class="sb-section-title">Intelligence</div>
       <nav class="sb-nav">
         <button class="sb-item tab-btn" data-tab="veille" title="Veille sectorielle">
@@ -1390,6 +1402,9 @@
 
         <!-- ── LINKEDIN ─────────────────────────────────────────── -->
         <div id="panel-linkedin" class="tab-panel"></div>
+
+        <!-- ── WRIKE / PROJETS ───────────────────────────────────── -->
+        <div id="panel-wrike" class="tab-panel"></div>
 
         <!-- ── VEILLE ────────────────────────────────────────────── -->
         <div id="panel-veille" class="tab-panel"></div>
@@ -1637,6 +1652,7 @@ function _renderTab(tab) {
   else if (tab === 'veille')       renderVeille(d.dVeille);
   else if (tab === 'seopos')       renderSEOPositions(d.dSEO);
   else if (tab === 'buffer')       renderBuffer(d.dBuffer);
+  else if (tab === 'wrike')        renderWrike(d.dWrike);
   else if (tab === 'partners')     renderPartners(d.dPartners, d.dPartnerList);
   else if (tab === 'intelligence') renderIntelligence();
   else if (tab === 'veille-ia')   renderVeilleIA();
@@ -1651,7 +1667,7 @@ async function loadAll() {
 
   try {
     const [ga4, ga4auto, ga4ext, ga4trend, gsc, fb, fbpage, brevo, club, yt, li, veille, fbpageytd, fbytd, buffer,
-           ga4geo, ga4sections, gsccompare, ga4funnel, seopos, clubglobal, clublist] = await Promise.allSettled([
+           ga4geo, ga4sections, gsccompare, ga4funnel, seopos, clubglobal, clublist, wrike] = await Promise.allSettled([
       api('/ga4'), api('/ga4/autotouring'), api('/ga4/extended'), api('/ga4/trend'),
       api('/gsc'), api('/fb'), api('/fb/page'), api('/brevo'), api('/brevo/club'),
       api('/youtube'), api('/supermetrics/linkedin'), api('/veille'),
@@ -1659,7 +1675,8 @@ async function loadAll() {
       api('/buffer'),
       api('/ga4/geographic'), api('/ga4/sections'), api('/gsc/compare'),
       api('/ga4/funnel'), api('/seo-positions'),
-      apiSlow('/club-partners/global'), apiSlow('/club-partners/list')
+      apiSlow('/club-partners/global'), apiSlow('/club-partners/list'),
+      api('/wrike')
     ]);
 
     const v = r => r.status === 'fulfilled' ? r.value : null;
@@ -1674,6 +1691,7 @@ async function loadAll() {
     const dSEO    = v(seopos);
     const dPartners    = v(clubglobal);
     const dPartnerList = v(clublist);
+    const dWrike       = v(wrike);
 
     updateStatus('bs-ga4',      dGA4      && !dGA4.error);
     updateStatus('bs-gsc',      dGSC      && !dGSC.error);
@@ -1687,8 +1705,9 @@ async function loadAll() {
     updateStatus('bs-sections', dSections && !dSections.error);
     updateStatus('bs-seopos',   dSEO      && !dSEO.error);
     updateStatus('bs-partners', dPartners && !dPartners.error);
+    updateStatus('bs-wrike',   dWrike   && !dWrike.error);
 
-    window._dashData = {dGA4, dGA4A, dGA4E, dGA4T, dGSC, dFB, dFBP, dBrevo, dClub, dYT, dLI, dVeille, dFBPytd, dFBytd, dBuffer, dGA4Geo, dSections, dGSCCompare, dFunnel, dSEO, dPartners, dPartnerList};
+    window._dashData = {dGA4, dGA4A, dGA4E, dGA4T, dGSC, dFB, dFBP, dBrevo, dClub, dYT, dLI, dVeille, dFBPytd, dFBytd, dBuffer, dGA4Geo, dSections, dGSCCompare, dFunnel, dSEO, dPartners, dPartnerList, dWrike};
     window._tabRendered = {};
 
     const activeTab = document.querySelector('.tab-btn.active')?.dataset.tab || 'overview';
@@ -5460,7 +5479,108 @@ function renderPageSpeed(psi) {
       <span style="font-size:11px;color:var(--muted);margin-left:4px">Données Lighthouse — actualisées toutes les heures</span>
     </div>
     ${siteCard('https://www.acl.lu', 'acl.lu', 'var(--y)')}
-    ${siteCard('https://www.autotouring.lu', 'autotouring.lu', '#f59e0b')}`;
+    ${siteCard('https://www.autotouring.lu', 'autotouring.lu', '#f59e0b')}
+    <div id="psi-history-section"></div>`;
+
+  fetchPsiHistory();
+}
+
+async function fetchPsiHistory() {
+  const el = document.getElementById('psi-history-section');
+  if (!el) return;
+  try {
+    const r = await fetch(`${API_BASE}/pagespeed/history`, {signal: AbortSignal.timeout(10000)});
+    if (!r.ok) return;
+    const history = await r.json();
+    if (!history?.length) return;
+    renderPsiHistory(history);
+  } catch(e) { /* silencieux si pas encore de données */ }
+}
+
+function renderPsiHistory(history) {
+  const el = document.getElementById('psi-history-section');
+  if (!el || !history?.length) return;
+
+  // Garder les 60 dernières entrées pour le graphique
+  const data = history.slice(-60);
+  const labels = data.map(e => {
+    const [y, m, d] = e.date.split('-');
+    return `${d}/${m}`;
+  });
+
+  el.innerHTML = `
+    <div class="sec-title" style="margin-top:20px">
+      <h2>Historique scores Performance</h2><div class="line"></div>
+      <span style="font-size:11px;color:var(--muted)">${data.length} mesure${data.length > 1 ? 's' : ''} · depuis ${data[0]?.date || '—'}</span>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <div class="card-title">Score Performance (0–100)</div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <span style="display:flex;align-items:center;gap:4px;font-size:11px;color:var(--muted)"><span style="display:inline-block;width:16px;height:2px;background:var(--y);border-radius:1px"></span>acl.lu mobile</span>
+          <span style="display:flex;align-items:center;gap:4px;font-size:11px;color:var(--muted)"><span style="display:inline-block;width:16px;height:2px;background:var(--y-deep);border-radius:1px;opacity:.6"></span>acl.lu desktop</span>
+          <span style="display:flex;align-items:center;gap:4px;font-size:11px;color:var(--muted)"><span style="display:inline-block;width:16px;height:2px;background:#f59e0b;border-radius:1px"></span>autotouring.lu mobile</span>
+          <span style="display:flex;align-items:center;gap:4px;font-size:11px;color:var(--muted)"><span style="display:inline-block;width:16px;height:2px;background:#f59e0b;border-radius:1px;opacity:.6"></span>autotouring.lu desktop</span>
+        </div>
+      </div>
+      <div class="card-body" style="height:220px;padding:12px 16px 8px">
+        <canvas id="chartPsiHistory"></canvas>
+      </div>
+    </div>`;
+
+  requestAnimationFrame(() => {
+    const canvas = document.getElementById('chartPsiHistory');
+    if (!canvas) return;
+    if (chartInstances['psiHistory']) { chartInstances['psiHistory'].destroy(); delete chartInstances['psiHistory']; }
+
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    const gridColor = isDark ? 'rgba(255,255,255,.06)' : 'rgba(0,0,0,.05)';
+    const tickColor = isDark ? '#666' : '#aaa';
+
+    const mkLine = (key, color, alpha) => ({
+      label: key,
+      data: data.map(e => {
+        const [site, strat] = key.split(':');
+        return (e[site] || {})[strat] ?? null;
+      }),
+      borderColor: color,
+      backgroundColor: color.replace(')', `,${alpha})`).replace('rgb', 'rgba'),
+      borderWidth: 2,
+      pointRadius: data.length > 30 ? 0 : 3,
+      pointHoverRadius: 5,
+      tension: 0.3,
+      spanGaps: true,
+    });
+
+    chartInstances['psiHistory'] = new Chart(canvas, {
+      type: 'line',
+      data: {
+        labels,
+        datasets: [
+          mkLine('acl:mobile',   'rgb(254,219,0)',   0.08),
+          mkLine('acl:desktop',  'rgb(200,165,0)',   0.05),
+          mkLine('auto:mobile',  'rgb(245,158,11)',  0.08),
+          mkLine('auto:desktop', 'rgb(180,110,5)',   0.05),
+        ],
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        animation: {duration: 400},
+        scales: {
+          x: {ticks:{color:tickColor,font:{size:10},maxTicksLimit:10}, grid:{color:gridColor}},
+          y: {min:0, max:100, ticks:{color:tickColor,font:{size:10},stepSize:20}, grid:{color:gridColor}},
+        },
+        plugins: {
+          legend: {display: false},
+          tooltip: {
+            callbacks: {
+              label: ctx => `${ctx.dataset.label.replace('acl:','acl.lu ').replace('auto:','autotouring.lu ')} : ${ctx.raw ?? '—'}`,
+            },
+          },
+        },
+      },
+    });
+  });
 }
 
 // ── ANALYSE IA PARTENAIRES ────────────────────────────────────
@@ -6634,6 +6754,116 @@ function bufToggle(id) {
   if (preview) preview.style.opacity = open ? '1' : '0.5';
   item.style.background = open ? '' : 'var(--hover)';
 }
+
+// ── Wrike urgency helpers ─────────────────────────────────────────────────────
+const _WRIKE_URGENCY = {
+  overdue:  { color: '#E74C3C', bg: '#FEF2F2', label: 'En retard',   badge: 'RETARD'   },
+  critical: { color: '#E67E22', bg: '#FFF7ED', label: '≤ 3 jours',   badge: 'URGENT'   },
+  high:     { color: '#FEDB00', bg: '#FFFBEB', label: '≤ 7 jours',   badge: 'SOON'     },
+  normal:   { color: '#34A853', bg: '#F0FDF4', label: 'Dans les temps', badge: null     },
+  none:     { color: '#9CA3AF', bg: '#F9FAFB', label: 'Sans date',   badge: null       },
+};
+const _WRIKE_STATUS_COLOR = {
+  Green:  '#22C55E',
+  Yellow: '#EAB308',
+  Red:    '#EF4444',
+  OnHold: '#6B7280',
+  Active: '#3B82F6',
+};
+
+function _wrikeOwnerAvatars(owners) {
+  if (!owners?.length) return '';
+  return owners.slice(0, 3).map(name => {
+    const initials = name.split(' ').map(p => p[0]).join('').toUpperCase().slice(0, 2);
+    return `<span title="${name}" style="display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:#E5E7EB;color:#374151;font-size:9px;font-weight:700;margin-left:-4px;border:2px solid #fff;flex-shrink:0">${initials}</span>`;
+  }).join('') + (owners.length > 3 ? `<span style="display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:#D1D5DB;color:#6B7280;font-size:9px;font-weight:700;margin-left:-4px;border:2px solid #fff">+${owners.length - 3}</span>` : '');
+}
+
+function _wrikeDueLabel(p) {
+  if (!p.due_date) return '<span style="color:var(--muted);font-size:11px">Pas de date</span>';
+  const d = new Date(p.due_date);
+  const dateStr = d.toLocaleDateString('fr-FR', {day:'2-digit', month:'short'});
+  if (p.urgency === 'overdue') {
+    return `<span style="color:#E74C3C;font-weight:700;font-size:12px">↩ ${Math.abs(p.days_left)}j de retard</span>`;
+  }
+  return `<span style="color:var(--text-2);font-size:12px">${dateStr}</span><span style="color:var(--muted);font-size:11px;margin-left:4px">(J-${p.days_left})</span>`;
+}
+
+function renderWrike(d) {
+  const el = document.getElementById('panel-wrike');
+  if (!el) return;
+
+  if (!d || d.error) {
+    el.innerHTML = `
+      <div class="sec-title"><h2>Projets en cours</h2><div class="line"></div>
+        <span class="src-pill" style="--src:#05C1D7;--src-bg:#ECFEFF">Wrike</span>
+      </div>
+      <div style="margin:16px 0;padding:16px 20px;background:#FEF2F2;border:1px solid #FECACA;border-radius:10px;font-size:13px;line-height:1.7">
+        <div style="font-weight:700;color:#DC2626;margin-bottom:6px">⚠ Données Wrike indisponibles</div>
+        <div style="color:#7F1D1D">${d?.error || 'WRIKE_API_KEY manquante — à configurer dans les variables Railway'}</div>
+      </div>`;
+    return;
+  }
+
+  const projects = d.projects || [];
+  const s        = d.summary  || {};
+
+  // ── Summary chips ──────────────────────────────────────────────
+  const summaryHtml = `
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px">
+      <span style="padding:6px 14px;border-radius:20px;background:#EFF6FF;color:#1D4ED8;font-size:12px;font-weight:600">${s.active ?? 0} projet${(s.active ?? 0) > 1 ? 's' : ''} actif${(s.active ?? 0) > 1 ? 's' : ''}</span>
+      ${(s.overdue ?? 0) > 0 ? `<span style="padding:6px 14px;border-radius:20px;background:#FEF2F2;color:#DC2626;font-size:12px;font-weight:700">⚠ ${s.overdue} en retard</span>` : ''}
+      ${(s.critical ?? 0) > 0 ? `<span style="padding:6px 14px;border-radius:20px;background:#FFF7ED;color:#C2410C;font-size:12px;font-weight:700">🔥 ${s.critical} urgent${(s.critical ?? 0) > 1 ? 's' : ''}</span>` : ''}
+      ${(s.due_this_week ?? 0) > 0 ? `<span style="padding:6px 14px;border-radius:20px;background:#FFFBEB;color:#92400E;font-size:12px;font-weight:600">📅 ${s.due_this_week} cette semaine</span>` : ''}
+    </div>`;
+
+  // ── Project cards ──────────────────────────────────────────────
+  const cardsHtml = projects.length === 0
+    ? '<p class="tbl-empty">Aucun projet actif dans Wrike</p>'
+    : projects.map(p => {
+        const urg   = _WRIKE_URGENCY[p.urgency] || _WRIKE_URGENCY.none;
+        const stClr = _WRIKE_STATUS_COLOR[p.status] || '#6B7280';
+        const badgeHtml = urg.badge
+          ? `<span style="padding:2px 7px;border-radius:4px;background:${urg.color}18;color:${urg.color};font-size:10px;font-weight:700;flex-shrink:0">${urg.badge}</span>`
+          : '';
+        const statusHtml = p.status && p.status !== 'Active'
+          ? `<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${stClr};flex-shrink:0" title="Statut Wrike : ${p.status}"></span>`
+          : '';
+        return `
+        <div style="display:flex;align-items:center;gap:0;border-radius:10px;overflow:hidden;background:var(--clr-surface-raised, #fff);box-shadow:0 1px 3px rgba(0,0,0,.07);margin-bottom:8px">
+          <div style="width:4px;min-height:56px;background:${urg.color};flex-shrink:0"></div>
+          <div style="flex:1;padding:10px 14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+            <div style="flex:1;min-width:160px">
+              <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px">
+                ${statusHtml}
+                <span style="font-weight:600;font-size:13px;color:var(--text)">${p.title}</span>
+                ${badgeHtml}
+              </div>
+              <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+                ${_wrikeDueLabel(p)}
+                ${p.owners?.length ? `<div style="display:flex;align-items:center;margin-left:4px;padding-left:8px;border-left:1px solid #E5E7EB">${_wrikeOwnerAvatars(p.owners)}</div>` : ''}
+              </div>
+            </div>
+          </div>
+        </div>`;
+      }).join('');
+
+  el.innerHTML = `
+    <div class="sec-title"><h2>Projets en cours</h2><div class="line"></div>
+      <span class="src-pill" style="--src:#05C1D7;--src-bg:#ECFEFF">Wrike</span>
+    </div>
+    ${summaryHtml}
+    <div class="card">
+      <div class="card-head">
+        <div class="card-title">Tous les projets actifs</div>
+        <div class="card-sub">Triés par urgence · données Wrike</div>
+      </div>
+      <div class="card-body" style="padding:12px 16px">
+        ${cardsHtml}
+      </div>
+    </div>`;
+}
+
 
 function renderBuffer(d) {
   const el = document.getElementById('panel-buffer');
