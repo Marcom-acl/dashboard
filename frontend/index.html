@@ -5354,7 +5354,7 @@ async function fetchPageSpeed(cachedData) {
   if (!psi) {
     el.innerHTML = `<div class="sec-title" style="margin-top:0"><h2>Performance technique</h2><div class="line"></div><span class="src-pill" style="--src:#34A853;--src-bg:#E0F2E6">PageSpeed</span></div><div style="padding:16px;text-align:center;color:var(--muted);font-size:12px">Chargement des scores PageSpeed…</div>`;
     try {
-      const r = await fetch(`${API_BASE}/pagespeed`, {signal: AbortSignal.timeout(60000)});
+      const r = await fetch(`${API_BASE}/pagespeed`, {signal: AbortSignal.timeout(90000)});
       if (!r.ok) throw new Error(`HTTP ${r.status} — endpoint introuvable (Railway déploie encore ?)`);
       psi = await r.json();
       if (window._dashData) window._dashData.dPageSpeed = psi;

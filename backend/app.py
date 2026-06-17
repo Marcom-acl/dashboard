@@ -5016,7 +5016,7 @@ def pagespeed():
         try:
             r = requests.get(
                 'https://www.googleapis.com/pagespeedonline/v5/runPagespeed',
-                params=params, timeout=30, verify=_VERIFY
+                params=params, timeout=60, verify=_VERIFY
             )
             if not r.ok:
                 return {'error': f'HTTP {r.status_code}'}
