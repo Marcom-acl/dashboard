@@ -1,6 +1,330 @@
 {
-  "generated_at": "2026-06-16",
+  "generated_at": "2026-06-17",
   "items": [
+    {
+      "date": "2026-06-17",
+      "theme": "IA générative en marketing",
+      "titre": "Google AI Mode : les annonces publicitaires envahissent les réponses IA de Search",
+      "synthese": "Google a lancé des publicités Shopping nativement intégrées dans AI Mode, son moteur de recherche conversationnel propulsé par Gemini. Les 4 millions de comptes Performance Max sont désormais éligibles à apparaître dans AI Overview et AI Mode, sans configuration supplémentaire. AI Max for Search élimine le ciblage par mots-clés traditionnel : Gemini analyse la landing page de l'annonceur et sélectionne automatiquement l'audience et le format optimal. Cette évolution marque un tournant fondamental dans la mécanique publicitaire digitale, avec une transition vers l'intent matching piloté par IA.",
+      "actionACL": "Vérifier que les campagnes Performance Max existantes sont bien activées pour les placements AI Mode. Revoir les landing pages pour les optimiser en vue du parsing par Gemini (contenu clair, structuré, avec balises sémantiques).",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "Browser Media — Ads in AI Mode and GML 2026 highlights",
+          "url": "https://browsermedia.agency/blog/ads-in-ai-mode-and-gml-2026-highlights/"
+        },
+        {
+          "name": "Google Blog — A new generation of ads for the AI era of Search",
+          "url": "https://blog.google/products/ads-commerce/google-marketing-live-search-ads/"
+        },
+        {
+          "name": "Kleverish — Google Ads 2026 Updates: AI, Performance Max & New Features",
+          "url": "https://www.kleverish.com/blog/google-ads-2026-updates-ai-performance-max/"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-17",
+      "theme": "IA générative en marketing",
+      "titre": "Canva Magic Layers s'intègre nativement dans ChatGPT, Claude et Gemini",
+      "synthese": "Canva a déployé Magic Layers directement dans les interfaces ChatGPT, Claude et Gemini, permettant de transformer une image générée par IA en calques entièrement éditables dans Canva sans quitter l'assistant. Cette intégration représente une convergence inédite entre la création IA et les workflows de design, réduisant le nombre d'étapes pour produire des visuels de marque finalisés. La fonctionnalité image-vers-vidéo de Canva s'améliore également avec l'animation de visages humains depuis des photos statiques. Ces mises à jour s'inscrivent dans le lancement du Creative Operating System de Canva, qui vise à centraliser l'ensemble de la production créative.",
+      "actionACL": "Tester Magic Layers via Claude ou ChatGPT pour accélérer la production de visuels de campagne ACL : générer une image dans l'assistant IA, puis l'éditer directement dans Canva sans transfert manuel.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "CreativeAI.fr — IA Créative 12 juin 2026 : Canva Magic Layers dans ChatGPT",
+          "url": "https://creativeai.fr/2026/06/12/ia-creative-2026-06-12/"
+        },
+        {
+          "name": "Canva Newsroom — Creative Operating System",
+          "url": "https://www.canva.com/newsroom/news/creative-operating-system/"
+        },
+        {
+          "name": "Canva Newsroom — Canva Create 2026 Launches",
+          "url": "https://www.canva.com/newsroom/news/canva-create-2026-launches/"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-17",
+      "theme": "IA générative en marketing",
+      "titre": "Vidéo générative (Veo 3, Sora, HeyGen) : la production vidéo accessible aux petites équipes",
+      "synthese": "En 2026, les outils de génération vidéo IA (Veo 3 de Google, Sora d'OpenAI, HeyGen, Runway, Kling AI) ont atteint une maturité suffisante pour remplacer des productions vidéo simples à des coûts très inférieurs aux tournages traditionnels. Une PME ou une organisation comme l'ACL peut désormais produire des spots de 30 à 60 secondes, des interviews avec avatars IA multilingues ou des déclinaisons de formats sans budget vidéo important. HeyGen permet de dupliquer une présentation ou un message dans plusieurs langues avec lip-sync automatique, ouvrant des perspectives pour les communications internationales. La qualité des sorties reste variable selon le niveau de prompt engineering, ce qui implique une montée en compétences de l'équipe.",
+      "actionACL": "Expérimenter HeyGen pour décliner un message de dirigeant ou une présentation ACL en plusieurs langues (FR/EN/DE) avec lip-sync IA. Évaluer Runway ou Kling AI pour la création de courtes vidéos promotionnelles pour les clubs.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "Newpubmarketing — En 2026, l'IA redéfinit la création publicitaire",
+          "url": "https://newpubmarketing.over-blog.fr/2026/03/ia/marketing-en-2026-l-ia-redefinit-la-creation-publicitaire-et-les-marques-n-ont-plus-le-choix.html"
+        },
+        {
+          "name": "Grandmur — Les meilleurs outils IA générative image et vidéo",
+          "url": "https://grandmur.com/blog/meilleurs-outils-ia-generative-image-video/"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-17",
+      "theme": "IA générative en marketing",
+      "titre": "Hyper-personnalisation publicitaire : chaque utilisateur voit une version différente de l'annonce",
+      "synthese": "Les principales plateformes publicitaires (Meta, Google, TikTok) proposent désormais une personnalisation créative dynamique où l'IA génère des variantes d'annonces adaptées au profil, au comportement et au contexte en temps réel de chaque utilisateur. Meta Advantage+ utilise l'IA pour adapter le visuel, le texte et le CTA en fonction du signal utilisateur, sans intervention manuelle des équipes créatives. Cette approche améliore le ROAS moyen de 22 % selon les benchmarks Meta. Elle nécessite cependant de fournir des assets de qualité (images, copies, vidéos) en entrée pour que l'IA dispose d'un répertoire suffisant à exploiter.",
+      "actionACL": "Enrichir le catalogue d'assets créatifs ACL (visuels clubs, formats événements, photos membres) pour alimenter les systèmes de personnalisation IA de Meta et Google. Créer 5 à 10 variantes de copies pour chaque campagne afin d'optimiser les tests IA.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "Digital Applied — Meta AI Automated Ads 2026: Complete Marketing Guide",
+          "url": "https://www.digitalapplied.com/blog/meta-ai-automated-ads-2026-marketing-guide"
+        },
+        {
+          "name": "Social Media Examiner — Ads and AI: Leveraging AI Creative in 2026",
+          "url": "https://www.socialmediaexaminer.com/ads-and-ai-leveraging-ai-creative-in-2026/"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-17",
+      "theme": "CRM & member marketing",
+      "titre": "HubSpot Breeze passe à GPT-5 : les agents marketing deviennent plus autonomes",
+      "synthese": "Depuis le 12 janvier 2026, HubSpot Breeze Studio a migré ses agents IA de GPT-4.1 vers GPT-5, offrant une amélioration significative du raisonnement, de la génération de contenu et de la compréhension contextuelle dans les workflows marketing. Les agents Breeze couvrent désormais l'ensemble des hubs (Marketing, Sales, Service, Content, Operations) et sont disponibles sur tous les plans, y compris le CRM gratuit. Le passage à l'IA agentique signifie que ces agents peuvent enchaîner des tâches complexes sans supervision : qualification de leads, rédaction de séquences, analyse de performance. HubSpot se positionne ainsi comme la plateforme CRM la plus accessible pour les équipes marketing de taille intermédiaire.",
+      "actionACL": "Activer les agents Breeze dans le HubSpot ACL (si utilisé) pour automatiser les séquences de renouvellement d'adhésion et les suivis post-événement. Évaluer si le passage à un plan payant débloque des agents additionnels utiles pour l'équipe Marcom.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "Vantage Point — Salesforce vs. HubSpot in 2026: The Definitive CRM Comparison",
+          "url": "https://vantagepoint.io/blog/sf/salesforce-vs-hubspot-2026-comparison"
+        },
+        {
+          "name": "Digital Applied — CRM AI Agents: Salesforce, HubSpot, and Zoho Guide",
+          "url": "https://www.digitalapplied.com/blog/crm-ai-agent-salesforce-hubspot-zoho-2026-guide"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-17",
+      "theme": "CRM & member marketing",
+      "titre": "RCS + IA générative : le SMS enrichi devient un canal conversationnel intelligent",
+      "synthese": "Le RCS (Rich Communication Services) s'impose en 2026 comme le successeur du SMS classique grâce à son intégration avec l'IA générative et les moteurs de personnalisation. Combiné à des LLM et des systèmes de recommandation IA, le RCS permet des expériences conversationnelles avancées : réservations, paiements, SAV interactif, tout directement dans l'application Messages native du smartphone. Klaviyo, Attentive et d'autres plateformes marketing proposent désormais le RCS aux côtés de l'email, SMS et WhatsApp dans leurs workflows automation. L'adoption est portée par Apple qui a activé le RCS sur iOS, unifiant enfin l'écosystème.",
+      "actionACL": "Évaluer l'intégration du RCS dans la stratégie de communication membres ACL, notamment pour les confirmations d'adhésion, les rappels d'événements et les notifications de renouvellement. Vérifier si le CRM en place (Klaviyo ou autre) supporte déjà le canal RCS.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "Chapsvision — RCS et marketing automation : le guide complet 2026",
+          "url": "https://www.chapsvision.com/fr/blog/rcs-marketing-automation/"
+        },
+        {
+          "name": "Klaviyo — 8 Marketing Automation Trends for 2026",
+          "url": "https://www.klaviyo.com/blog/marketing-automation-trends"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-17",
+      "theme": "CRM & member marketing",
+      "titre": "Salesforce Agentforce franchit 18 500 clients et 3 milliards de workflows mensuels",
+      "synthese": "Salesforce a annoncé qu'Agentforce, sa plateforme d'agents IA autonomes, est désormais utilisée par 18 500 organisations avec plus de 3 milliards de workflows exécutés chaque mois, confirmant son passage à l'échelle industrielle. Les agents marketing Agentforce opèrent nativement sur Data Cloud (profils unifiés), ce qui permet une segmentation, une personnalisation et une orchestration de parcours basées sur une vue complète du client. La transition de l'IA copilote vers l'IA agentique est la tendance définissante du CRM en 2026 : moins d'assistanat, plus d'autonomie d'exécution. Pour les équipes marketing mid-market, Agentforce est accessible via des éditions simplifiées intégrées dans Marketing Cloud.",
+      "actionACL": "Si ACL utilise Salesforce, organiser un atelier pour cartographier les processus marketing éligibles à une automatisation agentique via Agentforce (qualification leads événements, renouvellements, upsell services membres).",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "MarTech — Salesforce redesigns platform for agent-driven automation",
+          "url": "https://martech.org/salesforce-redesigns-platform-for-agent-driven-automation/"
+        },
+        {
+          "name": "Vantage Point — Salesforce Agentforce Guide 2026",
+          "url": "https://vantagepoint.io/blog/sf/the-complete-guide-to-salesforces-agentforce-ecosystem-understanding-the-full-product-portfolio-in-2026"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-17",
+      "theme": "CRM & member marketing",
+      "titre": "WhatsApp CRM : l'IA transforme la messagerie en canal de fidélisation automatisé",
+      "synthese": "WhatsApp s'impose en 2026 comme un canal CRM à part entière pour les organisations B2C, avec des chatbots IA capables de qualifier des leads, gérer des paniers abandonnés, envoyer des confirmations transactionnelles et lancer des campagnes de réengagement. Les plateformes comme ActiveCampaign, Klaviyo et des solutions dédiées proposent une intégration native WhatsApp dans leurs workflows d'automation. Les taux d'ouverture sur WhatsApp restent de loin supérieurs à l'email (80-90 % vs 20-30 %), ce qui en fait un levier de fidélisation puissant pour les membres actifs. La mise en conformité RGPD sur les communications WhatsApp reste un point de vigilance.",
+      "actionACL": "Explorer un pilote WhatsApp automation pour un segment de membres ACL (ex. : rappels de renouvellement, alertes événements proches). Évaluer ActiveCampaign ou Klaviyo pour l'intégration WhatsApp dans un workflow CRM existant.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "INFO",
+      "sources": [
+        {
+          "name": "ActiveCampaign — The 8 Best WhatsApp Marketing Software in 2026",
+          "url": "https://www.activecampaign.com/blog/best-whatsapp-marketing-software"
+        },
+        {
+          "name": "Agence XPLR — WhatsApp CRM en e-commerce : méthode, cas d'usage et RCS",
+          "url": "https://www.agencexplr.com/ressources/whatsapp-marketing-pour-le-commerce-pourquoi-et-comment-lactiver-en-2026"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-17",
+      "theme": "Social & Ads",
+      "titre": "Meta Advantage+ : la publicité sociale devient entièrement automatisée",
+      "synthese": "Meta accélère vers un modèle publicitaire 'goal-only' : l'annonceur fournit un URL, un budget et un objectif, et l'IA gère l'ensemble de la campagne (création, ciblage, placement, enchères, optimisation). Plus de 4 millions d'annonceurs utilisent désormais les outils IA générative de Meta, contre 1 million six mois auparavant. Le nouvel outil image-to-video permet de transformer jusqu'à 20 photos produit en clips vidéo multi-scènes pour Facebook et Instagram. Les campagnes Advantage+ affichent en moyenne 22 % de ROAS supérieur aux campagnes gérées manuellement selon Meta.",
+      "actionACL": "Migrer au moins une campagne Facebook/Instagram ACL vers le format Advantage+ pour mesurer l'impact sur le coût par résultat. Préparer un set d'assets (10-20 visuels variés) pour alimenter l'outil image-to-video Meta.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "Digital Applied — Social Media AI Advertising: Meta and Google Updates",
+          "url": "https://www.digitalapplied.com/blog/social-media-ai-advertising-april-2026-meta-google"
+        },
+        {
+          "name": "AdTaxi — Meta's AI Advertising Plans: What To Expect in 2026",
+          "url": "https://www.adtaxi.com/blog/metas-ai-advertising-plans-what-to-expect-in-2026-and-how-to-prepare/"
+        },
+        {
+          "name": "Marketing Brew — How Meta's AI push is changing ad creation",
+          "url": "https://www.marketingbrew.com/stories/2026/04/07/meta-ai-ad-creation"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-17",
+      "theme": "Social & Ads",
+      "titre": "Meta Threads ouvre la publicité à tous les annonceurs dans le monde",
+      "synthese": "Meta a ouvert Threads aux annonceurs du monde entier depuis le 26 janvier 2026, avec support des formats image, vidéo et carrousel via setup manuel ou intégration Advantage+. Threads dépasse désormais 350 millions d'utilisateurs actifs mensuels, positionnant la plateforme comme une alternative crédible à X/Twitter pour les campagnes de brand awareness et d'engagement communautaire. Le ciblage s'appuie sur les données Meta cross-plateforme (Facebook, Instagram, WhatsApp), offrant une précision similaire aux campagnes sur les autres surfaces Meta. Les CPM restent pour l'instant inférieurs aux autres placements Meta, ce qui en fait une opportunité de test à coût réduit.",
+      "actionACL": "Tester une campagne de notoriété sur Threads pour toucher une audience connectée (professionnels, jeunes actifs) avec un budget limité. Monitorer les métriques d'engagement et comparer avec les performances Instagram.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "Blockchain News — Meta's AI Ad Surge vs Google: Analysis 2026",
+          "url": "https://blockchain.news/ainews/meta-s-ai-ad-surge-vs-google-latest-analysis-on-generative-ads-reels-monetization-and-2026-search-share"
+        },
+        {
+          "name": "Digital Applied — Social Media AI Advertising: Meta and Google Updates",
+          "url": "https://www.digitalapplied.com/blog/social-media-ai-advertising-april-2026-meta-google"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-17",
+      "theme": "Social & Ads",
+      "titre": "Google AI Max for Shopping : fin du ciblage par mots-clés pour les campagnes e-commerce",
+      "synthese": "AI Max for Shopping représente une rupture avec le modèle publicitaire traditionnel : plus besoin de listes de mots-clés, Gemini analyse la landing page de l'annonceur et sélectionne le bon moment, le bon format et la bonne audience en fonction de l'intent du chercheur. L'AI Brief permet désormais de fixer des guidelines éditoriales (messaging, audience, correspondance) que Gemini respecte dans la génération automatique d'annonces. Ces fonctionnalités s'appliquent aux campagnes Shopping et Performance Max, qui peuvent désormais apparaître dans les résultats AI Mode de Google Search. Cette transition impose une refonte de la stratégie de contenu des landing pages, qui deviennent le principal levier de contrôle créatif.",
+      "actionACL": "Auditer les pages d'atterrissage des campagnes Google ACL pour s'assurer qu'elles sont bien structurées et informatives, car elles deviennent la principale source de données pour l'IA publicitaire. Activer AI Max sur une campagne Shopping existante pour évaluer la différence de performance.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "Google Blog — AI Max for Shopping campaigns",
+          "url": "https://blog.google/products/ads-commerce/ai-max-for-shopping/"
+        },
+        {
+          "name": "Yellowhead — Google AI Mode ads: what changed at Marketing Live 2026",
+          "url": "https://www.yellowhead.com/blog/google-ai-mode-ads/"
+        },
+        {
+          "name": "Kleverish — Google Ads 2026 Updates: AI, Performance Max & New Features",
+          "url": "https://www.kleverish.com/blog/google-ads-2026-updates-ai-performance-max/"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-17",
+      "theme": "Social & Ads",
+      "titre": "Dubbing multilingue IA : Meta traduit les publicités vidéo avec lip-sync automatique",
+      "synthese": "Meta a déployé un moteur de dubbing IA qui réplique la voix, le ton et le rythme d'un créateur ou annonceur dans plusieurs langues avec synchronisation labiale automatique. Le système supporte actuellement l'anglais, l'espagnol, l'hindi, le portugais, le bengali, le tamoul et d'autres langues. Cette fonctionnalité est intégrée dans Advantage+ et permet aux annonceurs de décliner leurs spots vidéo pour des marchés internationaux sans refilmage ni coûts de doublage traditionnels. Pour les organisations actives dans plusieurs marchés linguistiques, cela représente une économie substantielle de production.",
+      "actionACL": "Évaluer l'utilisation du dubbing multilingue Meta pour les campagnes ACL ciblant des audiences Luxembourg (FR/DE/EN/PT). Créer un spot vidéo master en français et générer automatiquement les versions allemande et anglaise.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "Digital Applied — Meta AI Automated Ads 2026: Complete Marketing Guide",
+          "url": "https://www.digitalapplied.com/blog/meta-ai-automated-ads-2026-marketing-guide"
+        },
+        {
+          "name": "eMarketer — Meta launches 11 new AI ad tools at Cannes Lions 2025",
+          "url": "https://www.emarketer.com/content/meta-launches-11-new-ai-ad-tools-cannes-lions-2025"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-17",
+      "theme": "Design & branding",
+      "titre": "Recraft V4 : la génération SVG vectorielle IA s'impose pour le branding professionnel",
+      "synthese": "Recraft V4 est le premier modèle IA capable de générer des fichiers SVG production-ready avec de vraies courbes de Bézier, directement éditables dans Illustrator ou Figma sans conversion. Sa fonctionnalité Brand Style Lock permet d'importer des références visuelles de marque (couleurs, typographies, graisses de trait) et de générer ensuite des centaines d'assets cohérents dans cet univers graphique. Recraft se positionne comme l'outil de référence pour les designers professionnels qui ont besoin de cohérence de marque à grande échelle. Recraft V3 et FLUX.1.1 Pro mènent les benchmarks de vitesse à environ 4,5 secondes par image.",
+      "actionACL": "Tester Recraft pour la génération d'assets de marque ACL en SVG (icônes clubs, pictogrammes services, éléments graphiques récurrents). Configurer un Brand Kit avec la charte ACL pour assurer la cohérence des créations générées.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "Pasquale Pillitteri — Recraft AI V4 Review 2026: The Vector Tool That Beat Midjourney and DALL-E",
+          "url": "https://pasqualepillitteri.it/en/news/769/recraft-ai-v4-review-2026-vector-svg-midjourney-dalle"
+        },
+        {
+          "name": "Browse AI Tools — Midjourney vs Firefly vs Recraft: Best AI for Designers",
+          "url": "https://www.browse-ai.tools/blog/midjourney-vs-adobe-firefly-vs-recraft-best-ai-image-generators-for-designers-in-2026"
+        },
+        {
+          "name": "NomadLab — Best AI Image Generators 2026: Midjourney, Flux, Ideogram",
+          "url": "https://nomadlab.cc/blog/2026/05/best-ai-image-generators-2026-midjourney-flux-ideogram-recraft-firefly"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-17",
+      "theme": "Design & branding",
+      "titre": "Adobe Firefly 2026 : la suite IA couvre images, vidéos, audio et vecteurs dans Creative Cloud",
+      "synthese": "Adobe Firefly couvre désormais l'intégralité des formats créatifs (images, vidéo, audio, vecteurs) et est intégré nativement dans Photoshop, Illustrator, Premiere et After Effects. L'outil génère des retouches, extensions de fond, remplissages et remplacements d'objets qui s'intègrent indiscernablement aux productions existantes. Firefly est développé sur des contenus sous licence Adobe Stock, garantissant une utilisation commerciale sans risque de violation de droits d'auteur. Cette sécurité juridique est son principal avantage différentiel face à Midjourney ou DALL-E pour les productions professionnelles.",
+      "actionACL": "Activer Firefly dans le workflow Photoshop/Illustrator de l'équipe design ACL pour accélérer les retouches et extensions de visuels (agrandissement de photos, suppression d'éléments, création de variantes). Prioritiser Firefly pour tout visuel destiné à une diffusion commerciale ou publicitaire.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "Almcorp — Meilleurs outils de génération d'images par IA en 2026",
+          "url": "https://almcorp.com/blog/top-ai-image-generation-tools/"
+        },
+        {
+          "name": "Stormy AI Blog — Midjourney and Adobe Firefly Playbook for 2026 Brands",
+          "url": "https://stormy.ai/blog/midjourney-adobe-firefly-playbook-2026"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-17",
+      "theme": "Design & branding",
+      "titre": "CyberCité lance une offre IA pour visuels publicitaires : les agences entrent dans la course",
+      "synthese": "L'agence française CyberCité a lancé une offre de production de visuels publicitaires IA combinant prompting avancé, Brand Kit personnalisé et post-production humaine. Ce modèle hybride (IA + validation créative humaine) représente le nouveau standard proposé par les agences digitales aux marques qui cherchent à accélérer leur production sans sacrifier la cohérence de marque. La tendance confirme que la valeur ajoutée des agences se déplace de la production pure vers l'orchestration créative, le pilotage des IA et la garantie de cohérence éditoriale. Les équipes marketing internes sont invitées à développer des compétences de prompt design pour maintenir leur autonomie.",
+      "actionACL": "Cartographier les types de visuels produits par l'équipe Marcom ACL et identifier lesquels sont éligibles à une production semi-automatisée par IA (bannières web, visuels réseaux sociaux, déclinaisons formats). Évaluer si une formation interne en prompt design serait plus efficace qu'un recours à une agence IA.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "Blog du Modérateur — CyberCité lance une offre IA pour des visuels publicitaires plus performants",
+          "url": "https://www.blogdumoderateur.com/cybercite-lance-offre-ia-visuels-publicitaires-plus-performants-strategiques/"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-17",
+      "theme": "Design & branding",
+      "titre": "Stratégie multi-outils IA design : Midjourney, Recraft et Firefly en complémentarité",
+      "synthese": "Les experts design recommandent en 2026 une approche multi-outils plutôt qu'un outil unique : Midjourney pour l'exploration créative et l'imagerie éditoriale stylisée, Recraft pour les assets vectoriels et la cohérence de marque, et Firefly pour les retouches et productions dans Creative Cloud. Cette stratégie de spécialisation par outil optimise la qualité selon le type de besoin créatif. Des workflows combinant ces trois outils permettent de passer de la phase d'idéation à l'asset final en une fraction du temps traditionnel. La maîtrise de ces outils devient une compétence core pour les équipes design en 2026.",
+      "actionACL": "Définir une politique interne claire sur les outils IA design autorisés au sein de l'équipe Marcom ACL, avec des cas d'usage recommandés pour chaque outil. Prévoir une session de formation pratique couvrant les trois outils principaux et leurs cas d'application spécifiques ACL.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "INFO",
+      "sources": [
+        {
+          "name": "Toools Design — AI Tools for Graphic Design: The 10 Best Platforms in 2026",
+          "url": "https://www.toools.design/blog-posts/ai-tools-for-graphic-design"
+        },
+        {
+          "name": "Browse AI Tools — Midjourney vs Firefly vs Recraft: Best AI for 2026",
+          "url": "https://www.browse-ai.tools/blog/midjourney-vs-adobe-firefly-vs-recraft-best-ai-image-generators-for-2026"
+        },
+        {
+          "name": "Animaapp Blog — Le design graphique en 2026 : tendances, IA et nouveaux workflows créatifs",
+          "url": "https://www.animaapp.com/blog/fr/ai-fr/graphic-design-fr/"
+        }
+      ]
+    },
     {
       "date": "2026-06-16",
       "theme": "IA générative en marketing",
