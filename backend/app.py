@@ -5158,11 +5158,9 @@ def wrike():
     try:
         hdrs = {'Authorization': f'Bearer {WRIKE_API_KEY}', 'Accept': 'application/json'}
 
-        # Fetch all folders with project metadata
-        # Note: no 'project=true' filter (not a valid v4 param) — filter in Python instead
-        rf = _get(f'{_WRIKE_BASE}/folders', headers=hdrs, params={
-            'fields': '["project"]',
-        })
+        # Fetch all folders — the 'project' sub-object is part of the standard response
+        # (not an optional field), present only on folders that are Wrike projects
+        rf = _get(f'{_WRIKE_BASE}/folders', headers=hdrs)
         if not rf.ok:
             return jsonify({'error': f'Wrike API erreur HTTP {rf.status_code}', 'detail': rf.text[:300]})
         # Keep only folders that are projects (have a non-empty 'project' sub-object)
