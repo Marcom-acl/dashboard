@@ -6757,37 +6757,86 @@ function bufToggle(id) {
 }
 
 // ── Wrike urgency helpers ─────────────────────────────────────────────────────
+// ── Wrike constants & helpers ─────────────────────────────────────────────────
 const _WRIKE_URGENCY = {
-  overdue:  { color: '#E74C3C', bg: '#FEF2F2', label: 'En retard',   badge: 'RETARD'   },
-  critical: { color: '#E67E22', bg: '#FFF7ED', label: '≤ 3 jours',   badge: 'URGENT'   },
-  high:     { color: '#FEDB00', bg: '#FFFBEB', label: '≤ 7 jours',   badge: 'SOON'     },
-  normal:   { color: '#34A853', bg: '#F0FDF4', label: 'Dans les temps', badge: null     },
-  none:     { color: '#9CA3AF', bg: '#F9FAFB', label: 'Sans date',   badge: null       },
+  overdue:  { color: '#E74C3C', label: 'En retard',      badge: 'RETARD' },
+  critical: { color: '#E67E22', label: 'Urgent (≤ 3j)',  badge: 'URGENT' },
+  high:     { color: '#FEDB00', label: 'Cette semaine',  badge: 'SOON'   },
+  normal:   { color: '#34A853', label: 'On track',       badge: null     },
+  none:     { color: '#9CA3AF', label: 'Sans date',      badge: null     },
 };
-const _WRIKE_STATUS_COLOR = {
-  Green:  '#22C55E',
-  Yellow: '#EAB308',
-  Red:    '#EF4444',
-  OnHold: '#6B7280',
-  Active: '#3B82F6',
-};
+const _WRIKE_RAG = { Green: '#22C55E', Yellow: '#EAB308', Red: '#EF4444', OnHold: '#6B7280', Active: '#3B82F6' };
+
+let _wrikeFilterUrg   = 'all';
+let _wrikeFilterOwner = '';
+let _wrikeSort        = 'urgency';
+let _wrikeProjects    = [];
 
 function _wrikeOwnerAvatars(owners) {
   if (!owners?.length) return '';
-  return owners.slice(0, 3).map(name => {
-    const initials = name.split(' ').map(p => p[0]).join('').toUpperCase().slice(0, 2);
-    return `<span title="${name}" style="display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:#E5E7EB;color:#374151;font-size:9px;font-weight:700;margin-left:-4px;border:2px solid #fff;flex-shrink:0">${initials}</span>`;
-  }).join('') + (owners.length > 3 ? `<span style="display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:#D1D5DB;color:#6B7280;font-size:9px;font-weight:700;margin-left:-4px;border:2px solid #fff">+${owners.length - 3}</span>` : '');
+  const shown = owners.slice(0, 3).map(name => {
+    const ini = name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2);
+    return `<span title="${name}" style="display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:#E5E7EB;color:#374151;font-size:9px;font-weight:700;margin-left:-3px;border:2px solid var(--clr-surface-raised,#fff);flex-shrink:0">${ini}</span>`;
+  }).join('');
+  const extra = owners.length > 3 ? `<span style="display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:#D1D5DB;color:#6B7280;font-size:9px;font-weight:700;margin-left:-3px;border:2px solid var(--clr-surface-raised,#fff)">+${owners.length-3}</span>` : '';
+  return shown + extra;
 }
 
 function _wrikeDueLabel(p) {
-  if (!p.due_date) return '<span style="color:var(--muted);font-size:11px">Pas de date</span>';
-  const d = new Date(p.due_date);
-  const dateStr = d.toLocaleDateString('fr-FR', {day:'2-digit', month:'short'});
-  if (p.urgency === 'overdue') {
+  if (!p.due_date) return '<span style="color:var(--muted);font-size:11px">Sans date</span>';
+  const dateStr = new Date(p.due_date).toLocaleDateString('fr-FR', {day:'2-digit', month:'short'});
+  if (p.urgency === 'overdue')
     return `<span style="color:#E74C3C;font-weight:700;font-size:12px">↩ ${Math.abs(p.days_left)}j de retard</span>`;
-  }
   return `<span style="color:var(--text-2);font-size:12px">${dateStr}</span><span style="color:var(--muted);font-size:11px;margin-left:4px">(J-${p.days_left})</span>`;
+}
+
+function _wrikeCard(p) {
+  const urg  = _WRIKE_URGENCY[p.urgency] || _WRIKE_URGENCY.none;
+  const ragC = _WRIKE_RAG[p.status] || '#6B7280';
+  const badge = urg.badge ? `<span style="padding:2px 6px;border-radius:4px;background:${urg.color}20;color:${urg.color};font-size:10px;font-weight:700">${urg.badge}</span>` : '';
+  const dot   = p.status && p.status !== 'Active' ? `<span style="width:8px;height:8px;border-radius:50%;background:${ragC};flex-shrink:0;display:inline-block" title="${p.status}"></span>` : '';
+  const avatars = p.owners?.length ? `<div style="display:flex;align-items:center;padding-left:8px;border-left:1px solid #E5E7EB;margin-left:4px">${_wrikeOwnerAvatars(p.owners)}</div>` : '';
+  return `<div style="display:flex;border-radius:8px;overflow:hidden;background:var(--clr-surface-raised,#fff);box-shadow:0 1px 3px rgba(0,0,0,.07);margin-bottom:7px">
+    <div style="width:4px;background:${urg.color};flex-shrink:0"></div>
+    <div style="flex:1;padding:9px 13px">
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px">${dot}<span style="font-weight:600;font-size:13px;color:var(--text);flex:1">${p.title}</span>${badge}</div>
+      <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">${_wrikeDueLabel(p)}${avatars}</div>
+    </div>
+  </div>`;
+}
+
+function _renderWrikeList() {
+  const container = document.getElementById('wrike-project-list');
+  if (!container) return;
+  let list = _wrikeProjects.slice();
+  if (_wrikeFilterUrg !== 'all') list = list.filter(p => p.urgency === _wrikeFilterUrg);
+  if (_wrikeFilterOwner)         list = list.filter(p => (p.owners||[]).includes(_wrikeFilterOwner));
+
+  const urgOrder = {overdue:0,critical:1,high:2,normal:3,none:4};
+  if (_wrikeSort === 'urgency') {
+    list.sort((a,b) => (urgOrder[a.urgency]??9)-(urgOrder[b.urgency]??9) || (a.days_left??9999)-(b.days_left??9999));
+  } else if (_wrikeSort === 'date_asc') {
+    list.sort((a,b) => (a.due_date||'zzzz').localeCompare(b.due_date||'zzzz'));
+  } else if (_wrikeSort === 'date_desc') {
+    list.sort((a,b) => (b.due_date||'').localeCompare(a.due_date||''));
+  } else if (_wrikeSort === 'name') {
+    list.sort((a,b) => a.title.localeCompare(b.title));
+  } else if (_wrikeSort === 'rag') {
+    const ro = {Green:0,Yellow:1,Red:2,OnHold:3,Active:4};
+    list.sort((a,b) => (ro[a.status]??9)-(ro[b.status]??9));
+  }
+
+  container.innerHTML = list.length === 0
+    ? '<p class="tbl-empty">Aucun projet correspondant aux filtres</p>'
+    : list.map(_wrikeCard).join('');
+
+  // Sync pill active states
+  document.querySelectorAll('.wrike-urg-pill').forEach(btn => {
+    const on = btn.dataset.urg === _wrikeFilterUrg;
+    btn.style.background = on ? (btn.dataset.color || '#1D4ED8') : 'var(--clr-surface-raised,#f3f4f6)';
+    btn.style.color      = on ? '#fff' : 'var(--text-2)';
+    btn.style.borderColor = on ? (btn.dataset.color || '#1D4ED8') : 'transparent';
+  });
 }
 
 function renderWrike(d) {
@@ -6796,7 +6845,7 @@ function renderWrike(d) {
 
   if (!d || d.error) {
     el.innerHTML = `
-      <div class="sec-title"><h2>Projets en cours</h2><div class="line"></div>
+      <div class="sec-title"><h2>Projets — ACL Marcom</h2><div class="line"></div>
         <span class="src-pill" style="--src:#05C1D7;--src-bg:#ECFEFF">Wrike</span>
       </div>
       <div style="margin:16px 0;padding:16px 20px;background:#FEF2F2;border:1px solid #FECACA;border-radius:10px;font-size:13px;line-height:1.7">
@@ -6806,63 +6855,85 @@ function renderWrike(d) {
     return;
   }
 
-  const projects = d.projects || [];
-  const s        = d.summary  || {};
+  _wrikeProjects    = d.projects   || [];
+  _wrikeFilterUrg   = 'all';
+  _wrikeFilterOwner = '';
+  _wrikeSort        = 'urgency';
 
-  // ── Summary chips ──────────────────────────────────────────────
-  const summaryHtml = `
-    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px">
-      <span style="padding:6px 14px;border-radius:20px;background:#EFF6FF;color:#1D4ED8;font-size:12px;font-weight:600">${s.active ?? 0} projet${(s.active ?? 0) > 1 ? 's' : ''} actif${(s.active ?? 0) > 1 ? 's' : ''}</span>
-      ${(s.overdue ?? 0) > 0 ? `<span style="padding:6px 14px;border-radius:20px;background:#FEF2F2;color:#DC2626;font-size:12px;font-weight:700">⚠ ${s.overdue} en retard</span>` : ''}
-      ${(s.critical ?? 0) > 0 ? `<span style="padding:6px 14px;border-radius:20px;background:#FFF7ED;color:#C2410C;font-size:12px;font-weight:700">🔥 ${s.critical} urgent${(s.critical ?? 0) > 1 ? 's' : ''}</span>` : ''}
-      ${(s.due_this_week ?? 0) > 0 ? `<span style="padding:6px 14px;border-radius:20px;background:#FFFBEB;color:#92400E;font-size:12px;font-weight:600">📅 ${s.due_this_week} cette semaine</span>` : ''}
-    </div>`;
+  const s  = d.summary    || {};
+  const ts = d.task_stats || {};
 
-  // ── Project cards ──────────────────────────────────────────────
-  const cardsHtml = projects.length === 0
-    ? '<p class="tbl-empty">Aucun projet actif dans Wrike</p>'
-    : projects.map(p => {
-        const urg   = _WRIKE_URGENCY[p.urgency] || _WRIKE_URGENCY.none;
-        const stClr = _WRIKE_STATUS_COLOR[p.status] || '#6B7280';
-        const badgeHtml = urg.badge
-          ? `<span style="padding:2px 7px;border-radius:4px;background:${urg.color}18;color:${urg.color};font-size:10px;font-weight:700;flex-shrink:0">${urg.badge}</span>`
-          : '';
-        const statusHtml = p.status && p.status !== 'Active'
-          ? `<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${stClr};flex-shrink:0" title="Statut Wrike : ${p.status}"></span>`
-          : '';
-        return `
-        <div style="display:flex;align-items:center;gap:0;border-radius:10px;overflow:hidden;background:var(--clr-surface-raised, #fff);box-shadow:0 1px 3px rgba(0,0,0,.07);margin-bottom:8px">
-          <div style="width:4px;min-height:56px;background:${urg.color};flex-shrink:0"></div>
-          <div style="flex:1;padding:10px 14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
-            <div style="flex:1;min-width:160px">
-              <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px">
-                ${statusHtml}
-                <span style="font-weight:600;font-size:13px;color:var(--text)">${p.title}</span>
-                ${badgeHtml}
-              </div>
-              <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
-                ${_wrikeDueLabel(p)}
-                ${p.owners?.length ? `<div style="display:flex;align-items:center;margin-left:4px;padding-left:8px;border-left:1px solid #E5E7EB">${_wrikeOwnerAvatars(p.owners)}</div>` : ''}
-              </div>
-            </div>
-          </div>
-        </div>`;
-      }).join('');
+  // ── KPI + sparklines ──────────────────────────────────────────
+  const kpisHtml = `<div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:4px">
+    ${kpiCard({label:'Complétées cette semaine', value:String(ts.completed_this_week??0),
+               src:'#05C1D7', srcBg:'#ECFEFF', spark:ts.completed_per_week,
+               tooltip:`Historique 8 semaines : ${(ts.weeks||[]).join(', ')}`})}
+    ${kpiCard({label:'Nouvelles cette semaine',  value:String(ts.new_this_week??0),
+               src:'#8B5CF6', srcBg:'#F5F3FF', spark:ts.new_per_week})}
+    ${kpiCard({label:'Tâches actives en retard', value:String(ts.overdue_active??0),
+               src: (ts.overdue_active??0) > 0 ? '#E74C3C' : '#34A853',
+               srcBg:(ts.overdue_active??0) > 0 ? '#FEF2F2' : '#F0FDF4'})}
+    ${kpiCard({label:'Projets actifs',           value:String(s.active??0),
+               src:'#05C1D7', srcBg:'#ECFEFF',
+               badge:(s.overdue_projects??0)>0?`<span style="font-size:10px;font-weight:700;color:#E74C3C;margin-left:6px">⚠${s.overdue_projects} retard</span>`:'' })}
+  </div>`;
+
+  // ── Build owner list for filter ───────────────────────────────
+  const allOwners = [...new Set(_wrikeProjects.flatMap(p => p.owners||[]))].sort();
+  const ownerOpts = allOwners.map(o => `<option value="${o}">${o}</option>`).join('');
+
+  // ── Urgency pill definitions ──────────────────────────────────
+  const pillDefs = [
+    {urg:'all',      label:'Tous',          color:'#1D4ED8'},
+    {urg:'overdue',  label:'En retard',     color:'#E74C3C'},
+    {urg:'critical', label:'Urgent',        color:'#E67E22'},
+    {urg:'high',     label:'Cette semaine', color:'#B45309'},
+    {urg:'normal',   label:'On track',      color:'#15803D'},
+  ];
+  const pillsHtml = pillDefs.map(def =>
+    `<button class="wrike-urg-pill" data-urg="${def.urg}" data-color="${def.color}"
+      style="padding:4px 11px;border-radius:20px;border:1px solid transparent;font-size:11px;font-weight:600;cursor:pointer;transition:all .15s">${def.label}</button>`
+  ).join('');
 
   el.innerHTML = `
-    <div class="sec-title"><h2>Projets en cours</h2><div class="line"></div>
+    <div class="sec-title"><h2>Projets — ACL Marcom</h2><div class="line"></div>
       <span class="src-pill" style="--src:#05C1D7;--src-bg:#ECFEFF">Wrike</span>
     </div>
-    ${summaryHtml}
+    ${kpisHtml}
     <div class="card">
-      <div class="card-head">
-        <div class="card-title">Tous les projets actifs</div>
-        <div class="card-sub">Triés par urgence · données Wrike</div>
+      <div class="card-head" style="flex-wrap:wrap;gap:8px">
+        <div class="card-title">Projets actifs</div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-left:auto">
+          ${pillsHtml}
+          ${allOwners.length ? `<select id="wrike-owner-sel" style="padding:4px 8px;border-radius:6px;border:1px solid #E5E7EB;font-size:11px;background:var(--clr-surface-raised,#fff);color:var(--text)">
+            <option value="">Tous les membres</option>${ownerOpts}</select>` : ''}
+          <select id="wrike-sort-sel" style="padding:4px 8px;border-radius:6px;border:1px solid #E5E7EB;font-size:11px;background:var(--clr-surface-raised,#fff);color:var(--text)">
+            <option value="urgency">Trier : Urgence</option>
+            <option value="date_asc">Date ASC</option>
+            <option value="date_desc">Date DESC</option>
+            <option value="name">Nom A→Z</option>
+            <option value="rag">Statut RAG</option>
+          </select>
+        </div>
       </div>
       <div class="card-body" style="padding:12px 16px">
-        ${cardsHtml}
+        <div id="wrike-project-list"></div>
       </div>
     </div>`;
+
+  // ── Event listeners ───────────────────────────────────────────
+  el.querySelectorAll('.wrike-urg-pill').forEach(btn => {
+    btn.addEventListener('click', () => {
+      _wrikeFilterUrg = btn.dataset.urg;
+      _renderWrikeList();
+    });
+  });
+  const ownerSel = document.getElementById('wrike-owner-sel');
+  if (ownerSel) ownerSel.addEventListener('change', e => { _wrikeFilterOwner = e.target.value; _renderWrikeList(); });
+  const sortSel = document.getElementById('wrike-sort-sel');
+  if (sortSel) sortSel.addEventListener('change', e => { _wrikeSort = e.target.value; _renderWrikeList(); });
+
+  _renderWrikeList();
 }
 
 

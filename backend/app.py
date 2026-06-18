@@ -5147,88 +5147,183 @@ def pagespeed():
 
 _WRIKE_BASE = 'https://app-eu.wrike.com/api/v4'
 
+
+def _wrike_space_id(hdrs):
+    """Résout l'ID de l'espace 'ACL Marcom', mis en cache 24 h."""
+    cached = _cache_get('wrike:space_id')
+    if cached:
+        return cached.get('id')
+    r = _get(f'{_WRIKE_BASE}/spaces', headers=hdrs)
+    if not r.ok:
+        return None
+    for s in r.json().get('data', []):
+        if 'acl marcom' in s.get('title', '').lower():
+            _cache_set('wrike:space_id', {'id': s['id']}, 86400)
+            return s['id']
+    return None
+
+
 @app.route('/wrike')
 def wrike():
     if not WRIKE_API_KEY:
         return jsonify({'error': 'WRIKE_API_KEY manquante'})
 
     cached = _cache_get('wrike:projects')
-    if cached: return jsonify(cached)
+    if cached:
+        return jsonify(cached)
 
     try:
         hdrs = {'Authorization': f'Bearer {WRIKE_API_KEY}', 'Accept': 'application/json'}
 
-        # Fetch all folders — the 'project' sub-object is part of the standard response
-        # (not an optional field), present only on folders that are Wrike projects
-        rf = _get(f'{_WRIKE_BASE}/folders', headers=hdrs)
-        if not rf.ok:
-            return jsonify({'error': f'Wrike API erreur HTTP {rf.status_code}', 'detail': rf.text[:300]})
-        # Keep only folders that are projects (have a non-empty 'project' sub-object)
-        folders = [f for f in rf.json().get('data', []) if f.get('project')]
+        space_id = _wrike_space_id(hdrs)
+        if not space_id:
+            return jsonify({'error': 'Espace "ACL Marcom" introuvable dans Wrike'})
 
-        # Fetch contacts for owner display names (best-effort)
-        contacts = {}
-        try:
-            rc = _get(f'{_WRIKE_BASE}/contacts', headers=hdrs)
-            if rc.ok:
-                for c in rc.json().get('data', []):
-                    full = f"{c.get('firstName', '')} {c.get('lastName', '')}".strip()
-                    contacts[c['id']] = full or c.get('profiles', [{}])[0].get('email', c['id'])
-        except Exception:
-            pass
+        today      = datetime.date.today()
+        week_start = today - datetime.timedelta(days=today.weekday())
+        eight_ago  = today - datetime.timedelta(weeks=8)
+        date_range = json.dumps(
+            {'start': eight_ago.strftime('%Y-%m-%dT00:00:00Z'),
+             'end':   today.strftime('%Y-%m-%dT23:59:59Z')},
+            separators=(',', ':')
+        )
 
-        today = datetime.date.today()
+        # ── Parallel fetches ─────────────────────────────────────────
+        def _fetch_folders():
+            r = _get(f'{_WRIKE_BASE}/spaces/{space_id}/folders', headers=hdrs)
+            return r.json().get('data', []) if r.ok else []
+
+        def _fetch_completed():
+            r = _get(f'{_WRIKE_BASE}/spaces/{space_id}/tasks', headers=hdrs, params={
+                'status': 'Completed', 'completedDate': date_range, 'pageSize': 1000,
+            })
+            return r.json().get('data', []) if r.ok else []
+
+        def _fetch_active():
+            r = _get(f'{_WRIKE_BASE}/spaces/{space_id}/tasks', headers=hdrs, params={
+                'status': 'Active', 'pageSize': 1000,
+            })
+            return r.json().get('data', []) if r.ok else []
+
+        def _fetch_contacts():
+            r = _get(f'{_WRIKE_BASE}/contacts', headers=hdrs)
+            if not r.ok:
+                return {}
+            out = {}
+            for c in r.json().get('data', []):
+                full = f"{c.get('firstName', '')} {c.get('lastName', '')}".strip()
+                out[c['id']] = full or c['id']
+            return out
+
+        with concurrent.futures.ThreadPoolExecutor(max_workers=4) as ex:
+            ff = ex.submit(_fetch_folders)
+            fc = ex.submit(_fetch_completed)
+            fa = ex.submit(_fetch_active)
+            fk = ex.submit(_fetch_contacts)
+
+        folders         = ff.result()
+        completed_tasks = fc.result()
+        active_tasks    = fa.result()
+        contacts        = fk.result()
+
+        # ── Projects ─────────────────────────────────────────────────
         projects = []
         for folder in folders:
-            proj = folder.get('project', {})
+            if not folder.get('project'):
+                continue
+            proj   = folder['project']
             status = proj.get('status', '')
             if status in ('Completed', 'Cancelled'):
                 continue
 
-            end_date = proj.get('endDate') or proj.get('dueDate')
+            end_date  = proj.get('endDate') or proj.get('dueDate')
             days_left = None
-            urgency = 'none'
+            urgency   = 'none'
             if end_date:
                 try:
                     due = datetime.date.fromisoformat(end_date[:10])
                     days_left = (due - today).days
-                    if days_left < 0:
-                        urgency = 'overdue'
-                    elif days_left <= 3:
-                        urgency = 'critical'
-                    elif days_left <= 7:
-                        urgency = 'high'
-                    else:
-                        urgency = 'normal'
+                    if days_left < 0:    urgency = 'overdue'
+                    elif days_left <= 3: urgency = 'critical'
+                    elif days_left <= 7: urgency = 'high'
+                    else:                urgency = 'normal'
                 except ValueError:
                     pass
 
-            owner_ids = proj.get('ownerIds', [])
-            owners = [contacts.get(uid, uid) for uid in owner_ids]
-
+            owners = [contacts.get(uid, uid) for uid in proj.get('ownerIds', [])]
             projects.append({
-                'id':        folder['id'],
-                'title':     folder['title'],
-                'status':    status,
-                'due_date':  end_date,
-                'days_left': days_left,
-                'urgency':   urgency,
-                'owners':    owners,
+                'id': folder['id'], 'title': folder['title'],
+                'status': status, 'due_date': end_date,
+                'days_left': days_left, 'urgency': urgency, 'owners': owners,
             })
 
-        def _sort_key(p):
-            order = {'overdue': 0, 'critical': 1, 'high': 2, 'normal': 3, 'none': 4}
-            return (order.get(p['urgency'], 9), p['days_left'] if p['days_left'] is not None else 9999)
+        _urg_order = {'overdue': 0, 'critical': 1, 'high': 2, 'normal': 3, 'none': 4}
+        projects.sort(key=lambda p: (
+            _urg_order.get(p['urgency'], 9),
+            p['days_left'] if p['days_left'] is not None else 9999
+        ))
 
-        projects.sort(key=_sort_key)
+        # ── Task stats — 8 ISO-week buckets ──────────────────────────
+        today_monday = today - datetime.timedelta(days=today.weekday())
+        weeks_labels = []
+        for i in range(7, -1, -1):
+            ref_monday = today_monday - datetime.timedelta(weeks=i)
+            weeks_labels.append(f'S{ref_monday.isocalendar()[1]}')
+
+        def _bucket(date_str):
+            if not date_str:
+                return -1
+            try:
+                d        = datetime.date.fromisoformat(date_str[:10])
+                d_monday = d - datetime.timedelta(days=d.weekday())
+                weeks_ago = (today_monday - d_monday).days // 7
+                return 7 - weeks_ago if 0 <= weeks_ago < 8 else -1
+            except (ValueError, AttributeError):
+                return -1
+
+        completed_per_week = [0] * 8
+        for t in completed_tasks:
+            idx = _bucket(t.get('completedDate'))
+            if idx >= 0:
+                completed_per_week[idx] += 1
+
+        new_per_week = [0] * 8
+        for t in completed_tasks + active_tasks:
+            idx = _bucket(t.get('createdDate'))
+            if idx >= 0:
+                new_per_week[idx] += 1
+
+        week_start_str = week_start.isoformat()
+        overdue_active = sum(
+            1 for t in active_tasks
+            if (t.get('dates') or {}).get('due', '') and
+               (t['dates']['due'])[:10] < today.isoformat()
+        )
+        completed_this_week = sum(
+            1 for t in completed_tasks
+            if (t.get('completedDate') or '')[:10] >= week_start_str
+        )
+        new_this_week = sum(
+            1 for t in completed_tasks + active_tasks
+            if (t.get('createdDate') or '')[:10] >= week_start_str
+        )
 
         result = {
-            'projects': projects,
+            'space_name': 'ACL Marcom',
+            'projects':   projects,
             'summary': {
-                'active':        len(projects),
-                'overdue':       sum(1 for p in projects if p['urgency'] == 'overdue'),
-                'critical':      sum(1 for p in projects if p['urgency'] == 'critical'),
-                'due_this_week': sum(1 for p in projects if p['days_left'] is not None and 0 <= p['days_left'] <= 7),
+                'active':           len(projects),
+                'overdue_projects': sum(1 for p in projects if p['urgency'] == 'overdue'),
+                'critical':         sum(1 for p in projects if p['urgency'] == 'critical'),
+                'due_this_week':    sum(1 for p in projects if p.get('days_left') is not None and 0 <= p['days_left'] <= 7),
+            },
+            'task_stats': {
+                'weeks':               weeks_labels,
+                'completed_per_week':  completed_per_week,
+                'new_per_week':        new_per_week,
+                'overdue_active':      overdue_active,
+                'completed_this_week': completed_this_week,
+                'new_this_week':       new_this_week,
             },
         }
         _cache_set('wrike:projects', result, 600)
