@@ -5219,12 +5219,12 @@ def wrike():
 
         def _fetch_completed():
             r = _get(f'{_WRIKE_BASE}/spaces/{space_id}/tasks', headers=hdrs,
-                     params={'status': 'Completed'})
+                     params={'status': 'Completed', 'descendants': 'true', 'pageSize': 200})
             return r.json().get('data', []) if r.ok else []
 
         def _fetch_active():
             r = _get(f'{_WRIKE_BASE}/spaces/{space_id}/tasks', headers=hdrs,
-                     params={'status': 'Active'})
+                     params={'status': 'Active', 'descendants': 'true', 'pageSize': 200})
             return r.json().get('data', []) if r.ok else []
 
         def _fetch_contacts():
