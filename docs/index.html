@@ -6934,6 +6934,7 @@ function renderWrike(d) {
   if (sortSel) sortSel.addEventListener('change', e => { _wrikeSort = e.target.value; _renderWrikeList(); });
 
   _renderWrikeList();
+  animateCards(el);
 }
 
 
