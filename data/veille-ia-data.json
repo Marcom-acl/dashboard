@@ -1,6 +1,305 @@
 {
-  "generated_at": "2026-06-17",
+  "generated_at": "2026-06-18",
   "items": [
+    {
+      "date": "2026-06-18",
+      "theme": "IA générative en marketing",
+      "titre": "Canva Grow : un moteur de campagne IA qui génère, publie et mesure sans quitter Canva",
+      "synthese": "Canva a lancé Canva Grow, le pilier marketing de son Creative Operating System, qui analyse automatiquement le site web d'une marque (couleurs, ton, messaging) pour générer des variantes publicitaires personnalisées. La plateforme permet de connecter directement un compte publicitaire Meta ou Google, de publier des campagnes et de suivre la performance via des recommandations IA en temps réel. La fonctionnalité Canva Design Model est le premier modèle IA entraîné spécifiquement pour comprendre la structure, la hiérarchie et la logique de marque dans la conception graphique. Canva a aussi acquis Ortto (marketing automation) et Simtheory pour accélérer son positionnement comme système d'exploitation créatif complet.",
+      "actionACL": "Tester Canva Grow pour une campagne de notoriété ACL : connecter le site acl.lu pour auto-générer des briefs créatifs alignés sur la charte, puis déployer directement sur Meta sans passer par un outil tiers.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "Canva Newsroom — Creative Operating System",
+          "url": "https://www.canva.com/newsroom/news/creative-operating-system/"
+        },
+        {
+          "name": "NAV43 — Canva Create 2026: Canva AI 2.0 and the Dawn of a New Creative Era",
+          "url": "https://nav43.com/blog/canva-create-2026-canva-ai-review/"
+        },
+        {
+          "name": "Futurum — Canva Doubles Down on AI and Martech to Bolster its Creative OS",
+          "url": "https://futurumgroup.com/insights/canva-doubles-down-on-ai-and-martech-to-bolster-its-creative-os/"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-18",
+      "theme": "IA générative en marketing",
+      "titre": "GEO (Generative Engine Optimization) : la stratégie de contenu se réinvente face aux moteurs IA",
+      "synthese": "Avec Google AI Mode, Perplexity et d'autres moteurs de réponse IA représentant une part croissante du trafic organique, les équipes marketing doivent désormais optimiser pour apparaître dans des réponses générées, et non dans une liste de liens. Le GEO implique de structurer les contenus pour qu'ils soient citables par les LLM : définitions claires, données sourcées, structure sémantique balisée. Plus de 75 % des campagnes digitales intègrent déjà une IA générative en 2026, mais peu d'équipes ont adapté leur stratégie de contenu aux nouveaux modes de découverte IA. Les marques qui optimisent pour les réponses IA observent une hausse de leur part de voix dans les assistants conversationnels.",
+      "actionACL": "Auditer les pages web ACL les plus importantes (page adhésion, services membres, événements) et réécrire les introductions pour les rendre citables dans des réponses IA : définitions courtes, données chiffrées, structure FAQ.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "Intelligence Marketing Day — IA en 2026 : les tendances qui redéfinissent le marketing",
+          "url": "https://www.intelligencemarketingday.fr/blog/intelligence-marketing-day/ia-en-2026-les-tendances-qui-redefinissent-le-marketing-la-data-et-la-performance/"
+        },
+        {
+          "name": "Journal du Net — Les 5 grandes tendances IA pour la communication d'entreprise en 2026",
+          "url": "https://www.journaldunet.com/intelligence-artificielle/1547587-les-5-grandes-tendances-de-l-ia-qui-vont-transformer-la-communication-d-entreprise-en-2026/"
+        },
+        {
+          "name": "Viuz — 2026 : l'année où l'IA devient concrète",
+          "url": "https://viuz.com/2026/03/29/2026-lannee-ou-lia-devient-concrete-cinq-actions-pour-le-marketing/"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-18",
+      "theme": "IA générative en marketing",
+      "titre": "Google Veo 3.1 : vidéo générative 4K accessible via l'API Gemini pour les équipes marketing",
+      "synthese": "Google a lancé Veo 3.1, son modèle de génération vidéo de pointe, capable de produire des vidéos 720p, 1080p et 4K de 8 secondes avec audio natif depuis un prompt texte ou image. Depuis son lancement en mai, plus de 70 millions de vidéos ont été créées, dont 6 millions via Vertex AI en mode entreprise. Veo 3.1 intègre nativement le format 9:16 pour les Shorts, Reels et TikTok, et s'utilise via Gemini, Google AI Studio, Google Vids et l'API pour les développeurs. Pour les équipes marketing, cela signifie un accès à une production vidéo professionnelle sans budget tournage, depuis un simple brief textuel.",
+      "actionACL": "Expérimenter Veo 3.1 via Google AI Studio (accès gratuit limité) pour créer un prototype de spot vidéo ACL de 8 secondes (format Reels/Shorts) sur un thème de campagne à venir, avant d'investir dans une production traditionnelle.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "Google Developers Blog — Introducing Veo 3.1 and new creative capabilities",
+          "url": "https://developers.googleblog.com/introducing-veo-3-1-and-new-creative-capabilities-in-the-gemini-api/"
+        },
+        {
+          "name": "Google Cloud Blog — Veo 3 Fast available for everyone on Vertex AI",
+          "url": "https://cloud.google.com/blog/products/ai-machine-learning/veo-3-fast-available-for-everyone-on-vertex-ai"
+        },
+        {
+          "name": "TrendingTopics — Google I/O 2026: AI Takes Center Stage",
+          "url": "https://www.trendingtopics.eu/google-i-o-2026-ai-takes-center-stage-with-new-gemini-and-video-generator/"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-18",
+      "theme": "IA générative en marketing",
+      "titre": "Le marché IA créative atteint 67 milliards $ en 2026 : accélération de l'adoption enterprise",
+      "synthese": "Le marché global de l'IA générative atteint 67 milliards de dollars en 2026, avec une adoption qui s'est démocratisée : plus de 75 % des campagnes digitales intègrent désormais une forme d'IA générative contre moins de 30 % en 2023. Les entreprises ayant intégré l'IA dans leurs processus de création de contenu rapportent une hausse de productivité de 40 % et une réduction de 30 % des coûts de production. La tendance de fond est le passage d'outils isolés à des intégrations natives dans les CMS, CRM et outils de gestion de campagnes via API. Le rôle du créatif évolue vers un directeur éditorial qui supervise et affine les outputs IA.",
+      "actionACL": "Établir un tableau de bord des outils IA déjà utilisés par l'équipe Marcom ACL (Canva, ChatGPT, etc.) et mesurer le gain de productivité réel sur les 3 derniers mois pour préparer un argumentaire d'investissement supplémentaire.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "INFO",
+      "sources": [
+        {
+          "name": "Actif Digital — IA générative en marketing en 2026",
+          "url": "https://www.actifdigital.fr/ia-generative-comment-lexploiter-concretement-dans-votre-strategie-marketing-en-2026/"
+        },
+        {
+          "name": "Big Media BpiFrance — Nouvelles tendances IA : ce qui va transformer 2026",
+          "url": "https://bigmedia.bpifrance.fr/nos-dossiers/nouvelles-tendances-ia-ce-qui-va-transformer-2026"
+        },
+        {
+          "name": "Formations Analytics — Tendances marketing IA 2026",
+          "url": "https://www.formations-analytics.com/le-mag/quelles-tendances-marketing-ia-vont-dominer-en-2026/"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-18",
+      "theme": "CRM & member marketing",
+      "titre": "HubSpot Spring 2026 : l'Agentic Engagement Object (AEO) réinvente la gestion des contacts",
+      "synthese": "HubSpot a dévoilé au printemps 2026 l'Agentic Engagement Object (AEO), une nouvelle entité CRM qui agrège automatiquement les insights pertinents, les prochaines actions recommandées et les automations de workflow directement dans la fiche contact ou entreprise. L'AEO s'accompagne de Smart Deal Progression, d'un Prospecting Agent amélioré et d'un Customer Agent étendu, dans le cadre d'une refonte majeure vers un modèle agentique natif. Plus de 100 améliorations ont été déployées sur l'ensemble des hubs Marketing, Sales, Service, Content et Operations. HubSpot se positionne ainsi comme la plateforme CRM la plus accessible pour les équipes de taille intermédiaire voulant déployer l'IA agentique sans budget Salesforce.",
+      "actionACL": "Si ACL utilise HubSpot, explorer l'AEO pour les contacts membres et prospects clubs : activer les agents pour automatiser les séquences de bienvenue, les rappels de renouvellement et les propositions de services complémentaires.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "Futurum — Agentic AI: HubSpot's Enterprise CRM Challenge",
+          "url": "https://futurumgroup.com/insights/can-hubspots-agentic-ai-bet-disrupt-enterprise-crms-old-guard/"
+        },
+        {
+          "name": "Communicate Online — HubSpot, Salesforce race towards agentic CRM",
+          "url": "https://communicateonline.me/insights/hubspot-salesforce-race-towards-agentic-crm/"
+        },
+        {
+          "name": "Concret.io — 15 HubSpot CRM Trends for 2026",
+          "url": "https://www.concret.io/blog/top-hubspot-crm-trends"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-18",
+      "theme": "CRM & member marketing",
+      "titre": "MCP (Model Context Protocol) : les agents IA accèdent directement aux données CRM depuis Claude ou ChatGPT",
+      "synthese": "Une rupture structurelle s'est dessinée début juin 2026 : les éditeurs CRM (Salesforce, HubSpot, Zoho) exposent leurs données propriétaires via des API publiques et le Model Context Protocol (MCP), permettant à des agents IA tournant dans Claude, ChatGPT ou Microsoft Copilot d'opérer directement sur les données client sans quitter l'interface conversationnelle. Cela signifie qu'un agent peut qualifier un lead, rédiger un email de suivi et mettre à jour le pipeline CRM depuis un seul prompt dans l'assistant IA. Salesforce Agentforce affiche une ARR de 800 millions de dollars avec une croissance de 169 % en glissement annuel, validant l'adoption massive de ce modèle. La qualité des données CRM devient le facteur limitant numéro un de l'efficacité de ces agents.",
+      "actionACL": "Prioriser le nettoyage et l'enrichissement de la base contacts membres ACL dans le CRM : données de contact complètes, segmentation à jour, historique d'engagement. C'est ce socle de données qui déterminera l'efficacité de toute couche IA agentique déployée par-dessus.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "Agile Brand Guide — Marketing Technology AI News June 2, 2026",
+          "url": "https://agilebrandguide.com/yesterdays-marketing-technology-ai-news-june-2-2026/"
+        },
+        {
+          "name": "Digital Applied — CRM AI Agents: Salesforce, HubSpot, and Zoho Guide",
+          "url": "https://www.digitalapplied.com/blog/crm-ai-agent-salesforce-hubspot-zoho-2026-guide"
+        },
+        {
+          "name": "CRMBuyer — 2026 CRM Outlook: AI, Humans, and Scale Converge",
+          "url": "https://www.crmbuyer.com/story/2026-crm-outlook-ai-humans-and-scale-converge-177583.html"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-18",
+      "theme": "CRM & member marketing",
+      "titre": "Hyper-personnalisation à échelle : les parcours dynamiques IA accessibles sans budget enterprise",
+      "synthese": "En 2026, l'hyper-personnalisation des parcours clients via l'IA est devenue accessible aux organisations mid-market sans infrastructure data complexe : journeys dynamiques, contenu recommandé par IA, optimisation de l'heure d'envoi et scoring comportemental en temps réel sont disponibles sur des plateformes comme Klaviyo, ActiveCampaign ou HubSpot Pro. Les vendeurs utilisant l'IA dans leur CRM rapportent que 81 % ont constaté des cycles de vente plus courts et 73 % des tickets moyens plus élevés. La personnalisation à l'échelle repose sur la collecte et l'unification des données comportementales (emails, web, événements) dans un profil client central. La limite est désormais davantage dans la qualité du contenu disponible que dans la technologie.",
+      "actionACL": "Cartographier les données comportementales membres disponibles dans le CRM ACL (historique événements, taux d'ouverture emails, renouvellements) et identifier 2-3 segments prioritaires pour un premier parcours hyper-personnalisé automatisé.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "G2 — The State of AI in CRM: A Sneak Peek Into 2026",
+          "url": "https://learn.g2.com/state-of-ai-in-crm"
+        },
+        {
+          "name": "Monday.com — Best AI-Powered CRM Software Benefits for 2026",
+          "url": "https://monday.com/blog/crm-and-sales/crm-with-ai/"
+        },
+        {
+          "name": "Maximizer — Top 5 AI-Powered CRMs and Use Cases in 2026",
+          "url": "https://www.maximizer.com/blog/ai-powered-crm-and-ai-crm-use-cases/"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-18",
+      "theme": "Social & Ads",
+      "titre": "TikTok Symphony + Dreamina Seedance 2.0 : production vidéo IA intégrée directement dans TikTok Ads",
+      "synthese": "TikTok a étendu sa suite Symphony avec deux nouveaux outils IA : Image to Video et Text to Video, permettant aux annonceurs de générer des vidéos publicitaires TikTok-first depuis un simple prompt ou une image produit sans compétences techniques. Dreamina Seedance 2.0, le moteur sous-jacent de ByteDance, apporte une amélioration significative de la qualité des sorties vidéo. TikTok a également intégré Symphony dans Adobe Express et WPP Open, permettant aux agences d'utiliser les outils de dubbing IA, génération et avatars directement dans leur workflow de production. Tout contenu Symphony est automatiquement labellisé AI-generated et passe par une revue de sécurité, réduisant les risques de conformité.",
+      "actionACL": "Tester Symphony Text to Video pour créer 3-5 variantes de spots TikTok pour une prochaine campagne ACL (événement, service membre) sans budget de production vidéo. Comparer l'engagement avec les vidéos produites traditionnellement.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "TikTok For Business — Transforming Video Creation With Symphony And Seedance 2.0",
+          "url": "https://ads.tiktok.com/business/en/blog/transforming-video-creation-tiktok-symphony-dreamina-seedance"
+        },
+        {
+          "name": "TikTok Newsroom — Symphony Generative AI Tools",
+          "url": "https://newsroom.tiktok.com/en-us/tiktok-symphony-updates"
+        },
+        {
+          "name": "ALM Corp — TikTok World 2026: TopReach, Smart+, Symphony, GMV Max",
+          "url": "https://almcorp.com/blog/tiktok-world-2026-ad-tool-announcements/"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-18",
+      "theme": "Social & Ads",
+      "titre": "TikTok TopReach : un nouveau format publicitaire premium pour les lancements à fort impact",
+      "synthese": "TikTok a lancé TopReach, un format publicitaire premium qui garantit aux marques une position parmi les placements les plus visibles de la plateforme, avec des métriques de portée garantie adaptées aux moments de lancement produit ou de campagnes à fort impact. Le format est conçu pour les annonceurs cherchant une visibilité maximale lors d'événements marketing clés (lancements, saisons, grands prix). TikTok consolide ainsi son offre publicitaire entre Smart+ (performance automatisée par IA), GMV Max (e-commerce), Search Hubs (intention) et TopReach (reach garanti). Cette diversification rapproche TikTok de la profondeur de l'inventaire publicitaire de Meta ou Google.",
+      "actionACL": "Évaluer TopReach pour les moments marketing clés ACL (début de saison, événement annuel majeur) où une visibilité maximale auprès d'une audience jeune et active est prioritaire sur le coût par résultat.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "ALM Corp — TikTok World 2026: TopReach et les nouvelles fonctionnalités ads",
+          "url": "https://almcorp.com/blog/tiktok-world-2026-ad-tool-announcements/"
+        },
+        {
+          "name": "AdLibrary — AI for TikTok Ads: Creative Automation and Symphony Era",
+          "url": "https://adlibrary.com/posts/ai-for-tiktok-ads-2026"
+        },
+        {
+          "name": "Social Media Today — TikTok adds new AI video generation to Symphony",
+          "url": "https://www.socialmediatoday.com/news/tiktok-adds-new-ai-video-generation-to-symphony-ad-tool-kit/817379/"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-18",
+      "theme": "Social & Ads",
+      "titre": "Meta AI Business Assistant : l'assistant IA publicitaire de Meta disponible pour tous les annonceurs dans le monde",
+      "synthese": "Meta a étendu la disponibilité beta de son Meta AI Business Assistant à l'ensemble des annonceurs et agences publicitaires dans le monde entier via Meta Ads Manager. L'assistant répond aux questions sur la performance des campagnes, génère des recommandations d'optimisation, aide à la configuration des audiences et à la rédaction de copies publicitaires directement dans l'interface. Meta a également annoncé un setup IA pour Meta Pixel (configuration automatisée) et une solution one-click pour Conversions API ne nécessitant ni compétences techniques, ni coûts additionnels. Ces mises à jour réduisent la barrière technique à l'entrée pour les petits annonceurs et les équipes sans expertise media.",
+      "actionACL": "Activer Meta AI Business Assistant dans le compte Ads Manager ACL pour analyser les campagnes actives et identifier les opportunités d'optimisation non exploitées. Utiliser le setup Pixel IA pour s'assurer que le tracking est correctement configuré.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "SocialBee — June 2026 Meta & Facebook updates",
+          "url": "https://socialbee.com/blog/facebook-updates/"
+        },
+        {
+          "name": "Boot Camp Digital — June 2026 Digital News Updates: Meta's New Creator AI Assistant",
+          "url": "https://bootcampdigital.com/blog/june-2026-digital-news-updates/"
+        },
+        {
+          "name": "SocialBee — The Latest 2026 Social Media News",
+          "url": "https://socialbee.com/blog/social-media-news/"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-18",
+      "theme": "Design & branding",
+      "titre": "Figma AI Brand Guidelines Generator : générer une charte graphique interactive depuis un brief textuel",
+      "synthese": "Figma a lancé un générateur de chartes graphiques IA qui, à partir d'un brief textuel ou d'assets existants, produit un document de brand guidelines interactif dans Figma incluant typographies, palettes de couleurs, grilles et exemples d'usage. Le système s'appuie sur les bibliothèques de composants existantes de l'organisation pour proposer des recommandations cohérentes avec l'environnement design en place. Cette fonctionnalité s'inscrit dans une tendance plus large de l'IA qui réduit le temps de production des systèmes de design de semaines à heures. Pour les organisations dotées d'équipes créatives réduites, cela permet de maintenir une cohérence de marque rigoureuse sans ressources dédiées à la documentation.",
+      "actionACL": "Explorer le générateur de brand guidelines Figma pour digitaliser et maintenir la charte ACL dans un format interactif, partageable avec les agences et freelances, et auto-géré par l'équipe Marcom sans sous-traitance externe.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "Figma — AI Brand Guidelines Generator",
+          "url": "https://www.figma.com/solutions/ai-brand-guideline-generator/"
+        },
+        {
+          "name": "Flatline Agency — AI design tools for brands: 5 tools shaping creative workflows in 2026",
+          "url": "https://www.flatlineagency.com/blog/ai-design-tools-for-brands-2026/"
+        },
+        {
+          "name": "Design for Online — 5 AI Tools You Need to Know About in 2026",
+          "url": "https://designforonline.com/5-ai-tools-you-should-know-about-in-2026/"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-18",
+      "theme": "Design & branding",
+      "titre": "Google Pomelli : l'IA de Google Labs génère des visuels publicitaires à partir de votre URL",
+      "synthese": "Google Labs et DeepMind ont lancé Pomelli, un outil expérimental qui analyse l'URL d'un site web pour extraire automatiquement l'identité de marque (couleurs, ton, typographie, messaging) et génère des posts réseaux sociaux, des créatifs publicitaires et des bannières email cohérents avec cette identité. L'outil supprime l'étape manuelle de briefing créatif en inférant les paramètres de marque directement depuis le contenu en ligne. Pomelli est actuellement disponible via Google Labs en accès anticipé. Pour les équipes marketing avec une présence web structurée, c'est une voie pour accélérer la production d'assets sans passer par un designer ou une agence pour des créations standards.",
+      "actionACL": "Soumettre acl.lu à Pomelli (accès Google Labs) pour évaluer la pertinence des assets générés automatiquement par rapport à la charte ACL. Identifier quels formats (bannières, posts RS) peuvent être produits en volume via cet outil.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "Medium Design Bootcamp — 5 New AI Design Tools To Try in 2026",
+          "url": "https://medium.com/design-bootcamp/5-new-ai-design-tools-to-try-in-2026-bba38068b142"
+        },
+        {
+          "name": "Big Bash Studio — Top 7 AI tools for Brand Design in 2026",
+          "url": "https://bigbashstudio.com/ai-tools-for-brand-design/"
+        },
+        {
+          "name": "MadNext — AI Brand Identity Design in 2026",
+          "url": "https://madnext.in/how-ai-tools-are-changing-brand-identity-design-in-2026/"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-18",
+      "theme": "Design & branding",
+      "titre": "Marché de l'IA créative : 5,38 milliards $ en 2026 et explosion des outils spécialisés par usage",
+      "synthese": "Le marché de l'IA générative dans les industries créatives est projeté à 5,38 milliards de dollars en 2026, en hausse depuis 4,06 milliards en 2025. Cette croissance s'accompagne d'une spécialisation des outils : Midjourney pour l'exploration créative stylisée, Recraft pour les assets vectoriels production-ready, Firefly pour les retouches dans Creative Cloud, Veo 3.1 pour la vidéo. Les experts recommandent une stratégie multi-outils plutôt qu'un outil unique, chaque solution ayant des forces distinctes selon le type de livrable. La maîtrise de ces outils et du prompt design est en train de devenir une compétence core pour les équipes design en 2026, au même titre que la maîtrise de Photoshop.",
+      "actionACL": "Définir la stack d'outils IA design officielle de l'équipe Marcom ACL avec des cas d'usage clairs par outil (ex. Canva pour les réseaux sociaux, Firefly pour les retouches photo, Veo/HeyGen pour la vidéo). Organiser une demi-journée de formation pratique sur ces outils.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "INFO",
+      "sources": [
+        {
+          "name": "David Caron Design — AI-Enhanced Branding and Web Design Trends for 2026",
+          "url": "https://www.davidcarondesign.com/ai-enhanced-branding-and-web-design-trends-for-2026"
+        },
+        {
+          "name": "Design Rush — 5 AI Branding Tools Worth Considering in 2026",
+          "url": "https://www.designrush.com/agency/logo-branding/trends/ai-branding-tools"
+        },
+        {
+          "name": "Edge Digital — Best AI Tools for Branding: Top Solutions for Modern Marketing",
+          "url": "https://www.edgedigital.net/best-ai-tools-for-branding-2/"
+        }
+      ]
+    },
     {
       "date": "2026-06-17",
       "theme": "IA générative en marketing",
