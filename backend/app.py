@@ -5149,18 +5149,20 @@ _WRIKE_BASE = 'https://app-eu.wrike.com/api/v4'
 
 
 def _wrike_space_id(hdrs):
-    """Résout l'ID de l'espace 'ACL Marcom', mis en cache 24 h."""
+    """Résout l'ID de l'espace 'ACL Marcom', mis en cache 24 h.
+    Retourne (id, None) si trouvé, (None, [noms]) sinon."""
     cached = _cache_get('wrike:space_id')
     if cached:
-        return cached.get('id')
+        return cached.get('id'), None
     r = _get(f'{_WRIKE_BASE}/spaces', headers=hdrs)
     if not r.ok:
-        return None
-    for s in r.json().get('data', []):
+        return None, []
+    spaces = r.json().get('data', [])
+    for s in spaces:
         if 'acl marcom' in s.get('title', '').lower():
             _cache_set('wrike:space_id', {'id': s['id']}, 86400)
-            return s['id']
-    return None
+            return s['id'], None
+    return None, [s.get('title', '') for s in spaces]
 
 
 @app.route('/wrike')
@@ -5175,9 +5177,10 @@ def wrike():
     try:
         hdrs = {'Authorization': f'Bearer {WRIKE_API_KEY}', 'Accept': 'application/json'}
 
-        space_id = _wrike_space_id(hdrs)
+        space_id, available = _wrike_space_id(hdrs)
         if not space_id:
-            return jsonify({'error': 'Espace "ACL Marcom" introuvable dans Wrike'})
+            return jsonify({'error': 'Espace "ACL Marcom" introuvable dans Wrike',
+                            'available_spaces': available})
 
         today      = datetime.date.today()
         week_start = today - datetime.timedelta(days=today.weekday())
