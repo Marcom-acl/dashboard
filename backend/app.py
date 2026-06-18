@@ -5209,27 +5209,22 @@ def wrike():
         today      = datetime.date.today()
         week_start = today - datetime.timedelta(days=today.weekday())
         eight_ago  = today - datetime.timedelta(weeks=8)
-        date_range = json.dumps(
-            {'start': eight_ago.strftime('%Y-%m-%dT00:00:00Z'),
-             'end':   today.strftime('%Y-%m-%dT23:59:59Z')},
-            separators=(',', ':')
-        )
 
         # ── Parallel fetches ─────────────────────────────────────────
+        # Pas de filtres de dates côté API (évite les 400 Wrike) —
+        # tout le filtrage temporel est fait en Python.
         def _fetch_folders():
             r = _get(f'{_WRIKE_BASE}/spaces/{space_id}/folders', headers=hdrs)
             return r.json().get('data', []) if r.ok else []
 
         def _fetch_completed():
-            r = _get(f'{_WRIKE_BASE}/spaces/{space_id}/tasks', headers=hdrs, params={
-                'status': 'Completed', 'completedDate': date_range, 'pageSize': 1000,
-            })
+            r = _get(f'{_WRIKE_BASE}/spaces/{space_id}/tasks', headers=hdrs,
+                     params={'status': 'Completed'})
             return r.json().get('data', []) if r.ok else []
 
         def _fetch_active():
-            r = _get(f'{_WRIKE_BASE}/spaces/{space_id}/tasks', headers=hdrs, params={
-                'status': 'Active', 'pageSize': 1000,
-            })
+            r = _get(f'{_WRIKE_BASE}/spaces/{space_id}/tasks', headers=hdrs,
+                     params={'status': 'Active'})
             return r.json().get('data', []) if r.ok else []
 
         def _fetch_contacts():
@@ -5352,6 +5347,7 @@ def wrike():
                 'overdue_active':      overdue_active,
                 'completed_this_week': completed_this_week,
                 'new_this_week':       new_this_week,
+                '_tasks_fetched':      len(completed_tasks) + len(active_tasks),
             },
         }
         _cache_set('wrike:projects', result, 600)
