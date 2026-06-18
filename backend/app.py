@@ -5179,8 +5179,10 @@ def wrike_debug_projects():
         return jsonify({'error': f'HTTP {r.status_code}', 'detail': r.text[:300]})
     raw = [
         {'id': f['id'], 'title': f['title'],
-         'project_status': (f.get('project') or {}).get('status'),
-         'end_date': (f.get('project') or {}).get('endDate'),
+         'project_status':    (f.get('project') or {}).get('status'),
+         'completed_date':    (f.get('project') or {}).get('completedDate'),
+         'end_date':          (f.get('project') or {}).get('endDate'),
+         'custom_status_id':  (f.get('project') or {}).get('customStatusId'),
          'has_project': bool(f.get('project'))}
         for f in r.json().get('data', [])
     ]
@@ -5257,8 +5259,9 @@ def wrike():
             if not folder.get('project'):
                 continue
             proj   = folder['project']
-            status = proj.get('status', '')
-            if status in ('Completed', 'Cancelled'):
+            status = proj.get('status') or ''
+            # Exclure les projets terminés : statut standard OU completedDate renseignée
+            if status in ('Completed', 'Cancelled') or proj.get('completedDate'):
                 continue
 
             end_date  = proj.get('endDate') or proj.get('dueDate')
