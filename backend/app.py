@@ -5165,6 +5165,28 @@ def _wrike_space_id(hdrs):
     return None, [s.get('title', '') for s in spaces]
 
 
+@app.route('/wrike/debug-projects')
+def wrike_debug_projects():
+    """Retourne les statuts bruts de tous les projets de l'espace ACL Marcom."""
+    if not WRIKE_API_KEY:
+        return jsonify({'error': 'WRIKE_API_KEY manquante'})
+    hdrs = {'Authorization': f'Bearer {WRIKE_API_KEY}', 'Accept': 'application/json'}
+    space_id, available = _wrike_space_id(hdrs)
+    if not space_id:
+        return jsonify({'error': 'Espace introuvable', 'available_spaces': available})
+    r = _get(f'{_WRIKE_BASE}/spaces/{space_id}/folders', headers=hdrs)
+    if not r.ok:
+        return jsonify({'error': f'HTTP {r.status_code}', 'detail': r.text[:300]})
+    raw = [
+        {'id': f['id'], 'title': f['title'],
+         'project_status': (f.get('project') or {}).get('status'),
+         'end_date': (f.get('project') or {}).get('endDate'),
+         'has_project': bool(f.get('project'))}
+        for f in r.json().get('data', [])
+    ]
+    return jsonify({'count': len(raw), 'folders': raw})
+
+
 @app.route('/wrike')
 def wrike():
     if not WRIKE_API_KEY:
