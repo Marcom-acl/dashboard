@@ -453,7 +453,7 @@ FB_GRAPH      = 'https://graph.facebook.com/v22.0'
 
 FB_SCOPES = [
     'ads_read', 'read_insights', 'pages_read_engagement',
-    'pages_show_list', 'business_management', 'instagram_basic',
+    'pages_show_list', 'business_management', 'instagram_manage_insights',
 ]
 
 def _fb_token():
