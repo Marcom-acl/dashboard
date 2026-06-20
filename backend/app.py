@@ -5423,7 +5423,7 @@ def wrike_create_request():
         payload['description'] = description
     due_date = (data.get('due_date') or '').strip()
     if due_date:
-        payload['dates'] = _json.dumps({'due': due_date, 'type': 'Flexible'})
+        payload['dates'] = _json.dumps({'due': due_date, 'type': 'Milestone'})
     responsible_id = (data.get('responsible_id') or '').strip()
     if responsible_id:
         payload['responsibles'] = _json.dumps([responsible_id])
