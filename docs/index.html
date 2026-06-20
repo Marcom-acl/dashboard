@@ -6897,6 +6897,7 @@ function renderWrike(d) {
 
   const inputStyle = 'width:100%;box-sizing:border-box;padding:7px 10px;border:1px solid #E5E7EB;border-radius:7px;font-size:13px;background:var(--surface,#fff);color:var(--text);outline:none';
   const labelStyle = 'display:block;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:5px';
+  const contactOpts = (d.contacts||[]).map(c => `<option value="${c.id}">${c.name}</option>`).join('');
 
   el.innerHTML = `
     <div class="sec-title"><h2>Projets — ACL Marcom</h2><div class="line"></div>
@@ -6930,6 +6931,13 @@ function renderWrike(d) {
             <div>
               <label style="${labelStyle}">Date souhaitée</label>
               <input id="wf-date" type="date" style="${inputStyle}">
+            </div>
+            <div>
+              <label style="${labelStyle}">Chargé de mission</label>
+              <select id="wf-responsible" style="${inputStyle}">
+                <option value="">— Non assigné —</option>
+                ${contactOpts}
+              </select>
             </div>
           </div>
           <div style="display:flex;gap:8px;margin-top:14px;justify-content:flex-end;align-items:center">
@@ -6989,16 +6997,18 @@ function renderWrike(d) {
 
   cancelBtn?.addEventListener('click', () => {
     formPanel.style.display = 'none';
-    document.getElementById('wf-title').value = '';
-    document.getElementById('wf-desc').value  = '';
-    document.getElementById('wf-date').value  = '';
+    document.getElementById('wf-title').value       = '';
+    document.getElementById('wf-desc').value        = '';
+    document.getElementById('wf-date').value        = '';
+    document.getElementById('wf-responsible').value = '';
     feedback.style.display = 'none';
   });
 
   submitBtn?.addEventListener('click', async () => {
-    const title   = document.getElementById('wf-title').value.trim();
-    const desc    = document.getElementById('wf-desc').value.trim();
-    const dueDate = document.getElementById('wf-date').value;
+    const title         = document.getElementById('wf-title').value.trim();
+    const desc          = document.getElementById('wf-desc').value.trim();
+    const dueDate       = document.getElementById('wf-date').value;
+    const responsibleId = document.getElementById('wf-responsible').value;
 
     if (!title) {
       document.getElementById('wf-title').style.borderColor = '#E74C3C';
@@ -7015,15 +7025,16 @@ function renderWrike(d) {
       const r = await fetch(`${API_BASE}/wrike/create-request`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({title, description: desc, due_date: dueDate}),
+        body: JSON.stringify({title, description: desc, due_date: dueDate, responsible_id: responsibleId}),
       });
       const json = await r.json();
       if (json.ok) {
         feedback.style.cssText = 'display:block;color:#15803D;font-size:12px;font-weight:600';
         feedback.innerHTML = `✓ Demande créée — <a href="${json.permalink}" target="_blank" style="color:#15803D">voir dans Wrike →</a>`;
-        document.getElementById('wf-title').value = '';
-        document.getElementById('wf-desc').value  = '';
-        document.getElementById('wf-date').value  = '';
+        document.getElementById('wf-title').value       = '';
+        document.getElementById('wf-desc').value        = '';
+        document.getElementById('wf-date').value        = '';
+        document.getElementById('wf-responsible').value = '';
         setTimeout(() => { formPanel.style.display = 'none'; feedback.style.display = 'none'; }, 5000);
       } else {
         feedback.style.cssText = 'display:block;color:#DC2626;font-size:12px;font-weight:600';

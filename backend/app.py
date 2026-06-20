@@ -5332,9 +5332,12 @@ def wrike():
             if (t.get('createdDate') or '')[:10] >= week_start_str
         )
 
+        contacts_list = [{'id': k, 'name': v} for k, v in sorted(contacts.items(), key=lambda x: x[1])]
+
         result = {
             'space_name': 'ACL Marcom',
             'projects':   projects,
+            'contacts':   contacts_list,
             'summary': {
                 'active':           len(projects),
                 'overdue_projects': sum(1 for p in projects if p['urgency'] == 'overdue'),
@@ -5386,7 +5389,6 @@ def wrike_create_request():
     hdrs = {
         'Authorization': f'Bearer {WRIKE_API_KEY}',
         'Accept': 'application/json',
-        'Content-Type': 'application/json',
     }
 
     space_id, _ = _wrike_space_id(hdrs)
@@ -5397,18 +5399,23 @@ def wrike_create_request():
     if not folder_id:
         return jsonify({'error': 'Dossier "Demandes entrantes" introuvable'}), 500
 
+    # Wrike API v4 attend du form-urlencoded ; dates et responsibles sont des JSON strings
+    import json as _json
     payload = {'title': title}
     description = (data.get('description') or '').strip()
     if description:
         payload['description'] = description
     due_date = (data.get('due_date') or '').strip()
     if due_date:
-        payload['dates'] = {'due': due_date, 'type': 'Flexible'}
+        payload['dates'] = _json.dumps({'due': due_date, 'type': 'Flexible'})
+    responsible_id = (data.get('responsible_id') or '').strip()
+    if responsible_id:
+        payload['responsibles'] = _json.dumps([responsible_id])
 
     r = _post(
         f'{_WRIKE_BASE}/folders/{folder_id}/tasks',
         headers=hdrs,
-        json=payload,
+        data=payload,
     )
     if not r.ok:
         return jsonify({'error': f'Wrike API {r.status_code}', 'detail': r.text[:300]}), 500
