@@ -5238,16 +5238,32 @@ def wrike():
                 out[c['id']] = full or c['id']
             return out
 
-        with concurrent.futures.ThreadPoolExecutor(max_workers=4) as ex:
+        def _fetch_space_members():
+            r = _get(f'{_WRIKE_BASE}/spaces/{space_id}',
+                     headers=hdrs, params={'fields': '["members"]'})
+            if not r.ok:
+                return set()
+            data = r.json().get('data', [])
+            if not data:
+                return set()
+            return {m['id'] for m in data[0].get('members', [])}
+
+        with concurrent.futures.ThreadPoolExecutor(max_workers=5) as ex:
             ff = ex.submit(_fetch_folders)
             fc = ex.submit(_fetch_completed)
             fa = ex.submit(_fetch_active)
             fk = ex.submit(_fetch_contacts)
+            fm = ex.submit(_fetch_space_members)
 
         folders         = ff.result()
         completed_tasks = fc.result()
         active_tasks    = fa.result()
         contacts        = fk.result()
+        space_members   = fm.result()
+
+        # Restrict contacts to space members only (fallback: keep all if fetch failed)
+        if space_members:
+            contacts = {k: v for k, v in contacts.items() if k in space_members}
 
         # ── Projects ─────────────────────────────────────────────────
         projects = []
