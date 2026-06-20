@@ -5358,6 +5358,65 @@ def wrike():
         return jsonify({'error': str(e)}), 500
 
 
+def _wrike_intake_folder_id(hdrs, space_id):
+    """Résout l'ID du dossier 'Demandes entrantes', mis en cache 1 h."""
+    cached = _cache_get('wrike:intake_folder_id')
+    if cached:
+        return cached.get('id')
+    r = _get(f'{_WRIKE_BASE}/spaces/{space_id}/folders', headers=hdrs)
+    if not r.ok:
+        return None
+    for f in r.json().get('data', []):
+        if 'demandes entrantes' in f.get('title', '').lower():
+            _cache_set('wrike:intake_folder_id', {'id': f['id']}, 3600)
+            return f['id']
+    return None
+
+
+@app.route('/wrike/create-request', methods=['POST'])
+def wrike_create_request():
+    if not WRIKE_API_KEY:
+        return jsonify({'error': 'WRIKE_API_KEY manquante'}), 500
+
+    data = request.get_json(silent=True) or {}
+    title = (data.get('title') or '').strip()
+    if not title:
+        return jsonify({'error': 'Le titre est requis'}), 400
+
+    hdrs = {
+        'Authorization': f'Bearer {WRIKE_API_KEY}',
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+    }
+
+    space_id, _ = _wrike_space_id(hdrs)
+    if not space_id:
+        return jsonify({'error': 'Espace "ACL Marcom" introuvable'}), 500
+
+    folder_id = _wrike_intake_folder_id(hdrs, space_id)
+    if not folder_id:
+        return jsonify({'error': 'Dossier "Demandes entrantes" introuvable'}), 500
+
+    payload = {'title': title}
+    description = (data.get('description') or '').strip()
+    if description:
+        payload['description'] = description
+    due_date = (data.get('due_date') or '').strip()
+    if due_date:
+        payload['dates'] = {'due': due_date, 'type': 'Flexible'}
+
+    r = _post(
+        f'{_WRIKE_BASE}/folders/{folder_id}/tasks',
+        headers=hdrs,
+        json=payload,
+    )
+    if not r.ok:
+        return jsonify({'error': f'Wrike API {r.status_code}', 'detail': r.text[:300]}), 500
+
+    task = (r.json().get('data') or [{}])[0]
+    return jsonify({'ok': True, 'permalink': task.get('permalink', '')})
+
+
 # ─────────────────────────────────────────────────────────────────────────────
 # Entrypoint
 # ─────────────────────────────────────────────────────────────────────────────
