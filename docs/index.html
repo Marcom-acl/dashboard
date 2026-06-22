@@ -769,8 +769,12 @@
     .camp-search-inp{border:1px solid var(--border);border-radius:6px;padding:4px 10px 4px 28px;font-size:12px;background:var(--bg);color:var(--text);outline:none;width:180px;transition:border-color .15s,width .2s;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.35-4.35'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:8px center;}
     .camp-search-inp:focus{border-color:var(--c-brevo);width:220px;}
     .camp-search-inp::placeholder{color:var(--muted-2);}
-    .tbl-avg-row td{border-top:2px solid var(--c-brevo)!important;font-weight:700;background:color-mix(in srgb,var(--c-brevo) 5%,var(--surface));}
+    .tbl-avg-row td{border-top:2px solid var(--c-brevo)!important;font-weight:700;background:color-mix(in srgb,var(--c-brevo) 5%,var(--surface));padding:10px 14px;white-space:nowrap;vertical-align:middle;}
+    .tbl-avg-row td:first-child{padding-left:18px;}
     .avg-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);}
+    .sort-icon{display:inline-block;margin-left:3px;font-size:9px;opacity:.35;font-style:normal;transition:opacity .12s;}
+    thead th:hover .sort-icon{opacity:.7;}
+    thead th[data-sorted] .sort-icon{opacity:1;color:var(--y);}
 
     /* ─── TYPE BADGES (Brevo) ─────────────────────────────────── */
     .type-badge{display:inline-block;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;padding:2px 6px;border-radius:10px;white-space:nowrap;}
@@ -3674,6 +3678,29 @@ function getCampaignLang(name) {
 let _brevoTypeFilter = new Set(['nl_gen','nl_theme','club_nl','enq','rel','other']);
 let _brevoLangFilter = new Set(['fr','de','en','nd']);
 let _brevoNameFilter = '';
+let _brevoSortCol = null;
+let _brevoSortDir = -1;
+
+function _brevoApplySort() {
+  const table = document.getElementById('brevo-camps-table');
+  if (!table || !_brevoSortCol) return;
+  const tbody = table.querySelector('tbody');
+  if (!tbody) return;
+  const isStr = ['cname','type'].includes(_brevoSortCol);
+  const rows = Array.from(tbody.querySelectorAll('tr'));
+  rows.sort((a, b) => {
+    let va = a.dataset[_brevoSortCol] || '', vb = b.dataset[_brevoSortCol] || '';
+    if (!isStr) { va = parseFloat(va)||0; vb = parseFloat(vb)||0; return (va-vb)*_brevoSortDir; }
+    return va.localeCompare(vb, 'fr')*_brevoSortDir;
+  });
+  rows.forEach(r => tbody.appendChild(r));
+  table.querySelectorAll('thead th[data-skey]').forEach(th => {
+    const icon = th.querySelector('.sort-icon');
+    if (!icon) return;
+    if (th.dataset.skey === _brevoSortCol) { icon.textContent = _brevoSortDir === 1 ? ' ▲' : ' ▼'; th.setAttribute('data-sorted',''); }
+    else { icon.textContent = ' ↕'; th.removeAttribute('data-sorted'); }
+  });
+}
 
 function renderBrevo(d) {
   window._brevoData = d;
@@ -3982,13 +4009,14 @@ function renderBrevo(d) {
       </div>
       <div class="card-body flush"><div class="tbl-scroll"><table class="tbl" id="brevo-camps-table">
         <thead><tr>
-          <th>Campagne</th><th>Type</th>
-          <th class="r">Livrés</th>
-          <th class="r" title="Benchmark : ≥35% excellent · 20–35% moyen · &lt;20% faible">Ouv. ⬤</th>
-          <th class="r" title="Benchmark : ≥3% excellent · 1–3% moyen · &lt;1% faible">Clic ⬤</th>
-          <th class="r" title="Benchmark : ≥10% excellent · 5–10% moyen · &lt;5% faible">CTOR ⬤</th>
-          <th class="r" title="Benchmark : &lt;0.1% excellent · 0.1–0.5% moyen · &gt;0.5% élevé">Désab. ⬤</th>
-          <th style="min-width:90px">Score</th>
+          <th data-skey="cname" onclick="window._brevoSort('cname')">Campagne<span class="sort-icon"> ↕</span></th>
+          <th data-skey="type" onclick="window._brevoSort('type')">Type<span class="sort-icon"> ↕</span></th>
+          <th class="r" data-skey="dlvr" onclick="window._brevoSort('dlvr')">Livrés<span class="sort-icon"> ↕</span></th>
+          <th class="r" data-skey="openrate" title="Benchmark : ≥35% excellent · 20–35% moyen · &lt;20% faible" onclick="window._brevoSort('openrate')">Ouv. ⬤<span class="sort-icon"> ↕</span></th>
+          <th class="r" data-skey="clickrate" title="Benchmark : ≥3% excellent · 1–3% moyen · &lt;1% faible" onclick="window._brevoSort('clickrate')">Clic ⬤<span class="sort-icon"> ↕</span></th>
+          <th class="r" data-skey="ctor" title="Benchmark : ≥10% excellent · 5–10% moyen · &lt;5% faible" onclick="window._brevoSort('ctor')">CTOR ⬤<span class="sort-icon"> ↕</span></th>
+          <th class="r" data-skey="unsubrate" title="Benchmark : &lt;0.1% excellent · 0.1–0.5% moyen · &gt;0.5% élevé" onclick="window._brevoSort('unsubrate')">Désab. ⬤<span class="sort-icon"> ↕</span></th>
+          <th style="min-width:90px" data-skey="score" onclick="window._brevoSort('score')">Score<span class="sort-icon"> ↕</span></th>
         </tr></thead>
         <tbody>${campsF.map(c => {
           const openCls  = c.openRate  >= 35 ? 'var(--good)' : c.openRate  >= 20 ? 'var(--warn)' : 'var(--bad)';
@@ -3997,7 +4025,7 @@ function renderBrevo(d) {
           const unsubCls = c.unsubRate <= 0.1? 'var(--good)' : c.unsubRate <= 0.5? 'var(--warn)' : 'var(--bad)';
           const cname = (c.name||'').toLowerCase().replace(/"/g, '&quot;');
           const hidden = _brevoNameFilter && !cname.includes(_brevoNameFilter) ? ' style="display:none"' : '';
-          return `<tr data-cname="${cname}" data-dlvr="${c.dlvr}" data-opens="${c.opens}" data-clics="${c.clics}" data-unsb="${c.unsb}" data-score="${c.score}"${hidden}>
+          return `<tr data-cname="${cname}" data-type="${c.type}" data-dlvr="${c.dlvr}" data-opens="${c.opens}" data-clics="${c.clics}" data-unsb="${c.unsb}" data-score="${c.score}" data-openrate="${c.openRate.toFixed(4)}" data-clickrate="${c.clickRate.toFixed(4)}" data-ctor="${c.ctor.toFixed(4)}" data-unsubrate="${c.unsubRate.toFixed(4)}"${hidden}>
           <td class="cn">${c.name||'—'}</td>
           <td>${typeBadgeHtml(c.type)}</td>
           <td class="r">${fmtN(c.dlvr)}</td>
@@ -4047,6 +4075,12 @@ function renderBrevo(d) {
   fetchSectionInsight('brevo', {avgOpenRate: avgOpen, avgClick, totalUnsub, campaigns: camps.length});
   fetchBrevoThematic();
 
+  _brevoApplySort();
+  window._brevoSort = function(col) {
+    if (_brevoSortCol === col) _brevoSortDir *= -1;
+    else { _brevoSortCol = col; _brevoSortDir = ['cname','type'].includes(col) ? 1 : -1; }
+    _brevoApplySort();
+  };
   window._brevoToggleType = function(t) {
     if (_brevoTypeFilter.has(t) && _brevoTypeFilter.size > 1) _brevoTypeFilter.delete(t);
     else _brevoTypeFilter.add(t);
