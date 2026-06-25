@@ -1630,6 +1630,43 @@ def gsc_compare():
 # Facebook Ads
 # ─────────────────────────────────────────────────────────────────────────────
 
+def _fb_discover_accounts(token):
+    """Retourne la liste {id, name} de tous les comptes pub accessibles via le token."""
+    cache_key = 'fb-accounts-list'
+    cached = _cache_get(cache_key)
+    if cached:
+        return cached.get('accounts', [])
+    r = _get(f'{FB_GRAPH}/me/adaccounts', params={
+        'access_token': token,
+        'fields': 'id,name,account_status',
+        'limit': 50,
+    })
+    if not r.ok:
+        return []
+    accounts = [
+        {'id': a['id'], 'name': a.get('name', a['id'])}
+        for a in r.json().get('data', [])
+        if a.get('id')
+    ]
+    # Fallback : si l'API ne retourne rien, utiliser la liste statique
+    if not accounts:
+        accounts = [{'id': a, 'name': a.replace('act_', 'Compte ')} for a in FB_ACCOUNTS]
+    _cache_set(cache_key, {'accounts': accounts}, 3600)
+    return accounts
+
+
+@app.route('/fb/accounts')
+def fb_list_accounts():
+    """Route de diagnostic — liste tous les comptes pub rattachés au token."""
+    token = _fb_token()
+    if not token:
+        return jsonify({'error': 'Facebook non connecté — visiter /fb/auth'})
+    # Forcer le refresh du cache
+    _cache_set('fb-accounts-list', None, 0)
+    accounts = _fb_discover_accounts(token)
+    return jsonify({'accounts': accounts, 'count': len(accounts)})
+
+
 @app.route('/fb')
 def fb_ads():
     start, end = _date_range()
@@ -1640,67 +1677,118 @@ def fb_ads():
     if not token:
         return jsonify({'error': 'Facebook non connecté — visiter /fb/auth'})
 
+    # Découverte automatique des comptes rattachés à l'app
+    accounts_list = _fb_discover_accounts(token)
+
     params = {
         'access_token': token,
         'time_range':   json.dumps({'since': start, 'until': end}),
         'fields':       'spend,impressions,clicks,actions,ctr,cpc,cpm',
         'level':        'account',
     }
-    totals = {'spend': 0, 'impressions': 0, 'clicks': 0, 'ctr': 0, 'cpc': 0, 'cpm': 0, 'conversions': 0}
-    campaigns = []
 
-    for account_id in FB_ACCOUNTS:
-        # Account totals
+    total = {
+        'spend': 0, 'impressions': 0, 'clicks': 0, 'conversions': 0,
+        'ctr_sum': 0.0, 'ctr_n': 0,
+        'cpc_sum': 0.0, 'cpc_n': 0,
+        'cpm_sum': 0.0, 'cpm_n': 0,
+    }
+    all_campaigns  = []
+    accounts_data  = []
+
+    for acct in accounts_list:
+        account_id   = acct['id']
+        account_name = acct['name']
+        at = {'spend': 0, 'impressions': 0, 'clicks': 0, 'ctr': 0.0, 'cpc': 0.0, 'cpm': 0.0, 'conversions': 0}
+        acct_campaigns = []
+
+        # Totaux au niveau compte
         r = _get(f'{FB_GRAPH}/{account_id}/insights', params=params)
         if r.ok:
             rows = r.json().get('data', [])
             if rows:
                 d = rows[0]
-                totals['spend']       += float(d.get('spend', 0))
-                totals['impressions'] += int(d.get('impressions', 0))
-                totals['clicks']      += int(d.get('clicks', 0))
-                totals['ctr']          = float(d.get('ctr', 0))
-                totals['cpc']          = float(d.get('cpc', 0))
-                totals['cpm']          = float(d.get('cpm', 0))
+                at['spend']       = float(d.get('spend', 0))
+                at['impressions'] = int(d.get('impressions', 0))
+                at['clicks']      = int(d.get('clicks', 0))
+                at['ctr']         = float(d.get('ctr', 0))
+                at['cpc']         = float(d.get('cpc', 0))
+                at['cpm']         = float(d.get('cpm', 0))
                 for action in d.get('actions', []):
                     if action.get('action_type') == 'purchase':
-                        totals['conversions'] += float(action.get('value', 0))
+                        at['conversions'] += float(action.get('value', 0))
+                total['spend']       += at['spend']
+                total['impressions'] += at['impressions']
+                total['clicks']      += at['clicks']
+                total['conversions'] += at['conversions']
+                if at['ctr']: total['ctr_sum'] += at['ctr']; total['ctr_n'] += 1
+                if at['cpc']: total['cpc_sum'] += at['cpc']; total['cpc_n'] += 1
+                if at['cpm']: total['cpm_sum'] += at['cpm']; total['cpm_n'] += 1
 
-        # Campaign level
+        # Niveau campagne
         cp = {**params, 'level': 'campaign', 'fields': 'campaign_name,spend,impressions,actions'}
         rc = _get(f'{FB_GRAPH}/{account_id}/insights', params=cp)
         if rc.ok:
             for row in rc.json().get('data', []):
-                revenue = sum(float(a.get('value', 0)) for a in row.get('actions', []) if a.get('action_type') == 'purchase')
-                spend   = float(row.get('spend', 0))
-                campaigns.append({
+                rev   = sum(float(a.get('value', 0)) for a in row.get('actions', []) if a.get('action_type') == 'purchase')
+                sp    = float(row.get('spend', 0))
+                camp  = {
                     'name':        row.get('campaign_name', ''),
-                    'spend':       round(spend, 2),
+                    'spend':       round(sp, 2),
                     'impressions': int(row.get('impressions', 0)),
-                    'roas':        round(revenue / spend, 2) if spend else 0,
-                })
+                    'roas':        round(rev / sp, 2) if sp else 0,
+                    'account':     account_name,
+                }
+                acct_campaigns.append(camp)
+                all_campaigns.append(camp)
 
-    spend = round(totals['spend'], 2)
-    revenue = totals['conversions']
-    roas = round(revenue / spend, 2) if spend else 0
+        acct_spend   = round(at['spend'], 2)
+        acct_rev     = at['conversions']
+        some_impr_a  = sum(c['impressions'] for c in acct_campaigns if 'some' in c['name'].lower())
+        other_impr_a = sum(c['impressions'] for c in acct_campaigns if 'some' not in c['name'].lower())
+        accounts_data.append({
+            'id':               account_id,
+            'name':             account_name,
+            'spend':            acct_spend,
+            'impressions':      at['impressions'],
+            'clicks':           at['clicks'],
+            'ctr':              round(at['ctr'], 2),
+            'cpc':              round(at['cpc'], 2),
+            'cpm':              round(at['cpm'], 2),
+            'roas':             round(acct_rev / acct_spend, 2) if acct_spend else 0,
+            'conversions':      round(acct_rev, 2),
+            'someImpressions':  some_impr_a,
+            'otherImpressions': other_impr_a,
+            'topCampaigns':     sorted(acct_campaigns, key=lambda x: x['spend'], reverse=True),
+        })
 
-    some_impr  = sum(c['impressions'] for c in campaigns if 'some' in c['name'].lower())
-    other_impr = sum(c['impressions'] for c in campaigns if 'some' not in c['name'].lower())
+    spend   = round(total['spend'], 2)
+    revenue = total['conversions']
+    roas    = round(revenue / spend, 2) if spend else 0
+    avg_ctr = round(total['ctr_sum'] / total['ctr_n'], 2) if total['ctr_n'] else 0
+    avg_cpc = round(total['cpc_sum'] / total['cpc_n'], 2) if total['cpc_n'] else 0
+    avg_cpm = round(total['cpm_sum'] / total['cpm_n'], 2) if total['cpm_n'] else 0
+
+    some_impr  = sum(c['impressions'] for c in all_campaigns if 'some' in c['name'].lower())
+    other_impr = sum(c['impressions'] for c in all_campaigns if 'some' not in c['name'].lower())
 
     data = {
+        # Champs agrégés (compat descendante)
         'spend':            spend,
-        'impressions':      totals['impressions'],
+        'impressions':      total['impressions'],
         'someImpressions':  some_impr,
         'otherImpressions': other_impr,
-        'clicks':      totals['clicks'],
-        'conversions': round(revenue, 2),
-        'ctr':         round(totals['ctr'], 2),
-        'cpc':         round(totals['cpc'], 2),
-        'cpm':         round(totals['cpm'], 2),
-        'roas':        roas,
-        'topCampaigns':     sorted(campaigns, key=lambda x: x['spend'],              reverse=True),
-        'topByImpressions': sorted(campaigns, key=lambda x: x.get('impressions', 0), reverse=True)[:5],
-        'topByRoas':        sorted(campaigns, key=lambda x: x.get('roas', 0),        reverse=True)[:5],
+        'clicks':           total['clicks'],
+        'conversions':      round(revenue, 2),
+        'ctr':              avg_ctr,
+        'cpc':              avg_cpc,
+        'cpm':              avg_cpm,
+        'roas':             roas,
+        'topCampaigns':     sorted(all_campaigns, key=lambda x: x['spend'],              reverse=True),
+        'topByImpressions': sorted(all_campaigns, key=lambda x: x.get('impressions', 0), reverse=True)[:5],
+        'topByRoas':        sorted(all_campaigns, key=lambda x: x.get('roas', 0),        reverse=True)[:5],
+        # Détail par compte
+        'accounts':         accounts_data,
     }
     _cache_set(key, data, 600)
     return jsonify(data)

@@ -2525,6 +2525,74 @@ function renderGA4Extended(d) {
 }
 
 // ── META ──────────────────────────────────────────────────────
+function _metaAccountSection(acct) {
+  const camps = acct.topCampaigns || [];
+  const someC  = camps.filter(c => /some/i.test(c.name || ''));
+  const otherC = camps.filter(c => !/some/i.test(c.name || ''));
+  const si = acct.someImpressions  ?? someC.reduce((s,c) => s+(c.impressions||0),0);
+  const oi = acct.otherImpressions ?? otherC.reduce((s,c) => s+(c.impressions||0),0);
+  const it = acct.impressions || (si+oi) || 1;
+  const sp = Math.round(si/it*100);
+  const ss = someC.reduce((s,c)=>s+(c.spend||0),0);
+  const os = otherC.reduce((s,c)=>s+(c.spend||0),0);
+  const cpm = (acct.spend && acct.impressions) ? (acct.spend/acct.impressions*1000) : null;
+  const campsBySpend = camps.slice(0,6).map(c=>({name:(c.name||'—').substring(0,40),spend:c.spend||0}));
+  const hasKarting = /kart/i.test(acct.name);
+  const accentColor = hasKarting ? '#E8630A' : 'var(--c-fb)';
+  const accentBg    = hasKarting ? '#FFF3EC' : 'var(--c-fb-bg)';
+  return `
+    <div style="border:1px solid var(--border);border-radius:14px;padding:18px 20px;margin-top:16px">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+        <div style="width:8px;height:8px;border-radius:50%;background:${accentColor};flex-shrink:0"></div>
+        <div style="font-size:13px;font-weight:700;color:var(--text)">${acct.name}</div>
+        <div style="font-size:11px;color:var(--muted);font-family:monospace">${acct.id}</div>
+      </div>
+      <div class="kpi-grid" style="grid-template-columns:repeat(auto-fill,minmax(120px,1fr));margin-bottom:14px">
+        ${kpiCard({label:'Budget',     value:fmtEur(acct.spend),        src:accentColor, srcBg:accentBg})}
+        ${kpiCard({label:'Impressions',value:fmtN(acct.impressions),    src:accentColor, srcBg:accentBg})}
+        ${kpiCard({label:'CTR',        value:fmtPct(acct.ctr),          src:accentColor, srcBg:accentBg})}
+        ${kpiCard({label:'CPC',        value:fmtEur(acct.cpc),          src:accentColor, srcBg:accentBg})}
+        ${cpm !== null ? kpiCard({label:'CPM',value:fmtEur(cpm),        src:accentColor, srcBg:accentBg}) : ''}
+        ${kpiCard({label:'ROAS',       value:(acct.roas||0).toFixed(2)+'×', src:accentColor, srcBg:accentBg})}
+      </div>
+      ${si+oi > 0 ? `
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px">
+        <div style="flex:1;min-width:140px;background:${accentBg};border-radius:8px;padding:10px 12px">
+          <div style="font-size:10px;font-weight:600;color:${accentColor};text-transform:uppercase;letter-spacing:.04em;margin-bottom:3px">SOME</div>
+          <div style="font-size:18px;font-weight:700;color:var(--text)">${fmtN(si)}</div>
+          <div style="font-size:11px;color:var(--muted)">${sp}% · ${fmtEur(ss)} · ${someC.length} camp.</div>
+        </div>
+        <div style="flex:1;min-width:140px;background:var(--surface-2);border-radius:8px;padding:10px 12px">
+          <div style="font-size:10px;font-weight:600;color:var(--muted-1);text-transform:uppercase;letter-spacing:.04em;margin-bottom:3px">Autres</div>
+          <div style="font-size:18px;font-weight:700;color:var(--text)">${fmtN(oi)}</div>
+          <div style="font-size:11px;color:var(--muted)">${100-sp}% · ${fmtEur(os)} · ${otherC.length} camp.</div>
+        </div>
+      </div>
+      <div style="display:flex;border-radius:4px;overflow:hidden;height:5px;gap:1px;margin-bottom:14px">
+        <div style="width:${sp}%;background:${accentColor};border-radius:3px 0 0 3px"></div>
+        <div style="flex:1;background:var(--border);border-radius:0 3px 3px 0"></div>
+      </div>` : ''}
+      <div class="overview-bars">
+        <div class="card"><div class="card-head"><div class="card-title">Top campagnes — budget</div></div>
+          <div class="card-body">${campsBySpend.length ? barListHtml(campsBySpend,accentColor,null,'name','spend',fmtEur) : '<p class="tbl-empty">Aucune campagne</p>'}</div>
+        </div>
+        <div class="card"><div class="card-head"><div class="card-title">Détail campagnes</div></div>
+          <div class="card-body flush"><div class="tbl-scroll"><table class="tbl">
+            <thead><tr><th>Campagne</th><th></th><th class="r">Budget</th><th class="r">Impr.</th><th class="r">ROAS</th></tr></thead>
+            <tbody>${camps.length ? camps.map(c => {
+              const isSome = /some/i.test(c.name||'');
+              const badge = isSome ? `<span style="font-size:9px;font-weight:700;padding:1px 5px;border-radius:4px;background:${accentBg};color:${accentColor};white-space:nowrap">SOME</span>` : '';
+              return `<tr style="${isSome?`background:${accentBg.replace(')',',0.5)')}`:''}"}>
+                <td class="cn">${c.name}</td><td style="white-space:nowrap">${badge}</td>
+                <td class="r">${fmtEur(c.spend)}</td><td class="r">${fmtN(c.impressions)}</td>
+                <td class="r">${(c.roas||0).toFixed(2)}×</td></tr>`;
+            }).join('') : '<tr><td colspan="5" class="tbl-empty">Aucune campagne active sur la période</td></tr>'}</tbody>
+          </table></div></div>
+        </div>
+      </div>
+    </div>`;
+}
+
 function renderMeta(d, dP) {
   const el = document.getElementById('panel-fbads');
   if (!el) return;
@@ -2538,9 +2606,11 @@ function renderMeta(d, dP) {
     return;
   }
 
+  const accounts    = d.accounts || [];
+  const multiAcct   = accounts.length > 1;
   const cpm = (d.spend && d.impressions) ? (d.spend / d.impressions * 1000) : null;
-  const allCampaigns  = d.topCampaigns || [];
-  const someCampaigns = allCampaigns.filter(c => /some/i.test(c.name || ''));
+  const allCampaigns   = d.topCampaigns || [];
+  const someCampaigns  = allCampaigns.filter(c => /some/i.test(c.name || ''));
   const otherCampaigns = allCampaigns.filter(c => !/some/i.test(c.name || ''));
 
   const someImpr  = d.someImpressions  ?? someCampaigns.reduce((s,c) => s + (c.impressions||0), 0);
@@ -2555,18 +2625,80 @@ function renderMeta(d, dP) {
 
   el.innerHTML = `
     <div class="sec-title"><h2>Meta Ads</h2><div class="line"></div>
+      ${multiAcct ? `<span style="font-size:11px;color:var(--muted);margin-right:4px">${accounts.length} comptes</span>` : ''}
       <span class="src-pill" style="--src:var(--c-fb);--src-bg:var(--c-fb-bg)">Meta</span>
     </div>
     ${sectionAiHtml('meta')}
+
+    ${multiAcct ? `<div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Tous comptes — agrégé</div>` : ''}
     <div class="kpi-grid">
-      ${kpiCard({label:'Budget dépensé', value:fmtEur(d.spend), src:'var(--c-fb)', srcBg:'var(--c-fb-bg)'})}
-      ${kpiCard({label:'Impressions totales', value:fmtN(d.impressions), src:'var(--c-fb)', srcBg:'var(--c-fb-bg)'})}
+      ${kpiCard({label: multiAcct ? 'Budget total' : 'Budget dépensé', value:fmtEur(d.spend), src:'var(--c-fb)', srcBg:'var(--c-fb-bg)'})}
+      ${kpiCard({label: multiAcct ? 'Impressions totales' : 'Impressions totales', value:fmtN(d.impressions), src:'var(--c-fb)', srcBg:'var(--c-fb-bg)'})}
       ${kpiCard({label:'CTR moyen', value:fmtPct(d.ctr), src:'var(--c-fb)', srcBg:'var(--c-fb-bg)'})}
       ${kpiCard({label:'CPC moyen', value:fmtEur(d.cpc), src:'var(--c-fb)', srcBg:'var(--c-fb-bg)'})}
       ${cpm !== null ? kpiCard({label:'CPM', value:fmtEur(cpm), src:'var(--c-fb)', srcBg:'var(--c-fb-bg)'}) : ''}
       ${kpiCard({label:'ROAS', value:(d.roas||0).toFixed(2)+'×', src:'var(--c-fb)', srcBg:'var(--c-fb-bg)'})}
     </div>
 
+    ${multiAcct ? `
+    <div class="card" style="margin-top:14px">
+      <div class="card-head">
+        <div>
+          <div class="card-title">Répartition du budget — tous comptes</div>
+          <div class="card-sub">Distribution par compte publicitaire</div>
+        </div>
+      </div>
+      <div class="card-body" style="padding:14px 16px;display:flex;flex-direction:column;gap:8px">
+        ${accounts.map(a => {
+          const pct = d.spend ? Math.round(a.spend/d.spend*100) : 0;
+          const isKart = /kart/i.test(a.name);
+          const col = isKart ? '#E8630A' : 'var(--c-fb)';
+          return `<div style="display:flex;align-items:center;gap:10px">
+            <div style="width:8px;height:8px;border-radius:50%;background:${col};flex-shrink:0"></div>
+            <div style="flex:1;font-size:12px;font-weight:600;color:var(--text)">${a.name}</div>
+            <div style="font-size:12px;color:var(--muted);width:60px;text-align:right">${fmtEur(a.spend)}</div>
+            <div style="width:100px">
+              <div style="height:5px;border-radius:3px;background:var(--border);overflow:hidden">
+                <div style="height:100%;width:${pct}%;background:${col};border-radius:3px"></div>
+              </div>
+            </div>
+            <div style="font-size:11px;color:var(--muted);width:30px;text-align:right">${pct}%</div>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:14px">
+      <div class="card-head">
+        <div>
+          <div class="card-title">Répartition des impressions — SOME vs autres · tous comptes</div>
+        </div>
+      </div>
+      <div class="card-body" style="padding:16px;display:flex;flex-direction:column;gap:14px">
+        <div style="display:flex;gap:12px;flex-wrap:wrap">
+          <div style="flex:1;min-width:160px;background:var(--c-fb-bg);border-radius:10px;padding:14px 16px">
+            <div style="font-size:11px;font-weight:600;color:var(--c-fb);text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px">SOME — Social Media</div>
+            <div style="font-size:24px;font-weight:700;color:var(--text)">${fmtN(someImpr)}</div>
+            <div style="font-size:12px;color:var(--muted);margin-top:2px">${somePct}% · ${fmtEur(someSpend)} · ${someCampaigns.length} camp.</div>
+          </div>
+          <div style="flex:1;min-width:160px;background:var(--surface-2);border-radius:10px;padding:14px 16px">
+            <div style="font-size:11px;font-weight:600;color:var(--muted-1);text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px">Autres campagnes</div>
+            <div style="font-size:24px;font-weight:700;color:var(--text)">${fmtN(otherImpr)}</div>
+            <div style="font-size:12px;color:var(--muted);margin-top:2px">${otherPct}% · ${fmtEur(otherSpend)} · ${otherCampaigns.length} camp.</div>
+          </div>
+        </div>
+        <div style="display:flex;border-radius:6px;overflow:hidden;height:8px;gap:2px">
+          <div style="width:${somePct}%;background:var(--c-fb);border-radius:4px 0 0 4px"></div>
+          <div style="flex:1;background:var(--border);border-radius:0 4px 4px 0"></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:20px 0 4px">Détail par compte</div>
+    ${accounts.map(a => _metaAccountSection(a)).join('')}
+
+    <div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:20px 0 4px">Top campagnes — tous comptes</div>
+    ` : `
     <div class="card">
       <div class="card-head">
         <div>
@@ -2593,20 +2725,24 @@ function renderMeta(d, dP) {
         </div>
       </div>
     </div>
+    `}
 
     <div class="overview-bars">
       <div class="card"><div class="card-head"><div class="card-title">Top campagnes — budget</div></div>
         <div class="card-body">${barListHtml(campsBySpend, 'var(--c-fb)', null, 'name', 'spend', fmtEur)}</div>
       </div>
-      <div class="card"><div class="card-head"><div class="card-title">Détail campagnes</div></div>
+      <div class="card"><div class="card-head"><div class="card-title">Détail campagnes${multiAcct ? ' — tous comptes' : ''}</div></div>
         <div class="card-body flush"><div class="tbl-scroll"><table class="tbl">
-          <thead><tr><th>Campagne</th><th></th><th class="r">Budget</th><th class="r">Impr.</th><th class="r">ROAS</th></tr></thead>
+          <thead><tr><th>Campagne</th><th></th>${multiAcct ? '<th>Compte</th>' : ''}<th class="r">Budget</th><th class="r">Impr.</th><th class="r">ROAS</th></tr></thead>
           <tbody>${allCampaigns.map(c => {
             const isSome = /some/i.test(c.name || '');
-            const badge = isSome ? `<span style="font-size:9px;font-weight:700;padding:1px 5px;border-radius:4px;background:var(--c-fb-bg);color:var(--c-fb);white-space:nowrap">SOME</span>` : '';
+            const isKart = multiAcct && /kart/i.test(c.account || '');
+            const badge  = isSome ? `<span style="font-size:9px;font-weight:700;padding:1px 5px;border-radius:4px;background:var(--c-fb-bg);color:var(--c-fb);white-space:nowrap">SOME</span>` : '';
+            const acctBadge = multiAcct ? `<td style="font-size:11px;color:${isKart?'#E8630A':'var(--muted)'};white-space:nowrap">${c.account||''}</td>` : '';
             return `<tr style="${isSome ? 'background:rgba(24,119,242,.04)' : ''}">
               <td class="cn">${c.name}</td>
               <td style="white-space:nowrap">${badge}</td>
+              ${acctBadge}
               <td class="r">${fmtEur(c.spend)}</td>
               <td class="r">${fmtN(c.impressions)}</td>
               <td class="r">${(c.roas||0).toFixed(2)}×</td>
@@ -2618,6 +2754,7 @@ function renderMeta(d, dP) {
     ${dP ? renderFBPage(dP, d) : ''}`;
 
   animateCards(el);
+  fetchSectionInsight('meta', {spend: d.spend, roas: d.roas, ctr: d.ctr, impressions: d.impressions});
 }
 
 function renderFBPage(d, dAds) {
@@ -2677,8 +2814,6 @@ function renderFBPage(d, dAds) {
           <td class="r">${fmtN(p.likes)}</td>
         </tr>`).join('')}</tbody>
       </table></div></div></div>` : ''}`;
-  animateCards(el);
-  fetchSectionInsight('meta', {spend: d.spend, roas: d.roas, ctr: d.ctr, impressions: d.impressions});
 }
 
 // ── GSC ───────────────────────────────────────────────────────
@@ -6350,7 +6485,13 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
     btn.classList.add('active');
     const crumb = document.getElementById('crumbCurrent');
     if (crumb) crumb.textContent = btn.textContent.trim().split('\n')[0].trim();
+    const wasRendered = window._tabRendered && window._tabRendered[tab];
     _renderTab(tab);
+    // Si overview vient d'être re-rendu depuis zéro (après un refresh d'un autre onglet
+    // qui a reset _tabRendered), fetchInsights n'a pas été appelé → le relancer.
+    if (tab === 'overview' && !wasRendered && window._lastDashData) {
+      fetchInsights(window._lastDashData);
+    }
   });
 });
 
