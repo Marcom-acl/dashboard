@@ -1,6 +1,135 @@
 {
-  "generated_at": "2026-06-18",
+  "generated_at": "2026-06-25",
   "items": [
+    {
+      "date": "2026-06-21",
+      "theme": "Design & branding",
+      "titre": "Midjourney v7 en alpha : nouvelles capacités pour la cohérence de personnages et les visuels de marque",
+      "synthese": "Midjourney a ouvert l'accès alpha à sa version 7, qui introduit des améliorations significatives sur la cohérence des personnages entre plusieurs générations d'images, un point critique pour les campagnes de marque. Les nouvelles capacités de style reference permettent de maintenir une identité visuelle cohérente sur l'ensemble d'une série de visuels. La qualité des rendus photoréalistes et des textures complexes fait un bond notable par rapport à v6.1. Ces évolutions positionnent Midjourney v7 comme un outil crédible pour la création de campagnes visuelles cohérentes. Les agences créatives commencent à l'intégrer dans leurs workflows de pré-production et de propositions créatives.",
+      "actionACL": "Demander l'accès alpha à Midjourney v7 et tester les fonctionnalités de cohérence de personnage pour vos prochaines campagnes de communication. Comparer les résultats avec vos assets visuels existants pour évaluer l'adéquation à votre charte graphique.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "LumiChats - Best AI Image Generators 2026",
+          "url": "https://lumichats.com/blog/best-ai-image-generators-2026-midjourney-dalle-stable-diffusion-firefly-comparison"
+        },
+        {
+          "name": "Stormy AI - Midjourney Firefly Playbook 2026",
+          "url": "https://stormy.ai/blog/midjourney-adobe-firefly-playbook-2026"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-20",
+      "theme": "CRM & member marketing",
+      "titre": "HubSpot Smart CRM : refonte majeure avec IA Breeze et bêta publique ouverte en juin 2026",
+      "synthese": "HubSpot a ouvert en bêta publique son Smart CRM entièrement repensé, intégrant nativement les agents IA Breeze dans tous ses hubs (Marketing, Sales, Service, Content, Operations). Les nouvelles fonctionnalités incluent des filtres collapsibles, une vue de rapport en page, des insights de colonnes générés par IA et une gestion inline des propriétés. Breeze couvre la recherche de prospects, la rédaction de contenu, le support client et l'analyse des deals. Cette refonte positionne HubSpot comme une plateforme CRM IA-first accessible à toutes les tailles d'entreprise, y compris en version gratuite. L'intelligence est désormais intégrée au cœur du workflow, et non plus en surcouche.",
+      "actionACL": "Si vous êtes sur HubSpot, activer les agents Breeze en bêta dès maintenant pour identifier des gains rapides sur la segmentation et le scoring de vos contacts membres. Prévoir une session de formation équipe d'une heure sur les nouvelles fonctionnalités.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "Releasebot - HubSpot June 2026",
+          "url": "https://releasebot.io/updates/hubspot"
+        },
+        {
+          "name": "HubSpot Spring Spotlight 2026",
+          "url": "https://marketingpod.com/blog/from-features-to-forward-motion-what-hubspots-spring-spotlight-2026-really-means-for-b2b"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-20",
+      "theme": "Design & branding",
+      "titre": "Idéogram, FLUX et Recraft s'imposent parmi les meilleurs générateurs d'images IA en 2026",
+      "synthese": "Les benchmarks 2026 des générateurs d'images IA montrent une montée en puissance de nouveaux acteurs aux côtés des outils établis. Idéogram se distingue par la précision du texte dans les images, un point faible historique de l'IA générative. FLUX (développé par Black Forest Labs) s'impose pour le photoréalisme et la cohérence stylistique. Recraft se spécialise dans la génération d'assets de design vectoriel et d'illustrations de marque. Midjourney et Adobe Firefly restent des références pour l'idéation créative.",
+      "actionACL": "Cartographier les besoins de production visuelle de l'équipe (illustrations, photos, assets réseaux sociaux) et tester Idéogram pour les visuels avec texte intégré et Firefly pour les déclinaisons de marque.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "INFO",
+      "sources": [
+        {
+          "name": "Unite.AI - Best AI Graphic Design Tools June 2026",
+          "url": "https://www.unite.ai/10-best-ai-graphic-design-tools/"
+        },
+        {
+          "name": "Digitiz - Top générateurs d'images IA 2026",
+          "url": "https://digitiz.fr/generateurs-images-ia/"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-19",
+      "theme": "IA générative en marketing",
+      "titre": "Salesforce lance des Marketing Agents autonomes capables de piloter des campagnes de bout en bout",
+      "synthese": "Salesforce a introduit de nouveaux agents marketing autonomes capables de qualifier des leads, créer du contenu, lancer des campagnes et optimiser les performances multicanales sans intervention humaine. Ces agents s'appuient sur Einstein AI et la Data Cloud pour accéder à une vision 360° du client. La plateforme Agentforce, déjà utilisée par plus de 18 500 clients, traite désormais plus de 3 milliards de workflows automatisés par mois. L'annonce marque une accélération de la tendance à l'IA agentique dans le martech. C'est un signe clair que les plateformes CRM évoluent vers des systèmes capables d'exécuter de manière autonome des stratégies marketing complètes.",
+      "actionACL": "Identifier 2-3 tâches marketing répétitives (relances, segmentation, reporting) et évaluer si elles peuvent être automatisées via les agents IA de votre CRM actuel. Réaliser un audit de maturité IA de votre stack martech avant fin Q3.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "MarketingProfs AI Update June 19, 2026",
+          "url": "https://www.marketingprofs.com/opinions/2026/55065/ai-update-june-19-2026-ai-news-and-views-from-the-past-week"
+        },
+        {
+          "name": "Agile Brand Guide - June 12, 2026",
+          "url": "https://agilebrandguide.com/yesterdays-marketing-technology-ai-news-digest-june-12-2026/"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-19",
+      "theme": "IA générative en marketing",
+      "titre": "Adobe étend ses outils Firefly aux grandes plateformes IA (ChatGPT, Claude, Copilot, Gemini)",
+      "synthese": "Adobe a annoncé l'extension de ses outils créatifs Firefly aux plateformes IA tierces majeures : ChatGPT, Claude, Microsoft 365 Copilot, Google Gemini et Slack. Cette intégration permet aux utilisateurs de ces plateformes d'accéder aux capacités créatives d'Adobe directement dans leurs workflows. L'initiative touche potentiellement des centaines de millions d'utilisateurs. C'est une bascule stratégique : Adobe passe d'un écosystème fermé à une API créative universelle.",
+      "actionACL": "Tester l'intégration Firefly dans les outils IA déjà utilisés par l'équipe (ex. : générer des visuels directement depuis Claude ou Copilot sans quitter le workflow de rédaction).",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "MarketingProfs AI Update June 19, 2026",
+          "url": "https://www.marketingprofs.com/opinions/2026/55065/ai-update-june-19-2026-ai-news-and-views-from-the-past-week"
+        },
+        {
+          "name": "Adobe News",
+          "url": "https://news.adobe.com/news/2026/06/adobe-unveils-major-expansion"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-19",
+      "theme": "IA générative en marketing",
+      "titre": "Bluefish lance « Agentic Campaigns » pour optimiser la visibilité des marques sur les moteurs IA (GEO)",
+      "synthese": "La startup Bluefish a lancé Agentic Campaigns, un outil d'automatisation permettant aux équipes marketing d'optimiser la visibilité de leur marque sur ChatGPT, Google Gemini et autres moteurs génératifs. Le Generative Engine Optimization (GEO) s'impose comme le SEO de demain : être cité par les LLM plutôt que seulement indexé par Google. L'outil automatise la création et la distribution de contenu structuré pour maximiser les chances d'apparaître dans les réponses IA. Les grandes marques intègrent déjà le GEO dans leur stratégie éditoriale 2026.",
+      "actionACL": "Auditer comment ACL apparaît (ou n'apparaît pas) dans les réponses de ChatGPT et Perplexity sur des requêtes sectorielles clés. Intégrer le GEO dans la prochaine révision de la stratégie de contenu.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "MarketingProfs AI Update June 19, 2026",
+          "url": "https://www.marketingprofs.com/opinions/2026/55065/ai-update-june-19-2026-ai-news-and-views-from-the-past-week"
+        },
+        {
+          "name": "Taliju - Tendances marketing 2026",
+          "url": "https://www.taliju.fr/tendances-marketing-2026"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-19",
+      "theme": "Social & Ads",
+      "titre": "Snapchat déploie une suite IA publicitaire complète pour ses 950 millions d'utilisateurs actifs",
+      "synthese": "Snapchat a annoncé un ensemble de fonctionnalités IA couvrant toute la chaîne publicitaire : setup de campagne automatisé, génération de créas, shopping IA, partenariats créateurs et expériences conversationnelles de marque. La plateforme mise sur ses 950 millions d'utilisateurs mensuels et une audience majoritairement jeune pour séduire les annonceurs. Les expériences conversationnelles permettent aux marques de dialoguer directement avec les utilisateurs via des agents IA intégrés à Snap. C'est une réponse directe aux évolutions d'Instagram et TikTok sur le social commerce.",
+      "actionACL": "Évaluer si l'audience Snapchat correspond aux segments membres ou prospects d'ACL. Si oui, piloter une campagne test avec les nouveaux formats conversationnels.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "MarketingProfs AI Update June 19, 2026",
+          "url": "https://www.marketingprofs.com/opinions/2026/55065/ai-update-june-19-2026-ai-news-and-views-from-the-past-week"
+        }
+      ]
+    },
     {
       "date": "2026-06-18",
       "theme": "IA générative en marketing",
@@ -297,6 +426,90 @@
         {
           "name": "Edge Digital — Best AI Tools for Branding: Top Solutions for Modern Marketing",
           "url": "https://www.edgedigital.net/best-ai-tools-for-branding-2/"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-18",
+      "theme": "CRM & member marketing",
+      "titre": "L'IA agentique transforme la relation client : des agents capables de gérer des contextes complexes en temps réel",
+      "synthese": "Les CRM de nouvelle génération intègrent des agents IA capables de comprendre l'historique complet d'un client (interactions, préférences, historique d'achat, tickets support) et de proposer des réponses personnalisées en temps réel. Cette convergence entre CRM, IA agentique et données comportementales marque une rupture avec les modèles de personnalisation par règles. Des plateformes comme Salesforce Agentforce ou HubSpot Breeze opèrent déjà à cette échelle en production. Pour les organisations membres (associations, fédérations), cela ouvre la voie à une gestion des relations membres hyper-individualisée. Le risque identifié : oublier l'humain derrière l'algorithme, notamment pour les membres les plus sensibles à la relation personnelle.",
+      "actionACL": "Cartographier les parcours membres où la personnalisation IA aurait le plus d'impact (renouvellement, onboarding, engagement). Définir les cas où une interaction humaine reste indispensable et ne doit pas être automatisée.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "MBA DMB - IA et CRM 2026",
+          "url": "https://blog.mbadmb.com/ia-et-crm-en-2026-et-si-le-vrai-risque-cetait-doublier-le-client-derriere-lalgorithme/"
+        },
+        {
+          "name": "Vantage Point - CRM Automation 2026",
+          "url": "https://vantagepoint.io/blog/sf/definitive-guide-crm-automation-2026"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-18",
+      "theme": "Design & branding",
+      "titre": "Adobe Firefly s'associe à NVIDIA pour accélérer la génération d'images commercialement sécurisées",
+      "synthese": "Adobe a annoncé un partenariat stratégique avec NVIDIA pour intégrer ses technologies de calcul et d'IA dans Adobe Firefly Foundry. L'objectif est d'accélérer la génération d'images à destination des studios médias et entertainment tout en garantissant une protection IP complète. Firefly reste le seul modèle majeur entraîné exclusivement sur des images Adobe Stock et des contenus sous licence ouverte, avec une indemnisation pour les entreprises. Cette annonce renforce le positionnement de Firefly comme l'outil de choix pour les équipes créatives en environnement corporate. Face à Midjourney (plus créatif mais sans garanties IP), Firefly s'impose comme la solution de production sécurisée.",
+      "actionACL": "Adopter Adobe Firefly comme outil de production visuelle standard pour tous les contenus commerciaux de votre organisation (print, digital, social). Garder Midjourney pour la phase d'exploration créative uniquement.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "RedShark News - Adobe NVIDIA partnership Firefly",
+          "url": "https://www.redsharknews.com/adobe-nvidia-strategic-partnership-firefly-ai"
+        },
+        {
+          "name": "Miraflow - AI Image Generation 2026",
+          "url": "https://miraflow.ai/blog/ai-image-generation-arms-race-2026-everything-changes"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-18",
+      "theme": "Social & Ads",
+      "titre": "Meta Andromeda : la qualité créative devient le premier driver de performance publicitaire",
+      "synthese": "Le moteur publicitaire Andromeda de Meta a opéré un changement structurel majeur : le ciblage par audience (intérêts, démographie, lookalikes) est remplacé par un ciblage basé sur la créa elle-même. L'algorithme lit le contenu de l'annonce pour prédire l'audience la plus réceptive à partir de signaux comportementaux. Depuis février 2026, Advantage+ Creative est activé par défaut sur toutes les nouvelles campagnes. Les annonceurs testant plus de 20 créas par mois enregistrent un ROAS 65% supérieur à ceux en testant moins de 10.",
+      "actionACL": "Réviser la stratégie créative des campagnes Meta : passer d'une logique de ciblage d'audience à une logique de diversité créative. Prévoir un budget de production créa plus important et des cycles de test plus courts.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "Weber Media - Meta Andromeda Update",
+          "url": "https://www.weber-media.com/en/blog/meta-andromeda-update"
+        },
+        {
+          "name": "Confect.io - Meta Andromeda Guide 2026",
+          "url": "https://confect.io/tactics/meta-andromeda-2026"
+        },
+        {
+          "name": "DPMedias - SEA & IA Juin 2026",
+          "url": "https://www.dpmedias.com/news/sea-publicite-digitale-juin-2026"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-18",
+      "theme": "Design & branding",
+      "titre": "Adobe Firefly AI Assistant en beta publique dans Photoshop, Premiere, Illustrator et InDesign",
+      "synthese": "Adobe a lancé la beta publique de son Firefly AI Assistant dans ses principales applications Creative Cloud le 18 juin 2026 : Photoshop, Premiere Pro, Illustrator, InDesign et Frame.io. L'assistant comprend des instructions en langage naturel et orchestre des workflows multi-étapes complexes directement dans chaque application. Il peut, par exemple, recevoir une description de l'effet voulu et exécuter automatiquement la séquence d'opérations correspondante. After Effects est en beta privée. C'est une bascule majeure vers une création assistée par dialogue.",
+      "actionACL": "Inscrire les designers de l'équipe à la beta publique dès maintenant et tester l'assistant sur des tâches récurrentes (redimensionnement, déclinaisons de formats, adaptation de templates).",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "Adobe News - Firefly AI Assistant expansion",
+          "url": "https://news.adobe.com/news/2026/06/adobe-unveils-major-expansion"
+        },
+        {
+          "name": "Engadget - Adobe Firefly inside Premiere, Photoshop, Illustrator",
+          "url": "https://www.engadget.com/2197079/adobe-brings-its-firefly-ai-assistant-inside-of-premiere-photoshop-and-illustrator/"
+        },
+        {
+          "name": "Adobe Blog - Firefly AI Assistant public beta",
+          "url": "https://blog.adobe.com/en/publish/2026/04/27/firefly-ai-assistant-public-beta"
         }
       ]
     },
@@ -625,6 +838,25 @@
       ]
     },
     {
+      "date": "2026-06-17",
+      "theme": "Social & Ads",
+      "titre": "Meta Advantage+ : seuil de conversion abaissé à 25/semaine et allocation budgétaire prédictive",
+      "synthese": "Meta a officialisé plusieurs mises à jour majeures de sa suite Advantage+ en juin 2026. Le seuil de conversion nécessaire pour activer l'optimisation IA est abaissé de 50 à 25 événements par semaine, rendant les campagnes IA accessibles à des annonceurs plus petits. La fonctionnalité Predictive Budget Allocation réalloue automatiquement le budget vers les segments les plus performants en temps réel, avec des gains de ROAS mesurés entre 8 et 15% lors des tests. Meta a également supprimé la sélection manuelle des types d'audiences dans les campagnes Advantage+ catalog, accentuant le contrôle algorithmique. La direction annoncée : d'ici fin 2026, les annonceurs n'auront plus besoin que d'un objectif, d'un budget et d'une image produit.",
+      "actionACL": "Activer Predictive Budget Allocation sur vos prochaines campagnes Meta si le volume d'événements le permet. Tester la suppression des contraintes d'audience manuelle sur une campagne pour mesurer l'impact réel sur vos KPIs.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "Benly - Advantage+ 2026 Updates",
+          "url": "https://benly.ai/learn/meta-ads/advantage-plus-updates-2026"
+        },
+        {
+          "name": "DP Médias - SEA & IA Juin 2026",
+          "url": "https://www.dpmedias.com/news/sea-publicite-digitale-juin-2026"
+        }
+      ]
+    },
+    {
       "date": "2026-06-16",
       "theme": "IA générative en marketing",
       "titre": "Adobe lance un Creative Agent autonome intégré à toute la Creative Cloud",
@@ -883,6 +1115,245 @@
         {
           "name": "Newpubmarketing — IA Marketing 2026 la création publicitaire redéfinie",
           "url": "https://newpubmarketing.over-blog.fr/2026/03/ia/marketing-en-2026-l-ia-redefinit-la-creation-publicitaire-et-les-marques-n-ont-plus-le-choix.html"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-16",
+      "theme": "CRM & member marketing",
+      "titre": "Les budgets CRM & fidélisation atteignent 51,5% du mix marketing : l'hyperpersonnalisation s'impose",
+      "synthese": "Selon les Benchmarks du Marketing 2026 publiés par e-marketing.fr, les marketeurs allouent désormais 51,5% de leur budget marketing au couple fidélisation + CRM, avec un ROI moyen mesuré à 5,3x. 83% des propriétaires de programme de fidélité se déclarent satisfaits de leurs résultats. L'IA est le principal levier cité pour industrialiser la personnalisation à grande échelle sans multiplier les ressources humaines. La tendance au CRM prédictif, qui anticipe les besoins avant que le client ne les exprime, s'accélère. Les agents IA capables de comprendre le contexte complet d'un client en temps réel deviennent le standard de fait.",
+      "actionACL": "Benchmarker votre part de budget allouée au CRM et à la fidélisation vs la moyenne sectorielle (51,5%). Si vous êtes en dessous, présenter ce chiffre comme argument pour un réinvestissement lors de la prochaine revue budgétaire.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "INFO",
+      "sources": [
+        {
+          "name": "e-marketing.fr - Benchmarks Marketing 2026",
+          "url": "https://www.e-marketing.fr/la-communaute-emarketing-fr-1090/ressources-2248/les-benchmarks-du-marketing-2026-les-plateformes-de-crm-et-fidelisation-client-170321"
+        },
+        {
+          "name": "Nexton Group - CRM prédictif",
+          "url": "https://www.nexton-group.com/blog/ia-crm-predictif-et-hyperpersonnalisation-vers-une-relation-client-reinventee"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-16",
+      "theme": "Design & branding",
+      "titre": "Le brand designer devient stratège en 2026 : l'IA redéfinit les compétences créatives",
+      "synthese": "Selon une analyse publiée par Blog du Modérateur, le rôle du brand designer a fondamentalement évolué en 2026 : il n'est plus seulement créatif, mais aussi stratège et pédagogue. Les outils IA (Canva AI, Firefly, Midjourney) automatisent la production de variantes visuelles, libérant le designer pour se concentrer sur la direction artistique et la cohérence de marque. Le workflow émergent dit 'Bake and Shield' consiste à explorer des concepts via Midjourney, puis à reproduire les meilleurs avec Firefly pour garantir la sécurité IP des assets finaux. En 2026, les meilleures équipes design utilisent l'IA pour explorer, pas pour déléguer la vision créative. Les compétences de prompt engineering et de direction artistique IA deviennent des prérequis.",
+      "actionACL": "Former votre équipe créative au prompt engineering et à la direction artistique IA. Mettre à jour les guidelines de marque pour définir explicitement ce qui peut être généré par IA vs ce qui requiert une création humaine.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "Blog du Modérateur - Branding digital 2026",
+          "url": "https://www.blogdumoderateur.com/branding-digital-2026-brand-designer-plus-seulement-creatif-aussi-stratege/"
+        },
+        {
+          "name": "Orbiteo - Branding 2026 face à l'IA générative",
+          "url": "https://orbiteo.com/uncategorized/branding-2026-le-designer-stratege-face-a-lempire-de-lia-generative/"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-15",
+      "theme": "Social & Ads",
+      "titre": "Meta Andromeda confirme que la qualité créative dépasse le ciblage comme premier driver de performance",
+      "synthese": "Meta a officiellement confirmé via son système Andromeda que la qualité créative est devenue le premier levier de performance publicitaire en 2026, devant le ciblage ou la stratégie d'enchères. Depuis février 2026, toutes les nouvelles campagnes Sales, Leads et App Promotion démarrent avec Advantage+ Creative activé par défaut. Des gains mesurés de +6% sur la qualité de sélection et +8% sur la qualité des annonces ont été observés. Par ailleurs, Meta expérimente des optimisations basées non plus sur l'événement d'achat ou de lead, mais sur le profit réel généré. Les données de recherche dans Meta AI seront progressivement recyclées pour améliorer le ciblage publicitaire.",
+      "actionACL": "Recentrer l'effort de production créative sur la qualité et la diversité des formats visuels plutôt que sur le peaufinage du ciblage. Prévoir un budget créatif dédié aux variantes IA pour vos campagnes Meta Q3.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "DP Médias - SEA & IA Juin 2026",
+          "url": "https://www.dpmedias.com/news/sea-publicite-digitale-juin-2026"
+        },
+        {
+          "name": "Marketing Agent Blog - Meta Advantage+ 2026",
+          "url": "https://marketingagent.blog/2026/05/06/the-complete-roadmap-to-using-meta-advantage-in-2026/"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-15",
+      "theme": "CRM & member marketing",
+      "titre": "HubSpot bascule ses agents Breeze AI vers un modèle de facturation au résultat",
+      "synthese": "HubSpot a annoncé que deux de ses agents Breeze AI passent à un modèle pay-per-result : les clients ne paient que pour les tâches réellement complétées. Ce changement de pricing réduit le risque financier pour les équipes qui hésitent à adopter l'automatisation IA. HubSpot est également le premier CRM majeur à avoir déployé un serveur MCP en production, rendant ses données accessibles à tout outil IA compatible. Les agents Breeze tournent désormais sur GPT-5 depuis janvier 2026.",
+      "actionACL": "Évaluer les agents Breeze AI sur un cas d'usage limité (ex. : qualification automatique des leads entrants) avec le modèle au résultat pour tester sans engagement budgétaire fixe.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "CMSWire - HubSpot shifts Breeze AI to pay-per-result",
+          "url": "https://www.cmswire.com/customer-experience/hubspot-shifts-breeze-ai-agents-to-pay-per-result-pricing/"
+        },
+        {
+          "name": "HubSpot Breeze AI 2026 Guide",
+          "url": "https://syncbricks.com/hubspot-breeze-ai-complete-guide-2026/"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-15",
+      "theme": "Design & branding",
+      "titre": "Les design systems évoluent vers des systèmes de marque complets intégrant motion et patterns IA",
+      "synthese": "En 2026, les équipes de marque les plus avancées font évoluer leurs design systems vers des systèmes de marque complets : composants, typographie, espacement, icônes, motion, mises en page, templates et patterns d'usage. L'IA générative permet de décliner ces systèmes automatiquement sur de nouveaux formats et supports. Adobe Firefly propose désormais la création de brand kits via l'assistant conversationnel. La cohérence de marque à grande échelle devient accessible aux petites équipes via ces outils.",
+      "actionACL": "Évaluer si ACL dispose d'un design system documenté suffisamment complet pour bénéficier de l'automatisation IA. Si non, initier sa formalisation comme prérequis aux projets de génération automatisée.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "Anima Blog - Design graphique 2026",
+          "url": "https://www.animaapp.com/blog/fr/ai-fr/graphic-design-fr/"
+        },
+        {
+          "name": "Adobe Firefly AI Assistant",
+          "url": "https://www.adobe.com/products/firefly/features/ai-assistant.html"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-14",
+      "theme": "Social & Ads",
+      "titre": "Meta étend Edits (éditeur vidéo) au desktop avec un assistant IA créatif intégré pour les créateurs",
+      "synthese": "Meta a annoncé l'extension de son application Edits, outil d'édition vidéo mobile lancé début 2026, à la version desktop. Un assistant IA intégré aide les créateurs à générer des idées de contenu, interpréter les données de performance et améliorer leurs workflows de production. L'outil est directement connecté aux métriques Instagram Reels et Facebook Video. Cette annonce s'inscrit dans la stratégie de Meta pour fidéliser les créateurs sur sa plateforme face à TikTok et YouTube. La fonctionnalité d'analyse de performance via IA permet de comprendre pourquoi une vidéo performe ou non et de corriger le tir.",
+      "actionACL": "Tester Edits desktop pour la production de contenu Reels de votre organisation. Utiliser l'assistant IA pour identifier les formats et sujets qui génèrent le plus d'engagement auprès de vos audiences cibles.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "Agile Brand Guide - June 12, 2026",
+          "url": "https://agilebrandguide.com/yesterdays-marketing-technology-ai-news-digest-june-12-2026/"
+        },
+        {
+          "name": "Equinoxal - IA publicité réseaux sociaux 2026",
+          "url": "https://equinoxal.fr/technologie/ia-publicite-reseaux-sociaux-2026/"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-12",
+      "theme": "IA générative en marketing",
+      "titre": "Sprinklr lance LLM Insights pour aider les marques à contrôler leur représentation dans les moteurs IA",
+      "synthese": "Sprinklr a lancé LLM Insights le 10 juin 2026, un outil permettant aux marques de comprendre et d'influencer la façon dont elles sont représentées dans les réponses générées par les IA (ChatGPT, Perplexity, Google AI Mode, etc.). L'outil analyse les réponses des LLM à des milliers de requêtes liées à une marque ou à un secteur. Face à l'essor de l'IA comme moteur de découverte, la visibilité dans les réponses IA devient aussi stratégique que le référencement Google. Cette tendance porte le nom d'AIO (AI Optimization), en complément du SEO traditionnel. Les premières études montrent que les marques qui publient davantage de contenu structuré et factuel sont mieux représentées dans les LLM.",
+      "actionACL": "Effectuer un audit rapide de la représentation de votre marque dans ChatGPT et Perplexity sur vos thématiques clés. Intégrer l'AIO comme critère dans votre stratégie de contenu pour le second semestre 2026.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "Agile Brand Guide - June 12, 2026",
+          "url": "https://agilebrandguide.com/yesterdays-marketing-technology-ai-news-digest-june-12-2026/"
+        },
+        {
+          "name": "MarketingProfs AI Update June 5, 2026",
+          "url": "https://www.marketingprofs.com/opinions/2026/54909/ai-update-june-5-2026-ai-news-and-views-from-the-past-week"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-12",
+      "theme": "Social & Ads",
+      "titre": "Google officialise AI Mode comme nouvelle interface de recherche par défaut, impactant la distribution des annonces",
+      "synthese": "Google a officialisé qu'AI Mode devient le nouveau Search par défaut pour les utilisateurs, transformant l'interface de recherche en moteur de réponses génératives. L'avantage concurrentiel pour les annonceurs se déplace vers les campagnes activant AI Max et le 'Power Pack'. Les tests de juin 2026 montrent que les campagnes intégrant ces options performent significativement mieux dans le nouvel environnement IA. Cette transition impacte directement la logique de diffusion des annonces Search et Shopping. Les annonceurs qui n'adaptent pas leur structure de campagne à l'ère AI Mode risquent une perte de visibilité progressive.",
+      "actionACL": "Auditer vos campagnes Google Ads actuelles et identifier celles qui nécessitent l'activation d'AI Max. Prévoir un accompagnement agence ou formation interne sur les nouvelles règles de diffusion en environnement AI Mode.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "DP Médias - SEA & IA Juin 2026",
+          "url": "https://www.dpmedias.com/news/sea-publicite-digitale-juin-2026"
+        },
+        {
+          "name": "Journal du Net - Marché de la publicité 2026",
+          "url": "https://www.journaldunet.com/adtech/1547203-le-marche-de-la-publicite-en-2026-des-consolidations-pour-les-gros-acteurs-et-de-l-adaptation-aux-ia/"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-12",
+      "theme": "CRM & member marketing",
+      "titre": "Klaviyo identifie 8 tendances marketing automation 2026 : l'IA copilote devient standard",
+      "synthese": "Klaviyo a publié son rapport sur les grandes tendances de l'automation marketing en 2026. L'IA agentique y est décrite comme le copilote universel : elle construit des flows, teste des variantes et personnalise les messages à grande échelle en quasi-autonomie. La personnalisation en temps réel — ajustant le canal, le timing et le contenu selon les signaux d'engagement — est désormais accessible aux équipes moyennes. Le rapport insiste sur la qualité des données comme prérequis absolu : l'IA amplifie les erreurs autant que les succès.",
+      "actionACL": "Auditer la qualité et l'exhaustivité des données membres dans le CRM avant tout projet d'automatisation IA : segmentation, historique d'engagement, préférences de contact.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "INFO",
+      "sources": [
+        {
+          "name": "Klaviyo - Marketing Automation Trends 2026",
+          "url": "https://www.klaviyo.com/blog/marketing-automation-trends"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-10",
+      "theme": "IA générative en marketing",
+      "titre": "AI Digital lance AI Creative Studio, une unité de production créative IA pour la publicité programmatique",
+      "synthese": "AI Digital a lancé AI Creative Studio, une unité de production qui coordonne plusieurs modèles IA génératifs pour fabriquer, ajuster et formater automatiquement des éléments créatifs publicitaires. L'outil couvre la rédaction des copies, la génération de visuels et l'adaptation aux formats programmatiques. Il répond à la demande croissante de créatifs publicitaires à grande échelle et à faible coût. Le lancement s'inscrit dans une tendance plus large d'industrialisation de l'IA en marketing, passant des pilotes expérimentaux aux infrastructures de production. Plusieurs agences partenaires ont déjà signalé des gains de temps significatifs sur la production de campagnes display.",
+      "actionACL": "Explorer AI Creative Studio pour automatiser la déclinaison créative de vos campagnes display. Tester avec une prochaine campagne en produisant 3-4 variantes créatives via IA pour A/B testing.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "Agile Brand Guide - June 12, 2026",
+          "url": "https://agilebrandguide.com/yesterdays-marketing-technology-ai-news-digest-june-12-2026/"
+        },
+        {
+          "name": "WaveSpeed - June 2026 AI Launch Wave",
+          "url": "https://wavespeed.ai/blog/posts/june-2026-ai-launch-wave/"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-10",
+      "theme": "CRM & member marketing",
+      "titre": "Salesforce Agentforce atteint 18 500 clients et 3 milliards de workflows mensuels",
+      "synthese": "Salesforce a communiqué sur la montée en puissance d'Agentforce, sa plateforme d'agents IA autonomes : 18 500 clients actifs et plus de 3 milliards de workflows exécutés chaque mois. Les agents Agentforce gèrent des processus multi-étapes de bout en bout — qualification de leads, suivi de cas, mise à jour d'enregistrements — avec un minimum d'intervention humaine. La plateforme repose sur Data Cloud et Einstein Trust Layer pour garantir la conformité. C'est désormais le benchmark de référence pour l'automatisation CRM enterprise.",
+      "actionACL": "Identifier 2-3 workflows CRM répétitifs chez ACL (relances, mises à jour de statut membres) qui pourraient être candidats à l'automatisation agentique.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "Salesforce CRM Trends 2026",
+          "url": "https://amroar.com/salesforce-crm-trends-2026/"
+        },
+        {
+          "name": "Stormy AI - Enterprise ROI Report 2026",
+          "url": "https://stormy.ai/blog/2026-enterprise-roi-report-hubspot-breeze-salesforce-agentforce"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-10",
+      "theme": "Social & Ads",
+      "titre": "Meta teste l'optimisation basée sur le profit réel plutôt que sur les événements d'achat",
+      "synthese": "Meta expérimente une nouvelle logique d'optimisation publicitaire : plutôt que d'optimiser sur l'événement d'achat ou de lead, l'algorithme optimise sur le profit net réel généré par chaque conversion. Ce changement nécessite de passer des données de CRM/ERP à Meta via ses APIs de conversion. Les premiers tests montrent des gains significatifs sur la qualité des leads et la rentabilité des campagnes. Cette évolution demande une intégration technique plus poussée entre les outils publicitaires et les systèmes de gestion.",
+      "actionACL": "Cartographier les données de valeur membre disponibles dans le CRM qui pourraient alimenter Meta Conversions API pour affiner l'optimisation des campagnes d'acquisition.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "DPMedias - SEA & IA Juin 2026",
+          "url": "https://www.dpmedias.com/news/sea-publicite-digitale-juin-2026"
+        },
+        {
+          "name": "Accio - Tendances marketing programmatique 2026",
+          "url": "https://fr.accio.com/business/programmatic-marketing-trends"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-05",
+      "theme": "IA générative en marketing",
+      "titre": "Microsoft déploie le tableau de bord « Citation Share » dans Bing Webmaster Tools",
+      "synthese": "Microsoft a déployé de nouvelles fonctionnalités dans Bing Webmaster Tools pour mesurer la visibilité des sites dans les réponses IA : Citation Share (% de fois où un site est cité dans les réponses IA), Intents (catégorisation des requêtes), Topics (regroupement thématique) et Compare (évolution dans le temps). C'est le premier outil officiel de mesure GEO d'un moteur majeur. La métrique 'Citation Share' devient un KPI de visibilité à intégrer aux dashboards marketing.",
+      "actionACL": "Activer Bing Webmaster Tools pour le site ACL et commencer à suivre le Citation Share comme nouveau KPI de notoriété digitale.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "MarketingProfs AI Update June 5, 2026",
+          "url": "https://www.marketingprofs.com/opinions/2026/54909/ai-update-june-5-2026-ai-news-and-views-from-the-past-week"
         }
       ]
     }
