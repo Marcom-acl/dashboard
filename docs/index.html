@@ -2538,8 +2538,9 @@ function _metaAccountSection(acct) {
   const cpm = (acct.spend && acct.impressions) ? (acct.spend/acct.impressions*1000) : null;
   const campsBySpend = camps.slice(0,6).map(c=>({name:(c.name||'—').substring(0,40),spend:c.spend||0}));
   const hasKarting = /kart/i.test(acct.name);
-  const accentColor = hasKarting ? '#E8630A' : 'var(--c-fb)';
-  const accentBg    = hasKarting ? '#FFF3EC' : 'var(--c-fb-bg)';
+  const hasSport   = /sport/i.test(acct.name);
+  const accentColor = hasKarting ? '#E8630A' : hasSport ? '#34A853' : 'var(--c-fb)';
+  const accentBg    = hasKarting ? '#FFF3EC' : hasSport ? '#EDFBF1' : 'var(--c-fb-bg)';
   return `
     <div style="border:1px solid var(--border);border-radius:14px;padding:18px 20px;margin-top:16px">
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
@@ -2651,8 +2652,9 @@ function renderMeta(d, dP) {
       <div class="card-body" style="padding:14px 16px;display:flex;flex-direction:column;gap:8px">
         ${accounts.map(a => {
           const pct = d.spend ? Math.round(a.spend/d.spend*100) : 0;
-          const isKart = /kart/i.test(a.name);
-          const col = isKart ? '#E8630A' : 'var(--c-fb)';
+          const isKart  = /kart/i.test(a.name);
+          const isSport = /sport/i.test(a.name);
+          const col = isKart ? '#E8630A' : isSport ? '#34A853' : 'var(--c-fb)';
           return `<div style="display:flex;align-items:center;gap:10px">
             <div style="width:8px;height:8px;border-radius:50%;background:${col};flex-shrink:0"></div>
             <div style="flex:1;font-size:12px;font-weight:600;color:var(--text)">${a.name}</div>
@@ -2736,9 +2738,11 @@ function renderMeta(d, dP) {
           <thead><tr><th>Campagne</th><th></th>${multiAcct ? '<th>Compte</th>' : ''}<th class="r">Budget</th><th class="r">Impr.</th><th class="r">ROAS</th></tr></thead>
           <tbody>${allCampaigns.map(c => {
             const isSome = /some/i.test(c.name || '');
-            const isKart = multiAcct && /kart/i.test(c.account || '');
+            const isKart  = multiAcct && /kart/i.test(c.account || '');
+            const isSportC = multiAcct && /sport/i.test(c.account || '');
+            const acctCol = isKart ? '#E8630A' : isSportC ? '#34A853' : 'var(--muted)';
             const badge  = isSome ? `<span style="font-size:9px;font-weight:700;padding:1px 5px;border-radius:4px;background:var(--c-fb-bg);color:var(--c-fb);white-space:nowrap">SOME</span>` : '';
-            const acctBadge = multiAcct ? `<td style="font-size:11px;color:${isKart?'#E8630A':'var(--muted)'};white-space:nowrap">${c.account||''}</td>` : '';
+            const acctBadge = multiAcct ? `<td style="font-size:11px;color:${acctCol};white-space:nowrap">${c.account||''}</td>` : '';
             return `<tr style="${isSome ? 'background:rgba(24,119,242,.04)' : ''}">
               <td class="cn">${c.name}</td>
               <td style="white-space:nowrap">${badge}</td>
