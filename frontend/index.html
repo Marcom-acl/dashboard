@@ -1217,10 +1217,10 @@
           <span class="sb-pill">Sections acl.lu</span>
           <span class="sb-dot" id="bs-sections" style="background:var(--muted-2);"></span>
         </button>
-        <button class="sb-item tab-btn" data-tab="fbads" title="Meta Ads &amp; FB">
+        <button class="sb-item tab-btn" data-tab="fbads" title="Publicités &amp; Pages Meta">
           <span class="sb-ic-wrap" style="background:rgba(24,119,242,.15);--ic-color:#1877F2"><svg class="sb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></span>
-          <span class="sb-item-label">Meta Ads &amp; FB</span>
-          <span class="sb-pill">Meta Ads &amp; FB</span>
+          <span class="sb-item-label">Pub. &amp; Pages Meta</span>
+          <span class="sb-pill">Pub. &amp; Pages</span>
           <span class="sb-dot" id="bs-fbads" style="background:var(--muted-2);"></span>
         </button>
         <button class="sb-item tab-btn" data-tab="gsc" title="Search Console">
@@ -2548,7 +2548,7 @@ function _metaAccountSection(acct) {
         <div style="font-size:13px;font-weight:700;color:var(--text)">${acct.name}</div>
         <div style="font-size:11px;color:var(--muted);font-family:monospace">${acct.id}</div>
       </div>
-      <div class="kpi-grid" style="grid-template-columns:repeat(auto-fill,minmax(120px,1fr));margin-bottom:14px">
+      <div class="kpi-grid" style="margin-bottom:14px">
         ${kpiCard({label:'Budget',     value:fmtEur(acct.spend),        src:accentColor, srcBg:accentBg})}
         ${kpiCard({label:'Impressions',value:fmtN(acct.impressions),    src:accentColor, srcBg:accentBg})}
         ${kpiCard({label:'CTR',        value:fmtPct(acct.ctr),          src:accentColor, srcBg:accentBg})}
