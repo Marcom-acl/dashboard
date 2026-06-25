@@ -1690,7 +1690,6 @@ def fb_ads():
     total = {
         'spend': 0, 'impressions': 0, 'clicks': 0, 'conversions': 0,
         'ctr_sum': 0.0, 'ctr_n': 0,
-        'cpc_sum': 0.0, 'cpc_n': 0,
         'cpm_sum': 0.0, 'cpm_n': 0,
     }
     all_campaigns  = []
@@ -1722,7 +1721,6 @@ def fb_ads():
                 total['clicks']      += at['clicks']
                 total['conversions'] += at['conversions']
                 if at['ctr']: total['ctr_sum'] += at['ctr']; total['ctr_n'] += 1
-                if at['cpc']: total['cpc_sum'] += at['cpc']; total['cpc_n'] += 1
                 if at['cpm']: total['cpm_sum'] += at['cpm']; total['cpm_n'] += 1
 
         # Niveau campagne
@@ -1753,7 +1751,7 @@ def fb_ads():
             'impressions':      at['impressions'],
             'clicks':           at['clicks'],
             'ctr':              round(at['ctr'], 2),
-            'cpc':              round(at['cpc'], 2),
+            'cpc':              round(at['spend'] / at['clicks'], 2) if at['clicks'] else 0,
             'cpm':              round(at['cpm'], 2),
             'roas':             round(acct_rev / acct_spend, 2) if acct_spend else 0,
             'conversions':      round(acct_rev, 2),
@@ -1766,7 +1764,7 @@ def fb_ads():
     revenue = total['conversions']
     roas    = round(revenue / spend, 2) if spend else 0
     avg_ctr = round(total['ctr_sum'] / total['ctr_n'], 2) if total['ctr_n'] else 0
-    avg_cpc = round(total['cpc_sum'] / total['cpc_n'], 2) if total['cpc_n'] else 0
+    avg_cpc = round(total['spend'] / total['clicks'], 2) if total['clicks'] else 0
     avg_cpm = round(total['cpm_sum'] / total['cpm_n'], 2) if total['cpm_n'] else 0
 
     some_impr  = sum(c['impressions'] for c in all_campaigns if 'some' in c['name'].lower())
