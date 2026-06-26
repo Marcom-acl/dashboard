@@ -1,6 +1,21 @@
 {
-  "generated_at": "2026-06-25",
+  "generated_at": "2026-06-26",
   "items": [
+    {
+      "date": "2026-06-25",
+      "theme": "IA générative en marketing",
+      "titre": "MoEngage acquiert Aampe pour fusionner agents workflow et agents de décision individuelle dans une plateforme unique",
+      "synthese": "MoEngage a annoncé l'acquisition d'Aampe, une société d'infrastructure IA, créant la première plateforme d'engagement combinant des agents workflow pour les marketeurs et des agents de décision opérant au niveau individuel utilisateur dans un système unifié. Cette fusion permet aux équipes marketing de définir des règles et campagnes au niveau macro, pendant que l'IA adapte en temps réel chaque message à chaque utilisateur. L'intégration vise à combler le fossé entre l'automatisation marketing classique et la personnalisation one-to-one à grande échelle. C'est un signal fort de la convergence entre orchestration de campagnes et décision IA granulaire.",
+      "actionACL": "Explorer les plateformes d'engagement nouvelle génération (MoEngage, Braze, Iterable) qui combinent orchestration de campagnes et décision IA individuelle, en vue d'une évaluation pour les communications membres.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "Agile Brand Guide - Marketing Technology AI News June 25, 2026",
+          "url": "https://agilebrandguide.com/yesterdays-marketing-technology-ai-news-june-25-2026/"
+        }
+      ]
+    },
     {
       "date": "2026-06-21",
       "theme": "Design & branding",
@@ -55,6 +70,44 @@
         {
           "name": "Digitiz - Top générateurs d'images IA 2026",
           "url": "https://digitiz.fr/generateurs-images-ia/"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-20",
+      "theme": "IA générative en marketing",
+      "titre": "GEO (Generative Engine Optimization) : la nouvelle discipline pour exister dans les réponses des IA",
+      "synthese": "En 2026, une nouvelle discipline marketing émerge : le GEO (Generative Engine Optimization), complémentaire au SEO traditionnel. Il s'agit d'optimiser la présence d'une organisation dans les réponses générées par les moteurs IA comme ChatGPT, Perplexity et Google AI Overviews. Des études montrent que 68 % des recherches Google se terminent désormais sans clic, mais que les visiteurs référencés par les IA convertissent à des taux plus élevés et s'engagent plus profondément. Les organisations qui structurent leurs contenus pour être citées par les IA gagnent en autorité et en visibilité auprès d'audiences qualifiées.",
+      "actionACL": "Lancer un audit GEO : vérifier comment l'ACL et ses thématiques d'expertise apparaissent dans ChatGPT, Perplexity et Google AI Overviews. Identifier les contenus à restructurer (FAQ, pages expertes, guides) pour améliorer la citabilité par les moteurs IA.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "Taliju - Tendances Marketing 2026",
+          "url": "https://www.taliju.fr/tendances-marketing-2026"
+        },
+        {
+          "name": "Intelligence Marketing Day - IA 2026",
+          "url": "https://www.intelligencemarketingday.fr/blog/intelligence-marketing-day/ia-en-2026-les-tendances-qui-redefinissent-le-marketing-la-data-et-la-performance/"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-20",
+      "theme": "Social & Ads",
+      "titre": "Meta impose de nouveaux labels de transparence pour les publicités créées par IA générative",
+      "synthese": "En juin 2026, Meta a déployé l'extension des obligations de transparence pour les publicités créées ou modifiées significativement par des outils d'IA générative, avec l'affichage d'un label visible pour les utilisateurs. Meta a également annoncé que les données partagées par les entreprises annonceurs pourront désormais être utilisées pour personnaliser les contenus du Fil d'actualité et les réponses IA, en plus des publicités habituelles. Ces changements répondent à la pression réglementaire européenne sur la publicité IA. Meta a aussi lancé de nouveaux formats commerce : Live Video Ads, affiliate shopping et Product Data driven Sales campaigns.",
+      "actionACL": "Vérifier la conformité des créations publicitaires avec les nouvelles obligations de transparence IA de Meta. Revoir la politique de partage de données avec Meta à la lumière des nouvelles règles de personnalisation, en coordination avec le DPO.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "AdManage.ai - Meta Ads Updates 2026",
+          "url": "https://admanage.ai/blog/meta-ads-update"
+        },
+        {
+          "name": "Meta Ads Updates juin 2026",
+          "url": "https://margabagus.com/meta-ads-updates-2026/"
         }
       ]
     },
@@ -127,6 +180,40 @@
         {
           "name": "MarketingProfs AI Update June 19, 2026",
           "url": "https://www.marketingprofs.com/opinions/2026/55065/ai-update-june-19-2026-ai-news-and-views-from-the-past-week"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-19",
+      "theme": "IA générative en marketing",
+      "titre": "Forrester : 9 agences marketing sur 10 utilisent l'IA générative, mais au détriment de l'efficacité créative",
+      "synthese": "Le rapport Forrester 'State of AI Inside US Marketing Agencies 2026' révèle que 90 % des agences américaines utilisent désormais l'IA générative, et 50 % ont recours à l'IA agentique pour l'exécution marketing. Cependant, Forrester alerte : cette adoption massive, couplée à une obsession de la productivité et de la réduction des coûts, nuit à l'efficacité marketing, à la créativité et à la croissance de marque à long terme. Les agences qui se distinguent sont celles qui utilisent l'IA pour augmenter la créativité humaine plutôt que de la remplacer. Le rapport souligne que le contenu humain authentique devient un différenciateur fort dans un environnement saturé de contenu généré.",
+      "actionACL": "Auditer l'usage actuel de l'IA dans les productions Marcom : identifier où l'IA génère réellement de la valeur vs. où elle standardise et appauvrit le contenu de marque. Établir des lignes directrices claires sur les cas d'usage autorisés et ceux nécessitant une supervision créative humaine.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "MarketingProfs - AI Update June 19, 2026",
+          "url": "https://www.marketingprofs.com/opinions/2026/55065/ai-update-june-19-2026-ai-news-and-views-from-the-past-week"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-19",
+      "theme": "Social & Ads",
+      "titre": "Meta dépasse Google pour la première fois en revenus publicitaires : 243 Mds $ vs 239 Mds $",
+      "synthese": "Pour la première fois, Meta devrait générer davantage de revenus publicitaires que Google en 2026 : 243,46 milliards de dollars contre 239,54 milliards. Ce renversement historique reflète la puissance du ciblage IA de Meta sur Facebook, Instagram, WhatsApp et Threads, et l'efficacité de ses formats publicitaires basés sur l'IA générative. La publicité programmatique représente désormais plus de 85 % des dépenses display mondiales. TikTok continue de gagner des parts de marché sur les plateformes traditionnelles, tandis que LinkedIn s'affirme comme le canal premium B2B avec les meilleurs ROAS pour les audiences professionnelles.",
+      "actionACL": "Réévaluer la répartition des investissements publicitaires digitaux. LinkedIn reste le canal B2B premium pour toucher les décideurs — envisager d'y augmenter les investissements si ce n'est pas déjà fait, notamment pour les campagnes d'adhésion ou d'événements.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "MarketingProfs AI Update June 19, 2026",
+          "url": "https://www.marketingprofs.com/opinions/2026/55065/ai-update-june-19-2026-ai-news-and-views-from-the-past-week"
+        },
+        {
+          "name": "Digital Applied - Digital Advertising Statistics 2026",
+          "url": "https://www.digitalapplied.com/blog/digital-advertising-statistics-2026-data-points"
         }
       ]
     },
@@ -1214,6 +1301,59 @@
       ]
     },
     {
+      "date": "2026-06-15",
+      "theme": "IA générative en marketing",
+      "titre": "Veo 3 de Google s'impose comme premier outil de génération vidéo IA pour les pros du marketing",
+      "synthese": "Selon l'étude Blog du Modérateur 2026 sur les outils IA les plus utilisés par les professionnels du numérique, Veo (Google) prend la première place des outils de génération vidéo avec 10,5 % des utilisateurs, porté par Veo 3 et son intégration dans l'écosystème Google Workspace. La génération vidéo reste encore minoritaire (24,2 % d'adoption) mais croît rapidement. La génération de texte reste quasi universelle (95,4 %) et la génération d'images suit (70,4 %). Les agents IA autonomes, nouveaux venus, sont déjà adoptés par 15,2 % des répondants.",
+      "actionACL": "Tester Veo 3 pour la production de courtes vidéos promotionnelles ou de résumés d'événements. La génération vidéo IA peut réduire les coûts de production pour les formats courts (Reels, stories, teasers).",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "Blog du Modérateur - IA outils 2026",
+          "url": "https://www.blogdumoderateur.com/ia-outils-plus-utilises-2026/"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-15",
+      "theme": "CRM & member marketing",
+      "titre": "Données zero-party : +35 à 60 % d'engagement versus données tierces dans les campagnes CRM",
+      "synthese": "Plusieurs études convergentes de juin 2026 confirment que la donnée zero-party — partagée volontairement par les membres via centres de préférences, quiz ou formulaires — génère des taux d'ouverture et d'engagement supérieurs de 35 à 60 % aux campagnes basées sur des données tierces. Dans un contexte de restrictions croissantes sur les cookies et de renforcement du RGPD, la collecte de données zero-party est présentée comme l'investissement data prioritaire de 2026. Les plateformes CRM intègrent désormais nativement des modules de collecte de préférences et de gestion du consentement enrichi.",
+      "actionACL": "Concevoir ou renforcer un centre de préférences membres : type de contenu souhaité, fréquence, thématiques d'intérêt. Utiliser ces données pour segmenter les communications et mesurer l'impact sur l'engagement.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "Klaviyo - Marketing Automation Trends 2026",
+          "url": "https://www.klaviyo.com/blog/marketing-automation-trends"
+        },
+        {
+          "name": "ClaritySOFT - CRM Trends 2026",
+          "url": "https://claritysoft.com/crm-trends-2026/"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-15",
+      "theme": "Social & Ads",
+      "titre": "Google Ads déploie 3 mises à jour bidding & budgeting, dont un mode Promotion beta pour les pics saisonniers",
+      "synthese": "Le 15 juin 2026, Google a annoncé trois nouvelles fonctionnalités pour Google Ads : Smart Bidding Exploration étendu pour Performance Max et Shopping, un nouveau mode Promotion (beta) pour gérer les pics de demande saisonniers, et une révision de l'optimisation des enchères pour les campagnes à budget limité (effective au 17 août 2026). Ces mises à jour s'inscrivent dans la stratégie de Google Marketing Live 2026, visant à maximiser l'efficacité des budgets via l'IA. Le mode Promotion est particulièrement pertinent pour les organisations avec des cycles événementiels marqués.",
+      "actionACL": "Anticiper le changement du 17 août sur les enchères pour campagnes à budget limité. Tester le mode Promotion beta pour les prochains événements ou campagnes d'adhésion à pic saisonnier.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "ALM Corp - Google Ads Bidding Updates June 2026",
+          "url": "https://almcorp.com/news/google-ads-three-bidding-budgeting-updates-june-2026/"
+        },
+        {
+          "name": "Google Ads Blog - DSA upgrade to AI Max",
+          "url": "https://blog.google/products/ads-commerce/dsa-upgrade-to-ai-max-2026/"
+        }
+      ]
+    },
+    {
       "date": "2026-06-14",
       "theme": "Social & Ads",
       "titre": "Meta étend Edits (éditeur vidéo) au desktop avec un assistant IA créatif intégré pour les créateurs",
@@ -1343,6 +1483,44 @@
       ]
     },
     {
+      "date": "2026-06-10",
+      "theme": "CRM & member marketing",
+      "titre": "Salesforce Agentforce et HubSpot Breeze : les agents CRM passent de la suggestion à l'exécution autonome",
+      "synthese": "La rupture CRM de 2026 est le passage de l'IA suggestive à l'IA exécutante : Salesforce Agentforce et HubSpot Breeze Agents prospectent, qualifient des leads, planifient des relances et envoient des communications de façon autonome, sans intervention humaine sur chaque étape. Selon les données sectorielles, 83 % des équipes commerciales utilisant l'IA ont connu une croissance de revenus, contre 66 % sans IA. Ces plateformes permettent une gestion complète du parcours membre, de l'onboarding à la fidélisation, avec une intervention humaine uniquement pour les exceptions et les cas complexes.",
+      "actionACL": "Évaluer les fonctionnalités agentiques disponibles dans le CRM actuel de l'ACL. Identifier un premier cas d'usage pilote à faible risque : relances automatiques post-événement, nurturing des prospects membres, ou renouvellement d'adhésion.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "Marketing Agent Blog - AI-Powered Customer Journeys 2026",
+          "url": "https://marketingagent.blog/2026/04/14/ai-powered-customer-journeys-in-2026-how-to-personalize-every-touchpoint-at-scale/"
+        },
+        {
+          "name": "Salesforce CRM Trends 2026",
+          "url": "https://amroar.com/salesforce-crm-trends-2026/"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-10",
+      "theme": "Design & branding",
+      "titre": "Rupture typographique IA : GPT Image, Ideogram et Recraft génèrent enfin des logos et wordmarks lisibles",
+      "synthese": "En 2026, les principaux modèles de génération d'images — GPT Image (OpenAI), Ideogram 2.0A, Google Nano Banana et Recraft — rendent désormais la typographie de façon fiable et cohérente, y compris pour des wordmarks complets et des logotypes stylisés. Cette avancée lève le principal obstacle à l'utilisation de l'IA pour la création de logos et d'identités visuelles. Des plateformes comme Kittl intègrent plusieurs de ces moteurs en parallèle, permettant aux designers de comparer plusieurs générations stylistiques dans le même workflow. La génération de logo IA devient un outil viable pour les itérations rapides.",
+      "actionACL": "La génération typographique IA est désormais suffisamment fiable pour les déclinaisons de marque (événements, campagnes thématiques). Envisager d'intégrer Ideogram ou Recraft dans le process créatif pour les variantes visuelles, sous supervision d'un designer.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "DesignLab - Best AI Logo Generators 2026",
+          "url": "https://designlab.com/blog/top-best-ai-logo-generators-a-review"
+        },
+        {
+          "name": "Flatline Agency - AI Design Tools for Brands 2026",
+          "url": "https://www.flatlineagency.com/blog/ai-design-tools-for-brands-2026/"
+        }
+      ]
+    },
+    {
       "date": "2026-06-05",
       "theme": "IA générative en marketing",
       "titre": "Microsoft déploie le tableau de bord « Citation Share » dans Bing Webmaster Tools",
@@ -1354,6 +1532,55 @@
         {
           "name": "MarketingProfs AI Update June 5, 2026",
           "url": "https://www.marketingprofs.com/opinions/2026/54909/ai-update-june-5-2026-ai-news-and-views-from-the-past-week"
+        }
+      ]
+    },
+    {
+      "date": "2026-05-06",
+      "theme": "CRM & member marketing",
+      "titre": "HubSpot ouvre son CRM aux agents IA externes via Model Context Protocol (MCP)",
+      "synthese": "HubSpot a annoncé un plan visant à ouvrir l'intégralité de sa plateforme CRM aux agents IA externes, en déployant un serveur MCP (Model Context Protocol) et en garantissant une parité API complète. Cette décision permet à tout agent IA tiers — y compris Claude, GPT ou des agents personnalisés — d'accéder et d'agir sur les données CRM HubSpot de façon programmatique. Les équipes marketing pourront ainsi connecter leurs propres workflows IA directement au CRM sans développement custom lourd. Cette annonce marque un tournant vers une infrastructure CRM ouverte et agentique.",
+      "actionACL": "Si l'ACL utilise HubSpot, évaluer les opportunités d'automatisation via MCP : qualification de leads, nurturing personnalisé, mise à jour automatique des fiches membres. Planifier un pilote avec l'équipe digitale.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "SAHM Capital - HubSpot Opens CRM To AI Agents",
+          "url": "https://www.sahmcapital.com/news/content/hubspot-opens-crm-to-ai-agents-and-deepens-long-term-platform-ties-2026-05-06"
+        }
+      ]
+    },
+    {
+      "date": "2026-04-30",
+      "theme": "Design & branding",
+      "titre": "Midjourney V8.1 : génération HD 2K, mode Raw et meilleure adhérence aux briefs de marque",
+      "synthese": "Midjourney a publié la version 8.1 le 30 avril 2026, apportant une génération d'images en HD 2K, une vitesse accrue et une adhérence significativement améliorée aux prompts complexes. Le nouveau mode Raw offre aux créatifs un contrôle granulaire sur l'esthétique des outputs, réduisant le style signature Midjourney pour des productions plus neutres adaptées aux briefs de marque spécifiques. Midjourney maintient sa position de référence pour le moodboarding, la direction artistique et le développement d'identités visuelles en phase d'idéation, avant production sur des outils comme Adobe Firefly.",
+      "actionACL": "Tester Midjourney V8.1 pour la phase de moodboarding et direction artistique des prochaines campagnes. Le mode Raw est particulièrement adapté pour produire des références visuelles cohérentes avec la charte de l'ACL.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "INFO",
+      "sources": [
+        {
+          "name": "PixVerse - Midjourney V8.1 May 2026",
+          "url": "https://pixverse.ai/en/blog/midjourney-ai-image-generator-review"
+        }
+      ]
+    },
+    {
+      "date": "2026-04-01",
+      "theme": "Design & branding",
+      "titre": "Canva AI 2.0 : premier modèle fondation dédié au design, outputs entièrement éditables et Brand Intelligence",
+      "synthese": "Lancé à Canva Create 2026 (Los Angeles), Canva AI 2.0 est alimenté par le Canva Design Model, présenté comme le premier modèle fondation conçu spécifiquement pour comprendre la structure et la hiérarchie du design. Contrairement aux générateurs d'images classiques, il produit des designs entièrement en couches et éditables à partir d'un simple prompt. La fonctionnalité Brand Intelligence assure que chaque design généré applique automatiquement les polices, couleurs et styles de la marque. La plateforme devient agentique : elle peut orchestrer des campagnes multi-canaux et mémoriser les préférences d'équipe au fil du temps.",
+      "actionACL": "Évaluer Canva AI 2.0 pour la production de contenus Marcom : la fonctionnalité Brand Intelligence peut réduire significativement le temps de mise en conformité avec la charte graphique. Organiser une démonstration avec l'équipe créative.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "Canva Newsroom - Canva Create 2026 AI",
+          "url": "https://www.canva.com/newsroom/news/canva-create-2026-ai/"
+        },
+        {
+          "name": "AIVancity - Canva AI 2.0",
+          "url": "https://aivancity.ai/en/blog/canva-ai-2-0-une-mise-a-jour-puissante-qui-met-adobe-sous-pression/"
         }
       ]
     }
