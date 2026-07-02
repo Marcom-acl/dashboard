@@ -42,5 +42,16 @@
       "mobile": 57,
       "desktop": 84
     }
+  },
+  {
+    "date": "2026-07-02",
+    "acl": {
+      "mobile": 39,
+      "desktop": null
+    },
+    "auto": {
+      "mobile": 65,
+      "desktop": null
+    }
   }
 ]
