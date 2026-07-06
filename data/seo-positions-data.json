@@ -1,101 +1,95 @@
 {
-  "generated_at": "2026-06-29T10:50:56Z",
-  "period_label": "Semaine 27 — 2026-06-29",
+  "generated_at": "2026-07-06T10:11:51Z",
+  "period_label": "Semaine 28 — 2026-07-06",
   "markets": {
     "fr": {
-      "visibility_pct": 96.67,
-      "visibility_delta": 3.34,
+      "visibility_pct": 73.33,
+      "visibility_delta": -23.34,
       "top3": {
-        "count": 12,
-        "delta": 2
+        "count": 7,
+        "delta": -5
       },
       "page1": {
-        "count": 29,
-        "delta": 1
+        "count": 22,
+        "delta": -7
       },
       "keyword_gains": [
         {
-          "kw": "essence luxembourg",
+          "kw": "carburant luxembourg",
           "pos": 2,
-          "delta": 5,
+          "delta": 6,
           "segment": "mobilite_carburant"
         },
         {
-          "kw": "carburant",
-          "pos": 1,
-          "delta": 5,
-          "segment": "mobilite_carburant"
-        },
-        {
-          "kw": "dépannage luxembourg",
-          "pos": 1,
+          "kw": "location voiture luxembourg",
+          "pos": 7,
           "delta": 4,
-          "segment": "assistance"
+          "segment": "location_voiture"
         },
         {
-          "kw": "location vélo électrique luxembourg",
-          "pos": 1,
+          "kw": "prix gasoil luxembourg",
+          "pos": 5,
           "delta": 2,
-          "segment": "location_velo"
+          "segment": "mobilite_carburant"
         },
         {
-          "kw": "prix carburant luxembourg",
+          "kw": "louer voiture luxembourg",
           "pos": 3,
+          "delta": 2,
+          "segment": "location_voiture"
+        },
+        {
+          "kw": "location voiture luxembourg pas cher",
+          "pos": 7,
+          "delta": 2,
+          "segment": "location_voiture"
+        },
+        {
+          "kw": "prix diesel luxembourg",
+          "pos": 5,
           "delta": 1,
           "segment": "mobilite_carburant"
         }
       ],
       "keyword_losses": [
         {
-          "kw": "assurance voyage luxembourg",
-          "pos": 12,
-          "delta": -9,
-          "segment": "voyage"
-        },
-        {
-          "kw": "location voiture luxembourg",
-          "pos": 11,
-          "delta": -7,
-          "segment": "location_voiture"
-        },
-        {
-          "kw": "location voiture luxembourg pas cher",
-          "pos": 9,
-          "delta": -3,
-          "segment": "location_voiture"
-        },
-        {
-          "kw": "prix essence luxembourg",
-          "pos": 4,
-          "delta": -2,
+          "kw": "essence luxembourg",
+          "pos": 8,
+          "delta": -6,
           "segment": "mobilite_carburant"
         },
         {
-          "kw": "prix diesel luxembourg",
-          "pos": 6,
+          "kw": "carburant",
+          "pos": 7,
+          "delta": -6,
+          "segment": "mobilite_carburant"
+        },
+        {
+          "kw": "location vélo luxembourg",
+          "pos": 4,
           "delta": -2,
+          "segment": "location_velo"
+        },
+        {
+          "kw": "location vélo électrique luxembourg",
+          "pos": 3,
+          "delta": -2,
+          "segment": "location_velo"
+        },
+        {
+          "kw": "prix carburant luxembourg",
+          "pos": 4,
+          "delta": -1,
           "segment": "mobilite_carburant"
         },
         {
           "kw": "trafic luxembourg",
-          "pos": 3,
-          "delta": -2,
-          "segment": "mobilite_trafic"
-        },
-        {
-          "kw": "carburant luxembourg",
-          "pos": 8,
+          "pos": 4,
           "delta": -1,
-          "segment": "mobilite_carburant"
+          "segment": "mobilite_trafic"
         }
       ],
       "acl_keywords": [
-        {
-          "kw": "carburant",
-          "pos": 1,
-          "delta": 5,
-          "segment": "mobilite_carburant"
-        },
         {
           "kw": "info trafic luxembourg",
           "pos": 1,
@@ -117,62 +111,62 @@
         {
           "kw": "dépannage luxembourg",
           "pos": 1,
-          "delta": 4,
+          "delta": 0,
           "segment": "assistance"
         },
         {
-          "kw": "location vélo électrique luxembourg",
-          "pos": 1,
-          "delta": 2,
-          "segment": "location_velo"
-        },
-        {
-          "kw": "contrat de vente voiture",
-          "pos": 1,
-          "delta": 0,
-          "segment": "voyage"
-        },
-        {
-          "kw": "vignette autoroute suisse",
-          "pos": 1,
-          "delta": 0,
-          "segment": "peages"
-        },
-        {
-          "kw": "essence luxembourg",
+          "kw": "carburant luxembourg",
           "pos": 2,
-          "delta": 5,
+          "delta": 6,
           "segment": "mobilite_carburant"
         },
         {
-          "kw": "location vélo luxembourg",
-          "pos": 2,
-          "delta": 0,
+          "kw": "louer voiture luxembourg",
+          "pos": 3,
+          "delta": 2,
+          "segment": "location_voiture"
+        },
+        {
+          "kw": "location vélo électrique luxembourg",
+          "pos": 3,
+          "delta": -2,
           "segment": "location_velo"
         },
         {
           "kw": "prix carburant luxembourg",
-          "pos": 3,
-          "delta": 1,
+          "pos": 4,
+          "delta": -1,
           "segment": "mobilite_carburant"
-        },
-        {
-          "kw": "trafic luxembourg",
-          "pos": 3,
-          "delta": -2,
-          "segment": "mobilite_trafic"
         },
         {
           "kw": "prix essence luxembourg",
           "pos": 4,
-          "delta": -2,
+          "delta": 0,
           "segment": "mobilite_carburant"
         },
         {
-          "kw": "péage france",
+          "kw": "trafic luxembourg",
           "pos": 4,
-          "delta": 0,
-          "segment": "peages"
+          "delta": -1,
+          "segment": "mobilite_trafic"
+        },
+        {
+          "kw": "location vélo luxembourg",
+          "pos": 4,
+          "delta": -2,
+          "segment": "location_velo"
+        },
+        {
+          "kw": "prix diesel luxembourg",
+          "pos": 5,
+          "delta": 1,
+          "segment": "mobilite_carburant"
+        },
+        {
+          "kw": "prix gasoil luxembourg",
+          "pos": 5,
+          "delta": 2,
+          "segment": "mobilite_carburant"
         },
         {
           "kw": "assistance routière luxembourg",
@@ -187,12 +181,6 @@
           "segment": "assistance"
         },
         {
-          "kw": "louer voiture luxembourg",
-          "pos": 5,
-          "delta": 0,
-          "segment": "location_voiture"
-        },
-        {
           "kw": "location vélo cargo luxembourg",
           "pos": 5,
           "delta": 0,
@@ -205,161 +193,83 @@
           "segment": "location_velo"
         },
         {
-          "kw": "assurance annulation luxembourg",
-          "pos": 5,
-          "delta": 0,
-          "segment": "voyage"
-        },
-        {
-          "kw": "sport automobile luxembourg",
-          "pos": 5,
-          "delta": 0,
-          "segment": "controle_technique"
-        },
-        {
-          "kw": "prix diesel luxembourg",
-          "pos": 6,
-          "delta": -2,
-          "segment": "mobilite_carburant"
-        },
-        {
           "kw": "prix du gasoil au luxembourg",
           "pos": 6,
           "delta": 0,
           "segment": "mobilite_carburant"
         },
         {
-          "kw": "prix gasoil luxembourg",
+          "kw": "carburant",
           "pos": 7,
-          "delta": 0,
+          "delta": -6,
           "segment": "mobilite_carburant"
-        },
-        {
-          "kw": "carburant luxembourg",
-          "pos": 8,
-          "delta": -1,
-          "segment": "mobilite_carburant"
-        },
-        {
-          "kw": "location voiture luxembourg pas cher",
-          "pos": 9,
-          "delta": -3,
-          "segment": "location_voiture"
         },
         {
           "kw": "location voiture luxembourg",
-          "pos": 11,
-          "delta": -7,
+          "pos": 7,
+          "delta": 4,
           "segment": "location_voiture"
         },
         {
-          "kw": "assurance voyage luxembourg",
-          "pos": 12,
-          "delta": -9,
-          "segment": "voyage"
+          "kw": "location voiture luxembourg pas cher",
+          "pos": 7,
+          "delta": 2,
+          "segment": "location_voiture"
         },
         {
-          "kw": "parking kirchberg luxembourg",
-          "pos": 17,
-          "delta": 0,
-          "segment": "parking"
+          "kw": "essence luxembourg",
+          "pos": 8,
+          "delta": -6,
+          "segment": "mobilite_carburant"
         }
       ]
     },
     "en": {
-      "visibility_pct": 85.19,
-      "visibility_delta": -3.7,
+      "visibility_pct": 66.67,
+      "visibility_delta": -18.52,
       "top3": {
-        "count": 13,
-        "delta": -1
+        "count": 11,
+        "delta": -2
       },
       "page1": {
-        "count": 23,
-        "delta": -1
+        "count": 18,
+        "delta": -5
       },
       "keyword_gains": [
         {
-          "kw": "bike rental luxembourg",
-          "pos": 3,
-          "delta": 4,
-          "segment": "location_velo"
-        },
-        {
-          "kw": "diesel luxembourg",
-          "pos": 1,
-          "delta": 2,
-          "segment": "mobilite_carburant"
-        },
-        {
-          "kw": "petrol price luxembourg",
-          "pos": 1,
-          "delta": 1,
-          "segment": "mobilite_carburant"
-        },
-        {
-          "kw": "cheap car rental luxembourg",
-          "pos": 10,
-          "delta": 1,
-          "segment": "location_voiture"
-        },
-        {
-          "kw": "holiday insurance luxembourg",
-          "pos": 10,
-          "delta": 1,
-          "segment": "voyage"
-        },
-        {
-          "kw": "car diagnostics luxembourg",
+          "kw": "rent a car luxembourg",
           "pos": 5,
           "delta": 1,
-          "segment": "controle_technique"
+          "segment": "location_voiture"
         }
       ],
       "keyword_losses": [
         {
-          "kw": "roadside assistance luxembourg",
-          "pos": 5,
-          "delta": -4,
-          "segment": "assistance"
+          "kw": "bike rental luxembourg",
+          "pos": 10,
+          "delta": -7,
+          "segment": "location_velo"
         },
         {
-          "kw": "car inspection luxembourg",
-          "pos": 14,
-          "delta": -3,
-          "segment": "controle_technique"
-        },
-        {
-          "kw": "france toll",
+          "kw": "car rental luxembourg",
           "pos": 6,
-          "delta": -3,
-          "segment": "peages"
+          "delta": -2,
+          "segment": "location_voiture"
         },
         {
-          "kw": "fuel prices luxembourg",
+          "kw": "petrol price luxembourg",
           "pos": 2,
           "delta": -1,
           "segment": "mobilite_carburant"
         },
         {
-          "kw": "rent a car luxembourg",
-          "pos": 6,
+          "kw": "diesel luxembourg",
+          "pos": 2,
           "delta": -1,
-          "segment": "location_voiture"
+          "segment": "mobilite_carburant"
         }
       ],
       "acl_keywords": [
-        {
-          "kw": "petrol price luxembourg",
-          "pos": 1,
-          "delta": 1,
-          "segment": "mobilite_carburant"
-        },
-        {
-          "kw": "diesel luxembourg",
-          "pos": 1,
-          "delta": 2,
-          "segment": "mobilite_carburant"
-        },
         {
           "kw": "traffic luxembourg",
           "pos": 1,
@@ -391,9 +301,15 @@
           "segment": "mobilite_carburant"
         },
         {
-          "kw": "fuel prices luxembourg",
+          "kw": "petrol price luxembourg",
           "pos": 2,
           "delta": -1,
+          "segment": "mobilite_carburant"
+        },
+        {
+          "kw": "fuel prices luxembourg",
+          "pos": 2,
+          "delta": 0,
           "segment": "mobilite_carburant"
         },
         {
@@ -409,34 +325,28 @@
           "segment": "mobilite_carburant"
         },
         {
+          "kw": "diesel luxembourg",
+          "pos": 2,
+          "delta": -1,
+          "segment": "mobilite_carburant"
+        },
+        {
           "kw": "breakdown assistance luxembourg",
           "pos": 2,
           "delta": 0,
           "segment": "assistance"
         },
         {
-          "kw": "france highway toll",
-          "pos": 2,
-          "delta": 0,
-          "segment": "peages"
-        },
-        {
-          "kw": "bike rental luxembourg",
-          "pos": 3,
-          "delta": 4,
-          "segment": "location_velo"
-        },
-        {
-          "kw": "car rental luxembourg",
-          "pos": 4,
-          "delta": 0,
-          "segment": "location_voiture"
-        },
-        {
           "kw": "roadside assistance luxembourg",
           "pos": 5,
-          "delta": -4,
+          "delta": 0,
           "segment": "assistance"
+        },
+        {
+          "kw": "rent a car luxembourg",
+          "pos": 5,
+          "delta": 1,
+          "segment": "location_voiture"
         },
         {
           "kw": "electric bike rental luxembourg",
@@ -445,22 +355,10 @@
           "segment": "location_velo"
         },
         {
-          "kw": "car diagnostics luxembourg",
-          "pos": 5,
-          "delta": 1,
-          "segment": "controle_technique"
-        },
-        {
-          "kw": "rent a car luxembourg",
+          "kw": "car rental luxembourg",
           "pos": 6,
-          "delta": -1,
+          "delta": -2,
           "segment": "location_voiture"
-        },
-        {
-          "kw": "france toll",
-          "pos": 6,
-          "delta": -3,
-          "segment": "peages"
         },
         {
           "kw": "bicycle rental luxembourg",
@@ -471,96 +369,72 @@
         {
           "kw": "cheap car rental luxembourg",
           "pos": 10,
-          "delta": 1,
+          "delta": 0,
           "segment": "location_voiture"
         },
         {
-          "kw": "holiday insurance luxembourg",
+          "kw": "bike rental luxembourg",
           "pos": 10,
-          "delta": 1,
-          "segment": "voyage"
-        },
-        {
-          "kw": "car inspection luxembourg",
-          "pos": 14,
-          "delta": -3,
-          "segment": "controle_technique"
+          "delta": -7,
+          "segment": "location_velo"
         }
       ]
     },
     "de": {
-      "visibility_pct": 84.62,
-      "visibility_delta": -3.84,
+      "visibility_pct": 73.08,
+      "visibility_delta": -11.54,
       "top3": {
-        "count": 7,
-        "delta": 0
+        "count": 5,
+        "delta": -2
       },
       "page1": {
-        "count": 22,
-        "delta": -1
+        "count": 19,
+        "delta": -3
       },
       "keyword_gains": [
         {
-          "kw": "auslandsreisekrankenversicherung luxemburg",
-          "pos": 12,
-          "delta": 8,
-          "segment": "voyage"
-        },
-        {
-          "kw": "mietwagen luxemburg",
-          "pos": 7,
-          "delta": 3,
-          "segment": "location_voiture"
-        },
-        {
-          "kw": "luxemburg spritpreise",
-          "pos": 3,
-          "delta": 2,
-          "segment": "mobilite_carburant"
-        },
-        {
-          "kw": "benzinpreis luxemburg",
-          "pos": 3,
-          "delta": 1,
-          "segment": "mobilite_carburant"
-        },
-        {
-          "kw": "abschleppdienst luxemburg",
+          "kw": "pannendienst luxemburg",
           "pos": 5,
           "delta": 1,
           "segment": "assistance"
+        },
+        {
+          "kw": "mietwagen luxemburg",
+          "pos": 6,
+          "delta": 1,
+          "segment": "location_voiture"
         }
       ],
       "keyword_losses": [
         {
-          "kw": "dieselpreis luxemburg",
-          "pos": 5,
-          "delta": -2,
-          "segment": "mobilite_carburant"
-        },
-        {
           "kw": "fahrrad mieten luxemburg",
-          "pos": 5,
-          "delta": -2,
+          "pos": 12,
+          "delta": -7,
           "segment": "location_velo"
         },
         {
-          "kw": "spritpreise luxemburg heute",
-          "pos": 3,
-          "delta": -1,
+          "kw": "spritpreise luxemburg",
+          "pos": 7,
+          "delta": -3,
           "segment": "mobilite_carburant"
         },
         {
-          "kw": "pannendienst luxemburg",
-          "pos": 6,
-          "delta": -1,
-          "segment": "assistance"
+          "kw": "luxemburg autovermietung",
+          "pos": 9,
+          "delta": -3,
+          "segment": "location_voiture"
         },
         {
-          "kw": "autovermietung luxemburg",
+          "kw": "luxemburg spritpreise",
           "pos": 5,
+          "delta": -2,
+          "segment": "mobilite_carburant"
+        },
+        {
+          "kw": "spritpreise luxemburg heute",
+          "pos": 4,
           "delta": -1,
-          "segment": "location_voiture"
+          "segment": "mobilite_carburant"
         }
       ],
       "acl_keywords": [
@@ -589,26 +463,8 @@
           "segment": "mobilite_carburant"
         },
         {
-          "kw": "spritpreise luxemburg heute",
-          "pos": 3,
-          "delta": -1,
-          "segment": "mobilite_carburant"
-        },
-        {
-          "kw": "luxemburg spritpreise",
-          "pos": 3,
-          "delta": 2,
-          "segment": "mobilite_carburant"
-        },
-        {
           "kw": "benzinpreis luxemburg",
           "pos": 3,
-          "delta": 1,
-          "segment": "mobilite_carburant"
-        },
-        {
-          "kw": "spritpreise luxemburg",
-          "pos": 4,
           "delta": 0,
           "segment": "mobilite_carburant"
         },
@@ -619,6 +475,12 @@
           "segment": "mobilite_carburant"
         },
         {
+          "kw": "spritpreise luxemburg heute",
+          "pos": 4,
+          "delta": -1,
+          "segment": "mobilite_carburant"
+        },
+        {
           "kw": "diesel preis luxemburg",
           "pos": 4,
           "delta": 0,
@@ -626,6 +488,12 @@
         },
         {
           "kw": "dieselpreis luxemburg",
+          "pos": 5,
+          "delta": 0,
+          "segment": "mobilite_carburant"
+        },
+        {
+          "kw": "luxemburg spritpreise",
           "pos": 5,
           "delta": -2,
           "segment": "mobilite_carburant"
@@ -645,56 +513,44 @@
         {
           "kw": "abschleppdienst luxemburg",
           "pos": 5,
+          "delta": 0,
+          "segment": "assistance"
+        },
+        {
+          "kw": "pannendienst luxemburg",
+          "pos": 5,
           "delta": 1,
           "segment": "assistance"
         },
         {
           "kw": "autovermietung luxemburg",
           "pos": 5,
-          "delta": -1,
-          "segment": "location_voiture"
-        },
-        {
-          "kw": "fahrrad mieten luxemburg",
-          "pos": 5,
-          "delta": -2,
-          "segment": "location_velo"
-        },
-        {
-          "kw": "e-bike mieten luxemburg",
-          "pos": 5,
-          "delta": 0,
-          "segment": "location_velo"
-        },
-        {
-          "kw": "pannendienst luxemburg",
-          "pos": 6,
-          "delta": -1,
-          "segment": "assistance"
-        },
-        {
-          "kw": "luxemburg autovermietung",
-          "pos": 6,
           "delta": 0,
           "segment": "location_voiture"
         },
         {
           "kw": "mietwagen luxemburg",
-          "pos": 7,
-          "delta": 3,
+          "pos": 6,
+          "delta": 1,
           "segment": "location_voiture"
         },
         {
-          "kw": "reiseversicherung luxemburg",
-          "pos": 8,
-          "delta": 0,
-          "segment": "voyage"
+          "kw": "spritpreise luxemburg",
+          "pos": 7,
+          "delta": -3,
+          "segment": "mobilite_carburant"
         },
         {
-          "kw": "auslandsreisekrankenversicherung luxemburg",
+          "kw": "luxemburg autovermietung",
+          "pos": 9,
+          "delta": -3,
+          "segment": "location_voiture"
+        },
+        {
+          "kw": "fahrrad mieten luxemburg",
           "pos": 12,
-          "delta": 8,
-          "segment": "voyage"
+          "delta": -7,
+          "segment": "location_velo"
         }
       ]
     }
@@ -720,26 +576,14 @@
             },
             {
               "domain": "petrol.lu",
-              "voice_pct": 87.5,
-              "top10_count": 7,
+              "voice_pct": 75.0,
+              "top10_count": 6,
               "is_acl": false
             },
             {
               "domain": "rtl.lu",
-              "voice_pct": 50.0,
-              "top10_count": 4,
-              "is_acl": false
-            },
-            {
-              "domain": "spritpreise.lu",
-              "voice_pct": 12.5,
-              "top10_count": 1,
-              "is_acl": false
-            },
-            {
-              "domain": "globalpetrolprices.com",
-              "voice_pct": 12.5,
-              "top10_count": 1,
+              "voice_pct": 25.0,
+              "top10_count": 2,
               "is_acl": false
             },
             {
@@ -761,15 +605,15 @@
               "is_acl": true
             },
             {
-              "domain": "cita.lu",
+              "domain": "rtl.lu",
               "voice_pct": 100.0,
               "top10_count": 3,
               "is_acl": false
             },
             {
-              "domain": "rtl.lu",
-              "voice_pct": 66.7,
-              "top10_count": 2,
+              "domain": "cita.lu",
+              "voice_pct": 100.0,
+              "top10_count": 3,
               "is_acl": false
             },
             {
@@ -780,8 +624,8 @@
             },
             {
               "domain": "vdl.lu",
-              "voice_pct": 66.7,
-              "top10_count": 2,
+              "voice_pct": 33.3,
+              "top10_count": 1,
               "is_acl": false
             }
           ]
@@ -804,20 +648,14 @@
             },
             {
               "domain": "lalux.lu",
-              "voice_pct": 75.0,
-              "top10_count": 3,
+              "voice_pct": 100.0,
+              "top10_count": 4,
               "is_acl": false
             },
             {
               "domain": "depalux.lu",
-              "voice_pct": 75.0,
-              "top10_count": 3,
-              "is_acl": false
-            },
-            {
-              "domain": "foyer.lu",
-              "voice_pct": 25.0,
-              "top10_count": 1,
+              "voice_pct": 50.0,
+              "top10_count": 2,
               "is_acl": false
             },
             {
@@ -840,8 +678,8 @@
             },
             {
               "domain": "drive-rent.lu",
-              "voice_pct": 66.7,
-              "top10_count": 2,
+              "voice_pct": 100.0,
+              "top10_count": 3,
               "is_acl": false
             },
             {
@@ -894,39 +732,9 @@
           "competitors": [
             {
               "domain": "acl.lu",
-              "voice_pct": 100.0,
-              "top10_count": 3,
+              "voice_pct": 0.0,
+              "top10_count": 0,
               "is_acl": true
-            },
-            {
-              "domain": "lalux.lu",
-              "voice_pct": 66.7,
-              "top10_count": 2,
-              "is_acl": false
-            },
-            {
-              "domain": "foyer.lu",
-              "voice_pct": 66.7,
-              "top10_count": 2,
-              "is_acl": false
-            },
-            {
-              "domain": "axa.lu",
-              "voice_pct": 66.7,
-              "top10_count": 2,
-              "is_acl": false
-            },
-            {
-              "domain": "baloise.lu",
-              "voice_pct": 66.7,
-              "top10_count": 2,
-              "is_acl": false
-            },
-            {
-              "domain": "dkv.lu",
-              "voice_pct": 66.7,
-              "top10_count": 2,
-              "is_acl": false
             }
           ]
         },
@@ -936,21 +744,9 @@
           "competitors": [
             {
               "domain": "acl.lu",
-              "voice_pct": 50.0,
-              "top10_count": 1,
+              "voice_pct": 0.0,
+              "top10_count": 0,
               "is_acl": true
-            },
-            {
-              "domain": "axa.lu",
-              "voice_pct": 50.0,
-              "top10_count": 1,
-              "is_acl": false
-            },
-            {
-              "domain": "dekra.lu",
-              "voice_pct": 50.0,
-              "top10_count": 1,
-              "is_acl": false
             }
           ]
         },
@@ -960,8 +756,8 @@
           "competitors": [
             {
               "domain": "acl.lu",
-              "voice_pct": 100.0,
-              "top10_count": 2,
+              "voice_pct": 0.0,
+              "top10_count": 0,
               "is_acl": true
             }
           ]
@@ -972,15 +768,9 @@
           "competitors": [
             {
               "domain": "acl.lu",
-              "voice_pct": 100.0,
-              "top10_count": 1,
+              "voice_pct": 0.0,
+              "top10_count": 0,
               "is_acl": true
-            },
-            {
-              "domain": "vdl.lu",
-              "voice_pct": 100.0,
-              "top10_count": 1,
-              "is_acl": false
             }
           ]
         }
@@ -1014,6 +804,12 @@
               "domain": "carbu.com",
               "voice_pct": 50.0,
               "top10_count": 4,
+              "is_acl": false
+            },
+            {
+              "domain": "globalpetrolprices.com",
+              "voice_pct": 25.0,
+              "top10_count": 2,
               "is_acl": false
             },
             {
@@ -1051,6 +847,12 @@
               "voice_pct": 100.0,
               "top10_count": 2,
               "is_acl": false
+            },
+            {
+              "domain": "visitluxembourg.com",
+              "voice_pct": 50.0,
+              "top10_count": 1,
+              "is_acl": false
             }
           ]
         },
@@ -1072,20 +874,26 @@
             },
             {
               "domain": "lalux.lu",
-              "voice_pct": 100.0,
-              "top10_count": 2,
+              "voice_pct": 50.0,
+              "top10_count": 1,
               "is_acl": false
             },
             {
               "domain": "foyer.lu",
-              "voice_pct": 100.0,
-              "top10_count": 2,
+              "voice_pct": 50.0,
+              "top10_count": 1,
               "is_acl": false
             },
             {
               "domain": "axa.lu",
-              "voice_pct": 100.0,
-              "top10_count": 2,
+              "voice_pct": 50.0,
+              "top10_count": 1,
+              "is_acl": false
+            },
+            {
+              "domain": "baloise.lu",
+              "voice_pct": 50.0,
+              "top10_count": 1,
               "is_acl": false
             }
           ]
@@ -1161,39 +969,9 @@
           "total_keywords": 2,
           "competitors": [
             {
-              "domain": "lalux.lu",
-              "voice_pct": 100.0,
-              "top10_count": 2,
-              "is_acl": false
-            },
-            {
-              "domain": "foyer.lu",
-              "voice_pct": 100.0,
-              "top10_count": 2,
-              "is_acl": false
-            },
-            {
-              "domain": "axa.lu",
-              "voice_pct": 100.0,
-              "top10_count": 2,
-              "is_acl": false
-            },
-            {
-              "domain": "baloise.lu",
-              "voice_pct": 100.0,
-              "top10_count": 2,
-              "is_acl": false
-            },
-            {
-              "domain": "dkv.lu",
-              "voice_pct": 100.0,
-              "top10_count": 2,
-              "is_acl": false
-            },
-            {
               "domain": "acl.lu",
-              "voice_pct": 50.0,
-              "top10_count": 1,
+              "voice_pct": 0.0,
+              "top10_count": 0,
               "is_acl": true
             }
           ]
@@ -1204,21 +982,9 @@
           "competitors": [
             {
               "domain": "acl.lu",
-              "voice_pct": 100.0,
-              "top10_count": 2,
+              "voice_pct": 0.0,
+              "top10_count": 0,
               "is_acl": true
-            },
-            {
-              "domain": "axa.lu",
-              "voice_pct": 50.0,
-              "top10_count": 1,
-              "is_acl": false
-            },
-            {
-              "domain": "rtl.lu",
-              "voice_pct": 50.0,
-              "top10_count": 1,
-              "is_acl": false
             }
           ]
         },
@@ -1228,8 +994,8 @@
           "competitors": [
             {
               "domain": "acl.lu",
-              "voice_pct": 50.0,
-              "top10_count": 2,
+              "voice_pct": 0.0,
+              "top10_count": 0,
               "is_acl": true
             }
           ]
@@ -1238,18 +1004,6 @@
           "label": "Parking",
           "total_keywords": 1,
           "competitors": [
-            {
-              "domain": "lesfrontaliers.lu",
-              "voice_pct": 100.0,
-              "top10_count": 1,
-              "is_acl": false
-            },
-            {
-              "domain": "vdl.lu",
-              "voice_pct": 100.0,
-              "top10_count": 1,
-              "is_acl": false
-            },
             {
               "domain": "acl.lu",
               "voice_pct": 0.0,
@@ -1328,6 +1082,12 @@
             },
             {
               "domain": "assistance.lu",
+              "voice_pct": 75.0,
+              "top10_count": 3,
+              "is_acl": false
+            },
+            {
+              "domain": "depalux.lu",
               "voice_pct": 25.0,
               "top10_count": 1,
               "is_acl": false
@@ -1358,30 +1118,18 @@
           "competitors": [
             {
               "domain": "acl.lu",
-              "voice_pct": 100.0,
-              "top10_count": 2,
+              "voice_pct": 50.0,
+              "top10_count": 1,
               "is_acl": true
             },
             {
               "domain": "visitluxembourg.com",
-              "voice_pct": 100.0,
-              "top10_count": 2,
-              "is_acl": false
-            },
-            {
-              "domain": "vdl.lu",
-              "voice_pct": 100.0,
-              "top10_count": 2,
-              "is_acl": false
-            },
-            {
-              "domain": "bikestation.lu",
               "voice_pct": 50.0,
               "top10_count": 1,
               "is_acl": false
             },
             {
-              "domain": "rentabike-mellerdall.lu",
+              "domain": "vdl.lu",
               "voice_pct": 50.0,
               "top10_count": 1,
               "is_acl": false
@@ -1394,39 +1142,9 @@
           "competitors": [
             {
               "domain": "acl.lu",
-              "voice_pct": 100.0,
-              "top10_count": 2,
+              "voice_pct": 0.0,
+              "top10_count": 0,
               "is_acl": true
-            },
-            {
-              "domain": "lalux.lu",
-              "voice_pct": 100.0,
-              "top10_count": 2,
-              "is_acl": false
-            },
-            {
-              "domain": "foyer.lu",
-              "voice_pct": 100.0,
-              "top10_count": 2,
-              "is_acl": false
-            },
-            {
-              "domain": "axa.lu",
-              "voice_pct": 100.0,
-              "top10_count": 2,
-              "is_acl": false
-            },
-            {
-              "domain": "dkv.lu",
-              "voice_pct": 100.0,
-              "top10_count": 2,
-              "is_acl": false
-            },
-            {
-              "domain": "baloise.lu",
-              "voice_pct": 50.0,
-              "top10_count": 1,
-              "is_acl": false
             }
           ]
         },
@@ -1434,18 +1152,6 @@
           "label": "Contrôle technique",
           "total_keywords": 2,
           "competitors": [
-            {
-              "domain": "dekra.lu",
-              "voice_pct": 100.0,
-              "top10_count": 2,
-              "is_acl": false
-            },
-            {
-              "domain": "axa.lu",
-              "voice_pct": 50.0,
-              "top10_count": 1,
-              "is_acl": false
-            },
             {
               "domain": "acl.lu",
               "voice_pct": 0.0,
@@ -1458,12 +1164,6 @@
           "label": "Péages & Vignettes",
           "total_keywords": 2,
           "competitors": [
-            {
-              "domain": "vdl.lu",
-              "voice_pct": 50.0,
-              "top10_count": 1,
-              "is_acl": false
-            },
             {
               "domain": "acl.lu",
               "voice_pct": 0.0,
