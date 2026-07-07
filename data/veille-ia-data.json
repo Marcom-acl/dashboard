@@ -1,6 +1,235 @@
 {
-  "generated_at": "2026-06-26",
+  "generated_at": "2026-07-07",
   "items": [
+    {
+      "date": "2026-07-07",
+      "theme": "Design & branding",
+      "titre": "Le marché de l'IA générative dans le design projeté à 4,54 milliards de dollars d'ici 2030",
+      "synthese": "Un rapport publié le 7 juillet 2026 évalue le marché de l'IA générative appliquée au design à 1,11 milliard de dollars en 2025, avec une croissance à 1,52 milliard en 2026 (TCAC de 37,5 %), pour atteindre 4,54 milliards de dollars d'ici 2030 (TCAC de 31,4 %). Le rapport situe ce segment dans le marché plus large de l'IA générative pour les industries créatives, qui doit passer de 4,06 à 5,38 milliards de dollars entre 2025 et 2026. La croissance est attribuée à l'adoption grand public des outils IA, à la réduction des coûts de production créative et à l'intégration de l'IA dans les workflows créatifs professionnels.",
+      "actionACL": "Retenir cette croissance de marché comme argument budgétaire pour justifier l'investissement continu dans des licences d'outils IA de design auprès de la direction.",
+      "horizon": "long terme (>12 mois)",
+      "badge": "INFO",
+      "sources": [
+        {
+          "name": "GlobeNewswire",
+          "url": "https://www.globenewswire.com/news-release/2026/07/07/3322905/0/en/Explosive-Growth-in-Generative-AI-Design-Market-Forecasts-a-CAGR-of-31-4-from-2025-to-2030.html"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-06",
+      "theme": "CRM & member marketing",
+      "titre": "Salesforce généralise ses agents IA Agentforce Commerce",
+      "synthese": "Salesforce a annoncé la disponibilité générale de Shopper Agent, Buyer Agent et Merchant Agent, avec une intégration native à ChatGPT et des connexions à venir avec Google Search et l'app Gemini. Selon Salesforce, les détaillants exploitant leurs propres agents shopper ont vu leurs ventes croître 59 % plus vite que ceux restés en retrait, et le trafic généré par ces agents IA convertit huit fois plus que le trafic social. Cette annonce marque une étape majeure dans l'intégration d'agents autonomes dans le parcours d'achat et la relation client.",
+      "actionACL": "Évaluer avec l'équipe CRM si un agent shopper/buyer type Agentforce apporterait une valeur mesurable sur le parcours membre de l'ACL, en commençant par un cas d'usage limité (ex. renouvellement d'adhésion).",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "Salesforce Newsroom",
+          "url": "https://www.salesforce.com/news/stories/agentforce-commerce-announcement/"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-06",
+      "theme": "CRM & member marketing",
+      "titre": "Salesforce lance Real-Time Offer Management pour la personnalisation d'offres",
+      "synthese": "Salesforce a déployé Real-Time Offer Management, une fonctionnalité qui aide les équipes marketing à proposer des offres personnalisées et optimisées par canal en fonction du comportement dynamique des clients. L'objectif est de maximiser le retour sur investissement promotionnel en ajustant les offres en temps réel plutôt que via des règles statiques. La marque d'articles de sport Rawlings cite une création de campagnes 75 % plus rapide grâce à Agentforce Marketing.",
+      "actionACL": "Cartographier les déclencheurs comportementaux membres (renouvellement, engagement événementiel) qui pourraient alimenter une logique d'offre en temps réel similaire, même sans passer par Salesforce.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "Salesforce Newsroom",
+          "url": "https://www.salesforce.com/news/stories/agentic-marketing-teams-announcement/"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-06",
+      "theme": "Social & Ads",
+      "titre": "Le marché de l'IA publicitaire projeté à 36,34 milliards de dollars d'ici 2030",
+      "synthese": "Un nouveau rapport de marché évalue l'IA dans la publicité à 11,17 milliards de dollars en 2025, avec une croissance attendue à 14,12 milliards en 2026 (TCAC de 26,4 %) et 36,34 milliards de dollars d'ici 2030. La croissance est portée par les solutions publicitaires respectueuses de la vie privée, l'optimisation créative par IA et la demande d'intelligence de campagne en temps réel. Le rapport souligne aussi que plus de 70 % des annonceurs entreprise priorisent désormais les stratégies de données first-party face à la perte de signal, et que 54 % des annonceurs estiment que l'IA générative a contribué à une baisse de la qualité média.",
+      "actionACL": "Prioriser la collecte de données first-party (formulaires, préférences membres) plutôt que le tracking tiers dans la roadmap CRM/publicité 2026-2027.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "INFO",
+      "sources": [
+        {
+          "name": "GlobeNewswire",
+          "url": "https://www.globenewswire.com/news-release/2026/07/06/3322346/0/en/AI-in-Advertising-Market-Set-to-Skyrocket-From-11-17-Billion-in-2025-to-36-34-Billion-by-2030.html"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-06",
+      "theme": "Social & Ads",
+      "titre": "Google étend la lutte anti-spam à la manipulation des réponses IA dans Search",
+      "synthese": "Google a étendu ses règles d'application anti-spam pour couvrir les tentatives de manipuler les réponses génératives dans Search, au-delà des techniques classiques de manipulation du classement de recherche. Cette extension vise les contenus conçus spécifiquement pour influencer les résumés IA plutôt que les résultats de recherche traditionnels. La mesure a des implications directes pour les stratégies de SEO/GEO (optimisation pour moteurs génératifs) des équipes marketing.",
+      "actionACL": "Revoir les contenus optimisés pour l'IA générative de recherche afin de s'assurer qu'ils respectent les mêmes standards qualité que le SEO classique, sans techniques de manipulation.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "BuildFastWithAI",
+          "url": "https://www.buildfastwithai.com/blogs/ai-news-today-july-6-2026"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-03",
+      "theme": "IA générative en marketing",
+      "titre": "TikTok ouvre Agentic Hub, une marketplace de skills IA pour les annonceurs",
+      "synthese": "TikTok a lancé Agentic Hub, une marketplace de « Skills » IA prêtes à l'emploi qui automatisent des tâches publicitaires (création de campagnes, génération de créatifs, analyse de performance, gestion de catalogues produits). Ces skills s'intègrent directement aux outils déjà utilisés par les marketeurs, sans clé API ni code. Des partenaires comme HubSpot et Wix proposent déjà des skills sur la plateforme.",
+      "actionACL": "Identifier une skill Agentic Hub compatible avec l'outil marketing actuel de l'équipe et évaluer son usage sur une tâche répétitive (reporting ou génération de créatifs).",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "The AI Marketers",
+          "url": "https://www.theaimarketers.ai/need-to-know-news-july-3rd-2026/"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-03",
+      "theme": "IA générative en marketing",
+      "titre": "Runway déploie Agent 2.0 pour reconstruire des campagnes publicitaires en conversation",
+      "synthese": "Runway a présenté Agent 2.0, un agent conversationnel capable d'analyser une campagne payante en sous-performance ou un lancement produit à venir, puis de construire de nouvelles publicités directement dans l'échange avec le marketeur. Alimenté par les métriques Meta ou TikTok, l'agent génère ensuite un nouveau lot de créatifs à tester. L'outil s'inscrit dans la tendance des agents IA orientés performance publicitaire plutôt que création statique.",
+      "actionACL": "Réserver une démo Runway Agent 2.0 pour évaluer son intégration avec les comptes publicitaires Meta/TikTok de l'agence avant tout achat.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "The AI Marketers",
+          "url": "https://www.theaimarketers.ai/need-to-know-news-july-3rd-2026/"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-03",
+      "theme": "IA générative en marketing",
+      "titre": "SALESmanago se rebaptise Manago AI et lance une plateforme d'engagement agentique",
+      "synthese": "SALESmanago a annoncé son rebranding en Manago AI, accompagné du lancement d'une plateforme d'engagement client de nouvelle génération dotée de capacités d'IA agentique. La plateforme permet aux marketeurs d'utiliser des prompts en langage naturel pour analyser le comportement client, recommander des actions, créer des campagnes et automatiser leur exécution. Ce repositionnement illustre la bascule des plateformes CRM/automation vers des interfaces conversationnelles pilotées par agents.",
+      "actionACL": "Suivre les retours clients sur Manago AI avant d'envisager une migration ; comparer ses capacités agentiques à la solution CRM actuelle de l'ACL.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "INFO",
+      "sources": [
+        {
+          "name": "mean.ceo",
+          "url": "https://blog.mean.ceo/latest-ai-announcements-news-july-2026/"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-03",
+      "theme": "CRM & member marketing",
+      "titre": "Kentico rapporte une forte croissance d'adoption de son assistant IA AIRA",
+      "synthese": "Kentico a annoncé une croissance de 292 % de l'adoption client de son assistant marketing IA AIRA, avec une hausse de 220 % des clients actifs mensuels. Le nombre de clients utilisant trois capacités AIRA ou plus a été multiplié par plus de cinquante. Ces chiffres confirment l'accélération de l'adoption d'assistants IA intégrés aux plateformes CMS/marketing existantes plutôt que d'outils autonomes séparés.",
+      "actionACL": "Aucune action immédiate ; retenir comme indicateur de la vitesse d'adoption des assistants IA intégrés dans les CMS pour de futures décisions d'outillage.",
+      "horizon": "long terme (>12 mois)",
+      "badge": "INFO",
+      "sources": [
+        {
+          "name": "mean.ceo",
+          "url": "https://blog.mean.ceo/latest-ai-announcements-news-july-2026/"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-03",
+      "theme": "Social & Ads",
+      "titre": "Pinterest lance un Business Assistant visuel et ouvre son MCP",
+      "synthese": "Pinterest a déployé un Business Assistant qui répond aux questions des annonceurs par des visuels plutôt que du texte : une demande sur une tendance montante affiche directement le graphique et les Pins concernés. Pinterest a également ouvert son Model Context Protocol (MCP) à des outils partenaires et déployé un modèle créatif plus performant, ayant fait progresser les clics de 7,5 % en test. Ces annonces renforcent le positionnement de Pinterest comme plateforme de découverte pilotée par l'IA pour les marques.",
+      "actionACL": "Si des campagnes Pinterest sont actives, tester le nouveau modèle créatif sur un set d'annonces existant pour mesurer le gain de clics avant extension.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "The AI Marketers",
+          "url": "https://www.theaimarketers.ai/need-to-know-news-july-3rd-2026/"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-02",
+      "theme": "IA générative en marketing",
+      "titre": "ElevenLabs lance Ads Engine pour la localisation publicitaire",
+      "synthese": "ElevenLabs a lancé Ads Engine, un module de sa suite ElevenCreative qui localise automatiquement textes, images et vidéos publicitaires depuis les comptes Google Ads et Meta Ads existants. L'outil utilise le doublage vocal Dubbing V2 pour préserver le ton et l'émotion du message original dans plus de 50 langues. Une équipe de test de quatre personnes a déployé des campagnes en sept langues, générant 3,78 millions de dollars de valeur de conversion incrémentale et une hausse de 17,6 % des conversions. L'outil est en alpha, disponible à partir du plan Pro.",
+      "actionACL": "Tester Ads Engine sur une campagne pilote multilingue à faible enjeu pour évaluer le gain de temps de localisation avant un déploiement plus large.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "ElevenLabs",
+          "url": "https://elevenlabs.io/ads-engine"
+        },
+        {
+          "name": "AlternativeTo",
+          "url": "https://alternativeto.net/news/2026/6/elevenlabs-unveils-ads-engine-for-multilingual-ad-localization/"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-01",
+      "theme": "CRM & member marketing",
+      "titre": "HubSpot déploie une vague majeure de mises à jour Breeze AI et renomme Commerce Hub en Revenue Hub",
+      "synthese": "HubSpot a livré une de ses plus importantes vagues de mises à jour de l'année début juillet, incluant le renommage de Commerce Hub en Revenue Hub et une extension des fonctionnalités Breeze AI. Les nouveautés incluent un onglet Forms Analyze avec insights IA, un onglet Analyze dans Marketing Studio, et une section Brand Knowledge qui centralise les données de l'entreprise (produits, concurrents, profil client idéal) pour personnaliser le contenu généré par IA. Breeze Projects a aussi été redesigné pour l'upload de fichiers et la collaboration d'équipe.",
+      "actionACL": "Si l'ACL utilise HubSpot, explorer la nouvelle section Brand Knowledge pour vérifier que les données de marque sont à jour avant de généraliser la génération de contenu IA.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "Vantage Point",
+          "url": "https://vantagepoint.io/blog/hs/hubspot-july-2026-product-updates"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-01",
+      "theme": "Social & Ads",
+      "titre": "Meta instaure des frais publicitaires liés à la localisation de diffusion",
+      "synthese": "Depuis le 1er juillet 2026, Meta applique des frais additionnels pouvant atteindre 5 % sur les publicités image et vidéo, déterminés par la localisation de diffusion de l'annonce et non par celle de l'annonceur. Ces frais s'appliquent aussi à certains produits publicitaires liés à WhatsApp. Cette évolution s'inscrit dans la bascule de Meta vers un modèle publicitaire piloté par IA, où Advantage+ automatise de plus en plus la création, le ciblage et l'optimisation des campagnes.",
+      "actionACL": "Revoir la répartition géographique des audiences ciblées sur Meta pour anticiper l'impact budgétaire de ces nouveaux frais sur les prochaines campagnes.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "Margabagus - Meta Ads Updates 2026",
+          "url": "https://margabagus.com/meta-ads-updates-2026/"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-30",
+      "theme": "Design & branding",
+      "titre": "Google lance Nano Banana 2 Lite, un modèle image rapide et économique",
+      "synthese": "Google DeepMind a lancé Nano Banana 2 Lite (gemini-3.1-flash-lite-image), un modèle de génération d'image optimisé pour la vitesse, le coût et les gros volumes. Il produit une image texte-vers-image en environ 4 secondes pour 0,034 dollar par image en résolution 1K, tout en conservant la cohérence des personnages, l'édition précise d'image et un texte intégré lisible. Le modèle est disponible dans Google AI Studio, l'API Gemini, Google Ads, Google Photos et d'autres produits Google, et vient compléter Gemini Omni Flash pour des pipelines image-vers-vidéo.",
+      "actionACL": "Tester Nano Banana 2 Lite pour la production en volume de visuels marketing courants (déclinaisons de formats, variantes A/B) où la vitesse et le coût priment sur la finesse artistique.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "Google Blog",
+          "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-omni-flash-nano-banana-2-lite/"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-30",
+      "theme": "Design & branding",
+      "titre": "Gemini 3.5 Pro repoussé au 17 juillet pour une refonte architecturale complète",
+      "synthese": "Google a confirmé le report du lancement public de Gemini 3.5 Pro au 17 juillet 2026, l'entreprise ayant abandonné l'architecture de Gemini 2.5 Pro pour une refonte complète. Le modèle, annoncé à l'I/O en mai 2026, est actuellement testé en interne et par quelques clients entreprise via une plateforme développeur. Les évaluations disponibles indiquent des performances notables en génération SVG, modélisation 3D et design front-end, des capacités pertinentes pour la production de prototypes et maquettes de marque.",
+      "actionACL": "Attendre la sortie officielle du 17 juillet avant de tester les capacités de design/prototypage de Gemini 3.5 Pro pour des besoins de branding ou d'interfaces.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "Bind AI Blog",
+          "url": "https://blog.getbind.co/gemini-3-5-pro-slips-to-july-and-four-senior-google-researchers-just-left-for-anthropic/"
+        }
+      ]
+    },
     {
       "date": "2026-06-25",
       "theme": "IA générative en marketing",
