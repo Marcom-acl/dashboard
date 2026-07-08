@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-07",
+  "generated_at": "2026-07-08",
   "items": [
     {
       "date": "2026-07-07",
@@ -13,6 +13,25 @@
         {
           "name": "GlobeNewswire",
           "url": "https://www.globenewswire.com/news-release/2026/07/07/3322905/0/en/Explosive-Growth-in-Generative-AI-Design-Market-Forecasts-a-CAGR-of-31-4-from-2025-to-2030.html"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-07",
+      "theme": "IA générative en marketing",
+      "titre": "Meta lance Muse Image, son premier générateur d'images maison",
+      "synthese": "Meta a lancé Muse Image le 7 juillet 2026, son premier modèle de génération d'images développé en interne par Meta Superintelligence Labs. Disponible gratuitement dans Meta AI, Instagram Stories et WhatsApp, il gère des prompts complexes, le mélange de plusieurs photos et l'édition itérative, avec un rendu de texte lisible dans l'image. Le modèle alimentera aussi les outils publicitaires Advantage Plus pour générer des créas de campagne. Des utilisateurs ont déjà exprimé des inquiétudes sur l'usage de leurs photos personnelles.",
+      "actionACL": "Tester Muse Image sur des visuels de campagne à faible enjeu et vérifier les conditions d'utilisation des photos avant tout usage impliquant des données membres.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "TechCrunch",
+          "url": "https://techcrunch.com/2026/07/07/meta-rolls-out-muse-a-new-ai-image-generator/"
+        },
+        {
+          "name": "CNBC",
+          "url": "https://www.cnbc.com/2026/07/07/meta-ai-muse-image.html"
         }
       ]
     },
@@ -73,6 +92,74 @@
         {
           "name": "BuildFastWithAI",
           "url": "https://www.buildfastwithai.com/blogs/ai-news-today-july-6-2026"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-06",
+      "theme": "CRM & member marketing",
+      "titre": "HubSpot élargit Breeze AI et généralise son Prospecting Agent",
+      "synthese": "Dans ses mises à jour de juillet 2026, HubSpot a rendu son Prospecting Agent disponible à tous les clients payants (plus seulement en accès anticipé), avec une intégration pour trouver de nouveaux contacts. Breeze AI s'étend à la recherche globale, la rédaction d'e-mails, les notifications d'assignation et une nouvelle intégration Microsoft 365 Copilot. Commerce Hub est renommé Revenue Hub avec de nouvelles fonctions de devis, taxes et financement.",
+      "actionACL": "Activer le Prospecting Agent HubSpot sur un segment pilote de membres/prospects pour évaluer le gain de temps avant un déploiement plus large.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "Vantage Point",
+          "url": "https://vantagepoint.io/blog/hs/hubspot-july-2026-product-updates"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-06",
+      "theme": "Social & Ads",
+      "titre": "Le marché de l'IA publicitaire proche de tripler d'ici 2030",
+      "synthese": "Un rapport publié le 6 juillet 2026 projette une croissance du marché de l'IA dans la publicité de 11,17 milliards de dollars en 2025 à 36,34 milliards en 2030. 93% des marques et 94% des agences déclarent que l'IA améliore la vitesse et l'efficacité de leurs workflows programmatiques. L'IA agentique transforme la gestion programmatique d'un ajustement a posteriori vers un pilotage en continu pendant la diffusion des campagnes.",
+      "actionACL": "Évaluer les fonctionnalités d'optimisation en temps réel de la plateforme publicitaire actuelle avant le prochain cycle de campagnes.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "INFO",
+      "sources": [
+        {
+          "name": "GlobeNewswire",
+          "url": "https://www.globenewswire.com/news-release/2026/07/06/3322346/28124/en/AI-in-Advertising-Market-Set-to-Skyrocket-From-11-17-Billion-in-2025-to-36-34-Billion-by-2030.html"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-05",
+      "theme": "Social & Ads",
+      "titre": "Plus de 85% des achats display mondiaux transitent désormais par le programmatique",
+      "synthese": "Plus de 85% des dépenses display numériques mondiales transitent désormais par des canaux programmatiques automatisés en temps réel. Plus de 70% des annonceurs entreprise priorisent les stratégies de données first-party pour compenser la perte de signal liée aux restrictions navigateurs et réglementaires. Le ciblage contextuel et les partenariats de données commerce deviennent des piliers du ciblage publicitaire en 2026.",
+      "actionACL": "Prioriser la collecte et l'exploitation des données first-party (newsletter, portail membres) pour sécuriser le ciblage face au déclin des cookies tiers.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "INFO",
+      "sources": [
+        {
+          "name": "Comscore",
+          "url": "https://www.comscore.com/Insights/Presentations-and-Whitepapers/2026/2026-State-of-Programmatic-Report"
+        },
+        {
+          "name": "Experian",
+          "url": "https://www.experian.com/blogs/marketing-forward/ai-programmatic-advertising-2026/"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-04",
+      "theme": "Social & Ads",
+      "titre": "Le ciblage first-party double le ROAS par rapport au ciblage tiers",
+      "synthese": "Les annonceurs utilisant des données first-party ou un ciblage contextuel piloté par IA constatent un retour sur dépense publicitaire (ROAS) jusqu'à deux fois supérieur à celui du ciblage tiers classique. Les campagnes utilisant l'optimisation créative dynamique (DCO) affichent un taux de clic 32% supérieur et un coût par clic 56% inférieur. Ces gains renforcent l'argument en faveur d'une bascule structurelle vers les données propriétaires.",
+      "actionACL": "Tester une campagne pilote avec optimisation créative dynamique sur les canaux sociaux ACL pour mesurer l'écart de performance.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "StackAdapt",
+          "url": "https://www.stackadapt.com/resources/blog/ai-advertising"
+        },
+        {
+          "name": "Power Digital Marketing",
+          "url": "https://powerdigitalmarketing.com/blog/ai-revolutionizing-programmatic-advertising/"
         }
       ]
     },
@@ -152,6 +239,44 @@
       ]
     },
     {
+      "date": "2026-07-03",
+      "theme": "CRM & member marketing",
+      "titre": "Le marché de l'IA en CRM en forte croissance, porté par l'action autonome",
+      "synthese": "Un rapport publié le 3 juillet 2026 évalue le marché mondial de l'IA en CRM à 15,06 milliards de dollars en 2026 (contre 11,04 milliards en 2025), avec une croissance annuelle de 36,4% projetée jusqu'à 51,67 milliards en 2030. La tendance dominante est le passage d'une IA qui 'suggère' à une IA qui 'agit' : Salesforce Agentforce, HubSpot Breeze Agents et les AI Sales Agents de Monday exécutent désormais de façon autonome prospection, qualification de leads et relances. Les équipes utilisant l'IA rapportent 30% de taux de conversion en plus et des cycles de vente 25% plus rapides.",
+      "actionACL": "Cartographier les tâches CRM répétitives (relances, qualification de leads) qui pourraient être déléguées à un agent IA autonome plutôt qu'à un simple outil de suggestion.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "INFO",
+      "sources": [
+        {
+          "name": "GlobeNewswire",
+          "url": "https://www.globenewswire.com/news-release/2026/07/03/3321698/28124/en/ai-innovations-transforming-crm-market-with-advanced-customer-experience-technologies.html"
+        },
+        {
+          "name": "CRM Buyer",
+          "url": "https://www.crmbuyer.com/story/2026-crm-outlook-ai-humans-and-scale-converge-177583.html"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-03",
+      "theme": "Design & branding",
+      "titre": "Midjourney et Ideogram s'imposent comme outils complémentaires pour les équipes de marque",
+      "synthese": "En 2026, Midjourney conserve son avance sur la qualité artistique pour la phase de moodboard et de direction créative, tandis qu'Ideogram se distingue par sa capacité à générer du texte lisible et précis dans les images, utile pour affiches, publicités et visuels social media où la typographie compte. Ces outils sont désormais positionnés en complément plutôt qu'en concurrence des suites intégrées comme Canva ou Figma.",
+      "actionACL": "Réserver Midjourney pour l'exploration de directions créatives en amont et Ideogram pour les visuels finaux nécessitant du texte intégré propre.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "INFO",
+      "sources": [
+        {
+          "name": "Digital Things Agency",
+          "url": "https://www.digitalthingsagency.com/post/9-ai-image-generators-transforming-creative-work-in-2026"
+        },
+        {
+          "name": "Industry Wired",
+          "url": "https://industrywired.com/artificial-intelligence/top-ai-image-generators-designers-are-using-in-2026-11714332"
+        }
+      ]
+    },
+    {
       "date": "2026-07-02",
       "theme": "IA générative en marketing",
       "titre": "ElevenLabs lance Ads Engine pour la localisation publicitaire",
@@ -167,6 +292,25 @@
         {
           "name": "AlternativeTo",
           "url": "https://alternativeto.net/news/2026/6/elevenlabs-unveils-ads-engine-for-multilingual-ad-localization/"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-02",
+      "theme": "CRM & member marketing",
+      "titre": "L'hyper-personnalisation à grande échelle devient accessible aux structures de taille moyenne",
+      "synthese": "La combinaison de Marketing Cloud, Data Cloud et de l'IA générative permet désormais à des organisations de taille moyenne de personnaliser l'expérience de chaque membre individuellement, un niveau auparavant réservé aux budgets d'entreprise. L'IA générative rédige emails, publicités et pages d'atterrissage, avec de meilleurs taux d'engagement et de ROI rapportés. Cette évolution dépend fortement de la qualité et de l'unification des données CRM en amont.",
+      "actionACL": "Auditer la qualité et l'unification des données membres ACL avant d'investir dans des scénarios d'hyper-personnalisation.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "G2 - State of AI in CRM",
+          "url": "https://learn.g2.com/state-of-ai-in-crm"
+        },
+        {
+          "name": "Appther",
+          "url": "https://appther.com/blog/how-generative-ai-is-transforming-crm-automation-in-2026/"
         }
       ]
     },
@@ -201,6 +345,44 @@
       ]
     },
     {
+      "date": "2026-07-01",
+      "theme": "IA générative en marketing",
+      "titre": "Cloudflare bloquera par défaut les crawlers IA mixtes sur les pages monétisées",
+      "synthese": "Cloudflare a annoncé le 1er juillet 2026 qu'à partir du 15 septembre 2026, les crawlers combinant entraînement de modèles et agents IA seront bloqués par défaut sur les pages publicitaires, tandis que les crawlers de recherche resteront autorisés. Les robots multi-usages comme Googlebot seront affectés si le blocage 'Training' est activé. Le changement concerne d'abord les nouveaux domaines et clients, avant une extension aux clients existants.",
+      "actionACL": "Vérifier la configuration du CDN/pare-feu du site ACL et anticiper l'impact sur la visibilité dans les réponses IA (GEO) avant l'échéance de septembre.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "TechCrunch",
+          "url": "https://techcrunch.com/2026/07/01/cloudflares-new-policy-pushes-ai-companies-to-pay-for-publishers-content/"
+        },
+        {
+          "name": "The Register",
+          "url": "https://www.theregister.com/ai-and-ml/2026/07/01/cloudflare-to-block-cynical-search-and-scrape-bots-from-ad-supported-web-pages/5264727"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-01",
+      "theme": "Design & branding",
+      "titre": "Figma Buzz s'étend vers la création de contenus marketing on-brand",
+      "synthese": "Figma poursuit en juillet 2026 le déploiement de Figma Buzz, son outil de création d'assets marketing accessible à tous les types de comptes, y compris gratuits. L'outil propose édition en masse, génération de contenu assistée par IA, redimensionnement automatique et outils de cohérence de marque, sans passer par l'équipe design. Il s'inscrit dans un écosystème Figma élargi (Sites, Motion, Make, Weave) visant à réduire la dispersion d'outils.",
+      "actionACL": "Donner accès à Figma Buzz à l'équipe marketing pour la déclinaison rapide de visuels multi-formats à partir des gabarits de marque existants.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "Figma Blog",
+          "url": "https://www.figma.com/blog/introducing-figma-buzz/"
+        },
+        {
+          "name": "MarTech",
+          "url": "https://martech.org/figmas-new-tools-create-a-design-to-deployment-ecosystem/"
+        }
+      ]
+    },
+    {
       "date": "2026-06-30",
       "theme": "Design & branding",
       "titre": "Google lance Nano Banana 2 Lite, un modèle image rapide et économique",
@@ -227,6 +409,44 @@
         {
           "name": "Bind AI Blog",
           "url": "https://blog.getbind.co/gemini-3-5-pro-slips-to-july-and-four-senior-google-researchers-just-left-for-anthropic/"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-30",
+      "theme": "IA générative en marketing",
+      "titre": "TikTok lance Agentic Hub, une marketplace d'AI Skills pour la publicité",
+      "synthese": "TikTok a lancé le 30 juin 2026 Agentic Hub, une marketplace d'AI Skills prêtes à l'emploi connectées à TikTok for Business via un protocole MCP. Les agents IA peuvent créer des campagnes, générer des créas, gérer les catalogues produits et analyser la performance sans code ni clé API. Des partenaires comme HubSpot, Wix et Constant Contact ont déjà publié des Skills, d'autres suivront dans les prochaines semaines.",
+      "actionACL": "Identifier une AI Skill TikTok pertinente (génération de créas ou gestion de catalogue) pour un test pilote sur une campagne existante.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "TikTok for Business Blog",
+          "url": "https://ads.tiktok.com/business/en/blog/tiktok-agentic-hub-ai-agents-skills-mcp"
+        },
+        {
+          "name": "Social Media Today",
+          "url": "https://www.socialmediatoday.com/news/tiktok-launches-agentic-hub/824169/"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-30",
+      "theme": "Design & branding",
+      "titre": "Google publie de nouveaux modèles de génération d'images Gemini",
+      "synthese": "Google a mis à jour sa gamme d'images Gemini fin juin 2026, avec Gemini 3.1 Flash Image optimisé pour la génération à haut volume et faible coût, et Gemini 3 Pro Image ciblant la qualité pour un usage design, marketing et entreprise. Les anciennes versions preview de ces modèles ont été dépréciées le 25 juin 2026. Le marché de l'IA générative dans les industries créatives est projeté à 5,38 milliards de dollars en 2026.",
+      "actionACL": "Comparer Gemini 3.1 Flash Image et Gemini 3 Pro Image sur un même brief visuel pour arbitrer entre coût et qualité selon les usages (réseaux sociaux vs supports institutionnels).",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "Google AI for Developers",
+          "url": "https://ai.google.dev/gemini-api/docs/models/gemini-3.1-flash-image"
+        },
+        {
+          "name": "Google Cloud Docs",
+          "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/gemini/3-1-flash-image"
         }
       ]
     },
@@ -443,6 +663,25 @@
         {
           "name": "Digital Applied - Digital Advertising Statistics 2026",
           "url": "https://www.digitalapplied.com/blog/digital-advertising-statistics-2026-data-points"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-19",
+      "theme": "IA générative en marketing",
+      "titre": "LinkedIn : la réputation pèse autant sur les recommandations IA que sur l'achat B2B",
+      "synthese": "Une étude LinkedIn publiée le 19 juin 2026 montre que les signaux qui rendent un fournisseur B2B 'achetable' (preuve client, recommandation par les pairs, endorsement expert) sont les mêmes que ceux utilisés par les moteurs de recommandation IA. Un fournisseur a 20 fois plus de chances d'être choisi quand l'ensemble du groupe d'achat le connaît dès le départ, pas seulement le champion technique. LinkedIn appelle à mesurer la réputation et la confiance à long terme plutôt que les seuls clics et leads.",
+      "actionACL": "Renforcer la présence de témoignages et preuves sociales sur les canaux visibles par l'ensemble des groupes d'achat, pas seulement le contact principal.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "LinkedIn Business Blog",
+          "url": "https://www.linkedin.com/business/marketing/blog/content-marketing/how-ai-search-is-changing-b2b-brand-reputation-and-what-marketers-must-do-now"
+        },
+        {
+          "name": "ppc.land",
+          "url": "https://ppc.land/the-b2b-buying-formula-linkedin-says-ai-just-scrambled/"
         }
       ]
     },
