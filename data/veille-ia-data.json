@@ -1,6 +1,51 @@
 {
-  "generated_at": "2026-07-08",
+  "generated_at": "2026-07-09",
   "items": [
+    {
+      "date": "2026-07-08",
+      "theme": "CRM & member marketing",
+      "titre": "Rocket CRM met en avant l'automatisation marketing pour l'engagement client structuré",
+      "synthese": "Rocket CRM a publié le 8 juillet 2026 une synthèse de ses capacités d'automatisation marketing, insistant sur la segmentation d'audience, les déclencheurs comportementaux et le séquencement structuré des communications. La plateforme permet de construire des parcours clients automatisés incluant segmentation, déclencheurs, sondages et workflows, avec personnalisation des messages et suivi en temps réel. L'automatisation vise à exécuter les tâches marketing récurrentes de façon cohérente, laissant les équipes se concentrer sur la stratégie et l'analyse plutôt que sur l'exécution manuelle.",
+      "actionACL": "Comparer les capacités de segmentation comportementale de Rocket CRM avec l'outil CRM actuel avant toute décision de migration ou d'extension.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "INFO",
+      "sources": [
+        {
+          "name": "FinancialContent",
+          "url": "https://markets.financialcontent.com/stocks/article/pressadvantage-2026-7-8-rocket-crm-highlights-the-growing-importance-of-marketing-automation-in-modern-customer-engagement"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-08",
+      "theme": "CRM & member marketing",
+      "titre": "Akeneo lance Agentic Ziggy, une couche agentique pour la gestion de données produit",
+      "synthese": "Akeneo a annoncé le 8 juillet 2026 sa Summer Release, introduisant Agentic Ziggy, une nouvelle interface agentique intégrée à Akeneo Product Cloud. Agentic Ziggy permet aux équipes de gérer des flottes d'agents IA qui enrichissent, gouvernent et orchestrent les données produit à l'échelle nécessaire pour le commerce agentique. Cette release transforme la plateforme d'un simple système d'enregistrement vers une plateforme pleinement agentique, où les agents coordonnent entre eux l'exécution des tâches. Akeneo présente cette version comme la première d'une série d'investissements dans les opérations produit agentiques prévus sur 2026.",
+      "actionACL": "Si la donnée produit alimente la personnalisation CRM ou les campagnes, suivre Agentic Ziggy comme signal de la bascule vers une gouvernance de données pilotée par agents IA.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "PR Newswire",
+          "url": "https://www.prnewswire.com/news-releases/akeneo-introduces-the-first-truly-agentic-product-experience-platform-302819885.html"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-08",
+      "theme": "Social & Ads",
+      "titre": "X lance un éditeur vidéo intégré pour encourager le contenu original des créateurs",
+      "synthese": "X a déployé le 8 juillet 2026 un nouvel éditeur et enregistreur vidéo sur son application iOS, visant à encourager la production de vidéos originales plutôt que le repost de contenu volé. L'outil inclut sous-titrage automatique multilingue, fond vert personnalisable, et des fonctions de découpe et réorganisation de clips avant publication. Selon Nikita Bier, responsable produit de X, l'objectif est de fournir un éditeur fonctionnel pour que certaines vidéos sur X soient enfin du contenu original absent des autres plateformes. D'autres mises à jour de l'éditeur vidéo sont annoncées pour les prochaines semaines; l'app Android reste en reconstruction et n'est pas encore concernée.",
+      "actionACL": "Si X fait partie du mix social, tester l'éditeur vidéo natif pour produire des formats courts originaux plutôt que de republier du contenu déjà utilisé sur d'autres plateformes.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "INFO",
+      "sources": [
+        {
+          "name": "MediaPost",
+          "url": "https://www.mediapost.com/publications/article/416357/x-launches-video-editing-hub-for-original-creator.html"
+        }
+      ]
+    },
     {
       "date": "2026-07-07",
       "theme": "Design & branding",
@@ -32,6 +77,93 @@
         {
           "name": "CNBC",
           "url": "https://www.cnbc.com/2026/07/07/meta-ai-muse-image.html"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-07",
+      "theme": "IA générative en marketing",
+      "titre": "Storika lève un tour de seed pour scaler sa plateforme marketing d'influence pilotée par IA",
+      "synthese": "Storika, plateforme AI-native qui automatise le cycle complet des campagnes d'influence, a bouclé un tour de seed le 7 juillet 2026 avec un investissement stratégique d'Amorepacific et la participation de Schmidt, Hustle Fund, BonAngels Venture Partners et Krew Capital. La plateforme s'appuie sur un orchestrateur IA qui pilote des agents spécialisés pour la découverte de créateurs, l'outreach personnalisé, la diffusion de contenu et le suivi de performance, à partir d'une base de plus de sept millions de profils de créateurs. Les clients actuels incluent Amorepacific et Hanpoom, avec un positionnement ciblé sur les marques D2C beauté et lifestyle aux Etats-Unis. La bêta ouvre le 15 juillet lors du Google for Startups Accelerator: Korea Demo Day.",
+      "actionACL": "Suivre Storika comme référence de marketing d'influence orchestré par agents IA, et envisager un test pilote si l'équipe gère des campagnes influenceurs à volume.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "MarTech Cube",
+          "url": "https://www.martechcube.com/storika-secures-seed-funding-to-scale-ai-native-creator-marketing-platform/"
+        },
+        {
+          "name": "The Agile Brand Guide",
+          "url": "https://agilebrandguide.com/yesterdays-marketing-technology-ai-news-july-8-2026/"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-07",
+      "theme": "IA générative en marketing",
+      "titre": "RecCloud lance une fonctionnalité de recréation vidéo par IA pour l'e-commerce",
+      "synthese": "RecCloud a ajouté à son application mobile Marketing Video Recreation, une fonctionnalité qui génère de nouvelles vidéos promotionnelles à partir d'une vidéo de référence. Les utilisateurs importent un clip source de 5 à 180 secondes, ajoutent des images produit ou modèle, et décrivent les changements par texte, par exemple remplacer un article du clip original par leur propre produit. L'outil conserve le style et la structure de la vidéo source tout en substituant les produits, avec des réglages de format, résolution et audio avant export. La fonctionnalité cible les petites équipes et vendeurs indépendants qui doivent recréer des vidéos similaires pour des lancements, ventes flash et promotions saisonnières.",
+      "actionACL": "Tester RecCloud pour accélérer la production de variantes vidéo produit sans repartir de zéro à chaque campagne saisonnière.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "INFO",
+      "sources": [
+        {
+          "name": "MarTech Series",
+          "url": "https://martechseries.com/video/reccloud-launches-video-recreation-feature-to-help-e-commerce-sellers-create-promotional-videos-more-efficiently-2/"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-07",
+      "theme": "IA générative en marketing",
+      "titre": "ChatGPT Ads déploie la génération automatique de variantes publicitaires",
+      "synthese": "OpenAI a ajouté en juin une fonctionnalité de génération automatique de publicités sur ChatGPT Ads via l'option ad variation based, permettant à un annonceur de laisser l'IA créer une publicité, puis de la revoir, l'éditer et l'approuver avant diffusion. Des professionnels du secteur ont documenté début juillet 2026 le fonctionnement réel de l'outil: lorsqu'un annonceur accepte une publicité suggérée, l'ensemble du groupe d'annonces repasse en revue, ce qui peut ralentir les campagnes actives. La fonctionnalité n'a pas encore de nom officiel mais reste disponible dès que l'annonceur est prêt à l'utiliser. Le rythme de déploiement des fonctionnalités publicitaires d'OpenAI dépasse la capacité de suivi de nombreux annonceurs, selon les retours d'agences.",
+      "actionACL": "Avant d'activer la génération automatique de publicités sur ChatGPT Ads, anticiper le repassage en revue du groupe d'annonces et prévoir une marge de temps sur les campagnes en cours.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "MediaPost",
+          "url": "https://www.mediapost.com/publications/article/416345/chatgpt-keeps-rolling-out-major-ad-targeting-upda.html"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-07",
+      "theme": "Social & Ads",
+      "titre": "ChatGPT Ads ajoute le ciblage par audiences personnalisées",
+      "synthese": "OpenAI a déployé début juillet 2026 une fonctionnalité Audiences sur ChatGPT Ads, permettant aux annonceurs d'importer leurs propres listes de clients, emails ou numéros de téléphone pour cibler qui voit leurs publicités. Des ajustements d'enchères avancés pour ces audiences ont également été ajoutés. Les taux de correspondance restent partiels, comme sur les autres plateformes publicitaires: seule une portion de la liste importée sera reconnue, ce qui invite à considérer ces audiences comme directionnelles plutôt qu'exhaustives. Cette évolution rapproche ChatGPT Ads du ciblage de données first-party déjà standard sur Google et Meta.",
+      "actionACL": "Si des budgets média sont testés sur ChatGPT Ads, préparer des listes d'audience first-party propres et anticiper un taux de correspondance partiel dans le calcul du ROI.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "MediaPost",
+          "url": "https://www.mediapost.com/publications/article/416345/chatgpt-keeps-rolling-out-major-ad-targeting-upda.html"
+        },
+        {
+          "name": "Grayvault Consulting",
+          "url": "https://www.grayvaultconsulting.com/insights/chatgpt-ads-custom-audiences"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-07",
+      "theme": "Social & Ads",
+      "titre": "Guideline lance une mesure vérifiée des dépenses publicitaires sur les plateformes IA",
+      "synthese": "Guideline a annoncé le 7 juillet 2026 l'extension de son jeu de données Ad Intelligence pour capturer l'activité publicitaire vérifiée et transactionnelle sur les plateformes IA, dont ChatGPT et Perplexity. Le jeu de données représente environ 200 milliards de dollars d'investissement média annuel dans 65 pays, basé sur des transactions réelles plutôt que sur des enquêtes ou estimations. Pour la première fois, agences, marques et investisseurs peuvent comparer les dépenses publicitaires réelles sur ces plateformes aux projections que celles-ci communiquent elles-mêmes. Cette initiative répond à l'écart croissant entre les outils qui produisent du contenu publicitaire IA et les outils qui vérifient réellement ce qu'ils délivrent.",
+      "actionACL": "Intégrer une mesure indépendante de la dépense publicitaire sur les plateformes IA au reporting média, en complément des chiffres communiqués par les plateformes elles-mêmes.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "PR Newswire",
+          "url": "https://www.prnewswire.com/news-releases/guideline-launches-verified-ad-intelligence-across-ai-platforms-302816438.html"
+        },
+        {
+          "name": "The Agile Brand Guide",
+          "url": "https://agilebrandguide.com/yesterdays-marketing-technology-ai-news-july-8-2026/"
         }
       ]
     },
@@ -122,6 +254,25 @@
         {
           "name": "GlobeNewswire",
           "url": "https://www.globenewswire.com/news-release/2026/07/06/3322346/28124/en/AI-in-Advertising-Market-Set-to-Skyrocket-From-11-17-Billion-in-2025-to-36-34-Billion-by-2030.html"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-06",
+      "theme": "Design & branding",
+      "titre": "Wistia lance un serveur MCP pour piloter sa bibliothèque vidéo depuis Claude, Cursor ou ChatGPT",
+      "synthese": "Wistia a lancé le 6 juillet 2026 un serveur MCP (Model Context Protocol) permettant aux équipes marketing, produit et ingénierie de gérer toute leur bibliothèque vidéo directement depuis Claude, Cursor ou ChatGPT. Le serveur permet de créer, rechercher, éditer, publier des vidéos et d'extraire des analytics via des prompts en langage naturel, sans passer par le tableau de bord Wistia. Plus de 300 comptes s'étaient déjà connectés au serveur dans les premiers jours, générant plusieurs milliers de requêtes. Cette approche illustre la tendance des outils marketing à s'ouvrir directement aux agents IA plutôt qu'à leurs seules interfaces web classiques.",
+      "actionACL": "Si Wistia est déjà utilisé, tester le serveur MCP pour automatiser la publication et le reporting vidéo directement depuis l'assistant IA de l'équipe plutôt que le dashboard.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "PPC Land",
+          "url": "https://ppc.land/ketch-cuts-podcast-cleanup-from-days-to-minutes-with-wistia-mcp/"
+        },
+        {
+          "name": "Wistia Docs",
+          "url": "https://docs.wistia.com/changelog/mcp-server"
         }
       ]
     },
@@ -277,6 +428,25 @@
       ]
     },
     {
+      "date": "2026-07-03",
+      "theme": "Design & branding",
+      "titre": "L'échec de la fusion Getty Images-Shutterstock relance la pression de l'IA générative sur les banques d'images",
+      "synthese": "Getty Images a abandonné son projet de rachat de Shutterstock, évalué à 3,7 milliards de dollars, après que le régulateur britannique de la concurrence (CMA) a imposé la cession de la branche éditoriale de Shutterstock comme condition. La transaction devait prendre fin après le 6 juillet 2026 sauf changement majeur; l'action Shutterstock a chuté d'environ 30% à l'annonce, celle de Getty a également reculé. Les deux acteurs font face à une pression croissante de l'IA générative, qui permet de produire des visuels à bas coût en quelques secondes, réduisant la dépendance des marques aux banques d'images traditionnelles. Getty et Shutterstock développent chacun leurs propres outils IA entraînés sur leurs catalogues sous licence pour répondre à cette concurrence.",
+      "actionACL": "Ne pas dépendre d'un fournisseur unique de visuels: documenter dès maintenant une politique claire sur l'usage d'images générées par IA versus banques d'images sous licence pour sécuriser les droits d'usage.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "heise online",
+          "url": "https://www.heise.de/en/news/Getty-Shutterstock-merger-failed-the-photo-news-of-week-27-2026-11353243.html"
+        },
+        {
+          "name": "Brutally Honest Microstock",
+          "url": "https://brutallyhonestmicrostock.com/2026/07/04/getty-and-shutterstock-merger-falls-through-what-it-means-for-stock-contributors/"
+        }
+      ]
+    },
+    {
       "date": "2026-07-02",
       "theme": "IA générative en marketing",
       "titre": "ElevenLabs lance Ads Engine pour la localisation publicitaire",
@@ -311,6 +481,21 @@
         {
           "name": "Appther",
           "url": "https://appther.com/blog/how-generative-ai-is-transforming-crm-automation-in-2026/"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-02",
+      "theme": "CRM & member marketing",
+      "titre": "Audyence et Demandbase lancent leur première intégration native pour la génération de leads B2B",
+      "synthese": "Audyence et Demandbase ont annoncé le 2 juillet 2026 leur première intégration native, connectant les deux plateformes pour combler l'écart entre l'identification des comptes cibles et l'activation des campagnes de demande. La mise en place prend moins de 15 minutes pour la plupart des équipes. L'intégration donne accès à l'intelligence de comptes de Demandbase directement dans Audyence, permettant la synchronisation automatique de segments et l'activation de campagnes sur le réseau publisher d'Audyence. L'objectif est d'accélérer le passage du ciblage de comptes à l'exécution média programmatique en B2B.",
+      "actionACL": "Pour les campagnes ABM B2B, évaluer cette intégration comme raccourci entre intent data et activation média, en particulier si Demandbase est déjà en place.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "EIN Presswire",
+          "url": "https://www.einpresswire.com/article/923614426/audyence-and-demandbase-launch-first-native-integration-for-b2b-lead-generation"
         }
       ]
     },
@@ -379,6 +564,40 @@
         {
           "name": "MarTech",
           "url": "https://martech.org/figmas-new-tools-create-a-design-to-deployment-ecosystem/"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-01",
+      "theme": "IA générative en marketing",
+      "titre": "HubSpot déploie sa plus grosse vague de mises à jour Breeze AI de l'année",
+      "synthese": "HubSpot a lancé début juillet 2026 l'une de ses plus importantes vagues de mises à jour de l'année, marquée par le renommage de Commerce Hub en Revenue Hub et une extension large de son IA Breeze. Breeze AI s'étend désormais à la recherche globale, la composition d'emails, les notifications d'assignation et une nouvelle intégration Microsoft 365 Copilot. Breeze Projects, l'espace de travail IA partagé, a été refondu pour permettre l'upload direct de fichiers, les mentions de fiches CRM en contexte, et des modèles préconfigurés pour la prospection et la préparation de réunions.",
+      "actionACL": "Si l'équipe utilise HubSpot, planifier une session de découverte des nouveaux modèles Breeze Projects pour la prospection et la préparation de réunions avant la prochaine campagne.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "Vantage Point",
+          "url": "https://vantagepoint.io/blog/hs/hubspot-july-2026-product-updates"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-01",
+      "theme": "Design & branding",
+      "titre": "Figma déploie en juillet les Code Layers et de nouveaux outils IA issus de Config 2026",
+      "synthese": "Suite à sa conférence Config 2026, Figma déploie à partir de juillet 2026 les Code Layers, qui intègrent le développement directement dans le canevas de design via une connexion GitHub. Figma a aussi introduit des effets et remplissages générés par IA, où l'agent Figma construit un rendu à partir d'une description ou d'une image de référence, ainsi qu'une timeline de motion design avec keyframes et presets. Une nouvelle API d'usage IA permet aux comptes entreprise de suivre la consommation de crédits IA par utilisateur, produit et équipe. Ces fonctionnalités touchent directement les workflows de branding et d'identité visuelle en réduisant les allers-retours entre design et développement.",
+      "actionACL": "Anticiper la montée en compétence de l'équipe design/dev sur les Code Layers de Figma pour réduire les délais de passage design-vers-code des futurs supports de marque.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "Figma Blog",
+          "url": "https://www.figma.com/blog/config-2026-recap/"
+        },
+        {
+          "name": "Figma Help Center",
+          "url": "https://help.figma.com/hc/en-us/articles/39582753756695-What-s-new-from-Config-2026"
         }
       ]
     },
