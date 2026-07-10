@@ -1,6 +1,21 @@
 {
-  "generated_at": "2026-07-09",
+  "generated_at": "2026-07-10",
   "items": [
+    {
+      "date": "2026-07-09",
+      "theme": "Design & branding",
+      "titre": "Les générateurs d'images IA atteignent une précision typographique inédite",
+      "synthese": "Un état des lieux publié cette semaine confirme qu'en 2026, les principaux modèles de génération d'images (GPT Image, Ideogram, Nano Banana de Google, Recraft) rendent désormais le texte à l'intérieur des images de façon fiable, avec une précision de rendu typographique de 90 à 95% pour Ideogram 3.0. Ce progrès change la donne pour les visuels publicitaires et packagings comportant du texte, un point faible historique de l'IA générative d'images.",
+      "actionACL": "Réévaluer l'usage des générateurs d'images IA pour les visuels comportant du texte de marque, un cas d'usage désormais fiable.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "Digital Things Agency",
+          "url": "https://www.digitalthingsagency.com/post/9-ai-image-generators-transforming-creative-work-in-2026"
+        }
+      ]
+    },
     {
       "date": "2026-07-08",
       "theme": "CRM & member marketing",
@@ -43,6 +58,51 @@
         {
           "name": "MediaPost",
           "url": "https://www.mediapost.com/publications/article/416357/x-launches-video-editing-hub-for-original-creator.html"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-08",
+      "theme": "IA générative en marketing",
+      "titre": "Guideline étend son suivi publicitaire aux plateformes IA génératives",
+      "synthese": "Guideline a annoncé le 8 juillet 2026 l'extension de ses données Ad Intelligence pour capturer l'activité publicitaire vérifiée et transactionnelle sur les plateformes IA comme ChatGPT et Perplexity, représentant environ 200 milliards de dollars d'investissements médias annuels dans 65 pays. Cela répond au besoin de mesure fiable dans un contexte où la découverte de marque se déplace vers les réponses générées par IA plutôt que les résultats de recherche classiques.",
+      "actionACL": "Suivre l'émergence d'outils de mesure dédiés à la visibilité sur les réponses IA (GEO), un nouveau relais de croissance à surveiller pour le SEO.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "The Agile Brand Guide",
+          "url": "https://agilebrandguide.com/yesterdays-marketing-technology-ai-news-july-8-2026/"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-08",
+      "theme": "Social & Ads",
+      "titre": "Meta généralise Advantage+ par défaut et prépare la fin des \"Automated Ads\"",
+      "synthese": "Meta a mis à jour son Ads Manager début juillet 2026 pour faire d'Advantage+ l'option par défaut de toute nouvelle campagne, avec un retrait programmé de la fonctionnalité \"Automated Ads\" l'an prochain. En parallèle, les Advantage+ Leads Campaigns sont désormais disponibles mondialement et Meta teste trois nouveaux formats publicitaires pour Threads (carrousel, catalogue, app). Des frais de localisation sont également entrés en vigueur au 1er juillet 2026 au Royaume-Uni, en France, en Italie, en Espagne, en Autriche et en Turquie.",
+      "actionACL": "Vérifier l'impact des nouveaux frais de localisation sur le budget des campagnes ciblant l'Europe et auditer les campagnes encore configurées en mode manuel avant le retrait d'Automated Ads.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "SocialBee",
+          "url": "https://socialbee.com/blog/facebook-updates/"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-08",
+      "theme": "Design & branding",
+      "titre": "RecCloud lance la recréation de vidéos marketing à partir d'une référence",
+      "synthese": "RecCloud a ajouté le 8 juillet 2026 une fonctionnalité de \"Marketing Video Recreation\" à son application mobile, permettant aux vendeurs e-commerce et marketeurs de générer de nouvelles vidéos promotionnelles à partir d'une vidéo de référence existante, en y ajoutant des images de produits ou de modèles et en décrivant les changements souhaités par texte. L'outil vise à accélérer la production de variantes créatives pour les tests publicitaires.",
+      "actionACL": "Tester l'outil sur une vidéo produit existante pour évaluer le gain de temps sur la déclinaison de créatifs vidéo en interne.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "The Agile Brand Guide",
+          "url": "https://agilebrandguide.com/yesterdays-marketing-technology-ai-news-july-8-2026/"
         }
       ]
     },
@@ -168,6 +228,36 @@
       ]
     },
     {
+      "date": "2026-07-07",
+      "theme": "IA générative en marketing",
+      "titre": "Le marché de l'IA générative dans la création de contenu vise 77 milliards de dollars d'ici 2030",
+      "synthese": "Une étude publiée le 7 juillet 2026 projette une croissance du marché de l'IA générative appliquée à la création de contenu de 21,53 milliards de dollars en 2025 à 77,22 milliards de dollars en 2030. Cette croissance est portée par l'expansion des plateformes de médias sociaux, la hausse de la consommation de contenu et l'adoption précoce d'outils de machine learning par les équipes marketing. Le marketing multicanal (texte, image, vidéo, voix) devient la norme plutôt que l'exception.",
+      "actionACL": "Anticiper une montée en compétence des équipes sur les outils multimodaux pour rester compétitif face à l'accélération du marché.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "INFO",
+      "sources": [
+        {
+          "name": "GlobeNewswire",
+          "url": "https://www.globenewswire.com/news-release/2026/07/07/3323468/28124/en/Explosive-Growth-Generative-AI-in-Content-Creation-Market-Set-to-Soar-from-21-53-Billion-in-2025-to-77-22-Billion-by-2030.html"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-07",
+      "theme": "Social & Ads",
+      "titre": "ChatGPT Ads déploie le ciblage par audiences personnalisées",
+      "synthese": "OpenAI a annoncé le 7 juillet 2026 l'ajout d'audiences personnalisées sur ChatGPT Ads : les annonceurs peuvent désormais importer leurs propres listes de clients (emails ou numéros, en clair ou hachés) pour cibler qui voit leurs publicités. Cette fonctionnalité rapproche ChatGPT Ads du ciblage first-party déjà disponible sur Google et Meta. Elle s'ajoute à la génération automatique de variantes publicitaires ajoutée en juin.",
+      "actionACL": "Tester l'import d'une liste de contacts qualifiés sur ChatGPT Ads en petit volume pour évaluer la pertinence du ciblage avant un déploiement plus large.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "MediaPost",
+          "url": "https://www.mediapost.com/publications/article/416345/chatgpt-keeps-rolling-out-major-ad-targeting-upda.html"
+        }
+      ]
+    },
+    {
       "date": "2026-07-06",
       "theme": "CRM & member marketing",
       "titre": "Salesforce généralise ses agents IA Agentforce Commerce",
@@ -277,6 +367,36 @@
       ]
     },
     {
+      "date": "2026-07-06",
+      "theme": "CRM & member marketing",
+      "titre": "Salesforce lance sa plus grande mise à jour Agentforce pour le commerce",
+      "synthese": "Salesforce a présenté le 6 juillet 2026 sa plus importante mise à jour Agentforce Commerce, avec Shopper Agent, Buyer Agent et Merchant Agent désormais généralement disponibles et intégrés nativement à ChatGPT ainsi qu'à Google Search (AI Mode) et Gemini dans les mois à venir. Les détaillants exploitant leurs propres shopper agents ont vu leurs ventes croître 59% plus vite que ceux restés en retrait. L'orchestration multi-agents permet désormais à plusieurs agents de collaborer sur des parcours clients complexes.",
+      "actionACL": "Étudier le potentiel d'un agent acheteur autonome pour le parcours membre, en particulier pour la personnalisation des recommandations et le suivi post-achat.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "Salesforce Newsroom",
+          "url": "https://www.salesforce.com/ap/news/press-releases/2026/07/06/as-ai-agents-transform-commerce-salesforce-unleashes-its-biggest-agentforce-commerce-release-yet/"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-06",
+      "theme": "Social & Ads",
+      "titre": "Le marché de l'IA publicitaire vise 36,34 milliards de dollars d'ici 2030",
+      "synthese": "Un rapport publié le 6 juillet 2026 projette une croissance du marché de l'IA dans la publicité de 11,17 milliards de dollars en 2025 à 36,34 milliards en 2030. Plus de 85% des dépenses display mondiales transitent désormais par le programmatique, et les dépenses display programmatiques américaines devraient dépasser 220 milliards de dollars en 2026 (+17,4% sur un an). Plus de 70% des annonceurs enterprise priorisent désormais les stratégies de données first-party pour compenser la perte de signaux tiers.",
+      "actionACL": "Prioriser la collecte de données first-party (formulaires, comptes membres) pour rester performant à mesure que le ciblage tiers se réduit.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "INFO",
+      "sources": [
+        {
+          "name": "GlobeNewswire",
+          "url": "https://www.globenewswire.com/news-release/2026/07/06/3322346/0/en/AI-in-Advertising-Market-Set-to-Skyrocket-From-11-17-Billion-in-2025-to-36-34-Billion-by-2030.html"
+        }
+      ]
+    },
+    {
       "date": "2026-07-05",
       "theme": "Social & Ads",
       "titre": "Plus de 85% des achats display mondiaux transitent désormais par le programmatique",
@@ -292,6 +412,21 @@
         {
           "name": "Experian",
           "url": "https://www.experian.com/blogs/marketing-forward/ai-programmatic-advertising-2026/"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-05",
+      "theme": "Design & branding",
+      "titre": "Le marché de l'IA générative dans les industries créatives dépasse 5 milliards de dollars en 2026",
+      "synthese": "Le marché de l'IA générative appliquée aux industries créatives (design, branding, contenu visuel) devrait passer de 4,06 milliards de dollars en 2025 à 5,38 milliards en 2026, soit une croissance annuelle de 32,3%. Cette progression s'accompagne d'une adoption massive côté designers : le rapport 2026 de Figma sur l'état du métier indique que 91% des designers utilisent désormais l'IA générative chaque semaine, contre 54% en 2025.",
+      "actionACL": "Former les équipes design/branding aux outils IA générative si ce n'est pas déjà fait, l'usage hebdomadaire devenant la norme du métier.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "INFO",
+      "sources": [
+        {
+          "name": "Figma Resource Library",
+          "url": "https://www.figma.com/resource-library/ai-design-tools/"
         }
       ]
     },
@@ -447,6 +582,21 @@
       ]
     },
     {
+      "date": "2026-07-03",
+      "theme": "CRM & member marketing",
+      "titre": "Le marché de l'IA dans le CRM franchit les 15 milliards de dollars en 2026",
+      "synthese": "Un rapport publié le 3 juillet 2026 estime que le marché mondial de l'IA appliquée au CRM passera de 11,04 milliards de dollars en 2025 à 15,06 milliards de dollars en 2026, soit une croissance annuelle de 36,4%. Le rapport souligne le glissement des CRM d'un rôle de simple suggestion d'actions vers l'exécution autonome (agentic AI), à l'image de Salesforce Agentforce et HubSpot Breeze, qui peuvent désormais initier un contact client sans intervention humaine.",
+      "actionACL": "Cartographier les processus CRM actuels pour identifier lesquels pourraient basculer vers une exécution semi-autonome dans les 12 prochains mois.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "INFO",
+      "sources": [
+        {
+          "name": "GlobeNewswire",
+          "url": "https://www.globenewswire.com/news-release/2026/07/03/3321698/28124/en/ai-innovations-transforming-crm-market-with-advanced-customer-experience-technologies.html"
+        }
+      ]
+    },
+    {
       "date": "2026-07-02",
       "theme": "IA générative en marketing",
       "titre": "ElevenLabs lance Ads Engine pour la localisation publicitaire",
@@ -496,6 +646,21 @@
         {
           "name": "EIN Presswire",
           "url": "https://www.einpresswire.com/article/923614426/audyence-and-demandbase-launch-first-native-integration-for-b2b-lead-generation"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-02",
+      "theme": "CRM & member marketing",
+      "titre": "Zoom annonce l'acquisition de Common Room, plateforme IA de renseignement GTM",
+      "synthese": "Zoom Communications a annoncé le 2 juillet 2026 un accord définitif pour acquérir Common Room, une plateforme IA-native de Go-to-Market qui unifie les données CRM, produit, marketing et d'engagement avec des signaux d'achat réels. Les agents RoomieAI de Common Room automatisent la recherche de comptes/contacts et la personnalisation des messages. Common Room est déjà utilisé par les équipes GTM d'Atlassian, Anthropic, Autodesk, Notion, Okta et Snowflake. La transaction devrait se conclure dans les prochaines semaines.",
+      "actionACL": "Suivre l'intégration de Common Room dans Zoom Revenue Accelerator comme référence pour l'unification des signaux CRM/marketing dans une logique de member marketing.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "Zoom Newsroom",
+          "url": "https://news.zoom.com/zoom-to-acquire-common-room-bringing-buyer-intelligence-to-its-ai-revenue-platform/"
         }
       ]
     },
@@ -598,6 +763,21 @@
         {
           "name": "Figma Help Center",
           "url": "https://help.figma.com/hc/en-us/articles/39582753756695-What-s-new-from-Config-2026"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-01",
+      "theme": "IA générative en marketing",
+      "titre": "HubSpot déploie une vague majeure de mises à jour Breeze AI",
+      "synthese": "HubSpot a lancé l'une de ses plus grosses vagues de mises à jour de l'année début juillet, avec le renommage de Commerce Hub en Revenue Hub et une extension large de Breeze AI (recherche globale, rédaction d'emails, préparation de réunions mobile, intégration Microsoft 365 Copilot). L'Agent de prospection est désormais disponible pour tous les clients payants, plus seulement en accès anticipé. Breeze Projects, l'espace de travail IA partagé, a été redessiné pour l'upload direct de fichiers et la collaboration en équipe.",
+      "actionACL": "Évaluer l'activation de l'Agent de prospection Breeze si HubSpot est utilisé, pour tester la génération automatisée de listes de contacts qualifiés.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "Vantage Point",
+          "url": "https://vantagepoint.io/blog/hs/hubspot-july-2026-product-updates"
         }
       ]
     },
