@@ -79,12 +79,12 @@
   {
     "date": "2026-07-14",
     "acl": {
-      "mobile": 50,
-      "desktop": 31
+      "mobile": 33,
+      "desktop": 47
     },
     "auto": {
-      "mobile": 56,
-      "desktop": 84
+      "mobile": 62,
+      "desktop": 82
     }
   }
 ]
