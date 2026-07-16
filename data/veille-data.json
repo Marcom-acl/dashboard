@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-06-15",
-  "next_edition": "29-06-2026",
+  "generated_at": "2026-07-16",
+  "next_edition": "2026-08-01",
   "editions": [
     {
       "date": "2026-05-03",
@@ -29,9 +29,213 @@
     {
       "date": "2026-06-15",
       "label": "Semaine du 2026-06-15"
+    },
+    {
+      "date": "2026-07-16",
+      "label": "Semaine du 2026-07-16"
     }
   ],
   "items": [
+    {
+      "id": "2026-07-15-oeamtc-1",
+      "date": "2026-07-15",
+      "club": "OEAMTC",
+      "category": "EU",
+      "content": "Nouveau catalogue national uniformisé des amendes routières applicable dès 2027 ; l'OEAMTC salue l'harmonisation mais critique une hausse moyenne de 50% des montants.",
+      "relevance": "Développement réglementaire sur l'harmonisation des sanctions routières, utile en comparaison des politiques de sécurité routière européennes.",
+      "badge": "SURVEILLER",
+      "url": "https://www.ots.at/presseaussendung/OTS_20260715_OTS0059/oeamtc-oesterreichweit-einheitliche-verkehrsstrafen-ab-2027"
+    },
+    {
+      "id": "2026-07-15-acl-1",
+      "date": "2026-07-15",
+      "club": "ACL",
+      "category": "EU",
+      "content": "Renforcement de la gouvernance avec quatre nominations au comité de direction et lancement de l'ACL Mobility Academy, centre de formation interne.",
+      "relevance": "Couverture presse tierce directement liée au Club, utile pour le suivi de l'image médiatique.",
+      "badge": "NOTABLE",
+      "url": "https://paperjam.lu/article/acl-renforce-sa-gouvernance"
+    },
+    {
+      "id": "2026-07-15-acl-2",
+      "date": "2026-07-15",
+      "club": "ACL",
+      "category": "EU",
+      "content": "Lancement de l'ACL Bike Assistance (25 euros par an), assistance 24/7 pour cyclistes et utilisateurs de trottinettes électriques dans un rayon de 50 km des frontières.",
+      "relevance": "Nouveau service membres à fort potentiel de communication, à relayer dans les canaux ACL.",
+      "badge": "NOTABLE",
+      "url": "https://en.paperjam.lu/article/delano_acl-offer-cycle-assistance"
+    },
+    {
+      "id": "2026-07-15-racv-1",
+      "date": "2026-07-15",
+      "club": "RACV",
+      "category": "Monde",
+      "content": "Enquête participative 'My Country Road 2026' avec l'Australian Automobile Association sur 52 tronçons dangereux de routes régionales (19 800 km analysés), ouverte jusqu'au 17 juillet 2026.",
+      "relevance": "Modèle de campagne de plaidoyer routier participatif transposable pour une initiative sur les routes secondaires luxembourgeoises.",
+      "badge": "SURVEILLER",
+      "url": "https://www.racv.com.au/royalauto/news/community/my-country-road-survey.html"
+    },
+    {
+      "id": "2026-07-15-jaf-1",
+      "date": "2026-07-14",
+      "club": "JAF",
+      "category": "Monde",
+      "content": "Étude sur les enfants et animaux enfermés accidentellement dans des véhicules verrouillés (194 interventions de secours en août 2025), alerte sur les zones mortes de réception des clés électroniques.",
+      "relevance": "Campagne sécurité enfants/animaux dans les voitures transposable en communication estivale ACL.",
+      "badge": "INFO",
+      "url": "https://news.yahoo.co.jp/articles/aa79fb8194d7da246962c9858802971cc424235a"
+    },
+    {
+      "id": "2026-07-15-anwb-1",
+      "date": "2026-07-13",
+      "club": "ANWB",
+      "category": "EU",
+      "content": "Comparatif des prix carburant et recharge électrique dans 9 pays de vacances européens : le Luxembourg perd son titre de pays le moins cher à la pompe, dépassé par l'Espagne.",
+      "relevance": "Concerne directement le positionnement tarifaire carburant du Luxembourg, sujet à potentiellement reprendre en communication.",
+      "badge": "NOTABLE",
+      "url": "https://www.anwb.nl/auto/nieuws/2026/juli/spanje-vervangt-luxemburg-als-goedkoopste-tankland-van-europa"
+    },
+    {
+      "id": "2026-07-15-tcb-1",
+      "date": "2026-07-13",
+      "club": "TCB",
+      "category": "EU",
+      "content": "Lancement d'un outil en ligne gratuit pour vérifier vignettes, zones à basses émissions et restrictions selon le pays européen traversé.",
+      "relevance": "Outil de conformité transfrontalière à forte valeur perçue, réplicable pour les trajets des Luxembourgeois vers les pays voisins.",
+      "badge": "NOTABLE",
+      "url": "https://www.touring.be/fr/presse/attendant-que-leurope-harmonise-ses-regles-touring-lance-outil-aider-automobilistes-sy"
+    },
+    {
+      "id": "2026-07-15-mak-1",
+      "date": "2026-07-13",
+      "club": "MAK",
+      "category": "EU",
+      "content": "Communication sur la suspension nocturne de l'interdiction de circulation des poids lourds le week-end du 13-14 juillet, en raison d'une alerte canicule de niveau 3.",
+      "relevance": "Communication de service pratique en période de canicule, comparable à ce que l'ACL pourrait diffuser lors des pics de chaleur au Luxembourg.",
+      "badge": "INFO",
+      "url": "https://www.autoklub.hu/klub/hirek/tajekoztatas-kamionstop/"
+    },
+    {
+      "id": "2026-07-15-aci-1",
+      "date": "2026-07-12",
+      "club": "ACI",
+      "category": "EU",
+      "content": "Convention-cadre de 4 ans ACI-ASI pour développer le karting amateur, avec règles de sécurité communes et coûts réduits.",
+      "relevance": "Partenariat fédération/associations sportives à observer comme modèle pour l'ACL.",
+      "badge": "SURVEILLER",
+      "url": "https://www.areacorse.com/aci-ed-enti-di-promozione-ce-un-primo-accordo/"
+    },
+    {
+      "id": "2026-07-15-tesla-1",
+      "date": "2026-07-09",
+      "club": "Tesla Robotaxi",
+      "category": "Mobilité",
+      "content": "Projet de loi au New Jersey excluant de facto le Cybercab (caméra seule sans lidar/radar) ; Tesla annonce un robotaxi accessible aux fauteuils roulants sans calendrier précis.",
+      "relevance": "Le débat sur les capteurs obligatoires préfigure les futures normes européennes sur les véhicules autonomes.",
+      "badge": "SURVEILLER",
+      "url": "https://electrek.co/2026/07/09/new-jersey-bill-tesla-camera-robotaxi/"
+    },
+    {
+      "id": "2026-07-15-aci-2",
+      "date": "2026-07-08",
+      "club": "ACI",
+      "category": "EU",
+      "content": "Premiers résultats Euro NCAP 2026 du nouveau protocole : BMW iX3 et ZEEKR 7GT obtiennent 5 étoiles.",
+      "relevance": "Relais Euro NCAP utile en communication sécurité pour les membres ACL.",
+      "badge": "SURVEILLER",
+      "url": "https://www.lautomobile.aci.it/attualita/test-euro-ncap-2026-i-risultati-della-prima-sessione/"
+    },
+    {
+      "id": "2026-07-15-tcs-1",
+      "date": "2026-07-08",
+      "club": "TCS",
+      "category": "EU",
+      "content": "Mise en service de la 100e station gratuite 'TCS bike repAIR' (Technopark Berne), réseau couvrant désormais 11 cantons suisses.",
+      "relevance": "Service d'assistance mobilité douce transposable aux membres cyclistes ACL.",
+      "badge": "SURVEILLER",
+      "url": "https://www.presseportal.ch/fr/pm/100000091/100941184"
+    },
+    {
+      "id": "2026-07-15-rac-1",
+      "date": "2026-07-08",
+      "club": "RAC",
+      "category": "EU",
+      "content": "Étude sur les excès de vitesse extrêmes (34 forces de police), relance de la campagne 'Stop Excessive Speeders' et plaidoyer pour l'ISA obligatoire.",
+      "relevance": "Campagne data-driven sur la vitesse et plaidoyer réglementaire transposables au contexte luxembourgeois.",
+      "badge": "NOTABLE",
+      "url": "https://media.rac.co.uk/89mph-in-a-20mph-zone-114mph-in-a-30mph-rac-study-shines-light-on-excessive-speeding"
+    },
+    {
+      "id": "2026-07-15-waymo-1",
+      "date": "2026-07-08",
+      "club": "Waymo",
+      "category": "Mobilité",
+      "content": "Passage en 100% autonome à Las Vegas (sans conducteur de sécurité), extension vers Denver, San Diego et Tampa ; objectif d'un million de courses payantes par semaine fin 2026.",
+      "relevance": "Illustre la vitesse d'expansion du robotaxi américain et les tensions réglementaires sur la sécurité et la cohabitation avec les usagers traditionnels.",
+      "badge": "SURVEILLER",
+      "url": "https://electrek.co/2026/07/08/waymo-driverless-las-vegas-four-new-cities/"
+    },
+    {
+      "id": "2026-07-15-waymo-2",
+      "date": "2026-07-08",
+      "club": "Waymo",
+      "category": "Mobilité",
+      "content": "La NHTSA met en demeure les opérateurs de véhicules autonomes de cesser d'interférer avec les secours ; conflit ouvert entre Uber et Waymo à Washington D.C. sur la législation robotaxi.",
+      "relevance": "Tensions réglementaires émergentes qui préfigurent le débat européen sur la cohabitation autonome/services d'urgence.",
+      "badge": "SURVEILLER",
+      "url": "https://techcrunch.com/2026/07/08/feds-demand-autonomous-vehicle-companies-stop-interfering-with-first-responders/"
+    },
+    {
+      "id": "2026-07-15-adac-1",
+      "date": "2026-07-07",
+      "club": "ADAC",
+      "category": "EU",
+      "content": "Relance de l'ADAC Trips App avec itinéraires préparés par des experts, 'Tour de la semaine' renouvelée, carte interactive et fonctions premium réservées aux membres.",
+      "relevance": "Modèle de plateforme de contenu touristique pour fidéliser les membres, transposable à l'offre digitale ACL.",
+      "badge": "SURVEILLER",
+      "url": "https://www.adac.de/der-adac/verein/corporate-news/adac-trips-app/"
+    },
+    {
+      "id": "2026-07-15-racc-1",
+      "date": "2026-07-07",
+      "club": "RACC",
+      "category": "EU",
+      "content": "Visite institutionnelle à Cornellà de Llobregat pour le 120e anniversaire du RACC.",
+      "relevance": "Communication institutionnelle territoriale, sans nouveau service direct.",
+      "badge": "INFO",
+      "url": "http://saladeprensa.racc.es/el-racc-realiza-una-visita-institucional-en-cornella-con-motivo-de-su-120-aniversario/"
+    },
+    {
+      "id": "2026-07-15-acp-1",
+      "date": "2026-07-07",
+      "club": "ACP",
+      "category": "EU",
+      "content": "Information aux membres sur l'obligation du signal de freinage d'urgence (ESS) sur tous les véhicules neufs immatriculés dans l'UE depuis le 7 juillet 2026.",
+      "relevance": "Sujet réglementaire paneuropéen transposable en communication membres ACL.",
+      "badge": "INFO",
+      "url": "https://www.acp.pt/o-clube/revista-acp/atualidade/detalhe/sinal-de-travagem-de-emergencia-obrigatorio-a-partir-de-7-de-julho"
+    },
+    {
+      "id": "2026-07-15-naf-1",
+      "date": "2026-07-07",
+      "club": "NAF",
+      "category": "EU",
+      "content": "Critique de la signalisation de travaux routiers laissée en place après la fin des chantiers, appel à plus de rigueur.",
+      "relevance": "Angle de plaidoyer sur la qualité de la signalisation routière, thème réplicable pour une prise de position ACL.",
+      "badge": "SURVEILLER",
+      "url": "https://kommunikasjon.ntb.no/pressemelding/18948373/naf-kritiske-til-skilting-som-star-igjen-etter-veiarbeid"
+    },
+    {
+      "id": "2026-07-15-racwa-1",
+      "date": "2026-07-07",
+      "club": "RAC WA",
+      "category": "Monde",
+      "content": "Changement de structure juridique : passage d'une association à une société à responsabilité limitée par garantie, les membres conservant leurs droits de vote.",
+      "relevance": "Évolution de gouvernance à observer si l'ACL envisage une réforme de sa structure juridique à moyen terme.",
+      "badge": "NOTABLE",
+      "url": "https://rac.com.au/about-rac/media/governance-change"
+    },
     {
       "id": "2026-06-15-waymo-1",
       "club": "Waymo",
@@ -634,14 +838,14 @@
     }
   ],
   "trends": [
-    "Consolidation capitalistique des clubs autour des assureurs : AG Insurance prend 100% de Touring SA en Belgique. Les clubs automobiles deviennent des actifs stratégiques pour les groupes d'assurance cherchant à contrôler la chaîne de valeur de la mobilité.",
-    "L'abonnement comme nouveau modèle de fidélisation dans la mobilité : Waymo lance le premier abonnement mensuel robotaxi de l'industrie. Les clubs comme le NAF structurent également des partenariats membres autour de services récurrents.",
-    "La voiture connectée comme déclencheur d'une assistance prédictive : ARC Europe publie deux contenus en juin autour de l'intégration des données véhicule dans l'assistance, transformant le modèle réactif vers un modèle proactif et data-driven."
+    "Modernisation de la gouvernance des clubs automobiles : RAC WA change de statut juridique, l'ACL renforce son comité de direction. Mouvement de fond indépendant des marchés.",
+    "Services pratiques à faible coût et forte valeur perçue : outil de conformité transfrontalière TCB, stations gratuites TCS bike repAIR, ADAC Trips App. La fidélisation passe par des services digitaux simples.",
+    "Pression réglementaire croissante sur les véhicules autonomes des deux côtés de l'Atlantique : NHTSA, New Jersey, lobbying Uber-Waymo. Des précédents qui nourriront le débat réglementaire européen."
   ],
   "signals": [
-    "Consolidation clubs/assureurs (récurrence) : pour la 2e édition consécutive, un assureur prend le contrôle d'un club automobile. Cette dynamique de rapprochement structurel semble s'accélérer en Europe et dans le monde.",
-    "Pression des constructeurs chinois (récurrence) : BYD et Xiaomi cités dans plusieurs sources. Croissance BYD en Europe +144% sur 5 mois, implantation industrielle en Hongrie — préparation nécessaire des services d'assistance pour ces véhicules.",
-    "Modèle d'abonnement pour la mobilité (nouveauté émergente) : le lancement du Premier de Waymo introduit un abonnement mensuel dans les services robotaxi, reflétant une logique de fidélisation proche du modèle club.",
-    "Lobbying politique des clubs automobiles (récurrence) : pour la 2e fois ce mois, un club (FDM Danemark) utilise une occasion institutionnelle nationale pour un plaidoyer fiscal en faveur des automobilistes."
+    "Récurrence : percée des constructeurs chinois dans les partenariats d'assistance routière (CHERY-RAC, vigilance ARC Europe sur Xiaomi et BYD). Signal récurrent depuis plusieurs semaines, décision attendue de BYD sur sa 2e usine européenne.",
+    "Nouveauté : Waze propulsé par Gemini (navigation personnalisée, recherche conversationnelle, mode Moto). Accélération de la concurrence des plateformes cartographiques sur les services aux automobilistes.",
+    "Nouveauté : consolidation de l'insurtech européen (1,68 Md€ levés au S1 2026, concentrés sur peu d'acteurs). Signal à surveiller pour d'éventuels partenariats assurance auto ACL.",
+    "Nouveauté : financement mobilité européen record au T2 2026 (24 Md$, +66% sur un an). Dynamisme du secteur à suivre, aucune levée spécifique à l'assistance routière identifiée cette semaine."
   ]
 }
