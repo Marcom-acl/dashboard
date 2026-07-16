@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-15",
+  "generated_at": "2026-07-16",
   "items": [
     {
       "date": "2026-07-14",
@@ -13,6 +13,51 @@
         {
           "name": "CreativeAI.fr",
           "url": "https://creativeai.fr/2026/07/14/ia-pour-creer-du-contenu-marketeurs-2026/"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-14",
+      "theme": "IA générative en marketing",
+      "titre": "80% des marketeurs utilisent déjà l'IA pour créer du contenu (HubSpot)",
+      "synthese": "Selon le State of Marketing 2026 de HubSpot, 80% des marketeurs utilisent désormais l'IA pour créer du contenu et 75% pour la production média (visuels, scripts vidéo, formats sociaux). L'IA n'est plus cantonnée à l'idéation mais s'intègre dans la fabrication quotidienne des contenus. Un écart organisationnel demeure toutefois : 96% des CMOs jugent que l'IA transforme leur fonction de bout en bout, mais seuls 8% font tourner des campagnes avec plusieurs agents IA pleinement autonomes.",
+      "actionACL": "Cartographier les tâches de production de contenu ACL pouvant être déléguées à l'IA (premier jet, déclinaisons multi-formats) pour prioriser les cas d'usage à fort ROI.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "CreativeAI.fr",
+          "url": "https://creativeai.fr/2026/07/14/ia-pour-creer-du-contenu-marketeurs-2026/"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-14",
+      "theme": "CRM & member marketing",
+      "titre": "Dovetail lance des agents IA autonomes et des jumeaux numériques clients",
+      "synthese": "Dovetail a annoncé le 14 juillet 2026 une extension majeure de sa plateforme avec des agents IA opérant de façon autonome en arrière-plan : surveillance des signaux clients, remontée d'insights et routage de l'intelligence vers les bonnes équipes. La plateforme introduit aussi des jumeaux numériques (Digital Twins) construits à partir d'appels, tickets et études réelles, pour simuler et anticiper le comportement client. L'objectif est de rendre la connaissance client continue plutôt que ponctuelle.",
+      "actionACL": "Suivre l'évolution de ce type d'agents de veille client automatisée comme piste possible pour la gestion de la relation membre à moyen terme.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "MarTech",
+          "url": "https://martech.org/the-latest-ai-powered-martech-news-and-releases/"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-14",
+      "theme": "Design & branding",
+      "titre": "Meta lance Muse Image, son premier modèle de génération d'images",
+      "synthese": "Meta a lancé Muse Image, le premier modèle de génération d'images de Meta Superintelligence Labs, capable de comprendre des prompts complexes et de fusionner plusieurs photos en une seule création de haute qualité. Le modèle alimente déjà des expériences créatives sur Instagram et WhatsApp, et arrivera prochainement sur Facebook, Messenger, ainsi que pour les annonceurs via Meta Advantage+ creative. Cette sortie renforce la compétition entre grands acteurs (Meta, Google, Adobe, Midjourney) sur la génération d'images à usage marketing et publicitaire.",
+      "actionACL": "Tester Muse Image et Advantage+ creative dès leur disponibilité pour la génération de visuels publicitaires Meta, en comparant qualité et cohérence de marque avec les outils déjà utilisés.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "Meta Newsroom",
+          "url": "https://about.fb.com/news/2026/07/introducing-muse-image-meta-ai/"
         }
       ]
     },
@@ -32,6 +77,21 @@
       ]
     },
     {
+      "date": "2026-07-13",
+      "theme": "IA générative en marketing",
+      "titre": "Profound lance en bêta Ads Studio, publicité conçue pour les conversations IA",
+      "synthese": "Profound a ouvert sur invitation la bêta d'Ads Studio, un outil qui mesure et génère des publicités destinées aux conversations dans les moteurs IA (ChatGPT, Perplexity, etc.). La plateforme s'appuie sur un corpus de 1,9 milliard de prompts réels pour relier visibilité organique, part de voix payante et pertinence publicitaire. Elle vise à répondre à la montée du trafic généré par les réponses IA plutôt que par les moteurs de recherche classiques. Selon Sensor Tower, une majorité de sites recevront dès 2026 plus de trafic depuis l'IA que depuis la publicité payante.",
+      "actionACL": "Évaluer si les contenus ACL sont correctement indexés et cités par les moteurs IA (ChatGPT, Perplexity) ; envisager un audit de visibilité IA en complément du SEO classique.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "CreativeAI.fr",
+          "url": "https://creativeai.fr/2026/07/13/ia-creative-2026-07-13/"
+        }
+      ]
+    },
+    {
       "date": "2026-07-10",
       "theme": "Design & branding",
       "titre": "Comparatif 2026 des meilleurs outils IA de design actualisé",
@@ -39,6 +99,36 @@
       "actionACL": "Lors du choix d'un outil IA de génération graphique pour ACL, prioriser la cohérence avec la charte graphique existante et la sécurité des droits d'usage commercial plutôt que la seule qualité visuelle.",
       "horizon": "court terme (0-3 mois)",
       "badge": "INFO",
+      "sources": [
+        {
+          "name": "Krumzi",
+          "url": "https://www.krumzi.com/blog/best-ai-design-tools-in-2026-12-picks-for-stunning-visuals-without-design-skills"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-10",
+      "theme": "Social & Ads",
+      "titre": "Meta et Google renforcent l'étiquetage des publicités générées par IA",
+      "synthese": "Meta a mis à jour les règles de divulgation publicitaire sur Facebook et Instagram pour identifier automatiquement les publicités créées ou significativement modifiées par IA générative, y compris via détection de métadonnées d'outils tiers comme Photoshop ou DALL-E. Google a annoncé une mesure similaire, avec un étiquetage des publicités IA sur Search, YouTube et Discover, accompagné d'un panneau 'How this ad was made' dans My Ad Center. Ces mesures répondent à une défiance croissante : 57% des consommateurs se disent inquiets des fausses publicités générées par IA.",
+      "actionACL": "Anticiper ces obligations de transparence en documentant en interne quels visuels ou textes publicitaires ACL impliquent de l'IA générative.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "MarketingProfs - AI Update",
+          "url": "https://www.marketingprofs.com/opinions/2026/55247/ai-update-july-10-2026-ai-news-and-views-from-the-past-week"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-10",
+      "theme": "Design & branding",
+      "titre": "Canva AI 2.0 introduit 'Brand Intelligence' pour l'application automatique de l'identité de marque",
+      "synthese": "Canva a intégré à sa suite AI 2.0 la fonctionnalité Brand Intelligence, qui applique automatiquement les polices, couleurs et styles de marque dès la première génération d'un design, sans configuration manuelle préalable. Cette évolution positionne Canva en concurrence directe avec Adobe et des entrants comme Gamma sur l'automatisation de la cohérence de marque. Elle répond à un besoin croissant des équipes marketing de produire rapidement des visuels conformes à la charte graphique sans validation systématique.",
+      "actionACL": "Si Canva est déjà utilisé en interne, activer et paramétrer Brand Intelligence avec la charte graphique ACL pour accélérer la production de visuels conformes.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "SURVEILLER",
       "sources": [
         {
           "name": "Krumzi",
@@ -88,6 +178,51 @@
         {
           "name": "Salesforce",
           "url": "https://www.salesforce.com/products/innovation/releases/"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-09",
+      "theme": "IA générative en marketing",
+      "titre": "OpenAI lance ChatGPT Work, un agent produisant des livrables complets",
+      "synthese": "OpenAI a lancé le 9 juillet 2026 ChatGPT Work, un agent dédié au travail capable de produire des livrables concrets (documents, tableurs) en s'appuyant sur le modèle GPT-5.6. L'outil récupère du contexte depuis les applications connectées de l'entreprise et peut travailler de façon autonome sur des tâches complexes. Il vise directement les usages marketing et opérationnels en entreprise, en concurrence avec les outils d'automatisation existants.",
+      "actionACL": "Tester ChatGPT Work sur un cas d'usage marketing concret (brief créatif, rapport de veille) pour évaluer le gain de temps réel avant adoption.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "MarketingProfs - AI Update",
+          "url": "https://www.marketingprofs.com/opinions/2026/55247/ai-update-july-10-2026-ai-news-and-views-from-the-past-week"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-09",
+      "theme": "CRM & member marketing",
+      "titre": "Multiply lance '10 Minute ABM' pour générer des publicités de comptes personnalisées",
+      "synthese": "Multiply a lancé le 9 juillet 2026 '10 Minute ABM', un outil permettant de générer en quelques minutes des centaines de publicités personnalisées pour des comptes stratégiques (Account-Based Marketing). La solution s'appuie sur l'IA générative pour automatiser la création à grande échelle tout en conservant une personnalisation fine par compte cible. Elle s'inscrit dans la tendance de fond de l'hyper-personnalisation CRM portée par l'IA.",
+      "actionACL": "Étudier les outils d'ABM automatisé par IA si des campagnes ciblées vers des comptes ou membres stratégiques sont envisagées.",
+      "horizon": "long terme (>12 mois)",
+      "badge": "INFO",
+      "sources": [
+        {
+          "name": "MarTech",
+          "url": "https://martech.org/the-latest-ai-powered-martech-news-and-releases/"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-09",
+      "theme": "Social & Ads",
+      "titre": "TikTok interdit les voix générées par IA dans les lives shopping",
+      "synthese": "TikTok a interdit l'usage de voix générées par IA dans les diffusions en direct de shopping (live shopping), en réponse à la défiance grandissante des consommateurs envers le contenu généré par IA non divulgué. Cette décision fait suite à des études montrant que la détection de contenu IA non signalé multiplie par environ quatre le risque de perte de confiance envers la marque. La mesure s'inscrit dans un mouvement plus large de régulation des usages IA sur les plateformes sociales orientées vente.",
+      "actionACL": "Si des vidéos ou lives avec voix off IA sont envisagés pour la communication ACL, prévoir une divulgation claire de l'usage de l'IA pour préserver la confiance.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "b2the7",
+          "url": "https://www.b2the7.com/news-blog/marketing-trends-july-2026-ai-search-tiktok-data"
         }
       ]
     },
@@ -177,6 +312,36 @@
       "sources": [
         {
           "name": "The Agile Brand Guide",
+          "url": "https://agilebrandguide.com/yesterdays-marketing-technology-ai-news-july-8-2026/"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-08",
+      "theme": "CRM & member marketing",
+      "titre": "Salesforce intègre des capacités MCP à Slackbot",
+      "synthese": "Salesforce a lancé le 8 juillet 2026 des capacités propulsées par le Model Context Protocol (MCP) pour Slackbot, permettant d'accéder directement dans Slack aux données CRM Salesforce, aux analyses Tableau, à Data 360, aux agents IA et aux workflows métier. Cette intégration rapproche les données client et les outils d'automatisation de l'interface conversationnelle utilisée quotidiennement par les équipes. Elle s'inscrit dans la croissance du marché CRM propulsé par l'IA, évalué à 15,06 milliards de dollars en 2026 (+36,4% par an).",
+      "actionACL": "Si l'organisation utilise Slack et un CRM connecté, évaluer l'intérêt de remonter les données membres/adhérents directement dans les canaux d'équipe pour accélérer le suivi.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "MarTech",
+          "url": "https://martech.org/the-latest-ai-powered-martech-news-and-releases/"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-08",
+      "theme": "Social & Ads",
+      "titre": "Guideline étend le suivi de la publicité IA à ChatGPT et Perplexity",
+      "synthese": "Guideline a étendu son jeu de données Ad Intelligence pour capturer l'activité publicitaire vérifiée et transactionnelle sur les plateformes IA telles que ChatGPT et Perplexity. Ce jeu de données représente désormais environ 200 milliards de dollars d'investissements médias annuels dans 65 pays. Cette extension illustre la montée en puissance des plateformes conversationnelles comme canal publicitaire à part entière, aux côtés des moteurs de recherche et réseaux sociaux traditionnels.",
+      "actionACL": "Surveiller l'émergence de la publicité sur les plateformes conversationnelles IA comme nouveau canal potentiel, sans action immédiate requise.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "Agile Brand Guide",
           "url": "https://agilebrandguide.com/yesterdays-marketing-technology-ai-news-july-8-2026/"
         }
       ]
@@ -966,6 +1131,21 @@
         {
           "name": "Vantage Point",
           "url": "https://vantagepoint.io/blog/hs/hubspot-july-2026-product-updates"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-01",
+      "theme": "Design & branding",
+      "titre": "Google lance Gemini 3.1 Flash Image et Gemini 3 Pro Image",
+      "synthese": "Google a publié deux nouveaux modèles de génération d'images : Gemini 3.1 Flash Image, orienté rapidité, et Gemini 3 Pro Image, positionné sur la qualité pour les usages design, marketing et production créative en entreprise. Ces modèles renforcent l'offre de Google face à Midjourney, Adobe Firefly et désormais Meta Muse Image sur le segment de la création visuelle professionnelle. Ils s'inscrivent dans une compétition accrue entre grands acteurs IA sur la qualité et la fidélité de marque des images générées.",
+      "actionACL": "Comparer Gemini 3 Pro Image à Adobe Firefly et Midjourney sur des cas d'usage concrets ACL (visuels réseaux sociaux, illustrations de rapports) avant de choisir un outil principal.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "INFO",
+      "sources": [
+        {
+          "name": "buildfastwithai.com",
+          "url": "https://www.buildfastwithai.com/blogs/ai-news-today-july-1-2026"
         }
       ]
     },
