@@ -5272,8 +5272,7 @@ function renderVeillePresse(d) {
   const byDate = {};
   ALL.forEach(i => { if (!byDate[i.date]) byDate[i.date] = []; byDate[i.date].push(i); });
   const dates = Object.keys(byDate).sort((a,b) => b.localeCompare(a));
-  const latestDate = dates[0];
-  const latestItems = byDate[latestDate];
+  let currentDateIdx = 0;
 
   function dateLabel(iso) {
     const months = ['','janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
@@ -5281,12 +5280,17 @@ function renderVeillePresse(d) {
     return parseInt(p[2]) + ' ' + months[parseInt(p[1])] + ' ' + p[0];
   }
 
+  function dateLabelShort(iso) {
+    const months = ['','jan','fév','mars','avr','mai','juin','juil','août','sep','oct','nov','déc'];
+    const p = iso.split('-');
+    return parseInt(p[2]) + ' ' + months[parseInt(p[1])];
+  }
+
   function badgeHtml(b) {
     const styles = { NOTABLE: 'background:#e8f4e8;color:#2d6a2d;', SURVEILLER: 'background:#FFF8DC;color:#8B6914;', INFO: 'background:#f0f0f0;color:#666;' };
     return `<span style="display:inline-block;font-size:10px;font-weight:700;padding:2px 7px;border-radius:3px;letter-spacing:.05em;text-transform:uppercase;${styles[b]||styles.INFO}">${b}</span>`;
   }
 
-  // Construire la synthèse du jour à partir des données
   function buildSynthesis(items) {
     const notable    = items.filter(i => i.badge === 'NOTABLE');
     const surveiller = items.filter(i => i.badge === 'SURVEILLER');
@@ -5299,6 +5303,7 @@ function renderVeillePresse(d) {
         <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#c0392b;margin-bottom:6px">ACL mentionné (${aclCites.length})</div>
         ${aclCites.map(i => `<div style="font-size:13px;line-height:1.5;padding:6px 10px;background:rgba(231,76,60,.07);border-left:3px solid #e74c3c;border-radius:0 4px 4px 0;margin-bottom:5px">
           <strong>${i.club}</strong> — ${i.content}
+          ${i.url ? `<div style="margin-top:4px"><a href="${i.url}" target="_blank" rel="noopener" style="font-size:11px;color:#c0392b;text-decoration:none;font-weight:600">Lire l'article →</a></div>` : ''}
           <div style="font-size:11px;color:#888;margin-top:3px;font-style:italic">${i.relevance}</div>
         </div>`).join('')}
       </div>`;
@@ -5308,7 +5313,8 @@ function renderVeillePresse(d) {
       html += `<div style="margin-bottom:14px">
         <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#2d6a2d;margin-bottom:6px">À retenir — Notable (${notable.length})</div>
         ${notable.map(i => `<div style="font-size:13px;line-height:1.5;padding:6px 10px;background:rgba(45,106,45,.06);border-left:3px solid #2d6a2d;border-radius:0 4px 4px 0;margin-bottom:5px">
-          ${i.url ? `<a href="${i.url}" target="_blank" rel="noopener" style="font-weight:700;color:inherit;text-decoration:none">${i.club}</a>` : `<strong>${i.club}</strong>`} — ${i.content}
+          <strong>${i.club}</strong> — ${i.content}
+          ${i.url ? `<div style="margin-top:4px"><a href="${i.url}" target="_blank" rel="noopener" style="font-size:11px;color:#2d6a2d;text-decoration:none;font-weight:600">Lire l'article →</a></div>` : ''}
         </div>`).join('')}
       </div>`;
     }
@@ -5316,8 +5322,9 @@ function renderVeillePresse(d) {
     if (surveiller.length) {
       html += `<div>
         <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#8B6914;margin-bottom:6px">À surveiller (${surveiller.length})</div>
-        ${surveiller.map(i => `<div style="font-size:13px;line-height:1.5;color:#555;padding-left:12px;position:relative;margin-bottom:5px"><span style="position:absolute;left:0;color:#e6b800">▸</span>
+        ${surveiller.map(i => `<div style="font-size:13px;line-height:1.5;color:#555;padding:5px 10px 5px 14px;position:relative;margin-bottom:4px;border-left:2px solid #FEDB00">
           <strong>${i.club}</strong> — ${i.content}
+          ${i.url ? `<div style="margin-top:3px"><a href="${i.url}" target="_blank" rel="noopener" style="font-size:11px;color:#8B6914;text-decoration:none;font-weight:600">Lire l'article →</a></div>` : ''}
         </div>`).join('')}
       </div>`;
     }
@@ -5325,50 +5332,74 @@ function renderVeillePresse(d) {
     return html || '<div style="color:var(--muted);font-size:13px">Aucun point saillant identifié pour cette édition.</div>';
   }
 
-  // Render par édition
-  function renderEdition(date, items) {
+  function renderEditionContent(date, items) {
     const notable = items.filter(i => i.badge === 'NOTABLE').length;
     const acl     = items.filter(i => i.relevance && i.relevance.startsWith('ACL explicitement cité')).length;
+
+    const navBtns = dates.map((dt, idx) => {
+      const active = idx === currentDateIdx;
+      return `<button onclick="window._vpDate(${idx})" style="border:1px solid ${active ? '#231f20' : 'var(--border)'};border-radius:99px;padding:4px 14px;font-size:12px;font-weight:${active ? '700' : '400'};background:${active ? '#231f20' : 'var(--surface)'};color:${active ? '#FEDB00' : 'var(--text)'};cursor:pointer;font-family:inherit;white-space:nowrap">${dateLabelShort(dt)}</button>`;
+    }).join('');
+
+    const prevDisabled = currentDateIdx >= dates.length - 1;
+    const nextDisabled = currentDateIdx <= 0;
+
     return `
-      <div style="margin-bottom:28px">
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
-          <h3 style="font-size:15px;font-weight:700;margin:0">Édition du ${dateLabel(date)}</h3>
-          <span style="font-size:11px;background:#f0f0f0;color:#555;padding:2px 9px;border-radius:99px">${items.length} articles</span>
-          ${notable ? `<span style="font-size:11px;background:#e8f4e8;color:#2d6a2d;padding:2px 9px;border-radius:99px">${notable} notable${notable>1?'s':''}</span>` : ''}
-          ${acl ? `<span style="font-size:11px;background:rgba(231,76,60,.1);color:#c0392b;padding:2px 9px;border-radius:99px">ACL cité ${acl}×</span>` : ''}
+      <!-- Navigation dates -->
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;flex-wrap:wrap">
+        <button onclick="window._vpDate(${currentDateIdx + 1})" ${prevDisabled ? 'disabled' : ''} style="border:1px solid var(--border);border-radius:6px;padding:4px 10px;font-size:15px;background:var(--surface);color:var(--text);cursor:pointer;opacity:${prevDisabled ? '.3' : '1'};pointer-events:${prevDisabled ? 'none' : 'auto'}">&#8249;</button>
+        <div style="display:flex;gap:6px;flex-wrap:wrap">${navBtns}</div>
+        <button onclick="window._vpDate(${currentDateIdx - 1})" ${nextDisabled ? 'disabled' : ''} style="border:1px solid var(--border);border-radius:6px;padding:4px 10px;font-size:15px;background:var(--surface);color:var(--text);cursor:pointer;opacity:${nextDisabled ? '.3' : '1'};pointer-events:${nextDisabled ? 'none' : 'auto'}">&#8250;</button>
+      </div>
+
+      <!-- Synthèse -->
+      <div style="background:var(--surface);border:1px solid var(--border);border-top:3px solid #FEDB00;border-radius:var(--r-md);padding:20px 24px;margin-bottom:20px">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+          <div style="font-size:14px;font-weight:700">Synthèse — ${dateLabel(date)}</div>
+          <span style="font-size:11px;color:var(--muted);background:var(--surface-2,#f5f5f5);padding:2px 8px;border-radius:99px;border:1px solid var(--border)">${items.length} articles</span>
+          ${notable ? `<span style="font-size:11px;background:#e8f4e8;color:#2d6a2d;padding:2px 8px;border-radius:99px">${notable} notable${notable>1?'s':''}</span>` : ''}
+          ${acl ? `<span style="font-size:11px;background:rgba(231,76,60,.1);color:#c0392b;padding:2px 8px;border-radius:99px">ACL cité ${acl}×</span>` : ''}
         </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-          ${items.map(item => `
-          <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px;display:flex;flex-direction:column;gap:8px">
-            <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px">
-              <div style="font-weight:700;font-size:13px">${item.url ? `<a href="${item.url}" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;border-bottom:1px dotted var(--border)">${item.club}</a>` : item.club}</div>
-              ${badgeHtml(item.badge)}
-            </div>
-            <div style="font-size:13px;line-height:1.5;color:var(--text)">${item.content}</div>
-            ${item.relevance && item.relevance.startsWith('ACL') ? `<div style="font-size:11px;color:#c0392b;font-style:italic;border-top:1px solid var(--border);padding-top:6px">${item.relevance}</div>` : ''}
-          </div>`).join('')}
-        </div>
+        ${buildSynthesis(items)}
+      </div>
+
+      <!-- Grille articles -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:12px">
+        ${items.map(item => `
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px;display:flex;flex-direction:column;gap:8px">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px">
+            <div style="font-weight:700;font-size:13px">${item.club}</div>
+            ${badgeHtml(item.badge)}
+          </div>
+          <div style="font-size:13px;line-height:1.55;color:var(--text);flex:1">${item.content}</div>
+          ${item.relevance && item.relevance.startsWith('ACL') ? `<div style="font-size:11px;color:#c0392b;font-style:italic;padding-top:6px;border-top:1px solid var(--border)">${item.relevance}</div>` : ''}
+          ${item.url ? `<a href="${item.url}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:600;color:#231f20;background:#FEDB00;border-radius:4px;padding:5px 10px;text-decoration:none;align-self:flex-start;margin-top:auto">Lire l'article <span style="font-size:14px">→</span></a>` : ''}
+        </div>`).join('')}
       </div>`;
+  }
+
+  function refresh() {
+    const date  = dates[currentDateIdx];
+    const items = byDate[date];
+    const content = document.getElementById('vp-content');
+    if (content) content.innerHTML = renderEditionContent(date, items);
   }
 
   el.innerHTML = `
     <div class="sec-title"><h2>Veille presse LU</h2><div class="line"></div>
       <span class="src-pill" style="--src:#EF4444;--src-bg:rgba(239,68,68,.08)">Saaskia · Presse luxembourgeoise</span>
     </div>
-
-    <!-- Synthèse du jour -->
-    <div style="background:var(--surface);border:1px solid var(--border);border-top:3px solid #FEDB00;border-radius:var(--r-md);padding:20px 24px;margin-bottom:20px">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
-        <div style="font-size:14px;font-weight:700">Synthèse — ${dateLabel(latestDate)}</div>
-        <span style="font-size:11px;color:var(--muted);background:var(--surface-2,#f5f5f5);padding:2px 8px;border-radius:99px;border:1px solid var(--border)">${latestItems.length} articles analysés</span>
-      </div>
-      ${buildSynthesis(latestItems)}
-    </div>
-
-    <!-- Éditions -->
-    ${dates.map(dt => renderEdition(dt, byDate[dt])).join('')}
+    <div id="vp-content"></div>
   `;
 
+  window._vpDate = function(idx) {
+    if (idx < 0 || idx >= dates.length) return;
+    currentDateIdx = idx;
+    refresh();
+    document.getElementById('panel-veille-presse').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
+  refresh();
   animateCards(el);
 }
 
