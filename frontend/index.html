@@ -11,9 +11,9 @@
   <style>
 
     /* ─── FaricyNew ─────────────────────────────────────────────── */
-    @font-face { font-family:'FaricyNew'; src:url('../../Ressources/WOFF2/FaricyNewBold.woff2') format('woff2'); font-weight:700; font-style:normal; }
-    @font-face { font-family:'FaricyNew'; src:url('../../Ressources/WOFF2/FaricyNew-BoldItalic.woff2') format('woff2'); font-weight:700; font-style:italic; }
-    @font-face { font-family:'FaricyNew'; src:url('../../Ressources/WOFF2/FaricyNewMedium.woff2') format('woff2'); font-weight:500; font-style:normal; }
+    @font-face { font-family:'FaricyNew'; src:url('fonts/FaricyNewBold.woff2') format('woff2'); font-weight:700; font-style:normal; }
+    @font-face { font-family:'FaricyNew'; src:url('fonts/FaricyNew-BoldItalic.woff2') format('woff2'); font-weight:700; font-style:italic; }
+    @font-face { font-family:'FaricyNew'; src:url('fonts/FaricyNewMedium.woff2') format('woff2'); font-weight:500; font-style:normal; }
 
     /* ─── ACL DESIGN TOKENS ─────────────────────────────────────── */
     :root {
@@ -1629,10 +1629,11 @@ async function apiSlow(path) {
   return data;
 }
 
-// Variante YTD — ignore le filtre de période, force 2026-01-01 → aujourd'hui
+// Variante YTD — ignore le filtre de période, force le 1er janvier de l'année en cours → aujourd'hui
 async function apiYtd(path) {
-  const today  = new Date().toISOString().slice(0, 10);
-  const params = new URLSearchParams({ start: '2026-01-01', end: today });
+  const today    = new Date().toISOString().slice(0, 10);
+  const ytdStart = `${new Date().getFullYear()}-01-01`;
+  const params   = new URLSearchParams({ start: ytdStart, end: today });
   const url    = `${API_BASE}${path}?${params}`;
   const r = await fetch(url, {signal: AbortSignal.timeout(30000)});
   if (!r.ok) throw new Error(`${path} YTD: HTTP ${r.status}`);
@@ -1746,7 +1747,7 @@ function updateStatus(id, ok) {
 }
 
 // ── CALENDRIER MARKETING 2026 ────────────────────────────────
-const MKTCAL_2026 = [
+const MKTCAL = [
   {date:"2026-05-26",event:"Journée mondiale du challenge",category:"Journée mondiale"},
   {date:"2026-05-27",event:"Journée mondiale de la loutre",category:"Journée mondiale"},
   {date:"2026-05-28",event:"Journée internationale de la santé des femmes",category:"Journée mondiale"},
@@ -1824,6 +1825,29 @@ const MKTCAL_2026 = [
   {date:"2026-12-25",event:"Noël (jour férié LU)",category:"Jour férié LU"},
   {date:"2026-12-26",event:"Saint-Étienne (jour férié LU)",category:"Jour férié LU"},
   {date:"2026-12-31",event:"Réveillon / Saint-Sylvestre",category:"Fête"},
+  // 2027
+  {date:"2027-01-01",event:"Jour de l'An",category:"Jour férié LU"},
+  {date:"2027-02-14",event:"Saint-Valentin",category:"Fête"},
+  {date:"2027-03-08",event:"Journée internationale des droits des femmes",category:"Journée mondiale"},
+  {date:"2027-03-21",event:"Journée mondiale de la forêt / Printemps",category:"RSE"},
+  {date:"2027-04-01",event:"Poisson d'avril",category:"Fête"},
+  {date:"2027-04-22",event:"Journée de la Terre",category:"RSE"},
+  {date:"2027-05-01",event:"Fête du Travail",category:"Jour férié LU"},
+  {date:"2027-05-09",event:"Journée de l'Europe",category:"Journée mondiale"},
+  {date:"2027-05-30",event:"Fête des Mères",category:"Fête"},
+  {date:"2027-06-03",event:"Journée mondiale du vélo",category:"Journée mondiale"},
+  {date:"2027-06-05",event:"Journée mondiale de l'environnement",category:"RSE"},
+  {date:"2027-06-20",event:"Fête des Pères / Été",category:"Fête"},
+  {date:"2027-06-23",event:"Fête Nationale Luxembourg",category:"Jour férié LU"},
+  {date:"2027-09-22",event:"Journée mondiale sans voiture",category:"RSE"},
+  {date:"2027-10-04",event:"Journée mondiale des animaux",category:"RSE"},
+  {date:"2027-10-31",event:"Halloween",category:"Fête"},
+  {date:"2027-11-11",event:"Jour de l'Armistice",category:"Jour férié LU"},
+  {date:"2027-12-06",event:"Saint-Nicolas",category:"Fête"},
+  {date:"2027-12-24",event:"Veille de Noël",category:"Fête"},
+  {date:"2027-12-25",event:"Noël (jour férié LU)",category:"Jour férié LU"},
+  {date:"2027-12-26",event:"Saint-Étienne (jour férié LU)",category:"Jour férié LU"},
+  {date:"2027-12-31",event:"Réveillon / Saint-Sylvestre",category:"Fête"},
 ];
 
 const CAL_COLORS = {
@@ -1849,7 +1873,7 @@ function renderCalendar() {
   const in60  = new Date(today); in60.setDate(today.getDate() + 60);
   const in30  = new Date(today); in30.setDate(today.getDate() + 30);
 
-  const upcoming = MKTCAL_2026
+  const upcoming = MKTCAL
     .map(e => ({...e, dt: new Date(e.date + 'T00:00:00')}))
     .filter(e => e.dt >= today)
     .sort((a, b) => a.dt - b.dt);
@@ -3656,7 +3680,7 @@ function renderObjectives({dFBP, dFB, dBrevo, dFBPytd, dFBytd}) {
   // Posts YTD + rythme annuel
   const sportYtdPosts   = sportYtd.posts_count   || 0;
   const kartingYtdPosts = kartingYtd.posts_count || 0;
-  const ytdDays         = Math.max(1, Math.round((new Date() - new Date('2026-01-01')) / 86400000));
+  const ytdDays         = Math.max(1, Math.round((new Date() - new Date(`${new Date().getFullYear()}-01-01`)) / 86400000));
   const sportYtdWkly    = +(sportYtdPosts   / ytdDays * 7).toFixed(1);
   const kartingYtdWkly  = +(kartingYtdPosts / ytdDays * 7).toFixed(1);
   const sportAnnual     = Math.round(sportYtdPosts   / ytdDays * 365);
@@ -5126,7 +5150,7 @@ function renderVeille(d) {
       <div><label style="font-size:11px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-right:4px">Édition</label>
         <select id="vFDate" style="${selStyle()}"><option value="">Toutes</option>${uniqDates.map(dt=>`<option value="${dt}">Édition du ${dateLabel(dt)}</option>`).join('')}</select></div>
       <div><label style="font-size:11px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-right:4px">Catégorie</label>
-        <select id="vFCat" style="${selStyle()}"><option value="">Toutes</option><option value="EU">Clubs EU</option><option value="Monde">Clubs monde</option><option value="Mobilité">Acteurs mobilité</option></select></div>
+        <select id="vFCat" style="${selStyle()}"><option value="">Toutes</option><option value="EU">Clubs EU</option><option value="Monde">Clubs monde</option><option value="Mobilité">Acteurs mobilité</option><option value="Veille presse LU">Veille presse LU</option></select></div>
       <div><label style="font-size:11px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-right:4px">Niveau</label>
         <select id="vFBadge" style="${selStyle()}"><option value="">Tous</option><option value="NOTABLE">Notable</option><option value="SURVEILLER">Surveiller</option><option value="INFO">Info</option></select></div>
       <div><label style="font-size:11px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-right:4px">Recherche</label>
