@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-16",
+  "generated_at": "2026-07-17",
   "items": [
     {
       "date": "2026-07-14",
@@ -137,6 +137,44 @@
       ]
     },
     {
+      "date": "2026-07-10",
+      "theme": "CRM & member marketing",
+      "titre": "Étude Gartner: les suppressions de postes liées à l'IA n'améliorent pas fiablement le retour sur investissement",
+      "synthese": "Environ 80% des grandes organisations pilotant ou déployant des technologies autonomes ont réduit leurs effectifs, mais Gartner constate des taux de suppression de postes quasi identiques entre les entreprises obtenant de bons résultats et celles rapportant des résultats modestes ou négatifs. La réduction d'effectifs créerait surtout de la marge budgétaire plutôt que de la valeur business. Les organisations obtenant de meilleurs résultats investissent dans les compétences, de nouveaux rôles et la gouvernance. Gartner prévoit que l'IA autonome deviendra créatrice nette d'emplois d'ici 2028-2029.",
+      "actionACL": "Ne pas présenter la réduction d'effectifs comme le principal argument business pour l'adoption d'agents IA en marketing/CRM; privilégier la formation des équipes et la redéfinition des rôles pour capter la valeur.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "Gartner",
+          "url": "https://www.gartner.com/en/newsroom/press-releases/2026-05-05-gartner-says-autonomous-business-and-artificial-intelligence-layoffs-may-create-budget-room-but-do-not-deliver-returns"
+        },
+        {
+          "name": "MarketingProfs - AI Update July 10, 2026",
+          "url": "https://www.marketingprofs.com/opinions/2026/55247/ai-update-july-10-2026-ai-news-and-views-from-the-past-week"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-10",
+      "theme": "Social & Ads",
+      "titre": "LinkedIn ajoute cinq outils IA pour générer et tester davantage de variantes publicitaires",
+      "synthese": "LinkedIn a introduit cinq outils dans Campaign Manager destinés aux petits annonceurs: Brand Kit (standards visuels et de message), Draft with AI (génération de copy), Ads Personalization (adaptation selon les attributs professionnels), AI ad variants (nouveaux titres et accroches) et Flexible Ad Creation (combinaison d'assets fournis). LinkedIn affirme que les campagnes utilisant au moins cinq variantes obtiennent un taux de clic supérieur de plus de 20% par rapport aux campagnes à annonce unique, son système de diffusion réorientant automatiquement le budget vers les créations les plus performantes.",
+      "actionACL": "Tester une structure de campagne LinkedIn B2B avec au moins 5 variantes créatives générées par IA, en gardant un seul élément variable par test et des métriques de conversion définies avant lancement.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "PPC Land",
+          "url": "https://ppc.land/linkedin-advertisers-gain-20-higher-ctr-with-5-plus-ad-variants/"
+        },
+        {
+          "name": "MarketingProfs - AI Update July 10, 2026",
+          "url": "https://www.marketingprofs.com/opinions/2026/55247/ai-update-july-10-2026-ai-news-and-views-from-the-past-week"
+        }
+      ]
+    },
+    {
       "date": "2026-07-09",
       "theme": "Design & branding",
       "titre": "Les générateurs d'images IA atteignent une précision typographique inédite",
@@ -223,6 +261,40 @@
         {
           "name": "b2the7",
           "url": "https://www.b2the7.com/news-blog/marketing-trends-july-2026-ai-search-tiktok-data"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-09",
+      "theme": "IA générative en marketing",
+      "titre": "L'adoption de l'IA en entreprise se déplace du choix de modèle vers l'exécution opérationnelle",
+      "synthese": "Des dirigeants IT interrogés indiquent que l'adoption des agents IA est aujourd'hui freinée davantage par l'organisation interne, la fragmentation des données et le manque de talents d'implémentation que par les capacités des modèles. Les entreprises explorent le routage multi-modèles et des métriques orientées résultats business plutôt que le nombre de tokens ou d'agents déployés. Les applications à plus forte valeur redessinent les processus de travail plutôt que d'automatiser l'existant tel quel.",
+      "actionACL": "Avant tout achat d'agent IA, cartographier le processus marketing de bout en bout, identifier les données et validations nécessaires à chaque étape, et définir des métriques de résultat (vitesse de campagne, pipeline, rétention) plutôt que des indicateurs d'usage.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "MarketingProfs - AI Update July 10, 2026",
+          "url": "https://www.marketingprofs.com/opinions/2026/55247/ai-update-july-10-2026-ai-news-and-views-from-the-past-week"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-09",
+      "theme": "Social & Ads",
+      "titre": "Adobe lance des algorithmes publicitaires personnalisés entraînés sur les données propriétaires des marques",
+      "synthese": "Adobe Advertising a lancé Custom Algorithms, un produit qui utilise les données brutes d'Adobe Analytics pour entraîner les modèles d'enchères des campagnes, offrant une vue plus complète du parcours client que les données filtrées habituellement transférées via API. Le système peut intégrer le comportement web et app, la qualité média, l'identité first-party et des \"High Value Actions\" définies par l'annonceur (vues vidéo, inscriptions newsletter). Contrairement à Google et Meta, Adobe ne s'appuie pas sur ses propres inventaires publicitaires.",
+      "actionACL": "Pour les annonceurs utilisant Adobe Analytics avec un volume de trafic significatif, évaluer le volume de données, le consentement et si les \"High Value Actions\" retenues prédisent réellement le revenu avant d'adopter l'outil.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "AdExchanger",
+          "url": "https://www.adexchanger.com/marketers/adobe-advertising-just-launched-its-own-custom-algorithms-product/"
+        },
+        {
+          "name": "MarketingProfs - AI Update July 10, 2026",
+          "url": "https://www.marketingprofs.com/opinions/2026/55247/ai-update-july-10-2026-ai-news-and-views-from-the-past-week"
         }
       ]
     },
@@ -343,6 +415,82 @@
         {
           "name": "Agile Brand Guide",
           "url": "https://agilebrandguide.com/yesterdays-marketing-technology-ai-news-july-8-2026/"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-08",
+      "theme": "IA générative en marketing",
+      "titre": "OpenAI déploie largement GPT-5.6 après des tests gouvernementaux supplémentaires",
+      "synthese": "OpenAI lance à grande échelle les modèles GPT-5.6 (Sol, Terra, Luna) après des échanges avec le Département du Commerce américain, qui avait initialement encouragé une diffusion progressive pour des raisons de sécurité nationale. Une source de la Maison Blanche conteste qu'une approbation formelle ait été nécessaire. Cet épisode illustre l'émergence de pratiques informelles de consultation entre laboratoires d'IA et autorités avant l'établissement de règles de diffusion formelles.",
+      "actionACL": "Ne pas remplacer les outils IA existants sur la seule base de l'annonce d'un nouveau modèle: prévoir une évaluation interne, en particulier pour les workflows touchant des données propriétaires ou des contenus publiés sans révision humaine.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "Axios",
+          "url": "https://www.axios.com/2026/07/08/openai-gpt-trump-ban-lifted"
+        },
+        {
+          "name": "MarketingProfs - AI Update July 10, 2026",
+          "url": "https://www.marketingprofs.com/opinions/2026/55247/ai-update-july-10-2026-ai-news-and-views-from-the-past-week"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-08",
+      "theme": "CRM & member marketing",
+      "titre": "HubSpot retire ses conditions \"Contact Discovery\" après la contestation de clients",
+      "synthese": "HubSpot a annulé les conditions introduites pour sa fonctionnalité prévue Contact Discovery, après que des clients ont contesté un langage suggérant que les données de contact du CRM pourraient alimenter un jeu de données commercial partagé. Le système visait à utiliser des cartes de visite et des signaux de délivrabilité email pour aider à localiser des prospects, avec des contrôles séparés pour l'enrichissement et l'entraînement de modèles IA. HubSpot reconnaît que sa communication n'a pas répondu aux attentes de transparence et promet des contrôles plus clairs et pleinement opt-in avant de relancer la fonctionnalité. Les paramètres existants restent inchangés.",
+      "actionACL": "Revoir systématiquement les conditions d'enrichissement, d'entraînement IA et de partage de données à chaque mise à jour d'un éditeur CRM, et impliquer juridique/confidentialité avant d'activer toute fonctionnalité qui mutualise des données clients ou prospects.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "PPC Land",
+          "url": "https://ppc.land/hubspot-kills-contact-discovery-terms-after-customer-backlash/"
+        },
+        {
+          "name": "MarketingProfs - AI Update July 10, 2026",
+          "url": "https://www.marketingprofs.com/opinions/2026/55247/ai-update-july-10-2026-ai-news-and-views-from-the-past-week"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-08",
+      "theme": "Social & Ads",
+      "titre": "Meta étend les labels de divulgation pour les publicités générées par IA",
+      "synthese": "Meta a mis à jour les mentions publicitaires sur Facebook et Instagram pour identifier les promotions créées ou significativement modifiées par IA générative. L'information apparaît dans le panneau \"About this ad\" plutôt que nécessairement sur la création principale. Meta labellise automatiquement les publicités faites avec ses propres outils et détecte aussi les métadonnées d'outils tiers (Photoshop, DALL-E) via des standards comme C2PA.",
+      "actionACL": "Tenir un registre précis des méthodes de production créative (y compris outils externes) et anticiper l'effet des labels IA sur la confiance et la performance des publicités avant diffusion.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "Social Media Today",
+          "url": "https://www.socialmediatoday.com/news/meta-adds-updated-disclosure-tags-for-ai-generated-ads/824658/"
+        },
+        {
+          "name": "MarketingProfs - AI Update July 10, 2026",
+          "url": "https://www.marketingprofs.com/opinions/2026/55247/ai-update-july-10-2026-ai-news-and-views-from-the-past-week"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-08",
+      "theme": "Design & branding",
+      "titre": "Meta lance Muse Image, permettant de remixer par IA des photos Instagram publiques",
+      "synthese": "Le nouveau modèle Muse Image de Meta permet de générer des images à partir de photos issues de comptes Instagram publics en mentionnant un nom d'utilisateur dans un prompt. Les comptes publics sont inclus par défaut, bien que les utilisateurs puissent désactiver la réutilisation IA de leurs posts et Reels ou rendre leur profil privé. Désactiver le réglage empêche les générations futures mais ne supprime pas les images déjà créées, et Instagram ne notifie pas les propriétaires de compte lorsque leur contenu est utilisé. Ce déploiement aux États-Unis soulève des questions de consentement et de droit à l'image.",
+      "actionACL": "Vérifier et ajuster les paramètres Instagram des comptes de marque, dirigeants et créateurs partenaires, et préparer un plan de réponse en cas d'images synthétiques trompeuses ou hors marque générées à partir de contenus publics.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "Wired",
+          "url": "https://www.wired.com/story/meta-now-lets-anyone-use-your-instagram-photos-in-ai-images-unless-you-opt-out/"
+        },
+        {
+          "name": "MarketingProfs - AI Update July 10, 2026",
+          "url": "https://www.marketingprofs.com/opinions/2026/55247/ai-update-july-10-2026-ai-news-and-views-from-the-past-week"
         }
       ]
     },
@@ -701,6 +849,59 @@
       ]
     },
     {
+      "date": "2026-07-06",
+      "theme": "Social & Ads",
+      "titre": "Dentsu et Meta simplifient la gestion des campagnes créateurs à grande échelle",
+      "synthese": "Dentsu intègre le Creator Marketplace et les Partnership Ads de Meta avec Dentsu.connect, permettant aux équipes agence de gérer social listening, sélection de créateurs, briefs, contractualisation et activation payante dans un seul système. L'intégration combine les données Dentsu avec les informations de Meta sur l'audience et l'engagement des créateurs, réduisant des processus qui prenaient auparavant plusieurs jours à quelques heures. Dentsu prévoit d'étendre le dispositif au-delà du Royaume-Uni.",
+      "actionACL": "Pour les programmes créateurs à volume élevé, conserver une revue humaine de l'adéquation créateur/marque, de la brand safety et de la rémunération, sans confondre volume de créateurs et efficacité business.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "Digiday",
+          "url": "https://digiday.com/marketing/dentsu-strikes-meta-deal-to-build-plumbing-for-mass-influencer-activation/"
+        },
+        {
+          "name": "MarketingProfs - AI Update July 10, 2026",
+          "url": "https://www.marketingprofs.com/opinions/2026/55247/ai-update-july-10-2026-ai-news-and-views-from-the-past-week"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-06",
+      "theme": "Design & branding",
+      "titre": "Canva Enterprise devance Adobe Firefly dans un comparatif d'outils de création IA",
+      "synthese": "SoftwareReviews a classé Canva Enterprise avec un score composite de 9.0 contre 8.8 pour Adobe Firefly dans un comparatif d'outils de création de contenu IA publié le 6 juillet 2026. Les données de reviews G2 favorisent également Canva sur la facilité d'utilisation et la satisfaction globale. Ce résultat illustre la concurrence croissante entre plateformes de design généraliste dotées d'IA (Canva) et suites créatives professionnelles historiques (Adobe) pour les équipes marketing et branding.",
+      "actionACL": "Pour les besoins de production visuelle courante (réseaux sociaux, déclinaisons de gabarits), évaluer Canva Enterprise comme alternative ou complément à Adobe Firefly, en fonction du niveau de contrôle créatif requis par l'équipe.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "INFO",
+      "sources": [
+        {
+          "name": "Let's Data Science",
+          "url": "https://letsdatascience.com/news/canva-ai-challenges-adobe-firefly-for-designers-72860df9"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-06",
+      "theme": "Design & branding",
+      "titre": "Reddit déploie des modèles de langage pour détecter le spam généré par IA",
+      "synthese": "Reddit a développé des outils de modération basés sur des LLM pour identifier des schémas de spam subtils et coordonnés que les systèmes de détection plus anciens ne repéraient pas. La plateforme affirme bloquer 23 millions de vues de spam par jour, détecter environ 25 000 nouveaux posts et commentaires de spam quotidiennement, et avoir réduit l'exposition au spam de 20% au premier trimestre. Reddit maintient que la détection automatisée doit être combinée à une modération humaine pour de meilleurs résultats.",
+      "actionACL": "Pour les équipes utilisant l'IA en community management, privilégier des contributions originales et divulguer l'automatisation lorsque pertinent, afin d'éviter que des activités légitimes soient assimilées à du spam par les nouveaux systèmes de détection des plateformes.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "INFO",
+      "sources": [
+        {
+          "name": "TechCrunch",
+          "url": "https://techcrunch.com/2026/07/06/reddit-is-using-llms-to-solve-a-problem-llms-largely-created/"
+        },
+        {
+          "name": "MarketingProfs - AI Update July 10, 2026",
+          "url": "https://www.marketingprofs.com/opinions/2026/55247/ai-update-july-10-2026-ai-news-and-views-from-the-past-week"
+        }
+      ]
+    },
+    {
       "date": "2026-07-05",
       "theme": "Social & Ads",
       "titre": "Plus de 85% des achats display mondiaux transitent désormais par le programmatique",
@@ -927,6 +1128,25 @@
         {
           "name": "GlobeNewswire",
           "url": "https://www.globenewswire.com/news-release/2026/07/03/3321698/0/en/ai-innovations-transforming-crm-market-with-advanced-customer-experience-technologies.html"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-03",
+      "theme": "IA générative en marketing",
+      "titre": "La tarification IA à l'usage complique la gestion des coûts martech",
+      "synthese": "Près de 29% des dirigeants ont du mal à comprendre et maîtriser leurs coûts d'exploitation IA alors que les fournisseurs remplacent des abonnements forfaitaires par une facturation à l'usage. Une enquête KPMG auprès de 2145 dirigeants montre que près de la moitié des organisations ont reporté ou réduit des déploiements après un dépassement de coûts, et qu'un tiers cite une mauvaise compréhension de l'économie de l'IA comme frein au déploiement d'agents. Les modèles moins chers gagnent en influence dans les décisions technologiques.",
+      "actionACL": "Mettre en place un suivi du coût par tâche/lead/campagne complétée plutôt qu'un budget global par outil, et router les tâches simples (classification, résumé) vers des modèles moins coûteux.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "The Register",
+          "url": "https://www.theregister.com/ai-and-ml/2026/07/03/ai-bills-are-baffling-the-c-suite-after-shift-to-usage-based-pricing/5266383"
+        },
+        {
+          "name": "MarketingProfs - AI Update July 10, 2026",
+          "url": "https://www.marketingprofs.com/opinions/2026/55247/ai-update-july-10-2026-ai-news-and-views-from-the-past-week"
         }
       ]
     },
@@ -2479,6 +2699,21 @@
       ]
     },
     {
+      "date": "2026-06-16",
+      "theme": "CRM & member marketing",
+      "titre": "Adobe renomme Experience Cloud en \"CX Enterprise\" et mise tout sur les agents IA",
+      "synthese": "Adobe a rebaptisé sa suite Experience Cloud sous le nom CX Enterprise, marquant un repositionnement de sa plateforme CRM/expérience client autour des agents IA plutôt que des seuls outils analytiques et de personnalisation traditionnels. Ce changement de marque accompagne l'intégration croissante d'agents autonomes dans les modules de gestion de campagnes, de segmentation et de service client d'Adobe. Le mouvement reflète une tendance plus large des grands éditeurs martech à repositionner leurs suites CRM autour de l'IA agentique.",
+      "actionACL": "Si l'organisation utilise Adobe Experience/Marketing Cloud, demander une feuille de route claire sur les nouvelles fonctions agentiques avant de renouveler ou d'étendre la licence, et évaluer l'impact sur les workflows de segmentation existants.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "MarTech",
+          "url": "https://martech.org/adobe-rebrands-experience-cloud-as-cx-enterprise-goes-all-in-on-ai-agents/"
+        }
+      ]
+    },
+    {
       "date": "2026-06-15",
       "theme": "Social & Ads",
       "titre": "Meta Andromeda confirme que la qualité créative dépasse le ciblage comme premier driver de performance",
@@ -2786,6 +3021,21 @@
         {
           "name": "MarketingProfs AI Update June 5, 2026",
           "url": "https://www.marketingprofs.com/opinions/2026/54909/ai-update-june-5-2026-ai-news-and-views-from-the-past-week"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-03",
+      "theme": "IA générative en marketing",
+      "titre": "Salesforce lance une \"équipe marketing IA\" agentique (Agentforce Marketing)",
+      "synthese": "Salesforce a dévoilé un ensemble d'agents IA (Content Agent, Marketing Goals Agent, agent de prospection Hunter, agent SDR Piper) capables de créer du contenu omnicanal, de qualifier des prospects et de piloter des campagnes de façon quasi autonome à partir d'objectifs définis par le marketeur. Le dispositif s'appuie sur le CDP de Salesforce et sur Agentforce pour unifier les données client à travers marketing, ventes, service et commerce. Salesforce a également annoncé l'acquisition de Contentful pour renforcer la couche de contenu headless. Des clients comme Rawlings rapportent une création de campagne 75% plus rapide.",
+      "actionACL": "Identifier 1 à 2 cas d'usage à faible risque (ex: génération de variantes de contenu email) pour tester un agent marketing en pilote, avec des garde-fous clairs sur l'autonomie et la validation humaine avant diffusion.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "Salesforce Newsroom",
+          "url": "https://www.salesforce.com/news/stories/agentic-marketing-teams-announcement/"
         }
       ]
     },
