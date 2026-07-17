@@ -98,6 +98,7 @@ GOOGLE_CLIENT_SECRET = os.environ.get('GOOGLE_CLIENT_SECRET', '')
 GOOGLE_REFRESH_TOKEN = os.environ.get('GOOGLE_REFRESH_TOKEN', '')
 SUPERMETRICS_API_KEY = os.environ.get('SUPERMETRICS_API_KEY', '')
 BUFFER_API_KEY       = os.environ.get('BUFFER_API_KEY', '')
+BUFFER_ORG_ID        = os.environ.get('BUFFER_ORG_ID', '')
 WRIKE_API_KEY        = os.environ.get('WRIKE_API_KEY', '')
 DATAFORSEO_LOGIN     = os.environ.get('DATAFORSEO_LOGIN', '')
 DATAFORSEO_PASSWORD  = os.environ.get('DATAFORSEO_PASSWORD', '')
@@ -2511,18 +2512,21 @@ def buffer_planning():
         return jsonify(cached)
 
     # ── Step 1 : récupérer l'organizationId ──────────────────────────────────
-    d_account, e_account = _buffer_gql('{ account { organizations { id } } }')
-    if e_account or not d_account:
-        err = e_account or 'Impossible de récupérer le compte Buffer'
-        _cache_set('buffer_main', {'error': err}, 60)
-        return jsonify({'error': err})
+    if BUFFER_ORG_ID:
+        org_id = BUFFER_ORG_ID
+    else:
+        d_account, e_account = _buffer_gql('{ account { organizations { id } } }')
+        if e_account or not d_account:
+            err = e_account or 'Impossible de récupérer le compte Buffer'
+            _cache_set('buffer_main', {'error': err}, 60)
+            return jsonify({'error': err})
 
-    orgs = (d_account.get('account') or {}).get('organizations', [])
-    org_id = orgs[0].get('id', '') if orgs else ''
-    if not org_id:
-        err = 'organizationId introuvable dans le compte Buffer'
-        _cache_set('buffer_main', {'error': err}, 60)
-        return jsonify({'error': err})
+        orgs = (d_account.get('account') or {}).get('organizations', [])
+        org_id = orgs[0].get('id', '') if orgs else ''
+        if not org_id:
+            err = 'organizationId introuvable dans le compte Buffer'
+            _cache_set('buffer_main', {'error': err}, 60)
+            return jsonify({'error': err})
 
     # ── Step 2 : channels + posts en parallèle ────────────────────────────────
     # Inline string (org_id vient de l'API Buffer, pas de l'utilisateur)
