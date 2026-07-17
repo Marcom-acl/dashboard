@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-07-16",
-  "next_edition": "2026-08-01",
+  "generated_at": "2026-07-17",
+  "next_edition": "",
   "editions": [
     {
       "date": "2026-05-03",
@@ -33,9 +33,163 @@
     {
       "date": "2026-07-16",
       "label": "Semaine du 2026-07-16"
+    },
+    {
+      "date": "2026-07-17",
+      "label": "Semaine du 2026-07-17"
     }
   ],
   "items": [
+    {
+      "id": "2026-07-17-saaskia-1",
+      "club": "wort.lu",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "Le Luxembourg perd du terrain dans le classement européen des voitures électriques. Malgré une progression du nombre de véhicules électriques à batterie, le Grand-Duché accuse un retard par rapport à ses voisins européens. L'article est catégorisé ACL / MOBILITÉ et mentionne explicitement ACL.",
+      "relevance": "ACL explicitement cité : \"ACLElektromobilität\"",
+      "url": "https://www.wort.lu/panorama/automoto/luxemburg-verliert-boden-bei-e-auto-rating-im-europaeischen-vergleich/158794826.html",
+      "date": "2026-07-17"
+    },
+    {
+      "id": "2026-07-17-saaskia-2",
+      "club": "lessentiel.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Le constructeur chinois XPeng envisage de produire des véhicules en Allemagne, selon les déclarations de son dirigeant lors d'une visite à Munich. Cette initiative pourrait marquer un tournant dans la stratégie d'implantation des marques chinoises en Europe.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://www.lessentiel.lu/fr/story/automobile-bientot-des-voitures-chinoises-made-in-germany-103604401",
+      "date": "2026-07-17"
+    },
+    {
+      "id": "2026-07-17-saaskia-3",
+      "club": "chronicle.lu",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "Le Parlement luxembourgeois a adopté quatre projets de loi majeurs le 15 juillet 2026 visant à accélérer la transition énergétique, développer les transports en commun et assurer le financement à long terme du réseau de bus RGTR. Cette décision législative structurante impacte directement la mobilité au Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://chronicle.lu/category/living-in-luxembourg/62431-luxembourg-parliament-adopts-4-mobility-energy-infrastructure-bills",
+      "date": "2026-07-17"
+    },
+    {
+      "id": "2026-07-17-saaskia-4",
+      "club": "infos.rtl.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "La vignette belge pourrait constituer une discrimination si un mécanisme compensatoire est mis en place pour les résidents. Yuriko Backes est citée dans le contexte de cette problématique de mobilité et de sécurité routière transfrontalière.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://infos.rtl.lu/news/luxembourg/la-vignette-belge-pourrait-constituer-une-discrimination-en-cas-de-mecanisme-compensatoire-pour-les-residents-1501416919",
+      "date": "2026-07-17"
+    },
+    {
+      "id": "2026-07-17-saaskia-5",
+      "club": "100komma7.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Depuis le début de l'année, la France a introduit de nouvelles plaques d'immatriculation de couleur rose, que l'on voit de plus en plus sur les routes luxembourgeoises. L'article explique la signification et la raison de cette couleur distinctive.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://www.100komma7.lu/news/Wat-huet-et-mat-de-pinke-franseischen-Autosplacken-op-sech?pd=radio",
+      "date": "2026-07-17"
+    },
+    {
+      "id": "2026-07-17-saaskia-6",
+      "club": "paperjam.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Le Group Marth a inauguré à Kehlen une infrastructure de recharge de 250 kW couplée à une batterie, des panneaux solaires et une communauté énergétique, pour un investissement total de 410.000 euros. L'objectif est de maximiser l'utilisation de l'électricité produite localement.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://paperjam.lu/article/le-group-marth-investit-410-000-euros-pour-lelectromobilite",
+      "date": "2026-07-17"
+    },
+    {
+      "id": "2026-07-17-saaskia-7",
+      "club": "Delano.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Group Marth a ouvert à Kehlen une installation de recharge de 250 kW connectée à une batterie, des panneaux solaires et une communauté énergétique, représentant un investissement de 410.000 euros. L'initiative vise à maximiser la production locale d'électricité.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://delano.lu/article/group-marth-is-investing-eu410-000-in-electric-mobility",
+      "date": "2026-07-17"
+    },
+    {
+      "id": "2026-07-17-saaskia-8",
+      "club": "virgule.lu (Wort.lu/FR)",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "Une nouvelle hausse des prix des carburants est entrée en vigueur ce vendredi au Luxembourg, conséquence directe de la guerre au Moyen-Orient sur les marchés pétroliers. L'article détaille les nouveaux prix à la pompe applicables.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://www.virgule.lu/luxembourg/nouvelle-flambee-des-prix-des-carburants-a-partir-de-ce-vendredi/142990398.html",
+      "date": "2026-07-17"
+    },
+    {
+      "id": "2026-07-17-saaskia-9",
+      "club": "infos.rtl.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Dans le cadre du bilan de l'année parlementaire, les Verts critiquent la gestion des finances publiques du gouvernement, avec des références aux carburants et au leasing. L'article s'inscrit dans un contexte politique et budgétaire luxembourgeois.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://infos.rtl.lu/news/luxembourg/les-verts-critiquent-la-gestion-des-finances-publiques-du-gouvernement-1058777765",
+      "date": "2026-07-17"
+    },
+    {
+      "id": "2026-07-17-saaskia-10",
+      "club": "infogreen.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Bestcharge, réseau du groupe Petro-Center, a mis en service quatre bornes de recharge haute puissance (50 à 400 kW) sur le parking du traiteur Kaempff-Kohler à Niederanven, capables d'alimenter jusqu'à sept véhicules simultanément. Cette infrastructure cible à la fois les clients et les professionnels de la zone d'activité Syrdall.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://www.infogreen.lu/bestcharge-installe-de-nouvelles-bornes-de-recharge-haute-puissance.html",
+      "date": "2026-07-17"
+    },
+    {
+      "id": "2026-07-17-saaskia-11",
+      "club": "infogreen.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "L'asbl Äerdschëff a organisé un forum experts-citoyens à Sanem sur la mobilité durable, axé sur les véhicules légers intermédiaires (VLI) comme alternative hybride entre vélo et voiture. L'événement a réuni citoyens, experts et acteurs locaux face aux défis climatiques et à la dépendance à la voiture au Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://www.infogreen.lu/entre-velo-et-voiture-aerdscheff-experimente-une-mobilite-hybride-a-sanem.html",
+      "date": "2026-07-17"
+    },
+    {
+      "id": "2026-07-17-saaskia-12",
+      "club": "Luxemburger Wort",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "La piste cyclable entre Cloche d'Or et Kockelscheuer a été inaugurée, mettant fin à un point de congestion pour les piétons et cyclistes. L'article recueille les réactions des politiques et des citoyens sur cette nouvelle infrastructure de mobilité douce.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "",
+      "date": "2026-07-17"
+    },
+    {
+      "id": "2026-07-17-saaskia-13",
+      "club": "Tageblatt",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "Le feu vert a été donné pour la prolongation du tram au Luxembourg, adoptée dans le cadre des quatre projets de loi mobilité-énergie. Des députés critiquent néanmoins la durée de mise en œuvre de ce projet de transport en commun.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "",
+      "date": "2026-07-17"
+    },
+    {
+      "id": "2026-07-17-saaskia-14",
+      "club": "100komma7.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Le ministre de l'Environnement Serge Wilmes (CSV) rappelle les avantages des nouvelles mesures du Klimabonus Wunnen, adoptées à l'unanimité par la Chambre, qui prévoient des subventions plus élevées pour l'installation de panneaux photovoltaïques et de pompes à chaleur. Ces aides visent à accélérer la transition énergétique au Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://www.100komma7.lu/news/Emweltminister-Serge-Wilmes-Subsiden-e-Schlesselelement-fir-d-Energietransitioun?pd=radio",
+      "date": "2026-07-17"
+    },
+    {
+      "id": "2026-07-17-saaskia-15",
+      "club": "Le Quotidien",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "La ministre de la Mobilité Yuriko Backes a soumis à la Chambre quatre projets de loi pour accélérer la transition énergétique, dont une réflexion sur l'installation de panneaux solaires le long des autoroutes luxembourgeoises. Ces textes législatifs ont été adoptés par le Parlement.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "",
+      "date": "2026-07-17"
+    },
     {
       "id": "2026-07-15-oeamtc-1",
       "date": "2026-07-15",
