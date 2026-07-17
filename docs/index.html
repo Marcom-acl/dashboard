@@ -5291,6 +5291,15 @@ function renderVeillePresse(d) {
     return `<span style="display:inline-block;font-size:10px;font-weight:700;padding:2px 7px;border-radius:3px;letter-spacing:.05em;text-transform:uppercase;${styles[b]||styles.INFO}">${b}</span>`;
   }
 
+  function linkBtn(url, color) {
+    if (!url) return `<span style="display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:600;color:#999;background:#f0f0f0;border-radius:4px;padding:5px 10px;align-self:flex-start;margin-top:auto">Coupure presse · PDF</span>`;
+    const isPdf = url.toLowerCase().endsWith('.pdf') || url.toLowerCase().includes('.pdf?');
+    const label = isPdf ? 'Voir la coupure PDF →' : 'Lire l\'article →';
+    const bg    = color || '#FEDB00';
+    const fg    = color ? '#fff' : '#231f20';
+    return `<a href="${url}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:600;color:${fg};background:${bg};border-radius:4px;padding:5px 10px;text-decoration:none;align-self:flex-start;margin-top:auto">${label}</a>`;
+  }
+
   function buildSynthesis(items) {
     const notable    = items.filter(i => i.badge === 'NOTABLE');
     const surveiller = items.filter(i => i.badge === 'SURVEILLER');
@@ -5303,7 +5312,7 @@ function renderVeillePresse(d) {
         <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#c0392b;margin-bottom:6px">ACL mentionné (${aclCites.length})</div>
         ${aclCites.map(i => `<div style="font-size:13px;line-height:1.5;padding:6px 10px;background:rgba(231,76,60,.07);border-left:3px solid #e74c3c;border-radius:0 4px 4px 0;margin-bottom:5px">
           <strong>${i.club}</strong> — ${i.content}
-          ${i.url ? `<div style="margin-top:4px"><a href="${i.url}" target="_blank" rel="noopener" style="font-size:11px;color:#c0392b;text-decoration:none;font-weight:600">Lire l'article →</a></div>` : ''}
+          <div style="margin-top:5px">${linkBtn(i.url, '#c0392b')}</div>
           <div style="font-size:11px;color:#888;margin-top:3px;font-style:italic">${i.relevance}</div>
         </div>`).join('')}
       </div>`;
@@ -5314,7 +5323,7 @@ function renderVeillePresse(d) {
         <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#2d6a2d;margin-bottom:6px">À retenir — Notable (${notable.length})</div>
         ${notable.map(i => `<div style="font-size:13px;line-height:1.5;padding:6px 10px;background:rgba(45,106,45,.06);border-left:3px solid #2d6a2d;border-radius:0 4px 4px 0;margin-bottom:5px">
           <strong>${i.club}</strong> — ${i.content}
-          ${i.url ? `<div style="margin-top:4px"><a href="${i.url}" target="_blank" rel="noopener" style="font-size:11px;color:#2d6a2d;text-decoration:none;font-weight:600">Lire l'article →</a></div>` : ''}
+          <div style="margin-top:5px">${linkBtn(i.url, '#2d6a2d')}</div>
         </div>`).join('')}
       </div>`;
     }
@@ -5324,7 +5333,7 @@ function renderVeillePresse(d) {
         <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#8B6914;margin-bottom:6px">À surveiller (${surveiller.length})</div>
         ${surveiller.map(i => `<div style="font-size:13px;line-height:1.5;color:#555;padding:5px 10px 5px 14px;position:relative;margin-bottom:4px;border-left:2px solid #FEDB00">
           <strong>${i.club}</strong> — ${i.content}
-          ${i.url ? `<div style="margin-top:3px"><a href="${i.url}" target="_blank" rel="noopener" style="font-size:11px;color:#8B6914;text-decoration:none;font-weight:600">Lire l'article →</a></div>` : ''}
+          <div style="margin-top:5px">${linkBtn(i.url, '#8B6914')}</div>
         </div>`).join('')}
       </div>`;
     }
@@ -5373,7 +5382,7 @@ function renderVeillePresse(d) {
           </div>
           <div style="font-size:13px;line-height:1.55;color:var(--text);flex:1">${item.content}</div>
           ${item.relevance && item.relevance.startsWith('ACL') ? `<div style="font-size:11px;color:#c0392b;font-style:italic;padding-top:6px;border-top:1px solid var(--border)">${item.relevance}</div>` : ''}
-          ${item.url ? `<a href="${item.url}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:600;color:#231f20;background:#FEDB00;border-radius:4px;padding:5px 10px;text-decoration:none;align-self:flex-start;margin-top:auto">Lire l'article <span style="font-size:14px">→</span></a>` : ''}
+          ${linkBtn(item.url)}
         </div>`).join('')}
       </div>`;
   }
