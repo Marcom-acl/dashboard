@@ -11,6 +11,8 @@ import re
 import time
 import datetime
 import threading
+import secrets
+import functools
 import requests
 import concurrent.futures
 from flask import Flask, request, jsonify, redirect, session
@@ -27,7 +29,29 @@ else:
 # ── App setup ────────────────────────────────────────────────────────────────
 app = Flask(__name__)
 app.secret_key = os.environ.get('FLASK_SECRET', os.urandom(32))
-CORS(app, origins='*')
+CORS(app, origins=[
+    'https://marketing.acl.lu',
+    'http://localhost:5500',
+    'http://127.0.0.1:5500',
+    'http://localhost:8080',
+])
+
+def require_internal_token(f):
+    """Protège les routes de debug — exige le header X-Internal-Token ou ?token= en query."""
+    @functools.wraps(f)
+    def decorated(*args, **kwargs):
+        expected = os.environ.get('INTERNAL_TOKEN', '')
+        if not expected:
+            return jsonify({'error': 'INTERNAL_TOKEN not configured'}), 500
+        provided = (
+            request.headers.get('X-Internal-Token') or
+            request.args.get('token') or
+            ''
+        )
+        if not secrets.compare_digest(expected, provided):
+            return jsonify({'error': 'Unauthorized'}), 403
+        return f(*args, **kwargs)
+    return decorated
 
 # ── Constants ────────────────────────────────────────────────────────────────
 VEILLE_DATA_URL      = 'https://raw.githubusercontent.com/Marcom-acl/dashboard/main/data/veille-data.json'
@@ -702,6 +726,7 @@ def api_users_delete(email):
 
 
 @app.route('/google/debug')
+@require_internal_token
 def google_debug():
     client_id, client_secret = _google_secrets()
     token_data = _google_token()
@@ -2456,6 +2481,7 @@ def _buffer_gql(query, variables=None):
 
 
 @app.route('/buffer/debug')
+@require_internal_token
 def buffer_debug():
     """Diagnostic : récupère l'account + introspecte PostsFiltersInput/PostStatus."""
     if not BUFFER_API_KEY:
@@ -2485,13 +2511,14 @@ def buffer_planning():
         return jsonify(cached)
 
     # ── Step 1 : récupérer l'organizationId ──────────────────────────────────
-    d_account, e_account = _buffer_gql('{ account { currentOrganization { id } } }')
+    d_account, e_account = _buffer_gql('{ account { organizations { id } } }')
     if e_account or not d_account:
         err = e_account or 'Impossible de récupérer le compte Buffer'
         _cache_set('buffer_main', {'error': err}, 60)
         return jsonify({'error': err})
 
-    org_id = (d_account.get('account') or {}).get('currentOrganization', {}).get('id', '')
+    orgs = (d_account.get('account') or {}).get('organizations', [])
+    org_id = orgs[0].get('id', '') if orgs else ''
     if not org_id:
         err = 'organizationId introuvable dans le compte Buffer'
         _cache_set('buffer_main', {'error': err}, 60)
@@ -4514,6 +4541,7 @@ def _fb_ad_images(account_id, token, ad_ids):
 # ── Routes ──────────────────────────────────────────────────────────────────────
 
 @app.route('/club-diag')
+@require_internal_token
 def club_diag():
     """Diagnostic Brevo club : 1 seul appel pour économiser le quota."""
     if not BREVO_API_KEY:
@@ -4539,6 +4567,7 @@ def club_diag():
 
 
 @app.route('/leads-test')
+@require_internal_token
 def leads_test():
     """Debug leads : appel brut à l'API Brevo + recompute sans cache."""
     start = request.args.get('start', (datetime.date.today() - datetime.timedelta(days=30)).isoformat())
@@ -4590,6 +4619,7 @@ def leads_test():
 
 
 @app.route('/nl-test')
+@require_internal_token
 def nl_test():
     """Diagnostic newsletter : force recompute sans cache et affiche le détail étape par étape."""
     start = request.args.get('start', (datetime.date.today() - datetime.timedelta(days=30)).isoformat())
@@ -4638,6 +4668,7 @@ def nl_test():
 
 
 @app.route('/nl-diag')
+@require_internal_token
 def nl_diag():
     """Diagnostic newsletter : globalStats des campagnes matching NL_CLUB_CAMPAIGN_PATTERN."""
     if not BREVO_API_KEY:
@@ -4676,6 +4707,7 @@ def nl_diag():
 
 
 @app.route('/club-partners/debug-fba')
+@require_internal_token
 def club_partners_debug_fba():
     """Debug : teste plusieurs formats d'ID de compte Supermetrics FA pour trouver le bon."""
     if not SUPERMETRICS_API_KEY:
@@ -4701,6 +4733,7 @@ def club_partners_debug_fba():
 
 
 @app.route('/club-partners/debug-campaigns')
+@require_internal_token
 def club_partners_debug_campaigns():
     """Debug : liste tous les noms de campagnes Meta Ads sans filtre."""
     if not SUPERMETRICS_API_KEY:
@@ -4913,6 +4946,7 @@ def club_partners_partner():
 
 
 @app.route('/club-partners/debug/leads-sample')
+@require_internal_token
 def club_debug_leads_sample():
     """Endpoint de diagnostic : retourne un échantillon des événements Brevo club-member
     pour la période donnée, avec les champs subject, tag et messageId visibles.
@@ -4945,6 +4979,7 @@ def club_debug_leads_sample():
 
 
 @app.route('/club-partners/debug/nl-patterns')
+@require_internal_token
 def club_debug_nl_patterns():
     """Diagnostic : pour un partenaire et une période, retourne les campagnes NL matchées,
     les URLs testées et les patterns nl_url_patterns utilisés.
@@ -5252,6 +5287,7 @@ def _wrike_space_id(hdrs):
 
 
 @app.route('/wrike/debug-projects')
+@require_internal_token
 def wrike_debug_projects():
     """Retourne les statuts bruts de tous les projets de l'espace ACL Marcom."""
     if not WRIKE_API_KEY:
