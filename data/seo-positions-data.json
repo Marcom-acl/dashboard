@@ -1,17 +1,17 @@
 {
-  "generated_at": "2026-07-13T09:19:06Z",
-  "period_label": "Semaine 29 — 2026-07-13",
+  "generated_at": "2026-07-20T08:51:50Z",
+  "period_label": "Semaine 30 — 2026-07-20",
   "markets": {
     "fr": {
       "visibility_pct": 0.0,
-      "visibility_delta": -73.33,
+      "visibility_delta": 0.0,
       "top3": {
         "count": 0,
-        "delta": -7
+        "delta": 0
       },
       "page1": {
         "count": 0,
-        "delta": -22
+        "delta": 0
       },
       "keyword_gains": [],
       "keyword_losses": [],
@@ -19,14 +19,14 @@
     },
     "en": {
       "visibility_pct": 0.0,
-      "visibility_delta": -66.67,
+      "visibility_delta": 0.0,
       "top3": {
         "count": 0,
-        "delta": -11
+        "delta": 0
       },
       "page1": {
         "count": 0,
-        "delta": -18
+        "delta": 0
       },
       "keyword_gains": [],
       "keyword_losses": [],
@@ -34,14 +34,14 @@
     },
     "de": {
       "visibility_pct": 0.0,
-      "visibility_delta": -73.08,
+      "visibility_delta": 0.0,
       "top3": {
         "count": 0,
-        "delta": -5
+        "delta": 0
       },
       "page1": {
         "count": 0,
-        "delta": -19
+        "delta": 0
       },
       "keyword_gains": [],
       "keyword_losses": [],
