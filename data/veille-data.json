@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-17",
+  "generated_at": "2026-07-20",
   "next_edition": "",
   "editions": [
     {
@@ -37,9 +37,183 @@
     {
       "date": "2026-07-17",
       "label": "Semaine du 2026-07-17"
+    },
+    {
+      "date": "2026-07-20",
+      "label": "Semaine du 2026-07-20"
     }
   ],
   "items": [
+    {
+      "id": "2026-07-20-saaskia-1",
+      "club": "rtl.lu",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "Article en luxembourgeois donnant des recommandations de l'ACL pour les vacances en voiture. Il met en garde contre les erreurs courantes qui peuvent coûter cher aux automobilistes. Frank Maas de l'ACL est cité comme source.",
+      "relevance": "ACL explicitement cité : \"Recommandatioune vum ACL\"",
+      "url": "https://www.rtl.lu/mobiliteit/news/mam-auto-an-dvakanz-des-feeler-kenne-seier-deier-ginn-1414579076",
+      "date": "2026-07-20"
+    },
+    {
+      "id": "2026-07-20-saaskia-2",
+      "club": "infos.rtl.lu",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "Article en français sur les oublis à éviter lors des vacances en voiture, pouvant coûter plusieurs centaines d'euros. L'ACL et Frank Maas sont explicitement cités comme sources de conseils.",
+      "relevance": "ACL explicitement cité : \"Ces oublis peuvent vous coûter plusieurs centaines d'euros — L'ACL\"",
+      "url": "https://infos.rtl.lu/news/luxembourg/ces-oublis-peuvent-vous-couter-plusieurs-centaines-deuros-270228935",
+      "date": "2026-07-20"
+    },
+    {
+      "id": "2026-07-20-saaskia-3",
+      "club": "infos.rtl.lu",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "Article sur la vignette belge prévue pour mai 2027 : l'ACL réclame un système simple et équitable pour les automobilistes luxembourgeois et frontaliers. Frank Maas, porte-parole de l'Automobile Club du Luxembourg, est explicitement cité.",
+      "relevance": "ACL explicitement cité : \"Vignette belge : l'ACL réclame un système simple et équitable — l'Automobile Club du Luxembourg\"",
+      "url": "https://infos.rtl.lu/news/monde/vignette-belge-lacl-reclame-un-systeme-simple-et-equitable-1408771758",
+      "date": "2026-07-20"
+    },
+    {
+      "id": "2026-07-20-saaskia-4",
+      "club": "rtl.lu",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "Article en luxembourgeois sur la vignette belge, reprenant les critères de l'ACL pour un système simple et équitable. Frank Maas est cité comme porte-parole de l'ACL.",
+      "relevance": "ACL explicitement cité : \"Krittäre vum ACL — Belsch Vignette soll einfach a fair ginn\"",
+      "url": "https://www.rtl.lu/news/international/belsch-vignette-soll-einfach-a-fair-ginn-759996977",
+      "date": "2026-07-20"
+    },
+    {
+      "id": "2026-07-20-saaskia-6",
+      "club": "Luxemburger Wort",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "Article sur le recul de la part des voitures électriques au Luxembourg, tandis que les véhicules thermiques progressent. Le Luxembourg perd du terrain en matière d'électromobilité malgré une augmentation du nombre de véhicules électriques en circulation.",
+      "relevance": "ACL explicitement cité : \"ACL — E-Auto-Anteil bricht ein, Verbrenner legen zu\"",
+      "url": "",
+      "date": "2026-07-20"
+    },
+    {
+      "id": "2026-07-20-saaskia-7",
+      "club": "today.RTL.lu",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "Article en anglais reprenant les conseils de l'ACL pour les conducteurs partant en vacances, alertant sur les erreurs courantes pouvant s'avérer coûteuses. L'ACL est cité comme source de guidance.",
+      "relevance": "ACL explicitement cité : \"ACL guidance — Driving on holiday? These mistakes could prove costly\"",
+      "url": "https://today.rtl.lu/news/luxembourg/driving-on-holiday-these-mistakes-could-prove-costly-1660048663",
+      "date": "2026-07-20"
+    },
+    {
+      "id": "2026-07-20-saaskia-8",
+      "club": "today.RTL.lu",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "Article en anglais sur l'introduction d'un péage routier en Belgique à partir de mai 2027, soulevant des préoccupations quant à l'équité du système. L'ACL et Frank Maas sont cités dans le contexte de la mobilité transfrontalière.",
+      "relevance": "ACL explicitement cité : \"ACL — Frank Maas — Belgium to introduce road tolls, but unclear details raise fairness concerns\"",
+      "url": "https://today.rtl.lu/news/world/belgium-to-introduce-road-tolls-but-unclear-details-raise-fairness-concerns-250533363",
+      "date": "2026-07-20"
+    },
+    {
+      "id": "2026-07-20-saaskia-9",
+      "club": "lesfrontaliers.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Article sur la position de la ministre luxembourgeoise de la Mobilité, Yuriko Backes (DP), qui voit un risque de discrimination dans le projet belge de vignette automobile. Elle souligne que si les résidents belges sont remboursés via un autre mécanisme, cela constituerait une discrimination envers les non-résidents.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://www.lesfrontaliers.lu/mobilite/vignette-en-belgique-la-ministre-luxembourgeoise-voit-un-risque-de-discrimination/",
+      "date": "2026-07-20"
+    },
+    {
+      "id": "2026-07-20-saaskia-10",
+      "club": "100komma7.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Lancement de la 7e édition du Vëlosummer au Luxembourg, proposant 14 itinéraires et plus de 500 kilomètres de pistes cyclables jusqu'au 16 août. L'événement est ouvert aux habitants et aux touristes.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://www.100komma7.lu/news/Velosummer-geet-an-dei-7-Editioun-mat-500-Kilometer-Velosweeer?pd=noriichten",
+      "date": "2026-07-20"
+    },
+    {
+      "id": "2026-07-20-saaskia-11",
+      "club": "infos.rtl.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Article sur le lancement officiel du Vëlosummer dans la région de l'Oesling, promouvant la mobilité douce au Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://infos.rtl.lu/news/luxembourg/lancement-officiel-du-velosummer-en-plein-coeur-de-loesling-338043782",
+      "date": "2026-07-20"
+    },
+    {
+      "id": "2026-07-20-saaskia-12",
+      "club": "Bomdia.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Article en portugais questionnant l'avenir de l'essence renouvelable (Nexa 95), produite à 100% à partir de matières premières renouvelables et réduisant les émissions de CO₂ de plus de 70% sur l'ensemble du cycle de vie par rapport à l'essence conventionnelle.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://bomdia.lu/e-se-o-futuro-fosse-da-gasolina-renovavel/",
+      "date": "2026-07-20"
+    },
+    {
+      "id": "2026-07-20-saaskia-13",
+      "club": "virgule.lu (Wort.lu/FR)",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Article sur l'exclusion du Luxembourg de la nouvelle liaison TGV INOUI prévue entre Bruxelles et Bâle via Strasbourg, dont le projet pilote démarrera en juillet 2027. Cette décision soulève des questions sur la connectivité ferroviaire du Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://www.virgule.lu/luxembourg/le-luxembourg-ecarte-de-la-nouvelle-liaison-tgv-entre-bruxelles-strasbourg-et-bale/158887412.html",
+      "date": "2026-07-20"
+    },
+    {
+      "id": "2026-07-20-saaskia-14",
+      "club": "infogreen.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Article sur quatre projets de loi déposés par la ministre de la Mobilité pour accélérer la transition énergétique, renforcer l'offre de transports publics et garantir le financement du réseau RGTR. Ces textes s'inscrivent dans le cadre de l'accord de coalition.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://www.infogreen.lu/quatre-projets-de-loi-pour-la-transition-energetique-de-la-mobilite.html",
+      "date": "2026-07-20"
+    },
+    {
+      "id": "2026-07-20-saaskia-15",
+      "club": "Le Quotidien",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Article sur l'inauguration d'un nouveau chemin mixte piétons-cyclistes entre la Cloche d'Or et Kockelscheuer, fruit d'une collaboration entre les communes de Roeser et Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "",
+      "date": "2026-07-20"
+    },
+    {
+      "id": "2026-07-20-saaskia-16",
+      "club": "Luxemburger Wort",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Article sur la vignette autoroutière belge prévue pour mai 2027, examinant si les automobilistes luxembourgeois devront la payer pour se rendre à Arlon faire leurs courses. Le sujet suscite de nombreuses questions et discussions au Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "",
+      "date": "2026-07-20"
+    },
+    {
+      "id": "2026-07-20-saaskia-17",
+      "club": "rtl.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Article sur Dylan Pereira, pilote luxembourgeois, qui remporte deux victoires au GT World Challenge Sprint à Misano.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://www.rtl.lu/sport/news/dylan-pereira-direkt-mat-zwou-victoiren-zu-misano-1108158906",
+      "date": "2026-07-20"
+    },
+    {
+      "id": "2026-07-20-saaskia-5",
+      "club": "RTL Télé Lëtzebuerg",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "Journal télévisé du 17 juillet 2026 sur RTL Télé Lëtzebuerg comportant plusieurs mentions de l'ACL, notamment autour des conseils de départ en vacances (test de conduite, conseils de sécurité) et de la vignette belge. L'ACL est mentionné à plusieurs reprises comme source d'information et de conseils.",
+      "relevance": "ACL explicitement cité : \"im Sinn, dass schon viel Automobilisten hei beim acl passeert / Beim acl geht es dann am Kader von der Vakanz / Vom acl, als dann noch nach den Appell, ausgeschlauft zu starten\"",
+      "url": "",
+      "date": "2026-07-17"
+    },
     {
       "id": "2026-07-17-saaskia-1",
       "club": "wort.lu",
