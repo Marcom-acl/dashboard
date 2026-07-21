@@ -1283,6 +1283,12 @@
           <span class="sb-pill">Veille sectorielle</span>
           <span class="sb-dot" id="bs-veille" style="background:var(--muted-2);"></span>
         </button>
+        <button class="sb-item tab-btn" data-tab="presse-lu" title="Veille presse LU">
+          <span class="sb-ic-wrap" style="background:rgba(16,185,129,.15);--ic-color:#10B981"><svg class="sb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 22h14a2 2 0 0 0 2-2V7.5L14.5 2H6a2 2 0 0 0-2 2v4"/><polyline points="14 2 14 8 20 8"/><path d="M2 15h10"/><path d="M2 11h6"/><path d="M2 19h6"/></svg></span>
+          <span class="sb-item-label">Presse LU</span>
+          <span class="sb-pill">Presse LU</span>
+          <span class="sb-dot" id="bs-presse-lu" style="background:var(--muted-2);"></span>
+        </button>
         <button class="sb-item tab-btn" data-tab="seopos" title="SEO Positions">
           <span class="sb-ic-wrap" style="background:rgba(245,166,35,.15);--ic-color:#F5A623"><svg class="sb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></span>
           <span class="sb-item-label">SEO Positions</span>
@@ -1423,6 +1429,9 @@
 
         <!-- ── VEILLE ────────────────────────────────────────────── -->
         <div id="panel-veille" class="tab-panel"></div>
+
+        <!-- ── VEILLE PRESSE LU ──────────────────────────────────── -->
+        <div id="panel-presse-lu" class="tab-panel"></div>
 
         <!-- ── SEO POSITIONS ─────────────────────────────────────── -->
         <div id="panel-seopos" class="tab-panel"></div>
@@ -1666,6 +1675,7 @@ function _renderTab(tab) {
   else if (tab === 'youtube')      renderYouTube(d.dYT);
   else if (tab === 'linkedin')     renderLinkedIn(d.dLI);
   else if (tab === 'veille')       renderVeille(d.dVeille);
+  else if (tab === 'presse-lu')   renderPresseeLU(d.dVeille);
   else if (tab === 'seopos')       renderSEOPositions(d.dSEO);
   else if (tab === 'buffer')       renderBuffer(d.dBuffer);
   else if (tab === 'wrike')        renderWrike(d.dWrike);
@@ -1717,6 +1727,7 @@ async function loadAll() {
     updateStatus('bs-yt',       dYT       && !dYT.error);
     updateStatus('bs-li',       dLI       && !dLI.error);
     updateStatus('bs-veille',   dVeille   && !dVeille.error);
+    updateStatus('bs-presse-lu', dVeille  && !dVeille.error);
     updateStatus('bs-buffer',   dBuffer   && !dBuffer.error);
     updateStatus('bs-sections', dSections && !dSections.error);
     updateStatus('bs-seopos',   dSEO      && !dSEO.error);
@@ -2062,7 +2073,7 @@ function renderVeilleOverview(d) {
   if (!el) return;
   if (!d || d.error || !d.items) return;
 
-  const items     = d.items || [];
+  const items     = (d.items || []).filter(i => i.category !== 'Veille presse LU');
   const notable   = items.filter(i => i.badge === 'NOTABLE');
   const surveiller = items.filter(i => i.badge === 'SURVEILLER');
   const lastUpd   = d.generated_at || '—';
@@ -4990,7 +5001,7 @@ function renderVeille(d) {
     return;
   }
 
-  const ALL     = d.items    || [];
+  const ALL     = (d.items || []).filter(i => i.category !== 'Veille presse LU');
   const trends  = d.trends   || [];
   const signals = d.signals  || [];
   const editions = d.editions || [];
@@ -5150,7 +5161,7 @@ function renderVeille(d) {
       <div><label style="font-size:11px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-right:4px">Édition</label>
         <select id="vFDate" style="${selStyle()}"><option value="">Toutes</option>${uniqDates.map(dt=>`<option value="${dt}">Édition du ${dateLabel(dt)}</option>`).join('')}</select></div>
       <div><label style="font-size:11px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-right:4px">Catégorie</label>
-        <select id="vFCat" style="${selStyle()}"><option value="">Toutes</option><option value="EU">Clubs EU</option><option value="Monde">Clubs monde</option><option value="Mobilité">Acteurs mobilité</option><option value="Veille presse LU">Veille presse LU</option></select></div>
+        <select id="vFCat" style="${selStyle()}"><option value="">Toutes</option><option value="EU">Clubs EU</option><option value="Monde">Clubs monde</option><option value="Mobilité">Acteurs mobilité</option></select></div>
       <div><label style="font-size:11px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-right:4px">Niveau</label>
         <select id="vFBadge" style="${selStyle()}"><option value="">Tous</option><option value="NOTABLE">Notable</option><option value="SURVEILLER">Surveiller</option><option value="INFO">Info</option></select></div>
       <div><label style="font-size:11px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-right:4px">Recherche</label>
@@ -5245,6 +5256,183 @@ function renderVeille(d) {
   });
   const srch = document.getElementById('vFSearch');
   if (srch) srch.addEventListener('input', e => { vSearch = e.target.value; applyFilters(); });
+
+  animateCards(el);
+}
+
+// ── VEILLE PRESSE LU ──────────────────────────────────────────
+function renderPresseeLU(d) {
+  const el = document.getElementById('panel-presse-lu');
+  if (!el) return;
+  if (!d || d.error) {
+    el.innerHTML = `<div class="no-key"><strong>Veille presse LU</strong><br>${d?.error || 'Données non disponibles — le fichier veille-data.json n\'est pas encore publié sur GitHub.'}</div>`;
+    return;
+  }
+
+  const ALL = (d.items || []).filter(i => i.category === 'Veille presse LU')
+    .sort((a, b) => b.date.localeCompare(a.date));
+  const lastUpd = d.generated_at || '—';
+
+  const PAGE_SIZE = 15;
+  let filtered = ALL.slice();
+  let pPage = 1, pBadge = '', pSearch = '';
+
+  const nNotable    = ALL.filter(i => i.badge === 'NOTABLE').length;
+  const nSurveiller = ALL.filter(i => i.badge === 'SURVEILLER').length;
+  const nPdf        = ALL.filter(i => i.pdf_url).length;
+
+  function dateLabel(iso) {
+    const months = ['','jan.','fév.','mars','avr.','mai','juin','juil.','août','sep.','oct.','nov.','déc.'];
+    const p = iso.split('-');
+    return parseInt(p[2]) + ' ' + months[parseInt(p[1])] + ' ' + p[0];
+  }
+
+  function badgeHtml(b) {
+    const styles = { NOTABLE: 'background:#e8f4e8;color:#2d6a2d;', SURVEILLER: 'background:#FFF8DC;color:#8B6914;', INFO: 'background:#f0f0f0;color:#666;' };
+    return `<span style="display:inline-block;font-size:10px;font-weight:700;padding:2px 7px;border-radius:3px;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap;${styles[b]||styles.INFO}">${b}</span>`;
+  }
+
+  function applyFilters() {
+    const search = pSearch.toLowerCase().trim();
+    filtered = ALL.filter(i => {
+      if (pBadge && i.badge !== pBadge) return false;
+      if (search) {
+        const hay = (i.club + ' ' + i.content + ' ' + (i.relevance||'')).toLowerCase();
+        if (!hay.includes(search)) return false;
+      }
+      return true;
+    });
+    pPage = 1;
+    const cnt = document.getElementById('pCount'); if (cnt) cnt.textContent = filtered.length + ' résultat' + (filtered.length > 1 ? 's' : '');
+    renderPRows();
+    renderPPag();
+  }
+
+  function renderPRows() {
+    const tbody = document.getElementById('presseTbody');
+    const empty = document.getElementById('presseEmpty');
+    if (!tbody) return;
+    const start = (pPage - 1) * PAGE_SIZE;
+    const page  = filtered.slice(start, start + PAGE_SIZE);
+    if (!page.length) {
+      tbody.innerHTML = '';
+      if (empty) empty.style.display = 'block';
+      return;
+    }
+    if (empty) empty.style.display = 'none';
+    tbody.innerHTML = page.map(item => {
+      const articleLink = item.url ? `<a href="${item.url}" target="_blank" rel="noopener" style="color:inherit">${item.content}</a>` : item.content;
+      const pdfCell = item.pdf_url
+        ? `<a href="${item.pdf_url}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:4px;color:#10B981;font-weight:700;font-size:12px;text-decoration:none;border:1px solid #10B981;border-radius:4px;padding:2px 8px;white-space:nowrap"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>PDF</a>`
+        : `<span style="color:var(--muted);font-size:12px">—</span>`;
+      return `<tr>
+        <td style="white-space:nowrap;color:#888;font-size:12px;font-weight:700;vertical-align:top">${dateLabel(item.date)}</td>
+        <td style="white-space:nowrap;font-weight:700;vertical-align:top;font-size:13px">${item.club}</td>
+        <td style="white-space:nowrap;vertical-align:top">${badgeHtml(item.badge)}</td>
+        <td style="white-space:normal;overflow-wrap:break-word;word-break:break-word;max-width:420px;line-height:1.5;font-size:13px;vertical-align:top">${articleLink}</td>
+        <td style="white-space:normal;overflow-wrap:break-word;word-break:break-word;color:#555;font-style:italic;font-size:12px;max-width:200px;line-height:1.45;vertical-align:top">${item.relevance || ''}</td>
+        <td style="vertical-align:top;text-align:center">${pdfCell}</td>
+      </tr>`;
+    }).join('');
+  }
+
+  function pgBtn(disabled, active) {
+    const base = 'border:1px solid var(--border);border-radius:4px;padding:5px 10px;font-size:13px;cursor:pointer;font-family:inherit;';
+    if (disabled) return base + 'opacity:.4;pointer-events:none;background:var(--surface);color:var(--text);';
+    if (active)   return base + 'background:#000;color:#FEDB00;font-weight:700;border-color:#000;';
+    return base + 'background:var(--surface);color:var(--text);';
+  }
+
+  function renderPPag() {
+    const pag = document.getElementById('pressePag');
+    if (!pag) return;
+    const total = Math.ceil(filtered.length / PAGE_SIZE);
+    if (total <= 1) { pag.innerHTML = ''; return; }
+    let html = `<button onclick="window._pPage(${pPage-1})" style="${pgBtn(pPage===1)}">&#8249;</button>`;
+    for (let i = 1; i <= total; i++) {
+      if (i===1||i===total||(i>=pPage-2&&i<=pPage+2)) html += `<button onclick="window._pPage(${i})" style="${pgBtn(false,i===pPage)}">${i}</button>`;
+      else if (i===pPage-3||i===pPage+3) html += `<span style="padding:0 4px;color:var(--muted)">…</span>`;
+    }
+    html += `<button onclick="window._pPage(${pPage+1})" style="${pgBtn(pPage===total)}">&#8250;</button>`;
+    html += `<span style="font-size:11px;color:var(--muted);margin-left:8px">Page ${pPage} / ${total}</span>`;
+    pag.innerHTML = html;
+  }
+
+  function selStyle() { return 'border:1px solid var(--border-strong);border-radius:4px;padding:5px 8px;font-size:12px;color:var(--text);background:var(--surface);font-family:inherit;outline:none;'; }
+
+  const pdfWarning = nPdf === 0
+    ? `<div style="background:#fff8ed;border:1px solid #F5A623;border-left:4px solid #F5A623;border-radius:var(--r-md);padding:12px 16px;margin-bottom:12px;font-size:13px;color:#7a4d00">
+        <strong>Coupures presse PDF absentes</strong> — Aucun des ${ALL.length} items ne contient de lien PDF (<code>pdf_url</code>). Le champ <code>pdf_url</code> n'est pas inclus dans le schéma de données envoyé par la tâche planifiée. Pour activer les liens PDF, la tâche doit inclure <code>"pdf_url": "https://..."</code> dans chaque item lors du POST vers <code>/veille/ingest</code>.
+      </div>`
+    : nPdf < ALL.length
+    ? `<div style="background:#fff8ed;border:1px solid #F5A623;border-left:4px solid #F5A623;border-radius:var(--r-md);padding:12px 16px;margin-bottom:12px;font-size:13px;color:#7a4d00">
+        <strong>${nPdf} / ${ALL.length} items ont un lien PDF</strong> — Les items sans lien PDF n'ont pas de champ <code>pdf_url</code> dans les données.
+      </div>`
+    : '';
+
+  el.innerHTML = `
+    <div class="sec-title"><h2>Veille presse LU</h2><div class="line"></div>
+      <span class="src-pill" style="--src:var(--n);--src-bg:#d1fae5;color:#065f46">Médias luxembourgeois</span>
+    </div>
+
+    <!-- Stats bar -->
+    <div style="background:var(--surface);border:1px solid var(--border);border-bottom:3px solid #10B981;border-radius:var(--r-md) var(--r-md) 0 0;padding:14px 20px;display:flex;gap:32px;flex-wrap:wrap;margin-bottom:0">
+      <div style="text-align:center"><div style="font-size:24px;font-weight:700;font-family:'FaricyNew','Albert Sans',sans-serif;font-style:italic">${ALL.length}</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em">Articles</div></div>
+      <div style="text-align:center"><div style="font-size:24px;font-weight:700;font-family:'FaricyNew','Albert Sans',sans-serif;font-style:italic;color:#2d6a2d">${nNotable}</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em">Notable</div></div>
+      <div style="text-align:center"><div style="font-size:24px;font-weight:700;font-family:'FaricyNew','Albert Sans',sans-serif;font-style:italic;color:#8B6914">${nSurveiller}</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em">Surveiller</div></div>
+      <div style="text-align:center"><div style="font-size:24px;font-weight:700;font-family:'FaricyNew','Albert Sans',sans-serif;font-style:italic;color:${nPdf>0?'#10B981':'var(--muted)'}">${nPdf}</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em">PDF liés</div></div>
+      <div style="margin-left:auto;text-align:right;display:flex;flex-direction:column;justify-content:center;gap:2px">
+        <div style="font-size:11px;color:var(--muted)">Mise à jour : <strong>${lastUpd}</strong></div>
+      </div>
+    </div>
+
+    <!-- PDF warning -->
+    <div style="margin-bottom:0">${pdfWarning}</div>
+
+    <!-- Filters -->
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);padding:12px 16px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px;margin-top:12px">
+      <div><label style="font-size:11px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-right:4px">Niveau</label>
+        <select id="pFBadge" style="${selStyle()}"><option value="">Tous</option><option value="NOTABLE">Notable</option><option value="SURVEILLER">Surveiller</option><option value="INFO">Info</option></select></div>
+      <div><label style="font-size:11px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-right:4px">Recherche</label>
+        <input type="text" id="pFSearch" placeholder="Source, sujet…" style="${selStyle()}width:170px;"></div>
+      <button onclick="window._pReset()" style="background:#f0f0f0;border:1px solid var(--border);border-radius:4px;padding:6px 12px;font-size:12px;color:var(--muted);cursor:pointer;font-family:inherit">Réinitialiser</button>
+      <span id="pCount" style="margin-left:auto;font-size:12px;color:var(--muted)"></span>
+    </div>
+
+    <!-- Table -->
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);overflow:hidden;margin-bottom:12px">
+      <div class="tbl-scroll">
+        <table class="tbl" style="border-radius:0">
+          <thead><tr>
+            <th style="white-space:nowrap">Date</th>
+            <th style="white-space:nowrap">Source</th>
+            <th style="white-space:nowrap">Niveau</th>
+            <th>Article</th>
+            <th>Pertinence ACL</th>
+            <th style="white-space:nowrap;text-align:center">Coupure PDF</th>
+          </tr></thead>
+          <tbody id="presseTbody"></tbody>
+        </table>
+      </div>
+      <div id="presseEmpty" style="display:none;text-align:center;padding:32px;color:var(--muted);font-size:14px">Aucun résultat pour ces filtres.</div>
+    </div>
+    <div id="pressePag" style="display:flex;justify-content:center;align-items:center;gap:4px;padding:12px 0;flex-wrap:wrap"></div>`;
+
+  applyFilters();
+
+  window._pPage = function(n) {
+    const total = Math.ceil(filtered.length / PAGE_SIZE);
+    if (n < 1 || n > total) return;
+    pPage = n; renderPRows(); renderPPag();
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+  window._pReset = function() {
+    const b = document.getElementById('pFBadge'); if(b) b.value='';
+    const s = document.getElementById('pFSearch'); if(s) s.value='';
+    pBadge=''; pSearch=''; applyFilters();
+  };
+  document.getElementById('pFBadge')?.addEventListener('change', e => { pBadge = e.target.value; applyFilters(); });
+  document.getElementById('pFSearch')?.addEventListener('input', e => { pSearch = e.target.value; applyFilters(); });
 
   animateCards(el);
 }
@@ -6536,6 +6724,7 @@ const TAB_ENDPOINTS = {
   youtube:      ['youtube'],
   linkedin:     ['supermetrics/linkedin'],
   veille:       ['veille'],
+  'presse-lu':  ['veille'],
   seopos:       ['seo-positions'],
   buffer:       ['buffer'],
   wrike:        ['wrike'],
