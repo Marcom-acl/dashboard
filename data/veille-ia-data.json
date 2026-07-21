@@ -1,6 +1,78 @@
 {
-  "generated_at": "2026-07-17",
+  "generated_at": "2026-07-20",
   "items": [
+    {
+      "date": "2026-07-20",
+      "theme": "IA générative en marketing",
+      "titre": "Google AI Mode : les annonceurs paient mais ne sont presque jamais cités",
+      "synthese": "Google AI Mode retourne désormais une publicité textuelle sur près d'une requête commerciale sur trois. Une étude montre que sur 88% des mots-clés publicitaires analysés, le domaine de l'annonceur n'apparaît pas parmi les sources citées par l'IA, même lorsqu'il paie pour l'emplacement. En parallèle, Google déploie un rapport de performance IA générative dans Search Console pour isoler les impressions issues d'AI Overviews et d'AI Mode.",
+      "actionACL": "Suivre la visibilité ACL dans les nouveaux rapports IA de Search Console et ne pas présumer qu'un achat média AI Mode garantit une citation de marque dans la réponse générée.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "B2the7",
+          "url": "https://www.b2the7.com/news-blog/marketing-trends-july-2026-ai-mode-ads-ga4-ai-traffic"
+        },
+        {
+          "name": "Google Search Central Blog",
+          "url": "https://developers.google.com/search/blog/2026/06/gen-ai-performance-reports"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-17",
+      "theme": "Design & branding",
+      "titre": "CapCut distingué parmi les meilleurs outils IA de branding 2026",
+      "synthese": "Expert Consumers a distingué CapCut dans son classement 2026 des meilleurs outils IA pour le branding. La reconnaissance met en avant une suite intégrée combinant génération vidéo (Seedance 2.0), génération d'images (Seedream), création musicale (Seedmusic) et conversion photo-vers-3D, dans un flux de travail unifié. L'outil est présenté comme permettant de produire du contenu vidéo et visuel de marque à moindre coût et avec des délais raccourcis.",
+      "actionACL": "Comparer CapCut à la stack créative actuelle de l'ACL pour la production de contenu vidéo/visuel de marque, notamment pour raccourcir les délais de production des supports social media.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "INFO",
+      "sources": [
+        {
+          "name": "PR Newswire / Morningstar",
+          "url": "https://www.morningstar.com/news/pr-newswire/20260717ph06410/best-ai-tools-for-branding-2026-capcut-featured-for-creating-branded-video-and-visual-content-by-expert-consumers"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-15",
+      "theme": "CRM & member marketing",
+      "titre": "Tenon intègre nativement son automatisation marketing à la plateforme IA de ServiceNow",
+      "synthese": "Tenon a annoncé l'extension de ses capacités d'automatisation marketing directement dans la ServiceNow AI Platform, permettant d'orchestrer l'engagement omnicanal (email, SMS, digital) avec les mêmes données client, workflows et gouvernance que ceux utilisés par les équipes vente et service. L'objectif est de mettre fin aux silos entre marketing et CRM en réunissant ces fonctions sur une seule plateforme. Un exemple cité est MCNC, une organisation à but non lucratif qui utilise déjà cette intégration pour mieux aligner ses communications sur les données relationnelles de ses membres.",
+      "actionACL": "Regarder ce cas d'usage (organisation membre/nonprofit type MCNC) comme référence si l'ACL envisage un jour d'unifier CRM et automatisation marketing sur une même plateforme.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "MarTech Cube",
+          "url": "https://www.martechcube.com/tenon-expands-marketing-automation-into-servicenow-ai-platform/"
+        },
+        {
+          "name": "Business Wire",
+          "url": "https://www.businesswire.com/news/home/20260714116705/en/Tenon-Expands-Marketing-Automation-into-the-ServiceNow-AI-Platform-Unifying-Customer-Engagement-Across-the-Enterprise"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-15",
+      "theme": "Social & Ads",
+      "titre": "TikTok Shop interdit les voix IA dans les lives shopping",
+      "synthese": "TikTok Shop interdit désormais les voix générées par IA, les pistes audio préenregistrées et la narration façon radio dans tous les lives shopping. Les hôtes doivent interagir en temps réel, verbalement ou en langue des signes. Les infractions viennent désormais dégrader le nouveau score de santé de compte (Account Health Rating), pouvant bloquer l'accès à des campagnes, geler des programmes ou désactiver un compte. La mesure répond à une perte de confiance des consommateurs face aux contenus perçus comme générés par IA.",
+      "actionACL": "Si l'ACL envisage du live shopping ou des lives promotionnels sur TikTok, prévoir systématiquement un présentateur humain en temps réel plutôt qu'une voix ou un contenu synthétique.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "Tech Times",
+          "url": "https://www.techtimes.com/articles/320624/20260715/tiktok-shop-bans-ai-voices-live-commerce-streams-violations-now-dent-account-health-score.htm"
+        },
+        {
+          "name": "Social Media Today",
+          "url": "https://www.socialmediatoday.com/news/tiktok-bans-ai-generated-voices-in-shopping-livestreams/822977/"
+        }
+      ]
+    },
     {
       "date": "2026-07-14",
       "theme": "IA générative en marketing",
@@ -58,6 +130,25 @@
         {
           "name": "Meta Newsroom",
           "url": "https://about.fb.com/news/2026/07/introducing-muse-image-meta-ai/"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-14",
+      "theme": "Design & branding",
+      "titre": "Les générateurs d'images IA maîtrisent enfin le rendu typographique fiable",
+      "synthese": "Les modèles d'image leaders de 2026 (GPT Image, Ideogram, Nano Banana de Google, Recraft) rendent désormais la typographie de façon fiable et précise, y compris les sigles courts, les logotypes complets et les lettrages stylisés. Ce progrès lève un frein historique majeur à l'usage de l'IA générative pour du contenu de marque, où un texte mal orthographié ou déformé rendait les visuels inutilisables tels quels. Les plateformes de branding (Canva, CapCut) intègrent progressivement ces modèles pour garantir la cohérence de marque dès la génération.",
+      "actionACL": "Réévaluer les outils de génération d'images écartés par le passé pour des problèmes de texte/logo mal rendu : ce frein est en grande partie levé sur les modèles 2026.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "Flatline Agency",
+          "url": "https://www.flatlineagency.com/blog/ai-design-tools-for-brands-2026/"
+        },
+        {
+          "name": "Krumzi",
+          "url": "https://www.krumzi.com/blog/best-ai-design-tools-in-2026-12-picks-for-stunning-visuals-without-design-skills"
         }
       ]
     },
@@ -495,6 +586,21 @@
       ]
     },
     {
+      "date": "2026-07-08",
+      "theme": "IA générative en marketing",
+      "titre": "SAS lance SAS 360 Marketing AI pour du machine learning sans data scientists",
+      "synthese": "SAS a annoncé SAS 360 Marketing AI, une solution qui permet aux équipes marketing de construire, déployer et faire évoluer des modèles de machine learning sans dépendre d'une équipe data science dédiée. L'outil vise à accélérer le passage de l'insight à l'action et à automatiser des tâches répétitives de segmentation et de scoring. Il s'inscrit dans la tendance 2026 où l'IA devient un copilote marketing pour tester des variantes et personnaliser les messages à grande échelle.",
+      "actionACL": "Évaluer si un outil de ML no-code type SAS 360 pourrait aider l'équipe Marcom à scorer et segmenter la base membres sans recourir à une expertise data science interne.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "PR Newswire",
+          "url": "https://www.prnewswire.com/news-releases/sas-puts-machine-learning-in-marketers-hands-with-new-sas-360-marketing-ai-302819982.html"
+        }
+      ]
+    },
+    {
       "date": "2026-07-07",
       "theme": "Design & branding",
       "titre": "Le marché de l'IA générative dans le design projeté à 4,54 milliards de dollars d'ici 2030",
@@ -691,6 +797,55 @@
         {
           "name": "Meta Newsroom",
           "url": "https://about.fb.com/news/2026/07/introducing-muse-image-meta-ai/"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-07",
+      "theme": "IA générative en marketing",
+      "titre": "ChatGPT Ads : audiences personnalisées et extension à de nouveaux marchés",
+      "synthese": "OpenAI permet désormais aux annonceurs de charger des listes d'audiences personnalisées (email, téléphone) dans ChatGPT Ads, avec ciblage ou exclusion par multiplicateurs d'enchère. La plateforme a aussi ouvert le ciblage au Japon et à la Corée du Sud, et ajouté un onglet de synthèse de compte ainsi que des brouillons d'annonces suggérés. Un rapport indique que les appels générés depuis ChatGPT convertissent en leads commerciaux 49% du temps, soit environ 10 points de plus que tout autre canal mesuré.",
+      "actionACL": "Tester une campagne pilote ChatGPT Ads avec une liste restreinte de contacts CRM pour évaluer le taux de correspondance et le coût par lead avant tout déploiement plus large.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "MediaPost",
+          "url": "https://www.mediapost.com/publications/article/416345/chatgpt-keeps-rolling-out-major-ad-targeting-upda.html"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-07",
+      "theme": "Social & Ads",
+      "titre": "Guideline étend son intelligence publicitaire à ChatGPT et Perplexity",
+      "synthese": "Guideline a annoncé l'extension de son jeu de données Ad Intelligence pour capturer une activité publicitaire vérifiée, au niveau transactionnel, sur les plateformes IA comme ChatGPT et Perplexity. Ce périmètre représente environ 200 milliards de dollars d'investissement média annuel sur 65 pays. Cette extension répond à un besoin croissant de mesure indépendante à mesure que les plateformes conversationnelles deviennent des canaux publicitaires à part entière.",
+      "actionACL": "Anticiper l'arrivée d'outils de mesure indépendants pour les campagnes sur plateformes IA conversationnelles, utile si l'ACL teste un jour ChatGPT Ads ou équivalent.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "PR Newswire / Morningstar",
+          "url": "https://www.morningstar.com/news/pr-newswire/20260707ny95842/guideline-launches-verified-ad-intelligence-across-ai-platforms"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-07",
+      "theme": "Design & branding",
+      "titre": "Meta lance Muse Image, son premier générateur d'images IA maison",
+      "synthese": "Meta a lancé Muse Image, le premier modèle de génération d'images de Meta Superintelligence Labs, désormais disponible dans Meta AI, Instagram et WhatsApp, avec un accès annonceurs via Advantage+ prévu dans les semaines suivantes. L'outil utilise un raisonnement avancé pour comprendre des prompts complexes, fusionner plusieurs photos en une seule création, et générer des QR codes ou infographies avec du texte lisible. Muse Image se classe numéro 2 des classements Arena pour la génération et l'édition d'images, mesurés par préférence humaine.",
+      "actionACL": "Tester Muse Image pour la génération de visuels de campagne intégrant du texte lisible (infographies, QR codes), un point faible historique des générateurs d'images IA.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "Meta Newsroom",
+          "url": "https://about.fb.com/news/2026/07/introducing-muse-image-meta-ai/"
+        },
+        {
+          "name": "CNBC",
+          "url": "https://www.cnbc.com/2026/07/07/meta-ai-muse-image.html"
         }
       ]
     },
@@ -898,6 +1053,21 @@
         {
           "name": "MarketingProfs - AI Update July 10, 2026",
           "url": "https://www.marketingprofs.com/opinions/2026/55247/ai-update-july-10-2026-ai-news-and-views-from-the-past-week"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-06",
+      "theme": "Social & Ads",
+      "titre": "Le marché de l'IA publicitaire doit passer de 11,17 à 36,34 Mds$ d'ici 2030",
+      "synthese": "Une étude de marché projette une croissance du secteur de l'IA en publicité de 11,17 milliards de dollars en 2025 à 36,34 milliards d'ici 2030, avec une étape intermédiaire à 14,12 milliards en 2026 (+26,4% de croissance annuelle). Cette croissance est portée par l'augmentation des dépenses publicitaires digitales, l'expansion des réseaux sociaux, la disponibilité de données consommateurs et l'automatisation de l'achat média. Le rapport souligne aussi une tension croissante entre programmatique classique et retail media piloté par IA.",
+      "actionACL": "Garder à l'esprit cette trajectoire de fond lors des prochains arbitrages budgétaires média, le retail media et l'IA d'achat programmatique étant amenés à prendre une part croissante.",
+      "horizon": "long terme (>12 mois)",
+      "badge": "INFO",
+      "sources": [
+        {
+          "name": "GlobeNewswire",
+          "url": "https://www.globenewswire.com/news-release/2026/07/06/3322346/0/en/AI-in-Advertising-Market-Set-to-Skyrocket-From-11-17-Billion-in-2025-to-36-34-Billion-by-2030.html"
         }
       ]
     },
@@ -1151,6 +1321,21 @@
       ]
     },
     {
+      "date": "2026-07-03",
+      "theme": "CRM & member marketing",
+      "titre": "Le marché de l'IA en CRM doit atteindre 15,06 Mds$ en 2026 (+36,4% de croissance annuelle)",
+      "synthese": "Une étude de marché estime que l'IA appliquée au CRM doit passer de 11,04 Mds$ en 2025 à 15,06 Mds$ en 2026, avec un taux de croissance annuel de 36,4%. Les fonctions IA en CRM se regroupent désormais autour de trois axes : prédiction, personnalisation et automatisation. La collecte de données zero-party est identifiée comme l'avantage compétitif déterminant pour l'automatisation e-commerce et membership à venir.",
+      "actionACL": "Prioriser la collecte de données zero-party (préférences déclarées par les membres) dans les prochains formulaires et parcours ACL, avant que cela ne devienne un standard concurrentiel.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "INFO",
+      "sources": [
+        {
+          "name": "GlobeNewswire",
+          "url": "https://www.globenewswire.com/news-release/2026/07/03/3321698/28124/en/ai-innovations-transforming-crm-market-with-advanced-customer-experience-technologies.html"
+        }
+      ]
+    },
+    {
       "date": "2026-07-02",
       "theme": "IA générative en marketing",
       "titre": "ElevenLabs lance Ads Engine pour la localisation publicitaire",
@@ -1234,6 +1419,25 @@
         {
           "name": "GlobeNewswire",
           "url": "https://www.globenewswire.com/news-release/2026/07/02/3321315/0/en/zoom-to-acquire-common-room-bringing-buyer-intelligence-to-its-ai-revenue-platform.html"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-02",
+      "theme": "CRM & member marketing",
+      "titre": "Zoom rachète Common Room pour enrichir son AI Revenue Platform",
+      "synthese": "Zoom a annoncé l'acquisition de Common Room, une plateforme d'intelligence go-to-market qui combine données CRM, usage produit et autres signaux d'achat pour construire des profils prospects au niveau individuel. Des agents IA utilisent ensuite ces profils pour identifier les comptes en phase d'achat et générer des approches personnalisées avant même le premier contact. L'opération s'inscrit dans une consolidation plus large du marché (Clari-Salesloft, Apollo-Pocus) autour de l'intelligence commerciale pilotée par IA.",
+      "actionACL": "Surveiller si les fournisseurs CRM/emailing utilisés par l'ACL intègrent ce type d'intelligence go-to-market, qui pourrait affiner le ciblage des campagnes de recrutement membres.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "Zoom Newsroom",
+          "url": "https://news.zoom.com/zoom-to-acquire-common-room-bringing-buyer-intelligence-to-its-ai-revenue-platform/"
+        },
+        {
+          "name": "GeekWire",
+          "url": "https://www.geekwire.com/2026/zoom-snaps-up-seattle-startup-common-room-to-bolster-ai-powered-sales-tools/"
         }
       ]
     },
@@ -1366,6 +1570,25 @@
         {
           "name": "buildfastwithai.com",
           "url": "https://www.buildfastwithai.com/blogs/ai-news-today-july-1-2026"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-01",
+      "theme": "IA générative en marketing",
+      "titre": "LinkedIn active 5 outils IA dans Campaign Manager",
+      "synthese": "LinkedIn a activé cinq nouveaux outils IA dans Campaign Manager : Brand Kit (mémorisation des couleurs, polices et ton de marque), Draft with AI (brouillon d'annonce généré à partir d'une URL), AI Ad Variants, Ads Personalization et Flexible Ad Creation. Ces outils ciblent en priorité les petits annonceurs B2B. Un premier retour terrain indique jusqu'à 20% de CTR en plus avec cinq variantes ou plus par annonce, mais Brand Kit reste en déploiement progressif.",
+      "actionACL": "Configurer le Brand Kit LinkedIn dès son ouverture au compte ACL pour garantir la cohérence visuelle des annonces générées par IA.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "INFO",
+      "sources": [
+        {
+          "name": "LinkedIn Business Blog",
+          "url": "https://www.linkedin.com/business/marketing/blog/linkedin-ads/introducing-linkedins-new-creative-tools-draft-with-ai-brand-kit-and-ad-variants"
+        },
+        {
+          "name": "Social Media Today",
+          "url": "https://www.socialmediatoday.com/news/linkedin-rolls-out-new-ai-powered-promotional-tools/824290/"
         }
       ]
     },
