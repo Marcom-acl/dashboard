@@ -2069,7 +2069,7 @@ function renderVeilleOverview(d) {
   if (!el) return;
   if (!d || d.error || !d.items) return;
 
-  const items     = d.items || [];
+  const items     = (d.items || []).filter(i => i.category !== 'Veille presse LU');
   const notable   = items.filter(i => i.badge === 'NOTABLE');
   const surveiller = items.filter(i => i.badge === 'SURVEILLER');
   const lastUpd   = d.generated_at || '—';
@@ -4997,7 +4997,7 @@ function renderVeille(d) {
     return;
   }
 
-  const ALL     = d.items    || [];
+  const ALL     = (d.items || []).filter(i => i.category !== 'Veille presse LU');
   const trends  = d.trends   || [];
   const signals = d.signals  || [];
   const editions = d.editions || [];
@@ -5157,7 +5157,7 @@ function renderVeille(d) {
       <div><label style="font-size:11px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-right:4px">Édition</label>
         <select id="vFDate" style="${selStyle()}"><option value="">Toutes</option>${uniqDates.map(dt=>`<option value="${dt}">Édition du ${dateLabel(dt)}</option>`).join('')}</select></div>
       <div><label style="font-size:11px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-right:4px">Catégorie</label>
-        <select id="vFCat" style="${selStyle()}"><option value="">Toutes</option><option value="EU">Clubs EU</option><option value="Monde">Clubs monde</option><option value="Mobilité">Acteurs mobilité</option><option value="Veille presse LU">Veille presse LU</option></select></div>
+        <select id="vFCat" style="${selStyle()}"><option value="">Toutes</option><option value="EU">Clubs EU</option><option value="Monde">Clubs monde</option><option value="Mobilité">Acteurs mobilité</option></select></div>
       <div><label style="font-size:11px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-right:4px">Niveau</label>
         <select id="vFBadge" style="${selStyle()}"><option value="">Tous</option><option value="NOTABLE">Notable</option><option value="SURVEILLER">Surveiller</option><option value="INFO">Info</option></select></div>
       <div><label style="font-size:11px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-right:4px">Recherche</label>
