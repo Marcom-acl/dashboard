@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-20",
+  "generated_at": "2026-07-21",
   "next_edition": "",
   "editions": [
     {
@@ -41,9 +41,93 @@
     {
       "date": "2026-07-20",
       "label": "Semaine du 2026-07-20"
+    },
+    {
+      "date": "2026-07-21",
+      "label": "Semaine du 2026-07-21"
     }
   ],
   "items": [
+    {
+      "id": "2026-07-21-saaskia-1",
+      "club": "AUTOTageblatt",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "Le marché automobile luxembourgeois enregistre un nouveau record d'immatriculations pour les véhicules électriques au deuxième trimestre 2026. L'article aborde les thématiques de l'électromobilité, de la politique et des carburants. Publié en page 3 avec un AVE de 4945,00.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "",
+      "date": "2026-07-21"
+    },
+    {
+      "id": "2026-07-21-saaskia-2",
+      "club": "virgule.lu (Wort.lu/FR)",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "La Belgique s'apprête à instaurer une vignette obligatoire pour circuler sur ses autoroutes et routes régionales. L'article propose une comparaison avec les autres pays pour relativiser le coût, soulignant que ce tarif reste inférieur à celui de certains trajets ponctuels. Sujet pertinent pour les membres ACL circulant dans la Grande Région.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://www.virgule.lu/granderegion/vignette-pour-circuler-en-belgique-comparatif-avec-les-autres-pays-pour-relativiser-la-facture/158689978.html",
+      "date": "2026-07-21"
+    },
+    {
+      "id": "2026-07-21-saaskia-3",
+      "club": "rtl.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "La Chambre des députés luxembourgeoise a voté la loi concernant la ligne de tram reliant la Place de l'Étoile au CHL (Kirchberg). Ce projet étend le réseau de tramway de la capitale. L'article couvre l'avancée législative de ce chantier de mobilité urbaine.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://www.rtl.lu/news/national/chamber-stemmt-gesetz-iwwer-dtramsstreck-stareplaz-chl-250105207",
+      "date": "2026-07-21"
+    },
+    {
+      "id": "2026-07-21-saaskia-4",
+      "club": "today.RTL.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Les CFL (Chemins de Fer Luxembourgeois) identifient la ligne Luxembourg-Esch-Rodange comme la plus sujette aux incidents selon les statistiques de violence publiées. L'article met en lumière les enjeux de sécurité sur le réseau ferroviaire luxembourgeois.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://today.rtl.lu/news/luxembourg/cfl-flags-luxembourg-esch-rodange-as-most-incident-prone-line-1737106045",
+      "date": "2026-07-21"
+    },
+    {
+      "id": "2026-07-21-saaskia-5",
+      "club": "Zeitung zum Lëtzebuerger Vollek",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Le ministre du Tourisme Eric Thill a officiellement lancé la 7e édition du \"Vëlosummer\" depuis la gare de Goebelsmühle. Cet événement annuel dédié au cyclisme s'inscrit dans la campagne nationale de tourisme \"Lëtzebuerg, dat ass Vakanz!\". L'article est paru en page 11.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "",
+      "date": "2026-07-21"
+    },
+    {
+      "id": "2026-07-21-saaskia-6",
+      "club": "Tageblatt",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "Un riverain du Rollingergrund mène un combat pour améliorer la sécurité routière dans le Val St-André, qualifiant la situation de \"dramatique\". L'article illustre les préoccupations citoyennes en matière de sécurité du trafic local. Publié en page 17 avec un AVE de 4945,00.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "",
+      "date": "2026-07-21"
+    },
+    {
+      "id": "2026-07-21-saaskia-7",
+      "club": "Luxemburger Wort",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Un nouveau contournement routier est prévu pour libérer Ettelbrück du trafic de transit, incluant la construction de nouvelles routes, tunnels et ponts. Le projet vise à réorganiser la circulation dans cette ville, bien que son achèvement soit encore lointain. Publié en page 13 avec un AVE de 7100,00.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "",
+      "date": "2026-07-21"
+    },
+    {
+      "id": "2026-07-21-saaskia-8",
+      "club": "Tageblatt",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Dylan Pereira réalise un doublé en compétition de motorsport. L'article couvre cette performance sportive dans la rubrique sport automobile. Publié en page 28 avec un AVE de 1570,00.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "",
+      "date": "2026-07-21"
+    },
     {
       "id": "2026-07-20-saaskia-1",
       "club": "rtl.lu",
