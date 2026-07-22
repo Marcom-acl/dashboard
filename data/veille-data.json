@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-21",
+  "generated_at": "2026-07-22",
   "next_edition": "",
   "editions": [
     {
@@ -45,9 +45,156 @@
     {
       "date": "2026-07-21",
       "label": "Semaine du 2026-07-21"
+    },
+    {
+      "date": "2026-07-22",
+      "label": "Semaine du 2026-07-22"
     }
   ],
   "items": [
+    {
+      "id": "2026-07-22-saaskia-1",
+      "club": "virgule.lu (Wort.lu/FR)",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "Malgré une progression du nombre de véhicules électriques sur ses routes, le Luxembourg recule dans le classement européen de la mobilité électrique. L'infrastructure de recharge est pointée comme principal frein à la transition. L'ACL est explicitement mentionné dans cet article.",
+      "relevance": "ACL explicitement cité : \"L'ACL\"",
+      "url": "https://www.virgule.lu/lifestyle/automoto/le-luxembourg-marque-le-pas-dans-la-course-europeenne-a-la-voiture-electrique/158856253.html",
+      "pdf_url": "",
+      "date": "2026-07-22"
+    },
+    {
+      "id": "2026-07-22-saaskia-2",
+      "club": "virgule.lu (Wort.lu/FR)",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "La demande chinoise pour les véhicules électriques et plug-in affiche un net recul au premier semestre 2026. La fin prochaine des réductions d'impôts accordées par le gouvernement chinois pourrait accentuer cette tendance. L'article interroge les conséquences pour les constructeurs européens.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://www.virgule.lu/lifestyle/automoto/le-marche-electrique-recule-en-chine-danger-pour-les-constructeurs-europeens/158811889.html",
+      "pdf_url": "",
+      "date": "2026-07-22"
+    },
+    {
+      "id": "2026-07-22-saaskia-3",
+      "club": "écho des entreprises",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Zoom sur Petro-Center avec un dossier intitulé 'L'innovation comme carburant', couvrant plusieurs pages du magazine. Article disponible en PDF joint.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "",
+      "pdf_url": "",
+      "date": "2026-07-22"
+    },
+    {
+      "id": "2026-07-22-saaskia-4",
+      "club": "Trans-For-Nation",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Portrait startup consacré à Loop-Park, une initiative visant à mutualiser le stationnement pour améliorer la circulation. Le projet est présenté sous l'angle de la mobilité et des politiques urbaines.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "",
+      "pdf_url": "",
+      "date": "2026-07-22"
+    },
+    {
+      "id": "2026-07-22-saaskia-5",
+      "club": "lesfrontaliers.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Le Luxembourg fait face à un débat politique et syndical sur les pauses toilettes des chauffeurs de bus. Le sujet, bien qu'insolite, mobilise responsables politiques et syndicats au Grand-Duché.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://www.lesfrontaliers.lu/emploi/terminus-les-toilettes-pourquoi-le-luxembourg-se-dechire-sur-les-sanitaires-destines-aux-chauffeurs-de-bus/",
+      "pdf_url": "",
+      "date": "2026-07-22"
+    },
+    {
+      "id": "2026-07-22-saaskia-6",
+      "club": "lessentiel.lu FR",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Le projet de tram rapide entre Belvaux et Luxembourg-ville est revu à la baisse en termes de vitesse. Le temps de trajet global a été allongé de 2'10\" pour atteindre 33'40\", selon la ministre de la Mobilité Yuriko Backes (DP).",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://www.lessentiel.lu/fr/story/mobilite-au-luxembourg-le-tram-rapide-sera-un-peu-plus-lent-que-prevu-103606562",
+      "pdf_url": "",
+      "date": "2026-07-22"
+    },
+    {
+      "id": "2026-07-22-saaskia-7",
+      "club": "luxtimes.lu (Wort.lu/en)",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Des restrictions de navigation sur le Rhin ont provoqué des perturbations d'approvisionnement en carburant au Luxembourg la semaine dernière. Jusqu'à 10 stations-service ont été touchées, selon le ministre de l'Économie.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://www.luxtimes.lu/luxembourg/empty-fuel-pumps-blamed-on-rhine-shipping-restrictions/159002149.html",
+      "pdf_url": "",
+      "date": "2026-07-22"
+    },
+    {
+      "id": "2026-07-22-saaskia-8",
+      "club": "rtl.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Des actions concrètes sont envisagées pour améliorer la sécurité dans les transports en commun au Luxembourg. L'article couvre les mesures politiques annoncées en réponse à une hausse des incidents signalés.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://www.rtl.lu/news/national/dsecherheet-am-effentlechen-transport-soll-verbessert-ginn-668787864",
+      "pdf_url": "",
+      "date": "2026-07-22"
+    },
+    {
+      "id": "2026-07-22-saaskia-9",
+      "club": "rtl.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "La ministre de la Mobilité réagit aux inquiétudes des commerçants de l'avenue Arlon concernant l'extension du tram. Elle affirme que les fermetures de commerces dans ce secteur n'ont aucun lien avec le projet de tram.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://www.rtl.lu/mobiliteit/news/mobiliteitsministesch-reageiert-dass-dgeschafter-op-der-areler-strooss-zoumaachen-huet-naischt-mam-tram-ze-dinn-186588016",
+      "pdf_url": "",
+      "date": "2026-07-22"
+    },
+    {
+      "id": "2026-07-22-saaskia-10",
+      "club": "infos.rtl.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Face à une hausse des incidents dans les transports publics, des mesures concrètes sont annoncées pour renforcer la sécurité au Luxembourg. L'article détaille les actions envisagées par les autorités.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://infos.rtl.lu/news/luxembourg/renforcer-la-securite-dans-les-transports-publics-par-des-actions-concretes-1999692934",
+      "pdf_url": "",
+      "date": "2026-07-22"
+    },
+    {
+      "id": "2026-07-22-saaskia-11",
+      "club": "Le Quotidien",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Les tensions dans le Golfe Persique et au détroit d'Ormuz exercent une pression sur le marché pétrolier mondial. L'Agence internationale de l'énergie tente de rassurer sur la sécurité de l'approvisionnement en pétrole.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "",
+      "pdf_url": "",
+      "date": "2026-07-22"
+    },
+    {
+      "id": "2026-07-22-saaskia-12",
+      "club": "L'Essentiel",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Le député Pirates Marc Goergen demande l'installation d'un radar avenue de l'Europe (N31) à Pétange. La ministre de la Mobilité Yuriko Backes lui répond qu'il n'existe actuellement aucun fondement objectif pour une telle installation sur ce tronçon.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "",
+      "pdf_url": "",
+      "date": "2026-07-22"
+    },
+    {
+      "id": "2026-07-22-saaskia-13",
+      "club": "infos.rtl.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Un article analyse les raisons de la forte hausse des prix des carburants au Luxembourg. Le sujet est traité sous l'angle des politiques énergétiques et de l'approvisionnement.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://infos.rtl.lu/news/luxembourg/pourquoi-les-prix-des-carburants-augmentent-autant-2065776451",
+      "pdf_url": "",
+      "date": "2026-07-22"
+    },
     {
       "id": "2026-07-21-saaskia-1",
       "club": "AUTOTageblatt",
