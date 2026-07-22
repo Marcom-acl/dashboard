@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-20",
+  "generated_at": "2026-07-22",
   "items": [
     {
       "date": "2026-07-20",
@@ -21,6 +21,36 @@
       ]
     },
     {
+      "date": "2026-07-20",
+      "theme": "Design & branding",
+      "titre": "Nano Banana, Recraft et Kittl se démarquent dans les comparatifs de générateurs d'images IA",
+      "synthese": "Les comparatifs publiés mi-juillet 2026 mettent en avant trois outils pour le branding : Nano Banana, réputé pour la cohérence des personnages sur plusieurs images (utile pour storyboards et univers de marque) ; Recraft, seul outil capable de générer de vrais fichiers vectoriels éditables (logos, icônes) plutôt que des rasters vectorisés ; et Kittl, qui combine génération d'images IA et éditeur de design pour les logos, visuels réseaux sociaux et supports imprimés. Le marché des outils de design IA est désormais estimé à 8,22 milliards de dollars en 2026, contre 6,74 milliards en 2025.",
+      "actionACL": "Tester Recraft pour la production de logos ou icônes vectoriels éditables, un besoin récurrent que les autres générateurs IA ne couvrent pas nativement.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "INFO",
+      "sources": [
+        {
+          "name": "Krumzi",
+          "url": "https://www.krumzi.com/blog/best-ai-design-tools-in-2026-12-picks-for-stunning-visuals-without-design-skills"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-18",
+      "theme": "Design & branding",
+      "titre": "L'AI Design Studio de CapCut salué par Software Experts pour la création d'assets marketing",
+      "synthese": "Software Experts a reconnu CapCut le 18 juillet 2026 comme l'un des meilleurs outils de design IA de 2026, en mettant en avant son AI Design Studio. L'outil repose sur un canevas conversationnel infini permettant de travailler en temps réel avec un agent de design IA. Il est positionné comme une ressource centrale pour produire images et assets marketing sans compétences graphiques poussées.",
+      "actionACL": "Comparer l'AI Design Studio de CapCut aux outils déjà utilisés par l'équipe Marcom pour la production rapide de visuels réseaux sociaux.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "INFO",
+      "sources": [
+        {
+          "name": "Yahoo Finance",
+          "url": "https://sg.finance.yahoo.com/news/best-ai-design-tools-2026-100000469.html"
+        }
+      ]
+    },
+    {
       "date": "2026-07-17",
       "theme": "Design & branding",
       "titre": "CapCut distingué parmi les meilleurs outils IA de branding 2026",
@@ -32,6 +62,70 @@
         {
           "name": "PR Newswire / Morningstar",
           "url": "https://www.morningstar.com/news/pr-newswire/20260717ph06410/best-ai-tools-for-branding-2026-capcut-featured-for-creating-branded-video-and-visual-content-by-expert-consumers"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-17",
+      "theme": "IA générative en marketing",
+      "titre": "Les appels générés par ChatGPT convertissent 49% des leads en ventes",
+      "synthese": "Une analyse portant sur plus de 70 millions d'appels téléphoniques montre que les appels référés par ChatGPT se transforment en leads commerciaux 49% du temps, soit environ 10 points de plus que tout autre canal marketing mesuré. Les personnes appelant via une IA générative semblent plus avancées dans leur parcours d'achat que les prospects moyens. Cette donnée confirme l'IA générative comme canal de découverte et de conversion à part entière, au même titre que la recherche ou les réseaux sociaux.",
+      "actionACL": "Mettre en place un suivi des appels entrants par source d'origine (y compris IA générative) pour mesurer la contribution réelle de ChatGPT et des autres assistants IA dans le pipeline commercial ACL.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "MarketingProfs",
+          "url": "https://www.marketingprofs.com/opinions/2026/55273/ai-update-july-17-2026-ai-news-and-views-from-the-past-week"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-17",
+      "theme": "Design & branding",
+      "titre": "CapCut désigné meilleur outil IA de branding par Expert Consumers",
+      "synthese": "Expert Consumers a distingué CapCut le 17 juillet 2026 parmi les meilleurs outils IA pour le branding, en particulier pour la création de vidéos et visuels de marque. La suite intégrée de CapCut combine génération vidéo, création d'images et production musicale dans un seul flux de travail. Son générateur vidéo Seedance 2.0 permet de créer des vidéos à partir de simples prompts textuels pour raccourcir les délais de production de contenus promotionnels.",
+      "actionACL": "Tester Seedance 2.0 (CapCut) pour produire rapidement une courte vidéo promotionnelle ou un tutoriel de marque à moindre coût.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "INFO",
+      "sources": [
+        {
+          "name": "Yahoo Finance",
+          "url": "https://sg.finance.yahoo.com/news/best-ai-tools-branding-2026-100000840.html"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-16",
+      "theme": "Social & Ads",
+      "titre": "Google Ads impose un label \"Comment cette annonce a été créée\" pour les contenus IA",
+      "synthese": "Google Ads a introduit en juillet 2026 une section \"How this ad was made\" dans My Ad Center, affichée automatiquement lorsqu'une publicité a été créée ou modifiée avec les outils d'IA générative de Google (Performance Max notamment). Les annonceurs peuvent aussi ajouter des labels texte ou visuels sur leurs propres créations générées par IA. Cette mesure de transparence anticipe les réglementations émergentes sur la divulgation des contenus IA dans la publicité.",
+      "actionACL": "Anticiper l'étiquetage des visuels ou vidéos publicitaires générés par IA avant que la divulgation ne devienne obligatoire dans d'autres régies (Meta, TikTok, réglementation UE).",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "VEONIB",
+          "url": "https://veonib.com/articles/2026-07-16/google-ads-ai-disclosure-tiktok-ads-2026-policy-shake-up-for.html"
+        },
+        {
+          "name": "Google Ads Policy Help",
+          "url": "https://support.google.com/adspolicy/answer/17257106?hl=en"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-16",
+      "theme": "Design & branding",
+      "titre": "Figma dévoile des agents IA et des outils de design \"code-natif\" à Config 2026",
+      "synthese": "Lors de sa conférence Config 2026, Figma a annoncé une série de nouveautés IA pour transformer sa plateforme en \"canevas intelligent\" : nouveaux agents IA, outils de design code-natif, création de plugins génératifs et automatisation de workflows. Les mises à jour incluent la génération simultanée de plusieurs variantes d'images IA depuis la barre d'outils, l'import d'écrans codés dans les fichiers Figma avec conservation des variables, et l'intégration de GPT-5.6 dans Figma Make. L'agent de design Figma peut désormais parcourir le web pour intégrer du contenu réel et des bonnes pratiques directement dans les maquettes.",
+      "actionACL": "Si Figma est utilisé pour les maquettes marketing, explorer l'agent de design et la génération multiple d'images IA pour accélérer les itérations créatives.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "Analytics India Magazine",
+          "url": "https://analyticsindiamag.com/ai-news/figma-unveils-ai-agents-and-code-native-design-tools-at-config-2026"
         }
       ]
     },
@@ -70,6 +164,81 @@
         {
           "name": "Social Media Today",
           "url": "https://www.socialmediatoday.com/news/tiktok-bans-ai-generated-voices-in-shopping-livestreams/822977/"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-15",
+      "theme": "IA générative en marketing",
+      "titre": "PwC et OpenAI lancent des solutions agentiques pour la relation client",
+      "synthese": "PwC US a annoncé le 15 juillet 2026 le lancement de solutions de contact et de service client agentiques développées avec OpenAI. L'offre vise à unifier marketing, ventes, commerce et service dans un modèle opérationnel intégré piloté par des agents IA. PwC a créé un centre d'excellence dédié pour accélérer le déploiement de ces agents dans les centres de contact.",
+      "actionACL": "Suivre les retours d'expérience de ce type d'offre agentique pour évaluer, à terme, l'intérêt d'agents IA en support du service aux membres ACL.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "PwC Newsroom",
+          "url": "https://www.pwc.com/us/en/about-us/newsroom/press-releases/pwc-openai-agentic-contact-service-solutions.html"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-15",
+      "theme": "IA générative en marketing",
+      "titre": "Sprinklr lance sa Summer '26 Release avec des agents IA et une intégration MCP",
+      "synthese": "Sprinklr a dévoilé le 15 juillet 2026 sa Summer '26 Release pour sa plateforme Unified-CXM, ajoutant des agents IA autonomes, une intégration au Model Context Protocol (MCP) et de l'intelligence client basée sur la vidéo. Grâce au MCP, les équipes peuvent consulter les données clients Sprinklr directement depuis Microsoft Copilot, ChatGPT ou Claude sans changer d'interface. L'objectif affiché est de passer de tableaux de bord statiques à une action en temps réel sur les signaux clients.",
+      "actionACL": "Évaluer si les outils CXM déjà utilisés en interne proposent des intégrations similaires (MCP, agents IA) pour accélérer le traitement des signaux membres sans multiplier les interfaces.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "CMSWire",
+          "url": "https://www.cmswire.com/customer-experience/sprinklr-ships-16-ai-features-for-realtime-cx/"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-15",
+      "theme": "CRM & member marketing",
+      "titre": "Tenon intègre nativement son automation marketing à la plateforme IA de ServiceNow",
+      "synthese": "Tenon a annoncé le 15 juillet 2026 l'intégration native de son automation marketing à la ServiceNow AI Platform, permettant d'orchestrer l'engagement client omnicanal (email, SMS, digital) sur la même plateforme que les équipes ventes, service et opérations. Les équipes marketing utilisent ainsi les mêmes données, workflows et capacités IA que le reste du CRM, réduisant les silos de données. Un organisme comme MCNC utilise déjà cette intégration pour aligner ses actions marketing sur les données relationnelles et opérationnelles.",
+      "actionACL": "Vérifier si l'écosystème CRM/ServiceNow utilisé par ACL permettrait une intégration comparable, afin de réduire les silos entre données membres et actions marketing.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "MarTechSeries",
+          "url": "https://martechseries.com/sales-marketing/crm/tenon-expands-marketing-automation-into-the-servicenow-ai-platform-unifying-customer-engagement-across-the-enterprise/"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-15",
+      "theme": "Social & Ads",
+      "titre": "TikTok lance Agentic Hub pour automatiser la gestion des campagnes publicitaires",
+      "synthese": "TikTok a introduit Agentic Hub, un espace permettant aux annonceurs d'utiliser des agents IA et des compétences spécialisées pour automatiser des tâches publicitaires et rationaliser la gestion des campagnes. Cette annonce s'inscrit dans la même semaine que l'expansion de la publicité IA chez Meta et le lancement de nouveaux outils IA dans LinkedIn Campaign Manager. L'ensemble de ces mouvements confirme la bascule des plateformes sociales vers une gestion publicitaire pilotée par des agents autonomes.",
+      "actionACL": "Suivre les premiers retours d'usage d'Agentic Hub avant d'envisager une automatisation plus poussée des campagnes TikTok d'ACL.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "Boot Camp Digital",
+          "url": "https://bootcampdigital.com/blog/july-2026-digital-news-updates/"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-15",
+      "theme": "Social & Ads",
+      "titre": "LinkedIn ajoute cinq outils IA à Campaign Manager pour les petits annonceurs",
+      "synthese": "LinkedIn a présenté cinq nouveaux outils dans Campaign Manager destinés à aider les petits annonceurs à créer, personnaliser et tester davantage de variantes publicitaires : Brand Kit, Draft with AI, Ads Personalization, des variantes d'annonces générées par IA, et une création d'annonces plus flexible. L'objectif est de réduire le temps de production créative pour les équipes qui n'ont pas de ressources design dédiées.",
+      "actionACL": "Tester Brand Kit et Draft with AI sur une prochaine campagne LinkedIn pour évaluer le gain de temps réel sur la création de variantes.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "INFO",
+      "sources": [
+        {
+          "name": "The Agile Brand Guide",
+          "url": "https://agilebrandguide.com/yesterdays-marketing-technology-ai-news-july-16-2026/"
         }
       ]
     },
@@ -149,6 +318,36 @@
         {
           "name": "Krumzi",
           "url": "https://www.krumzi.com/blog/best-ai-design-tools-in-2026-12-picks-for-stunning-visuals-without-design-skills"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-14",
+      "theme": "CRM & member marketing",
+      "titre": "HubSpot étend Breeze AI à la recherche globale, aux devis et à la relance de factures",
+      "synthese": "Les mises à jour HubSpot de juillet 2026 élargissent Breeze AI à de nouvelles surfaces : résumé et actions suggérées dans la recherche globale de contacts, instructions de rédaction sur mesure dans les modèles de devis, et analyse des factures impayées pour prioriser les relances. HubSpot a aussi ajouté une intégration native à Microsoft 365 Copilot. Le Commerce Hub a par ailleurs été renommé Revenue Hub.",
+      "actionACL": "Si ACL utilise HubSpot, tester les nouvelles fonctions Breeze sur la recherche de contacts et la relance de factures pour gagner du temps sur des tâches répétitives.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "Vantagepoint",
+          "url": "https://vantagepoint.io/blog/hs/hubspot-july-2026-product-updates"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-14",
+      "theme": "CRM & member marketing",
+      "titre": "Klaviyo place son agent IA Composer derrière un paywall à 157$/mois",
+      "synthese": "Klaviyo a modifié sa tarification en juillet 2026 : son agent marketing Composer devient un module payant séparé à 157 dollars par mois pour 16 000 crédits, alors qu'il était auparavant inclus. Dans le même temps, HubSpot a réduit le prix de Sales Hub Starter de 15 à 7 dollars par siège et par an. Ces ajustements traduisent une phase de recalibrage tarifaire des éditeurs autour de leurs fonctionnalités IA les plus avancées.",
+      "actionACL": "Si Klaviyo est utilisé, vérifier l'impact budgétaire de ce changement avant le prochain renouvellement de contrat.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "INFO",
+      "sources": [
+        {
+          "name": "MarTech",
+          "url": "https://martech.org/hubspot-moves-to-outcome-based-pricing-for-some-breeze-ai-agents/"
         }
       ]
     },
@@ -846,6 +1045,21 @@
         {
           "name": "CNBC",
           "url": "https://www.cnbc.com/2026/07/07/meta-ai-muse-image.html"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-07",
+      "theme": "Social & Ads",
+      "titre": "Zappi lance Amplify AI, un test publicitaire prédictif à 84% de fiabilité",
+      "synthese": "Zappi a lancé Amplify AI, une solution de test publicitaire prédictif qui permet d'évaluer des centaines de vidéos publicitaires sociales avant leur diffusion, alors qu'elles restent habituellement non testées faute de temps. L'outil combine machine learning et répondants synthétiques pour prédire la réaction des consommateurs avec une précision revendiquée de 84% par rapport à des enquêtes humaines réelles. Il est disponible aux États-Unis et au Royaume-Uni, avec d'autres marchés prévus dans l'année.",
+      "actionACL": "Envisager un test pilote d'Amplify AI ou d'un outil équivalent avant le lancement d'une prochaine campagne vidéo à fort budget média.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "PR Newswire",
+          "url": "https://www.prnewswire.com/news-releases/zappi-launches-amplify-ai-bringing-predictive-ad-testing-to-high-volume-digital-campaigns-302819088.html"
         }
       ]
     },
