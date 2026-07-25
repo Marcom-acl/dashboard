@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-24",
+  "generated_at": "2026-07-25",
   "next_edition": "",
   "editions": [
     {
@@ -57,6 +57,10 @@
     {
       "date": "2026-07-24",
       "label": "Semaine du 2026-07-24"
+    },
+    {
+      "date": "2026-07-25",
+      "label": "Semaine du 2026-07-25"
     }
   ],
   "items": [
@@ -65,7 +69,7 @@
       "club": "Luxemburger Wort",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Junglinster augmente l'espace réservé aux piétons et aux cyclistes, renforçant la sécurité et l'accessibilité de la mobilité douce au Luxembourg.",
+      "content": "Junglinster augmente l'espace dédié aux piétons et cyclistes, reflétant une politique de mobilité alternative au Luxembourg.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1784873266.299.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1784873266.299.pdf",
@@ -76,7 +80,7 @@
       "club": "infogreen.lu",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Le projet LuxHyVal développe l'hydrogène vert au Luxembourg, marquant une étape importante dans la transition énergétique et la mobilité durable.",
+      "content": "Développement de l'hydrogène vert au Luxembourg via le projet LuxHyVal, relevant des enjeux de mobilité durable.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1784870788.7213.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1784870788.7213.pdf",
@@ -87,21 +91,10 @@
       "club": "L'Essentiel",
       "category": "Veille presse LU",
       "badge": "INFO",
-      "content": "Mercedes définit sa stratégie verte pour l'avenir, illustrant la transition écologique des constructeurs automobiles majeurs.",
+      "content": "Mercedes définit sa stratégie future orientée vers la motorisation écologique et la transition énergétique.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1784871370.0657.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1784871370.0657.pdf",
-      "date": "2026-07-24"
-    },
-    {
-      "id": "2026-07-24-saaskia-web-qqKstc",
-      "club": "today.RTL.lu",
-      "category": "Veille presse LU",
-      "badge": "INFO",
-      "content": "Le pétrole dépasse à nouveau les 100 dollars le baril, avec des enjeux économiques accentués cette fois-ci.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1784870758.4357.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1784870758.4357.pdf",
       "date": "2026-07-24"
     },
     {
@@ -109,10 +102,21 @@
       "club": "d'Lëtzebuerger Land",
       "category": "Veille presse LU",
       "badge": "INFO",
-      "content": "Article sur la dépendance critique, probablement en lien avec les enjeux énergétiques et de mobilité.",
+      "content": "Article sur les dépendances critiques en matière de mobilité et politique énergétique au Luxembourg.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1784870914.7813.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1784870914.7813.pdf",
+      "date": "2026-07-24"
+    },
+    {
+      "id": "2026-07-24-saaskia-web-qqKstc",
+      "club": "today.RTL.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Le prix du pétrole dépasse à nouveau 100 dollars le baril, avec des implications sérieuses pour le secteur automobile et l'énergie.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1784870758.4357.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1784870758.4357.pdf",
       "date": "2026-07-24"
     },
     {
@@ -120,7 +124,7 @@
       "club": "virgule.lu (Wort.lu/FR)",
       "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "content": "Comparaison des prix des carburants en Europe : un pays du sud de l'Europe offre des tarifs plus avantageux que le Luxembourg cet été. Article classé en catégorie ACL.",
+      "content": "Comparaison des prix des carburants en Europe : un pays du sud de l'Europe offre des tarifs plus avantageux que le Luxembourg cet été. Coupure catégorisée ACL.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1784783317.6408.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1784783317.6408.pdf",
@@ -131,10 +135,21 @@
       "club": "Zeitung zum Lëtzebuerger Vollek",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Fermeture de fin de semaine prévue sur l'autoroute A13, impactant la mobilité et les trajets des usagers luxembourgeois.",
+      "content": "Fermeture de week-end prévue sur l'autoroute A13 au Luxembourg, affectant la circulation routière.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1784783231.0107.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1784783231.0107.pdf",
+      "date": "2026-07-23"
+    },
+    {
+      "id": "2026-07-23-saaskia-web-ynFvxe",
+      "club": "Luxemburger Wort",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Analyse comparative des prix des carburants en Europe : la France est la plus chère, la Turquie la moins chère, avec implications pour les automobilistes luxembourgeois.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1784783157.9103.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1784783157.9103.pdf",
       "date": "2026-07-23"
     },
     {
@@ -142,21 +157,21 @@
       "club": "100komma7.lu",
       "category": "Veille presse LU",
       "badge": "INFO",
-      "content": "Porsche prévoit de supprimer 5.000 postes supplémentaires, reflétant les ajustements structurels du secteur automobile.",
+      "content": "Porsche annonce la suppression de 5.000 postes supplémentaires dans sa restructuration.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1784789276.0829.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1784789276.0829.pdf",
       "date": "2026-07-23"
     },
     {
-      "id": "2026-07-23-saaskia-web-ynFvxe",
-      "club": "Luxemburger Wort",
+      "id": "2026-07-23-saaskia-web-uR3SHP",
+      "club": "infos.rtl.lu",
       "category": "Veille presse LU",
       "badge": "INFO",
-      "content": "Comparaison des prix des carburants en Europe : la France est la plus chère, la Turquie la moins chère.",
+      "content": "Information concernant la situation en France, potentiellement liée à la mobilité ou aux transports.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1784783157.9103.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1784783157.9103.pdf",
+      "url": "https://saaskia.keepcontact.lu/data/files/1784783273.2577.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1784783273.2577.pdf",
       "date": "2026-07-23"
     },
     {
