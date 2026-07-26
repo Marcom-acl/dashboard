@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-25",
+  "generated_at": "2026-07-26",
   "next_edition": "",
   "editions": [
     {
@@ -61,6 +61,10 @@
     {
       "date": "2026-07-25",
       "label": "Semaine du 2026-07-25"
+    },
+    {
+      "date": "2026-07-26",
+      "label": "Semaine du 2026-07-26"
     }
   ],
   "items": [
@@ -69,7 +73,7 @@
       "club": "Luxemburger Wort",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Junglinster augmente l'espace dédié aux piétons et cyclistes, reflétant une politique de mobilité alternative au Luxembourg.",
+      "content": "Junglinster renforce l'espace dédié aux piétons et cyclistes, reflétant une volonté locale d'améliorer la mobilité douce et la sécurité routière au Luxembourg.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1784873266.299.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1784873266.299.pdf",
@@ -80,7 +84,7 @@
       "club": "infogreen.lu",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Développement de l'hydrogène vert au Luxembourg via le projet LuxHyVal, relevant des enjeux de mobilité durable.",
+      "content": "Le Luxembourg progresse dans le développement de l'hydrogène vert avec le projet LuxHyVal, une initiative majeure pour la transition énergétique du secteur de la mobilité.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1784870788.7213.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1784870788.7213.pdf",
@@ -91,7 +95,7 @@
       "club": "L'Essentiel",
       "category": "Veille presse LU",
       "badge": "INFO",
-      "content": "Mercedes définit sa stratégie future orientée vers la motorisation écologique et la transition énergétique.",
+      "content": "Mercedes dévoile sa stratégie de transition vers une offre automobile écologique et durable, alignée sur les tendances du marché européen.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1784871370.0657.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1784871370.0657.pdf",
@@ -102,7 +106,7 @@
       "club": "d'Lëtzebuerger Land",
       "category": "Veille presse LU",
       "badge": "INFO",
-      "content": "Article sur les dépendances critiques en matière de mobilité et politique énergétique au Luxembourg.",
+      "content": "Article traitant de dépendances critiques liées à la mobilité et à la politique énergétique au Luxembourg.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1784870914.7813.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1784870914.7813.pdf",
@@ -113,7 +117,7 @@
       "club": "today.RTL.lu",
       "category": "Veille presse LU",
       "badge": "INFO",
-      "content": "Le prix du pétrole dépasse à nouveau 100 dollars le baril, avec des implications sérieuses pour le secteur automobile et l'énergie.",
+      "content": "Analyse de la hausse des prix du pétrole au-delà de 100 dollars le baril et ses implications géopolitiques et économiques.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1784870758.4357.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1784870758.4357.pdf",
