@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-26",
+  "generated_at": "2026-07-27",
   "next_edition": "",
   "editions": [
     {
@@ -65,9 +65,145 @@
     {
       "date": "2026-07-26",
       "label": "Semaine du 2026-07-26"
+    },
+    {
+      "date": "2026-07-27",
+      "label": "Semaine du 2026-07-27"
     }
   ],
   "items": [
+    {
+      "id": "2026-07-27-saaskia-web-cGnTqZ",
+      "club": "lessentiel.lu FR",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Vols de vélos dans des bikebox au Luxembourg : plusieurs enquêtes sont en cours pour lutter contre ce phénomène croissant de criminalité visant les deux-roues stationnés.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1785135255.7519.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785135255.7519.pdf",
+      "date": "2026-07-27"
+    },
+    {
+      "id": "2026-07-27-saaskia-web-gTxpYk",
+      "club": "tageblatt.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "L'administration des routes du Luxembourg supprime définitivement une voie de virage à gauche, modifiant ainsi l'infrastructure routière existante.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1785131253.7504.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785131253.7504.pdf",
+      "date": "2026-07-27"
+    },
+    {
+      "id": "2026-07-27-saaskia-web-vADhZl",
+      "club": "diegrenzgaenger.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Les résidents luxembourgeois préfèrent se déplacer vers la France, reflétant les tendances de mobilité et de tourisme dans la région frontalière.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1785131283.9388.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785131283.9388.pdf",
+      "date": "2026-07-27"
+    },
+    {
+      "id": "2026-07-27-saaskia-web-wfi1rx",
+      "club": "paperjam.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Le Luxembourg offre des subventions de leasing social pouvant atteindre 10.800 euros pour les véhicules électriques, favorisant la transition énergétique du parc automobile.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1785131311.5303.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785131311.5303.pdf",
+      "date": "2026-07-27"
+    },
+    {
+      "id": "2026-07-27-saaskia-web-phRFaU",
+      "club": "Delano.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Le Luxembourg propose un programme de leasing social offrant jusqu'à 10.800 euros pour acquérir un véhicule électrique, soutenant la mobilité durable.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1785131345.2822.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785131345.2822.pdf",
+      "date": "2026-07-27"
+    },
+    {
+      "id": "2026-07-27-saaskia-web-1oED3N",
+      "club": "paperjam.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Le gouvernement luxembourgeois débloque 54 millions d'euros pour soutenir le secteur des transporteurs, renforçant l'infrastructure logistique nationale.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1785131369.8689.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785131369.8689.pdf",
+      "date": "2026-07-27"
+    },
+    {
+      "id": "2026-07-27-saaskia-web-bG1Epb",
+      "club": "Luxemburger Wort",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "L'opposition critique le secret entourant l'étude Kordall sur la mobilité, demandant plus de transparence dans la politique de transport.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1785131488.7302.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785131488.7302.pdf",
+      "date": "2026-07-27"
+    },
+    {
+      "id": "2026-07-27-saaskia-web-T5PWQx",
+      "club": "rtl.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Article en luxembourgeois concernant les préoccupations des résidents liées à la mobilité et aux conditions de vie locales.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1785131552.3779.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785131552.3779.pdf",
+      "date": "2026-07-27"
+    },
+    {
+      "id": "2026-07-27-saaskia-web-H9URTU",
+      "club": "virgule.lu (Wort.lu/FR)",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "La marque automobile Geely est désormais distribuée au Luxembourg par le concessionnaire Car Avenue, élargissant l'offre de véhicules sur le marché local.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1785131594.0305.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785131594.0305.pdf",
+      "date": "2026-07-27"
+    },
+    {
+      "id": "2026-07-27-saaskia-web-WdBXoK",
+      "club": "infogreen.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Le Klimapakt 2026 pour les entreprises introduit de nouveaux outils pour soutenir la transition énergétique des organisations luxembourgeoises.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1785131616.8326.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785131616.8326.pdf",
+      "date": "2026-07-27"
+    },
+    {
+      "id": "2026-07-27-saaskia-web-Opb8n2",
+      "club": "infos.rtl.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Article couvrant les actualités depuis Audun-le-Tiche, localité frontalière concernant la région du Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1785131644.7555.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785131644.7555.pdf",
+      "date": "2026-07-27"
+    },
+    {
+      "id": "2026-07-27-saaskia-web-5TV6tZ",
+      "club": "paperjam.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "L'aéroport de Luxembourg connaît une restructuration majeure qui modifiera l'expérience des voyageurs avec de nouvelles installations.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1785131673.806.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785131673.806.pdf",
+      "date": "2026-07-27"
+    },
     {
       "id": "2026-07-24-saaskia-web-Px5FxZ",
       "club": "Luxemburger Wort",
