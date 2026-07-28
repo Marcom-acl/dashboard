@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-27",
+  "generated_at": "2026-07-28",
   "next_edition": "",
   "editions": [
     {
@@ -69,29 +69,198 @@
     {
       "date": "2026-07-27",
       "label": "Semaine du 2026-07-27"
+    },
+    {
+      "date": "2026-07-28",
+      "label": "Semaine du 2026-07-28"
     }
   ],
   "items": [
     {
-      "id": "2026-07-27-saaskia-web-cGnTqZ",
-      "club": "lessentiel.lu FR",
+      "id": "2026-07-28-saaskia-web-xLxJ2d",
+      "club": "Le Quotidien",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "Article sur la vignette automobile en Belgique et les positions de l'ACL. Accord de principe mentionné avec réserves sur sa portée réelle.",
+      "relevance": "ACL explicitement cité : \"ACL citée dans les catégories\"",
+      "url": "https://saaskia.keepcontact.lu/data/files/1785216250.569.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785216250.569.pdf",
+      "date": "2026-07-28"
+    },
+    {
+      "id": "2026-07-28-saaskia-web-Sedb1o",
+      "club": "lequotidien.lu",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "Article sur la vignette automobile en Belgique avec position de l'ACL. Insiste sur le caractère provisoire de l'accord de principe.",
+      "relevance": "ACL explicitement cité : \"ACL citée dans les catégories\"",
+      "url": "https://saaskia.keepcontact.lu/data/files/1785216319.5369.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785216319.5369.pdf",
+      "date": "2026-07-28"
+    },
+    {
+      "id": "2026-07-28-saaskia-web-tJBsLF",
+      "club": "lesfrontaliers.lu",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Vols de vélos dans des bikebox au Luxembourg : plusieurs enquêtes sont en cours pour lutter contre ce phénomène croissant de criminalité visant les deux-roues stationnés.",
+      "content": "Plus de 3 400 agressions documentées dans les transports en commun au Luxembourg. Le gouvernement met en place des mesures de réaction face à cette problématique de sécurité.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1785135255.7519.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785135255.7519.pdf",
+      "url": "https://saaskia.keepcontact.lu/data/files/1785216050.4674.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785216050.4674.pdf",
+      "date": "2026-07-28"
+    },
+    {
+      "id": "2026-07-28-saaskia-web-hCRFnv",
+      "club": "today.RTL.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Nouvelles règles concernant les tachygraphes. Mise à jour réglementaire impactant les transporteurs et professionnels de la route au Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1785216083.3046.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785216083.3046.pdf",
+      "date": "2026-07-28"
+    },
+    {
+      "id": "2026-07-28-saaskia-web-WM0ayv",
+      "club": "chronicle.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Augmentation des contrôles de police à Luxembourg-Ville. Renforcement des mesures de sécurité routière dans la capitale.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1785216128.7832.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785216128.7832.pdf",
+      "date": "2026-07-28"
+    },
+    {
+      "id": "2026-07-28-saaskia-web-HvZS4x",
+      "club": "100komma7.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Jusqu'à 10 800 euros pour le leasing de véhicules électriques destiné aux personnes à revenus modestes au Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1785216110.8287.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785216110.8287.pdf",
+      "date": "2026-07-28"
+    },
+    {
+      "id": "2026-07-28-saaskia-web-psJGFz",
+      "club": "wort.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Analyse de la nouvelle Mercedes Classe C et son potentiel en tant que leader des voitures électriques sur le marché.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1785216144.1138.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785216144.1138.pdf",
+      "date": "2026-07-28"
+    },
+    {
+      "id": "2026-07-28-saaskia-web-dOZQVy",
+      "club": "lesfrontaliers.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Travaux CFL : arrêt prévu de la navette entre Hettange-Grande et Frisange. Impact sur les trajets frontaliers.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1785216067.9078.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785216067.9078.pdf",
+      "date": "2026-07-28"
+    },
+    {
+      "id": "2026-07-28-saaskia-web-jRE10Z",
+      "club": "Zeitung zum Lëtzebuerger Vollek",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Centre de formation pour conducteurs. Initiative concernant la formation professionnelle des conducteurs au Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1785216348.5185.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785216348.5185.pdf",
+      "date": "2026-07-28"
+    },
+    {
+      "id": "2026-07-28-saaskia-web-fx2RbZ",
+      "club": "L'Essentiel",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Vols de SUV haut de gamme en France avec deux arrestations. Affaire de criminalité automobile transfrontalière.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1785216404.6784.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785216404.6784.pdf",
+      "date": "2026-07-28"
+    },
+    {
+      "id": "2026-07-27-saaskia-web-wfi1rx",
+      "club": "paperjam.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Programme de leasing social proposant jusqu'à 10 800 euros pour l'accès à des voitures électriques au Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1785131311.5303.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785131311.5303.pdf",
+      "date": "2026-07-27"
+    },
+    {
+      "id": "2026-07-27-saaskia-web-phRFaU",
+      "club": "Delano.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Social leasing program offrant jusqu'à 10 800 euros pour permettre aux citoyens de conduire des voitures électriques.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1785131345.2822.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785131345.2822.pdf",
+      "date": "2026-07-27"
+    },
+    {
+      "id": "2026-07-27-saaskia-web-H9URTU",
+      "club": "virgule.lu (Wort.lu/FR)",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Marque automobile Geely désormais disponible chez le concessionnaire Car Avenue au Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1785131594.0305.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785131594.0305.pdf",
       "date": "2026-07-27"
     },
     {
       "id": "2026-07-27-saaskia-web-gTxpYk",
       "club": "tageblatt.lu",
       "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "L'administration des routes du Luxembourg supprime définitivement une voie de virage à gauche, modifiant ainsi l'infrastructure routière existante.",
+      "badge": "INFO",
+      "content": "L'administration des routes supprime définitivement une voie de virage à gauche. Modification de l'infrastructure routière au Luxembourg.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1785131253.7504.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785131253.7504.pdf",
+      "date": "2026-07-27"
+    },
+    {
+      "id": "2026-07-27-saaskia-web-1oED3N",
+      "club": "paperjam.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Le Luxembourg débloque 54 millions d'euros destinés aux entreprises de transport. Soutien gouvernemental au secteur des transports.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1785131369.8689.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785131369.8689.pdf",
+      "date": "2026-07-27"
+    },
+    {
+      "id": "2026-07-27-saaskia-web-cGnTqZ",
+      "club": "lessentiel.lu FR",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Vols de vélos dans des bikebox au Luxembourg. Plusieurs enquêtes en cours pour lutter contre cette problématique.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1785135255.7519.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785135255.7519.pdf",
+      "date": "2026-07-27"
+    },
+    {
+      "id": "2026-07-27-saaskia-web-5TV6tZ",
+      "club": "paperjam.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "L'aéroport de Luxembourg prépare des changements majeurs d'infrastructure. Anticipation des évolutions attendues pour les voyageurs.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1785131673.806.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785131673.806.pdf",
       "date": "2026-07-27"
     },
     {
@@ -103,39 +272,6 @@
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1785131283.9388.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785131283.9388.pdf",
-      "date": "2026-07-27"
-    },
-    {
-      "id": "2026-07-27-saaskia-web-wfi1rx",
-      "club": "paperjam.lu",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Le Luxembourg offre des subventions de leasing social pouvant atteindre 10.800 euros pour les véhicules électriques, favorisant la transition énergétique du parc automobile.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1785131311.5303.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785131311.5303.pdf",
-      "date": "2026-07-27"
-    },
-    {
-      "id": "2026-07-27-saaskia-web-phRFaU",
-      "club": "Delano.lu",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Le Luxembourg propose un programme de leasing social offrant jusqu'à 10.800 euros pour acquérir un véhicule électrique, soutenant la mobilité durable.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1785131345.2822.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785131345.2822.pdf",
-      "date": "2026-07-27"
-    },
-    {
-      "id": "2026-07-27-saaskia-web-1oED3N",
-      "club": "paperjam.lu",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Le gouvernement luxembourgeois débloque 54 millions d'euros pour soutenir le secteur des transporteurs, renforçant l'infrastructure logistique nationale.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1785131369.8689.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785131369.8689.pdf",
       "date": "2026-07-27"
     },
     {
@@ -161,17 +297,6 @@
       "date": "2026-07-27"
     },
     {
-      "id": "2026-07-27-saaskia-web-H9URTU",
-      "club": "virgule.lu (Wort.lu/FR)",
-      "category": "Veille presse LU",
-      "badge": "INFO",
-      "content": "La marque automobile Geely est désormais distribuée au Luxembourg par le concessionnaire Car Avenue, élargissant l'offre de véhicules sur le marché local.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1785131594.0305.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785131594.0305.pdf",
-      "date": "2026-07-27"
-    },
-    {
       "id": "2026-07-27-saaskia-web-WdBXoK",
       "club": "infogreen.lu",
       "category": "Veille presse LU",
@@ -191,17 +316,6 @@
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1785131644.7555.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785131644.7555.pdf",
-      "date": "2026-07-27"
-    },
-    {
-      "id": "2026-07-27-saaskia-web-5TV6tZ",
-      "club": "paperjam.lu",
-      "category": "Veille presse LU",
-      "badge": "INFO",
-      "content": "L'aéroport de Luxembourg connaît une restructuration majeure qui modifiera l'expérience des voyageurs avec de nouvelles installations.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1785131673.806.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785131673.806.pdf",
       "date": "2026-07-27"
     },
     {
