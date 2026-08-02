@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-01",
+  "generated_at": "2026-08-02",
   "next_edition": "",
   "editions": [
     {
@@ -89,6 +89,10 @@
     {
       "date": "2026-08-01",
       "label": "Semaine du 2026-08-01"
+    },
+    {
+      "date": "2026-08-02",
+      "label": "Semaine du 2026-08-02"
     }
   ],
   "items": [
@@ -97,8 +101,8 @@
       "club": "luxtimes.lu (Wort.lu/en)",
       "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "content": "Comparaison des performances des voitures électriques par rapport aux véhicules à essence par temps chaud, sujet pertinent pour l'ACL.",
-      "relevance": "ACL explicitement cité : \"ACL\"",
+      "content": "Article sur les performances des voitures électriques par rapport aux véhicules essence par temps chaud, catégorisé ACL.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1785475641.9621.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785475641.9621.pdf",
       "date": "2026-07-31"
@@ -108,7 +112,7 @@
       "club": "lessentiel.lu FR",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Information sur une aide gouvernementale de 10 800 euros au Luxembourg pour l'acquisition de véhicules électriques en leasing.",
+      "content": "Aide gouvernementale de 10 800 euros pour le leasing de véhicules électriques au Luxembourg, mesure de promotion de la mobilité durable.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1785475858.2509.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785475858.2509.pdf",
@@ -119,7 +123,7 @@
       "club": "Le Quotidien",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Information sur dix-huit mois de travaux programmés sur l'autoroute A31 et leurs implications pour les usagers.",
+      "content": "Travaux prévus sur l'A31 pendant dix-huit mois, information importante pour la mobilité routière au Luxembourg.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1785475897.8323.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785475897.8323.pdf",
@@ -130,10 +134,21 @@
       "club": "rtl.lu",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Article confirmant l'absence de pénurie structurelle de carburants au Luxembourg.",
+      "content": "Article sur l'absence de goulots d'étranglement structurels concernant l'approvisionnement en carburant au Luxembourg.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1785480990.1334.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785480990.1334.pdf",
+      "date": "2026-07-31"
+    },
+    {
+      "id": "2026-07-31-saaskia-web-0dqYxB",
+      "club": "d'Lëtzebuerger Land",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Article sur la transition électrique du point de vue social et économique au Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1785475975.7122.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785475975.7122.pdf",
       "date": "2026-07-31"
     },
     {
@@ -141,21 +156,32 @@
       "club": "100komma7.lu",
       "category": "Veille presse LU",
       "badge": "INFO",
-      "content": "Analyse des difficultés actuelles de l'industrie automobile allemande et des facteurs expliquant sa mauvaise performance.",
+      "content": "Analyse des difficultés économiques de l'industrie automobile allemande.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1785480972.5469.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785480972.5469.pdf",
       "date": "2026-07-31"
     },
     {
-      "id": "2026-07-31-saaskia-web-0dqYxB",
+      "id": "2026-07-31-saaskia-web-G4932a",
+      "club": "infos.rtl.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Kit de survie numérique pour les automobilistes, information pratique sur les outils digitaux.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1785475684.3088.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785475684.3088.pdf",
+      "date": "2026-07-31"
+    },
+    {
+      "id": "2026-07-31-saaskia-web-fq5k7e",
       "club": "d'Lëtzebuerger Land",
       "category": "Veille presse LU",
       "badge": "INFO",
-      "content": "Article traitant des aspects sociaux de la transition vers la mobilité électrique.",
+      "content": "Article sur les problématiques d'insécurité liées à la mobilité.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1785475975.7122.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785475975.7122.pdf",
+      "url": "https://saaskia.keepcontact.lu/data/files/1785476086.3372.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785476086.3372.pdf",
       "date": "2026-07-31"
     },
     {
@@ -163,7 +189,7 @@
       "club": "lessentiel.lu FR",
       "category": "Veille presse LU",
       "badge": "INFO",
-      "content": "Information sur la décision du Portugal de taxer les superprofits du secteur pétrolier à partir de septembre 2026.",
+      "content": "Le Portugal met en place une taxation des superprofits du secteur pétrolier, politique énergétique européenne.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1785475729.3429.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785475729.3429.pdf",
@@ -174,32 +200,10 @@
       "club": "lessentiel.lu FR",
       "category": "Veille presse LU",
       "badge": "INFO",
-      "content": "Annonce de la fin des services de trottinettes et vélos en libre-service à Bruxelles à partir du 1er septembre 2026.",
+      "content": "Fin des services de trottinettes et vélos en libre-service à Bruxelles à partir du 1er septembre.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1785475826.2423.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785475826.2423.pdf",
-      "date": "2026-07-31"
-    },
-    {
-      "id": "2026-07-31-saaskia-web-fq5k7e",
-      "club": "d'Lëtzebuerger Land",
-      "category": "Veille presse LU",
-      "badge": "INFO",
-      "content": "Article abordant les enjeux de sécurité dans les transports et la mobilité au Luxembourg.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1785476086.3372.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785476086.3372.pdf",
-      "date": "2026-07-31"
-    },
-    {
-      "id": "2026-07-31-saaskia-web-G4932a",
-      "club": "infos.rtl.lu",
-      "category": "Veille presse LU",
-      "badge": "INFO",
-      "content": "Article sur les outils et équipements numériques utiles pour la mobilité et les déplacements.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1785475684.3088.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785475684.3088.pdf",
       "date": "2026-07-31"
     },
     {
