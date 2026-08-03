@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-02",
+  "generated_at": "2026-08-03",
   "next_edition": "",
   "editions": [
     {
@@ -93,9 +93,123 @@
     {
       "date": "2026-08-02",
       "label": "Semaine du 2026-08-02"
+    },
+    {
+      "date": "2026-08-03",
+      "label": "Semaine du 2026-08-03"
     }
   ],
   "items": [
+    {
+      "id": "2026-08-03-saaskia-web-NmOUiQ",
+      "club": "today.RTL.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Le Luxembourg Energy and Mobility Consortium traite de l'énergie et de la mobilité, domaines clés pour le secteur automobile et les services de l'ACL.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1785735306.1756.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785735306.1756.pdf",
+      "date": "2026-08-03"
+    },
+    {
+      "id": "2026-08-03-saaskia-web-kt0YJg",
+      "club": "Delano.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Analyse de la hausse du prix du diesel au Luxembourg (+37 cents en un mois), sujet d'intérêt direct pour les automobilistes et les services de carburant de l'ACL.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1785735231.8424.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785735231.8424.pdf",
+      "date": "2026-08-03"
+    },
+    {
+      "id": "2026-08-03-saaskia-web-8zqb4Q",
+      "club": "Tageblatt",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Article sur les avantages fiscaux pour les véhicules hybrides rechargeables de fonction, relevant de la politique automobile au Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1785735130.7979.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785735130.7979.pdf",
+      "date": "2026-08-03"
+    },
+    {
+      "id": "2026-08-03-saaskia-web-5eeteE",
+      "club": "100komma7.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Mouveco critique les plans de soutien aux voitures hybrides rechargeables de fonction, débat politique sur la mobilité durable au Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1785735044.1649.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785735044.1649.pdf",
+      "date": "2026-08-03"
+    },
+    {
+      "id": "2026-08-03-saaskia-web-vushtx",
+      "club": "Le Quotidien",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Article sur la simplification des démarches pour augmenter le nombre de bornes de recharge électrique au Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1785734931.4066.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785734931.4066.pdf",
+      "date": "2026-08-03"
+    },
+    {
+      "id": "2026-08-03-saaskia-web-RzTQ7S",
+      "club": "wort.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Article sur la sécurité routière et les comportements dangéreux (appels de phares contre les limites de vitesse) au Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1785734885.9548.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785734885.9548.pdf",
+      "date": "2026-08-03"
+    },
+    {
+      "id": "2026-08-03-saaskia-web-sJTeSe",
+      "club": "100komma7.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Nouvelles mesures tripartites luxembourgeoises avec subventions pour l'électricité, le gaz et le mazout, impact indirect sur les coûts de mobilité.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1785739697.6495.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785739697.6495.pdf",
+      "date": "2026-08-03"
+    },
+    {
+      "id": "2026-08-03-saaskia-web-Fkjgy1",
+      "club": "luxtimes.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Récapitulatif des changements en août au Luxembourg, Belgique, France et Allemagne incluant potentiellement des mesures de mobilité.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1785735090.7351.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785735090.7351.pdf",
+      "date": "2026-08-03"
+    },
+    {
+      "id": "2026-08-03-saaskia-web-KxFDfS",
+      "club": "infos.rtl.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Article sur la progression des marques automobiles chinoises sur le marché européen, contexte du marché auto.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1785735068.314.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785735068.314.pdf",
+      "date": "2026-08-03"
+    },
+    {
+      "id": "2026-08-03-saaskia-web-emmuBe",
+      "club": "Zeitung zum Lëtzebuerger Vollek",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Article sur 72.300 Luxembourgeois sans congés, contexte indirect sur les habitudes de mobilité et de voyage.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1785735183.9613.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785735183.9613.pdf",
+      "date": "2026-08-03"
+    },
     {
       "id": "2026-07-31-saaskia-web-5Yp9N4",
       "club": "luxtimes.lu (Wort.lu/en)",
