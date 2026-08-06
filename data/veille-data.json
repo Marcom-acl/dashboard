@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-05",
+  "generated_at": "2026-08-06",
   "next_edition": "",
   "editions": [
     {
@@ -105,15 +105,74 @@
     {
       "date": "2026-08-05",
       "label": "Semaine du 2026-08-05"
+    },
+    {
+      "date": "2026-08-06",
+      "label": "Semaine du 2026-08-06"
     }
   ],
   "items": [
+    {
+      "id": "2026-08-06-saaskia-web-YIHP6T",
+      "club": "tageblatt.lu",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "Article sur les dangers des e-rollers et les problèmes de sécurité qu'ils posent. Catégorisé comme relevant de l'ACL.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1785999369.8464.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785999369.8464.pdf",
+      "date": "2026-08-06"
+    },
+    {
+      "id": "2026-08-06-saaskia-web-boxahE",
+      "club": "rtl.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Article sur la sécurité routière critique au Luxembourg. Sujet central pour la veille mobilité.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1785992303.9873.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785992303.9873.pdf",
+      "date": "2026-08-06"
+    },
+    {
+      "id": "2026-08-06-saaskia-web-KT85wb",
+      "club": "Le Quotidien",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Analyse comparative de la sécurité routière : le Luxembourg maintient son cap tandis que l'Europe enregistre une dégradation.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1785992474.4006.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785992474.4006.pdf",
+      "date": "2026-08-06"
+    },
+    {
+      "id": "2026-08-06-saaskia-web-JSR7uw",
+      "club": "Tageblatt",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Article sur le nombre de victimes de la route au Luxembourg, situant le pays à la moyenne européenne.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1785992530.2923.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785992530.2923.pdf",
+      "date": "2026-08-06"
+    },
+    {
+      "id": "2026-08-06-saaskia-web-ZDZY3d",
+      "club": "Tageblatt",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "Article intitulé 'Die neue Gefahr' abordant les nouvelles menaces sur les routes. Catégorisé comme relevant de l'ACL.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1785992591.0876.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785992591.0876.pdf",
+      "date": "2026-08-06"
+    },
     {
       "id": "2026-08-05-saaskia-web-IdNJcr",
       "club": "Zeitung zum Lëtzebuerger Vollek",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "La police appelle à la prudence lors de l'utilisation des trottinettes électriques. Message de sécurité routière pertinent pour la prévention au Luxembourg.",
+      "content": "Article rapportant un appel de la police à la prudence concernant l'utilisation des e-trottinettes.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1785906126.0105.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785906126.0105.pdf",
@@ -135,7 +194,7 @@
       "club": "virgule.lu (Wort.lu/FR)",
       "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "content": "Article sur l'impact potentiel de la future vignette belge sur les Luxembourgeois se rendant à la côte belge. Enjeu majeur pour les frontaliers et les automobilistes du Grand-Duché.",
+      "content": "Article sur l'impact potentiel de la future vignette belge sur les Luxembourgeois se rendant à la côte. Sujet relevant de l'ACL.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1785819856.6251.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785819856.6251.pdf",
@@ -146,7 +205,7 @@
       "club": "virgule.lu (Wort.lu/FR)",
       "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "content": "Comparaison entre les performances des véhicules électriques et thermiques en période de canicule. Sujet pertinent pour la clientèle ACL face aux enjeux climatiques.",
+      "content": "Comparaison entre véhicules électriques et thermiques face aux vagues de chaleur. Sujet d'actualité automobile relevant de l'ACL.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1785819822.371.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785819822.371.pdf",
@@ -157,7 +216,7 @@
       "club": "virgule.lu (Wort.lu/FR)",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Une pétition a été lancée à la côte belge contre la vignette routière, avec des pistes avancées pour les frontaliers. Enjeu de mobilité transfrontalière majeur.",
+      "content": "Article sur la pétition contre la vignette routière belge et les solutions proposées pour les frontaliers.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1785819787.5554.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785819787.5554.pdf",
@@ -168,10 +227,43 @@
       "club": "paperjam.lu",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Article sur l'impact des applications de mobilité partagée augmentant le nombre de voitures pour les frontaliers. Tendance importante pour la mobilité au Luxembourg.",
+      "content": "Article analysant l'impact des applications mobiles sur l'augmentation du trafic automobile entre frontaliers.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1785819753.3489.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785819753.3489.pdf",
+      "date": "2026-08-04"
+    },
+    {
+      "id": "2026-08-04-saaskia-web-my5ULB",
+      "club": "lessentiel.lu FR",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Article questionnant la pénurie de diesel au Luxembourg et la possibilité de recourir aux réserves de carburants.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1785819566.8149.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785819566.8149.pdf",
+      "date": "2026-08-04"
+    },
+    {
+      "id": "2026-08-04-saaskia-web-FJx733",
+      "club": "Zeitung zum Lëtzebuerger Vollek",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Article touristique sur la découverte du Luxembourg à vélo, relevant de la mobilité alternative.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1785819531.0684.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785819531.0684.pdf",
+      "date": "2026-08-04"
+    },
+    {
+      "id": "2026-08-04-saaskia-web-meE9uX",
+      "club": "Tageblatt",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Article rapportant que les demandes des citoyens trouvent une audience, probablement liées à des enjeux de mobilité et politique.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1785819468.2887.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785819468.2887.pdf",
       "date": "2026-08-04"
     },
     {
@@ -183,39 +275,6 @@
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1785819641.9222.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785819641.9222.pdf",
-      "date": "2026-08-04"
-    },
-    {
-      "id": "2026-08-04-saaskia-web-my5ULB",
-      "club": "lessentiel.lu FR",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Analyse de la pénurie de diesel au Luxembourg et réflexion sur l'utilisation des réserves de carburants. Enjeu économique et énergétique critique pour les automobilistes.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1785819566.8149.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785819566.8149.pdf",
-      "date": "2026-08-04"
-    },
-    {
-      "id": "2026-08-04-saaskia-web-FJx733",
-      "club": "Zeitung zum Lëtzebuerger Vollek",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Guide pour découvrir le Luxembourg à vélo. Article promouvant les modes de transport alternatifs et la mobilité durable.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1785819531.0684.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785819531.0684.pdf",
-      "date": "2026-08-04"
-    },
-    {
-      "id": "2026-08-04-saaskia-web-meE9uX",
-      "club": "Tageblatt",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Article sur les demandes des citoyens écoutées en matière de mobilité et politique. Sujet relevant des enjeux publics du secteur.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1785819468.2887.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785819468.2887.pdf",
       "date": "2026-08-04"
     },
     {
