@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-07",
+  "generated_at": "2026-08-08",
   "next_edition": "",
   "editions": [
     {
@@ -113,29 +113,33 @@
     {
       "date": "2026-08-07",
       "label": "Semaine du 2026-08-07"
+    },
+    {
+      "date": "2026-08-08",
+      "label": "Semaine du 2026-08-08"
     }
   ],
   "items": [
-    {
-      "id": "2026-08-07-saaskia-web-39ROOj",
-      "club": "lessentiel.lu FR",
-      "category": "Veille presse LU",
-      "badge": "NOTABLE",
-      "content": "Article sur les métiers de l'été mentionnant l'ACL, abordant les interventions d'urgence automobile notamment la libération d'animaux sans endommager les véhicules.",
-      "relevance": "ACL explicitement cité : \"ACL\"",
-      "url": "https://saaskia.keepcontact.lu/data/files/1786078969.055.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786078969.055.pdf",
-      "date": "2026-08-07"
-    },
     {
       "id": "2026-08-07-saaskia-web-5CF7xg",
       "club": "lessentiel.lu DE",
       "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "content": "L'ACL donne des conseils sur les pannes automobiles les plus fréquentes en été, article informatif sur la maintenance des véhicules.",
+      "content": "L'ACL prodigue des conseils sur les pannes automobiles les plus fréquentes en été au Luxembourg.",
       "relevance": "ACL explicitement cité : \"ACL gibt Tipps\"",
       "url": "https://saaskia.keepcontact.lu/data/files/1786078951.7248.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786078951.7248.pdf",
+      "date": "2026-08-07"
+    },
+    {
+      "id": "2026-08-07-saaskia-web-39ROOj",
+      "club": "lessentiel.lu FR",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "Article sur les métiers d'été mentionnant l'ACL, notamment sur l'intervention sans dommage aux véhicules lors de situations d'urgence.",
+      "relevance": "ACL explicitement cité : \"ACL\"",
+      "url": "https://saaskia.keepcontact.lu/data/files/1786078969.055.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786078969.055.pdf",
       "date": "2026-08-07"
     },
     {
@@ -143,7 +147,7 @@
       "club": "diegrenzgaenger.lu",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Rapport sur la sécurité routière au Luxembourg montrant une situation exemplaire, tandis que l'Europe s'éloigne de ses objectifs de sécurité.",
+      "content": "Le Luxembourg maintient des standards de sécurité routière exemplaires tandis que l'Europe s'éloigne de ses objectifs en matière de réduction des accidents.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1786078935.1572.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786078935.1572.pdf",
@@ -154,10 +158,21 @@
       "club": "lessentiel.lu FR",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Article sur les nouveaux panneaux de signalisation en Moselle, pertinent pour les frontaliers et la sécurité routière transfrontalière.",
+      "content": "Article sur l'amélioration de la signalisation routière en Moselle et au Luxembourg, impactant la circulation transfrontalière.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1786078790.5539.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786078790.5539.pdf",
+      "date": "2026-08-07"
+    },
+    {
+      "id": "2026-08-07-saaskia-web-dvjmxk",
+      "club": "100komma7.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Le ministre allemand des Transports souhaite lever l'interdiction de circuler le dimanche pour les camions transfrontaliers affectant le Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1786078866.2938.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786078866.2938.pdf",
       "date": "2026-08-07"
     },
     {
@@ -165,21 +180,10 @@
       "club": "lesfrontaliers.lu",
       "category": "Veille presse LU",
       "badge": "INFO",
-      "content": "Explication du mécanisme de fixation des prix des carburants au Luxembourg, information économique importante pour les conducteurs.",
+      "content": "Explication sur la formation des prix des carburants au Luxembourg, sujet d'intérêt pour les automobilistes frontaliers.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1786080825.5997.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786080825.5997.pdf",
-      "date": "2026-08-07"
-    },
-    {
-      "id": "2026-08-07-saaskia-web-dvjmxk",
-      "club": "100komma7.lu",
-      "category": "Veille presse LU",
-      "badge": "INFO",
-      "content": "Le ministre allemand des transports envisage de lever l'interdiction du dimanche pour les camions, sujet pertinent pour le transport transfrontalier.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1786078866.2938.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786078866.2938.pdf",
       "date": "2026-08-07"
     },
     {
@@ -187,7 +191,7 @@
       "club": "Gemengen.lu",
       "category": "Veille presse LU",
       "badge": "INFO",
-      "content": "Vision 2053 pour Bertrange incluant probablement des aspects de mobilité et d'aménagement territorial.",
+      "content": "Article sur la vision d'urbanisme 2053 de Bertrange, avec implications pour la mobilité locale.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1786078901.1689.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786078901.1689.pdf",
@@ -198,40 +202,18 @@
       "club": "100komma7.lu",
       "category": "Veille presse LU",
       "badge": "INFO",
-      "content": "Mesures tripartites visant à maîtriser l'inflation et discussion sur un risque d'indexation en 2026.",
+      "content": "Article sur les mesures tripartites comprimant l'inflation et le risque d'une deuxième tranche d'indexation en 2026.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1786078822.2718.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786078822.2718.pdf",
       "date": "2026-08-07"
     },
     {
-      "id": "2026-08-06-saaskia-web-YIHP6T",
-      "club": "tageblatt.lu",
-      "category": "Veille presse LU",
-      "badge": "NOTABLE",
-      "content": "Article sur les dangers des e-rollers en tant que mode de transport, potentiellement lié aux positions de l'ACL sur la mobilité urbaine et la sécurité.",
-      "relevance": "ACL explicitement cité : \"ACL\"",
-      "url": "https://saaskia.keepcontact.lu/data/files/1785999369.8464.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785999369.8464.pdf",
-      "date": "2026-08-06"
-    },
-    {
-      "id": "2026-08-06-saaskia-web-ZDZY3d",
-      "club": "Tageblatt",
-      "category": "Veille presse LU",
-      "badge": "NOTABLE",
-      "content": "Article sur un nouveau danger lié à la mobilité urbaine, catégorisé ACL, probablement en rapport avec les e-rollers ou autres véhicules légers.",
-      "relevance": "ACL explicitement cité : \"ACL\"",
-      "url": "https://saaskia.keepcontact.lu/data/files/1785992591.0876.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785992591.0876.pdf",
-      "date": "2026-08-06"
-    },
-    {
       "id": "2026-08-06-saaskia-web-KT85wb",
       "club": "Le Quotidien",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Analyse comparative de la sécurité routière : le Luxembourg maintient cap tandis que l'Europe connaît des difficultés dans cet domaine.",
+      "content": "Analyse comparative de la sécurité routière : le Luxembourg maintient le cap tandis que l'Europe connaît des défaillances dans ses objectifs de sécurité.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1785992474.4006.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785992474.4006.pdf",
@@ -242,10 +224,32 @@
       "club": "rtl.lu",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Critiques adressées à la sécurité routière au Luxembourg, sujet important pour les automobilistes et les politiques de circulation.",
+      "content": "Article critiquant la sécurité routière au Luxembourg, soulevant des préoccupations sur la situation actuelle.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1785992303.9873.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785992303.9873.pdf",
+      "date": "2026-08-06"
+    },
+    {
+      "id": "2026-08-06-saaskia-web-YIHP6T",
+      "club": "tageblatt.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Article traitant des risques liés aux e-rollers comme mode de transport alternatif au Luxembourg, catégorisé ACL.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1785999369.8464.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785999369.8464.pdf",
+      "date": "2026-08-06"
+    },
+    {
+      "id": "2026-08-06-saaskia-web-ZDZY3d",
+      "club": "Tageblatt",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Article relatif aux nouvelles menaces en matière de sécurité routière, catégorisé ACL.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1785992591.0876.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785992591.0876.pdf",
       "date": "2026-08-06"
     },
     {
@@ -253,7 +257,7 @@
       "club": "Tageblatt",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Bilan des décès routiers au Luxembourg situé au-dessus de la moyenne, données importantes pour la sécurité routière.",
+      "content": "Article sur les statistiques de mortalité routière au Luxembourg, situant le pays à la moyenne des performances en sécurité routière.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1785992530.2923.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785992530.2923.pdf",
@@ -264,10 +268,21 @@
       "club": "Le Quotidien",
       "category": "Veille presse LU",
       "badge": "INFO",
-      "content": "Débat sur le nombre d'indexations de salaires attendues d'ici 2027, sujet économique général.",
+      "content": "Analyse sur le nombre potentiel de déclenchements d'indexation des salaires d'ici 2027 au Luxembourg.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1785992400.4548.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785992400.4548.pdf",
+      "date": "2026-08-06"
+    },
+    {
+      "id": "2026-08-06-saaskia-web-mVnJgk",
+      "club": "Le Quotidien",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Article sur la fin des vols directs, avec impacts possibles sur la mobilité et les transports.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1785992349.343.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1785992349.343.pdf",
       "date": "2026-08-06"
     },
     {
