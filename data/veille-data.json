@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-08",
+  "generated_at": "2026-08-09",
   "next_edition": "",
   "editions": [
     {
@@ -117,29 +117,33 @@
     {
       "date": "2026-08-08",
       "label": "Semaine du 2026-08-08"
+    },
+    {
+      "date": "2026-08-09",
+      "label": "Semaine du 2026-08-09"
     }
   ],
   "items": [
-    {
-      "id": "2026-08-07-saaskia-web-5CF7xg",
-      "club": "lessentiel.lu DE",
-      "category": "Veille presse LU",
-      "badge": "NOTABLE",
-      "content": "L'ACL prodigue des conseils sur les pannes automobiles les plus fréquentes en été au Luxembourg.",
-      "relevance": "ACL explicitement cité : \"ACL gibt Tipps\"",
-      "url": "https://saaskia.keepcontact.lu/data/files/1786078951.7248.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786078951.7248.pdf",
-      "date": "2026-08-07"
-    },
     {
       "id": "2026-08-07-saaskia-web-39ROOj",
       "club": "lessentiel.lu FR",
       "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "content": "Article sur les métiers d'été mentionnant l'ACL, notamment sur l'intervention sans dommage aux véhicules lors de situations d'urgence.",
+      "content": "Article sur les métiers de l'été mentionnant l'ACL, abordant les interventions d'urgence automobile sans endommager les véhicules lors d'incidents estivaux.",
       "relevance": "ACL explicitement cité : \"ACL\"",
       "url": "https://saaskia.keepcontact.lu/data/files/1786078969.055.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786078969.055.pdf",
+      "date": "2026-08-07"
+    },
+    {
+      "id": "2026-08-07-saaskia-web-5CF7xg",
+      "club": "lessentiel.lu DE",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "L'ACL fournit des conseils sur les pannes automobiles les plus fréquentes en été, offrant des recommandations de prévention aux automobilistes.",
+      "relevance": "ACL explicitement cité : \"ACL gibt Tipps\"",
+      "url": "https://saaskia.keepcontact.lu/data/files/1786078951.7248.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786078951.7248.pdf",
       "date": "2026-08-07"
     },
     {
@@ -147,18 +151,29 @@
       "club": "diegrenzgaenger.lu",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Le Luxembourg maintient des standards de sécurité routière exemplaires tandis que l'Europe s'éloigne de ses objectifs en matière de réduction des accidents.",
+      "content": "Article sur la sécurité routière au Luxembourg, mettant en avant la performance exemplaire du pays en matière de sécurité routière comparée aux objectifs européens.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1786078935.1572.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786078935.1572.pdf",
       "date": "2026-08-07"
     },
     {
+      "id": "2026-08-07-saaskia-web-Ajk2f6",
+      "club": "lesfrontaliers.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Article explicatif sur le mécanisme de fixation des prix des carburants au Luxembourg, pertinent pour comprendre les dynamiques du marché énergétique local.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1786080825.5997.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786080825.5997.pdf",
+      "date": "2026-08-07"
+    },
+    {
       "id": "2026-08-07-saaskia-web-medl58",
       "club": "lessentiel.lu FR",
       "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Article sur l'amélioration de la signalisation routière en Moselle et au Luxembourg, impactant la circulation transfrontalière.",
+      "badge": "INFO",
+      "content": "Article sur l'installation de panneaux de signalisation en Moselle, relevant des enjeux de mobilité transfrontalière affectant les automobilistes luxembourgeois.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1786078790.5539.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786078790.5539.pdf",
@@ -168,22 +183,11 @@
       "id": "2026-08-07-saaskia-web-dvjmxk",
       "club": "100komma7.lu",
       "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Le ministre allemand des Transports souhaite lever l'interdiction de circuler le dimanche pour les camions transfrontaliers affectant le Luxembourg.",
+      "badge": "INFO",
+      "content": "Article sur les discussions entre ministres des transports allemands concernant l'interdiction de circulation des camions le dimanche, impactant potentiellement le transit routier régional.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1786078866.2938.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786078866.2938.pdf",
-      "date": "2026-08-07"
-    },
-    {
-      "id": "2026-08-07-saaskia-web-Ajk2f6",
-      "club": "lesfrontaliers.lu",
-      "category": "Veille presse LU",
-      "badge": "INFO",
-      "content": "Explication sur la formation des prix des carburants au Luxembourg, sujet d'intérêt pour les automobilistes frontaliers.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1786080825.5997.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786080825.5997.pdf",
       "date": "2026-08-07"
     },
     {
