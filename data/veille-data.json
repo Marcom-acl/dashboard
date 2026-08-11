@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-10",
+  "generated_at": "2026-08-11",
   "next_edition": "",
   "editions": [
     {
@@ -125,26 +125,41 @@
     {
       "date": "2026-08-10",
       "label": "Semaine du 2026-08-10"
+    },
+    {
+      "date": "2026-08-11",
+      "label": "Semaine du 2026-08-11"
     }
   ],
   "items": [
     {
-      "id": "2026-08-10-saaskia-web-gsq3Ht",
-      "club": "virgule.lu (Wort.lu/FR)",
+      "id": "2026-08-11-saaskia-web-x4fVJA",
+      "club": "lesfrontaliers.lu",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Article sur l'impact d'une liaison aérienne directe Luxembourg-New York pour les voyageurs. Enjeu de mobilité et connectivité internationale du Luxembourg.",
+      "content": "Le Mouvement Écologique s'oppose au projet gouvernemental concernant les véhicules hybrides rechargeables, critiquant les plans de subvention et leur impact environnemental.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1786344693.3423.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786344693.3423.pdf",
-      "date": "2026-08-10"
+      "url": "https://saaskia.keepcontact.lu/data/files/1786424341.8261.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786424341.8261.pdf",
+      "date": "2026-08-11"
+    },
+    {
+      "id": "2026-08-11-saaskia-web-NxS8wk",
+      "club": "Le Quotidien",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Article abordant un sujet d'anxiété importante lié aux enjeux de mobilité ou de sécurité routière au Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1786424251.1778.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786424251.1778.pdf",
+      "date": "2026-08-11"
     },
     {
       "id": "2026-08-10-saaskia-web-dlyjhV",
       "club": "virgule.lu (Wort.lu/FR)",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Création d'un parking de délestage de 200 places près d'Arlon (Belgique) disponible début 2027. Enjeu de mobilité et de gestion du stationnement dans la Grande Région.",
+      "content": "Un nouveau parking de délestage de 200 places sera disponible début 2027 près d'Arlon, destiné à réduire la congestion du trafic dans la région frontalière.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1786344721.8263.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786344721.8263.pdf",
@@ -155,7 +170,7 @@
       "club": "virgule.lu (Wort.lu/FR)",
       "category": "Veille presse LU",
       "badge": "INFO",
-      "content": "Test et avis sur la Mercedes Classe C 400 4Matic. Article de veille automobile sur le marché des véhicules premium.",
+      "content": "Essai et présentation de la Mercedes Classe C 400 4Matic, mettant en avant ses caractéristiques et performances automobiles.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1786344749.2437.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786344749.2437.pdf",
@@ -166,7 +181,7 @@
       "club": "diegrenzgaenger.lu",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Critique d'écologistes envers les plans de subvention gouvernementales pour les véhicules hybrides rechargeables au Luxembourg. Enjeu de politique environnementale et automobile.",
+      "content": "Les environnementalistes critiquent les plans de subvention du gouvernement pour les véhicules hybrides rechargeables, soulevant des questions sur leur efficacité écologique.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1786341221.2254.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786341221.2254.pdf",
@@ -177,10 +192,54 @@
       "club": "lesfrontaliers.lu",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Synthèse des règles et régulations pour les trottinettes électriques au Luxembourg et dans la Grande Région. Enjeu de mobilité urbaine et sécurité routière.",
+      "content": "Article explicatif sur la réglementation des trottinettes électriques au Luxembourg et dans la Grande Région, clarifying les règles de circulation.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1786341063.3031.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786341063.3031.pdf",
+      "date": "2026-08-10"
+    },
+    {
+      "id": "2026-08-10-saaskia-web-vwqRRr",
+      "club": "Luxemburger Wort",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Analyse des enjeux de sécurité routière concernant les piétons utilisant des smartphones et des écouteurs sur les pistes cyclables au Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1786339138.6966.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786339138.6966.pdf",
+      "date": "2026-08-10"
+    },
+    {
+      "id": "2026-08-10-saaskia-web-xed3Yh",
+      "club": "diegrenzgaenger.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Explication des mécanismes de fixation des prix des carburants au Luxembourg, analysant les facteurs influençant ces tarifs.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1786341256.4984.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786341256.4984.pdf",
+      "date": "2026-08-10"
+    },
+    {
+      "id": "2026-08-10-saaskia-web-wYW8ci",
+      "club": "today.RTL.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Article relatant une augmentation significative des blessures, possiblement liées à des enjeux de mobilité ou de sécurité routière.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1786340943.4741.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786340943.4741.pdf",
+      "date": "2026-08-10"
+    },
+    {
+      "id": "2026-08-10-saaskia-web-gsq3Ht",
+      "club": "virgule.lu (Wort.lu/FR)",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Analyse des implications concrètes d'une liaison aérienne directe Luxembourg-New York pour les voyageurs et l'accessibilité des transports.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1786344693.3423.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786344693.3423.pdf",
       "date": "2026-08-10"
     },
     {
@@ -192,28 +251,6 @@
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1786340975.8973.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786340975.8973.pdf",
-      "date": "2026-08-10"
-    },
-    {
-      "id": "2026-08-10-saaskia-web-wYW8ci",
-      "club": "today.RTL.lu",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Augmentation significative des blessures liées à la mobilité au Luxembourg. Enjeu de sécurité routière et santé publique.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1786340943.4741.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786340943.4741.pdf",
-      "date": "2026-08-10"
-    },
-    {
-      "id": "2026-08-10-saaskia-web-vwqRRr",
-      "club": "Luxemburger Wort",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Article sur les piétons, smartphones, casques audio et la sécurité sur les pistes cyclables au Luxembourg. Enjeu de sécurité routière et comportements de mobilité.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1786339138.6966.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786339138.6966.pdf",
       "date": "2026-08-10"
     },
     {
