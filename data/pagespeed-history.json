@@ -156,12 +156,12 @@
   {
     "date": "2026-08-13",
     "acl": {
-      "mobile": 33,
-      "desktop": 38
+      "mobile": 39,
+      "desktop": 43
     },
     "auto": {
-      "mobile": 56,
-      "desktop": 84
+      "mobile": 57,
+      "desktop": 72
     }
   }
 ]
