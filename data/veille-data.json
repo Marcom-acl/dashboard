@@ -1,6 +1,6 @@
 {
   "generated_at": "2026-08-14",
-  "next_edition": "",
+  "next_edition": "2026-08-21",
   "editions": [
     {
       "date": "2026-05-03",
@@ -144,6 +144,236 @@
     }
   ],
   "items": [
+    {
+      "id": "2026-08-14-adac-1",
+      "date": "2026-08-14",
+      "club": "ADAC",
+      "category": "EU",
+      "content": "L'ADAC a mesuré les pertes de charge de cinq véhicules électriques (Mercedes CLA 350 EQ, Renault 5 E-Tech, Tesla Model Y, Volvo EX30, VW ID.7) : entre 12,7% et 24,2% de l'énergie payée est perdue avant d'atteindre la batterie, la prise domestique (2,3 kW) générant les pertes les plus élevées contre moins de 7% sur une wallbox.",
+      "relevance": "Ces chiffres sont directement transposables en conseils pratiques aux membres sur le choix du mode de recharge. L'ACL devrait-elle publier un comparatif similaire pour orienter les automobilistes luxembourgeois vers la wallbox plutôt que la prise domestique ?",
+      "badge": "NOTABLE",
+      "url": "https://www.presseportal.de/pm/7849/6328600"
+    },
+    {
+      "id": "2026-08-14-adac-2",
+      "date": "2026-08-14",
+      "club": "ADAC",
+      "category": "EU",
+      "content": "Après la fin de son partenariat avec EnBW le 31 juillet 2026, l'ADAC propose depuis le 1er août sa recharge e-Charge via un nouveau partenaire, Aral pulse, à un tarif de lancement de 51 centimes/kWh pendant deux mois, qui passera à 57 centimes/kWh au 1er octobre (75 centimes en itinérance).",
+      "relevance": "Ce changement illustre la volatilité des accords de recharge électrique pour les clubs automobiles. L'ACL devrait-elle réévaluer régulièrement ses propres partenariats de recharge pour garantir des tarifs compétitifs à ses membres ?",
+      "badge": "SURVEILLER",
+      "url": "https://presse.adac.de/meldungen/adac-ev/clubleistungen/mit-neuem-partner-guenstig-laden.html"
+    },
+    {
+      "id": "2026-08-14-adac-3",
+      "date": "2026-08-14",
+      "club": "ADAC",
+      "category": "EU",
+      "content": "L'ADAC Luftrettung a inauguré le 10 août 2026 à Rockenhausen/Dörnbach (Rhénanie-Palatinat) la première station de secours aérien durable d'Allemagne, certifiée DGNB pour son efficacité énergétique et sa gestion des ressources.",
+      "relevance": "Signal sur la durabilité des infrastructures de secours. L'ACL pourrait-elle viser une certification environnementale comparable pour ses propres infrastructures afin de renforcer son image institutionnelle ?",
+      "badge": "SURVEILLER",
+      "url": "https://presse.adac.de/meldungen/adac-stiftung/luftrettung/erste-nachhaltige-luftrettungsstation-eingeweiht.html"
+    },
+    {
+      "id": "2026-08-14-tcs-1",
+      "date": "2026-08-14",
+      "club": "TCS",
+      "category": "EU",
+      "content": "Le TCS a lancé le 4 août 2026 la deuxième édition de sa campagne de prévention « Observer, Ralentir, S'arrêter » pour la rentrée scolaire, avec le soutien de l'ASTAG et de Routiers Suisses ; la première édition avait mobilisé près de 6000 emplacements publicitaires, plus de 4000 banderoles et plus de 90000 supports de sensibilisation.",
+      "relevance": "Campagne récurrente à forte portée logistique et partenariale. L'ACL pourrait-elle s'inspirer de ce partenariat avec les transporteurs professionnels pour démultiplier sa propre campagne de sécurité routière autour des écoles à la rentrée luxembourgeoise ?",
+      "badge": "SURVEILLER",
+      "url": "https://www.tcs.ch/assets/docs/presse/2026/260804-communiqu-de-presse-rentr-e-scolaire-2026.pdf"
+    },
+    {
+      "id": "2026-08-14-tcs-2",
+      "date": "2026-08-14",
+      "club": "TCS",
+      "category": "EU",
+      "content": "Depuis le 20 juillet 2026, le boîtier de télépéage Telepass proposé par le TCS permet aussi de payer les péages en Croatie, en plus de l'Italie, la France, l'Espagne et le Portugal, via un seul appareil et un prélèvement mensuel automatique.",
+      "relevance": "Extension utile pour les membres voyageant vers l'Europe de l'Est en été. L'ACL propose-t-elle déjà un dispositif de télépéage européen comparable, ou pourrait-elle nouer un partenariat similaire pour ses membres transfrontaliers ?",
+      "badge": "INFO",
+      "url": "https://www.tcs.ch/fr/le-tcs/sections/geneve/content/avantages-membres/telepass-europeen.php"
+    },
+    {
+      "id": "2026-08-14-rac-1",
+      "date": "2026-08-14",
+      "club": "RAC",
+      "category": "EU",
+      "content": "Du 3 au 31 août 2026, le RAC et Tesco offrent un partage d'un million de points Clubcard (10 gagnants de 100000 points, soit 1000 £ chacun) aux clients convertissant leurs points en bon partenaire RAC pour financer une adhésion d'assistance routière.",
+      "relevance": "Partenariat marketing combinant fidélité retail et adhésion à un club automobile. L'ACL pourrait-elle explorer un partenariat similaire avec une enseigne de distribution luxembourgeoise pour dynamiser le recrutement de nouveaux membres ?",
+      "badge": "SURVEILLER",
+      "url": "https://media.rac.co.uk/rac-and-tesco-partner-to-give-away-1-million-clubcard-points"
+    },
+    {
+      "id": "2026-08-14-rac-2",
+      "date": "2026-08-14",
+      "club": "RAC",
+      "category": "EU",
+      "content": "Une analyse RAC sur onze ans (2014-2024) montre qu'août est le mois le plus meurtrier pour la conduite en état d'ivresse au Royaume-Uni (721 blessés en moyenne pour 485 collisions), les mois d'été affichant 16% de victimes de plus que l'hiver.",
+      "relevance": "Donnée contre-intuitive utile pour cibler les campagnes de prévention. L'ACL devrait-elle vérifier si la saisonnalité de l'alcool au volant au Luxembourg suit le même schéma estival pour ajuster le calendrier de ses campagnes de sensibilisation ?",
+      "badge": "INFO",
+      "url": "https://www.rac.co.uk/drive/news/motoring-news/summer-peak-for-drink-drive-collisions/"
+    },
+    {
+      "id": "2026-08-14-rac-3",
+      "date": "2026-08-14",
+      "club": "RAC",
+      "category": "EU",
+      "content": "Le RAC a réagi au rapport annuel de surveillance des prix des carburants de l'autorité britannique de la concurrence (CMA), portant sur l'évolution des marges des stations-service jusqu'à fin juin 2026, dans un contexte de hausse des prix à la pompe (essence à 153,5p/L, diesel à 168,6p/L).",
+      "relevance": "Illustre le rôle des clubs automobiles comme porte-voix de la transparence tarifaire des carburants. L'ACL communique-t-elle suffisamment sur l'évolution des marges à la pompe au Luxembourg pour jouer un rôle similaire de vigie tarifaire ?",
+      "badge": "INFO",
+      "url": "https://media.rac.co.uk/rac-reaction-to-cmas-annual-monitoring-report-on-road-fuel-prices"
+    },
+    {
+      "id": "2026-08-14-anwb-1",
+      "date": "2026-08-14",
+      "club": "ANWB",
+      "category": "EU",
+      "content": "L'ANWB lance avec Deftpower, Vattenfall, Allego et Athlon un pilote de recharge intelligente sur 12000 bornes publiques en Gueldre : l'automobiliste indique via l'app l'heure de départ souhaitée et reçoit en moyenne 10% de réduction en échange du décalage de sa recharge vers les heures creuses, jusqu'à fin janvier 2027.",
+      "relevance": "Modèle de recharge pilotée par incitation financière directement transposable au Luxembourg pour lisser la demande sur le réseau électrique. L'ACL pourrait-elle explorer un partenariat pilote similaire avec Creos/Enovos et un opérateur de bornes ?",
+      "badge": "NOTABLE",
+      "url": "https://www.anwb.nl/auto/nieuws/2026/juli/slim-laden-in-gelderland-levert-4-cent-korting-per-kwh-op"
+    },
+    {
+      "id": "2026-08-14-anwb-2",
+      "date": "2026-08-14",
+      "club": "ANWB",
+      "category": "EU",
+      "content": "Le tableau de bord énergie 2026 de l'ANWB, basé sur une enquête auprès de plus de 2000 Néerlandais, révèle que 52% des consommateurs envisagent une batterie domestique mais seulement 8% en possèdent déjà une, l'ANWB alertant sur une fracture croissante dans la transition énergétique.",
+      "relevance": "Sujet transposable au débat luxembourgeois sur l'équité d'accès aux batteries domestiques, panneaux solaires et bornes de recharge. L'ACL pourrait-elle envisager une étude similaire pour objectiver ce débat au Luxembourg ?",
+      "badge": "SURVEILLER",
+      "url": "https://www.anwb.nl/belangenbehartiging/energie/energiedashboard-2026"
+    },
+    {
+      "id": "2026-08-14-aci-1",
+      "date": "2026-08-14",
+      "club": "ACI",
+      "category": "EU",
+      "content": "Le Consorzio Villa Reale e Parco di Monza et l'ACI ont prolongé la concession de l'Autodromo Nazionale di Monza jusqu'au 31 décembre 2044, avec un plan d'investissement de 12 millions d'euros porté par ACI et SIAS d'ici fin 2029 pour moderniser le circuit.",
+      "relevance": "Illustre la stratégie de diversification économique de l'ACI via la gestion à long terme d'infrastructures sportives. Un modèle de revenus que l'ACL pourrait examiner pour ses propres actifs (circuits, centres de formation à la conduite).",
+      "badge": "INFO",
+      "url": "https://www.lautomobile.aci.it/attualita/autodromo-di-monza-aci-rinnova-la-concessione-fino-al-2044/"
+    },
+    {
+      "id": "2026-08-14-aci-2",
+      "date": "2026-08-14",
+      "club": "ACI",
+      "category": "EU",
+      "content": "Pour l'été 2026, l'ACI déploie 2000 véhicules de dépannage et 600 centres d'assistance regroupant 2000 techniciens, avec une ligne gratuite active 24h/24, dans le cadre de la campagne « Estate Sicura » menée en partenariat avec le gestionnaire routier ANAS.",
+      "relevance": "Benchmark direct pour le dimensionnement de l'assistance routière estivale de l'ACL. Comparer le ratio véhicules/adhérents et la communication proactive avant les pics de trafic des grands départs.",
+      "badge": "INFO",
+      "url": "https://www.lautomobile.aci.it/attualita/estate-sicura-2026-aci-in-prima-linea-per-chi-viaggia/"
+    },
+    {
+      "id": "2026-08-14-aci-3",
+      "date": "2026-08-14",
+      "club": "ACI",
+      "category": "EU",
+      "content": "Les nouvelles immatriculations en Italie progressent de 3,9% en juillet 2026 (123184 unités) ; les hybrides dominent avec 47,5% des ventes, tandis que les véhicules 100% électriques reculent à 5,9% après la fin des aides publiques, les hybrides rechargeables grimpant à 10,5%.",
+      "relevance": "Signal d'alerte sur la fragilité de la demande de véhicules électriques sans incitants publics, utile pour anticiper l'impact d'une éventuelle réduction des aides luxembourgeoises à l'achat de VE.",
+      "badge": "SURVEILLER",
+      "url": "https://www.lautomobile.aci.it/attualita/mercato-auto-italia-luglio-2026/"
+    },
+    {
+      "id": "2026-08-14-race-1",
+      "date": "2026-08-14",
+      "club": "RACE",
+      "category": "EU",
+      "content": "À la veille de l'Operación Salida du 1er août, l'un des week-ends les plus chargés de l'été espagnol, la Fundación RACE rappelle l'importance de la planification du trajet, du repos avant le départ et du respect des règles de base de conduite.",
+      "relevance": "Confirme le rôle de la fondation RACE comme relais de prévention institutionnel avant les pics de trafic estivaux, à comparer avec les communications de l'ACL avant les grands chassés-croisés au Luxembourg.",
+      "badge": "INFO",
+      "url": "https://www.race.es/area-de-prensa/fundacion-race-recuerda-importancia-conduccion-segura-responsable-ante-operacion-salida-1-agosto"
+    },
+    {
+      "id": "2026-08-14-race-2",
+      "date": "2026-08-14",
+      "club": "RACE",
+      "category": "EU",
+      "content": "L'Observatorio de Conductores du RACE publie une enquête montrant un rejet massif des automobilistes espagnols face aux mesures gouvernementales et à une pression fiscale jugée excessive sur le secteur automobile (carburants, péages, assurance, entretien).",
+      "relevance": "Écho direct aux débats luxembourgeois sur la fiscalité automobile (carburant, primes CO2). L'ACL pourrait-elle s'appuyer sur ce type d'enquête sectorielle pour étayer ses prises de position face au gouvernement ?",
+      "badge": "SURVEILLER",
+      "url": "https://www.race.es/area-de-prensa/encuesta-sobre-medidas-del-gobierno-y-la-excesiva-carga-impositiva-en-sector-automovilistico"
+    },
+    {
+      "id": "2026-08-14-touring-1",
+      "date": "2026-08-14",
+      "club": "Touring Belgique",
+      "category": "EU",
+      "content": "Touring et Europ Assistance rapportent une nette hausse des dossiers d'assistance liée à la canicule en juillet 2026 : dossiers médicaux à l'étranger en hausse de 16,8% (961 à 1122), 559 personnes rapatriées (+8,1%), et hausse de 4,3% des dossiers techniques (batteries, pneus, surchauffe moteur).",
+      "relevance": "Ce bilan chiffré illustre l'impact croissant des vagues de chaleur sur l'assistance voyage et pourrait inspirer une communication similaire de l'ACL sur ses propres statistiques estivales. L'ACL dispose-t-elle de données comparables pour une communication de prévention chaleur aux membres voyageant à l'étranger ?",
+      "badge": "INFO",
+      "url": "https://www.lalibre.be/belgique/mobilite/2026/08/03/559-personnes-ont-ete-rapatriees-pourquoi-les-demandes-dassistance-depuis-letranger-ont-elles-bondi-chez-touring-en-juillet-676DNPARNFFQXOH5DKJSYCEK6U/"
+    },
+    {
+      "id": "2026-08-14-roole-1",
+      "date": "2026-08-14",
+      "club": "Roole",
+      "category": "EU",
+      "content": "Roole a lancé une nouvelle version de son application Roole Premium avec un design repensé pour la boîte à gants digitale : stockage de la carte de membre et des documents essentiels, carnet d'entretien avec rappels, et ajout de photos/justificatifs pour enrichir l'historique du véhicule.",
+      "relevance": "Cette refonte illustre la stratégie de Roole de digitaliser la relation membre via une application tout-en-un. L'ACL devrait-elle évaluer si son outil digital membre couvre un périmètre comparable (carnet d'entretien numérique, coffre-fort documents, historique véhicule) ?",
+      "badge": "SURVEILLER",
+      "url": "https://www.roole.fr/qui-sommes-nous/coulisses/actus-membre/simplifiez-vous-la-vie-avec-la-nouvelle-app-roole-premium"
+    },
+    {
+      "id": "2026-08-14-roole-2",
+      "date": "2026-08-14",
+      "club": "Roole",
+      "category": "EU",
+      "content": "Le média de Roole rapporte que la France a dépassé les 200000 bornes de recharge publiques fin juillet 2026 (200045 bornes sur 55587 stations), une progression de 15% sur douze mois, avec un ralentissement du rythme d'installation par rapport à 2025.",
+      "relevance": "Ce suivi éditorial de l'infrastructure de recharge montre l'intérêt d'offrir aux membres un contenu de veille sur la mobilité électrique. L'ACL pourrait-elle publier un bulletin similaire sur le réseau de recharge au Luxembourg ?",
+      "badge": "INFO",
+      "url": "https://media.roole.fr/transition/voiture-propre/recharge-electrique-la-france-franchit-le-cap-des-200-000-bornes-publiques"
+    },
+    {
+      "id": "2026-08-14-oeamtc-1",
+      "date": "2026-08-14",
+      "club": "ÖAMTC",
+      "category": "EU",
+      "content": "Un test indépendant de l'ÖAMTC sur dix trottinettes électriques a montré qu'aucune ne respecte la limite légale autrichienne de puissance (600W), certaines dépassant même 1000W en puissance de pointe ; le club réclame une révision urgente de la réglementation.",
+      "relevance": "Ce test technique indépendant renforce la crédibilité du club comme autorité de référence sur la sécurité des nouvelles mobilités. L'ACL pourrait-elle mener un test similaire sur la conformité des trottinettes électriques vendues au Luxembourg ?",
+      "badge": "NOTABLE",
+      "url": "https://www.oeamtc.at/presse/oeamtc-e-scooter-test-wirft-fragen-zu-oesterreichischer-gesetzgebung-auf-88484771"
+    },
+    {
+      "id": "2026-08-14-oeamtc-2",
+      "date": "2026-08-14",
+      "club": "ÖAMTC",
+      "category": "EU",
+      "content": "Une étude de l'ÖAMTC sur les technologies censées empêcher d'oublier un enfant dans une voiture révèle des faiblesses, notamment pour détecter les nouveau-nés installés dos à la route, et souligne l'importance de stratégies d'alerte fiables.",
+      "relevance": "Ce sujet de sécurité enfant est directement transposable en communication de prévention pour l'ACL avant les départs en vacances. L'ACL devrait-elle alerter ses membres sur les limites de ces technologies plutôt que de laisser croire à une protection automatique fiable ?",
+      "badge": "SURVEILLER",
+      "url": "https://www.ots.at/presseaussendung/OTS_20260811_OTS0004/oeamtc-kinder-nicht-mehr-im-auto-vergessen-hilft-technik-zuverlaessig"
+    },
+    {
+      "id": "2026-08-14-aa-1",
+      "date": "2026-08-14",
+      "club": "AA",
+      "category": "EU",
+      "content": "Commentant les statistiques d'immatriculation du DfT, l'AA relève que le parc de véhicules zéro émission au Royaume-Uni a atteint 2148000 unités fin mars 2026 (+29,6% sur un an, soit 5,1% du parc total), un basculement attribué surtout à la flambée des prix des carburants.",
+      "relevance": "Ce basculement rapide vers l'électrique, tiré par le prix du carburant, invite l'ACL à suivre l'évolution du mix énergétique du parc luxembourgeois. L'ACL doit-elle renforcer dès maintenant son offre de dépannage et de conseil pour véhicules électriques ?",
+      "badge": "SURVEILLER",
+      "url": "https://transportandenergy.com/2026/07/15/the-aa-new-vehicle-licensing-statistics-reveal-onward-march-of-evs/"
+    },
+    {
+      "id": "2026-08-14-aaa-1",
+      "date": "2026-08-14",
+      "club": "AAA",
+      "category": "Monde",
+      "content": "AAA a désigné 128 ateliers comme lauréats 2026 de ses programmes « Service Providers of Excellence » et « Best in Repair », sélectionnés parmi plus de 10000 établissements indépendants nominés à l'échelle nationale.",
+      "relevance": "Ce label annuel valorise un réseau de garages partenaires de confiance pour les membres, un modèle proche des ateliers agréés de l'ACL. L'ACL pourrait-elle créer une distinction annuelle similaire pour renforcer la visibilité de son propre réseau de garages partenaires ?",
+      "badge": "INFO",
+      "url": "https://newsroom.aaa.com/2026/07/aaa-recognizes-2026-best-in-repair-and-service-providers-of-excellence-winners/"
+    },
+    {
+      "id": "2026-08-14-aaa-2",
+      "date": "2026-08-14",
+      "club": "AAA",
+      "category": "Monde",
+      "content": "AAA a attribué sa distinction « Four Diamond » à plusieurs hôtels et resorts des Caraïbes et du Mexique dans le cadre de son programme annuel de notation de la qualité hôtelière destiné à orienter les choix de voyage de ses membres.",
+      "relevance": "Ce programme illustre la diversification d'AAA vers des services de conseil voyage à forte valeur perçue pour les membres. L'ACL pourrait-elle explorer un label de qualité similaire pour orienter ses membres vers des hébergements de confiance à l'étranger ?",
+      "badge": "INFO",
+      "url": "https://newsroom.aaa.com/2026/07/resorts-in-the-caribbean-and-mexico-earn-aaa-four-diamonds/"
+    },
     {
       "id": "2026-08-14-saaskia-web-CQS28O",
       "club": "luxtimes.lu (Wort.lu/en)",
@@ -3169,14 +3399,17 @@
     }
   ],
   "trends": [
-    "Modernisation de la gouvernance des clubs automobiles : RAC WA change de statut juridique, l'ACL renforce son comité de direction. Mouvement de fond indépendant des marchés.",
-    "Services pratiques à faible coût et forte valeur perçue : outil de conformité transfrontalière TCB, stations gratuites TCS bike repAIR, ADAC Trips App. La fidélisation passe par des services digitaux simples.",
-    "Pression réglementaire croissante sur les véhicules autonomes des deux côtés de l'Atlantique : NHTSA, New Jersey, lobbying Uber-Waymo. Des précédents qui nourriront le débat réglementaire européen."
+    "Digitalisation de la relation membre via des applications 'tout-en-un' : Roole Premium (carnet d'entretien, coffre-fort documents), pilote de recharge intelligente ANWB avec incitation tarifaire. Les clubs transforment leurs apps en outils de fidélisation quotidienne.",
+    "Multiplication des tests et données indépendantes sur les nouvelles mobilités électriques : pertes de charge domestique (ADAC), non-conformité des trottinettes électriques (ÖAMTC), ralentissement du marché VE sans aides publiques (ACI). Les clubs se positionnent en autorité technique de référence.",
+    "Volatilité des partenariats de recharge électrique : fin du partenariat ADAC-EnBW remplacé par Aral pulse avec une hausse tarifaire programmée dès octobre. Les accords de recharge restent un poste de coût et de négociation récurrent pour les clubs.",
+    "Campagnes de prévention estivale à fort déploiement logistique : rentrée scolaire TCS avec les transporteurs professionnels, Estate Sicura de l'ACI, Operación Salida du RACE. La sécurité routière saisonnière reste un pilier de communication institutionnelle commun à tous les clubs.",
+    "Partenariats marketing avec la distribution et le voyage pour recruter et fidéliser : RAC-Tesco (points de fidélité convertibles), labels de qualité hôtelière et garages AAA. Les clubs élargissent leur proposition de valeur au-delà de l'assistance routière pure."
   ],
   "signals": [
-    "Récurrence : percée des constructeurs chinois dans les partenariats d'assistance routière (CHERY-RAC, vigilance ARC Europe sur Xiaomi et BYD). Signal récurrent depuis plusieurs semaines, décision attendue de BYD sur sa 2e usine européenne.",
-    "Nouveauté : Waze propulsé par Gemini (navigation personnalisée, recherche conversationnelle, mode Moto). Accélération de la concurrence des plateformes cartographiques sur les services aux automobilistes.",
-    "Nouveauté : consolidation de l'insurtech européen (1,68 Md€ levés au S1 2026, concentrés sur peu d'acteurs). Signal à surveiller pour d'éventuels partenariats assurance auto ACL.",
-    "Nouveauté : financement mobilité européen record au T2 2026 (24 Md$, +66% sur un an). Dynamisme du secteur à suivre, aucune levée spécifique à l'assistance routière identifiée cette semaine."
+    "Nouveauté : lien entre canicule et hausse des dossiers d'assistance à l'étranger (Touring Belgique, +16,8% de dossiers médicaux). Signal à suivre pour dimensionner l'assistance ACL lors des étés à répétition de fortes chaleurs.",
+    "Nouveauté : la saisonnalité estivale de l'alcool au volant contredit l'intuition hivernale (étude RAC sur 11 ans). Signal à vérifier sur les données luxembourgeoises pour recalibrer le calendrier des campagnes de prévention.",
+    "Récurrence : ralentissement de l'adoption des véhicules 100% électriques dès la fin des aides publiques (Italie, -5,9% de part de marché). Signal à surveiller au Luxembourg en cas d'évolution des incitants fiscaux VE.",
+    "Nouveauté : fracture d'accès à la transition énergétique domestique révélée par l'ANWB (52% intéressés par une batterie domestique, seulement 8% équipés). Signal pertinent pour un futur débat public luxembourgeois sur l'équité de la transition énergétique.",
+    "Nouveauté : diversification des clubs vers des programmes de labellisation qualité (garages AAA, hôtels AAA Four Diamond, concession longue durée de circuit ACI à Monza). Signal sur l'élargissement du modèle économique des clubs au-delà de l'assistance routière."
   ]
 }
