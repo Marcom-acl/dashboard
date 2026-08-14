@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-13",
+  "generated_at": "2026-08-14",
   "next_edition": "",
   "editions": [
     {
@@ -137,16 +137,97 @@
     {
       "date": "2026-08-13",
       "label": "Semaine du 2026-08-13"
+    },
+    {
+      "date": "2026-08-14",
+      "label": "Semaine du 2026-08-14"
     }
   ],
   "items": [
+    {
+      "id": "2026-08-14-saaskia-web-CQS28O",
+      "club": "luxtimes.lu (Wort.lu/en)",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "Les propriétaires de voitures électriques peuvent vérifier l'autonomie de leur batterie auprès de l'ACL. Un service informatif sur les capacités de batterie des véhicules électriques.",
+      "relevance": "ACL explicitement cité : \"ACL\"",
+      "url": "https://saaskia.keepcontact.lu/data/files/1786683446.9142.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786683446.9142.pdf",
+      "date": "2026-08-14"
+    },
+    {
+      "id": "2026-08-14-saaskia-web-9yfAl6",
+      "club": "lequotidien.lu",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "Le Pumptrack mobile de l'ACL est disponible à Clervaux jusqu'au 16 août. Une activité de loisirs proposée par l'ACL dans le Grand-Duché.",
+      "relevance": "ACL explicitement cité : \"Pumptrack ACL\"",
+      "url": "https://saaskia.keepcontact.lu/data/files/1786683426.4761.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786683426.4761.pdf",
+      "date": "2026-08-14"
+    },
+    {
+      "id": "2026-08-14-saaskia-web-xJa8MN",
+      "club": "virgule.lu (Wort.lu/FR)",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "BIL a mis en place une navette pour ses salariés frontaliers affectés par les perturbations du TER à Metz et Thionville. Solution de mobilité pour les frontaliers face aux problèmes de transports en commun.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1786690156.6323.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786690156.6323.pdf",
+      "date": "2026-08-14"
+    },
+    {
+      "id": "2026-08-14-saaskia-web-KcR8RP",
+      "club": "lesfrontaliers.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Les contrôles allemands aux frontières persistent sans perspective de normalisation. Situation affectant les transports et la mobilité transfrontalière.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1786683400.1693.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786683400.1693.pdf",
+      "date": "2026-08-14"
+    },
+    {
+      "id": "2026-08-14-saaskia-web-tj9Pql",
+      "club": "Agefi.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Le Luxembourg débloque 54 millions d'euros pour soutenir les transporteurs face à l'augmentation des prix du carburant. Politique d'aide gouvernementale à la mobilité et aux transporteurs.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1786683347.8478.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786683347.8478.pdf",
+      "date": "2026-08-14"
+    },
+    {
+      "id": "2026-08-14-saaskia-web-wOCjnx",
+      "club": "Zeitung zum Lëtzebuerger Vollek",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Situation des travailleurs frontaliers affectés par les changements de mobilité et politiques transfrontalières. Question de mobilité des travailleurs frontaliers.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1786683202.4146.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786683202.4146.pdf",
+      "date": "2026-08-14"
+    },
+    {
+      "id": "2026-08-14-saaskia-web-kd9bwQ",
+      "club": "today.RTL.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Porsche arrêtera la production de son véhicule électrique phare. Nouvelle industrie automobile sur les stratégies des constructeurs automobiles.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1786683365.7807.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786683365.7807.pdf",
+      "date": "2026-08-14"
+    },
     {
       "id": "2026-08-13-saaskia-web-kGbv8f",
       "club": "virgule.lu (Wort.lu/FR)",
       "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "content": "L'ACL organise l'Expat Day 2026, un événement proposant des activités et informations pour tous les âges.",
-      "relevance": "ACL explicitement cité : \"Expat Day 2026\"",
+      "content": "L'ACL propose du divertissement et des informations pour tous les âges lors de l'Expat Day 2026. Événement organisé par l'ACL destiné aux expatriés.",
+      "relevance": "ACL explicitement cité : \"ACL Expat Day\"",
       "url": "https://saaskia.keepcontact.lu/data/files/1786597509.3128.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786597509.3128.pdf",
       "date": "2026-08-13"
@@ -156,8 +237,8 @@
       "club": "luxtimes.lu (Wort.lu/en)",
       "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "content": "L'ACL organise l'Expat Day 2026, un événement proposant des activités et informations pour tous les âges (version anglaise).",
-      "relevance": "ACL explicitement cité : \"Expat Day 2026\"",
+      "content": "L'ACL organise l'Expat Day 2026 avec des activités et informations pour tous les âges. Événement grand public de l'ACL.",
+      "relevance": "ACL explicitement cité : \"ACL Expat Day\"",
       "url": "https://saaskia.keepcontact.lu/data/files/1786598035.9736.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786598035.9736.pdf",
       "date": "2026-08-13"
@@ -166,9 +247,9 @@
       "id": "2026-08-13-saaskia-web-eFQn90",
       "club": "wort.lu",
       "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Étude sur la capacité résiduelle de la batterie des véhicules électriques après sept ans et 140 000 kilomètres d'utilisation.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "badge": "NOTABLE",
+      "content": "Étude sur la durabilité des batteries de voitures électriques après sept ans et 140 000 kilomètres. Analyse technique pertinente pour les propriétaires de véhicules électriques.",
+      "relevance": "ACL explicitement cité : \"ACL\"",
       "url": "https://saaskia.keepcontact.lu/data/files/1786597143.1564.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786597143.1564.pdf",
       "date": "2026-08-13"
@@ -178,7 +259,7 @@
       "club": "100komma7.lu",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "L'infrastructure de charge pour les camions électriques et autres gros véhicules doit être étendue au Luxembourg.",
+      "content": "Expansion prévue des infrastructures pour les camions électriques et autres gros véhicules. Investissement dans la mobilité électrique des transports lourds.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1786604017.4817.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786604017.4817.pdf",
@@ -189,7 +270,7 @@
       "club": "virgule.lu (Wort.lu/FR)",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Les travaux d'extension du tram vers le CHL (Centre Hospitalier de Luxembourg) connaissent des retards importants.",
+      "content": "Les travaux d'extension du tram vers le CHL connaissent des retards importants. Enjeu majeur de mobilité et transports publics à Luxembourg-Ville.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1786604034.9727.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786604034.9727.pdf",
@@ -200,7 +281,7 @@
       "club": "virgule.lu (Wort.lu/FR)",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "L'extension de l'avantage fiscal pour les voitures de fonction aux hybrides rechargeables suscite des controverses.",
+      "content": "L'extension de l'avantage fiscal aux voitures de fonction hybrides rechargeables fait débat. Question de politique fiscale affectant la mobilité automobile au Luxembourg.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1786604065.4046.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786604065.4046.pdf",
@@ -211,7 +292,7 @@
       "club": "Luxemburger Wort",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Un système de \"frein au trafic\" est mis en place à Garnich pour réduire les bruits de pneus crissants liés au comportement dangereux de conducteurs.",
+      "content": "Un dispositif de ralentissement du trafic est testé à Garnich pour réduire les bruits de pneus. Mesure de sécurité routière et de réduction des nuisances sonores.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1786596019.2971.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786596019.2971.pdf",
@@ -222,7 +303,7 @@
       "club": "wort.lu",
       "category": "Veille presse LU",
       "badge": "INFO",
-      "content": "Test du Toyota C-HR+ pour évaluer s'il convient comme véhicule de fonction sans équipements premium.",
+      "content": "Test du Toyota C-HR+ en version standard pour vérifier ses capacités de véhicule pour pendulaires. Essai comparatif d'un modèle automobile.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1786598068.9362.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786598068.9362.pdf",
@@ -244,8 +325,8 @@
       "club": "wort.lu",
       "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "content": "L'ACL organise l'Expat Day 2026, un événement proposant du divertissement et des informations pour tous les âges (version allemande).",
-      "relevance": "ACL explicitement cité : \"Expat Day 2026\"",
+      "content": "L'ACL organise l'Expat Day 2026 avec des activités amusantes et informatiques pour tous les âges. Événement récréatif et informatif de l'ACL.",
+      "relevance": "ACL explicitement cité : \"ACL Expat Day\"",
       "url": "https://saaskia.keepcontact.lu/data/files/1786512441.4225.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786512441.4225.pdf",
       "date": "2026-08-12"
@@ -254,11 +335,22 @@
       "id": "2026-08-12-saaskia-web-t8Typt",
       "club": "Le Quotidien",
       "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Natur&ëmwelt s'oppose au projet de contournement d'Alzingen pour des raisons environnementales.",
+      "badge": "INFO",
+      "content": "Natur&ëmwelt s'oppose au projet de contournement d'Alzingen pour des raisons environnementales. Débat sur les infrastructures routières et environnement.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1786512535.3523.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786512535.3523.pdf",
+      "date": "2026-08-12"
+    },
+    {
+      "id": "2026-08-12-saaskia-web-8WssQa",
+      "club": "Tageblatt",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Interview portant sur l'importance du vélo comme mode de transport alternatif. Article sur les mobilités douces et alternatives.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1786512751.4492.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786512751.4492.pdf",
       "date": "2026-08-12"
     },
     {
@@ -281,17 +373,6 @@
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1786512411.9172.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786512411.9172.pdf",
-      "date": "2026-08-12"
-    },
-    {
-      "id": "2026-08-12-saaskia-web-8WssQa",
-      "club": "Tageblatt",
-      "category": "Veille presse LU",
-      "badge": "INFO",
-      "content": "Interview sur l'importance du vélo dans la politique de mobilité et le débat public.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1786512751.4492.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786512751.4492.pdf",
       "date": "2026-08-12"
     },
     {
