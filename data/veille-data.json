@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-15",
+  "generated_at": "2026-08-16",
   "next_edition": "",
   "editions": [
     {
@@ -145,6 +145,10 @@
     {
       "date": "2026-08-15",
       "label": "Semaine du 2026-08-15"
+    },
+    {
+      "date": "2026-08-16",
+      "label": "Semaine du 2026-08-16"
     }
   ],
   "items": [
@@ -153,7 +157,7 @@
       "club": "luxtimes.lu",
       "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "content": "Les propriétaires de voitures électriques peuvent vérifier l'autonomie de la batterie à l'ACL. Un service pratique proposé par l'Automobile Club du Luxembourg.",
+      "content": "Les propriétaires de voitures électriques peuvent vérifier l'autonomie de leur batterie auprès de l'ACL. Ce service offre une assistance pratique aux conducteurs de véhicules électriques.",
       "relevance": "ACL explicitement cité : \"ACL\"",
       "url": "https://saaskia.keepcontact.lu/data/files/1786683446.9142.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786683446.9142.pdf",
@@ -164,8 +168,8 @@
       "club": "lequotidien.lu",
       "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "content": "Le Pumptrack mobile de l'ACL est accessible à Clervaux jusqu'au 16 août. Un équipement de loisirs pour toute la famille.",
-      "relevance": "ACL explicitement cité : \"ACL\"",
+      "content": "L'ACL propose un Pumptrack mobile à Clervaux jusqu'au 16 août. Cette initiative fait partie des activités et services proposés par l'Automobile Club du Grand-Duché.",
+      "relevance": "ACL explicitement cité : \"ACL, Pumptrack\"",
       "url": "https://saaskia.keepcontact.lu/data/files/1786683426.4761.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786683426.4761.pdf",
       "date": "2026-08-14"
@@ -175,7 +179,7 @@
       "club": "virgule.lu",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "La BIL met en place une navette pour ses salariés frontaliers affectés par la suppression des trains TER à Metz et Thionville.",
+      "content": "La BIL a mis en place une navette pour ses salariés frontaliers privés de TER à Metz et Thionville. Cette mesure répond aux problèmes de mobilité et de transports frontaliers.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1786690156.6323.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786690156.6323.pdf",
@@ -186,7 +190,7 @@
       "club": "lesfrontaliers.lu",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Les contrôles allemands aux frontières persistent sans perspective de normalisation prochaine.",
+      "content": "Les contrôles allemands aux frontières ne montrent aucun retour à la normale en vue. Cette situation impacte directement la mobilité des frontaliers luxembourgeois.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1786683400.1693.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786683400.1693.pdf",
@@ -197,21 +201,10 @@
       "club": "Agefi.lu",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Le Luxembourg libère 54 millions d'euros pour soutenir les transporteurs face à la hausse des prix des carburants.",
+      "content": "Le Luxembourg débloque 54 millions d'euros pour soutenir les transporteurs face à la flambée des carburants. Cette aide gouvernementale vise à stabiliser le secteur du transport.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1786683347.8478.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786683347.8478.pdf",
-      "date": "2026-08-14"
-    },
-    {
-      "id": "2026-08-14-saaskia-web-wOCjnx",
-      "club": "Zeitung zum Lëtzebuerger Vollek",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Analyse de la situation des frontaliers face aux défis de mobilité et aux enjeux politiques.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1786683202.4146.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786683202.4146.pdf",
       "date": "2026-08-14"
     },
     {
@@ -219,10 +212,21 @@
       "club": "today.RTL.lu",
       "category": "Veille presse LU",
       "badge": "INFO",
-      "content": "Porsche envisage d'arrêter la production de son modèle électrique phare selon des rapports récents.",
+      "content": "Porsche envisage d'arrêter la production de sa voiture électrique phare. Cette décision reflète les évolutions du marché automobile mondial.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1786683365.7807.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786683365.7807.pdf",
+      "date": "2026-08-14"
+    },
+    {
+      "id": "2026-08-14-saaskia-web-wOCjnx",
+      "club": "Zeitung zum Lëtzebuerger Vollek",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Article sur la situation des travailleurs frontaliers face aux défis de mobilité. Cet article traite des enjeux frontaliers impactant la mobilité quotidienne.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1786683202.4146.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786683202.4146.pdf",
       "date": "2026-08-14"
     },
     {
