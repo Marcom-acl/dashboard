@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-08-16",
-  "next_edition": "",
+  "generated_at": "2026-08-17",
+  "next_edition": "2026-08-24",
   "editions": [
     {
       "date": "2026-05-03",
@@ -149,9 +149,153 @@
     {
       "date": "2026-08-16",
       "label": "Semaine du 2026-08-16"
+    },
+    {
+      "date": "2026-08-17",
+      "label": "Semaine du 2026-08-17"
     }
   ],
   "items": [
+    {
+      "id": "2026-08-17-anwb-1",
+      "date": "2026-08-17",
+      "club": "ANWB",
+      "category": "EU",
+      "content": "L'ANWB a lancé une assurance auto au kilomètre (Kilometerverzekering) pour les automobilistes parcourant moins de 8500 km par an : prime fixe réduite complétée par un montant calculé sur les kilomètres réellement parcourus, mesurés via un boîtier connecté, pour une économie annuelle estimée entre 100 et 120 euros.",
+      "relevance": "Ce modèle d'assurance à l'usage est transposable au marché luxembourgeois pour capter les conducteurs occasionnels. L'ACL pourrait-elle étudier un partenariat assurance similaire ou une offre différenciée pour les petits rouleurs ?",
+      "badge": "NOTABLE",
+      "url": "https://www.anwb.nl/verzekeringen/nieuws/2026/juni/anwb-introduceert-kilometerverzekering-voor-weinigrijders"
+    },
+    {
+      "id": "2026-08-17-aci-1",
+      "date": "2026-08-17",
+      "club": "ACI",
+      "category": "EU",
+      "content": "Le rapport annuel ACI-ISTAT publié le 24 juillet 2026 montre qu'en 2025 l'Italie est repassée sous la barre des 3000 morts sur la route (2868, -5,3%), mais que les accidents (177207, +2,2%) et les blessés (237822, +1,7%) ont augmenté ; les usagers vulnérables représentent 53,3% des tués, avec 4130 accidents impliquant des trottinettes électriques contre 564 en 2020.",
+      "relevance": "Ces chiffres confirment la montée des risques liés à la micromobilité électrique en zone urbaine. L'ACL pourrait-elle s'appuyer sur des données comparables au Luxembourg pour renforcer ses actions de sensibilisation sur les engins de déplacement personnel ?",
+      "badge": "NOTABLE",
+      "url": "https://aci.gov.it/comunicati-stampa/aci-istat-gli-incidenti-stradali-2025/"
+    },
+    {
+      "id": "2026-08-17-aaa-2",
+      "date": "2026-08-17",
+      "club": "AAA",
+      "category": "Monde",
+      "content": "Pour la rentrée scolaire 2026, AAA (Auto Club Group) a lancé une campagne de sécurité routière soulignant que les vélos et trottinettes électriques ajoutent un risque supplémentaire aux abords des écoles ; l'association rappelle que 64% des piétons enfants tués en 2024 l'ont été en semaine, surtout l'après-midi après la classe.",
+      "relevance": "Cette campagne illustre l'intégration croissante de la micromobilité électrique dans les enjeux de sécurité routière scolaire. L'ACL pourrait-elle s'inspirer de cette communication ciblée pour sa propre campagne de sécurité aux abords des écoles à la rentrée luxembourgeoise, en incluant explicitement trottinettes et vélos électriques ?",
+      "badge": "NOTABLE",
+      "url": "https://newsroom.acg.aaa.com/schools-back-aaa-says-slow-down/"
+    },
+    {
+      "id": "2026-08-17-adac-1",
+      "date": "2026-08-17",
+      "club": "ADAC",
+      "category": "EU",
+      "content": "Selon le relevé mensuel de l'ADAC, le prix du diesel a augmenté de près de 28 centimes en juillet 2026 en Allemagne (de 1,946 à 2,225 euro/litre) alors que le pétrole brut reculait sous 90 dollars ; le club demande au Bundeskartellamt d'examiner les marges des raffineries et du commerce de gros.",
+      "relevance": "Cette prise de position publique sur la transparence des prix à la pompe positionne l'ADAC en porte-parole des automobilistes. L'ACL devrait-elle publier un suivi comparable des marges des distributeurs de carburant au Luxembourg ?",
+      "badge": "SURVEILLER",
+      "url": "https://presse.adac.de/meldungen/adac-ev/verkehr/kraftstoffpreise-im-juli-diesel-verteuert-sich-um-fast-28-cent.html"
+    },
+    {
+      "id": "2026-08-17-rac-1",
+      "date": "2026-08-17",
+      "club": "RAC",
+      "category": "EU",
+      "content": "Le RAC a dévoilé la présélection de ses tout premiers « New Car Awards » : 27 véhicules dans 9 catégories (dont 3 électriques), notés sur 10 points selon 7 critères par l'équipe éditoriale interne ; résultats annoncés en septembre 2026.",
+      "relevance": "Ce nouveau programme de récompenses propriétaire renforce l'autorité éditoriale du RAC sur le conseil automobile. L'ACL pourrait-elle lancer un format similaire de distinction annuelle pour valoriser son expertise test auprès du grand public luxembourgeois ?",
+      "badge": "SURVEILLER",
+      "url": "https://media.rac.co.uk/rac-reveals-shortlist-for-inaugural-new-car-awards"
+    },
+    {
+      "id": "2026-08-17-roole-1",
+      "date": "2026-08-17",
+      "club": "Roole",
+      "category": "EU",
+      "content": "La Fondation Roole prépare un guichet unique de financement pour les associations de mobilité solidaire, avec ouverture des candidatures début 2027 et premiers lauréats dès juin 2027, en partenariat avec d'autres fondations dont la Fondation BTP Prévoyance Plus qui lance en parallèle un appel à projets doté de 100000 euros.",
+      "relevance": "Ce modèle mutualisé, où une association dépose un seul dossier étudié par plusieurs fondations, est transposable aux actions sociales de mobilité de l'ACL. L'ACL pourrait-elle explorer un dispositif de financement partagé similaire avec d'autres acteurs luxembourgeois ?",
+      "badge": "SURVEILLER",
+      "url": "https://www.roole.fr/qui-sommes-nous/coulisses/mobilite-solidaire/mobilite-solidaire-la-fondation-roole-souhaite-simplifier-lacces-au-financement"
+    },
+    {
+      "id": "2026-08-17-oeamtc-1",
+      "date": "2026-08-17",
+      "club": "ÖAMTC",
+      "category": "EU",
+      "content": "L'ÖAMTC constate que les prix des carburants en Autriche ont nettement augmenté début août 2026 alors que le cours du pétrole brut est en baisse, les stations-service ne répercutant pas cette baisse aux automobilistes.",
+      "relevance": "Ce décalage entre cours du brut et prix à la pompe est un sujet sectoriel récurrent pour les clubs automobiles européens. L'ACL pourrait-elle comparer cette situation avec le marché luxembourgeois et envisager une communication similaire ?",
+      "badge": "SURVEILLER",
+      "url": "https://www.ots.at/presseaussendung/OTS_20260806_OTS0016/oeamtc-spritpreise-deutlich-gestiegen-sinkender-rohoelpreis-kommt-nicht-an-zapfsaeulen-an"
+    },
+    {
+      "id": "2026-08-17-aa-1",
+      "date": "2026-08-17",
+      "club": "AA",
+      "category": "EU",
+      "content": "Selon l'AA, le prix moyen de l'essence au Royaume-Uni a atteint environ 160 pence le litre début août 2026, son plus haut niveau de l'année, en hausse de plus de 9 pence depuis un point bas le 6 juillet, sous l'effet des tensions au Moyen-Orient qui ont fait grimper les cours du pétrole.",
+      "relevance": "Ce pic illustre la sensibilité du prix des carburants aux chocs géopolitiques externes. L'ACL pourrait-elle comparer cette hausse aux prix pratiqués au Luxembourg et préparer une communication proactive aux membres sur les tendances attendues à la pompe ?",
+      "badge": "SURVEILLER",
+      "url": "https://www.share-talk.com/uk-petrol-prices-set-to-reach-highest-level-of-2026/"
+    },
+    {
+      "id": "2026-08-17-aa-2",
+      "date": "2026-08-17",
+      "club": "AA",
+      "category": "EU",
+      "content": "L'AA alerte sur l'aggravation des nids-de-poule liée à la canicule d'août 2026 au Royaume-Uni, les revêtements routiers se ramollissant sous la chaleur, et chiffre à 3,3 milliards de livres le coût annuel des mauvaises conditions routières pour les automobilistes britanniques.",
+      "relevance": "Ce lien entre canicule et dégradation accrue des chaussées pourrait aussi concerner le réseau routier luxembourgeois lors des étés chauds. L'ACL pourrait-elle interroger l'Administration des Ponts et Chaussées sur la surveillance thermique des revêtements ?",
+      "badge": "SURVEILLER",
+      "url": "https://www.highwaysindustry.com/sticky-roads-heat-potholes/"
+    },
+    {
+      "id": "2026-08-17-roole-2",
+      "date": "2026-08-17",
+      "club": "Roole",
+      "category": "EU",
+      "content": "Le média de Roole publie un récapitulatif des changements réglementaires entrés en vigueur le 1er août 2026 pour les automobilistes français, portant sur la carte grise, la voiture électrique et les carburants.",
+      "relevance": "Ce format de synthèse pédagogique des évolutions réglementaires illustre une stratégie de contenu utile aux membres. L'ACL pourrait-elle publier une veille comparable et régulière pour ses adhérents luxembourgeois ?",
+      "badge": "INFO",
+      "url": "https://media.roole.fr/quotidien/au-volant/ce-qui-change-pour-les-automobilistes-au-1er-aout-2026-carte-grise-voiture-electrique-carburants"
+    },
+    {
+      "id": "2026-08-17-oeamtc-2",
+      "date": "2026-08-17",
+      "club": "ÖAMTC",
+      "category": "EU",
+      "content": "L'ÖAMTC demande au gouvernement autrichien une baisse plus marquée de la taxe sur les huiles minérales (MÖSt) en août 2026 pour soulager les automobilistes face à la hausse des prix des carburants.",
+      "relevance": "Cette prise de position publique sur la fiscalité des carburants illustre le rôle de porte-parole des automobilistes que joue l'ÖAMTC. L'ACL pourrait-elle s'inspirer de cette posture pour ses propres communications sur la fiscalité automobile au Luxembourg ?",
+      "badge": "INFO",
+      "url": "https://www.ots.at/presseaussendung/OTS_20260724_OTS0011/spritpreise-oeamtc-fordert-entlastung-durch-staerkere-moest-senkung"
+    },
+    {
+      "id": "2026-08-17-aaa-1",
+      "date": "2026-08-17",
+      "club": "AAA",
+      "category": "Monde",
+      "content": "Aux États-Unis, AAA rapporte que le prix moyen national de l'essence a dépassé 4 dollars/gallon la deuxième semaine d'août 2026 pour la première fois de l'histoire à cette période de l'année (4,07$ le 13 août), tandis que le diesel a dépassé 5,40$/gallon, sous l'effet des tensions liées au conflit en Iran et de stocks américains au plus bas depuis plusieurs années.",
+      "relevance": "Ce record saisonnier confirme l'impact direct des tensions géopolitiques internationales sur le budget carburant des ménages. L'ACL pourrait-elle suivre ces signaux de prix mondiaux pour anticiper les questions de ses membres sur l'évolution des prix au Luxembourg ?",
+      "badge": "INFO",
+      "url": "https://newsroom.aaa.com/2026/08/after-falling-for-a-week-national-average-climbing-again/"
+    },
+    {
+      "id": "2026-08-17-anwb-2",
+      "date": "2026-08-17",
+      "club": "ANWB",
+      "category": "EU",
+      "content": "Du 5 juillet au 30 août 2026, l'ANWB déploie une trentaine de patrouilles Wegenwacht dans les régions touristiques de France, d'Italie et d'Espagne, ouvre un centre de réparation supplémentaire près d'Orange, et met à disposition près de 6000 véhicules de remplacement via sa filiale Logicx.",
+      "relevance": "Ce dispositif d'assistance transfrontalière renforcée en haute saison illustre un niveau de service que l'ACL pourrait comparer à sa propre capacité d'assistance à l'étranger pour ses membres en vacances.",
+      "badge": "INFO",
+      "url": "https://www.bnr.nl/nieuws/mobiliteit/10605055/anwb-zet-30-wegenwachten-en-6-000-huurauto-s-klaar-langs-drukke-vakantieroutes"
+    },
+    {
+      "id": "2026-08-17-anwb-3",
+      "date": "2026-08-17",
+      "club": "ANWB",
+      "category": "EU",
+      "content": "L'ANWB a publié ses prévisions de trafic pour le week-end noir du 1er et 2 août 2026, alertant sur une circulation très dense en France et sur les grands axes européens en raison du chevauchement des départs et retours de vacances.",
+      "relevance": "Une communication institutionnelle récurrente et bien relayée. À comparer avec les bulletins de circulation de l'ACL pour évaluer la fréquence et le format de diffusion adoptés par l'ANWB.",
+      "badge": "INFO",
+      "url": "https://www.anwb.nl/verkeer/nieuws/buitenland/2026/juli/verkeersprognose-zomervakantie-weekend-1-2-augustus-zwarte-zaterdag"
+    },
     {
       "id": "2026-08-14-saaskia-web-CQS28O",
       "club": "luxtimes.lu",
@@ -3407,17 +3551,17 @@
     }
   ],
   "trends": [
-    "Digitalisation de la relation membre via des applications 'tout-en-un' : Roole Premium (carnet d'entretien, coffre-fort documents), pilote de recharge intelligente ANWB avec incitation tarifaire. Les clubs transforment leurs apps en outils de fidélisation quotidienne.",
-    "Multiplication des tests et données indépendantes sur les nouvelles mobilités électriques : pertes de charge domestique (ADAC), non-conformité des trottinettes électriques (ÖAMTC), ralentissement du marché VE sans aides publiques (ACI). Les clubs se positionnent en autorité technique de référence.",
-    "Volatilité des partenariats de recharge électrique : fin du partenariat ADAC-EnBW remplacé par Aral pulse avec une hausse tarifaire programmée dès octobre. Les accords de recharge restent un poste de coût et de négociation récurrent pour les clubs.",
-    "Campagnes de prévention estivale à fort déploiement logistique : rentrée scolaire TCS avec les transporteurs professionnels, Estate Sicura de l'ACI, Operación Salida du RACE. La sécurité routière saisonnière reste un pilier de communication institutionnelle commun à tous les clubs.",
-    "Partenariats marketing avec la distribution et le voyage pour recruter et fidéliser : RAC-Tesco (points de fidélité convertibles), labels de qualité hôtelière et garages AAA. Les clubs élargissent leur proposition de valeur au-delà de l'assistance routière pure."
+    "Montée confirmée des risques liés à la micromobilité électrique : l'ACI-ISTAT chiffre à 4130 les accidents de trottinettes électriques en Italie en 2025 contre 564 en 2020, et AAA lance une campagne de rentrée scolaire ciblant explicitement vélos et trottinettes électriques aux abords des écoles. La sécurité des engins de déplacement personnel devient un axe de communication central pour les clubs.",
+    "Volatilité des prix des carburants pilotée par la géopolitique plutôt que par des facteurs nationaux : pic historique au Royaume-Uni (AA), record de tous les temps aux États-Unis pour un mois d'août (AAA), décalage prix/brut en Autriche (ÖAMTC) et hausse du diesel en Allemagne (ADAC). Les clubs automobiles renforcent leur rôle de porte-voix sur la transparence des marges à la pompe.",
+    "Diversification vers des produits d'assurance à l'usage pour capter les petits rouleurs : l'ANWB lance une assurance au kilomètre avec boîtier connecté et économie annuelle estimée à 100-120 euros. Un signal de segmentation croissante de l'offre membre au-delà de l'assistance classique.",
+    "Développement de programmes éditoriaux propriétaires pour asseoir l'autorité de conseil des clubs : lancement des « New Car Awards » du RAC, en écho aux labels de qualité déjà observés chez AAA. Les clubs investissent dans du contenu de notation indépendant pour fidéliser et générer de la couverture médiatique.",
+    "Renforcement de l'assistance transfrontalière en haute saison estivale : l'ANWB déploie une trentaine de patrouilles Wegenwacht et 6000 véhicules de remplacement dans les régions touristiques du sud de l'Europe. La logistique estivale reste un poste d'investissement récurrent pour les grands clubs."
   ],
   "signals": [
-    "Nouveauté : lien entre canicule et hausse des dossiers d'assistance à l'étranger (Touring Belgique, +16,8% de dossiers médicaux). Signal à suivre pour dimensionner l'assistance ACL lors des étés à répétition de fortes chaleurs.",
-    "Nouveauté : la saisonnalité estivale de l'alcool au volant contredit l'intuition hivernale (étude RAC sur 11 ans). Signal à vérifier sur les données luxembourgeoises pour recalibrer le calendrier des campagnes de prévention.",
-    "Récurrence : ralentissement de l'adoption des véhicules 100% électriques dès la fin des aides publiques (Italie, -5,9% de part de marché). Signal à surveiller au Luxembourg en cas d'évolution des incitants fiscaux VE.",
-    "Nouveauté : fracture d'accès à la transition énergétique domestique révélée par l'ANWB (52% intéressés par une batterie domestique, seulement 8% équipés). Signal pertinent pour un futur débat public luxembourgeois sur l'équité de la transition énergétique.",
-    "Nouveauté : diversification des clubs vers des programmes de labellisation qualité (garages AAA, hôtels AAA Four Diamond, concession longue durée de circuit ACI à Monza). Signal sur l'élargissement du modèle économique des clubs au-delà de l'assistance routière."
+    "Nouveauté : modèle de financement mutualisé entre fondations pour les actions de mobilité solidaire (guichet unique préparé par la Fondation Roole avec la Fondation BTP Prévoyance Plus). Signal à suivre pour d'éventuels partenariats philanthropiques transposables au Luxembourg.",
+    "Nouveauté : pressions politiques croissantes sur la fiscalité des carburants portées par les clubs eux-mêmes (ÖAMTC réclame une baisse de la MÖSt, ADAC saisit le Bundeskartellamt sur les marges). Signal à surveiller pour d'éventuelles prises de position similaires de l'ACL au Luxembourg.",
+    "Nouveauté : lien entre canicule et dégradation accélérée des chaussées, chiffré à 3,3 milliards de livres de coût annuel au Royaume-Uni (AA). Signal pertinent pour anticiper l'impact des étés chauds sur le réseau routier luxembourgeois et les véhicules des membres.",
+    "Récurrence : généralisation d'un focus statistique systématique sur les engins de déplacement personnel dans les rapports annuels de sécurité routière (ACI-ISTAT). Signal sur une possible normalisation de cet indicateur dans les futurs rapports d'autres clubs.",
+    "Nouveauté : communication de plus en plus data-driven sur les prévisions de trafic saisonnier (« zwarte zaterdag » de l'ANWB). Signal à évaluer pour enrichir les bulletins de circulation de l'ACL lors des grands départs."
   ]
 }
