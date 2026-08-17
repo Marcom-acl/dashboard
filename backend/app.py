@@ -5275,13 +5275,14 @@ _WRIKE_BASE = 'https://app-eu.wrike.com/api/v4'
 
 def _wrike_space_id(hdrs):
     """Résout l'ID de l'espace 'ACL Marcom', mis en cache 24 h.
-    Retourne (id, None) si trouvé, (None, [noms]) sinon."""
+    Retourne (id, None) si trouvé, (None, détail) sinon — détail est soit
+    la liste des noms d'espaces disponibles, soit le statut HTTP Wrike en cas d'échec de l'appel."""
     cached = _cache_get('wrike:space_id')
     if cached:
         return cached.get('id'), None
     r = _get(f'{_WRIKE_BASE}/spaces', headers=hdrs)
     if not r.ok:
-        return None, []
+        return None, {'wrike_http_status': r.status_code, 'wrike_response': r.text[:300]}
     spaces = r.json().get('data', [])
     for s in spaces:
         if 'acl marcom' in s.get('title', '').lower():
