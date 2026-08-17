@@ -1478,6 +1478,19 @@
   </div>
 </div>
 
+<!-- ════════ MATRICE WRIKE — DÉTAIL CELLULE ════════ -->
+<div class="cfg-overlay" id="wrikeMxOverlay"></div>
+<div class="cfg-drawer" id="wrikeMxDrawer">
+  <div class="cfg-head">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+    <span class="cfg-title" id="wrikeMxTitle">Projets</span>
+    <button class="cfg-close" id="wrikeMxClose">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <div class="cfg-body" id="wrikeMxBody"></div>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
@@ -6639,6 +6652,39 @@ function applyGlobalRange() {
   });
 })();
 
+// ── Drawer détail cellule — matrice Wrike ──────────────────────
+function openWrikeMatrixCell(target, stage, cell) {
+  const overlay = document.getElementById('wrikeMxOverlay');
+  const drawer  = document.getElementById('wrikeMxDrawer');
+  const title   = document.getElementById('wrikeMxTitle');
+  const body    = document.getElementById('wrikeMxBody');
+  if (!overlay || !drawer) return;
+
+  title.textContent = `${target} — ${stage}`;
+  const projects = cell?.projects || [];
+  body.innerHTML = projects.length
+    ? `<div style="display:flex;flex-direction:column;gap:8px">${projects.map(p => `
+        <a href="${p.permalink}" target="_blank" rel="noopener"
+           style="display:block;padding:10px 12px;border:1px solid var(--border);border-radius:8px;font-size:13px;font-weight:600;color:var(--text);text-decoration:none;transition:border-color .12s"
+           onmouseover="this.style.borderColor='#05C1D7'" onmouseout="this.style.borderColor='var(--border)'">
+          ${p.title}
+          <span style="display:block;margin-top:2px;font-size:11px;font-weight:500;color:var(--muted)">Ouvrir dans Wrike →</span>
+        </a>`).join('')}</div>`
+    : '<p class="tbl-empty">Aucun projet pour cette combinaison</p>';
+
+  drawer.classList.add('open');
+  overlay.classList.add('open');
+}
+
+(function() {
+  const overlay  = document.getElementById('wrikeMxOverlay');
+  const drawer   = document.getElementById('wrikeMxDrawer');
+  const closeBtn = document.getElementById('wrikeMxClose');
+  function closeWrikeMx() { drawer.classList.remove('open'); overlay.classList.remove('open'); }
+  closeBtn?.addEventListener('click', closeWrikeMx);
+  overlay?.addEventListener('click', closeWrikeMx);
+})();
+
 // ── Hamburger menu (mobile) ───────────────────────────────────
 (function() {
   const btn     = document.getElementById('btnHamburger');
@@ -7288,6 +7334,83 @@ function _renderWrikeList() {
   });
 }
 
+// ── Matrice Cibles × Cycle de vie ──────────────────────────────
+let _wrikeMatrix = null;
+
+function _wrikeMatrixCellBg(count, max) {
+  if (!count) return 'var(--bg)';
+  const alpha = 0.12 + 0.55 * Math.min(count / Math.max(max, 1), 1);
+  return `rgba(5,193,215,${alpha.toFixed(2)})`;
+}
+
+function _wrikeMatrixHtml(matrix) {
+  if (!matrix) return '';
+  const targets  = matrix.targets || [];
+  const stages   = matrix.stages  || [];
+  const cells    = matrix.cells   || {};
+  const priority = new Set(matrix.priority_targets || []);
+  const max      = Math.max(1, ...Object.values(cells).map(c => c.count || 0));
+
+  const headerCells = stages.map(s =>
+    `<th style="text-align:center;padding:6px 8px;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)">${s.replace(/^\d+\.\s*/, '')}</th>`
+  ).join('');
+
+  const rows = targets.map(t => {
+    const isPrio = priority.has(t);
+    const tds = stages.map(s => {
+      const cell = cells[`${t}|${s}`] || { count: 0, projects: [] };
+      const gap  = isPrio && cell.count === 0;
+      const bg     = gap ? '#FEF2F2' : _wrikeMatrixCellBg(cell.count, max);
+      const color  = gap ? '#DC2626' : (cell.count ? 'var(--text)' : 'var(--muted-2)');
+      const border = gap ? '1px solid #FCA5A5' : '1px solid transparent';
+      const cursor = cell.count ? 'pointer' : 'default';
+      return `<td class="wrike-mx-cell" data-target="${t}" data-stage="${s}"
+                  style="text-align:center;font-weight:700;font-size:13px;background:${bg};color:${color};border:${border};border-radius:8px;padding:12px 6px;cursor:${cursor}"
+                  ${gap ? 'title="Trou de couverture — cible prioritaire sans projet actif"' : ''}>
+                ${gap ? '⚠ 0' : (cell.count || 0)}
+              </td>`;
+    }).join('');
+    return `<tr>
+      <td style="font-weight:600;font-size:12.5px;color:var(--text);padding:8px 10px;white-space:nowrap">
+        ${isPrio ? '<span style="color:#05C1D7">●</span> ' : ''}${t}
+      </td>
+      ${tds}
+    </tr>`;
+  }).join('');
+
+  return `
+    <div class="card" style="margin-top:14px">
+      <div class="card-head">
+        <div class="card-title">Matrice Cibles × Cycle de vie</div>
+        <div class="card-sub" style="margin-left:8px">Projets actifs par combinaison — cliquer une cellule pour voir le détail</div>
+      </div>
+      <div class="card-body" style="padding:8px 16px 18px">
+        ${matrix.unmapped_count ? `<div style="margin-bottom:10px;font-size:11.5px;color:var(--muted)">${matrix.unmapped_count} projet(s) actif(s) sans cible et/ou cycle de vie renseigné — non comptabilisé(s) ci-dessous.</div>` : ''}
+        <div class="tbl-scroll">
+          <table style="width:100%;border-collapse:separate;border-spacing:5px">
+            <thead><tr><th></th>${headerCells}</tr></thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </div>
+        <div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:12px;font-size:11px;color:var(--muted)">
+          <span><span style="display:inline-block;width:10px;height:10px;border-radius:3px;background:#FEF2F2;border:1px solid #FCA5A5;margin-right:5px;vertical-align:middle"></span>Trou de couverture (cible prioritaire, 0 projet actif)</span>
+          <span><span style="color:#05C1D7">●</span> Cible prioritaire</span>
+        </div>
+      </div>
+    </div>`;
+}
+
+function _wireWrikeMatrix(el) {
+  el.querySelectorAll('.wrike-mx-cell').forEach(td => {
+    td.addEventListener('click', () => {
+      const target = td.dataset.target, stage = td.dataset.stage;
+      const cell = _wrikeMatrix?.cells?.[`${target}|${stage}`];
+      if (!cell || !cell.count) return;
+      openWrikeMatrixCell(target, stage, cell);
+    });
+  });
+}
+
 function renderWrike(d) {
   const el = document.getElementById('panel-wrike');
   if (!el) return;
@@ -7308,6 +7431,7 @@ function renderWrike(d) {
   _wrikeFilterUrg   = 'all';
   _wrikeFilterOwner = '';
   _wrikeSort        = 'urgency';
+  _wrikeMatrix      = d.matrix     || null;
 
   const s  = d.summary    || {};
   const ts = d.task_stats || {};
@@ -7418,9 +7542,11 @@ function renderWrike(d) {
       <div class="card-body" style="padding:12px 16px">
         <div id="wrike-project-list"></div>
       </div>
-    </div>`;
+    </div>
+    ${_wrikeMatrixHtml(_wrikeMatrix)}`;
 
   // ── Event listeners ───────────────────────────────────────────
+  _wireWrikeMatrix(el);
   el.querySelectorAll('.wrike-urg-pill').forEach(btn => {
     btn.addEventListener('click', () => {
       _wrikeFilterUrg = btn.dataset.urg;

@@ -5290,6 +5290,70 @@ def _wrike_space_id(hdrs):
     return None, [s.get('title', '') for s in spaces]
 
 
+# ── Matrice Cibles × Cycle de vie ────────────────────────────────────────────
+_WRIKE_CF_TARGET_ID = 'IEAEN2QEJUANA4HL'  # "Public(s) cible(s)"
+_WRIKE_CF_STAGE_ID  = 'IEAEN2QEJUANA4HP'  # "Cycle de vie"
+
+_MATRIX_TARGETS = [
+    'Jeunes (18-25)', 'Familles (-40)', 'Nouveaux arrivants', 'Seniors (60+)',
+    'Employés', 'B2B', 'Hors cibles prioritaires',
+]
+_MATRIX_STAGES = ['1. Notoriété', '2. Acquisition', '3. Engagement', '4. Rétention']
+_MATRIX_PRIORITY_TARGETS = {'Jeunes (18-25)', 'Familles (-40)', 'Nouveaux arrivants', 'Seniors (60+)'}
+
+
+def _wrike_cf_values(folder, field_id):
+    """Extrait les valeurs (liste de strings) d'un champ personnalisé Multiple.
+    La valeur Wrike est une chaîne JSON encodant un tableau, ex: '["A","B"]'."""
+    for cf in folder.get('customFields') or []:
+        if cf.get('id') != field_id:
+            continue
+        raw = cf.get('value')
+        if not raw:
+            return []
+        if isinstance(raw, list):
+            return raw
+        try:
+            parsed = json.loads(raw)
+            return parsed if isinstance(parsed, list) else [parsed]
+        except (TypeError, ValueError):
+            return [raw]
+    return []
+
+
+def _wrike_build_matrix(folders):
+    """Construit la matrice cibles × cycle de vie à partir des dossiers-projets actifs."""
+    cells = {f'{t}|{s}': [] for t in _MATRIX_TARGETS for s in _MATRIX_STAGES}
+    unmapped_count = 0
+
+    for folder in folders:
+        proj = folder.get('project')
+        if not proj:
+            continue
+        status = proj.get('status') or ''
+        if status in ('Completed', 'Cancelled') or proj.get('completedDate'):
+            continue
+
+        targets = [t for t in _wrike_cf_values(folder, _WRIKE_CF_TARGET_ID) if t in _MATRIX_TARGETS]
+        stages  = [s for s in _wrike_cf_values(folder, _WRIKE_CF_STAGE_ID) if s in _MATRIX_STAGES]
+        if not targets or not stages:
+            unmapped_count += 1
+            continue
+
+        entry = {'id': folder['id'], 'title': folder['title'], 'permalink': folder.get('permalink', '')}
+        for t in targets:
+            for s in stages:
+                cells[f'{t}|{s}'].append(entry)
+
+    return {
+        'targets':          _MATRIX_TARGETS,
+        'stages':           _MATRIX_STAGES,
+        'priority_targets': sorted(_MATRIX_PRIORITY_TARGETS),
+        'cells':            {k: {'count': len(v), 'projects': v} for k, v in cells.items()},
+        'unmapped_count':   unmapped_count,
+    }
+
+
 @app.route('/wrike/debug-projects')
 @require_internal_token
 def wrike_debug_projects():
@@ -5374,18 +5438,27 @@ def wrike():
                 return set()
             return {m['id'] for m in data[0].get('members', [])}
 
-        with concurrent.futures.ThreadPoolExecutor(max_workers=5) as ex:
-            ff = ex.submit(_fetch_folders)
-            fc = ex.submit(_fetch_completed)
-            fa = ex.submit(_fetch_active)
-            fk = ex.submit(_fetch_contacts)
-            fm = ex.submit(_fetch_space_members)
+        def _fetch_folders_matrix():
+            # descendants=true pour couvrir les sous-dossiers/sous-projets ;
+            # fields=customFields pour récupérer "Public(s) cible(s)" et "Cycle de vie".
+            r = _get(f'{_WRIKE_BASE}/spaces/{space_id}/folders', headers=hdrs,
+                     params={'descendants': 'true', 'fields': '["customFields"]'})
+            return r.json().get('data', []) if r.ok else []
+
+        with concurrent.futures.ThreadPoolExecutor(max_workers=6) as ex:
+            ff  = ex.submit(_fetch_folders)
+            fc  = ex.submit(_fetch_completed)
+            fa  = ex.submit(_fetch_active)
+            fk  = ex.submit(_fetch_contacts)
+            fm  = ex.submit(_fetch_space_members)
+            fmx = ex.submit(_fetch_folders_matrix)
 
         folders         = ff.result()
         completed_tasks = fc.result()
         active_tasks    = fa.result()
         contacts        = fk.result()
         space_members   = fm.result()
+        folders_matrix  = fmx.result()
 
         # Restrict contacts to space members only (fallback: keep all if fetch failed)
         if space_members:
@@ -5495,6 +5568,7 @@ def wrike():
                 'new_this_week':       new_this_week,
                 '_tasks_fetched':      len(completed_tasks) + len(active_tasks),
             },
+            'matrix': _wrike_build_matrix(folders_matrix),
         }
         _cache_set('wrike:projects', result, 600)
         return jsonify(result)
