@@ -1,6 +1,6 @@
 {
   "generated_at": "2026-08-17",
-  "next_edition": "2026-08-24",
+  "next_edition": "",
   "editions": [
     {
       "date": "2026-05-03",
@@ -156,6 +156,94 @@
     }
   ],
   "items": [
+    {
+      "id": "2026-08-17-saaskia-web-Rkq2zH",
+      "club": "tageblatt.lu",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "L'ACL organise des conférences gratuites sur la mobilité électrique pour informer le public sur les enjeux et développements de l'électromobilité.",
+      "relevance": "ACL explicitement cité : \"ACL organisiert\"",
+      "url": "https://saaskia.keepcontact.lu/data/files/1786949290.2411.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786949290.2411.pdf",
+      "date": "2026-08-17"
+    },
+    {
+      "id": "2026-08-17-saaskia-web-MxNh7G",
+      "club": "wort.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Analyse de la sécurité routière sur les routes N12 et N18 au Luxembourg malgré les accidents mortels enregistrés, avec déclaration du ministre Backes.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1786942976.7229.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786942976.7229.pdf",
+      "date": "2026-08-17"
+    },
+    {
+      "id": "2026-08-17-saaskia-web-H0ikjs",
+      "club": "paperjam.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Analyse des capacités et perspectives des transports publics au Luxembourg dans le contexte de la mobilité durable.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1786943016.7851.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786943016.7851.pdf",
+      "date": "2026-08-17"
+    },
+    {
+      "id": "2026-08-17-saaskia-web-1icLiZ",
+      "club": "chronicle.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Les marques automobiles chinoises doublent leur part de marché au Luxembourg, reflétant les tendances changeantes du marché automobile européen.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1786943044.8867.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786943044.8867.pdf",
+      "date": "2026-08-17"
+    },
+    {
+      "id": "2026-08-17-saaskia-web-TFlxsY",
+      "club": "lequotidien.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Le Luxembourg rejette l'introduction de 'feux récompenses' pour les conducteurs respectueux du code de la route, confirmant sa politique de sécurité routière.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1786943079.1083.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786943079.1083.pdf",
+      "date": "2026-08-17"
+    },
+    {
+      "id": "2026-08-17-saaskia-web-zaP78s",
+      "club": "virgule.lu (Wort.lu/FR)",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Test et diagnostic de l'état de santé des véhicules électriques d'occasion pour évaluer leur performance et durabilité.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1786943211.998.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786943211.998.pdf",
+      "date": "2026-08-17"
+    },
+    {
+      "id": "2026-08-17-saaskia-web-J6rkr5",
+      "club": "Agefi.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Le Luxembourg accélère sa transition énergétique et sa mobilité durable par quatre projets structurants majeurs.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1786943253.3093.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786943253.3093.pdf",
+      "date": "2026-08-17"
+    },
+    {
+      "id": "2026-08-17-saaskia-web-JziSfh",
+      "club": "Tageblatt",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "L'ACL informe le public sur la mobilité électrique et ses enjeux pour la transition vers des transports durables.",
+      "relevance": "ACL explicitement cité : \"ACL informiert\"",
+      "url": "https://saaskia.keepcontact.lu/data/files/1786943306.1236.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786943306.1236.pdf",
+      "date": "2026-08-17"
+    },
     {
       "id": "2026-08-17-anwb-1",
       "date": "2026-08-17",
