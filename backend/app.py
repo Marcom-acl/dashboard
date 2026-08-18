@@ -5440,11 +5440,35 @@ def wrike():
             return {m['id'] for m in data[0].get('members', [])}
 
         def _fetch_folders_matrix():
-            # descendants=true pour couvrir les sous-dossiers/sous-projets ;
-            # fields=customFields pour récupérer "Public(s) cible(s)" et "Cycle de vie".
+            # descendants=true pour couvrir les sous-dossiers/sous-projets.
+            # customFields n'est PAS disponible via /spaces/{id}/folders (le paramètre
+            # fields=["customFields"] y est invalide/ignoré) — il faut un second appel
+            # en masse sur GET /folders/{id1,id2,...}, qui l'inclut par défaut.
             r = _get(f'{_WRIKE_BASE}/spaces/{space_id}/folders', headers=hdrs,
-                     params={'descendants': 'true', 'fields': '["customFields"]'})
-            return r.json().get('data', []) if r.ok else []
+                     params={'descendants': 'true'})
+            if not r.ok:
+                return []
+            all_folders = r.json().get('data', [])
+
+            def _is_active_project(f):
+                proj = f.get('project')
+                if not proj:
+                    return False
+                status = proj.get('status') or ''
+                return status not in ('Completed', 'Cancelled') and not proj.get('completedDate')
+
+            active_ids = [f['id'] for f in all_folders if _is_active_project(f)]
+            by_id      = {f['id']: f for f in all_folders}
+
+            for i in range(0, len(active_ids), 100):
+                chunk = active_ids[i:i + 100]
+                rc = _get(f"{_WRIKE_BASE}/folders/{','.join(chunk)}", headers=hdrs)
+                if rc.ok:
+                    for cf_folder in rc.json().get('data', []):
+                        if cf_folder['id'] in by_id:
+                            by_id[cf_folder['id']]['customFields'] = cf_folder.get('customFields', [])
+
+            return [by_id[fid] for fid in active_ids]
 
         with concurrent.futures.ThreadPoolExecutor(max_workers=6) as ex:
             ff  = ex.submit(_fetch_folders)
