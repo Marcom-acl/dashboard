@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-18",
+  "generated_at": "2026-08-19",
   "next_edition": "",
   "editions": [
     {
@@ -157,15 +157,52 @@
     {
       "date": "2026-08-18",
       "label": "Semaine du 2026-08-18"
+    },
+    {
+      "date": "2026-08-19",
+      "label": "Semaine du 2026-08-19"
     }
   ],
   "items": [
     {
-      "id": "2026-08-18-saaskia-web-yZjX6r",
+      "id": "2026-08-19-saaskia-web-8z7V4z",
+      "club": "virgule.lu (Wort.lu/FR)",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Analyse de la possibilité pour le Luxembourg d'adopter une taxe au kilomètre sur les véhicules électriques, modèle testé au Royaume-Uni.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1787122166.9479.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787122166.9479.pdf",
+      "date": "2026-08-19"
+    },
+    {
+      "id": "2026-08-19-saaskia-web-U6w3EU",
+      "club": "virgule.lu (Wort.lu/FR)",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "La situation de l'approvisionnement en carburant des stations-service au Luxembourg s'aggrave, soulevant des préoccupations quant à la disponibilité.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1787122142.8171.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787122142.8171.pdf",
+      "date": "2026-08-19"
+    },
+    {
+      "id": "2026-08-19-saaskia-web-V5zfOn",
       "club": "Luxemburger Wort",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Test d'usure des batteries de véhicules électriques : mesure de l'état de santé d'une batterie après 7 ans et 140.000 km d'utilisation.",
+      "content": "Yuriko Backes réagit aux réclamations concernant des climatiseurs défectueux dans les bus du réseau RGTR au Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1787113974.4036.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787113974.4036.pdf",
+      "date": "2026-08-19"
+    },
+    {
+      "id": "2026-08-18-saaskia-web-yZjX6r",
+      "club": "Luxemburger Wort",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "Test d'une batterie de véhicule électrique après 7 ans et 140 000 km pour évaluer son état de santé et sa capacité résiduelle.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1787028395.4248.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787028395.4248.pdf",
@@ -176,32 +213,32 @@
       "club": "virgule.lu (Wort.lu/FR)",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Analyse de la sécurité routière : les routes N12 et N18 ne sont pas considérées comme particulièrement problématiques malgré plusieurs accidents mortels.",
+      "content": "Malgré plusieurs accidents mortels, les routes N12 et N18 ne sont pas considérées comme particulièrement problématiques selon les autorités.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1787029859.7486.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787029859.7486.pdf",
       "date": "2026-08-18"
     },
     {
-      "id": "2026-08-18-saaskia-web-prj9Mx",
-      "club": "infogreen.lu",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Lancement d'un nouveau projet pilote utilisant asphalte-biochar à Differdange pour améliorer les routes.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1787029676.092.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787029676.092.pdf",
-      "date": "2026-08-18"
-    },
-    {
       "id": "2026-08-18-saaskia-web-U6nj4G",
       "club": "Le Quotidien",
       "category": "Veille presse LU",
-      "badge": "INFO",
-      "content": "Article consacré au contrôle technique des véhicules au Luxembourg.",
+      "badge": "SURVEILLER",
+      "content": "Information relative au contrôle technique des véhicules au Luxembourg.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1787029722.7104.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787029722.7104.pdf",
+      "date": "2026-08-18"
+    },
+    {
+      "id": "2026-08-18-saaskia-web-prj9Mx",
+      "club": "infogreen.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Projet pilote d'asphalte enrichi de biochar lancé à Differdange pour améliorer la durabilité des infrastructures routières.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1787029676.092.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787029676.092.pdf",
       "date": "2026-08-18"
     },
     {
@@ -209,7 +246,7 @@
       "club": "paperjam.lu",
       "category": "Veille presse LU",
       "badge": "INFO",
-      "content": "Le Luxembourg étudie la mise en place de tarifs électriques plus flexibles pour favoriser la transition énergétique.",
+      "content": "Le Luxembourg travaille sur la mise en place de tarifs électriques plus flexibles pour favoriser la consommation durable d'énergie.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1787029772.0595.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787029772.0595.pdf",
@@ -220,7 +257,7 @@
       "club": "L'Essentiel",
       "category": "Veille presse LU",
       "badge": "INFO",
-      "content": "Article relatif à l'affichage des prix des carburants au Luxembourg.",
+      "content": "Information concernant l'affichage des prix au Luxembourg.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1787029622.4049.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787029622.4049.pdf",
@@ -242,7 +279,7 @@
       "club": "tageblatt.lu",
       "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "content": "L'ACL organise des conférences gratuites sur l'électromobilité pour sensibiliser le public aux enjeux et technologies des véhicules électriques.",
+      "content": "L'ACL organise des conférences gratuites sur l'électromobilité pour sensibiliser le public aux enjeux de la transition vers les véhicules électriques.",
       "relevance": "ACL explicitement cité : \"ACL organisiert kostenlose Vorträge zur Elektromobilität\"",
       "url": "https://saaskia.keepcontact.lu/data/files/1786949290.2411.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786949290.2411.pdf",
@@ -253,7 +290,7 @@
       "club": "Tageblatt",
       "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "content": "L'ACL informe sur la mobilité électrique et ses développements au Luxembourg.",
+      "content": "L'ACL informe sur l'électromobilité et accompagne les automobilistes dans la compréhension des enjeux liés aux véhicules électriques.",
       "relevance": "ACL explicitement cité : \"ACL informiert über E-Mobilität\"",
       "url": "https://saaskia.keepcontact.lu/data/files/1786943306.1236.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786943306.1236.pdf",
@@ -263,8 +300,8 @@
       "id": "2026-08-17-saaskia-web-zaP78s",
       "club": "virgule.lu (Wort.lu/FR)",
       "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Test de véhicules électriques d'occasion pour évaluer l'état de santé et la performance des batteries.",
+      "badge": "NOTABLE",
+      "content": "Test d'un véhicule électrique d'occasion pour mesurer l'état de santé et la dégradation de la batterie au fil du temps.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1786943211.998.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786943211.998.pdf",
@@ -275,7 +312,7 @@
       "club": "wort.lu",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Selon le ministre Backes, les routes N12 et N18 ne sont pas particulièrement problématiques malgré les accidents mortels enregistrés.",
+      "content": "Réaction aux accusations de dangers sur les routes N12 et N18, qualifiées de non particulièrement problématiques malgré des décès.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1786942976.7229.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786942976.7229.pdf",
@@ -286,21 +323,10 @@
       "club": "lequotidien.lu",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Le Luxembourg refuse d'implémenter un système de \"feux récompenses\" pour la sécurité routière.",
+      "content": "Le Luxembourg rejette le système de 'feux récompenses' pour la sécurité routière, contrairement à d'autres approches encourageant les bons comportements.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1786943079.1083.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786943079.1083.pdf",
-      "date": "2026-08-17"
-    },
-    {
-      "id": "2026-08-17-saaskia-web-J6rkr5",
-      "club": "Agefi.lu",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Le Luxembourg accélère sa transition énergétique et sa mobilité durable avec quatre projets structurants.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1786943253.3093.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786943253.3093.pdf",
       "date": "2026-08-17"
     },
     {
@@ -308,10 +334,21 @@
       "club": "paperjam.lu",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Analyse des limites et perspectives du développement des transports publics au Luxembourg.",
+      "content": "Analyse des limites et potentiels du développement des transports publics au Luxembourg pour une mobilité durable.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1786943016.7851.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786943016.7851.pdf",
+      "date": "2026-08-17"
+    },
+    {
+      "id": "2026-08-17-saaskia-web-J6rkr5",
+      "club": "Agefi.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Le Luxembourg accélère sa transition énergétique et sa mobilité durable à travers quatre projets structurants de grande envergure.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1786943253.3093.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786943253.3093.pdf",
       "date": "2026-08-17"
     },
     {
@@ -319,7 +356,7 @@
       "club": "chronicle.lu",
       "category": "Veille presse LU",
       "badge": "INFO",
-      "content": "Les marques automobiles chinoises doublent leur part de marché au Luxembourg.",
+      "content": "Les marques automobiles chinoises doublent leur part de marché au Luxembourg, reflétant une tendance de croissance significative.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1786943044.8867.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1786943044.8867.pdf",
