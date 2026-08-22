@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-21",
+  "generated_at": "2026-08-22",
   "next_edition": "",
   "editions": [
     {
@@ -169,15 +169,30 @@
     {
       "date": "2026-08-21",
       "label": "Semaine du 2026-08-21"
+    },
+    {
+      "date": "2026-08-22",
+      "label": "Semaine du 2026-08-22"
     }
   ],
   "items": [
+    {
+      "id": "2026-08-21-saaskia-web-5Z8yUp",
+      "club": "virgule.lu (Wort.lu/FR)",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Ford préparerait le lancement d'une version familiale à quatre portes de sa Mustang, élargissant l'offre du constructeur dans le segment des véhicules de loisir.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1787295277.2575.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787295277.2575.pdf",
+      "date": "2026-08-21"
+    },
     {
       "id": "2026-08-21-saaskia-web-ng5IMn",
       "club": "100komma7.lu",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Article sur l'augmentation des camions électriques au Luxembourg, traitant de la transition vers une mobilité durable dans le secteur du transport de marchandises.",
+      "content": "Article sur l'électrification croissante des camions au Luxembourg, un enjeu majeur de la mobilité et de la transition énergétique dans le transport de marchandises.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1787288509.7848.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787288509.7848.pdf",
@@ -188,7 +203,7 @@
       "club": "lessentiel.lu FR",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Guide pratique pour les parents sur la sécurité de leurs enfants se rendant seuls à l'école au Luxembourg, couvrant les aspects de sécurité routière et de mobilité.",
+      "content": "Guide pratique sur la sécurité des enfants pour leurs trajets scolaires autonomes au Luxembourg, couvrant les mesures de prévention et la responsabilité parentale.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1787288492.8652.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787288492.8652.pdf",
@@ -199,7 +214,7 @@
       "club": "lequotidien.lu",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Article sur la situation des carburants au Luxembourg, recommandant aux consommateurs de ne pas faire le plein par précaution durant la période de tension.",
+      "content": "Article sur la situation de l'approvisionnement en carburants et les conseils aux automobilistes luxembourgeois face aux tensions actuelles.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1787288476.9841.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787288476.9841.pdf",
@@ -221,7 +236,7 @@
       "club": "lessentiel.lu DE",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Guide pour préparer les enfants au retour à l'école en matière de sécurité routière et de mobilité au Luxembourg.",
+      "content": "Conseils pratiques pour préparer les enfants au retour scolaire et aux trajets en toute sécurité au Luxembourg.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1787288431.2316.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787288431.2316.pdf",
@@ -232,10 +247,21 @@
       "club": "rtl.lu",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Article sur la loi de Lex Delles concernant les permis de transport (Liwwerenkpäss) au Luxembourg.",
+      "content": "Article sur la loi relative aux documents de transport (Lex Delles), impactant les politiques de mobilité et de transport au Luxembourg.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1787288395.0064.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787288395.0064.pdf",
+      "date": "2026-08-21"
+    },
+    {
+      "id": "2026-08-21-saaskia-web-b6EZ0m",
+      "club": "L'Essentiel",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Les camping-cars transforment les parkings de relais (P+R) en parkings sauvages, révélant des tensions d'utilisation des infrastructures de mobilité au Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1787288125.7091.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787288125.7091.pdf",
       "date": "2026-08-21"
     },
     {
@@ -250,22 +276,11 @@
       "date": "2026-08-21"
     },
     {
-      "id": "2026-08-21-saaskia-web-b6EZ0m",
-      "club": "L'Essentiel",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Reportage sur l'utilisation abusive des parking relais (P+R) par les camping-cars au Luxembourg.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1787288125.7091.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787288125.7091.pdf",
-      "date": "2026-08-21"
-    },
-    {
       "id": "2026-08-20-saaskia-web-T6sluQ",
       "club": "paperjam.lu",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Article analysant l'aggravation des tensions sur l'approvisionnement en carburant au Luxembourg et ses impacts économiques.",
+      "content": "Article sur l'aggravation des tensions d'approvisionnement en carburant au Luxembourg, avec implications pour les automobilistes et secteurs connexes.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1787208542.7544.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787208542.7544.pdf",
@@ -276,10 +291,98 @@
       "club": "lesfrontaliers.lu",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Article expliquant comment les perturbations (trains, bateaux, incendies) compliquent l'approvisionnement en essence au Luxembourg et dans les régions frontalières.",
+      "content": "Analyse des raisons des complications d'approvisionnement en carburant (perturbations ferroviaires, fluviales et incendies) affectant le Luxembourg et les frontaliers.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1787202709.9341.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787202709.9341.pdf",
+      "date": "2026-08-20"
+    },
+    {
+      "id": "2026-08-20-saaskia-web-p6F5yl",
+      "club": "infos.rtl.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Article critique examinant le lien entre les mesures de sécurité routière et les objectifs fiscaux au Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1787202616.3385.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787202616.3385.pdf",
+      "date": "2026-08-20"
+    },
+    {
+      "id": "2026-08-20-saaskia-web-xv2Gma",
+      "club": "rtl.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Article sur le Groupement Energies Mobilité Luxembourg, un acteur clé de la transition énergétique et de la mobilité durable.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1787202584.8905.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787202584.8905.pdf",
+      "date": "2026-08-20"
+    },
+    {
+      "id": "2026-08-20-saaskia-web-GSzl2b",
+      "club": "Agefi.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Rapport sur la situation tendue de l'approvisionnement du Luxembourg en produits pétroliers, enjeu majeur pour la mobilité nationale.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1787202508.034.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787202508.034.pdf",
+      "date": "2026-08-20"
+    },
+    {
+      "id": "2026-08-20-saaskia-web-xGq8aD",
+      "club": "infogreen.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Energy Revolt développe un projet d'électricité 100% locale, s'inscrivant dans les ambitions de transition énergétique du Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1787202471.806.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787202471.806.pdf",
+      "date": "2026-08-20"
+    },
+    {
+      "id": "2026-08-20-saaskia-web-2WRl5m",
+      "club": "Tageblatt",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Assurance officielle sur la sécurité de l'approvisionnement en carburant du Luxembourg malgré les tensions régionales.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1787202424.0811.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787202424.0811.pdf",
+      "date": "2026-08-20"
+    },
+    {
+      "id": "2026-08-20-saaskia-web-6zXUbG",
+      "club": "L'Essentiel",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Analyse des risques d'une pénurie généralisée de carburants au Luxembourg, avec implications économiques et sociales.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1787202354.0115.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787202354.0115.pdf",
+      "date": "2026-08-20"
+    },
+    {
+      "id": "2026-08-20-saaskia-web-mrYBnF",
+      "club": "L'Essentiel",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Initiatives pour décourager les piétons de traverser les voies ferrées, relevant de la sécurité routière et de la gestion des risques.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1787202272.0629.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787202272.0629.pdf",
+      "date": "2026-08-20"
+    },
+    {
+      "id": "2026-08-20-saaskia-web-CgVHwo",
+      "club": "Luxemburger Wort",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Article sur les projets de contrôles frontaliers renforcés jusqu'à mi-mars, avec implications pour la mobilité transfrontalière du Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1787200171.3026.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787200171.3026.pdf",
       "date": "2026-08-20"
     },
     {
@@ -291,94 +394,6 @@
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1787202646.3212.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787202646.3212.pdf",
-      "date": "2026-08-20"
-    },
-    {
-      "id": "2026-08-20-saaskia-web-p6F5yl",
-      "club": "infos.rtl.lu",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Débat sur les radars et les contrôles routiers au Luxembourg entre objectifs de sécurité routière et générations de revenus fiscaux.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1787202616.3385.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787202616.3385.pdf",
-      "date": "2026-08-20"
-    },
-    {
-      "id": "2026-08-20-saaskia-web-xv2Gma",
-      "club": "rtl.lu",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Article sur le Groupement Energies Mobilité Luxembourg, initiative regroupant acteurs de la mobilité durable.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1787202584.8905.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787202584.8905.pdf",
-      "date": "2026-08-20"
-    },
-    {
-      "id": "2026-08-20-saaskia-web-GSzl2b",
-      "club": "Agefi.lu",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Rapport sur la situation tendue d'approvisionnement du Luxembourg en produits pétroliers avec implications économiques et logistiques.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1787202508.034.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787202508.034.pdf",
-      "date": "2026-08-20"
-    },
-    {
-      "id": "2026-08-20-saaskia-web-2WRl5m",
-      "club": "Tageblatt",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Article confirmant que l'approvisionnement en carburant du Luxembourg reste sécurisé malgré les tensions observées.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1787202424.0811.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787202424.0811.pdf",
-      "date": "2026-08-20"
-    },
-    {
-      "id": "2026-08-20-saaskia-web-6zXUbG",
-      "club": "L'Essentiel",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Article analysant les risques d'une pénurie généralisée de carburants au Luxembourg et ses scénarios possibles.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1787202354.0115.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787202354.0115.pdf",
-      "date": "2026-08-20"
-    },
-    {
-      "id": "2026-08-20-saaskia-web-mrYBnF",
-      "club": "L'Essentiel",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Mesures visant à décourager les piétons de traverser les voies ferrées au Luxembourg pour des raisons de sécurité.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1787202272.0629.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787202272.0629.pdf",
-      "date": "2026-08-20"
-    },
-    {
-      "id": "2026-08-20-saaskia-web-xGq8aD",
-      "club": "infogreen.lu",
-      "category": "Veille presse LU",
-      "badge": "INFO",
-      "content": "Energy Revolt s'engage sur un pari d'électricité 100% locale pour la mobilité.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1787202471.806.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787202471.806.pdf",
-      "date": "2026-08-20"
-    },
-    {
-      "id": "2026-08-20-saaskia-web-CgVHwo",
-      "club": "Luxemburger Wort",
-      "category": "Veille presse LU",
-      "badge": "INFO",
-      "content": "Dobrindt plaide pour le maintien de contrôles aux frontières jusqu'à au moins mi-mars.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1787200171.3026.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787200171.3026.pdf",
       "date": "2026-08-20"
     },
     {
