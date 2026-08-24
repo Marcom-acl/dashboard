@@ -398,6 +398,19 @@ def main():
     acl_found = sum(1 for dom_pos in positions.values() if ACL_DOMAIN in dom_pos)
     print(f"[INFO] ACL trouvé dans {acl_found}/{len(positions)} SERPs.")
 
+    # Garde-fou : si aucun domaine suivi (ACL ou concurrent) n'a été trouvé dans
+    # aucune SERP, l'API a très probablement échoué pour toutes les requêtes
+    # (auth invalide, crédit épuisé, etc.) plutôt que de refléter un vrai zéro
+    # de visibilité. On refuse d'écraser les dernières bonnes données avec ça.
+    any_domain_found = any(dom_pos for dom_pos in positions.values())
+    if not any_domain_found:
+        raise RuntimeError(
+            "Aucun domaine suivi (ACL ou concurrent) trouvé dans aucune des "
+            f"{len(positions)} SERPs — échec probable de l'API DataForSEO pour "
+            "toutes les requêtes. Fichier de données NON écrasé. "
+            "Vérifier DATAFORSEO_AUTH et le solde du compte DataForSEO."
+        )
+
     data = build_output(positions, previous)
     save(data)
 
