@@ -1,6 +1,237 @@
 {
-  "generated_at": "2026-07-22",
+  "generated_at": "2026-08-24",
   "items": [
+    {
+      "date": "2026-08-20",
+      "theme": "Design & branding",
+      "titre": "Adobe Firefly généralise la génération de musique, voix et bruitages",
+      "synthese": "Adobe a annoncé le 20 août 2026 la disponibilité générale de trois nouveaux générateurs audio dans Firefly : musique (pistes originales sous licence universelle calées sur la durée et l'ambiance d'une vidéo), voix (via le modèle Firefly Speech ou une option ElevenLabs, avec contrôle du ton et de l'émotion) et bruitages (génération par prompt calée sur le rythme du contenu). Ces outils rejoignent dans un studio créatif unifié l'image, la vidéo et le design, aux côtés de modèles tiers intégrés comme Google Gemini Omni Flash, ElevenLabs, Kling AI, Luma AI, OpenAI et Runway. Adobe lance en parallèle un essai gratuit de l'Assistant IA Firefly avec un quota quotidien dédié pour l'image, la vidéo et l'audio. L'objectif affiché est de fournir des contenus sonores commercialement sûrs (sans risque de droits d'auteur) directement intégrés au flux de production vidéo.",
+      "actionACL": "Tester la génération de musique et de voix off sous licence sécurisée pour habiller les futures vidéos courtes (Reels/Shorts, campagnes de sécurité routière) de l'ACL, ce qui peut réduire les coûts de production audio. Vérifier au préalable la cohérence des voix et musiques générées avec la charte sonore et le ton institutionnel de l'association avant tout déploiement public.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "Adobe Blog",
+          "url": "https://blog.adobe.com/en/publish/2026/08/20/adobe-firefly-expands-its-creative-ai-studio-generate-music-speech-and-sound-effects-in-one-place"
+        },
+        {
+          "name": "SiliconANGLE",
+          "url": "https://siliconangle.com/2026/08/20/adobe-expands-generative-ai-audio-with-firefly-music-speech-and-sound-effects/"
+        },
+        {
+          "name": "9to5Mac",
+          "url": "https://9to5mac.com/2026/08/20/adobe-fireflys-music-voiceover-and-sound-effects-generation-tools-now-generally-available/"
+        },
+        {
+          "name": "The Next Web",
+          "url": "https://thenextweb.com/news/adobe-firefly-audio-music-speech-sound-effects"
+        }
+      ]
+    },
+    {
+      "date": "2026-08-18",
+      "theme": "IA générative en marketing",
+      "titre": "ChatGPT Ads arrive dans 31 marchés européens",
+      "synthese": "OpenAI étend son programme publicitaire ChatGPT Ads à 31 marchés européens (Allemagne, France, Espagne, Italie, Benelux, pays nordiques et autres) à partir du 24 août 2026, sa plus grande expansion géographique à ce jour, six mois après le lancement aux Etats-Unis. Les publicités ne sont visibles que par les utilisateurs des offres gratuite et Go ; les comptes Plus, Pro, Enterprise et Business restent sans publicité. La plateforme propose désormais l'optimisation à la conversion, le ciblage géographique et par audiences personnalisées, ainsi qu'une mesure via OpenAI Pixel et une API de conversions. L'accès self-service via Ads Manager n'est pas encore ouvert et suivra plus tard dans l'année ; pour l'instant les annonceurs passent par l'équipe Ads Solutions d'OpenAI ou des partenaires agences.",
+      "actionACL": "Suivre l'ouverture progressive de ce nouveau canal publicitaire conversationnel en Europe et vérifier s'il devient accessible au Luxembourg. Ne pas investir avant l'ouverture du self-service via Ads Manager, mais inscrire le sujet à l'ordre du jour d'une prochaine revue budget média pour évaluer son intérêt pour des campagnes ciblées (recrutement de jeunes membres, services d'assistance routière).",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "OpenAI (blog officiel)",
+          "url": "https://openai.com/index/chatgpt-ads-expands-across-europe/"
+        },
+        {
+          "name": "Digiday",
+          "url": "https://digiday.com/marketing/openais-ads-business-hits-europe-at-the-six-month-mark/"
+        },
+        {
+          "name": "Adweek",
+          "url": "https://www.adweek.com/media/openai-is-taking-its-ad-business-to-31-new-european-markets/"
+        },
+        {
+          "name": "Search Engine Land",
+          "url": "https://searchengineland.com/chatgpt-ads-are-expanding-to-31-european-countries-485468"
+        }
+      ]
+    },
+    {
+      "date": "2026-08-13",
+      "theme": "Design & branding",
+      "titre": "L'agent IA de Figma fragilise la cohérence des design systems",
+      "synthese": "Figma a intégré dans son canevas un agent IA capable de générer des mises en page, modifier des maquettes existantes et appliquer automatiquement composants et variables à partir de prompts en langage naturel. L'outil s'appuie sur les design systems, tokens et bibliothèques de composants existants de chaque équipe, mais accélère aussi le risque de dérive visuelle et de variantes non autorisées. Une pratique émergente consiste à faire scanner en continu les dépôts de design et de code par des agents IA pour détecter automatiquement les incohérences de couleurs, de composants ou de tokens. Selon des enquêtes du secteur, l'usage des design tokens comme référence commune serait passé de 56 % à 84 % des équipes en un an, signe que la gouvernance devient un enjeu central face à la vitesse de génération permise par l'IA.",
+      "actionACL": "Si l'équipe Marcom de l'ACL utilise ou envisage un agent IA dans son outil de design, encadrer son usage par des tokens et règles de marque explicites (couleurs, typographies, logo) et instaurer une revue de cohérence avant toute publication. Cela évite qu'un contenu généré automatiquement (réseaux sociaux, site, supports imprimés) s'écarte de l'identité visuelle institutionnelle vue par les 191 000 membres.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "DesignRush",
+          "url": "https://news.designrush.com/new-figma-ai-agent-challenges-design-system-consistency"
+        },
+        {
+          "name": "Figma",
+          "url": "https://www.figma.com/solutions/ai-design-system-agent/"
+        },
+        {
+          "name": "Muzli Blog",
+          "url": "https://muz.li/blog/figma-just-opened-the-canvas-to-ai-agents-heres-what-it-means-for-designers/"
+        },
+        {
+          "name": "Design Systems Collective",
+          "url": "https://www.designsystemscollective.com/design-token-ssot-figma-or-code-the-governance-question-and-ais-role-6dc6dfda533c"
+        }
+      ]
+    },
+    {
+      "date": "2026-08-03",
+      "theme": "CRM & member marketing",
+      "titre": "Rapport Naylor 2026 : l'IA et l'email dominent l'engagement associatif",
+      "synthese": "Le rapport Naylor/Association Adviser 2026, publié le 3 août et basé sur une enquête auprès de dirigeants d'associations, confirme que l'email reste le canal d'engagement le plus valorisé (83,4 %), devant le site web (80,6 %), la newsletter (80,2 %) et les webinaires (79,1 %). L'usage intensif de l'IA dans la communication a presque triplé, passant de 12,5 % en 2025 à 33,5 % en 2026, soit la plus forte progression parmi tous les outils suivis. Les associations diversifient aussi leurs revenus hors cotisations : les offres d'emploi passent de 3,6 % à 10 % du revenu non lié aux cotisations, tandis que la part du sponsoring recule de 29,7 % à 25,3 %. Malgré cela, générer des revenus non liés aux cotisations reste le principal défi cité par 51,9 % des répondants. Le rapport décrit un secteur qui passe d'une posture réactive à une posture de pilotage par la donnée.",
+      "actionACL": "Confirmer l'email comme canal prioritaire du plan de fidélisation 2027 plutôt que de le délaisser au profit du tout-social, tout en testant un outil d'IA conversationnelle pour accélérer la segmentation et la personnalisation des campagnes vers les 191 000 membres. Explorer en parallèle une source de revenu non liée aux cotisations (offres d'emploi, partenariats) pour réduire la dépendance aux sponsors, sur le modèle observé dans le rapport.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "Naylor Association Solutions",
+          "url": "https://www.naylor.com/blog/2026/08/03/2026-association-benchmarking-report-reveals-associations-are-getting-more-intentional-about-data-ai-and-revenue/"
+        },
+        {
+          "name": "PRWeb",
+          "url": "https://www.prweb.com/releases/2026-association-benchmarking-report-reveals-associations-are-getting-more-intentional-about-data-ai-and-revenue-302842546.html"
+        },
+        {
+          "name": "SalesTechStar",
+          "url": "https://salestechstar.com/price-optimization-revenue-management/2026-association-benchmarking-report-reveals-associations-are-getting-more-intentional-about-data-ai-and-revenue/"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-30",
+      "theme": "Social & Ads",
+      "titre": "LinkedIn lance un bouton pour signaler les contenus IA de faible qualité",
+      "synthese": "LinkedIn a déployé le 30 juillet 2026 une fonctionnalité permettant à tout membre de signaler un post qui \"semble être de l'IA slop\", via le menu à trois points sur chaque publication. Le directeur produit Hari Srinivasan a qualifié la lutte contre ce contenu généré en masse de priorité majeure, les systèmes de LinkedIn bloquant déjà des centaines de milliers de faux commentaires automatisés chaque jour. Les publications signalées comme IA slop voient leur portée réduite, et LinkedIn teste un retour d'information privé aux auteurs concernés dans leurs statistiques. Cette mesure s'inscrit dans une tendance sectorielle plus large de lutte contre le contenu généré par IA à faible valeur ajoutée sur les réseaux sociaux.",
+      "actionACL": "Revoir les pratiques de génération de contenu IA pour les publications LinkedIn de l'ACL (offres membres, actualités institutionnelles) afin d'éviter une perte de portée : privilégier une relecture humaine systématique et un ton propre à l'association plutôt que des textes IA bruts. Sensibiliser les collaborateurs qui publient au nom de l'ACL à ce nouveau signal de qualité qui influence désormais la diffusion organique et potentiellement la perception des contenus sponsorisés.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "TechCrunch",
+          "url": "https://techcrunch.com/2026/07/30/linkedin-adds-a-button-to-report-ai-generated-slop/"
+        },
+        {
+          "name": "Social Media Today",
+          "url": "https://www.socialmediatoday.com/news/linkedin-offers-the-option-to-report-ai-slop/826781/"
+        },
+        {
+          "name": "Forbes",
+          "url": "https://www.forbes.com/sites/jodiecook/2026/08/10/what-linkedins-ai-slop-crackdown-means-for-your-posts/"
+        },
+        {
+          "name": "HR Dive",
+          "url": "https://www.hrdive.com/news/linkedin-offers-the-option-to-report-ai-slop/826800/"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-16",
+      "theme": "Social & Ads",
+      "titre": "Benchmarks Meta T2 2026 : CPM en hausse, forte progression des Reels",
+      "synthese": "Le rapport trimestriel de Tinuiti, publié vers le 16 juillet 2026 sur la base de plus de 4 milliards de dollars de dépenses publicitaires suivies, montre que le CPM moyen sur Meta a augmenté de 10 % sur un an au deuxième trimestre 2026, la plus forte hausse depuis le premier trimestre 2022, pour seulement 2 % d'impressions supplémentaires. Sur Facebook, les dépenses progressent de 7 % avec un CPM en hausse de 13 % alors que les impressions reculent de 5 %. Sur Instagram, les dépenses bondissent de 17 % à CPM quasi stable, portées par les Reels qui représentent désormais 35 % des impressions publicitaires (contre 21 % un an plus tôt), devant le Feed classique qui tombe à 26 % et les Stories qui restent en tête à 39 %. Ces chiffres confirment un renchérissement général de la publicité sur Meta et un déplacement structurel de l'inventaire vers la vidéo courte.",
+      "actionACL": "Anticiper une hausse du coût par impression sur les campagnes Facebook de l'ACL et rediriger une part du budget social ads vers les formats Reels sur Instagram, qui gagnent en volume à coût stable, pour optimiser le coût d'acquisition de nouveaux membres. Revoir le mix créatif des campagnes (assurance auto, services membres) en intégrant davantage de vidéo courte verticale plutôt que des visuels statiques en Feed.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "Tinuiti (rapport officiel)",
+          "url": "https://tinuiti.com/research-insights/research/digital-ads-benchmark-report/"
+        },
+        {
+          "name": "Digital Applied",
+          "url": "https://www.digitalapplied.com/blog/q2-2026-digital-ad-benchmarks-tinuiti-report-analysis"
+        },
+        {
+          "name": "Karooya",
+          "url": "https://www.karooya.com/blog/digital-ads-benchmark-report-by-tinuiti-q2-2026-key-highlights/"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-10",
+      "theme": "Social & Ads",
+      "titre": "L'UE juge le design addictif de Facebook et Instagram illégal",
+      "synthese": "La Commission européenne a annoncé le 10 juillet 2026 des conclusions préliminaires estimant que le design de Facebook et Instagram (défilement infini, lecture automatique, notifications, recommandations hyperpersonnalisées) enfreint le Digital Services Act en exploitant des mécanismes addictifs. L'enquête, menée depuis deux ans, reproche à Meta de ne pas avoir correctement évalué les risques pour la santé mentale des utilisateurs, notamment les mineurs et publics vulnérables. Si les conclusions sont confirmées, Meta s'expose à une amende pouvant atteindre 6 % de son chiffre d'affaires mondial, soit plus de 11 milliards d'euros sur la base des revenus 2025. Meta a annoncé contester ces conclusions. Ce dossier pourrait, à terme, contraindre la plateforme à revoir les mécaniques de recommandation qui déterminent aujourd'hui la portée organique des pages et groupes de marques.",
+      "actionACL": "Suivre l'évolution de ce dossier DSA dans les prochains mois car il pourrait modifier les règles de portée sur Facebook/Instagram et donc l'efficacité de la présence communautaire de l'ACL. En parallèle, continuer à renforcer les canaux propriétaires (newsletter, application membres, base CRM) pour ne pas dépendre uniquement des algorithmes de Meta pour toucher les 191 000 membres.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "Commission européenne (Communiqué officiel)",
+          "url": "https://ec.europa.eu/commission/presscorner/detail/en/ip_26_1579"
+        },
+        {
+          "name": "CNBC",
+          "url": "https://www.cnbc.com/2026/07/10/meta-instagram-facebook-addictive-design-breach-eu-laws.html"
+        },
+        {
+          "name": "Euronews",
+          "url": "https://www.euronews.com/next/2026/07/10/instagram-and-facebook-hook-users-with-addictive-design-commission-finds"
+        },
+        {
+          "name": "Digital Strategy EU (Commission européenne)",
+          "url": "https://digital-strategy.ec.europa.eu/en/news/commission-preliminarily-finds-addictive-design-instagram-and-facebook-breach-digital-services-act"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-08",
+      "theme": "IA générative en marketing",
+      "titre": "Claude Cowork réduit le reporting marketing de 2 jours à 2h",
+      "synthese": "L'équipe marketing ops d'Anthropic a reconstruit son reporting hebdomadaire et son infrastructure de campagnes autour de l'agent Claude Cowork. Une tâche planifiée s'exécute chaque dimanche soir : Claude relit la revue de la semaine précédente, consulte Slack, interroge l'entrepôt de données et prépare un dossier avec les chiffres clés et des pistes de discussion, prêt le lundi matin. Le rapport hebdomadaire de métriques, qui demandait auparavant un à deux jours de travail manuel, ne prend plus que deux heures. Claude signale les incohérences de chiffres au lieu de les deviner, et l'équipe garde le contrôle éditorial final sur le narratif produit.",
+      "actionACL": "Tester Claude sur un cas d'usage similaire et à faible risque pour le Marcom de l'ACL : automatiser la préparation d'un reporting récurrent (statistiques de newsletters, campagnes réseaux sociaux ou adhésions) à partir des données déjà disponibles, avec validation humaine avant diffusion. Démarrer par un pilote sur un seul rapport avant toute généralisation.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "Claude by Anthropic (blog)",
+          "url": "https://claude.com/blog/how-anthropics-marketing-operations-team-uses-claude-cowork-to-automate-reporting-and-campaign-builds"
+        },
+        {
+          "name": "PPC Land",
+          "url": "https://ppc.land/claude-cowork-cuts-anthropics-weekly-report-build-from-2-days-to-2-hours/"
+        },
+        {
+          "name": "Blockchain.News",
+          "url": "https://blockchain.news/news/anthropic-claude-cowork-marketing-automation"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-07",
+      "theme": "CRM & member marketing",
+      "titre": "Klaviyo lance Social Marketing pour fusionner réseaux sociaux et CRM",
+      "synthese": "Klaviyo a annoncé le 7 juillet 2026 (disponibilité générale au 30 juin) le lancement de Social Marketing, une nouvelle brique qui transforme les interactions Instagram (commentaires, DM, mentions, publications) en données propriétaires rattachées au profil client unifié, au même titre que l'email, le SMS ou le WhatsApp. La fonctionnalité permet de faire grossir les listes de contacts via des réponses automatiques aux DM Instagram, de déclencher des flux d'automatisation sur la base du comportement social, et de repérer les contenus et créateurs les plus performants via une bibliothèque de contenu social. Klaviyo, qui revendique plus de 196 000 clients payants pour un chiffre d'affaires annualisé d'environ 1,31 milliard de dollars, présente ce lancement comme une étape vers une couche CRM B2C complète. L'objectif affiché est de sortir l'engagement social de son silo pour l'intégrer au même moteur de segmentation et de fidélisation que les autres canaux.",
+      "actionACL": "Suivre cette tendance de fusion réseaux sociaux/CRM comme signal de marché plutôt que d'agir immédiatement, Klaviyo étant surtout orienté e-commerce et non directement adapté à un club automobile associatif. Vérifier néanmoins si l'outil CRM/emailing actuel de l'ACL permet de capter les interactions Facebook/Instagram des membres pour enrichir les profils, et inscrire ce point à l'ordre du jour du prochain comparatif d'outils marketing.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "Klaviyo Blog",
+          "url": "https://www.klaviyo.com/blog/introducing-klaviyo-social-marketing"
+        },
+        {
+          "name": "Klaviyo Newsroom",
+          "url": "https://www.klaviyo.com/newsroom/klaviyo-social-marketing-ga"
+        },
+        {
+          "name": "MarTech Series",
+          "url": "https://martechseries.com/content/klaviyo-enters-the-social-chat/"
+        },
+        {
+          "name": "MarketScale",
+          "url": "https://www.marketscale.com/industries/marketing-tech/klaviyos-new-social-marketing-product-connects-social-engagement-directly-to-crm-profiles"
+        }
+      ]
+    },
     {
       "date": "2026-07-20",
       "theme": "IA générative en marketing",
