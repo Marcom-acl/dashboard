@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-08-23",
-  "next_edition": "",
+  "generated_at": "2026-08-24",
+  "next_edition": "2026-08-31",
   "editions": [
     {
       "date": "2026-05-03",
@@ -177,9 +177,233 @@
     {
       "date": "2026-08-23",
       "label": "Semaine du 2026-08-23"
+    },
+    {
+      "date": "2026-08-24",
+      "label": "Semaine du 24 août 2026"
     }
   ],
   "items": [
+    {
+      "id": "2026-08-24-rac-1",
+      "date": "2026-08-24",
+      "club": "RAC",
+      "category": "EU",
+      "content": "Le RAC a réagi au nouveau rapport de surveillance de la CMA (autorité britannique de la concurrence) sur le marché des carburants : son responsable des politiques juge préoccupant que les marges restent historiquement élevées et que certains distributeurs ne répercutent pas assez vite les baisses de prix de gros, notamment sur le diesel.",
+      "relevance": "Cette prise de position publique illustre le rôle de porte-parole institutionnel qu'un club automobile peut jouer sur la transparence des prix des carburants. L'ACL pourrait-elle publier une analyse comparative des marges carburant au Luxembourg pour renforcer sa légitimité sur ce sujet sensible pour les automobilistes ?",
+      "badge": "INFO",
+      "url": "https://media.rac.co.uk/rac-reacts-to-new-cma-scrutiny-of-fuel-prices"
+    },
+    {
+      "id": "2026-08-24-rac-2",
+      "date": "2026-08-24",
+      "club": "RAC",
+      "category": "EU",
+      "content": "Le RAC prévoit environ 20 millions de trajets de loisirs lors du dernier week-end prolongé de l'été (28-31 août 2026), ce qui en ferait le plus chargé depuis le début de ses relevés en 2015, avec un pic de 4,1 millions de départs le vendredi.",
+      "relevance": "Cette communication proactive sur les prévisions de trafic renforce la visibilité du club comme référence sur la mobilité nationale au moment des grands départs. L'ACL pourrait-elle diffuser des prévisions similaires pour les grands départs vers la Grande Région afin d'accroître sa présence médiatique ?",
+      "badge": "INFO",
+      "url": "https://media.rac.co.uk/last-summer-bank-holiday-of-the-year-set-to-be-the-busiest-on-the-roads-in-11-years"
+    },
+    {
+      "id": "2026-08-24-aa-1",
+      "date": "2026-08-24",
+      "club": "AA",
+      "category": "EU",
+      "content": "Le président de l'AA, Edmund King, demande que les titulaires d'un permis automatique puissent conduire un véhicule manuel après une seule session de conversion d'une heure avec un moniteur agréé, sans repasser l'examen complet ; le ministère britannique des Transports a rejeté cette proposition au nom de la sécurité routière.",
+      "relevance": "Ce débat illustre une pression sectorielle croissante pour assouplir la reconnaissance entre permis automatique et manuel, alors que la part des véhicules automatiques progresse aussi au Luxembourg. L'ACL pourrait-elle sonder ses membres sur l'intérêt d'un dispositif de conversion simplifié et anticiper une prise de position similaire au niveau national ?",
+      "badge": "SURVEILLER",
+      "url": "https://www.carscoops.com/2026/08/manual-license-conversion/"
+    },
+    {
+      "id": "2026-08-24-aa-2",
+      "date": "2026-08-24",
+      "club": "AA",
+      "category": "EU",
+      "content": "L'AA a lancé avec Rightcharge une nouvelle carte de recharge multi-réseaux (Gold Card) permettant de réduire jusqu'à 35% le coût de la recharge publique de véhicules électriques, avec des tarifs de 59p/kWh en rapide/ultra-rapide et 49p/kWh en charge rapide.",
+      "relevance": "Ce partenariat répond directement au frein du coût et de la complexité tarifaire de la recharge publique pour les automobilistes. L'ACL pourrait explorer un accord similaire avec un ou plusieurs opérateurs de recharge au Luxembourg pour offrir un tarif préférentiel à ses membres.",
+      "badge": "NOTABLE",
+      "url": "https://www.fleetnews.co.uk/news/fleet-drivers-save-up-to-35-on-charging-with-new-gold-card"
+    },
+    {
+      "id": "2026-08-24-aaa-1",
+      "date": "2026-08-24",
+      "club": "AAA",
+      "category": "Monde",
+      "content": "La AAA Foundation for Traffic Safety publie une étude menée auprès d'environ 16500 conducteurs américains : 3 sur 10 estiment qu'aucun automobiliste ne respecte réellement les limitations de vitesse, et 7 sur 10 déclarent observer souvent ou toujours des excès de vitesse importants sur autoroute ; la vitesse excessive est un facteur dans près de 30% des accidents mortels recensés en 2024 selon la NHTSA.",
+      "relevance": "Cette étude illustre une banalisation croissante des excès de vitesse, un constat également observable en Europe. L'ACL pourrait envisager une enquête similaire auprès des automobilistes luxembourgeois pour nourrir ses prochaines campagnes de sécurité routière.",
+      "badge": "SURVEILLER",
+      "url": "https://newsroom.aaa.com/2026/08/new-research-finds-most-drivers-think-speeding-is-normal-putting-everyone-at-risk/"
+    },
+    {
+      "id": "2026-08-24-aaa-2",
+      "date": "2026-08-24",
+      "club": "AAA",
+      "category": "Monde",
+      "content": "Le prix moyen national de l'essence aux Etats-Unis a atteint 4,10 dollars le gallon au 20 août 2026, un niveau jamais atteint à cette date du calendrier, sous l'effet de la fermeté des prix du pétrole brut (environ 80 dollars le baril) liée à l'instabilité dans le détroit d'Ormuz.",
+      "relevance": "Ce point hebdomadaire régulier illustre la capacité d'AAA à occuper l'espace médiatique avec une communication factuelle et répétée sur les prix carburant. L'ACL pourrait évaluer l'intérêt d'une publication hebdomadaire similaire des prix moyens luxembourgeois.",
+      "badge": "INFO",
+      "url": "https://newsroom.aaa.com/2026/08/high-crude-oil-prices-push-up-national-average/"
+    },
+    {
+      "id": "2026-08-24-adac-1",
+      "date": "2026-08-24",
+      "club": "ADAC",
+      "category": "EU",
+      "content": "L'ADAC signale que le faible niveau des eaux du Rhin renchérit les prix des carburants dans l'ouest de l'Allemagne : le diesel atteint 2,254 euros/litre en Rhénanie-du-Nord-Westphalie et le Super E10 2,164 euros/litre en Hesse, contre 2,078 euros/litre en Mecklembourg-Poméranie-Occidentale.",
+      "relevance": "Cette analyse montre comment l'ADAC exploite sa donnée prix carburants par région pour nourrir sa communication institutionnelle. L'ACL pourrait-elle envisager une analyse comparable sur les écarts de prix transfrontaliers utile à ses membres ?",
+      "badge": "INFO",
+      "url": "https://presse.adac.de/meldungen/adac-ev/verkehr/niedrigwasser-am-rhein-treibt-spritpreise-im-westen.html"
+    },
+    {
+      "id": "2026-08-24-adac-2",
+      "date": "2026-08-24",
+      "club": "ADAC",
+      "category": "EU",
+      "content": "L'ADAC recense seulement 16 modèles de voitures neuves vendues sous 20000 euros en Allemagne en 2026, contre 35 en 2021, sans aucun constructeur allemand ou japonais ; pour la première fois, trois modèles électriques (Dacia Spring, Leapmotor T03, Renault Twingo E-Tech) entrent dans ce segment.",
+      "relevance": "Cette étude sur l'érosion de l'offre abordable et l'arrivée de l'électrique en entrée de gamme est un contenu à forte valeur pour les membres. L'ACL pourrait-elle publier une analyse similaire sur le marché luxembourgeois pour renforcer son rôle de conseil achat ?",
+      "badge": "SURVEILLER",
+      "url": "https://www.presseportal.de/pm/7849/6336480"
+    },
+    {
+      "id": "2026-08-24-adac-3",
+      "date": "2026-08-24",
+      "club": "ADAC",
+      "category": "EU",
+      "content": "L'ADAC Mittelrhein a lancé en août 2026 le mois d'action \"Lenken statt liken\" contre l'usage du smartphone au volant, associant affichage extérieur, campagne réseaux sociaux et une démonstration au Nürburgring montrant qu'un regard de 3 secondes sur l'écran fait parcourir environ 84 mètres sans contrôle du véhicule.",
+      "relevance": "Ce format de sensibilisation combinant preuve expérimentale spectaculaire et relais digital est facilement transposable. L'ACL pourrait envisager une démonstration similaire lors d'un événement grand public pour sensibiliser à la distraction au volant.",
+      "badge": "SURVEILLER",
+      "url": "https://presse.adac.de/regionalclubs/mittelrhein/lenken-statt-liken.html"
+    },
+    {
+      "id": "2026-08-24-aci-1",
+      "date": "2026-08-24",
+      "club": "ACI",
+      "category": "EU",
+      "content": "L'ACI et le ministère italien MIMIT confirment que le lancement du \"noleggio sociale\" (location longue durée à 100 euros par mois pour véhicules neufs Euro 6, réservé aux ménages modestes) nécessite un appel d'offres européen, ce qui repousse le dépôt des demandes de fin 2026 vers 2027.",
+      "relevance": "Ce dispositif de location sociale subventionnée pourrait préfigurer des mesures similaires ailleurs en Europe pour renouveler le parc automobile des ménages modestes. L'ACL devrait suivre l'issue de cet appel d'offres et évaluer si un partenariat comparable avec un constructeur serait pertinent au Luxembourg.",
+      "badge": "SURVEILLER",
+      "url": "https://www.polesine24.it/cronaca/2026/08/18/news/auto-nuova-a-100-euro-al-mese-401679/"
+    },
+    {
+      "id": "2026-08-24-aci-2",
+      "date": "2026-08-24",
+      "club": "ACI",
+      "category": "EU",
+      "content": "Lors du Meeting de Rimini (21-26 août 2026), le président de l'ACI a réaffirmé l'engagement de l'association pour l'éducation routière dans les écoles (389 établissements, 778 classes, 16125 élèves) et présenté un espace de Sim Racing inclusif où pilotes valides et personnes en situation de handicap concourent ensemble sur un volant adapté.",
+      "relevance": "Le format Sim Racing inclusif est une action de sensibilisation jeune public et handicap facilement transposable à un événement ACL. L'ACL pourrait explorer un partenariat avec le ministère luxembourgeois de l'Education pour renforcer ses actions de sécurité routière en milieu scolaire.",
+      "badge": "SURVEILLER",
+      "url": "https://askanews.it/2026/08/19/meeting-aci-massimo-impegno-per-affermare-educazione-stradale-scuole/"
+    },
+    {
+      "id": "2026-08-24-aci-3",
+      "date": "2026-08-24",
+      "club": "ACI",
+      "category": "EU",
+      "content": "Le numéro d'août-septembre 2026 du magazine L'Automobile, édité par l'ACI, adopte un format renouvelé documentant la transformation du club en \"Mobility Club\" moderne, avec un reportage sur les cours de conduite sécurisée des centres ACI-Sara.",
+      "relevance": "Ce repositionnement éditorial illustre une stratégie visant à élargir l'image du club au-delà de la seule assistance automobile vers une identité mobilité globale. L'ACL pourrait s'interroger sur l'intérêt de faire évoluer sa propre communication institutionnelle dans le même sens.",
+      "badge": "INFO",
+      "url": "https://www.lautomobile.aci.it/attualita/lautomobile-aci-agosto-settembre-2026-edicola/"
+    },
+    {
+      "id": "2026-08-24-race-1",
+      "date": "2026-08-24",
+      "club": "RACE",
+      "category": "EU",
+      "content": "RACE a publié une analyse de l'effet de l'éclipse totale du 12 août sur son assistance routière : les appels ont augmenté de 77,3% dans les trois heures suivant l'événement, avec un pic à Saragosse (+150% de pannes), les pannes mécaniques et de démarrage représentant 76% des interventions.",
+      "relevance": "RACE transforme ses propres statistiques d'assistance en communiqué de presse lié à l'actualité, renforçant sa visibilité d'expert mobilité sans budget marketing direct. L'ACL pourrait-elle exploiter de façon similaire les données de ses dépannages lors d'événements ponctuels (canicule, pics de trafic transfrontalier) pour produire des communiqués à forte reprise médiatique ?",
+      "badge": "NOTABLE",
+      "url": "https://www.race.es/area-de-prensa/el-efecto-eclipse-y-su-impacto-en-asistencia-carretera-race"
+    },
+    {
+      "id": "2026-08-24-touring-1",
+      "date": "2026-08-24",
+      "club": "Touring",
+      "category": "EU",
+      "content": "Touring a averti d'un risque de tourisme du contrôle technique avant l'entrée en vigueur, le 1er septembre 2026, du nouveau régime flamand espaçant les contrôles à deux ans pour les véhicules privés de plus de quatre ans, alors que la Wallonie maintient un contrôle annuel.",
+      "relevance": "Cet écart réglementaire entre régions belges illustre les effets d'une règle technique non harmonisée, un enjeu transposable aux dynamiques transfrontalières de la Grande Région. L'ACL devrait-elle documenter les différences de fréquence et de tarifs du contrôle technique entre le Luxembourg et ses voisins pour anticiper d'éventuels arbitrages des automobilistes luxembourgeois ?",
+      "badge": "SURVEILLER",
+      "url": "https://www.lavenir.net/actu/belgique/2026/08/18/controle-technique-tous-les-2-ans-en-flandre-a-partir-de-septembre-touring-craint-que-de-nombreux-wallons-aillent-au-nord-du-pays-pour-le-faire-DAMSD625UVC5RIOT4J54XKFITQ/"
+    },
+    {
+      "id": "2026-08-24-touring-2",
+      "date": "2026-08-24",
+      "club": "Touring",
+      "category": "EU",
+      "content": "Touring a intégré les fonctionnalités de son application Touring Mobilis (informations trafic, itinéraires alternatifs) dans l'application Touring Assist, regroupant assistance dépannage et données de circulation dans un seul outil membre au lieu de deux applications distinctes.",
+      "relevance": "Cette consolidation digitale simplifie le parcours utilisateur et concentre l'engagement membre sur une application unique. L'ACL gagnerait-elle à comparer l'usage de ses propres outils digitaux (application, info trafic) pour évaluer l'intérêt d'une fusion de fonctionnalités similaire ?",
+      "badge": "INFO",
+      "url": "https://www.touring.be/fr/articles/apps-touring-partout-avec-soi"
+    },
+    {
+      "id": "2026-08-24-roole-1",
+      "date": "2026-08-24",
+      "club": "Roole",
+      "category": "EU",
+      "content": "Roole Map, l'application de navigation alternative à Waze et Google Maps développée par Roole, a été mise à jour avant les grands départs de juillet-août 2026 avec l'ajout d'alertes communautaires ; elle reste gratuite, sans publicité, et conserve les données de localisation en local sur un positionnement de souveraineté numérique.",
+      "relevance": "Ce positionnement souveraineté numérique et sobriété des données peut séduire une clientèle sensible aux enjeux de vie privée au Luxembourg. L'ACL devrait-elle étudier l'intérêt d'un partenariat ou d'une solution de navigation similaire pour ses membres ?",
+      "badge": "SURVEILLER",
+      "url": "https://melles750.fr/articles/2026/2026-07-01-roole-map-alternative-francaise-waze-google-maps-quitter-gafam-vacances-2026"
+    },
+    {
+      "id": "2026-08-24-oeamtc-1",
+      "date": "2026-08-24",
+      "club": "ÖAMTC",
+      "category": "EU",
+      "content": "L'ÖAMTC a basculé la gestion logicielle (backend CPMS) de son réseau de recharge ÖAMTC ePower vers la plateforme autrichienne e-vo eMobility, dans une logique d'efficacité de gestion et de recours à un fournisseur national.",
+      "relevance": "Ce choix d'un fournisseur logiciel national pour piloter le réseau de recharge peut nourrir la réflexion de l'ACL sur son propre réseau de bornes, notamment sur les critères de maîtrise des données et d'interopérabilité. Quel backend gère aujourd'hui le réseau de recharge de l'ACL et quelle serait la marge de renégociation ?",
+      "badge": "SURVEILLER",
+      "url": "https://www.electrive.net/2026/07/20/oeamtc-setzt-bei-ladenetz-auf-software-backend-von-e-vo/"
+    },
+    {
+      "id": "2026-08-24-tcs-1",
+      "date": "2026-08-24",
+      "club": "TCS",
+      "category": "EU",
+      "content": "Le TCS a testé quatre applications de navigation vélo (Bikemap, OsmAnd, Komoot, Google Maps) sur un trajet urbain à Berne et un itinéraire de loisirs autour de Laupen, du point de vue d'un cycliste électrique peu expérimenté privilégiant la sécurité. Bikemap arrive en tête avec 77,65%, devant OsmAnd (73,2%) et Komoot (70,75%), Google Maps étant distancé faute de critères de sécurité cyclable.",
+      "relevance": "Ce test illustre une offre de conseil pratique sur la mobilité douce, un axe en croissance au Luxembourg. L'ACL pourrait-elle publier un comparatif similaire des applications GPS vélo adaptées au réseau cyclable luxembourgeois ?",
+      "badge": "SURVEILLER",
+      "url": "https://www.presseportal.ch/de/pm/100000091/100941626"
+    },
+    {
+      "id": "2026-08-24-tcs-2",
+      "date": "2026-08-24",
+      "club": "TCS",
+      "category": "EU",
+      "content": "Le TCS a évalué la fiabilité des systèmes de détection de présence d'enfants (Child Presence Detection) équipant un nombre croissant de véhicules neufs, concluant à un fort potentiel de prévention mais à des faiblesses persistantes pour la détection des nouveau-nés, et rappelle qu'aucun système technique ne remplace la vigilance des adultes responsables.",
+      "relevance": "Sujet de sécurité routière à fort potentiel de relais média, en lien avec la prévention des enfants oubliés en voiture pendant les fortes chaleurs. Une communication ou un test similaire pourrait-il être envisagé pour la rentrée au Luxembourg ?",
+      "badge": "SURVEILLER",
+      "url": "https://www.presseportal.ch/de/pm/100000091/100941648"
+    },
+    {
+      "id": "2026-08-24-tcs-3",
+      "date": "2026-08-24",
+      "club": "TCS",
+      "category": "EU",
+      "content": "Via son radar des prix carburants, le TCS annonce que le prix moyen de l'essence sans plomb 95 en Suisse a franchi le seuil symbolique de 2 francs par litre, un niveau plus revu depuis le début de la guerre en Ukraine en 2022, attribué aux tensions au détroit d'Ormuz et à la baisse du niveau du Rhin renchérissant le transport de carburant.",
+      "relevance": "Suivi utile pour comparer la tendance des prix carburants avec la situation luxembourgeoise et alimenter la communication de l'ACL sur le pouvoir d'achat automobile. L'ACL dispose-t-elle d'un outil de suivi comparable à publier pour ses membres ?",
+      "badge": "INFO",
+      "url": "https://www.presseportal.ch/fr/pm/100000091/100941715"
+    },
+    {
+      "id": "2026-08-24-anwb-1",
+      "date": "2026-08-24",
+      "club": "ANWB",
+      "category": "EU",
+      "content": "L'ANWB s'est joint à une large coalition (communes, provinces, régions de transport, secteur privé) pour alerter le gouvernement néerlandais sur un risque d'infracrisis : un déficit de 34,5 milliards d'euros est identifié d'ici 2038 pour l'entretien et le renouvellement des infrastructures routières, auquel s'ajoutent 20 milliards pour le rail et environ 30 milliards pour les projets de développement.",
+      "relevance": "Cette démarche illustre le rôle de lobbying institutionnel qu'un automobile club peut jouer face aux pouvoirs publics sur le financement des infrastructures routières, un sujet également sensible au Luxembourg. L'ACL pourrait-elle s'associer à une coalition sectorielle similaire pour porter un message commun sur l'investissement routier national ?",
+      "badge": "SURVEILLER",
+      "url": "https://www.anwb.nl/belangenbehartiging/nieuws/2026/augustus/nederland-op-rand-infracrisis-brede-coalitie-maant-kabinet-tot-actie"
+    },
+    {
+      "id": "2026-08-24-anwb-2",
+      "date": "2026-08-24",
+      "club": "ANWB",
+      "category": "EU",
+      "content": "L'ANWB annonce sa nomination aux Website van het Jaar Awards 2026 dans deux catégories : le site anwb.nl (organisations d'intérêt général) et l'application Onderweg (météo et mobilité), avec un vote public ouvert jusqu'au 2 octobre 2026.",
+      "relevance": "Cette communication valorise l'investissement digital de l'ANWB comme vecteur de notoriété et d'engagement membres. L'ACL pourrait-elle évaluer la maturité de ses propres outils digitaux au regard de ce type de reconnaissance sectorielle ?",
+      "badge": "INFO",
+      "url": "https://www.anwb.nl/over-anwb/nieuws/2026/augustus/anwb-genomineerd-app-en-website-van-het-jaar-2026"
+    },
     {
       "id": "2026-08-21-saaskia-web-5Z8yUp",
       "club": "virgule.lu (Wort.lu/FR)",
@@ -4015,17 +4239,17 @@
     }
   ],
   "trends": [
-    "Montée confirmée des risques liés à la micromobilité électrique : l'ACI-ISTAT chiffre à 4130 les accidents de trottinettes électriques en Italie en 2025 contre 564 en 2020, et AAA lance une campagne de rentrée scolaire ciblant explicitement vélos et trottinettes électriques aux abords des écoles. La sécurité des engins de déplacement personnel devient un axe de communication central pour les clubs.",
-    "Volatilité des prix des carburants pilotée par la géopolitique plutôt que par des facteurs nationaux : pic historique au Royaume-Uni (AA), record de tous les temps aux États-Unis pour un mois d'août (AAA), décalage prix/brut en Autriche (ÖAMTC) et hausse du diesel en Allemagne (ADAC). Les clubs automobiles renforcent leur rôle de porte-voix sur la transparence des marges à la pompe.",
-    "Diversification vers des produits d'assurance à l'usage pour capter les petits rouleurs : l'ANWB lance une assurance au kilomètre avec boîtier connecté et économie annuelle estimée à 100-120 euros. Un signal de segmentation croissante de l'offre membre au-delà de l'assistance classique.",
-    "Développement de programmes éditoriaux propriétaires pour asseoir l'autorité de conseil des clubs : lancement des « New Car Awards » du RAC, en écho aux labels de qualité déjà observés chez AAA. Les clubs investissent dans du contenu de notation indépendant pour fidéliser et générer de la couverture médiatique.",
-    "Renforcement de l'assistance transfrontalière en haute saison estivale : l'ANWB déploie une trentaine de patrouilles Wegenwacht et 6000 véhicules de remplacement dans les régions touristiques du sud de l'Europe. La logistique estivale reste un poste d'investissement récurrent pour les grands clubs."
+    "Multiplication des tests de fiabilite des systemes de detection de presence d'enfants dans les vehicules (ADAC, TCS, OAMTC), en amont de la rentree scolaire et des pics de chaleur estivale.",
+    "Partenariats de reduction sur la recharge electrique publique (AA et Rightcharge) qui repondent au frein du cout et de la complexite tarifaire pour les automobilistes.",
+    "Tensions persistantes sur les prix des carburants dans plusieurs pays (Suisse au-dessus de 2 francs/litre, Allemagne impactee par le bas niveau du Rhin, Etats-Unis au-dessus de 4 dollars/gallon), alimentees par des facteurs geopolitiques et climatiques.",
+    "Digitalisation et fusion d'applications membres pour simplifier le parcours utilisateur (Touring fusionne Mobilis dans Assist, Roole modernise Roole Map).",
+    "Differences reglementaires transfrontalieres sur le controle technique (Flandre/Wallonie) et surveillance accrue des marges carburant par les autorites de la concurrence (RAC/CMA)."
   ],
   "signals": [
-    "Nouveauté : modèle de financement mutualisé entre fondations pour les actions de mobilité solidaire (guichet unique préparé par la Fondation Roole avec la Fondation BTP Prévoyance Plus). Signal à suivre pour d'éventuels partenariats philanthropiques transposables au Luxembourg.",
-    "Nouveauté : pressions politiques croissantes sur la fiscalité des carburants portées par les clubs eux-mêmes (ÖAMTC réclame une baisse de la MÖSt, ADAC saisit le Bundeskartellamt sur les marges). Signal à surveiller pour d'éventuelles prises de position similaires de l'ACL au Luxembourg.",
-    "Nouveauté : lien entre canicule et dégradation accélérée des chaussées, chiffré à 3,3 milliards de livres de coût annuel au Royaume-Uni (AA). Signal pertinent pour anticiper l'impact des étés chauds sur le réseau routier luxembourgeois et les véhicules des membres.",
-    "Récurrence : généralisation d'un focus statistique systématique sur les engins de déplacement personnel dans les rapports annuels de sécurité routière (ACI-ISTAT). Signal sur une possible normalisation de cet indicateur dans les futurs rapports d'autres clubs.",
-    "Nouveauté : communication de plus en plus data-driven sur les prévisions de trafic saisonnier (« zwarte zaterdag » de l'ANWB). Signal à évaluer pour enrichir les bulletins de circulation de l'ACL lors des grands départs."
+    "Vers un controle technique moins frequent en Flandre (biennal) : a suivre si ce type d'evolution reglementaire s'etend a d'autres pays voisins du Luxembourg.",
+    "Les clubs automobiles transforment leurs donnees operationnelles d'assistance en contenu de communication a forte reprise mediatique (RACE et l'eclipse) : un potentiel similaire pour l'ACL a explorer.",
+    "Multiplication des demandes d'assouplissement reglementaire portees par les clubs automobiles (AA sur le permis automatique/manuel) : un role de porte-parole institutionnel a surveiller.",
+    "Montee des offres subventionnees de renouvellement de flotte pour menages modestes (noleggio sociale en Italie) : un modele a suivre pour d'eventuelles mesures similaires en Europe.",
+    "Repositionnement progressif des clubs automobiles vers une identite mobility club elargie au-dela de l'assistance auto (ACI) : tendance de fond a surveiller pour le positionnement de marque de l'ACL."
   ]
 }
