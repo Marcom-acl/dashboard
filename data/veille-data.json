@@ -1,6 +1,6 @@
 {
   "generated_at": "2026-08-24",
-  "next_edition": "2026-08-31",
+  "next_edition": "",
   "editions": [
     {
       "date": "2026-05-03",
@@ -184,6 +184,138 @@
     }
   ],
   "items": [
+    {
+      "id": "2026-08-24-saaskia-web-zqXzzV",
+      "club": "100komma7.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Le Luxembourg demande à la Belgique une exemption de la vignette autoroutière dans la zone frontalière. Article sur les enjeux de politique de mobilité transfrontalière.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1787549412.868.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787549412.868.pdf",
+      "date": "2026-08-24"
+    },
+    {
+      "id": "2026-08-24-saaskia-web-xzpXy7",
+      "club": "Zeitung zum Lëtzebuerger Vollek",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Article sur la sécurité routière au Luxembourg, sujet clé pour l'ACL et ses membres.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1787549366.8567.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787549366.8567.pdf",
+      "date": "2026-08-24"
+    },
+    {
+      "id": "2026-08-24-saaskia-web-5nCppO",
+      "club": "Luxemburger Wort",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Backes commente la sécurité des routes N12 et N18 malgré des accidents mortels. Sujet pertinent de sécurité routière.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1787549294.0341.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787549294.0341.pdf",
+      "date": "2026-08-24"
+    },
+    {
+      "id": "2026-08-24-saaskia-web-Vjgx91",
+      "club": "infos.rtl.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Information sur la vignette belge et ses implications pour les automobilistes luxembourgeois.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1787549228.9581.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787549228.9581.pdf",
+      "date": "2026-08-24"
+    },
+    {
+      "id": "2026-08-24-saaskia-web-nS7kcq",
+      "club": "Tageblatt",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Le Luxembourg réclame une exemption de la vignette autoroutière belge. Enjeu majeur de mobilité transfrontalière.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1787549105.145.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787549105.145.pdf",
+      "date": "2026-08-24"
+    },
+    {
+      "id": "2026-08-24-saaskia-web-iQwm9A",
+      "club": "Luxemburger Wort",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "La Belgique envisage une exemption de vignette pour la Grande Région. Sujet important pour la mobilité des automobilistes de la région.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1787546202.4055.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787546202.4055.pdf",
+      "date": "2026-08-24"
+    },
+    {
+      "id": "2026-08-24-saaskia-web-Dq8BN9",
+      "club": "Gemengen.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Méthode 'electris' sur la production, consommation et stockage d'énergie. Pertinent pour la transition énergétique et mobilité électrique.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1787549503.4542.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787549503.4542.pdf",
+      "date": "2026-08-24"
+    },
+    {
+      "id": "2026-08-24-saaskia-web-Po8nHg",
+      "club": "lesfrontaliers.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "La commission d'enquête approuve l'A31 bis avec trois réserves. Sujet de mobilité et infrastructure routière pertinent.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1787549166.894.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787549166.894.pdf",
+      "date": "2026-08-24"
+    },
+    {
+      "id": "2026-08-24-saaskia-web-xKcpn1",
+      "club": "Gemengen.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Article sur les grands chantiers publics au Luxembourg et leur impact sur le territoire. Thème de mobilité et aménagement.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1787549483.4859.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787549483.4859.pdf",
+      "date": "2026-08-24"
+    },
+    {
+      "id": "2026-08-24-saaskia-web-9znaiT",
+      "club": "infos.rtl.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Article sur un défi mortel circulant sur les réseaux sociaux. Lié à la sécurité routière.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1787549198.5635.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787549198.5635.pdf",
+      "date": "2026-08-24"
+    },
+    {
+      "id": "2026-08-24-saaskia-web-99iGxc",
+      "club": "rtl.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Porsche Carrera Cup Asia. Article sport automobile, pertinence modérée pour l'ACL.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1787554353.4186.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787554353.4186.pdf",
+      "date": "2026-08-24"
+    },
+    {
+      "id": "2026-08-24-saaskia-web-9eOpdp",
+      "club": "today.RTL.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Article 'Capital challenges' de catégorie politique. Pertinence limitée pour la veille mobilité.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1787549443.8391.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787549443.8391.pdf",
+      "date": "2026-08-24"
+    },
     {
       "id": "2026-08-24-rac-1",
       "date": "2026-08-24",
