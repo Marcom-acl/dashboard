@@ -1648,6 +1648,23 @@ async function apiSlow(path) {
   return data;
 }
 
+// Variante pour /insights/web : GA4+GSC en parallèle + enrichissement DataForSEO
+// (jusqu'à 25s) + 2 appels Claude séquentiels côté backend — dépasse souvent 45s à froid.
+async function apiVerySlow(path) {
+  const key = `${path}:${globalStart}:${globalEnd}`;
+  const hit = _slowCache.get(key);
+  if (hit && Date.now() - hit.ts < _SLOW_TTL) return hit.data;
+  const params = new URLSearchParams();
+  if (globalStart) params.set('start', globalStart);
+  if (globalEnd)   params.set('end',   globalEnd);
+  const url = `${API_BASE}${path}?${params}`;
+  const r = await fetch(url, {signal: AbortSignal.timeout(90000)});
+  if (!r.ok) throw new Error(`${path}: HTTP ${r.status}`);
+  const data = await r.json();
+  _slowCache.set(key, {data, ts: Date.now()});
+  return data;
+}
+
 // Variante YTD — ignore le filtre de période, force le 1er janvier de l'année en cours → aujourd'hui
 async function apiYtd(path) {
   const today    = new Date().toISOString().slice(0, 10);
@@ -3460,11 +3477,18 @@ function renderIntelligence() {
     </div>
     <div>${skel(5)}</div>`;
 
-  // Fetch intelligence data (slow — AI call)
-  api('/insights/web').then(d => {
+  // Fetch intelligence data (slow — GA4+GSC+SERP+2 appels Claude côté backend)
+  apiVerySlow('/insights/web').then(d => {
     if (d.error) {
       const rawDebug = d.raw ? `<details style="margin-top:12px"><summary style="font-size:11px;color:var(--muted);cursor:pointer">Réponse brute Claude (debug)</summary><pre style="font-size:10px;overflow:auto;max-height:200px;background:#f5f5f5;padding:8px;border-radius:4px;margin-top:6px;white-space:pre-wrap">${String(d.raw).replace(/</g,'&lt;')}</pre></details>` : '';
-      el.innerHTML = errState('Intelligence Web', d.error) + rawDebug;
+      // "Intelligence Web" n'est pas une source OAuth autonome : elle dépend de
+      // Google (GA4+GSC) déjà connecté. errState() générerait un lien /intelligenceweb/auth
+      // inexistant — on pointe explicitement vers /google/auth quand c'est la cause.
+      const isGoogleIssue = /google/i.test(d.error);
+      const connectLink = isGoogleIssue
+        ? `<a href="${API_BASE}/google/auth" target="_blank">→ Connecter Google (GA4 + Search Console)</a>`
+        : '';
+      el.innerHTML = `<div class="no-key"><strong>Intelligence Web</strong><br>${d.error}${connectLink ? '<br><br>'+connectLink : ''}</div>` + rawDebug;
       return;
     }
 
@@ -3674,7 +3698,10 @@ function renderIntelligence() {
 
     animateCards(el);
   }).catch(err => {
-    el.innerHTML = errState('Intelligence Web', err.message);
+    // Erreur réseau/timeout (pas un problème de connexion Google) — pas de lien
+    // "Connecter" ici : errState() générerait /intelligenceweb/auth, qui n'existe pas.
+    el.innerHTML = `<div class="no-key"><strong>Intelligence Web</strong><br>${err.message}<br><br>
+      <a href="javascript:void(0)" onclick="window._tabRendered['intelligence']=false;renderIntelligence();">→ Réessayer</a></div>`;
   });
 }
 
