@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-25",
+  "generated_at": "2026-08-26",
   "next_edition": "",
   "editions": [
     {
@@ -185,16 +185,75 @@
     {
       "date": "2026-08-25",
       "label": "Semaine du 2026-08-25"
+    },
+    {
+      "date": "2026-08-26",
+      "label": "Semaine du 2026-08-26"
     }
   ],
   "items": [
+    {
+      "id": "2026-08-26-saaskia-web-sx3mg6",
+      "club": "virgule.lu (Wort.lu/FR)",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "La police du Luxembourg intensifie les contrôles concernant l'utilisation des trottinettes électriques sur les routes, face à leur prolifération croissante.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1787727203.2604.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787727203.2604.pdf",
+      "date": "2026-08-26"
+    },
+    {
+      "id": "2026-08-26-saaskia-web-X13vyc",
+      "club": "lessentiel.lu FR",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Analyse comparative des prix des carburants en Europe : le Luxembourg se situe dans une position intermédiaire, ni particulièrement avantagé ni désavantagé.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1787720504.7197.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787720504.7197.pdf",
+      "date": "2026-08-26"
+    },
+    {
+      "id": "2026-08-26-saaskia-web-SsPyH4",
+      "club": "paperjam.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Guide pratique pour les nouveaux arrivants au Luxembourg : informations essentielles sur la conduite et les règles routières luxembourgeoises.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1787720304.2407.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787720304.2407.pdf",
+      "date": "2026-08-26"
+    },
+    {
+      "id": "2026-08-26-saaskia-web-Xc0BQS",
+      "club": "lequotidien.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Volkswagen annonce 50 000 suppressions de postes supplémentaires, dont la moitié en Allemagne.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1787720532.6182.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787720532.6182.pdf",
+      "date": "2026-08-26"
+    },
+    {
+      "id": "2026-08-26-saaskia-web-pUNrOD",
+      "club": "today.RTL.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Article sur les voitures autonomes et les technologies de conduite automatisée.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1787720466.367.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787720466.367.pdf",
+      "date": "2026-08-26"
+    },
     {
       "id": "2026-08-25-saaskia-web-gp4Dzm",
       "club": "contacto.lu (Wort.lu/PT)",
       "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "content": "Article sur les surcharges de péages au Portugal affectant les véhicules du Luxembourg, avec mention de José Cravo pointant les défaillances du système.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "content": "José Cravo (ACL) dénonce des surcharges tarifaires appliquées par le Portugal aux automobilistes luxembourgeois pour les péages routiers.",
+      "relevance": "ACL explicitement cité : \"José Cravo\"",
       "url": "https://saaskia.keepcontact.lu/data/files/1787640957.2324.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787640957.2324.pdf",
       "date": "2026-08-25"
@@ -204,7 +263,7 @@
       "club": "L'Essentiel",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Article sur la sanctuarisation des contrevenants à la sécurité routière au Luxembourg avant qu'un accident ne survienne.",
+      "content": "Article sur la nécessité de sanctionner les comportements dangereux sur les routes luxembourgeoises (« cow-boys de la route ») avant qu'ils ne causent des accidents.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1787633412.1182.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787633412.1182.pdf",
@@ -215,7 +274,7 @@
       "club": "virgule.lu (Wort.lu/FR)",
       "category": "Veille presse LU",
       "badge": "INFO",
-      "content": "Article sur le possible retour du moteur V8 chez Maserati, actualité du secteur automobile.",
+      "content": "Maserati envisagerait le retour d'un moteur V8 dans sa gamme de véhicules.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1787640930.6292.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787640930.6292.pdf",
@@ -237,7 +296,7 @@
       "club": "100komma7.lu",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Le Luxembourg demande à la Belgique une exemption de vignette autoroutière en zone frontalière, enjeu important pour les mobilités transfrontalières.",
+      "content": "Le Luxembourg demande à la Belgique une exemption de la vignette autoroutière pour les véhicules en zone frontalière.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1787549412.868.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787549412.868.pdf",
@@ -248,7 +307,7 @@
       "club": "Zeitung zum Lëtzebuerger Vollek",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Article dédié à la sécurité routière au Luxembourg.",
+      "content": "Article sur la sécurité routière au Luxembourg.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1787549366.8567.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787549366.8567.pdf",
@@ -259,7 +318,7 @@
       "club": "Luxemburger Wort",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Backes déclare que les routes N12 et N18 ne sont pas 'particulièrement problématiques' malgré les décès enregistrés, sujet de sécurité routière critique.",
+      "content": "Backes minimise les risques de sécurité sur les routes N12 et N18 du Luxembourg, malgré les décès enregistrés.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1787549294.0341.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787549294.0341.pdf",
@@ -270,10 +329,43 @@
       "club": "infos.rtl.lu",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Article sur la vignette en Belgique, problématique affectant les automobilistes luxembourgeois.",
+      "content": "Information sur la vignette autoroutière en Belgique et ses implications pour les automobilistes luxembourgeois.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1787549228.9581.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787549228.9581.pdf",
+      "date": "2026-08-24"
+    },
+    {
+      "id": "2026-08-24-saaskia-web-nS7kcq",
+      "club": "Tageblatt",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Le Luxembourg demande une exemption de la vignette autoroutière, probablement en lien avec les négociations transfrontalières.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1787549105.145.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787549105.145.pdf",
+      "date": "2026-08-24"
+    },
+    {
+      "id": "2026-08-24-saaskia-web-iQwm9A",
+      "club": "Luxemburger Wort",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Le Luxembourg négocie une exception à la vignette autoroutière belge pour la région frontalière de la Grande Région.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1787546202.4055.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787546202.4055.pdf",
+      "date": "2026-08-24"
+    },
+    {
+      "id": "2026-08-24-saaskia-web-Dq8BN9",
+      "club": "Gemengen.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Présentation de la méthode electris pour produire, consommer et stocker l'énergie électrique de manière efficace.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1787549503.4542.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787549503.4542.pdf",
       "date": "2026-08-24"
     },
     {
@@ -296,39 +388,6 @@
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1787549166.894.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787549166.894.pdf",
-      "date": "2026-08-24"
-    },
-    {
-      "id": "2026-08-24-saaskia-web-nS7kcq",
-      "club": "Tageblatt",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Le Luxembourg cherche une exemption de la vignette obligatoire en Belgique pour la Grande Région.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1787549105.145.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787549105.145.pdf",
-      "date": "2026-08-24"
-    },
-    {
-      "id": "2026-08-24-saaskia-web-iQwm9A",
-      "club": "Luxemburger Wort",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Luxembourg réclame une exemption de vignette belge pour la Grande Région, question clé pour les mobilités transfrontalières.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1787546202.4055.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787546202.4055.pdf",
-      "date": "2026-08-24"
-    },
-    {
-      "id": "2026-08-24-saaskia-web-Dq8BN9",
-      "club": "Gemengen.lu",
-      "category": "Veille presse LU",
-      "badge": "INFO",
-      "content": "Article sur la méthode electris pour produire, consommer et stocker l'énergie, technologies de mobilité durable.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1787549503.4542.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787549503.4542.pdf",
       "date": "2026-08-24"
     },
     {
