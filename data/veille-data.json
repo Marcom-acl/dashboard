@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-26",
+  "generated_at": "2026-08-27",
   "next_edition": "",
   "editions": [
     {
@@ -189,29 +189,77 @@
     {
       "date": "2026-08-26",
       "label": "Semaine du 2026-08-26"
+    },
+    {
+      "date": "2026-08-27",
+      "label": "Semaine du 2026-08-27"
     }
   ],
   "items": [
+    {
+      "id": "2026-08-27-saaskia-web-ozuWvg",
+      "club": "luxtimes.lu (Wort.lu/en)",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Guide informatif pour les nouveaux résidents au Luxembourg concernant les inspections de véhicules obligatoires et les procédures administratives associées.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1787807317.3686.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787807317.3686.pdf",
+      "date": "2026-08-27"
+    },
+    {
+      "id": "2026-08-27-saaskia-web-f1NcvF",
+      "club": "Le Quotidien",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "La commission d'enquête approuve le projet d'infrastructure routière A31 bis, un dossier majeur de mobilité pour le Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1787807245.2787.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787807245.2787.pdf",
+      "date": "2026-08-27"
+    },
+    {
+      "id": "2026-08-27-saaskia-web-itNYt6",
+      "club": "virgule.lu (Wort.lu/FR)",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Article sur le Tesla Roadster et les délais répétés de sa commercialisation, illustrant les promesses non tenues du constructeur électrique.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1787813613.6561.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787813613.6561.pdf",
+      "date": "2026-08-27"
+    },
+    {
+      "id": "2026-08-27-saaskia-web-rfTwd7",
+      "club": "lessentiel.lu FR",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Critique d'une publicité mettant en scène Roger Federer à vélo sans casque, soulevant des questions de sécurité et de responsabilité publicitaire.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1787807291.5993.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787807291.5993.pdf",
+      "date": "2026-08-27"
+    },
+    {
+      "id": "2026-08-27-saaskia-web-hnRBXw",
+      "club": "Le Quotidien",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Article sur les déplacements du ministre Backes en Belgique, probablement concernant des dossiers de mobilité et de coopération transfrontalière.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1787807175.4516.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787807175.4516.pdf",
+      "date": "2026-08-27"
+    },
     {
       "id": "2026-08-26-saaskia-web-sx3mg6",
       "club": "virgule.lu (Wort.lu/FR)",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "La police du Luxembourg intensifie les contrôles concernant l'utilisation des trottinettes électriques sur les routes, face à leur prolifération croissante.",
+      "content": "La police luxembourgeoise intensifie les contrôles sur les trottinettes électriques circulant sur les routes en raison de leur prolifération croissante.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1787727203.2604.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787727203.2604.pdf",
-      "date": "2026-08-26"
-    },
-    {
-      "id": "2026-08-26-saaskia-web-X13vyc",
-      "club": "lessentiel.lu FR",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Analyse comparative des prix des carburants en Europe : le Luxembourg se situe dans une position intermédiaire, ni particulièrement avantagé ni désavantagé.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1787720504.7197.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787720504.7197.pdf",
       "date": "2026-08-26"
     },
     {
@@ -219,10 +267,32 @@
       "club": "paperjam.lu",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Guide pratique pour les nouveaux arrivants au Luxembourg : informations essentielles sur la conduite et les règles routières luxembourgeoises.",
+      "content": "Guide pratique pour les nouveaux arrivants au Luxembourg expliquant les règles de conduite, permis et obligations administratives liées à la mobilité.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1787720304.2407.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787720304.2407.pdf",
+      "date": "2026-08-26"
+    },
+    {
+      "id": "2026-08-26-saaskia-web-X13vyc",
+      "club": "lessentiel.lu FR",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Analyse comparative européenne des prix des carburants montrant que le Luxembourg se situe dans une position favorable par rapport aux autres pays européens.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1787720504.7197.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787720504.7197.pdf",
+      "date": "2026-08-26"
+    },
+    {
+      "id": "2026-08-26-saaskia-web-falsk9",
+      "club": "lequotidien.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Les services d'autopartage gagnent en popularité à Metz, illustrant une tendance croissante vers des solutions de mobilité partagée dans la région transfrontalière.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1787720560.4168.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787720560.4168.pdf",
       "date": "2026-08-26"
     },
     {
@@ -230,7 +300,7 @@
       "club": "lequotidien.lu",
       "category": "Veille presse LU",
       "badge": "INFO",
-      "content": "Volkswagen annonce 50 000 suppressions de postes supplémentaires, dont la moitié en Allemagne.",
+      "content": "Volkswagen annonce 50 000 suppressions de postes supplémentaires, dont la moitié en Allemagne, reflétant les défis de l'industrie automobile européenne.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1787720532.6182.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787720532.6182.pdf",
@@ -241,7 +311,7 @@
       "club": "today.RTL.lu",
       "category": "Veille presse LU",
       "badge": "INFO",
-      "content": "Article sur les voitures autonomes et les technologies de conduite automatisée.",
+      "content": "Article généraliste sur les voitures autonomes et leurs développements technologiques, abordant l'avenir de la mobilité.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1787720466.367.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787720466.367.pdf",
@@ -252,8 +322,8 @@
       "club": "contacto.lu (Wort.lu/PT)",
       "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "content": "José Cravo (ACL) dénonce des surcharges tarifaires appliquées par le Portugal aux automobilistes luxembourgeois pour les péages routiers.",
-      "relevance": "ACL explicitement cité : \"José Cravo\"",
+      "content": "Article sur les surcharges de péages au Portugal concernant les voitures du Luxembourg, avec intervention de José Cravo pointant des dysfonctionnements dans le système de facturation.",
+      "relevance": "ACL explicitement cité : \"ACL (catégorie)\"",
       "url": "https://saaskia.keepcontact.lu/data/files/1787640957.2324.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787640957.2324.pdf",
       "date": "2026-08-25"
@@ -263,7 +333,7 @@
       "club": "L'Essentiel",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Article sur la nécessité de sanctionner les comportements dangereux sur les routes luxembourgeoises (« cow-boys de la route ») avant qu'ils ne causent des accidents.",
+      "content": "Article sur la nécessité de sanctionner les conducteurs dangereux avant qu'un accident ne survienne, abordant la sécurité routière au Luxembourg.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1787633412.1182.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787633412.1182.pdf",
@@ -274,7 +344,7 @@
       "club": "virgule.lu (Wort.lu/FR)",
       "category": "Veille presse LU",
       "badge": "INFO",
-      "content": "Maserati envisagerait le retour d'un moteur V8 dans sa gamme de véhicules.",
+      "content": "Article sur le possible retour du moteur V8 chez le constructeur Maserati, explorant les tendances technologiques dans l'industrie automobile.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1787640930.6292.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787640930.6292.pdf",
@@ -285,7 +355,7 @@
       "club": "paperjam.lu",
       "category": "Veille presse LU",
       "badge": "INFO",
-      "content": "Le Luxembourg exclut sa propre taxe sur les surprofits pétroliers, politique énergétique et économique.",
+      "content": "Le Luxembourg décide d'exclure sa propre taxe sur les surprofits pétroliers, reflétant la politique énergétique et fiscale du pays.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1787633703.8665.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787633703.8665.pdf",
