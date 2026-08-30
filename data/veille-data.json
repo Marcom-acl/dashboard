@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-29",
+  "generated_at": "2026-08-30",
   "next_edition": "",
   "editions": [
     {
@@ -201,6 +201,10 @@
     {
       "date": "2026-08-29",
       "label": "Semaine du 2026-08-29"
+    },
+    {
+      "date": "2026-08-30",
+      "label": "Semaine du 2026-08-30"
     }
   ],
   "items": [
@@ -209,7 +213,7 @@
       "club": "diegrenzgaenger.lu",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Analyse du bilan d'électrification au Luxembourg couvrant le chauffage, les automobiles et les carburants. Article d'évaluation des progrès en matière de transition énergétique au niveau national.",
+      "content": "Analyse du bilan réel de l'électrification au Luxembourg concernant le chauffage, les automobiles et les carburants.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1787898021.2538.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787898021.2538.pdf",
@@ -220,7 +224,7 @@
       "club": "paperjam.lu",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "L'électrification au Luxembourg doit s'accélérer significativement, selon un rapport soulignant la nécessité d'une augmentation six fois plus rapide des efforts de transition.",
+      "content": "Article soulignant que l'électrification au Luxembourg doit s'accélérer de manière significative pour atteindre les objectifs fixés.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1787893819.7591.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787893819.7591.pdf",
@@ -231,7 +235,7 @@
       "club": "lesfrontaliers.lu",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Création d'un nouveau parking de covoiturage à Arlon en Belgique, relevant l'intérêt transfrontalier pour les solutions de mobilité partagée.",
+      "content": "Création d'un nouveau parking de covoiturage à Arlon en Belgique, impactant la mobilité transfrontalière luxembourgeoise.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1787893842.4198.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787893842.4198.pdf",
@@ -242,7 +246,7 @@
       "club": "100komma7.lu",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Augmentation de la vitesse sur la ligne ferroviaire Luxembourg-Bruxelles, avec une mise en service prévue au plus tôt en 2031.",
+      "content": "Extension de la liaison ferroviaire Luxembourg-Bruxelles prévue pour 2031 au minimum, amélioration de la connectivité régionale.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1787893857.0811.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787893857.0811.pdf",
@@ -253,7 +257,7 @@
       "club": "Zeitung zum Lëtzebuerger Vollek",
       "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "content": "Article mentionnant l'ACL concernant les événements du week-end prochain, pertinent pour le calendrier d'activités de l'organisation.",
+      "content": "Annonce d'un événement prévu pour le prochain week-end impliquant l'ACL.",
       "relevance": "ACL explicitement cité : \"ACL\"",
       "url": "https://saaskia.keepcontact.lu/data/files/1787893907.4044.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787893907.4044.pdf",
@@ -264,7 +268,7 @@
       "club": "d'Lëtzebuerger Land",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Article éditorial sur les enjeux de mobilité et politique au Luxembourg, couvrant les questions stratégiques de transport.",
+      "content": "Dossier sur la mobilité et les politiques de transport au Luxembourg.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1787893981.1665.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787893981.1665.pdf",
@@ -275,7 +279,7 @@
       "club": "L'Essentiel",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "La vignette belge analysée comme élément frontalier affectant les déplacements transfrontaliers et la mobilité des usagers.",
+      "content": "Article sur la vignette belge et son impact perçu comme une barrière pour les automobilistes transfrontaliers.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1787894082.7152.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787894082.7152.pdf",
@@ -286,7 +290,7 @@
       "club": "Luxemburger Wort",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Tendance dangereuse sur TikTok menaçant la sécurité routière, avec une augmentation des accidents mortels liés à ce phénomène viral.",
+      "content": "Article sur un tendance TikTok dangereuse causant des accidents mortels sur les routes, enjeu de sécurité routière majeur.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1787892222.8744.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787892222.8744.pdf",
