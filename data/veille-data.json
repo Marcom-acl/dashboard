@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-08-30",
-  "next_edition": "",
+  "generated_at": "2026-08-31",
+  "next_edition": "2026-09-07",
   "editions": [
     {
       "date": "2026-05-03",
@@ -205,9 +205,113 @@
     {
       "date": "2026-08-30",
       "label": "Semaine du 2026-08-30"
+    },
+    {
+      "date": "2026-08-31",
+      "label": "Semaine du 2026-08-31"
     }
   ],
   "items": [
+    {
+      "id": "2026-08-31-adac-1",
+      "date": "2026-08-31",
+      "club": "ADAC",
+      "category": "EU",
+      "content": "ADAC et Esso Deutschland ont signé un partenariat pluriannuel qui remplace l'accord de près de 20 ans avec Shell : dès le 1er septembre 2026, les plus de 22 millions de membres ADAC bénéficient d'une remise carburant dans environ 1100 stations Esso en Allemagne (2 centimes/litre en lancement jusqu'au 15 octobre, puis 1 centime/litre, plus 2% supplémentaires avec la carte de crédit ADAC).",
+      "relevance": "Ce changement de partenaire carburant à grande échelle montre comment un club automobile renouvelle régulièrement ses avantages membres pour rester attractif. L'ACL a-t-elle une clause de revue périodique de ses propres partenariats carburant/stations-service pour éviter qu'un avantage phare ne devienne moins compétitif ?",
+      "badge": "NOTABLE",
+      "url": "https://www.presseportal.de/pm/122834/6339996"
+    },
+    {
+      "id": "2026-08-31-aa-1",
+      "date": "2026-08-31",
+      "club": "AA",
+      "category": "EU",
+      "content": "L'AA (14 millions de clients au Royaume-Uni) a rejoint le panel du courtier en ligne Quotezone, proposant ses produits d'assurance auto Silver, Gold, Platinum et Beam via ce comparateur afin d'élargir sa distribution.",
+      "relevance": "Illustre une stratégie de diversification des canaux de distribution d'assurance pour un club automobile généraliste. L'ACL pourrait-elle envisager un partenariat similaire avec un comparateur régional pour ses propres offres d'assurance et d'assistance ?",
+      "badge": "INFO",
+      "url": "https://insurance-edge.net/2026/08/26/the-aa-joins-quotezone-panel/"
+    },
+    {
+      "id": "2026-08-31-aa-2",
+      "date": "2026-08-31",
+      "club": "AA",
+      "category": "EU",
+      "content": "Selon Sky News, l'assureur allemand Allianz étudierait un rachat du groupe AA (assistance routière britannique) pour environ 5 milliards de livres, alors que les actionnaires actuels explorent en parallèle une introduction en bourse à Londres.",
+      "relevance": "Un rachat par un grand assureur européen changerait la gouvernance et le positionnement du plus grand club automobile britannique. L'ACL pourrait suivre ce dossier pour anticiper d'éventuelles conséquences sur les partenariats internationaux type FIA/ARC Europe.",
+      "badge": "NOTABLE",
+      "url": "https://uk.finance.yahoo.com/news/german-insurer-allianz-weighs-5bn-091000057.html"
+    },
+    {
+      "id": "2026-08-31-aaa-1",
+      "date": "2026-08-31",
+      "club": "AAA",
+      "category": "Mobilité",
+      "content": "AAA (clubs Illinois/Indiana) a lancé une alerte de rentrée scolaire soulignant la complexité accrue de la circulation autour des écoles, avec une cohabitation croissante entre piétons, bus scolaires et utilisateurs de vélos et trottinettes électriques.",
+      "relevance": "Met en lumière l'enjeu de la cohabitation automobilistes/micromobilité électrique aux abords des écoles. L'ACL pourrait s'inspirer de ce type de campagne combinant rentrée scolaire et e-mobilité au Luxembourg.",
+      "badge": "INFO",
+      "url": "https://newsroom.acg.aaa.com/e-bikes-school-zones-and-bus-stops-back-to-school-traffic-creates-new-safety-risks-il-in/"
+    },
+    {
+      "id": "2026-08-31-aaa-2",
+      "date": "2026-08-31",
+      "club": "AAA",
+      "category": "Monde",
+      "content": "AAA rapporte une forte demande pour le week-end de Labor Day (3-7 septembre 2026), avec croisières en Alaska, parcs nationaux et destinations européennes (Rome, Londres, Dublin, Paris) prisées ; vols domestiques à 750$ en moyenne (+2% vs 2025) et hôtels en hausse de 9 à 12%.",
+      "relevance": "Confirme la vigueur du marché du voyage et de la location de véhicules pour les membres de clubs automobiles malgré la hausse des prix, un point de comparaison utile pour les offres voyage/location de l'ACL auprès de ses membres.",
+      "badge": "INFO",
+      "url": "https://newsroom.aaa.com/2026/08/labor-day-travel-trends/"
+    },
+    {
+      "id": "2026-08-31-roole-1",
+      "date": "2026-08-31",
+      "club": "Roole",
+      "category": "EU",
+      "content": "Roole lance la balise Rx, un traceur Bluetooth connecté vendu 49 euros, permettant d'identifier et de localiser un véhicule volé via un réseau combinant forces de l'ordre et détection communautaire, avec des données de localisation sécurisées par blockchain chiffrée de bout en bout.",
+      "relevance": "Ce lancement illustre une diversification des clubs automobiles vers des produits de sécurité connectés payants au-delà de l'assistance classique. L'ACL pourrait évaluer une offre similaire de géolocalisation antivol pour ses membres.",
+      "badge": "SURVEILLER",
+      "url": "https://www.roole.fr/qui-sommes-nous/coulisses/actus-roole/roole-lance-la-balise-rx-un-nouveau-dispositif-didentification-des-vehicules-voles"
+    },
+    {
+      "id": "2026-08-31-oeamtc-1",
+      "date": "2026-08-31",
+      "club": "ÖAMTC",
+      "category": "EU",
+      "content": "L'ÖAMTC met en garde ses membres contre les pièges de paiement à l'étranger hors zone euro (frais de change, minimums de facturation, conversion instantanée en euros défavorable) et recommande de payer dans la devise locale, ainsi que de vérifier plafonds carte et fonction geo-control avant un déplacement.",
+      "relevance": "Ce format de conseil pratique saisonnier à faible coût de production a une forte valeur perçue pour les membres. L'ACL diffuse-t-elle déjà ce type de guide pratique pour ses membres voyageant hors zone euro pendant l'été ?",
+      "badge": "INFO",
+      "url": "https://www.oeamtc.at/presse/oeamtc-sicher-bezahlen-im-urlaub-kostenfallen-im-ausland-vermeiden-88891938"
+    },
+    {
+      "id": "2026-08-31-anwb-1",
+      "date": "2026-08-31",
+      "club": "ANWB",
+      "category": "EU",
+      "content": "ANWB a lancé le vote public « Camping van het Jaar 2027 », ouvert du 10 août au 7 septembre 2026 : pour la première fois, tous les campings d'Europe sont éligibles et non plus seulement ceux des Pays-Bas, répartis en 4 catégories, avec tirage au sort de lots parmi les votants.",
+      "relevance": "Cette campagne d'engagement à faible coût mobilise la communauté des membres sur plusieurs semaines sans investissement lourd. L'ACL pourrait-elle lancer un vote similaire, par exemple sur la meilleure aire de repos ou un partenaire voyage, pour dynamiser l'engagement de ses 191 000 membres ?",
+      "badge": "INFO",
+      "url": "https://www.anwb.nl/kamperen/nieuws/2026/augustus/stem-nu-op-jouw-favoriete-camping"
+    },
+    {
+      "id": "2026-08-31-aci-1",
+      "date": "2026-08-31",
+      "club": "ACI",
+      "category": "EU",
+      "content": "ACI a réalisé 98 000 interventions d'assistance routière entre mi-juin et le 24 août 2026 (dont 25 000 réservées à ses seuls membres) et diffusé 8 500 bulletins trafic via Radiotraffico/Luceverde.",
+      "relevance": "Ces chiffres de volume et de répartition membres/non-membres offrent un point de comparaison direct pour les statistiques estivales d'assistance de l'ACL. Combien d'interventions l'ACL a-t-elle réalisées sur la même période, et quelle part concerne ses propres membres ?",
+      "badge": "INFO",
+      "url": "https://www.lautomobile.aci.it/attualita/aci-unestate-da-98-000-interventi-su-strada-e-8-500-notiziari-sul-traffico/"
+    },
+    {
+      "id": "2026-08-31-aci-2",
+      "date": "2026-08-31",
+      "club": "ACI",
+      "category": "Mobilité",
+      "content": "Au Meeting di Rimini 2026, le président de l'ACI Geronimo La Russa a réaffirmé la transformation stratégique du club d'« Automobile Club » vers « Mobility Club », fondée sur trois piliers (vision globale de la mobilité, sécurité et centralité de la personne, innovation et durabilité) et intégrant train, avion, transports publics, autopartage et micro-mobilité, pour ses plus de 1,2 million de membres.",
+      "relevance": "Ce repositionnement stratégique d'un grand club automobile européen vers une identité de club de mobilité multimodale interroge le positionnement futur de l'ACL : faut-il élargir l'offre au-delà de l'automobile, vers la mobilité douce et les transports en commun, pour rester pertinent auprès des 191 000 membres ?",
+      "badge": "NOTABLE",
+      "url": "https://www.lautomobile.aci.it/attualita/aci-la-russa-al-meeting-di-rimini-sempre-piu-verso-un-mobility-club/"
+    },
     {
       "id": "2026-08-28-saaskia-web-j4dYaK",
       "club": "diegrenzgaenger.lu",
@@ -4681,17 +4785,17 @@
     }
   ],
   "trends": [
-    "Multiplication des tests de fiabilite des systemes de detection de presence d'enfants dans les vehicules (ADAC, TCS, OAMTC), en amont de la rentree scolaire et des pics de chaleur estivale.",
-    "Partenariats de reduction sur la recharge electrique publique (AA et Rightcharge) qui repondent au frein du cout et de la complexite tarifaire pour les automobilistes.",
-    "Tensions persistantes sur les prix des carburants dans plusieurs pays (Suisse au-dessus de 2 francs/litre, Allemagne impactee par le bas niveau du Rhin, Etats-Unis au-dessus de 4 dollars/gallon), alimentees par des facteurs geopolitiques et climatiques.",
-    "Digitalisation et fusion d'applications membres pour simplifier le parcours utilisateur (Touring fusionne Mobilis dans Assist, Roole modernise Roole Map).",
-    "Differences reglementaires transfrontalieres sur le controle technique (Flandre/Wallonie) et surveillance accrue des marges carburant par les autorites de la concurrence (RAC/CMA)."
+    "Repositionnement de plusieurs grands clubs vers une identite mobility club multimodale (ACI reaffirme sa strategie train/avion/transports publics/micro-mobilite au Meeting di Rimini), confirmant une tendance de fond deja observee les semaines precedentes.",
+    "Renouvellement des partenariats carburant a grande echelle pour rester competitif face a la concurrence des cartes de fidelite (ADAC remplace Shell par Esso apres pres de 20 ans de partenariat).",
+    "Diversification vers des produits de securite connectes payants au-dela de l'assistance classique (Roole et sa balise antivol Bluetooth/blockchain a 49 euros).",
+    "Consolidation financiere du secteur de l'assistance routiere au Royaume-Uni, avec une rumeur de rachat de l'AA par l'assureur Allianz pour environ 5 milliards de livres, en parallele d'une piste d'introduction en bourse.",
+    "Multiplication des campagnes d'engagement communautaire a faible cout (vote public ANWB sur les campings, desormais ouvert a toute l'Europe) pour dynamiser la relation membres sans investissement lourd."
   ],
   "signals": [
-    "Vers un controle technique moins frequent en Flandre (biennal) : a suivre si ce type d'evolution reglementaire s'etend a d'autres pays voisins du Luxembourg.",
-    "Les clubs automobiles transforment leurs donnees operationnelles d'assistance en contenu de communication a forte reprise mediatique (RACE et l'eclipse) : un potentiel similaire pour l'ACL a explorer.",
-    "Multiplication des demandes d'assouplissement reglementaire portees par les clubs automobiles (AA sur le permis automatique/manuel) : un role de porte-parole institutionnel a surveiller.",
-    "Montee des offres subventionnees de renouvellement de flotte pour menages modestes (noleggio sociale en Italie) : un modele a suivre pour d'eventuelles mesures similaires en Europe.",
-    "Repositionnement progressif des clubs automobiles vers une identite mobility club elargie au-dela de l'assistance auto (ACI) : tendance de fond a surveiller pour le positionnement de marque de l'ACL."
+    "Vers une consolidation actionnariale des grands clubs d'assistance routiere europeens (rachat potentiel de l'AA par un assureur) : a suivre pour anticiper d'eventuelles evolutions de gouvernance chez les partenaires internationaux de l'ACL (FIA, ARC Europe).",
+    "Emergence de produits antivol connectes payants (balise Roole) comme nouvelle source de revenus et de valeur ajoutee pour les clubs automobiles : un modele a evaluer pour l'ACL face aux vols transfrontaliers.",
+    "Diversification des canaux de distribution d'assurance via des comparateurs en ligne (AA rejoint Quotezone) : a surveiller comme piste de developpement commercial complementaire pour l'ACL.",
+    "Poursuite de la transformation identitaire mobility club chez les grands clubs europeens (ACI) : un signal a suivre pour le positionnement de marque a moyen terme de l'ACL au-dela de l'automobile.",
+    "Conseils pratiques saisonniers sur les paiements a l'etranger hors zone euro (OAMTC) : un format de contenu simple et a forte valeur perçue qui pourrait etre reproduit par l'ACL pour ses membres voyageant hors zone euro."
   ]
 }
