@@ -1,6 +1,83 @@
 {
-  "generated_at": "2026-08-24",
+  "generated_at": "2026-08-31",
   "items": [
+    {
+      "date": "2026-08-11",
+      "theme": "IA générative en marketing",
+      "titre": "Anthropic filigrane tout texte généré par Claude (conformité UE)",
+      "synthese": "Depuis le 2 août 2026, l'article 50 de l'AI Act impose aux fournisseurs d'IA de rendre identifiable le contenu généré par IA dans l'UE. Anthropic, signataire en juillet 2026 du Code de bonnes pratiques sur la transparence des contenus IA (environ 190 signataires), applique désormais un filigrane invisible (technique SynthID Text de Google DeepMind) à tout texte produit par Claude, partout dans le monde et pas seulement pour les utilisateurs européens. Ce marquage ne modifie ni le sens ni la qualité du texte et reste détectable même après copier-coller ou légères modifications ; une API de détection est prévue. Il couvre Claude.ai, l'API, Claude Code, Claude Cowork et Claude Tag, ainsi que les fichiers image (PNG, JPG, SVG) via le standard C2PA.",
+      "actionACL": "L'ACL étant basée au Luxembourg (UE), l'équipe Marcom doit documenter en interne quels contenus (newsletters, posts, communiqués) sont rédigés ou assistés par Claude/ChatGPT afin de rester alignée avec l'obligation de transparence de l'AI Act. Vérifier auprès du service juridique si une mention spécifique est requise dans la charte éditoriale ou les mentions légales du site.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "Euronews",
+          "url": "https://www.euronews.com/next/2026/08/11/eu-compliance-delivered-globally-anthropic-to-watermark-claudes-output-worldwide"
+        },
+        {
+          "name": "TechCrunch",
+          "url": "https://techcrunch.com/2026/08/11/anthropic-says-it-will-watermark-text-generated-by-its-ai-models/"
+        },
+        {
+          "name": "The Register",
+          "url": "https://www.theregister.com/ai-and-ml/2026/08/11/anthropic-pledges-to-embed-watermarks-to-help-discern-ai-slop-in-sop-to-eu/5285792"
+        },
+        {
+          "name": "Search Engine Journal",
+          "url": "https://www.searchenginejournal.com/anthropic-claude-watermarks-eu-ai-act-code/585355/"
+        }
+      ]
+    },
+    {
+      "date": "2026-08-10",
+      "theme": "IA générative en marketing",
+      "titre": "ChatGPT Business lance des sièges Premium à 125 $/mois",
+      "synthese": "Le 10 août 2026, OpenAI a annoncé un nouveau niveau d'abonnement Premium pour ChatGPT Business, généralisé le 25 août 2026, facturé 125 $ par utilisateur et par mois (100 $ en facturation annuelle) contre 25 $ pour le siège Standard. Le siège Premium offre 5 fois plus de capacité d'usage et supprime la limite de 5 heures, ce qui permet de mener des projets plus lourds : construction de campagnes marketing complètes à partir d'insights clients, analyse de performance, gros volumes de contenu. Les équipes peuvent combiner sièges Standard et Premium dans un même espace de travail selon les besoins de chaque collaborateur. Une promotion de lancement offrait 100 $ de crédits par siège Premium (jusqu'à 5 sièges) aux 10000 premiers clients éligibles, jusqu'au 20 août 2026.",
+      "actionACL": "Pour une équipe Marcom de taille réduite, comparer le coût d'un ou deux sièges Premium ChatGPT Business face aux abonnements déjà budgétés (Claude, Copy.ai, Jasper) avant toute migration, en réservant ce niveau premium aux seuls collaborateurs qui pilotent des campagnes volumineuses comme la segmentation des newsletters aux 191000 membres. Mesurer d'abord le taux d'usage réel des licences Standard actuelles avant de généraliser l'upgrade.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "OpenAI (blog officiel)",
+          "url": "https://openai.com/index/premium-seats-chatgpt-business/"
+        },
+        {
+          "name": "CIO.com",
+          "url": "https://www.cio.com/article/4207908/openai-targets-heavy-users-with-premium-chatgpt-business-seats.html"
+        },
+        {
+          "name": "The Decoder",
+          "url": "https://the-decoder.com/openai-introduces-125-premium-seats-for-chatgpt-business-as-agentic-ai-burns-through-more-tokens/"
+        },
+        {
+          "name": "Tech Times",
+          "url": "https://www.techtimes.com/articles/323905/20260811/chatgpt-business-adds-125-premium-seat-power-users-hitting-five-hour-cap.htm"
+        }
+      ]
+    },
+    {
+      "date": "2026-08-14",
+      "theme": "Design & branding",
+      "titre": "CapCut Design Studio : écosystème Skills et modèle Seedream 5.0 Pro",
+      "synthese": "Le 14 août 2026, ByteDance a annoncé une mise à niveau majeure de CapCut Design Studio, son outil de création visuelle par IA. Trois piliers structurent cette évolution : un canevas infini permettant une co-création en temps réel avec un agent IA, un nouvel écosystème Skills qui transforme les workflows répétitifs (mise en page, retouche produit) en modules réutilisables en un clic, et l'intégration du modèle d'image Seedream 5.0 Pro, classé numéro un du classement Text-to-Image d'Artificial Analysis. L'écosystème Skills est disponible immédiatement avec une bibliothèque de modèles de scénarios extensible, et la création de Skills personnalisées est ouverte à tous les utilisateurs. L'objectif affiché est d'apporter la puissance d'un studio de design professionnel directement dans le navigateur, sans compétence graphique requise, positionnant CapCut en concurrent direct de Canva et Adobe Express sur le segment du contenu marketing et social rapide.",
+      "actionACL": "Tester CapCut Design Studio sur un petit lot de visuels réseaux sociaux (Reels, Stories) pour évaluer la qualité, la rapidité et la cohérence de marque des sorties, en complément des outils déjà utilisés par l'équipe Marcom. Documenter les garde-fous de marque (couleurs ACL, logo, typographies) à fournir à l'agent IA avant tout usage récurrent afin d'éviter une dérive visuelle.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "GlobeNewswire (communiqué officiel)",
+          "url": "https://www.globenewswire.com/news-release/2026/08/14/3345553/0/en/capcut-design-studio-levels-up-new-skills-ecosystem-and-seedream-5-0-pro-model-bring-pro-grade-ai-design-to-everyone.html"
+        },
+        {
+          "name": "Technology Magazine",
+          "url": "https://technologymagazine.com/globenewswire/3345553"
+        },
+        {
+          "name": "Manila Times",
+          "url": "https://www.manilatimes.net/2026/08/15/tmt-newswire/globenewswire/capcut-design-studio-levels-up-new-skills-ecosystem-and-seedream-50-pro-model-bring-pro-grade-ai-design-to-everyone/2405961"
+        }
+      ]
+    },
     {
       "date": "2026-08-20",
       "theme": "Design & branding",
