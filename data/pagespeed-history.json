@@ -190,10 +190,10 @@
     "date": "2026-09-01",
     "acl": {
       "mobile": null,
-      "desktop": 50
+      "desktop": null
     },
     "auto": {
-      "mobile": 61,
+      "mobile": null,
       "desktop": null
     }
   }
