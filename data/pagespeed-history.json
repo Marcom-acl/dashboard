@@ -201,11 +201,11 @@
     "date": "2026-09-02",
     "acl": {
       "mobile": 39,
-      "desktop": 40
+      "desktop": 44
     },
     "auto": {
-      "mobile": 41,
-      "desktop": 76
+      "mobile": 55,
+      "desktop": 68
     }
   }
 ]
