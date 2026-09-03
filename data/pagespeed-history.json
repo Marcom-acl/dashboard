@@ -211,12 +211,12 @@
   {
     "date": "2026-09-03",
     "acl": {
-      "mobile": 25,
-      "desktop": 36
+      "mobile": 35,
+      "desktop": null
     },
     "auto": {
-      "mobile": 61,
-      "desktop": null
+      "mobile": null,
+      "desktop": 85
     }
   }
 ]
