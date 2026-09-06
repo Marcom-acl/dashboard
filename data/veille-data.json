@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-05",
+  "generated_at": "2026-09-06",
   "next_edition": "",
   "editions": [
     {
@@ -229,6 +229,10 @@
     {
       "date": "2026-09-05",
       "label": "Semaine du 2026-09-05"
+    },
+    {
+      "date": "2026-09-06",
+      "label": "Semaine du 2026-09-06"
     }
   ],
   "items": [
@@ -237,7 +241,7 @@
       "club": "virgule.lu (Wort.lu/FR)",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Le prix de l'essence 98 atteindra son niveau le plus élevé depuis juillet 2022 au Luxembourg, reflétant une tendance à la hausse des carburants.",
+      "content": "Le prix de l'essence 98 atteindra son niveau le plus élevé depuis juillet 2022 au Luxembourg, reflétant les tensions sur les marchés énergétiques mondiaux.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1788504727.564.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1788504727.564.pdf",
@@ -248,7 +252,7 @@
       "club": "virgule.lu (Wort.lu/FR)",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Article sur la vignette routière belge et les enjeux de régulation européenne en matière de mobilité transfrontalière.",
+      "content": "Position critique sur la vignette routière belge et le risque d'approbation européenne préalable, avec implications pour la mobilité transfrontalière.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1788504755.8031.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1788504755.8031.pdf",
@@ -258,8 +262,8 @@
       "id": "2026-09-04-saaskia-web-rcIQxC",
       "club": "Delano.lu",
       "category": "Veille presse LU",
-      "badge": "INFO",
-      "content": "Les véhicules hybrides rechargeables émettent près de cinq fois plus de CO2 que prévu, soulevant des questions sur leur efficacité environnementale réelle.",
+      "badge": "SURVEILLER",
+      "content": "Étude révélant que les véhicules hybrides rechargeables émettent près de cinq fois plus que prévu, remettant en question leur efficacité environnementale.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1788499133.2188.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1788499133.2188.pdf",
@@ -270,7 +274,7 @@
       "club": "chronicle.lu",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Le ministre Backes souligne que les transports publics sont un pilier essentiel de la stratégie de mobilité du Luxembourg.",
+      "content": "Le ministre Backes souligne le rôle essentiel des transports publics comme pilier fondamental de la mobilité luxembourgeoise.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1788499060.1222.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1788499060.1222.pdf",
@@ -281,7 +285,7 @@
       "club": "Agefi.lu",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Le Luxembourg poursuit sa coopération avec l'Union internationale des transports publics sur les thèmes de multimodalité, innovation et inclusion.",
+      "content": "Le Luxembourg poursuit sa coopération avec l'Union internationale des transports publics dans les domaines de la multimodalité, l'innovation et l'inclusion.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1788498970.2453.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1788498970.2453.pdf",
@@ -292,7 +296,7 @@
       "club": "luxtimes.lu (Wort.lu/en)",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Les prix du carburant diesel et essence dépassent la barre des 2 euros par litre au Luxembourg.",
+      "content": "Les prix du diesel et de l'essence dépassent la barre des 2 euros par litre au Luxembourg, impactant directement les automobilistes.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1788498938.0552.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1788498938.0552.pdf",
@@ -303,7 +307,7 @@
       "club": "Le Quotidien",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Article sur l'évolution constante des concepts de mobilité au Luxembourg et en Europe.",
+      "content": "Analyse des évolutions continues dans les concepts de mobilité luxembourgeoise et les enjeux de transport.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1788498860.234.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1788498860.234.pdf",
@@ -314,7 +318,7 @@
       "club": "d'Lëtzebuerger Land",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Focus sur les enjeux du secteur ferroviaire luxembourgeois et son développement.",
+      "content": "Article portant sur les enjeux ferroviaires et la politique de mobilité provinciale au Luxembourg.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1788498773.9866.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1788498773.9866.pdf",
@@ -324,8 +328,8 @@
       "id": "2026-09-04-saaskia-web-aZUsvE",
       "club": "L'Essentiel",
       "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Article sur les bornes de recharge et leur rôle dans l'anticipation des besoins de mobilité électrique.",
+      "badge": "INFO",
+      "content": "Développement de bornes de recharge anticipant l'évolution des besoins en mobilité électrique.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1788498704.5843.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1788498704.5843.pdf",
@@ -335,11 +339,22 @@
       "id": "2026-09-04-saaskia-web-Oz47XG",
       "club": "Woxx",
       "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Article traitant de la ponctualité des trains au Luxembourg et des améliorations attendues.",
+      "badge": "INFO",
+      "content": "Article sur l'amélioration de la ponctualité ferroviaire au Luxembourg.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1788498419.6066.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1788498419.6066.pdf",
+      "date": "2026-09-04"
+    },
+    {
+      "id": "2026-09-04-saaskia-web-xaKbJW",
+      "club": "Luxemburger Wort",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Guide sur les comportements à adopter en cas de danger sur la route et mesures de sécurité routière.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1788496733.2025.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1788496733.2025.pdf",
       "date": "2026-09-04"
     },
     {
