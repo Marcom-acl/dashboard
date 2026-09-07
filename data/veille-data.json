@@ -1,6 +1,6 @@
 {
   "generated_at": "2026-09-07",
-  "next_edition": "2026-09-14",
+  "next_edition": "",
   "editions": [
     {
       "date": "2026-05-03",
@@ -241,54 +241,92 @@
   ],
   "items": [
     {
-      "id": "2026-09-07-adac-1",
-      "date": "2026-08-26",
-      "club": "ADAC",
-      "category": "EU",
-      "content": "ADAC SE a conclu un partenariat pluriannuel avec Esso Deutschland, qui remplace Shell (partenaire depuis 20 ans) comme fournisseur de la remise carburant du programme d'avantages ADAC Vorteilswelt à partir du 1er septembre 2026. La remise est de 2 centimes par litre dans environ 1100 stations Esso jusqu'au 15 octobre 2026, puis 1 centime par litre; le partenariat Shell reste actif en parallèle jusqu'au 31 décembre 2026.",
-      "relevance": "Ce changement de partenaire carburant montre l'importance d'un avantage tangible et visible à la pompe pour la fidélisation des membres. L'ACL pourrait vérifier si ses propres accords carburant/mobilité offrent un bénéfice comparable et communiqué de façon aussi claire à ses membres.",
+      "id": "2026-09-07-saaskia-web-QuvjtG",
+      "club": "Le Quotidien",
+      "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "url": "https://presse.adac.de/meldungen/adac-se/das-unternehmen/adac-vorteilswelt-kooperation-mit-esso-deutschland.html"
+      "content": "Article sur la sécurité des enfants sur le chemin de l'école, abordant les mesures de prévention et les bonnes pratiques.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1788760701.4055.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1788760701.4055.pdf",
+      "date": "2026-09-07"
     },
     {
-      "id": "2026-09-07-adac-2",
-      "date": "2026-09-01",
-      "club": "ADAC",
-      "category": "EU",
-      "content": "A l'occasion de la rentrée scolaire, la fondation ADAC (ADAC Stiftung) publie une enquête nationale montrant que 19% des enfants du primaire sont conduits en voiture à l'école quotidiennement et 9% supplémentaires au moins un jour sur deux, alors que 58% des parents désapprouvent cette pratique et 61% jugent la circulation devant les écoles excessive. L'ADAC lance en parallèle sa campagne annuelle « Sicher zu Fuß zur Schule » promouvant les trajets à pied et les « bus pédestres ».",
-      "relevance": "Cette initiative combinant étude et campagne de sensibilisation à la sécurité aux abords des écoles pourrait servir de modèle pour une action équivalente de l'ACL au Luxembourg au moment de la rentrée, en s'appuyant sur des données chiffrées pour interpeller les parents et les pouvoirs publics.",
+      "id": "2026-09-07-saaskia-web-8IUM9K",
+      "club": "infogreen.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Reportage sur la rentrée scolaire et les initiatives pour sécuriser les abords des établissements scolaires au Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1788760587.7333.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1788760587.7333.pdf",
+      "date": "2026-09-07"
+    },
+    {
+      "id": "2026-09-07-saaskia-web-bhfqKk",
+      "club": "lesfrontaliers.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Article sur le retour de l'initiative GoGO VELO en faveur du développement de la mobilité cycliste au Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1788760469.8047.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1788760469.8047.pdf",
+      "date": "2026-09-07"
+    },
+    {
+      "id": "2026-09-07-saaskia-web-tCDGxT",
+      "club": "100komma7.lu",
+      "category": "Veille presse LU",
       "badge": "INFO",
-      "url": "https://presse.adac.de/meldungen/adac-stiftung/adac-stiftung/elterntaxi-paradox-mehrheit-der-eltern-dagegen---jedes-fuenfte-kind-wird-trotzdem-taeglich-zur-schule-gefahren.html"
+      "content": "Reportage sur la technologie Vehicle-to-Grid permettant aux véhicules électriques de réinjecter de l'électricité dans le réseau.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1788760420.0458.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1788760420.0458.pdf",
+      "date": "2026-09-07"
     },
     {
-      "id": "2026-09-07-tcs-1",
-      "date": "2026-08-19",
-      "club": "TCS",
-      "category": "EU",
-      "content": "Le TCS a publié une étude sur la fiabilité des systèmes de détection de présence d'enfants dans les véhicules, concluant qu'ils réduisent le risque d'oubli mais ne remplacent jamais la vigilance des adultes, l'habitacle pouvant devenir mortellement chaud en quelques minutes même par température modérée.",
-      "relevance": "Sujet transposable pour une campagne de sensibilisation ACL avant l'été, combinant test de technologies embarquées et rappel des bons réflexes ; l'ACL pourrait demander au TCS le protocole de test utilisé.",
+      "id": "2026-09-07-saaskia-web-gQ0YWX",
+      "club": "Luxemburger Wort",
+      "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "url": "https://www.presseportal.ch/fr/pm/100000091/100941649"
+      "content": "Tribune critiquant l'utilisation de la voiture pour les trajets scolaires et plaidant pour des alternatives de mobilité plus durables.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1788756266.72.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1788756266.72.pdf",
+      "date": "2026-09-07"
     },
     {
-      "id": "2026-09-07-tcs-2",
-      "date": "2026-09-01",
-      "club": "TCS",
-      "category": "EU",
-      "content": "Le TCS a célébré le 1er septembre ses 130 ans (fondé en 1896 par 205 cyclistes) et se présente comme le plus grand club de mobilité de Suisse, avec environ 1,65 million de membres et 2200 collaborateurs, actif désormais au-delà de la mobilité dans les domaines de la santé et de l'habitat.",
-      "relevance": "Ce modèle de diversification des services au-delà du dépannage automobile (santé, habitat) est une piste stratégique à étudier pour l'ACL afin d'élargir sa proposition de valeur membres sur le long terme.",
-      "badge": "NOTABLE",
-      "url": "https://www.presseportal.ch/fr/pm/100000091/100941879"
+      "id": "2026-09-07-saaskia-web-7VGW70",
+      "club": "Luxemburger Wort",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Interview sur le Luxembourg et ses atouts au-delà de la capitale et du secteur bancaire, incluant des thématiques de mobilité et d'événements.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1788757184.4029.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1788757184.4029.pdf",
+      "date": "2026-09-07"
     },
     {
-      "id": "2026-09-07-rac-1",
-      "date": "2026-09-01",
-      "club": "RAC",
-      "category": "EU",
-      "content": "Le gouvernement britannique a engagé le 1er septembre 2026 le démantèlement progressif de la remise de 5 pence par litre sur la taxe carburant (fuel duty), avec une première hausse de 1 penny, suivie de 2 pence en décembre 2026 et 2 pence en mars 2027. Le RAC souligne que le soulagement des automobilistes lié au maintien temporaire de cette remise sera de courte durée.",
-      "relevance": "Ce détricotage échelonné d'un allègement fiscal sur le carburant illustre une trajectoire de hausse progressive que l'ACL pourrait surveiller pour anticiper d'éventuelles évolutions similaires de la fiscalité carburant au Luxembourg ; question à poser aux autorités luxembourgeoises sur leur trajectoire prévue.",
-      "badge": "SURVEILLER",
-      "url": "https://www.rac.co.uk/drive/news/fuel-news/fuel-duty-changes-2026/"
+      "id": "2026-09-07-saaskia-web-jbrxwE",
+      "club": "infos.rtl.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Article d'actualité générale sur un sujet lié à la mobilité, sans détails spécifiques dans le titre.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1788760661.3216.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1788760661.3216.pdf",
+      "date": "2026-09-07"
+    },
+    {
+      "id": "2026-09-07-saaskia-web-YyUyGW",
+      "club": "Tageblatt",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Couverture du festival des véhicules anciens qui enregistre un succès record, évènement automobile traditionnel.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1788760501.6701.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1788760501.6701.pdf",
+      "date": "2026-09-07"
     },
     {
       "id": "2026-09-07-rac-2",
@@ -301,46 +339,6 @@
       "url": "https://media.rac.co.uk/latest-rac-statement-petrol-and-diesel-prices-rise-again"
     },
     {
-      "id": "2026-09-07-anwb-1",
-      "date": "2026-09-01",
-      "club": "ANWB",
-      "category": "EU",
-      "content": "Depuis le 1er septembre 2026, les abonnés actifs de la carte de recharge ANWB Laadpas bénéficient automatiquement de 10% de réduction sur le tarif ad hoc de Fastned, dans toute l'Europe et jusqu'au 31 décembre 2027, sans démarche supplémentaire.",
-      "relevance": "Ce partenariat renforce l'attractivité de la carte de recharge ANWB face aux réseaux de recharge rapide européens. L'ACL pourrait étudier la faisabilité d'un accord de réduction similaire avec un opérateur de recharge rapide pour ses membres électromobiles.",
-      "badge": "SURVEILLER",
-      "url": "https://www.anwb.nl/auto/elektrisch-rijden/laadpas-abonnement/veelgestelde-vragen"
-    },
-    {
-      "id": "2026-09-07-anwb-2",
-      "date": "2026-09-01",
-      "club": "ANWB",
-      "category": "EU",
-      "content": "Selon une enquête ANWB menée en juillet 2026 auprès de plus de 1000 automobilistes néerlandais, environ un quart d'entre eux subit une charge financière significative liée à la hausse des prix des carburants et 59% adaptent déjà leur usage de la voiture ; l'ANWB demande au gouvernement de renoncer à l'indexation annuelle des accises sur les carburants.",
-      "relevance": "Ce plaidoyer institutionnel sur le pouvoir d'achat automobile fait écho aux enjeux de fiscalité des carburants au Luxembourg. L'ACL pourrait comparer ces résultats à ses propres retours membres et envisager une position coordonnée au niveau des clubs automobiles européens (FIA) sur la fiscalité des carburants.",
-      "badge": "SURVEILLER",
-      "url": "https://www.automotive-online.nl/management/overig/2026/09/01/anwb-veel-autorijders-bezuinigen-door-gestegen-benzineprijzen/"
-    },
-    {
-      "id": "2026-09-07-aci-1",
-      "date": "2026-08-19",
-      "club": "ACI",
-      "category": "EU",
-      "content": "Du 21 au 26 août 2026, ACI a tenu un stand dédié aux nouvelles générations au Meeting de Rimini, avec un dispositif de réalité virtuelle à 360° pour l'éducation routière (Ready2Go), un simulateur de course inclusif permettant à des pilotes valides et en situation de handicap de concourir ensemble, et le lancement de sa nouvelle mascotte \"Mobi\" via une campagne de selfies sur les réseaux sociaux.",
-      "relevance": "Cette approche gamifiée et inclusive pour toucher les jeunes pourrait inspirer l'ACL dans ses actions de sensibilisation routière ; à évaluer : tester un simulateur inclusif ou une mascotte lors des prochains événements grand public de l'ACL.",
-      "badge": "SURVEILLER",
-      "url": "https://www.acilivornonews.it/2026/08/19/lautomobile-club-ditalia-dal-21-al-26-agosto-al-meeting-di-rimini-con-uno-spazio-che-guarda-soprattutto-alle-nuove-generazioni/"
-    },
-    {
-      "id": "2026-09-07-aci-2",
-      "date": "2026-09-01",
-      "club": "ACI",
-      "category": "EU",
-      "content": "Début septembre 2026, ACI (via L'Automobile) a publié les données du marché automobile italien d'août 2026 : 69 411 immatriculations (+3,2% sur un an), portant le cumul à 1 129 596 unités sur huit mois (+8,5%) ; les hybrides rechargeables (PHEV) atteignent une part record de 12,0% et les véhicules 100% électriques 6,4%.",
-      "relevance": "Ce ralentissement de la croissance des ventes aux particuliers malgré la progression continue des PHEV est un indicateur sectoriel utile pour comparer la dynamique du marché luxembourgeois et anticiper la demande de services liés à l'électrique (bornes, assistance batterie).",
-      "badge": "SURVEILLER",
-      "url": "https://www.lautomobile.aci.it/attualita/mercato-delle-auto-nuove-in-italia-ad-agosto-32/"
-    },
-    {
       "id": "2026-09-07-aci-3",
       "date": "2026-09-04",
       "club": "ACI",
@@ -351,26 +349,6 @@
       "url": "https://aci.gov.it/comunicati-stampa/il-gp-ditalia-di-f1-e-ancora-piu-green/"
     },
     {
-      "id": "2026-09-07-touring-1",
-      "date": "2026-08-18",
-      "club": "Touring Belgique",
-      "category": "EU",
-      "content": "A partir du 1er septembre 2026, la Flandre espace le controle technique automobile a tous les deux ans (au lieu d'un an) et porte de 15 jours a deux mois le delai pour reparer un defaut majeur, sans harmonisation avec la Wallonie et Bruxelles qui gardent leurs regles actuelles. Touring redoute un afflux de Wallons et Bruxellois vers les centres flamands ('tourisme du controle technique') et reclame des regles identiques sur tout le territoire.",
-      "relevance": "Illustre les tensions qui naissent d'une divergence reglementaire regionale en matiere de controle technique automobile ; l'ACL pourrait verifier si des ecarts comparables existent entre le Luxembourg et les regions limitrophes (Belgique, France, Allemagne) et si une note d'information aux membres frontaliers serait utile.",
-      "badge": "SURVEILLER",
-      "url": "https://www.vrt.be/vrtnws/fr/2026/08/18/controle-technique-touring-craint-un-tourisme-vers-la-flandr/"
-    },
-    {
-      "id": "2026-09-07-oeamtc-1",
-      "date": "2026-09-02",
-      "club": "ÖAMTC",
-      "category": "EU",
-      "content": "L'ÖAMTC réclame une régulation efficace du roaming pour la recharge des véhicules électriques, après une étude sur 18 grands opérateurs autrichiens montrant que dans 90% des cas les fournisseurs tiers concurrents paient des tarifs plus élevés que les clients propres de l'opérateur, avec des surcharges atteignant 118 à 142%, soit jusqu'à 2,5 fois le prix le plus bas à la même borne. Le directeur Ernst Kloboucnik demande une révision du règlement européen AFIR, la création d'autorités de contrôle nationales et un plafonnement des surcharges de roaming sur le modèle de la régulation du roaming téléphonique.",
-      "relevance": "La transparence tarifaire des bornes de recharge est un enjeu sectoriel dans toute l'UE, y compris pour les usagers luxembourgeois en itinérance transfrontalière. L'ACL pourrait envisager une étude comparative similaire sur les tarifs de recharge publique au Luxembourg/Grande Région et suivre la révision de l'AFIR prévue fin 2026.",
-      "badge": "NOTABLE",
-      "url": "https://www.presse-nachrichten.de/2026/09/02/oeamtc-fordert-wirksame-roaming-regulierung-fuer-das-laden-von-e-autos/"
-    },
-    {
       "id": "2026-09-07-oeamtc-2",
       "date": "2026-09-04",
       "club": "ÖAMTC",
@@ -379,26 +357,6 @@
       "relevance": "Le Luxembourg devra aussi transposer l'ETS2 dès 2028 et gérer l'impact social de la tarification carbone sur la mobilité individuelle. L'ACL pourrait s'appuyer sur cette position de l'ÖAMTC pour préparer ses propres recommandations au gouvernement luxembourgeois sur un mécanisme de compensation sociale lié à la mobilité.",
       "badge": "SURVEILLER",
       "url": "https://www.presse-nachrichten.de/2026/09/04/oeamtc-klima-sozialplan-muss-leistbare-mobilitaet-absichern/"
-    },
-    {
-      "id": "2026-09-07-aaa-1",
-      "date": "2026-09-01",
-      "club": "AAA",
-      "category": "Monde",
-      "content": "AAA annonce que le week-end du Labor Day 2026 est en passe d'établir un record de prix à la pompe pour cette période, la moyenne nationale atteignant 4,14 dollars le gallon (+4 cents sur une semaine), sous l'effet de la volatilité persistante dans le détroit d'Ormuz qui a poussé le brut vers 90 dollars le baril ; les écarts entre États restent marqués, de 5,78 dollars en Californie à 3,44 dollars dans l'Indiana.",
-      "relevance": "Ce suivi illustre comment un club automobile américain communique en temps réel sur les prix carburant et leurs causes géopolitiques ; l'ACL pourrait comparer cette méthodologie de communication avec son propre suivi des prix au Luxembourg et évaluer si une mise en perspective internationale renforcerait sa communication.",
-      "badge": "SURVEILLER",
-      "url": "https://newsroom.aaa.com/2026/09/labor-day-on-track-to-set-record-at-the-pump/"
-    },
-    {
-      "id": "2026-09-07-aaa-2",
-      "date": "2026-09-01",
-      "club": "AAA",
-      "category": "Monde",
-      "content": "AAA lance une communication de sécurité routière invitant les parents à ne pas faire passer trop tôt leurs enfants d'un siège auto adapté à la simple ceinture de sécurité, rappelant que le bon dispositif de retenue selon l'âge et la taille de l'enfant reste le facteur clé de protection en voiture.",
-      "relevance": "Cette campagne pédagogique sur les sièges auto est directement transposable : l'ACL pourrait évaluer une action de sensibilisation similaire auprès des familles luxembourgeoises, par exemple autour de la rentrée scolaire ou d'une semaine thématique sécurité enfant.",
-      "badge": "INFO",
-      "url": "https://newsroom.aaa.com/2026/09/dont-rush-growing-up-keep-kids-in-the-right-vehicle-restraint/"
     },
     {
       "id": "2026-09-04-saaskia-web-OOImfb",
@@ -610,6 +568,16 @@
       "date": "2026-09-03"
     },
     {
+      "id": "2026-09-07-oeamtc-1",
+      "date": "2026-09-02",
+      "club": "ÖAMTC",
+      "category": "EU",
+      "content": "L'ÖAMTC réclame une régulation efficace du roaming pour la recharge des véhicules électriques, après une étude sur 18 grands opérateurs autrichiens montrant que dans 90% des cas les fournisseurs tiers concurrents paient des tarifs plus élevés que les clients propres de l'opérateur, avec des surcharges atteignant 118 à 142%, soit jusqu'à 2,5 fois le prix le plus bas à la même borne. Le directeur Ernst Kloboucnik demande une révision du règlement européen AFIR, la création d'autorités de contrôle nationales et un plafonnement des surcharges de roaming sur le modèle de la régulation du roaming téléphonique.",
+      "relevance": "La transparence tarifaire des bornes de recharge est un enjeu sectoriel dans toute l'UE, y compris pour les usagers luxembourgeois en itinérance transfrontalière. L'ACL pourrait envisager une étude comparative similaire sur les tarifs de recharge publique au Luxembourg/Grande Région et suivre la révision de l'AFIR prévue fin 2026.",
+      "badge": "NOTABLE",
+      "url": "https://www.presse-nachrichten.de/2026/09/02/oeamtc-fordert-wirksame-roaming-regulierung-fuer-das-laden-von-e-autos/"
+    },
+    {
       "id": "2026-09-02-saaskia-web-4O3k1T",
       "club": "paperjam.lu",
       "category": "Veille presse LU",
@@ -751,6 +719,86 @@
       "url": "https://saaskia.keepcontact.lu/data/files/1788326498.4259.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1788326498.4259.pdf",
       "date": "2026-09-02"
+    },
+    {
+      "id": "2026-09-07-adac-2",
+      "date": "2026-09-01",
+      "club": "ADAC",
+      "category": "EU",
+      "content": "A l'occasion de la rentrée scolaire, la fondation ADAC (ADAC Stiftung) publie une enquête nationale montrant que 19% des enfants du primaire sont conduits en voiture à l'école quotidiennement et 9% supplémentaires au moins un jour sur deux, alors que 58% des parents désapprouvent cette pratique et 61% jugent la circulation devant les écoles excessive. L'ADAC lance en parallèle sa campagne annuelle « Sicher zu Fuß zur Schule » promouvant les trajets à pied et les « bus pédestres ».",
+      "relevance": "Cette initiative combinant étude et campagne de sensibilisation à la sécurité aux abords des écoles pourrait servir de modèle pour une action équivalente de l'ACL au Luxembourg au moment de la rentrée, en s'appuyant sur des données chiffrées pour interpeller les parents et les pouvoirs publics.",
+      "badge": "INFO",
+      "url": "https://presse.adac.de/meldungen/adac-stiftung/adac-stiftung/elterntaxi-paradox-mehrheit-der-eltern-dagegen---jedes-fuenfte-kind-wird-trotzdem-taeglich-zur-schule-gefahren.html"
+    },
+    {
+      "id": "2026-09-07-tcs-2",
+      "date": "2026-09-01",
+      "club": "TCS",
+      "category": "EU",
+      "content": "Le TCS a célébré le 1er septembre ses 130 ans (fondé en 1896 par 205 cyclistes) et se présente comme le plus grand club de mobilité de Suisse, avec environ 1,65 million de membres et 2200 collaborateurs, actif désormais au-delà de la mobilité dans les domaines de la santé et de l'habitat.",
+      "relevance": "Ce modèle de diversification des services au-delà du dépannage automobile (santé, habitat) est une piste stratégique à étudier pour l'ACL afin d'élargir sa proposition de valeur membres sur le long terme.",
+      "badge": "NOTABLE",
+      "url": "https://www.presseportal.ch/fr/pm/100000091/100941879"
+    },
+    {
+      "id": "2026-09-07-rac-1",
+      "date": "2026-09-01",
+      "club": "RAC",
+      "category": "EU",
+      "content": "Le gouvernement britannique a engagé le 1er septembre 2026 le démantèlement progressif de la remise de 5 pence par litre sur la taxe carburant (fuel duty), avec une première hausse de 1 penny, suivie de 2 pence en décembre 2026 et 2 pence en mars 2027. Le RAC souligne que le soulagement des automobilistes lié au maintien temporaire de cette remise sera de courte durée.",
+      "relevance": "Ce détricotage échelonné d'un allègement fiscal sur le carburant illustre une trajectoire de hausse progressive que l'ACL pourrait surveiller pour anticiper d'éventuelles évolutions similaires de la fiscalité carburant au Luxembourg ; question à poser aux autorités luxembourgeoises sur leur trajectoire prévue.",
+      "badge": "SURVEILLER",
+      "url": "https://www.rac.co.uk/drive/news/fuel-news/fuel-duty-changes-2026/"
+    },
+    {
+      "id": "2026-09-07-anwb-1",
+      "date": "2026-09-01",
+      "club": "ANWB",
+      "category": "EU",
+      "content": "Depuis le 1er septembre 2026, les abonnés actifs de la carte de recharge ANWB Laadpas bénéficient automatiquement de 10% de réduction sur le tarif ad hoc de Fastned, dans toute l'Europe et jusqu'au 31 décembre 2027, sans démarche supplémentaire.",
+      "relevance": "Ce partenariat renforce l'attractivité de la carte de recharge ANWB face aux réseaux de recharge rapide européens. L'ACL pourrait étudier la faisabilité d'un accord de réduction similaire avec un opérateur de recharge rapide pour ses membres électromobiles.",
+      "badge": "SURVEILLER",
+      "url": "https://www.anwb.nl/auto/elektrisch-rijden/laadpas-abonnement/veelgestelde-vragen"
+    },
+    {
+      "id": "2026-09-07-anwb-2",
+      "date": "2026-09-01",
+      "club": "ANWB",
+      "category": "EU",
+      "content": "Selon une enquête ANWB menée en juillet 2026 auprès de plus de 1000 automobilistes néerlandais, environ un quart d'entre eux subit une charge financière significative liée à la hausse des prix des carburants et 59% adaptent déjà leur usage de la voiture ; l'ANWB demande au gouvernement de renoncer à l'indexation annuelle des accises sur les carburants.",
+      "relevance": "Ce plaidoyer institutionnel sur le pouvoir d'achat automobile fait écho aux enjeux de fiscalité des carburants au Luxembourg. L'ACL pourrait comparer ces résultats à ses propres retours membres et envisager une position coordonnée au niveau des clubs automobiles européens (FIA) sur la fiscalité des carburants.",
+      "badge": "SURVEILLER",
+      "url": "https://www.automotive-online.nl/management/overig/2026/09/01/anwb-veel-autorijders-bezuinigen-door-gestegen-benzineprijzen/"
+    },
+    {
+      "id": "2026-09-07-aci-2",
+      "date": "2026-09-01",
+      "club": "ACI",
+      "category": "EU",
+      "content": "Début septembre 2026, ACI (via L'Automobile) a publié les données du marché automobile italien d'août 2026 : 69 411 immatriculations (+3,2% sur un an), portant le cumul à 1 129 596 unités sur huit mois (+8,5%) ; les hybrides rechargeables (PHEV) atteignent une part record de 12,0% et les véhicules 100% électriques 6,4%.",
+      "relevance": "Ce ralentissement de la croissance des ventes aux particuliers malgré la progression continue des PHEV est un indicateur sectoriel utile pour comparer la dynamique du marché luxembourgeois et anticiper la demande de services liés à l'électrique (bornes, assistance batterie).",
+      "badge": "SURVEILLER",
+      "url": "https://www.lautomobile.aci.it/attualita/mercato-delle-auto-nuove-in-italia-ad-agosto-32/"
+    },
+    {
+      "id": "2026-09-07-aaa-1",
+      "date": "2026-09-01",
+      "club": "AAA",
+      "category": "Monde",
+      "content": "AAA annonce que le week-end du Labor Day 2026 est en passe d'établir un record de prix à la pompe pour cette période, la moyenne nationale atteignant 4,14 dollars le gallon (+4 cents sur une semaine), sous l'effet de la volatilité persistante dans le détroit d'Ormuz qui a poussé le brut vers 90 dollars le baril ; les écarts entre États restent marqués, de 5,78 dollars en Californie à 3,44 dollars dans l'Indiana.",
+      "relevance": "Ce suivi illustre comment un club automobile américain communique en temps réel sur les prix carburant et leurs causes géopolitiques ; l'ACL pourrait comparer cette méthodologie de communication avec son propre suivi des prix au Luxembourg et évaluer si une mise en perspective internationale renforcerait sa communication.",
+      "badge": "SURVEILLER",
+      "url": "https://newsroom.aaa.com/2026/09/labor-day-on-track-to-set-record-at-the-pump/"
+    },
+    {
+      "id": "2026-09-07-aaa-2",
+      "date": "2026-09-01",
+      "club": "AAA",
+      "category": "Monde",
+      "content": "AAA lance une communication de sécurité routière invitant les parents à ne pas faire passer trop tôt leurs enfants d'un siège auto adapté à la simple ceinture de sécurité, rappelant que le bon dispositif de retenue selon l'âge et la taille de l'enfant reste le facteur clé de protection en voiture.",
+      "relevance": "Cette campagne pédagogique sur les sièges auto est directement transposable : l'ACL pourrait évaluer une action de sensibilisation similaire auprès des familles luxembourgeoises, par exemple autour de la rentrée scolaire ou d'une semaine thématique sécurité enfant.",
+      "badge": "INFO",
+      "url": "https://newsroom.aaa.com/2026/09/dont-rush-growing-up-keep-kids-in-the-right-vehicle-restraint/"
     },
     {
       "id": "2026-09-01-saaskia-web-M8uAMH",
@@ -1225,6 +1273,16 @@
       "url": "https://saaskia.keepcontact.lu/data/files/1787804852.8827.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787804852.8827.pdf",
       "date": "2026-08-27"
+    },
+    {
+      "id": "2026-09-07-adac-1",
+      "date": "2026-08-26",
+      "club": "ADAC",
+      "category": "EU",
+      "content": "ADAC SE a conclu un partenariat pluriannuel avec Esso Deutschland, qui remplace Shell (partenaire depuis 20 ans) comme fournisseur de la remise carburant du programme d'avantages ADAC Vorteilswelt à partir du 1er septembre 2026. La remise est de 2 centimes par litre dans environ 1100 stations Esso jusqu'au 15 octobre 2026, puis 1 centime par litre; le partenariat Shell reste actif en parallèle jusqu'au 31 décembre 2026.",
+      "relevance": "Ce changement de partenaire carburant montre l'importance d'un avantage tangible et visible à la pompe pour la fidélisation des membres. L'ACL pourrait vérifier si ses propres accords carburant/mobilité offrent un bénéfice comparable et communiqué de façon aussi claire à ses membres.",
+      "badge": "SURVEILLER",
+      "url": "https://presse.adac.de/meldungen/adac-se/das-unternehmen/adac-vorteilswelt-kooperation-mit-esso-deutschland.html"
     },
     {
       "id": "2026-08-26-saaskia-web-sx3mg6",
@@ -1931,6 +1989,26 @@
       "date": "2026-08-20"
     },
     {
+      "id": "2026-09-07-tcs-1",
+      "date": "2026-08-19",
+      "club": "TCS",
+      "category": "EU",
+      "content": "Le TCS a publié une étude sur la fiabilité des systèmes de détection de présence d'enfants dans les véhicules, concluant qu'ils réduisent le risque d'oubli mais ne remplacent jamais la vigilance des adultes, l'habitacle pouvant devenir mortellement chaud en quelques minutes même par température modérée.",
+      "relevance": "Sujet transposable pour une campagne de sensibilisation ACL avant l'été, combinant test de technologies embarquées et rappel des bons réflexes ; l'ACL pourrait demander au TCS le protocole de test utilisé.",
+      "badge": "SURVEILLER",
+      "url": "https://www.presseportal.ch/fr/pm/100000091/100941649"
+    },
+    {
+      "id": "2026-09-07-aci-1",
+      "date": "2026-08-19",
+      "club": "ACI",
+      "category": "EU",
+      "content": "Du 21 au 26 août 2026, ACI a tenu un stand dédié aux nouvelles générations au Meeting de Rimini, avec un dispositif de réalité virtuelle à 360° pour l'éducation routière (Ready2Go), un simulateur de course inclusif permettant à des pilotes valides et en situation de handicap de concourir ensemble, et le lancement de sa nouvelle mascotte \"Mobi\" via une campagne de selfies sur les réseaux sociaux.",
+      "relevance": "Cette approche gamifiée et inclusive pour toucher les jeunes pourrait inspirer l'ACL dans ses actions de sensibilisation routière ; à évaluer : tester un simulateur inclusif ou une mascotte lors des prochains événements grand public de l'ACL.",
+      "badge": "SURVEILLER",
+      "url": "https://www.acilivornonews.it/2026/08/19/lautomobile-club-ditalia-dal-21-al-26-agosto-al-meeting-di-rimini-con-uno-spazio-che-guarda-soprattutto-alle-nuove-generazioni/"
+    },
+    {
       "id": "2026-08-19-saaskia-web-U6w3EU",
       "club": "virgule.lu (Wort.lu/FR)",
       "category": "Veille presse LU",
@@ -1962,6 +2040,16 @@
       "url": "https://saaskia.keepcontact.lu/data/files/1787113974.4036.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1787113974.4036.pdf",
       "date": "2026-08-19"
+    },
+    {
+      "id": "2026-09-07-touring-1",
+      "date": "2026-08-18",
+      "club": "Touring Belgique",
+      "category": "EU",
+      "content": "A partir du 1er septembre 2026, la Flandre espace le controle technique automobile a tous les deux ans (au lieu d'un an) et porte de 15 jours a deux mois le delai pour reparer un defaut majeur, sans harmonisation avec la Wallonie et Bruxelles qui gardent leurs regles actuelles. Touring redoute un afflux de Wallons et Bruxellois vers les centres flamands ('tourisme du controle technique') et reclame des regles identiques sur tout le territoire.",
+      "relevance": "Illustre les tensions qui naissent d'une divergence reglementaire regionale en matiere de controle technique automobile ; l'ACL pourrait verifier si des ecarts comparables existent entre le Luxembourg et les regions limitrophes (Belgique, France, Allemagne) et si une note d'information aux membres frontaliers serait utile.",
+      "badge": "SURVEILLER",
+      "url": "https://www.vrt.be/vrtnws/fr/2026/08/18/controle-technique-touring-craint-un-tourisme-vers-la-flandr/"
     },
     {
       "id": "2026-08-18-saaskia-web-yZjX6r",
