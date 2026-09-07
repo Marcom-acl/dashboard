@@ -222,12 +222,12 @@
   {
     "date": "2026-09-07",
     "acl": {
-      "mobile": 41,
-      "desktop": 35
+      "mobile": 31,
+      "desktop": 34
     },
     "auto": {
-      "mobile": 58,
-      "desktop": 81
+      "mobile": 59,
+      "desktop": 68
     }
   }
 ]
