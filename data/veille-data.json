@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-07",
+  "generated_at": "2026-09-08",
   "next_edition": "",
   "editions": [
     {
@@ -237,15 +237,96 @@
     {
       "date": "2026-09-07",
       "label": "Semaine du 2026-09-07"
+    },
+    {
+      "date": "2026-09-08",
+      "label": "Semaine du 2026-09-08"
     }
   ],
   "items": [
+    {
+      "id": "2026-09-08-saaskia-web-p8xscx",
+      "club": "lessentiel.lu FR",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Article sur les agressions signalées dans les trains au Luxembourg. Enjeu de sécurité dans les transports publics luxembourgeois.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1788843632.0937.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1788843632.0937.pdf",
+      "date": "2026-09-08"
+    },
+    {
+      "id": "2026-09-08-saaskia-web-R1GCdo",
+      "club": "infogreen.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "ParcLuxite inaugure 94 bornes de recharge électrique à Kockelscheuer. Développement significatif de l'infrastructure de mobilité électrique au Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1788843585.176.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1788843585.176.pdf",
+      "date": "2026-09-08"
+    },
+    {
+      "id": "2026-09-08-saaskia-web-P5Afur",
+      "club": "infogreen.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Zero Motorcycles annonce l'arrivée de la charge rapide DC de niveau 3 pour 2027. Innovation technologique dans le secteur de la mobilité électrique.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1788843525.9803.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1788843525.9803.pdf",
+      "date": "2026-09-08"
+    },
+    {
+      "id": "2026-09-08-saaskia-web-UDiaL9",
+      "club": "Le Quotidien",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Article analysant les avantages fiscaux des voitures hybrides de société. Sujet fiscal et automobile au Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1788842475.5416.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1788842475.5416.pdf",
+      "date": "2026-09-08"
+    },
+    {
+      "id": "2026-09-08-saaskia-web-NrxMYs",
+      "club": "100komma7.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Un investisseur israélien propose d'utiliser l'usine VW d'Osnabrück pour produire des produits de défense. Enjeu automobile européen.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1788850423.8755.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1788850423.8755.pdf",
+      "date": "2026-09-08"
+    },
+    {
+      "id": "2026-09-08-saaskia-web-X5gZwN",
+      "club": "virgule.lu (Wort.lu/FR)",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Toyota vendra sa GT à perte, stratégie commerciale du constructeur. Actualité du marché automobile.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1788850442.6382.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1788850442.6382.pdf",
+      "date": "2026-09-08"
+    },
+    {
+      "id": "2026-09-08-saaskia-web-BYFuvV",
+      "club": "lessentiel.lu FR",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Jaguar Land Rover en crise supprime 4 000 postes au Royaume-Uni. Actualité du secteur automobile européen.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1788843543.0637.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1788843543.0637.pdf",
+      "date": "2026-09-08"
+    },
     {
       "id": "2026-09-07-saaskia-web-QuvjtG",
       "club": "Le Quotidien",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Article sur la sécurité des enfants sur le chemin de l'école, abordant les mesures de prévention et les bonnes pratiques.",
+      "content": "Article sur la sécurité des enfants sur le chemin de l'école. Sujet pertinent pour la sécurité routière au Luxembourg.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1788760701.4055.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1788760701.4055.pdf",
@@ -256,7 +337,7 @@
       "club": "infogreen.lu",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Reportage sur la rentrée scolaire et les initiatives pour sécuriser les abords des établissements scolaires au Luxembourg.",
+      "content": "Focus sur la sécurisation des abords des écoles lors de la rentrée scolaire. Enjeu de sécurité routière pertinent pour le Luxembourg.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1788760587.7333.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1788760587.7333.pdf",
@@ -267,7 +348,7 @@
       "club": "lesfrontaliers.lu",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Article sur le retour de l'initiative GoGO VELO en faveur du développement de la mobilité cycliste au Luxembourg.",
+      "content": "GoGO VELO, initiative en faveur du vélo, fait son retour. Programme de mobilité douce au Luxembourg.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1788760469.8047.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1788760469.8047.pdf",
@@ -277,8 +358,8 @@
       "id": "2026-09-07-saaskia-web-tCDGxT",
       "club": "100komma7.lu",
       "category": "Veille presse LU",
-      "badge": "INFO",
-      "content": "Reportage sur la technologie Vehicle-to-Grid permettant aux véhicules électriques de réinjecter de l'électricité dans le réseau.",
+      "badge": "SURVEILLER",
+      "content": "Article sur Vehicle-to-Grid : comment les voitures électriques peuvent réinjecter l'électricité dans le réseau. Tendance technologique pertinente pour la mobilité durable.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1788760420.0458.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1788760420.0458.pdf",
@@ -289,7 +370,7 @@
       "club": "Luxemburger Wort",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Tribune critiquant l'utilisation de la voiture pour les trajets scolaires et plaidant pour des alternatives de mobilité plus durables.",
+      "content": "Article argumentant que l'automobile ne devrait pas jouer un rôle dans le chemin scolaire. Débat sur la sécurité et la mobilité au Luxembourg.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1788756266.72.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1788756266.72.pdf",
@@ -300,10 +381,21 @@
       "club": "Luxemburger Wort",
       "category": "Veille presse LU",
       "badge": "INFO",
-      "content": "Interview sur le Luxembourg et ses atouts au-delà de la capitale et du secteur bancaire, incluant des thématiques de mobilité et d'événements.",
+      "content": "Article multithématique couvrant automobile, événements et mobilité au Luxembourg.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1788757184.4029.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1788757184.4029.pdf",
+      "date": "2026-09-07"
+    },
+    {
+      "id": "2026-09-07-saaskia-web-YyUyGW",
+      "club": "Tageblatt",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Oldtimerfestival en route vers le succès au Luxembourg. Événement automobile classique.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1788760501.6701.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1788760501.6701.pdf",
       "date": "2026-09-07"
     },
     {
@@ -315,17 +407,6 @@
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1788760661.3216.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1788760661.3216.pdf",
-      "date": "2026-09-07"
-    },
-    {
-      "id": "2026-09-07-saaskia-web-YyUyGW",
-      "club": "Tageblatt",
-      "category": "Veille presse LU",
-      "badge": "INFO",
-      "content": "Couverture du festival des véhicules anciens qui enregistre un succès record, évènement automobile traditionnel.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1788760501.6701.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1788760501.6701.pdf",
       "date": "2026-09-07"
     },
     {
