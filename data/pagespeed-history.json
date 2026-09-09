@@ -237,7 +237,7 @@
       "desktop": 50
     },
     "auto": {
-      "mobile": null,
+      "mobile": 54,
       "desktop": 67
     }
   }
