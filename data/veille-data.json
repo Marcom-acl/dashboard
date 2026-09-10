@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-09",
+  "generated_at": "2026-09-10",
   "next_edition": "",
   "editions": [
     {
@@ -245,15 +245,63 @@
     {
       "date": "2026-09-09",
       "label": "Semaine du 2026-09-09"
+    },
+    {
+      "date": "2026-09-10",
+      "label": "Semaine du 2026-09-10"
     }
   ],
   "items": [
+    {
+      "id": "2026-09-10-saaskia-web-wHfdyx",
+      "club": "100komma7.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Gestion de la circulation sur la Route 130 avec travaux parallèles en cours. Article sur la coordination des chantiers de la part de Ponts et Chaussées.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1789023337.3518.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789023337.3518.pdf",
+      "date": "2026-09-10"
+    },
+    {
+      "id": "2026-09-10-saaskia-web-gL2l0B",
+      "club": "infos.rtl.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Prix du diesel en France relevé à 2,29 euros. Impact potentiel sur les automobilistes frontaliers luxembourgeois.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1789017130.3092.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789017130.3092.pdf",
+      "date": "2026-09-10"
+    },
+    {
+      "id": "2026-09-10-saaskia-web-8tHcX9",
+      "club": "lequotidien.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Le prix du pétrole dépasse la barre des 100 dollars. Implications pour le marché énergétique et les carburants.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1789017102.1405.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789017102.1405.pdf",
+      "date": "2026-09-10"
+    },
+    {
+      "id": "2026-09-10-saaskia-web-tJez3l",
+      "club": "paperjam.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Au Luxembourg, aucun permis de conduire sans formation en auto-école n'est prévu. Point de politique de mobilité locale importante.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1789017030.957.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789017030.957.pdf",
+      "date": "2026-09-10"
+    },
     {
       "id": "2026-09-09-saaskia-web-vK4SK3",
       "club": "paperjam.lu",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Vers une fiscalité réduite pour les hybrides rechargeables au Luxembourg. Article sur les évolutions de la politique fiscale automobile concernant les véhicules hybrides rechargeables.",
+      "content": "Évolution vers une fiscalité réduite pour les véhicules hybrides rechargeables au Luxembourg. Mesure incitative pour la transition énergétique.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1788930163.597.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1788930163.597.pdf",
@@ -264,7 +312,7 @@
       "club": "Delano.lu",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Towards lower tax rates for plug-in hybrids. Discussion des réductions de taux d'imposition prévues pour les véhicules hybrides rechargeables au Luxembourg.",
+      "content": "Vers des taux d'imposition plus faibles pour les hybrides rechargeables. Anglais de l'article précédent sur la politique automobile luxembourgeoise.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1788930127.9392.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1788930127.9392.pdf",
@@ -275,7 +323,7 @@
       "club": "infogreen.lu",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Le Luxembourg poursuit sa coopération avec l'UITP pour les transports publics. Article sur les partenariats et initiatives de mobilité publique au Luxembourg.",
+      "content": "Le Luxembourg poursuit sa coopération avec l'UITP pour l'amélioration des transports publics. Enjeu stratégique de mobilité locale.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1788930057.7149.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1788930057.7149.pdf",
@@ -286,7 +334,7 @@
       "club": "Luxemburger Wort",
       "category": "Veille presse LU",
       "badge": "INFO",
-      "content": "Chinas Autoflut setzt Luxemburgs Zulieferer unter Druck. Article sur l'impact de la concurrence automobile chinoise sur les fournisseurs du secteur automobile luxembourgeois.",
+      "content": "Les fournisseurs automobiles luxembourgeois subissent une pression accrue due à l'afflux de voitures chinoises sur le marché.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1788928550.8995.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1788928550.8995.pdf",
@@ -304,44 +352,11 @@
       "date": "2026-09-09"
     },
     {
-      "id": "2026-09-08-saaskia-web-p8xscx",
-      "club": "lessentiel.lu FR",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Mobilité au Luxembourg: De plus en plus d'agressions signalées dans les trains. Article sur la sécurité et les incidents dans les transports en commun luxembourgeois.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1788843632.0937.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1788843632.0937.pdf",
-      "date": "2026-09-08"
-    },
-    {
-      "id": "2026-09-08-saaskia-web-R1GCdo",
-      "club": "infogreen.lu",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "ParcLuxite inaugure 94 bornes de recharge à Kockelscheuer. Article sur l'expansion de l'infrastructure de recharge pour véhicules électriques au Luxembourg.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1788843585.176.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1788843585.176.pdf",
-      "date": "2026-09-08"
-    },
-    {
-      "id": "2026-09-08-saaskia-web-UDiaL9",
-      "club": "Le Quotidien",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Voitures hybrides de société : les dessous de l'avantage fiscal. Article analysant les avantages fiscaux accordés aux véhicules hybrides de société au Luxembourg.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1788842475.5416.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1788842475.5416.pdf",
-      "date": "2026-09-08"
-    },
-    {
       "id": "2026-09-08-saaskia-web-X5gZwN",
       "club": "virgule.lu (Wort.lu/FR)",
       "category": "Veille presse LU",
       "badge": "INFO",
-      "content": "Toyota vendra sa GT à perte, mais ce n'est pas grave. Article sur la stratégie commerciale de Toyota concernant la vente de sa GT à prix réduit.",
+      "content": "Toyota vendra sa nouvelle GT à perte mais estime que c'est stratégiquement acceptable. Perspective sur la stratégie commerciale automobile.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1788850442.6382.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1788850442.6382.pdf",
@@ -352,10 +367,32 @@
       "club": "lessentiel.lu FR",
       "category": "Veille presse LU",
       "badge": "INFO",
-      "content": "Royaume-Uni: En crise, Jaguar Land Rover va supprimer 4 000 postes. Article sur les difficultés économiques et restructurations chez Jaguar Land Rover.",
+      "content": "Jaguar Land Rover annonce la suppression de 4 000 postes au Royaume-Uni face à une crise du secteur automobile.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1788843543.0637.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1788843543.0637.pdf",
+      "date": "2026-09-08"
+    },
+    {
+      "id": "2026-09-08-saaskia-web-p8xscx",
+      "club": "lessentiel.lu FR",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Augmentation du nombre d'agressions signalées dans les trains au Luxembourg. Enjeu de sécurité dans les transports publics locaux.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1788843632.0937.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1788843632.0937.pdf",
+      "date": "2026-09-08"
+    },
+    {
+      "id": "2026-09-08-saaskia-web-R1GCdo",
+      "club": "infogreen.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "ParcLuxite inaugure 94 nouvelles bornes de recharge à Kockelscheuer. Expansion significative de l'infrastructure de recharge EV au Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1788843585.176.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1788843585.176.pdf",
       "date": "2026-09-08"
     },
     {
@@ -363,10 +400,21 @@
       "club": "infogreen.lu",
       "category": "Veille presse LU",
       "badge": "INFO",
-      "content": "Zero Motorcycles annonce l'arrivée de la charge rapide DC de niveau 3 pour 2027. Article sur les innovations technologiques en matière de recharge rapide pour motos électriques.",
+      "content": "Zero Motorcycles annonce l'arrivée de la technologie de charge rapide DC niveau 3 pour 2027. Innovation en matière de recharge pour deux-roues électriques.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1788843525.9803.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1788843525.9803.pdf",
+      "date": "2026-09-08"
+    },
+    {
+      "id": "2026-09-08-saaskia-web-UDiaL9",
+      "club": "Le Quotidien",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Analyse des avantages fiscaux des voitures hybrides de société au Luxembourg. Enjeu important pour les politiques d'avantages automobiles.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1788842475.5416.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1788842475.5416.pdf",
       "date": "2026-09-08"
     },
     {
