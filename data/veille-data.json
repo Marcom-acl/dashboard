@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-12",
+  "generated_at": "2026-09-13",
   "next_edition": "",
   "editions": [
     {
@@ -257,6 +257,10 @@
     {
       "date": "2026-09-12",
       "label": "Semaine du 2026-09-12"
+    },
+    {
+      "date": "2026-09-13",
+      "label": "Semaine du 2026-09-13"
     }
   ],
   "items": [
@@ -265,7 +269,7 @@
       "club": "infos.rtl.lu",
       "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "content": "Article sur les tarifs différenciés au Luxembourg, catégorisé dans les domaines ACL, mobilité et politique.",
+      "content": "Article mentionnant l'ACL dans le contexte de tarification et mobilité au Luxembourg. Sujet relevant des politiques de transport et de tarifs.",
       "relevance": "ACL explicitement cité : \"ACL\"",
       "url": "https://saaskia.keepcontact.lu/data/files/1789109790.7071.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789109790.7071.pdf",
@@ -276,7 +280,7 @@
       "club": "lessentiel.lu FR",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Déclaration de Yuriko Backes sur la nécessité de désengorgement de l'A31 qui est saturée, abordant les enjeux de mobilité routière au Luxembourg.",
+      "content": "Déclaration de Yuriko Backes sur la saturation de l'A31 et le rôle de l'A31 bis pour décongestionner le trafic luxembourgeois.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1789104916.2712.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789104916.2712.pdf",
@@ -287,7 +291,7 @@
       "club": "rtl.lu",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Enquête Luxmobil-2025 sur les comportements de mobilité au Luxembourg.",
+      "content": "Enquête Luxmobil 2025 sur les tendances de mobilité au Luxembourg, source majeure de données sur les comportements de transport.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1789104880.0741.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789104880.0741.pdf",
@@ -298,7 +302,7 @@
       "club": "paperjam.lu",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Article présentant dix chiffres clés sur la mobilité au Luxembourg, tendances et statistiques.",
+      "content": "Article présentant dix chiffres clés sur la mobilité au Luxembourg, analyse synthétique des tendances de transport.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1789104844.6916.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789104844.6916.pdf",
@@ -309,7 +313,7 @@
       "club": "diegrenzgaenger.lu",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Analyse des changements du trafic au Luxembourg avec 140 minutes de pendaison quotidienne, évolution du secteur des transports.",
+      "content": "Analyse de l'évolution du trafic au Luxembourg avec focus sur les trajets pendulaires (140 minutes par jour en moyenne).",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1789104828.9324.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789104828.9324.pdf",
@@ -320,43 +324,10 @@
       "club": "chronicle.lu",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Résultats de l'enquête Luxmobil 2025 montrant une augmentation de 81% des trajets à vélo au Luxembourg.",
+      "content": "Résultats Luxmobil 2025 montrant une augmentation de 81% des trajets à vélo, tendance forte vers mobilité alternative.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1789104802.9486.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789104802.9486.pdf",
-      "date": "2026-09-11"
-    },
-    {
-      "id": "2026-09-11-saaskia-web-gxzhHc",
-      "club": "lessentiel.lu FR",
-      "category": "Veille presse LU",
-      "badge": "INFO",
-      "content": "Article sur la hausse du prix du diesel liée aux crises géopolitiques (Ormuz, Russie, Houthis).",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1789104777.0411.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789104777.0411.pdf",
-      "date": "2026-09-11"
-    },
-    {
-      "id": "2026-09-11-saaskia-web-NxkyMC",
-      "club": "100komma7.lu",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Retard constaté dans la planification du Pôle d'échange multimodal au Héienhaff/Findel, infrastructure de mobilité clé.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1789104754.5756.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789104754.5756.pdf",
-      "date": "2026-09-11"
-    },
-    {
-      "id": "2026-09-11-saaskia-web-faFEZA",
-      "club": "luxtimes.lu",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Les travailleurs allemands passent plus de deux heures par jour en trajets pendulaires vers le Luxembourg.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1789104726.8983.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789104726.8983.pdf",
       "date": "2026-09-11"
     },
     {
@@ -364,21 +335,21 @@
       "club": "Le Quotidien",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Enquête Luxmobil 2025 démontrant le recul progressif de la voiture comme mode de transport au Luxembourg.",
+      "content": "Enquête Luxmobil 2025 révélant que la voiture perd du terrain au Luxembourg, évolution significative des modes de transport.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1789104590.3616.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789104590.3616.pdf",
       "date": "2026-09-11"
     },
     {
-      "id": "2026-09-11-saaskia-web-Cah8jy",
-      "club": "Zeitung zum Lëtzebuerger Vollek",
+      "id": "2026-09-11-saaskia-web-faFEZA",
+      "club": "luxtimes.lu (Wort.lu/en)",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Résultats de l'enquête Luxmobil 2025 sur les tendances et comportements de mobilité.",
+      "content": "Article sur les trajets domicile-travail des travailleurs allemands vers le Luxembourg, dépassant deux heures quotidiennes de navette.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1789104517.8438.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789104517.8438.pdf",
+      "url": "https://saaskia.keepcontact.lu/data/files/1789104726.8983.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789104726.8983.pdf",
       "date": "2026-09-11"
     },
     {
@@ -386,32 +357,21 @@
       "club": "Tageblatt",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Étude montrant que 77% des Luxembourgeois sont satisfaits de leur trajet domicile-travail.",
+      "content": "Étude montrant que 77% des Luxembourgeois sont satisfaits de leur trajet domicile-travail selon l'enquête Luxmobil 2025.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1789104446.1148.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789104446.1148.pdf",
       "date": "2026-09-11"
     },
     {
-      "id": "2026-09-11-saaskia-web-IbUTPe",
-      "club": "L'Essentiel",
+      "id": "2026-09-11-saaskia-web-DSBI0x",
+      "club": "virgule.lu (Wort.lu/FR)",
       "category": "Veille presse LU",
       "badge": "INFO",
-      "content": "La Wallonie approuve l'introduction d'une vignette automobile à partir du 1er mai, mesure politique régionale.",
+      "content": "Présentation officielle de la nouvelle Audi A2 avec ses caractéristiques de design et spécifications.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1789104348.8895.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789104348.8895.pdf",
-      "date": "2026-09-11"
-    },
-    {
-      "id": "2026-09-11-saaskia-web-HndYl3",
-      "club": "L'Essentiel",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Croissance des modes de transport multimodal et du vélo au Luxembourg, tendances positives de mobilité.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1789104278.3257.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789104278.3257.pdf",
+      "url": "https://saaskia.keepcontact.lu/data/files/1789109766.0127.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789109766.0127.pdf",
       "date": "2026-09-11"
     },
     {
@@ -419,32 +379,76 @@
       "club": "L'Essentiel",
       "category": "Veille presse LU",
       "badge": "INFO",
-      "content": "Analyse comparative montrant que les véhicules électriques sont moins chers à l'usage que les véhicules thermiques.",
+      "content": "Comparaison économique entre véhicules électriques et thermiques, montrant un coût d'usage inférieur pour les électriques.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1789104122.8785.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789104122.8785.pdf",
       "date": "2026-09-11"
     },
     {
+      "id": "2026-09-11-saaskia-web-HndYl3",
+      "club": "L'Essentiel",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Article sur la progression des modes de transport multimodaux et du vélo au Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1789104278.3257.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789104278.3257.pdf",
+      "date": "2026-09-11"
+    },
+    {
+      "id": "2026-09-11-saaskia-web-Cah8jy",
+      "club": "Zeitung zum Lëtzebuerger Vollek",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Couverture de l'enquête Luxmobil 2025 dans la presse luxembourgeoise germanophone.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1789104517.8438.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789104517.8438.pdf",
+      "date": "2026-09-11"
+    },
+    {
       "id": "2026-09-11-saaskia-web-CejCcV",
       "club": "Luxemburger Wort",
       "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Article sur la satisfaction générale avec la mobilité au Luxembourg, résultats positifs d'études récentes.",
+      "badge": "INFO",
+      "content": "Article sur la satisfaction élevée concernant la mobilité au Luxembourg selon les résultats Luxmobil 2025.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1789101298.8253.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789101298.8253.pdf",
       "date": "2026-09-11"
     },
     {
-      "id": "2026-09-11-saaskia-web-DSBI0x",
-      "club": "virgule.lu",
+      "id": "2026-09-11-saaskia-web-NxkyMC",
+      "club": "100komma7.lu",
       "category": "Veille presse LU",
       "badge": "INFO",
-      "content": "Présentation officielle du nouvel Audi A2 avec ses caractéristiques de design et de conception.",
+      "content": "Information sur les retards dans les études pour la construction d'un Pôle d'échange planifié à Heienhaff près de l'aéroport du Findel.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1789109766.0127.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789109766.0127.pdf",
+      "url": "https://saaskia.keepcontact.lu/data/files/1789104754.5756.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789104754.5756.pdf",
+      "date": "2026-09-11"
+    },
+    {
+      "id": "2026-09-11-saaskia-web-gxzhHc",
+      "club": "lessentiel.lu FR",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Analyse des raisons de la hausse des prix du diesel : situation d'Ormuz, tensions russes et activités des Houthis.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1789104777.0411.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789104777.0411.pdf",
+      "date": "2026-09-11"
+    },
+    {
+      "id": "2026-09-11-saaskia-web-IbUTPe",
+      "club": "L'Essentiel",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Information sur le vote wallon concernant la vignette routière prévue pour le 1er mai.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1789104348.8895.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789104348.8895.pdf",
       "date": "2026-09-11"
     },
     {
