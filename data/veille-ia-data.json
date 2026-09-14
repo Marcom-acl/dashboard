@@ -1,6 +1,233 @@
 {
-  "generated_at": "2026-08-31",
+  "generated_at": "2026-09-14",
   "items": [
+    {
+      "date": "2026-08-05",
+      "theme": "CRM & member marketing",
+      "titre": "Fuite de données chez Beacon CRM : plus de 1000 associations caritatives touchées",
+      "synthese": "Le 27 juillet 2026, une clé d'accès AWS exposée publiquement dans du code JavaScript a permis à un attaquant de copier l'intégralité des bases de données de Beacon, un CRM britannique utilisé par plus de 1000 associations caritatives. L'intrusion a duré un peu plus d'une heure, a été détectée le 29 juillet, puis notifiée aux clients le 4 août. Les données potentiellement exposées incluent noms, emails, téléphones, historiques de dons et pièces jointes des membres et donateurs, sans données bancaires. Plusieurs organisations ont notifié l'autorité britannique de protection des données (ICO) ; aucune preuve de publication des données volées n'a été rapportée à ce stade.",
+      "actionACL": "Profiter de cet incident comme signal d'alerte pour auditer les pratiques de sécurité du ou des prestataires CRM/emailing de l'ACL (rotation des clés d'accès cloud, chiffrement des sauvegardes, gestion des secrets dans le code) avant qu'un incident similaire ne touche la base des 191 000 membres. Vérifier que le protocole interne de notification de violation de données (RGPD) est à jour et testé.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "SecurityWeek",
+          "url": "https://www.securityweek.com/over-1000-charities-hit-by-beacon-crm-data-breach/"
+        },
+        {
+          "name": "Infosecurity Magazine",
+          "url": "https://www.infosecurity-magazine.com/news/exposed-aws-key-data-charities/"
+        },
+        {
+          "name": "Cyber Security News",
+          "url": "https://cybersecuritynews.com/beacon-crm-database-theft/"
+        },
+        {
+          "name": "BankInfoSecurity",
+          "url": "https://www.bankinfosecurity.com/beacon-crm-widely-used-by-charities-suffers-data-breach-a-32420"
+        }
+      ]
+    },
+    {
+      "date": "2026-08-04",
+      "theme": "CRM & member marketing",
+      "titre": "Momentive lance des agents IA dédiés à la fidélisation des membres d'association",
+      "synthese": "Momentive Software, éditeur nord-américain de logiciels pour associations et ONG, a lancé le 4 août 2026 MomentiveIQ Agentic Workers, une suite d'agents IA spécialisés. Le premier, Membership Assistant, couvre tout le cycle de vie du membre : il détecte automatiquement les signaux de désengagement et prépare des séquences de relance (onboarding, renouvellement, réactivation) que le personnel doit valider avant envoi. Le second, Community Assistant, modère les espaces communautaires selon les règles internes de l'organisation, sans suppression automatique du contenu. Ce lancement, présenté à la conférence ASAE mi-août, confirme l'investissement du secteur associatif dans l'IA agentique pour la rétention des membres.",
+      "actionACL": "Tester un workflow similaire avec le CRM actuel de l'ACL : faire générer par une IA des propositions de relance pour les membres inactifs depuis 90 jours, à valider manuellement avant envoi, plutôt que d'attendre l'échéance annuelle de renouvellement. Suivre l'évolution de ces agents sectoriels pour évaluer, à moyen terme, une intégration chez le prestataire CRM de l'ACL.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "Momentive Software (communiqué officiel)",
+          "url": "https://momentivesoftware.com/press-releases/momentiveiq-agentic-workers/"
+        },
+        {
+          "name": "PR Newswire",
+          "url": "https://www.prnewswire.com/news-releases/momentive-software-brings-ai-agents-to-associations-and-nonprofits-with-launch-of-momentiveiq-agentic-workers-302841720.html"
+        },
+        {
+          "name": "Yahoo Finance",
+          "url": "https://finance.yahoo.com/technology/ai/articles/momentive-software-brings-ai-agents-130000383.html"
+        },
+        {
+          "name": "MarTech Series",
+          "url": "https://martechseries.com/predictive-ai/ai-platforms-machine-learning/momentive-software-brings-ai-agents-to-associations-and-nonprofits-with-launch-of-momentiveiq-agentic-workers/"
+        }
+      ]
+    },
+    {
+      "date": "2026-04-30",
+      "theme": "Social & Ads",
+      "titre": "Instagram et Facebook étendent la pénalité anti-repost aux photos et carrousels",
+      "synthese": "Depuis le 30 avril 2026, Meta a élargi aux photos et carrousels (Facebook et Instagram) la règle d'originalité jusque-là réservée aux Reels : les comptes qui republient du contenu sans transformation significative ne sont plus recommandés aux non-abonnés (fil, Explorer/Découvrir). L'évaluation se fait au niveau du compte sur une fenêtre glissante d'environ 30 jours ; un compte cumulant 10 reposts ou plus sur cette période est exclu des recommandations. Les créateurs de contenu original constatent 40 à 60% de reach en plus. Le contenu reposté n'est pas supprimé, il reste visible pour les abonnés mais perd sa visibilité auprès des non-abonnés.",
+      "actionACL": "Auditer les visuels recyclés (contenus partenaires, presse, sponsors, sécurité routière) publiés sur les comptes Facebook/Instagram de l'ACL et systématiser un habillage original (commentaire, mise en contexte locale, montage) plutôt qu'un simple repartage. Prioriser la production de photos/vidéos originales lors des événements ACL et surveiller le taux de reach via les outils natifs Meta.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "PetaPixel",
+          "url": "https://petapixel.com/2026/04/30/new-instagram-policies-target-reposted-content/"
+        },
+        {
+          "name": "Dataconomy",
+          "url": "https://dataconomy.com/2026/05/04/reposted-photos-and-carousels-now-face-reach-penalties-on-instagram/"
+        },
+        {
+          "name": "MediaPost",
+          "url": "https://www.mediapost.com/publications/article/414773/instagram-algorithm-update-discourages-reposted-co.html"
+        },
+        {
+          "name": "Engadget",
+          "url": "https://www.engadget.com/2160560/instagrams-recommendation-algorithm-will-penalize-unoriginal-photo-and-carousel-posts/"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-10",
+      "theme": "Social & Ads",
+      "titre": "Publicité Meta 2026 : l'automobile en tête du ROAS, l'assurance à la traîne sur le CTR",
+      "synthese": "Plusieurs agrégateurs de benchmarks Meta Ads 2026 (Digital Applied, Rule1, Visible Factors) convergent sur un ROAS médian tous secteurs d'environ 1,9x, avec le secteur automobile nettement en tête (ROAS autour de 2,5x et CPM parmi les plus bas, environ 10 dollars). À l'inverse, les secteurs finance et assurance affichent un CTR sous la barre du 1% et des CPC parmi les plus élevés du marché, signe d'une enchère très concurrentielle sur un cycle d'achat à forte réflexion. Ces chiffres, issus d'agrégateurs marketing et non d'une source unique officielle Meta, restent des ordres de grandeur à interpréter avec prudence mais convergent entre plusieurs analyses indépendantes.",
+      "actionACL": "Utiliser ces repères sectoriels pour calibrer les objectifs de CPC/CTR/ROAS des campagnes Meta de l'ACL (assistance dépannage à forte affinité automobile vs. produits d'assurance/services membres à cycle de décision plus long) et challenger les prestataires média sur des objectifs réalistes. Mettre en place un suivi trimestriel comparant les performances propres de l'ACL à ces références.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "INFO",
+      "sources": [
+        {
+          "name": "Digital Applied",
+          "url": "https://www.digitalapplied.com/blog/facebook-ads-benchmarks-2026-cpc-cpm-ctr-industry"
+        },
+        {
+          "name": "Rule1",
+          "url": "https://rule1.ai/articles/facebook-ads-benchmarks"
+        },
+        {
+          "name": "Visible Factors",
+          "url": "https://visiblefactors.com/facebook-ads-benchmarks/"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-28",
+      "theme": "Design & branding",
+      "titre": "Étude : la moitié des design systems open source restent illisibles pour les IA",
+      "synthese": "Une étude de terrain publiée fin juillet 2026 par l'ingénieur design Kaelig Deloumeau-Prigent a analysé 20 design systems open source sur 6 plateformes pour évaluer leur lisibilité par les agents IA : 187 affordances et 157 techniques de contrainte ont été recensées, chaque extrait relié à sa source. 19 des 20 systèmes exposent désormais un serveur MCP et 18 fournissent des agent skills, mais seuls 2 intègrent Figma Code Connect, ce qui montre que le pont entre l'outil de design et le code reste le maillon faible. L'étude, relayée début septembre par la newsletter Smashing Magazine, souligne que sans documentation lisible par une machine (tokens, fichier llms.txt, spécifications de composants), les outils IA génèrent des éléments plausibles mais hors charte graphique.",
+      "actionACL": "Demander à l'agence ou à l'équipe digitale un état des lieux du design system du site et des apps ACL (tokens, composants, gabarits) et vérifier s'il est documenté de façon lisible par une IA avant de généraliser l'usage d'outils IA en interne pour la création de visuels. Désigner un responsable unique de la cohérence visuelle, chargé de valider tout élément généré par IA avant publication.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "GitHub (kaelig/state-of-ai-in-design-systems)",
+          "url": "https://github.com/kaelig/state-of-ai-in-design-systems"
+        },
+        {
+          "name": "State of AI in Design Systems (rapport complet)",
+          "url": "https://state-of-ai-in-design-systems.netlify.app/"
+        },
+        {
+          "name": "Smashing Magazine (newsletter #574)",
+          "url": "https://www.smashingmagazine.com/the-smashing-newsletter/smashing-newsletter-issue-574/"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-10",
+      "theme": "Design & branding",
+      "titre": "Identité visuelle : bien cadrer le brief stratégique avant le premier concept",
+      "synthese": "Sur Smashing Magazine (10 juillet 2026), la directrice artistique Anastasia Sycheva (Feely Studio) détaille la phase de pré-concept de l'identité visuelle : avant d'esquisser un logo, l'équipe doit transformer des mots de brief flous (moderne, fiable, premium, proche des gens) en critères visuels partagés avec les parties prenantes. L'article explique qu'un échec de branding se joue le plus souvent en amont, dans la phase stratégique, quand ces mots ne sont jamais définis concrètement. La méthode proposée : ateliers pour faire émerger les hypothèses cachées des parties prenantes, cartographie du contexte de marque, puis traduction en direction visuelle documentée avant le premier concept graphique.",
+      "actionACL": "Si un rafraîchissement de la charte ACL est envisagé, s'inspirer de cette méthode pour organiser un atelier de cadrage avec la direction et le terrain, afin de traduire des mots comme fiable, proche des membres ou moderne en critères visuels concrets avant toute piste graphique. Conserver ce cadrage écrit comme référence pour toute agence externe sollicitée par la suite.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "INFO",
+      "sources": [
+        {
+          "name": "Smashing Magazine",
+          "url": "https://www.smashingmagazine.com/2026/07/how-turn-brand-strategy-into-visual-direction/"
+        },
+        {
+          "name": "daily.dev (relai de l'article)",
+          "url": "https://daily.dev/posts/from-kickoff-to-first-concept-how-to-turn-brand-strategy-into-visual-direction-smashing-magazine-uc6clmikq"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-02",
+      "theme": "IA générative en marketing",
+      "titre": "Anthropic lance un blueprint d'agents IA de commerce avec Shopify, Visa, Mastercard",
+      "synthese": "Le 2 septembre 2026, Anthropic a publié un blueprint open source permettant aux enseignes, voyagistes et plateformes de billetterie de construire des agents IA de commerce sur Claude, avec Shopify, Visa, Mastercard et Accenture comme partenaires de lancement. Le blueprint fournit deux agents de référence : un agent acheteur qui recherche des produits, compare et prépare le panier, et un agent marchand qui gère le catalogue, l'inventaire, la tarification et les promotions. Anthropic revendique, chez les commerçants ayant déjà déployé ces agents (Shopify, Priceline), des paniers jusqu'à 35% plus élevés et un taux de transformation en hausse d'environ 60%, des chiffres internes non vérifiés de façon indépendante. Le déploiement est possible via l'API Claude, Amazon Bedrock, Microsoft Foundry ou Google Vertex.",
+      "actionACL": "Suivre ce signal sans agir dans l'immédiat : la boutique en ligne et les offres de services de l'ACL (assurance, dépannage, voyages) pourraient à terme bénéficier d'un agent conversationnel similaire pour guider les membres. Conserver ces chiffres de ROI annoncés comme référence pour un futur argumentaire interne si un projet d'agent conversationnel est envisagé.",
+      "horizon": "long terme (12+ mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "PYMNTS",
+          "url": "https://www.pymnts.com/news/artificial-intelligence/2026/anthropic-built-the-shopping-brain-and-skipped-the-wallet/"
+        },
+        {
+          "name": "Finextra",
+          "url": "https://www.finextra.com/newsarticle/48346/anthropic-launches-ai-commerce-agents-with-visa-and-mastercard"
+        },
+        {
+          "name": "Digital Commerce 360",
+          "url": "https://www.digitalcommerce360.com/2026/09/02/anthropic-debuts-claude-features-focused-on-agentic-commerce/"
+        },
+        {
+          "name": "Crowdfund Insider",
+          "url": "https://www.crowdfundinsider.com/2026/09/306341-anthropic-unveils-claude-commerce-agents-partners-with-visa-and-mastercard/"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-09",
+      "theme": "IA générative en marketing",
+      "titre": "WRITER lance Enterprise Brain, une couche de contexte partagée pour agents marketing",
+      "synthese": "Le 9 septembre 2026, la plateforme d'IA agentique WRITER a dévoilé Enterprise Brain, une couche de contexte qui capture en temps réel la marque, les connaissances internes, la logique de décision et les données business d'une entreprise pour les rendre exploitables par tous les agents IA et toutes les équipes marketing. Le produit inclut Agent Memory, une mémoire d'équipe persistante déjà disponible, et une couche de conformité de marque qui applique automatiquement les règles éditoriales aux contenus générés (fonctionnalité en accès anticipé). WRITER cible d'abord de grandes entreprises pour unifier marketing et relation client autour d'un parcours agentique cohérent. La CEO May Habib souligne que l'IA générique produit des parcours clients génériques, la différenciation venant du contexte propriétaire injecté dans les agents.",
+      "actionACL": "Retenir le principe plutôt que l'outil : documenter la voix de marque, le ton et les règles éditoriales de l'ACL dans un espace structuré et réutilisable, afin que tout usage futur de Claude/ChatGPT par le Marcom reste cohérent avec l'identité de marque. Surveiller l'apparition d'offres équivalentes plus abordables pour petites structures avant tout investissement.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "WRITER (blog officiel)",
+          "url": "https://writer.com/blog/enterprise-brain/"
+        },
+        {
+          "name": "SiliconANGLE",
+          "url": "https://siliconangle.com/2026/09/09/writer-launches-universal-touchpoint-for-enterprise-information-and-memory-for-ai/"
+        },
+        {
+          "name": "Yahoo Finance",
+          "url": "https://finance.yahoo.com/technology/ai/articles/writer-unveils-enterprise-brain-first-130000144.html"
+        },
+        {
+          "name": "SalesTechStar",
+          "url": "https://salestechstar.com/price-optimization-revenue-management/writer-unveils-enterprise-brain-the-first-universal-context-layer-to-power-the-agentic-customer-journey/"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-09",
+      "theme": "IA générative en marketing",
+      "titre": "Klaviyo ouvre son CRM aux agents IA via plus de 260 outils MCP",
+      "synthese": "Lors de sa conférence K:BOS 2026 (9 septembre), Klaviyo a annoncé une architecture headless ouvrant sa plateforme CRM/emailing à plus de 260 outils MCP (Model Context Protocol) et 490 API, rendant données clients et workflows directement accessibles depuis Claude, ChatGPT ou tout autre agent IA. Les marketeurs peuvent interroger leurs données en langage naturel ou laisser un agent rédiger et publier un rapport de performance sans ouvrir l'interface Klaviyo. L'annonce introduit aussi des modèles de personnalisation spécialisés et une couche SQL au sein de la plateforme de données Klaviyo. Elle illustre une tendance de fond où les plateformes marketing ne supposent plus qu'un humain pilote directement l'outil, l'IA générative devenant un canal d'exécution à part entière.",
+      "actionACL": "Vérifier si l'outil d'emailing/CRM actuel de l'ACL propose ou prévoit un accès équivalent via MCP/agent IA, afin d'anticiper une automatisation de la segmentation et de la personnalisation des communications membres. Tester, à titre exploratoire, l'usage de Claude pour générer des briefs de campagne ou des rapports de performance à partir des données existantes, sans ressaisie manuelle.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "Klaviyo (blog officiel)",
+          "url": "https://www.klaviyo.com/blog/kbos-2026-autonomous-platform-updates"
+        },
+        {
+          "name": "StockTitan",
+          "url": "https://www.stocktitan.net/news/KVYO/klaviyo-goes-headless-opening-its-platform-to-agents-and-marketers-cxakye1jutv0.html"
+        },
+        {
+          "name": "MarTech Series",
+          "url": "https://martechseries.com/sales-marketing/crm/klaviyo-goes-headless-opening-its-platform-to-agents-and-marketers-wherever-they-work/"
+        },
+        {
+          "name": "The Agile Brand Guide",
+          "url": "https://agilebrandguide.com/klaviyo-goes-headless-opening-its-platform-to-agents-and-marketers-wherever-they-work/"
+        }
+      ]
+    },
     {
       "date": "2026-08-11",
       "theme": "IA générative en marketing",
