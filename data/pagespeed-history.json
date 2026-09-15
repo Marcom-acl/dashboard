@@ -266,11 +266,11 @@
   {
     "date": "2026-09-15",
     "acl": {
-      "mobile": 42,
-      "desktop": 47
+      "mobile": 48,
+      "desktop": 29
     },
     "auto": {
-      "mobile": 34,
+      "mobile": 57,
       "desktop": null
     }
   }
