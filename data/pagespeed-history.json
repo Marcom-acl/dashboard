@@ -270,8 +270,8 @@
       "desktop": 47
     },
     "auto": {
-      "mobile": null,
-      "desktop": 70
+      "mobile": 34,
+      "desktop": null
     }
   }
 ]
