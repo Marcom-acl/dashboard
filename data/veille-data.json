@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-15",
+  "generated_at": "2026-09-16",
   "next_edition": "",
   "editions": [
     {
@@ -269,9 +269,156 @@
     {
       "date": "2026-09-15",
       "label": "Semaine du 2026-09-15"
+    },
+    {
+      "date": "2026-09-16",
+      "label": "Semaine du 2026-09-16"
     }
   ],
   "items": [
+    {
+      "id": "2026-09-16-saaskia-web-hNAQdq",
+      "club": "virgule.lu (Wort.lu/FR)",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Le Tour de Luxembourg cycliste soulève des préoccupations de sécurité pour les organisateurs lors du départ de l'événement.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1789541989.1571.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789541989.1571.pdf",
+      "date": "2026-09-16"
+    },
+    {
+      "id": "2026-09-16-saaskia-web-cxVnpx",
+      "club": "100komma7.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "448 protocoles d'infraction ont été dressés pour abus de la voie de covoiturage, illustrant les problèmes de respect des règles de circulation.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1789534785.6143.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789534785.6143.pdf",
+      "date": "2026-09-16"
+    },
+    {
+      "id": "2026-09-16-saaskia-web-nyPkDh",
+      "club": "Le Quotidien",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Sur l'A3, 448 automobilistes ont été sanctionnés pour violation de la voie de covoiturage, indiquant un besoin de sensibilisation aux règles.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1789534957.9407.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789534957.9407.pdf",
+      "date": "2026-09-16"
+    },
+    {
+      "id": "2026-09-16-saaskia-web-if4Urx",
+      "club": "Le Quotidien",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Les prix des carburants atteignent des niveaux élevés, affectant significativement le budget des ménages et des entreprises luxembourgeoises.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1789535043.2954.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789535043.2954.pdf",
+      "date": "2026-09-16"
+    },
+    {
+      "id": "2026-09-16-saaskia-web-FTRxw7",
+      "club": "wort.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Une fermeture de route aux voitures est mise en place pour favoriser la circulation des cyclistes, reflétant une évolution des politiques de mobilité.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1789535099.0058.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789535099.0058.pdf",
+      "date": "2026-09-16"
+    },
+    {
+      "id": "2026-09-15-saaskia-web-axiR5G",
+      "club": "Tageblatt",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Des conseils sont fournis pour assurer la sécurité des enfants lors de leurs trajets vers l'école.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1789447502.5584.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789447502.5584.pdf",
+      "date": "2026-09-15"
+    },
+    {
+      "id": "2026-09-15-saaskia-web-a25PgG",
+      "club": "L'Essentiel",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Les aides à la pompe n'ont pas encore été augmentées malgré la hausse continue des prix des carburants au Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1789447369.5801.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789447369.5801.pdf",
+      "date": "2026-09-15"
+    },
+    {
+      "id": "2026-09-15-saaskia-web-TI50L7",
+      "club": "L'Essentiel",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Un propriétaire de véhicule électrique se voit refuser l'accès à la vignette résident, soulevant des questions sur les politiques de stationnement.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1789447307.4498.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789447307.4498.pdf",
+      "date": "2026-09-15"
+    },
+    {
+      "id": "2026-09-15-saaskia-web-VTGUvA",
+      "club": "100komma7.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "La Sécurité Routière appelle à une plus grande attention sur les routes lors de la rentrée scolaire.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1789445563.9182.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789445563.9182.pdf",
+      "date": "2026-09-15"
+    },
+    {
+      "id": "2026-09-15-saaskia-web-xxJmMF",
+      "club": "tageblatt.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Des recommandations sont proposées pour que les enfants se déplacent en sécurité à pied vers l'école.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1789445515.5962.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789445515.5962.pdf",
+      "date": "2026-09-15"
+    },
+    {
+      "id": "2026-09-15-saaskia-web-VtXA6W",
+      "club": "infos.rtl.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Les prix des carburants atteignent des sommets, impactant les dépenses de mobilité des résidents.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1789445482.6221.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789445482.6221.pdf",
+      "date": "2026-09-15"
+    },
+    {
+      "id": "2026-09-15-saaskia-web-sLQEgk",
+      "club": "Merkur",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Un article explore les stratégies de réduction des émissions directes liées aux activités de mobilité.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1789445408.191.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789445408.191.pdf",
+      "date": "2026-09-15"
+    },
+    {
+      "id": "2026-09-15-saaskia-web-CRn674",
+      "club": "Merkur",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Un article analyse les perspectives d'avenir du secteur des transports et son évolution.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1789445322.5561.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789445322.5561.pdf",
+      "date": "2026-09-15"
+    },
     {
       "id": "2026-09-15-saaskia-web-pVPHsX",
       "club": "contacto.lu (Wort.lu/PT)",
@@ -284,92 +431,81 @@
       "date": "2026-09-15"
     },
     {
-      "id": "2026-09-15-saaskia-web-axiR5G",
-      "club": "Tageblatt",
+      "id": "2026-09-14-saaskia-web-cMxExP",
+      "club": "paperjam.lu",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Conseils de sécurité pour le trajet scolaire des enfants au Luxembourg, notamment sur les précautions à prendre en tant que piéton.",
+      "content": "La voiture conserve une place importante dans la stratégie de mobilité du Plan National de Mobilité 2040 du Luxembourg.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1789447502.5584.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789447502.5584.pdf",
-      "date": "2026-09-15"
+      "url": "https://saaskia.keepcontact.lu/data/files/1789363422.5865.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789363422.5865.pdf",
+      "date": "2026-09-14"
     },
     {
-      "id": "2026-09-15-saaskia-web-a25PgG",
+      "id": "2026-09-14-saaskia-web-buU0RA",
+      "club": "Le Quotidien",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "La vignette belge pour véhicules sera mise en place à partir du 1er mai 2027, affectant les automobilistes luxembourgeois traversant la Belgique.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1789363579.6573.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789363579.6573.pdf",
+      "date": "2026-09-14"
+    },
+    {
+      "id": "2026-09-14-saaskia-web-GvFcxH",
+      "club": "Le Quotidien",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Une opération de contrôle routier a mené à 38 infractions et à la saisie de 10 véhicules.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1789363677.9015.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789363677.9015.pdf",
+      "date": "2026-09-14"
+    },
+    {
+      "id": "2026-09-14-saaskia-web-4LxshL",
+      "club": "virgule.lu (Wort.lu/FR)",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Le ministère explique les raisons du retard du pôle d'échange Héienhaff, un hub de mobilité important pour le Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1789363773.8768.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789363773.8768.pdf",
+      "date": "2026-09-14"
+    },
+    {
+      "id": "2026-09-14-saaskia-web-TGt45N",
+      "club": "chronicle.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Luxembourg City dévoile son programme pour la Semaine Européenne de la Mobilité, promouvant des alternatives de transport durables.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1789363808.0569.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789363808.0569.pdf",
+      "date": "2026-09-14"
+    },
+    {
+      "id": "2026-09-14-saaskia-web-hiToBq",
+      "club": "lessentiel.lu FR",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Un article confirme que les véhicules électriques offrent des avantages économiques et environnementaux au Luxembourg et en Europe.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1789363858.2694.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789363858.2694.pdf",
+      "date": "2026-09-14"
+    },
+    {
+      "id": "2026-09-14-saaskia-web-x2QOJJ",
       "club": "L'Essentiel",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Article sur l'absence d'accélération concernant les aides gouvernementales aux stations-service au Luxembourg.",
+      "content": "Traverser avec les yeux rivés sur un GSM peut désormais être puni par les autorités, renforçant la sécurité routière.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1789447369.5801.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789447369.5801.pdf",
-      "date": "2026-09-15"
-    },
-    {
-      "id": "2026-09-15-saaskia-web-TI50L7",
-      "club": "L'Essentiel",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Situation d'un propriétaire de véhicule électrique confronté à un problème d'éligibilité pour la vignette résident au Luxembourg.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1789447307.4498.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789447307.4498.pdf",
-      "date": "2026-09-15"
-    },
-    {
-      "id": "2026-09-15-saaskia-web-VTGUvA",
-      "club": "100komma7.lu",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "La Sécurité Routière appelle à plus de vigilance à la rentrée scolaire pour augmenter l'attention sur les routes luxembourgeoises.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1789445563.9182.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789445563.9182.pdf",
-      "date": "2026-09-15"
-    },
-    {
-      "id": "2026-09-15-saaskia-web-xxJmMF",
-      "club": "tageblatt.lu",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Guide pratique pour aider les enfants à se rendre seuls à l'école à pied en toute sécurité au Luxembourg.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1789445515.5962.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789445515.5962.pdf",
-      "date": "2026-09-15"
-    },
-    {
-      "id": "2026-09-15-saaskia-web-VtXA6W",
-      "club": "infos.rtl.lu",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Article sur les prix des carburants atteindant des niveaux élevés au Luxembourg et dans la région.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1789445482.6221.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789445482.6221.pdf",
-      "date": "2026-09-15"
-    },
-    {
-      "id": "2026-09-15-saaskia-web-sLQEgk",
-      "club": "Merkur",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Article exposant les stratégies et actions pour réduire les émissions directes liées à la mobilité professionnelle et personnelle.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1789445408.191.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789445408.191.pdf",
-      "date": "2026-09-15"
-    },
-    {
-      "id": "2026-09-15-saaskia-web-CRn674",
-      "club": "Merkur",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Analyse des tendances et perspectives futures du secteur des transports au Luxembourg et en Europe.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1789445322.5561.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789445322.5561.pdf",
-      "date": "2026-09-15"
+      "url": "https://saaskia.keepcontact.lu/data/files/1789363993.5141.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789363993.5141.pdf",
+      "date": "2026-09-14"
     },
     {
       "id": "2026-09-14-saaskia-web-ZekYIB",
@@ -380,17 +516,6 @@
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1789363360.4164.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789363360.4164.pdf",
-      "date": "2026-09-14"
-    },
-    {
-      "id": "2026-09-14-saaskia-web-cMxExP",
-      "club": "paperjam.lu",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Article sur le rôle continu de l'automobile dans les plans de mobilité du Luxembourg pour l'horizon 2040.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1789363422.5865.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789363422.5865.pdf",
       "date": "2026-09-14"
     },
     {
@@ -405,61 +530,6 @@
       "date": "2026-09-14"
     },
     {
-      "id": "2026-09-14-saaskia-web-buU0RA",
-      "club": "Le Quotidien",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Information sur la date de lancement de la nouvelle vignette belge prévue pour le 1er mai 2027.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1789363579.6573.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789363579.6573.pdf",
-      "date": "2026-09-14"
-    },
-    {
-      "id": "2026-09-14-saaskia-web-GvFcxH",
-      "club": "Le Quotidien",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Rapport d'opération de police ayant entraîné 38 infractions constatées et 10 véhicules saisis au Luxembourg.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1789363677.9015.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789363677.9015.pdf",
-      "date": "2026-09-14"
-    },
-    {
-      "id": "2026-09-14-saaskia-web-4LxshL",
-      "club": "virgule.lu (Wort.lu/FR)",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Explications du ministère sur les causes des retards dans la réalisation du pôle d'échange Héienhaff au Luxembourg.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1789363773.8768.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789363773.8768.pdf",
-      "date": "2026-09-14"
-    },
-    {
-      "id": "2026-09-14-saaskia-web-TGt45N",
-      "club": "chronicle.lu",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Présentation du programme de la Semaine Européenne de la Mobilité mis en place par la Ville de Luxembourg.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1789363808.0569.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789363808.0569.pdf",
-      "date": "2026-09-14"
-    },
-    {
-      "id": "2026-09-14-saaskia-web-hiToBq",
-      "club": "lessentiel.lu FR",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Article démontrant les avantages économiques et environnementaux de rouler avec un véhicule électrique au Luxembourg et en Europe.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1789363858.2694.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789363858.2694.pdf",
-      "date": "2026-09-14"
-    },
-    {
       "id": "2026-09-14-saaskia-web-OK2IU7",
       "club": "L'Essentiel",
       "category": "Veille presse LU",
@@ -468,17 +538,6 @@
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1789364062.098.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789364062.098.pdf",
-      "date": "2026-09-14"
-    },
-    {
-      "id": "2026-09-14-saaskia-web-x2QOJJ",
-      "club": "L'Essentiel",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Information sur les nouvelles règles de sécurité routière au Luxembourg : pénalités pour utilisation du téléphone mobile en marchant.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1789363993.5141.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789363993.5141.pdf",
       "date": "2026-09-14"
     },
     {
