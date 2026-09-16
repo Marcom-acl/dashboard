@@ -277,11 +277,11 @@
   {
     "date": "2026-09-16",
     "acl": {
-      "mobile": 28,
+      "mobile": 29,
       "desktop": 57
     },
     "auto": {
-      "mobile": 56,
+      "mobile": null,
       "desktop": 68
     }
   }
