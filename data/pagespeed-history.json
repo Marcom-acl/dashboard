@@ -277,12 +277,12 @@
   {
     "date": "2026-09-16",
     "acl": {
-      "mobile": 29,
-      "desktop": 57
+      "mobile": null,
+      "desktop": null
     },
     "auto": {
       "mobile": null,
-      "desktop": 68
+      "desktop": 66
     }
   }
 ]
