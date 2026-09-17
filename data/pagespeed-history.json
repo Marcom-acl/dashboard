@@ -288,12 +288,12 @@
   {
     "date": "2026-09-17",
     "acl": {
-      "mobile": null,
-      "desktop": 28
+      "mobile": 30,
+      "desktop": 46
     },
     "auto": {
-      "mobile": 62,
-      "desktop": 87
+      "mobile": 53,
+      "desktop": 68
     }
   }
 ]
