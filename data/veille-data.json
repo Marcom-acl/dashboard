@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-19",
+  "generated_at": "2026-09-20",
   "next_edition": "",
   "editions": [
     {
@@ -285,6 +285,10 @@
     {
       "date": "2026-09-19",
       "label": "Semaine du 2026-09-19"
+    },
+    {
+      "date": "2026-09-20",
+      "label": "Semaine du 2026-09-20"
     }
   ],
   "items": [
@@ -293,7 +297,7 @@
       "club": "contacto.lu (Wort.lu/PT)",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "La Skoda Tour impacte le trafic routier au Luxembourg, avec des routes affectées à prévoir.",
+      "content": "La Skoda Tour impacte le transit routier au Luxembourg. Article détaillant les routes affectées par cet événement.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1789708502.6914.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789708502.6914.pdf",
@@ -304,7 +308,7 @@
       "club": "lesfrontaliers.lu",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Fermeture d'un tronçon de l'A4 entre Cessange et Merl pendant le week-end, impactant la circulation.",
+      "content": "Fermeture d'un tronçon de l'A4 entre Cessange et Merl pour tout le week-end. Information importante pour la mobilité routière.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1789708460.7138.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789708460.7138.pdf",
@@ -315,7 +319,7 @@
       "club": "tageblatt.lu",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Critique d'un parcours de piste cyclable à Esch présentant de nombreux obstacles et risques pour les cyclistes.",
+      "content": "Article sur les problèmes de sécurité d'un itinéraire cyclable à Esch-sur-Alzette, décrit comme un parcours d'obstacles dangereux.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1789714494.1907.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789714494.1907.pdf",
@@ -325,11 +329,55 @@
       "id": "2026-09-18-saaskia-web-Yx5TVt",
       "club": "infogreen.lu",
       "category": "Veille presse LU",
-      "badge": "INFO",
-      "content": "Exploration des solutions de mobilité pour les salariés au Luxembourg afin de réduire les trajets individuels.",
+      "badge": "SURVEILLER",
+      "content": "Article sur les solutions de mobilité des salariés au Luxembourg, abordant les défis du transport et des trajets professionnels.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1789708398.4312.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789708398.4312.pdf",
+      "date": "2026-09-18"
+    },
+    {
+      "id": "2026-09-18-saaskia-web-Qa4xgz",
+      "club": "infos.rtl.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Article général sur la mobilité au Luxembourg couvrant les enjeux et politiques de transport.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1789708425.0978.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789708425.0978.pdf",
+      "date": "2026-09-18"
+    },
+    {
+      "id": "2026-09-18-saaskia-web-GKVzqr",
+      "club": "L'Essentiel",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Nouvelles mesures d'interdiction des voitures au centre-ville de Differdange, reflétant les tendances de mobilité urbaine.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1789708126.1782.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789708126.1782.pdf",
+      "date": "2026-09-18"
+    },
+    {
+      "id": "2026-09-18-saaskia-web-oKc2pb",
+      "club": "Tageblatt",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Article sur une semaine dédiée aux nouvelles formes de mobilité et de déplacement au Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1789708197.0634.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789708197.0634.pdf",
+      "date": "2026-09-18"
+    },
+    {
+      "id": "2026-09-18-saaskia-web-cRyqBe",
+      "club": "Zeitung zum Lëtzebuerger Vollek",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Article portant sur la sécurité routière, thème directement pertinent pour l'ACL et ses missions.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1789708294.0727.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789708294.0727.pdf",
       "date": "2026-09-18"
     },
     {
@@ -337,32 +385,43 @@
       "club": "paperjam.lu",
       "category": "Veille presse LU",
       "badge": "INFO",
-      "content": "Gridx affiche 85% d'occupation des espaces loués, mais le concept de mobilité partagée reste mal compris.",
+      "content": "Article sur Gridx et les espaces de partage de mobilité, mentionnant que 85% des espaces sont loués malgré une compréhension insuffisante du concept.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1789708246.3699.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789708246.3699.pdf",
       "date": "2026-09-18"
     },
     {
-      "id": "2026-09-18-saaskia-web-GKVzqr",
-      "club": "L'Essentiel",
+      "id": "2026-09-18-saaskia-web-MM3Ks4",
+      "club": "Le Quotidien",
       "category": "Veille presse LU",
       "badge": "INFO",
-      "content": "Interdiction des voitures au centre-ville de Differdange pour favoriser une mobilité alternative.",
+      "content": "Article sur un événement de sécurité routière ou de mobilité à caractère ludique ou caritatif.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1789708126.1782.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789708126.1782.pdf",
+      "url": "https://saaskia.keepcontact.lu/data/files/1789708350.9184.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789708350.9184.pdf",
       "date": "2026-09-18"
     },
     {
-      "id": "2026-09-18-saaskia-web-Qa4xgz",
-      "club": "infos.rtl.lu",
+      "id": "2026-09-18-saaskia-web-fiywUv",
+      "club": "Luxemburger Wort",
       "category": "Veille presse LU",
       "badge": "INFO",
-      "content": "Reportage généraliste sur la mobilité au Luxembourg couvrant les enjeux actuels du secteur.",
+      "content": "Article d'opinion ou éditorial sur des questions de mobilité au Luxembourg.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1789708425.0978.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789708425.0978.pdf",
+      "url": "https://saaskia.keepcontact.lu/data/files/1789705797.265.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789705797.265.pdf",
+      "date": "2026-09-18"
+    },
+    {
+      "id": "2026-09-18-saaskia-web-STeKND",
+      "club": "Agefi.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Article sur la fusion nucléaire comme source d'énergie future, potentiellement pertinent pour les enjeux énergétiques liés à la mobilité électrique.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1789708476.0234.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789708476.0234.pdf",
       "date": "2026-09-18"
     },
     {
