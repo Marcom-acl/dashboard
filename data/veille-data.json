@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-09-20",
-  "next_edition": "",
+  "generated_at": "2026-09-21",
+  "next_edition": "2026-09-28",
   "editions": [
     {
       "date": "2026-05-03",
@@ -289,9 +289,123 @@
     {
       "date": "2026-09-20",
       "label": "Semaine du 2026-09-20"
+    },
+    {
+      "date": "2026-09-21",
+      "label": "Semaine du 2026-09-21"
     }
   ],
   "items": [
+    {
+      "id": "2026-09-21-adac-1",
+      "date": "2026-09-03",
+      "club": "ADAC",
+      "category": "EU",
+      "content": "L'ADAC alerte sur la raréfaction et le renchérissement du fluide frigorigène R134a utilisé dans la climatisation des véhicules anciens, faute de solution de remplacement homologuée à grande échelle ; un remplissage en centre ADAC démarre à 79 euros.",
+      "relevance": "Un signal à surveiller si les ateliers partenaires luxembourgeois rencontrent la même pénurie ; l'ACL pourrait anticiper une information préventive aux membres possédant un véhicule ancien.",
+      "badge": "SURVEILLER",
+      "url": "https://presse.adac.de/meldungen/adac-ev/technik/kaeltemittel-r134a-adac-fordert-klare-regeln.html"
+    },
+    {
+      "id": "2026-09-21-adac-2",
+      "date": "2026-09-05",
+      "club": "ADAC",
+      "category": "EU",
+      "content": "Le concours national « ADAC Camper des Jahres 2026 » a désigné son vainqueur le 5 septembre au salon CARAVAN SALON de Düsseldorf parmi douze équipes finalistes, avec un grand prix de voyage en Amérique du Nord d'une valeur de plus de 8000 euros.",
+      "relevance": "Un format de campagne membre à forte visibilité média (salon, concours, dotation) que l'ACL pourrait transposer à plus petite échelle pour dynamiser sa communication autour du tourisme itinérant.",
+      "badge": "INFO",
+      "url": "https://www.presseportal.de/pm/65936/6347322"
+    },
+    {
+      "id": "2026-09-21-tcs-1",
+      "date": "2026-09-01",
+      "club": "TCS",
+      "category": "EU",
+      "content": "Le TCS annonce que la progression continue de son nombre de membres consolide ses moyens financiers et lui permet d'élargir son offre de services au-delà de l'automobile, vers la mobilité, la santé et l'habitat.",
+      "relevance": "Un signal de fidélisation à surveiller : l'ACL pourrait comparer sa propre dynamique d'adhésion et évaluer si l'élargissement de l'offre au-delà de l'automobile est un levier de croissance transposable.",
+      "badge": "NOTABLE",
+      "url": "https://www.presseportal.ch/fr/pm/100000091/100940807"
+    },
+    {
+      "id": "2026-09-21-rac-1",
+      "date": "2026-09-07",
+      "club": "RAC",
+      "category": "Mobilité",
+      "content": "Le RAC relève que le nombre de véhicules électriques immatriculés au Royaume-Uni a franchi le cap symbolique de deux millions, plus d'une voiture neuve sur quatre vendue étant désormais électrique.",
+      "relevance": "Une donnée de cadrage utile pour situer la progression de l'électrique au Luxembourg dans une perspective européenne et alimenter la communication de l'ACL sur la transition de sa flotte de dépannage.",
+      "badge": "INFO",
+      "url": "https://www.rac.co.uk/drive/news/electric-vehicles-news/number-of-evs-on-uk-roads-over-two-million/"
+    },
+    {
+      "id": "2026-09-21-anwb-1",
+      "date": "2026-09-16",
+      "club": "ANWB",
+      "category": "EU",
+      "content": "Dans sa réaction au budget de l'État néerlandais (Prinsjesdag 2026), l'ANWB regrette l'absence de choix structurels sur l'accessibilité, le coût de la mobilité, la sécurité routière et le cadre de vie, notant que l'objectif de réduction de la mortalité routière n'est atteint qu'à hauteur de 5% au lieu des 50% visés.",
+      "relevance": "Un exemple de prise de position institutionnelle argumentée sur un texte budgétaire national que l'ACL pourrait reproduire lors du dépôt du budget de l'État luxembourgeois.",
+      "badge": "SURVEILLER",
+      "url": "https://www.anwb.nl/belangenbehartiging/nieuws/2026/september/reactie-anwb-op-miljoenennota-2026"
+    },
+    {
+      "id": "2026-09-21-anwb-2",
+      "date": "2026-09-19",
+      "club": "ANWB",
+      "category": "EU",
+      "content": "Après l'échec des négociations salariales et l'expiration de l'ultimatum syndical du 18 septembre, les syndicats FNV, CNV et AVV ont enclenché des actions chez ANWB, l'employeur ayant réalisé 150 millions d'euros de bénéfice net l'année précédente selon les syndicats.",
+      "relevance": "Un risque de continuité de service (dépannage, assistance) à surveiller en cas de conflit social comparable au Luxembourg ; utile pour anticiper un plan de communication de crise dédié aux membres.",
+      "badge": "SURVEILLER",
+      "url": "https://www.fnv.nl/nieuwsbericht/algemeen-nieuws/2026/09/fnv-anwb-negeert-ultimatum-acties-starten-maandag"
+    },
+    {
+      "id": "2026-09-21-aci-1",
+      "date": "2026-09-16",
+      "club": "ACI",
+      "category": "EU",
+      "content": "Le président de l'ACI Geronimo La Russa a salué la décision du gouvernement italien d'abolir le « bollo auto » (taxe de circulation) pour les véhicules et motos de faible et moyenne puissance, qualifiant la mesure d'historique.",
+      "relevance": "Une victoire de plaidoyer fiscal obtenue par un club automobile européen, à mettre en perspective avec les positions de l'ACL sur la fiscalité automobile luxembourgeoise (taxe sur les véhicules, carte grise).",
+      "badge": "NOTABLE",
+      "url": "https://aci.gov.it/comunicati-stampa/abolizione-bollo-auto-notizia-epocale-provvedimento-che-incide-su-tassa-impopolare/"
+    },
+    {
+      "id": "2026-09-21-oeamtc-1",
+      "date": "2026-09-15",
+      "club": "ÖAMTC",
+      "category": "EU",
+      "content": "L'ÖAMTC a reçu le Ö3-Verkehrsaward dans la catégorie Innovation, avec l'ASFINAG et la société EYYES, pour « CollisionEye », un système de détection de collision par caméra et intelligence artificielle qui alerte automobilistes et personnels d'intervention lors de travaux ou pannes sur autoroute.",
+      "relevance": "Une innovation directement transposable à la protection des équipes de dépannage de l'ACL intervenant sur le réseau routier luxembourgeois ; à évaluer pour un partenariat pilote avec l'Administration des ponts et chaussées.",
+      "badge": "NOTABLE",
+      "url": "https://www.ots.at/presseaussendung/OTS_20260915_OTS0124/korrigierte-version-oe3-verkehrsaward-fuer-oeamtc-asfinag-und-eyyes"
+    },
+    {
+      "id": "2026-09-21-oeamtc-2",
+      "date": "2026-09-14",
+      "club": "ÖAMTC",
+      "category": "Mobilité",
+      "content": "L'ÖAMTC réclame une sécurité juridique pour les utilisateurs d'e-mopeds en Autriche, ces engins de classe L1e-B perdant à partir du 1er octobre leur statut de vélo pour devenir des deux-roues motorisés soumis à immatriculation, assurance, contrôle technique, permis et casque obligatoires.",
+      "relevance": "Un précédent réglementaire à suivre pour anticiper une évolution similaire au Luxembourg sur les engins de déplacement personnel motorisés, sujet potentiel de prise de position pour l'ACL.",
+      "badge": "SURVEILLER",
+      "url": "https://www.ots.at/presseaussendung/OTS_20260914_OTS0029/e-mopeds-oeamtc-fordert-rechtssicherheit-fuer-tausende-nutzerinnen"
+    },
+    {
+      "id": "2026-09-21-aa-1",
+      "date": "2026-09-10",
+      "club": "AA",
+      "category": "EU",
+      "content": "Les trois plus grands réseaux de dépannage britanniques (AA, RAC, Green Flag) ont cosigné une lettre au ministre de la sécurité routière réclamant une règle « ralentir, changer de voie » obligatoire au croisement d'un véhicule en panne ou de dépannage, après le décès de trois techniciens routiers en douze mois.",
+      "relevance": "Une démarche de lobbying sectoriel conjoint entre acteurs du dépannage sur un enjeu de sécurité commun, un modèle de coalition transposable par l'ACL avec d'autres acteurs de la sécurité routière luxembourgeoise ou grand-régionale.",
+      "badge": "SURVEILLER",
+      "url": "https://www.theaa.com/about-us/newsroom/slow-down-move-over-joint-letter"
+    },
+    {
+      "id": "2026-09-21-aaa-1",
+      "date": "2026-09-15",
+      "club": "AAA",
+      "category": "Monde",
+      "content": "L'étude annuelle « Your Driving Costs » de l'AAA chiffre le coût moyen annuel de possession d'un véhicule neuf à 12 863 dollars (1072 dollars par mois) aux États-Unis, l'amortissement restant le premier poste de dépense devant le carburant, avec intégration pour la première année des véhicules électriques et hybrides dans les catégories standards.",
+      "relevance": "Une méthodologie de référence et des données comparatives utiles pour un baromètre similaire de l'ACL sur le coût de possession automobile au Luxembourg, incluant désormais l'électrique et l'hybride.",
+      "badge": "INFO",
+      "url": "https://newsroom.aaa.com/2026/09/aaa-new-vehicle-ownership-costs-hit-12863-annually/"
+    },
     {
       "id": "2026-09-18-saaskia-web-pXNv1q",
       "club": "contacto.lu (Wort.lu/PT)",
@@ -6598,17 +6712,17 @@
     }
   ],
   "trends": [
-    "Multiplication des prises de position institutionnelles sur la fiscalite carburant et son impact social (ANWB contre l'indexation automatique des accises aux Pays-Bas, RAC alertant sur le detricotage progressif de la remise de fuel duty au Royaume-Uni, OeAMTC demandant un mecanisme de compensation sociale dans le cadre de l'ETS2), confirmant une tendance de fond de vigilance des clubs sur le pouvoir d'achat automobiliste.",
-    "Regulation de la recharge electrique en itinerance (roaming) qui devient un sujet politique porte par les clubs automobiles : l'OeAMTC chiffre des surcharges de 118 a 142% pour les clients tiers et reclame une revision du reglement europeen AFIR, en echo au developpement des cartes de recharge multi-reseaux (ANWB Laadpas et son partenariat Fastned).",
-    "Renouvellement des partenariats carburant/energie a grande echelle pour rester attractif face aux cartes de fidelite concurrentes (ADAC remplace Shell par Esso apres pres de 20 ans), une tendance deja observee les semaines precedentes.",
-    "Divergences reglementaires regionales sur le controle technique automobile qui inquietent les clubs (Touring Belgique redoute un tourisme du controle technique vers la Flandre apres l'espacement du controle a deux ans dans cette region).",
-    "Poursuite des campagnes de securite routiere cibalees familles/enfants a la rentree (ADAC et son etude sur le trajet ecole a pied, AAA et sa campagne sur le bon dispositif de retenue enfant), un format de contenu recurrent chez plusieurs grands clubs."
+    "Diversification de l'offre des clubs de mobilité au-delà de l'automobile pure pour sécuriser leurs revenus (le TCS relie explicitement la croissance de ses effectifs à un élargissement de son offre vers la santé et l'habitat), confirmant une tendance de fond déjà observée chez plusieurs grands clubs européens.",
+    "Multiplication des lobbys sectoriels conjoints entre organismes de dépannage sur des enjeux de sécurité routière communs (AA, RAC et Green Flag unis pour réclamer une règle « ralentir, changer de voie » après plusieurs décès de patrouilleurs), illustrant l'intérêt de coalitions inter-clubs sur des causes partagées.",
+    "Poursuite des victoires de plaidoyer fiscal obtenues par les clubs automobiles auprès de leurs gouvernements (l'ACI salue l'abolition du bollo auto pour les véhicules de faible et moyenne puissance en Italie), en écho aux gains similaires déjà obtenus par d'autres clubs européens ces dernières semaines.",
+    "Recours croissant à l'intelligence artificielle embarquée pour protéger les personnels d'intervention routière (le système d'alerte de collision « CollisionEye » de l'ÖAMTC et de l'ASFINAG récompensé par le Ö3-Verkehrsaward), un axe d'innovation à surveiller pour la sécurité des équipes de dépannage.",
+    "Tensions sociales croissantes chez les grands clubs automobiles employeurs (conflit salarial et début d'actions syndicales chez ANWB malgré un bénéfice net de 150 millions d'euros l'année précédente), signe de pressions RH partagées par le secteur en période d'inflation persistante."
   ],
   "signals": [
-    "Vers une regulation europeenne renforcee du roaming de recharge electrique (revision de l'AFIR evoquee par l'OeAMTC) : a suivre pour anticiper une transparence tarifaire accrue exigee des operateurs de recharge publique au Luxembourg et en Grande Region.",
-    "Montee des mecanismes de compensation sociale lies a la tarification carbone de la mobilite (ETS2 des 2028, position de l'OeAMTC) : un sujet a anticiper pour le positionnement de l'ACL aupres du gouvernement luxembourgeois avant l'entree en vigueur.",
-    "Cartes de recharge electrique multi-reseaux avec avantages tarifaires negocies (ANWB Laadpas et Fastned) : un modele de partenariat a evaluer pour l'ACL face au developpement de son offre de mobilite electrique.",
-    "Tensions transfrontalieres autour des regles de controle technique automobile (Touring Belgique) : a surveiller pour identifier d'eventuels ecarts similaires entre le Luxembourg et les regions limitrophes qui justifieraient une information dediee aux membres frontaliers.",
-    "Communication en temps reel sur les prix carburant assortie d'une mise en perspective geopolitique (AAA, RAC) : un format que l'ACL pourrait renforcer dans sa propre communication aux membres en periode de volatilite des prix."
+    "Diversification de l'offre des clubs de mobilité vers la santé et l'habitat (TCS) : un signal à surveiller pour évaluer si l'ACL pourrait élargir son offre de services au-delà de l'automobile.",
+    "Coalitions sectorielles entre organismes de dépannage sur la sécurité des patrouilleurs (AA, RAC, Green Flag) : un modèle de plaidoyer conjoint à explorer avec d'autres acteurs de la sécurité routière au Luxembourg et en Grande Région.",
+    "Recours à l'intelligence artificielle embarquée pour la sécurité des interventions routières (CollisionEye chez ÖAMTC/ASFINAG) : à évaluer pour équiper à terme les véhicules de dépannage de l'ACL.",
+    "Reclassification réglementaire des engins de micromobilité électrique (e-mopeds requalifiés en cyclomoteurs en Autriche dès le 1er octobre) : un précédent à suivre pour anticiper une évolution similaire de la réglementation luxembourgeoise.",
+    "Risque de tensions sociales dans les grands clubs automobiles employeurs (ANWB) : un point de vigilance RH pour l'ACL en tant qu'employeur du secteur de la mobilité."
   ]
 }
