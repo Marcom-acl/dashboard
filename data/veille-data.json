@@ -1,6 +1,6 @@
 {
   "generated_at": "2026-09-21",
-  "next_edition": "2026-09-28",
+  "next_edition": "",
   "editions": [
     {
       "date": "2026-05-03",
@@ -297,54 +297,158 @@
   ],
   "items": [
     {
-      "id": "2026-09-21-adac-1",
-      "date": "2026-09-03",
-      "club": "ADAC",
-      "category": "EU",
-      "content": "L'ADAC alerte sur la raréfaction et le renchérissement du fluide frigorigène R134a utilisé dans la climatisation des véhicules anciens, faute de solution de remplacement homologuée à grande échelle ; un remplissage en centre ADAC démarre à 79 euros.",
-      "relevance": "Un signal à surveiller si les ateliers partenaires luxembourgeois rencontrent la même pénurie ; l'ACL pourrait anticiper une information préventive aux membres possédant un véhicule ancien.",
-      "badge": "SURVEILLER",
-      "url": "https://presse.adac.de/meldungen/adac-ev/technik/kaeltemittel-r134a-adac-fordert-klare-regeln.html"
-    },
-    {
-      "id": "2026-09-21-adac-2",
-      "date": "2026-09-05",
-      "club": "ADAC",
-      "category": "EU",
-      "content": "Le concours national « ADAC Camper des Jahres 2026 » a désigné son vainqueur le 5 septembre au salon CARAVAN SALON de Düsseldorf parmi douze équipes finalistes, avec un grand prix de voyage en Amérique du Nord d'une valeur de plus de 8000 euros.",
-      "relevance": "Un format de campagne membre à forte visibilité média (salon, concours, dotation) que l'ACL pourrait transposer à plus petite échelle pour dynamiser sa communication autour du tourisme itinérant.",
-      "badge": "INFO",
-      "url": "https://www.presseportal.de/pm/65936/6347322"
-    },
-    {
-      "id": "2026-09-21-tcs-1",
-      "date": "2026-09-01",
-      "club": "TCS",
-      "category": "EU",
-      "content": "Le TCS annonce que la progression continue de son nombre de membres consolide ses moyens financiers et lui permet d'élargir son offre de services au-delà de l'automobile, vers la mobilité, la santé et l'habitat.",
-      "relevance": "Un signal de fidélisation à surveiller : l'ACL pourrait comparer sa propre dynamique d'adhésion et évaluer si l'élargissement de l'offre au-delà de l'automobile est un levier de croissance transposable.",
+      "id": "2026-09-21-saaskia-web-YuJQVP",
+      "club": "L'Essentiel",
+      "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "url": "https://www.presseportal.ch/fr/pm/100000091/100940807"
+      "content": "Article sur les alternatives aux carburants traditionnels face à la hausse des prix du diesel, avec des conducteurs ayant recours à l'huile de friture.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1789969724.3736.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789969724.3736.pdf",
+      "date": "2026-09-21"
     },
     {
-      "id": "2026-09-21-rac-1",
-      "date": "2026-09-07",
-      "club": "RAC",
-      "category": "Mobilité",
-      "content": "Le RAC relève que le nombre de véhicules électriques immatriculés au Royaume-Uni a franchi le cap symbolique de deux millions, plus d'une voiture neuve sur quatre vendue étant désormais électrique.",
-      "relevance": "Une donnée de cadrage utile pour situer la progression de l'électrique au Luxembourg dans une perspective européenne et alimenter la communication de l'ACL sur la transition de sa flotte de dépannage.",
-      "badge": "INFO",
-      "url": "https://www.rac.co.uk/drive/news/electric-vehicles-news/number-of-evs-on-uk-roads-over-two-million/"
-    },
-    {
-      "id": "2026-09-21-anwb-1",
-      "date": "2026-09-16",
-      "club": "ANWB",
-      "category": "EU",
-      "content": "Dans sa réaction au budget de l'État néerlandais (Prinsjesdag 2026), l'ANWB regrette l'absence de choix structurels sur l'accessibilité, le coût de la mobilité, la sécurité routière et le cadre de vie, notant que l'objectif de réduction de la mortalité routière n'est atteint qu'à hauteur de 5% au lieu des 50% visés.",
-      "relevance": "Un exemple de prise de position institutionnelle argumentée sur un texte budgétaire national que l'ACL pourrait reproduire lors du dépôt du budget de l'État luxembourgeois.",
+      "id": "2026-09-21-saaskia-web-pLLLEn",
+      "club": "virgule.lu (Wort.lu/FR)",
+      "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "url": "https://www.anwb.nl/belangenbehartiging/nieuws/2026/september/reactie-anwb-op-miljoenennota-2026"
+      "content": "Analyse hypothétique sur les choix de mobilité des travailleurs au Luxembourg en cas de hausse drastique du prix du carburant à 3€ le litre.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1789973475.8909.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789973475.8909.pdf",
+      "date": "2026-09-21"
+    },
+    {
+      "id": "2026-09-21-saaskia-web-VEvxWx",
+      "club": "virgule.lu (Wort.lu/FR)",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Reportage sur les inégalités de mobilité pour les frontaliers au Luxembourg, en particulier concernant les trajets domicile-travail.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1789970115.9595.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789970115.9595.pdf",
+      "date": "2026-09-21"
+    },
+    {
+      "id": "2026-09-21-saaskia-web-eC6sUN",
+      "club": "Le Quotidien",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Article sur la sécurité routière au Luxembourg : moins d'accidents en agglomération mais augmentation des sinistres graves hors agglomération.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1789969890.7661.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789969890.7661.pdf",
+      "date": "2026-09-21"
+    },
+    {
+      "id": "2026-09-21-saaskia-web-qfGa5k",
+      "club": "virgule.lu (Wort.lu/FR)",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Article sur les nouvelles marges de manœuvre réglementaires concernant les carburants modernes et leur composition.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1789973381.2805.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789973381.2805.pdf",
+      "date": "2026-09-21"
+    },
+    {
+      "id": "2026-09-21-saaskia-web-r1lZiw",
+      "club": "today.RTL.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Article sur la politique de mobilité luxembourgeoise, mettant l'accent sur le déplacement de personnes plutôt que de véhicules.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1789970315.6708.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789970315.6708.pdf",
+      "date": "2026-09-21"
+    },
+    {
+      "id": "2026-09-21-saaskia-web-wkZtkn",
+      "club": "lessentiel.lu DE",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Annonce que l'Allemagne met en place un plafonnement des prix de carburant inspiré du modèle luxembourgeois.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1789970296.2236.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789970296.2236.pdf",
+      "date": "2026-09-21"
+    },
+    {
+      "id": "2026-09-21-saaskia-web-RY9V34",
+      "club": "lessentiel.lu DE",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Actualité économique : Porsche et Volkswagen réduisent drastiquement leurs prévisions de bénéfices.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1789970273.3216.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789970273.3216.pdf",
+      "date": "2026-09-21"
+    },
+    {
+      "id": "2026-09-21-saaskia-web-ERKdxG",
+      "club": "Zeitung zum Lëtzebuerger Vollek",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Couverture d'une campagne de promotion du vélo (GoGo Velo) au Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1789970228.1453.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789970228.1453.pdf",
+      "date": "2026-09-21"
+    },
+    {
+      "id": "2026-09-21-saaskia-web-gUCUXC",
+      "club": "100komma7.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Comparatif régional : l'Allemagne instaure une réduction sur les carburants tandis que la France renonce actuellement à cette mesure.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1789970087.2663.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789970087.2663.pdf",
+      "date": "2026-09-21"
+    },
+    {
+      "id": "2026-09-21-saaskia-web-RXtqxU",
+      "club": "infos.rtl.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Article sur les fluctuations de prix des carburants de plusieurs centimes par litre au Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1789969979.8935.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789969979.8935.pdf",
+      "date": "2026-09-21"
+    },
+    {
+      "id": "2026-09-21-saaskia-web-exM9wv",
+      "club": "rtl.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Tribune de François Bausch (ministre de la Mobilité) sur les politiques de transport et de mobilité.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1789969939.2858.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789969939.2858.pdf",
+      "date": "2026-09-21"
+    },
+    {
+      "id": "2026-09-21-saaskia-web-uexTQM",
+      "club": "Le Quotidien",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Signalement d'une arnaque liée aux horodateurs de stationnement au Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1789969830.6969.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789969830.6969.pdf",
+      "date": "2026-09-21"
+    },
+    {
+      "id": "2026-09-21-saaskia-web-DVGvxV",
+      "club": "Tageblatt",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Article court sur un projet ou une installation de mobilité pas encore en service.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1789970162.3376.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789970162.3376.pdf",
+      "date": "2026-09-21"
     },
     {
       "id": "2026-09-21-anwb-2",
@@ -355,56 +459,6 @@
       "relevance": "Un risque de continuité de service (dépannage, assistance) à surveiller en cas de conflit social comparable au Luxembourg ; utile pour anticiper un plan de communication de crise dédié aux membres.",
       "badge": "SURVEILLER",
       "url": "https://www.fnv.nl/nieuwsbericht/algemeen-nieuws/2026/09/fnv-anwb-negeert-ultimatum-acties-starten-maandag"
-    },
-    {
-      "id": "2026-09-21-aci-1",
-      "date": "2026-09-16",
-      "club": "ACI",
-      "category": "EU",
-      "content": "Le président de l'ACI Geronimo La Russa a salué la décision du gouvernement italien d'abolir le « bollo auto » (taxe de circulation) pour les véhicules et motos de faible et moyenne puissance, qualifiant la mesure d'historique.",
-      "relevance": "Une victoire de plaidoyer fiscal obtenue par un club automobile européen, à mettre en perspective avec les positions de l'ACL sur la fiscalité automobile luxembourgeoise (taxe sur les véhicules, carte grise).",
-      "badge": "NOTABLE",
-      "url": "https://aci.gov.it/comunicati-stampa/abolizione-bollo-auto-notizia-epocale-provvedimento-che-incide-su-tassa-impopolare/"
-    },
-    {
-      "id": "2026-09-21-oeamtc-1",
-      "date": "2026-09-15",
-      "club": "ÖAMTC",
-      "category": "EU",
-      "content": "L'ÖAMTC a reçu le Ö3-Verkehrsaward dans la catégorie Innovation, avec l'ASFINAG et la société EYYES, pour « CollisionEye », un système de détection de collision par caméra et intelligence artificielle qui alerte automobilistes et personnels d'intervention lors de travaux ou pannes sur autoroute.",
-      "relevance": "Une innovation directement transposable à la protection des équipes de dépannage de l'ACL intervenant sur le réseau routier luxembourgeois ; à évaluer pour un partenariat pilote avec l'Administration des ponts et chaussées.",
-      "badge": "NOTABLE",
-      "url": "https://www.ots.at/presseaussendung/OTS_20260915_OTS0124/korrigierte-version-oe3-verkehrsaward-fuer-oeamtc-asfinag-und-eyyes"
-    },
-    {
-      "id": "2026-09-21-oeamtc-2",
-      "date": "2026-09-14",
-      "club": "ÖAMTC",
-      "category": "Mobilité",
-      "content": "L'ÖAMTC réclame une sécurité juridique pour les utilisateurs d'e-mopeds en Autriche, ces engins de classe L1e-B perdant à partir du 1er octobre leur statut de vélo pour devenir des deux-roues motorisés soumis à immatriculation, assurance, contrôle technique, permis et casque obligatoires.",
-      "relevance": "Un précédent réglementaire à suivre pour anticiper une évolution similaire au Luxembourg sur les engins de déplacement personnel motorisés, sujet potentiel de prise de position pour l'ACL.",
-      "badge": "SURVEILLER",
-      "url": "https://www.ots.at/presseaussendung/OTS_20260914_OTS0029/e-mopeds-oeamtc-fordert-rechtssicherheit-fuer-tausende-nutzerinnen"
-    },
-    {
-      "id": "2026-09-21-aa-1",
-      "date": "2026-09-10",
-      "club": "AA",
-      "category": "EU",
-      "content": "Les trois plus grands réseaux de dépannage britanniques (AA, RAC, Green Flag) ont cosigné une lettre au ministre de la sécurité routière réclamant une règle « ralentir, changer de voie » obligatoire au croisement d'un véhicule en panne ou de dépannage, après le décès de trois techniciens routiers en douze mois.",
-      "relevance": "Une démarche de lobbying sectoriel conjoint entre acteurs du dépannage sur un enjeu de sécurité commun, un modèle de coalition transposable par l'ACL avec d'autres acteurs de la sécurité routière luxembourgeoise ou grand-régionale.",
-      "badge": "SURVEILLER",
-      "url": "https://www.theaa.com/about-us/newsroom/slow-down-move-over-joint-letter"
-    },
-    {
-      "id": "2026-09-21-aaa-1",
-      "date": "2026-09-15",
-      "club": "AAA",
-      "category": "Monde",
-      "content": "L'étude annuelle « Your Driving Costs » de l'AAA chiffre le coût moyen annuel de possession d'un véhicule neuf à 12 863 dollars (1072 dollars par mois) aux États-Unis, l'amortissement restant le premier poste de dépense devant le carburant, avec intégration pour la première année des véhicules électriques et hybrides dans les catégories standards.",
-      "relevance": "Une méthodologie de référence et des données comparatives utiles pour un baromètre similaire de l'ACL sur le coût de possession automobile au Luxembourg, incluant désormais l'électrique et l'hybride.",
-      "badge": "INFO",
-      "url": "https://newsroom.aaa.com/2026/09/aaa-new-vehicle-ownership-costs-hit-12863-annually/"
     },
     {
       "id": "2026-09-18-saaskia-web-pXNv1q",
@@ -671,6 +725,26 @@
       "date": "2026-09-17"
     },
     {
+      "id": "2026-09-21-anwb-1",
+      "date": "2026-09-16",
+      "club": "ANWB",
+      "category": "EU",
+      "content": "Dans sa réaction au budget de l'État néerlandais (Prinsjesdag 2026), l'ANWB regrette l'absence de choix structurels sur l'accessibilité, le coût de la mobilité, la sécurité routière et le cadre de vie, notant que l'objectif de réduction de la mortalité routière n'est atteint qu'à hauteur de 5% au lieu des 50% visés.",
+      "relevance": "Un exemple de prise de position institutionnelle argumentée sur un texte budgétaire national que l'ACL pourrait reproduire lors du dépôt du budget de l'État luxembourgeois.",
+      "badge": "SURVEILLER",
+      "url": "https://www.anwb.nl/belangenbehartiging/nieuws/2026/september/reactie-anwb-op-miljoenennota-2026"
+    },
+    {
+      "id": "2026-09-21-aci-1",
+      "date": "2026-09-16",
+      "club": "ACI",
+      "category": "EU",
+      "content": "Le président de l'ACI Geronimo La Russa a salué la décision du gouvernement italien d'abolir le « bollo auto » (taxe de circulation) pour les véhicules et motos de faible et moyenne puissance, qualifiant la mesure d'historique.",
+      "relevance": "Une victoire de plaidoyer fiscal obtenue par un club automobile européen, à mettre en perspective avec les positions de l'ACL sur la fiscalité automobile luxembourgeoise (taxe sur les véhicules, carte grise).",
+      "badge": "NOTABLE",
+      "url": "https://aci.gov.it/comunicati-stampa/abolizione-bollo-auto-notizia-epocale-provvedimento-che-incide-su-tassa-impopolare/"
+    },
+    {
       "id": "2026-09-16-saaskia-web-hNAQdq",
       "club": "virgule.lu",
       "category": "Veille presse LU",
@@ -735,6 +809,26 @@
       "url": "https://saaskia.keepcontact.lu/data/files/1789535099.0058.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789535099.0058.pdf",
       "date": "2026-09-16"
+    },
+    {
+      "id": "2026-09-21-oeamtc-1",
+      "date": "2026-09-15",
+      "club": "ÖAMTC",
+      "category": "EU",
+      "content": "L'ÖAMTC a reçu le Ö3-Verkehrsaward dans la catégorie Innovation, avec l'ASFINAG et la société EYYES, pour « CollisionEye », un système de détection de collision par caméra et intelligence artificielle qui alerte automobilistes et personnels d'intervention lors de travaux ou pannes sur autoroute.",
+      "relevance": "Une innovation directement transposable à la protection des équipes de dépannage de l'ACL intervenant sur le réseau routier luxembourgeois ; à évaluer pour un partenariat pilote avec l'Administration des ponts et chaussées.",
+      "badge": "NOTABLE",
+      "url": "https://www.ots.at/presseaussendung/OTS_20260915_OTS0124/korrigierte-version-oe3-verkehrsaward-fuer-oeamtc-asfinag-und-eyyes"
+    },
+    {
+      "id": "2026-09-21-aaa-1",
+      "date": "2026-09-15",
+      "club": "AAA",
+      "category": "Monde",
+      "content": "L'étude annuelle « Your Driving Costs » de l'AAA chiffre le coût moyen annuel de possession d'un véhicule neuf à 12 863 dollars (1072 dollars par mois) aux États-Unis, l'amortissement restant le premier poste de dépense devant le carburant, avec intégration pour la première année des véhicules électriques et hybrides dans les catégories standards.",
+      "relevance": "Une méthodologie de référence et des données comparatives utiles pour un baromètre similaire de l'ACL sur le coût de possession automobile au Luxembourg, incluant désormais l'électrique et l'hybride.",
+      "badge": "INFO",
+      "url": "https://newsroom.aaa.com/2026/09/aaa-new-vehicle-ownership-costs-hit-12863-annually/"
     },
     {
       "id": "2026-09-15-saaskia-web-VTGUvA",
@@ -845,6 +939,16 @@
       "url": "https://saaskia.keepcontact.lu/data/files/1789447542.6502.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789447542.6502.pdf",
       "date": "2026-09-15"
+    },
+    {
+      "id": "2026-09-21-oeamtc-2",
+      "date": "2026-09-14",
+      "club": "ÖAMTC",
+      "category": "Mobilité",
+      "content": "L'ÖAMTC réclame une sécurité juridique pour les utilisateurs d'e-mopeds en Autriche, ces engins de classe L1e-B perdant à partir du 1er octobre leur statut de vélo pour devenir des deux-roues motorisés soumis à immatriculation, assurance, contrôle technique, permis et casque obligatoires.",
+      "relevance": "Un précédent réglementaire à suivre pour anticiper une évolution similaire au Luxembourg sur les engins de déplacement personnel motorisés, sujet potentiel de prise de position pour l'ACL.",
+      "badge": "SURVEILLER",
+      "url": "https://www.ots.at/presseaussendung/OTS_20260914_OTS0029/e-mopeds-oeamtc-fordert-rechtssicherheit-fuer-tausende-nutzerinnen"
     },
     {
       "id": "2026-09-14-saaskia-web-cMxExP",
@@ -1155,6 +1259,16 @@
       "date": "2026-09-11"
     },
     {
+      "id": "2026-09-21-aa-1",
+      "date": "2026-09-10",
+      "club": "AA",
+      "category": "EU",
+      "content": "Les trois plus grands réseaux de dépannage britanniques (AA, RAC, Green Flag) ont cosigné une lettre au ministre de la sécurité routière réclamant une règle « ralentir, changer de voie » obligatoire au croisement d'un véhicule en panne ou de dépannage, après le décès de trois techniciens routiers en douze mois.",
+      "relevance": "Une démarche de lobbying sectoriel conjoint entre acteurs du dépannage sur un enjeu de sécurité commun, un modèle de coalition transposable par l'ACL avec d'autres acteurs de la sécurité routière luxembourgeoise ou grand-régionale.",
+      "badge": "SURVEILLER",
+      "url": "https://www.theaa.com/about-us/newsroom/slow-down-move-over-joint-letter"
+    },
+    {
       "id": "2026-09-10-saaskia-web-wHfdyx",
       "club": "100komma7.lu",
       "category": "Veille presse LU",
@@ -1342,6 +1456,16 @@
       "date": "2026-09-08"
     },
     {
+      "id": "2026-09-21-rac-1",
+      "date": "2026-09-07",
+      "club": "RAC",
+      "category": "Mobilité",
+      "content": "Le RAC relève que le nombre de véhicules électriques immatriculés au Royaume-Uni a franchi le cap symbolique de deux millions, plus d'une voiture neuve sur quatre vendue étant désormais électrique.",
+      "relevance": "Une donnée de cadrage utile pour situer la progression de l'électrique au Luxembourg dans une perspective européenne et alimenter la communication de l'ACL sur la transition de sa flotte de dépannage.",
+      "badge": "INFO",
+      "url": "https://www.rac.co.uk/drive/news/electric-vehicles-news/number-of-evs-on-uk-roads-over-two-million/"
+    },
+    {
       "id": "2026-09-07-saaskia-web-QuvjtG",
       "club": "Le Quotidien",
       "category": "Veille presse LU",
@@ -1428,6 +1552,16 @@
       "url": "https://saaskia.keepcontact.lu/data/files/1788760661.3216.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1788760661.3216.pdf",
       "date": "2026-09-07"
+    },
+    {
+      "id": "2026-09-21-adac-2",
+      "date": "2026-09-05",
+      "club": "ADAC",
+      "category": "EU",
+      "content": "Le concours national « ADAC Camper des Jahres 2026 » a désigné son vainqueur le 5 septembre au salon CARAVAN SALON de Düsseldorf parmi douze équipes finalistes, avec un grand prix de voyage en Amérique du Nord d'une valeur de plus de 8000 euros.",
+      "relevance": "Un format de campagne membre à forte visibilité média (salon, concours, dotation) que l'ACL pourrait transposer à plus petite échelle pour dynamiser sa communication autour du tourisme itinérant.",
+      "badge": "INFO",
+      "url": "https://www.presseportal.de/pm/65936/6347322"
     },
     {
       "id": "2026-09-07-rac-2",
@@ -1579,6 +1713,16 @@
       "url": "https://saaskia.keepcontact.lu/data/files/1788496733.2025.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1788496733.2025.pdf",
       "date": "2026-09-04"
+    },
+    {
+      "id": "2026-09-21-adac-1",
+      "date": "2026-09-03",
+      "club": "ADAC",
+      "category": "EU",
+      "content": "L'ADAC alerte sur la raréfaction et le renchérissement du fluide frigorigène R134a utilisé dans la climatisation des véhicules anciens, faute de solution de remplacement homologuée à grande échelle ; un remplissage en centre ADAC démarre à 79 euros.",
+      "relevance": "Un signal à surveiller si les ateliers partenaires luxembourgeois rencontrent la même pénurie ; l'ACL pourrait anticiper une information préventive aux membres possédant un véhicule ancien.",
+      "badge": "SURVEILLER",
+      "url": "https://presse.adac.de/meldungen/adac-ev/technik/kaeltemittel-r134a-adac-fordert-klare-regeln.html"
     },
     {
       "id": "2026-09-03-saaskia-web-NsSl1p",
@@ -1820,6 +1964,16 @@
       "url": "https://saaskia.keepcontact.lu/data/files/1788326498.4259.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1788326498.4259.pdf",
       "date": "2026-09-02"
+    },
+    {
+      "id": "2026-09-21-tcs-1",
+      "date": "2026-09-01",
+      "club": "TCS",
+      "category": "EU",
+      "content": "Le TCS annonce que la progression continue de son nombre de membres consolide ses moyens financiers et lui permet d'élargir son offre de services au-delà de l'automobile, vers la mobilité, la santé et l'habitat.",
+      "relevance": "Un signal de fidélisation à surveiller : l'ACL pourrait comparer sa propre dynamique d'adhésion et évaluer si l'élargissement de l'offre au-delà de l'automobile est un levier de croissance transposable.",
+      "badge": "NOTABLE",
+      "url": "https://www.presseportal.ch/fr/pm/100000091/100940807"
     },
     {
       "id": "2026-09-07-adac-2",
