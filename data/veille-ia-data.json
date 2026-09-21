@@ -1,6 +1,168 @@
 {
-  "generated_at": "2026-09-14",
+  "generated_at": "2026-09-21",
   "items": [
+    {
+      "date": "2026-09-16",
+      "theme": "CRM & member marketing",
+      "titre": "HubSpot lance un CRM auto-actualisé et Breeze Assistant agentique",
+      "synthese": "Lors de sa conférence UNBOUND 2026 (16 septembre), HubSpot a dévoilé sa plus importante mise à jour produit à ce jour, articulée autour du concept de Growth Context. Le nouveau Breeze Assistant ne se contente plus de répondre aux questions : il exécute des tâches complètes (rapports, propositions, plans de campagne) en mobilisant automatiquement les agents IA adaptés. Le CRM devient auto-actualisé, captant et synchronisant automatiquement appels, emails et réunions sans saisie manuelle. Un nouveau Marketing Studio identifie les segments sous-performants et permet de lancer via des agents dédiés des campagnes de nurturing personnalisées pour chaque contact. HubSpot avance que les premiers utilisateurs de Marketing Studio créent 81% de campagnes en plus et que ceux utilisant Breeze Assistant génèrent 2,2 fois plus de leads, avec jusqu'à 3,6 fois plus de leads qualifiés (MQL) et 3,2 fois plus de deals conclus.",
+      "actionACL": "Suivre l'évolution de ces CRM agentiques pour anticiper les standards de personnalisation attendus par les 191 000 membres, notamment la segmentation automatique et les relances déclenchées par le comportement plutôt que par un calendrier fixe. Si une évaluation ou une migration de CRM est envisagée dans les 12 prochains mois, ces capacités (capture automatique des interactions, agents de création de campagnes, détection de segments sous-performants) doivent figurer au cahier des charges.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "HubSpot (communiqué officiel)",
+          "url": "https://www.hubspot.com/company-news/fall-26-spotlight"
+        },
+        {
+          "name": "HubSpot Investor Relations",
+          "url": "https://ir.hubspot.com/news-releases/news-release-details/fall-26-spotlight-hubspot-just-made-its-most-foundational"
+        },
+        {
+          "name": "CMSWire",
+          "url": "https://www.cmswire.com/customer-experience/hubspot-debuts-breeze-assistant-selfupdating-crm/"
+        },
+        {
+          "name": "Yahoo Finance (syndication)",
+          "url": "https://finance.yahoo.com/technology/ai/articles/fall-26-spotlight-hubspot-just-133000556.html"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-16",
+      "theme": "Social & Ads",
+      "titre": "Meta lance son Creator Marketing Hub et les Live Ads sur Instagram",
+      "synthese": "Meta a fusionné le 16 septembre 2026 ses deux outils créateurs, Creator Marketplace et Partnership Ads Hub, en un Creator Marketing Hub unique, annoncé lors de la première IAB Global Creator Week. La plateforme ajoute des filtres de découverte, des permissions de contenu avec date d'expiration, la création de publicités en un clic et un assistant IA pour trouver des créateurs. Les créateurs Facebook rejoignent pour la première fois les créateurs Instagram dans l'API Creator Marketplace, aux côtés de plus de 5 millions de profils Instagram déjà référencés. Les Live Ads, déjà disponibles sur Facebook, deviennent accessibles sur Instagram à partir du 29 septembre 2026, permettant de sponsoriser le direct d'un créateur comme publicité de partenariat.",
+      "actionACL": "Explorer le Creator Marketing Hub pour identifier des créateurs luxembourgeois ou frontaliers (mobilité, sécurité routière, auto) et transformer leurs contenus organiques en publicités de partenariat à moindre coût média. À tester dès fin septembre : une diffusion en direct (Live Ads) lors d'un événement ACL, en vérifiant au préalable la disponibilité de la fonctionnalité sur le marché luxembourgeois.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "MediaPost",
+          "url": "https://www.mediapost.com/publications/article/418022/meta-launches-creator-marketing-hub-live-video-ad.html"
+        },
+        {
+          "name": "Marketing Dive",
+          "url": "https://www.marketingdive.com/news/meta-streamlines-creator-brand-tie-ups-with-new-marketing-hub/830593/"
+        },
+        {
+          "name": "eMarketer",
+          "url": "https://www.emarketer.com/content/meta-s-creator-marketing-hub-gives-brands-central-resource-partnerships"
+        },
+        {
+          "name": "Social Media Today",
+          "url": "https://www.socialmediatoday.com/news/meta-adds-more-creator-partnership-tools/830480/"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-08",
+      "theme": "IA générative en marketing",
+      "titre": "Publicité programmatique : première campagne agentique auto en EMEA",
+      "synthese": "La plateforme adtech Magnite a lancé sa première campagne publicitaire pilotée par un agent IA en zone EMEA, en partenariat avec le trading desk Amnet France, pour le compte d'un constructeur automobile. Via de simples prompts en langage naturel, l'agent acheteur de Magnite a construit et activé une campagne vidéo sur sa plateforme ClearLine, sans intervention manuelle poste par poste. Résultat mesuré : le temps de mise en place de la campagne a chuté d'environ 70%, et le taux de vue complète (VTR) a atteint 95%. L'agent a également identifié des opportunités d'inventaire et d'optimisation que le processus manuel classique n'aurait probablement pas détectées.",
+      "actionACL": "Ce cas concerne directement le secteur automobile de l'ACL : si l'association ou son agence média envisagent des campagnes display/vidéo programmatiques (assistance, assurances, événements), demander explicitement si des options d'achat piloté par IA agentique existent pour réduire les délais et coûts de mise en place. Point à inscrire à l'ordre du jour du prochain brief avec l'agence média.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "GlobeNewswire (communiqué officiel Magnite)",
+          "url": "https://www.globenewswire.com/news-release/2026/09/08/3357336/0/en/magnite-launches-first-agentic-campaign-in-emea-with-amnet-france.html"
+        },
+        {
+          "name": "ppc.land",
+          "url": "https://ppc.land/magnites-first-emea-agentic-test-cuts-ctv-setup-time-70/"
+        },
+        {
+          "name": "StockTitan",
+          "url": "https://www.stocktitan.net/news/MGNI/magnite-launches-first-agentic-campaign-in-emea-with-amnet-z2jcr9nk6tp8.html"
+        },
+        {
+          "name": "The Manila Times (reprise GlobeNewswire)",
+          "url": "https://www.manilatimes.net/2026/09/08/tmt-newswire/globenewswire/magnite-launches-first-agentic-campaign-in-emea-with-amnet-france/2420210"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-01",
+      "theme": "IA générative en marketing",
+      "titre": "Optimizely lance des IA spécialisées marketing 10x moins coûteuses",
+      "synthese": "Optimizely a annoncé une famille de modèles d'IA post-entraînés spécifiquement pour les tâches marketing, plutôt que de s'appuyer sur des LLM généralistes comme GPT ou Claude. Ces modèles atteignent, selon les premiers tests de l'entreprise, une efficacité de coût dix fois supérieure aux modèles généralistes de pointe pour un niveau de qualité comparable. Optimizely a aussi lancé Mark-Bench, un benchmark open source évaluant les performances IA sur 285 tâches réparties dans 15 fonctions marketing et plus de 6000 critères. Sur ce benchmark, l'Agent Platform d'Optimizely obtient un taux de réussite de 67%, contre 60% pour Claude Code, à moitié moins cher. Cette annonce illustre une tendance de fond vers des IA marketing verticalisées et moins coûteuses plutôt que des IA généralistes pour les tâches répétitives.",
+      "actionACL": "Surveiller l'émergence d'offres IA marketing spécialisées moins coûteuses que les abonnements IA généralistes actuels, sans action immédiate car l'outil reste orienté grands comptes B2B. Réévaluer dans 6 à 12 mois si des versions accessibles aux petites équipes apparaissent, en comparant leur rapport qualité-prix à ChatGPT/Claude pour la production de newsletters et de contenus réseaux sociaux de l'ACL.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "PR Newswire",
+          "url": "https://www.prnewswire.com/news-releases/optimizely-introduces-purpose-built-ai-models-for-marketing-that-deliver-frontier-level-quality-at-a-fraction-of-the-cost-302865074.html"
+        },
+        {
+          "name": "Optimizely (communiqué officiel)",
+          "url": "https://www.optimizely.com/company/press/optimizely-models"
+        },
+        {
+          "name": "CMSWire",
+          "url": "https://www.cmswire.com/digital-experience/optimizely-debuts-marketing-ai-models-open-benchmark/"
+        },
+        {
+          "name": "MarTech Series",
+          "url": "https://martechseries.com/predictive-ai/ai-platforms-machine-learning/optimizely-introduces-purpose-built-ai-models-for-marketing-that-deliver-frontier-level-quality-at-a-fraction-of-the-cost/"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-16",
+      "theme": "Design & branding",
+      "titre": "Figma Weave : partage communautaire des workflows de design IA",
+      "synthese": "Figma a activé le 16 septembre 2026 la publication communautaire des outils Weave, sa plateforme de génération d'images et vidéos par IA issue du rachat de la startup Weavy en octobre 2025. Tout utilisateur d'un plan Weave payant peut désormais publier ses propres workflows de génération réutilisables, basés sur des modèles comme Veo 3, GPT Image ou Ideogram, directement sur la Figma Community, où ils deviennent utilisables par d'autres depuis le canevas Figma Design. Cinq outils communautaires ont été mis en avant au lancement, dont la transformation d'un moodboard en rendu 3D photoréaliste et la conversion d'une photo de bâtiment en modèle architectural 3D. Plus de 30 outils Weave avaient déjà été lancés par Figma lors de sa conférence Config en juin 2026. Seuls les workflows de génération d'image et de vecteur sont exploitables directement dans Figma Design, la vidéo et la 3D restant cantonnées à l'espace Weave dédié.",
+      "actionACL": "Si l'ACL ou son agence travaille déjà sous Figma, tester la création d'un workflow Weave interne calé sur la charte graphique ACL (logo, palette, typographies) pour générer rapidement des visuels d'événements ou de campagnes cohérents, sans dépendre à chaque fois d'un designer. Avant toute adoption, clarifier en interne qui valide les assets générés par IA afin de garder le contrôle de la cohérence de marque.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "Figma Blog",
+          "url": "https://www.figma.com/blog/try-these-5-weave-tools-and-share-your-own/"
+        },
+        {
+          "name": "Figma Weave Knowledge Center (Weavy)",
+          "url": "https://help.weavy.ai/en/articles/15624624-publish-weave-workflows-to-the-figma-community"
+        },
+        {
+          "name": "Releasebot (suivi des mises à jour Figma)",
+          "url": "https://releasebot.io/updates/figma"
+        },
+        {
+          "name": "daily.dev (relai de l'article Figma)",
+          "url": "https://daily.dev/posts/try-these-5-weave-tools-and-share-your-own-tv4qjf1hr"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-23",
+      "theme": "Social & Ads",
+      "titre": "LinkedIn déploie les posts collaboratifs pour marques et membres",
+      "synthese": "LinkedIn a annoncé le 23 juillet 2026 le déploiement mondial des Collaborative Posts, un format permettant à un membre ou une Page entreprise d'inviter jusqu'à cinq co-auteurs sur une même publication. Le post apparaît alors simultanément dans le fil de chaque collaborateur, cumulant les audiences sous une signature partagée, pour la plupart des formats standards (texte, image, vidéo, document, sondage). La fonctionnalité avait d'abord été testée fin juin 2026 avec un groupe restreint de créateurs et marques lors du Cannes Lions avant son ouverture mondiale. Le déploiement reste progressif ; seules les statistiques d'engagement des membres sont visibles par les collaborateurs, pas celles des Pages entreprise.",
+      "actionACL": "Tester ce format pour des publications conjointes avec des partenaires (assureurs, concessionnaires, dépanneurs, autorités routières luxembourgeoises) afin de doubler la portée organique sans budget publicitaire supplémentaire. À vérifier au préalable : la disponibilité effective sur la Page LinkedIn ACL, encore limitée à ce stade du déploiement.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "LinkedIn News (officiel)",
+          "url": "https://news.linkedin.com/2026/introducing-collaborative-posts-now-available-to-members-and-company-pages-on-linkedin"
+        },
+        {
+          "name": "Social Media Today",
+          "url": "https://www.socialmediatoday.com/news/linkedin-adds-collaborative-posts/823470/"
+        },
+        {
+          "name": "PPC Land",
+          "url": "https://ppc.land/linkedin-caps-collaborative-posts-at-five-and-blocks-page-engagement-metrics/"
+        },
+        {
+          "name": "WebWire (communiqué)",
+          "url": "https://www.webwire.com/ViewPressRel.asp?aId=358171"
+        }
+      ]
+    },
     {
       "date": "2026-08-05",
       "theme": "CRM & member marketing",
