@@ -935,6 +935,43 @@
     .channel-leg-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
     .channel-leg-val{margin-left:auto;font-weight:700;font-size:12.5px;color:var(--muted);flex-shrink:0;}
 
+    /* ─── MARCHÉ AUTOMOBILE LU ────────────────────────────── */
+    .car-kpi-row{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
+    .car-kpi-deltas{display:flex;flex-direction:column;gap:4px;padding-top:8px;border-top:1px dashed var(--border);}
+    .car-kpi-delta{font-size:12px;font-weight:700;}
+    .car-kpi-delta.good{color:var(--good);}
+    .car-kpi-delta.bad{color:var(--bad);}
+    .car-kpi-delta.neutral{color:var(--muted);}
+    .car-kpi-delta-label{font-weight:500;color:var(--muted);}
+
+    .car-filter-pill{display:inline-flex;align-items:center;gap:8px;align-self:flex-start;background:var(--c-club-bg);color:var(--n);border-radius:99px;padding:5px 8px 5px 12px;font-size:12px;font-weight:600;}
+    .car-filter-pill button{border:none;background:rgba(18,60,98,.12);color:var(--n);width:18px;height:18px;border-radius:50%;font-size:13px;line-height:1;cursor:pointer;display:grid;place-items:center;}
+    .car-filter-pill button:hover{background:var(--n);color:#fff;}
+
+    .car-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:16px;align-items:start;}
+    .car-col{display:flex;flex-direction:column;gap:16px;}
+    .car-click-hint{margin-left:auto;font-size:11px;font-style:italic;color:var(--muted);}
+
+    .car-bar-row{cursor:pointer;border-radius:6px;padding:3px 4px;margin:-3px -4px;transition:opacity 220ms,background 160ms;}
+    .car-bar-row:hover{background:rgba(0,0,0,.03);}
+    .car-bar-dimmed{opacity:.35;}
+    .car-bar-dimmed .bar-fill{background:var(--muted-2)!important;}
+    .car-bar-selected .bar-name{color:var(--n);}
+
+    .car-fuel-leg{cursor:pointer;border-radius:6px;padding:2px 4px;margin:-2px -4px;transition:opacity 220ms,background 160ms;}
+    .car-fuel-leg:hover{background:rgba(0,0,0,.03);}
+
+    .car-color-block{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-radius:8px;margin-bottom:8px;font-size:13px;font-weight:700;}
+    .car-color-block:last-child{margin-bottom:0;}
+    .car-color-name{text-transform:capitalize;}
+    .car-color-count{font-variant-numeric:tabular-nums;}
+
+    .car-footnote{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--muted);margin-top:4px;}
+    .car-footnote-i{display:inline-grid;place-items:center;width:15px;height:15px;border-radius:50%;border:1px solid var(--muted-2);font-size:9.5px;font-weight:700;flex-shrink:0;}
+
+    @media (max-width:1100px){.car-grid{grid-template-columns:1fr;}}
+    @media (max-width:640px){.car-kpi-row{grid-template-columns:1fr;}}
+
     /* ─── OVERVIEW TOP BARS 2-COL (compact) ──────────────── */
     .overview-bars-2{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start;}
     .overview-bars-2 .bar-row{padding:5px 0;}
@@ -1294,6 +1331,12 @@
           <span class="sb-pill">SEO Positions</span>
           <span class="sb-dot" id="bs-seopos" style="background:var(--muted-2);"></span>
         </button>
+        <button class="sb-item tab-btn" data-tab="car-market" title="Marché automobile LU">
+          <span class="sb-ic-wrap" style="background:rgba(18,60,98,.15);--ic-color:#123C62"><svg class="sb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 17h14v-5l-2-5H7L5 12v5Z"/><path d="M5 17H3v-3M19 17h2v-3"/><circle cx="7.5" cy="17" r="1.5"/><circle cx="16.5" cy="17" r="1.5"/></svg></span>
+          <span class="sb-item-label">Marché automobile</span>
+          <span class="sb-pill">Marché automobile</span>
+          <span class="sb-dot" id="bs-car-market" style="background:var(--muted-2);"></span>
+        </button>
         <button class="sb-item tab-btn" data-tab="veille-ia" title="Veille IA &amp; Marcom">
           <span class="sb-ic-wrap" style="background:rgba(168,85,247,.15);--ic-color:#A855F7"><svg class="sb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l1.5 4.5L18 8l-4.5 1.5L12 14l-1.5-4.5L6 8l4.5-1.5z"/><path d="M19 15l.75 2.25L22 18l-2.25.75L19 21l-.75-2.25L16 18l2.25-.75z"/></svg></span>
           <span class="sb-item-label">Veille IA &amp; Marcom</span>
@@ -1432,6 +1475,9 @@
 
         <!-- ── SEO POSITIONS ─────────────────────────────────────── -->
         <div id="panel-seopos" class="tab-panel"></div>
+
+        <!-- ── MARCHÉ AUTOMOBILE LU ──────────────────────────────── -->
+        <div id="panel-car-market" class="tab-panel"></div>
 
         <!-- ── INTELLIGENCE WEB ──────────────────────────────────── -->
         <div id="panel-intelligence" class="tab-panel"></div>
@@ -1709,6 +1755,7 @@ function _renderTab(tab) {
   else if (tab === 'partners')     renderPartners(d.dPartners, d.dPartnerList);
   else if (tab === 'intelligence') renderIntelligence();
   else if (tab === 'veille-ia')   renderVeilleIA();
+  else if (tab === 'car-market')  renderCarMarket(d.dCarReg);
 }
 
 // ── loadAll ───────────────────────────────────────────────────
@@ -1720,7 +1767,7 @@ async function loadAll() {
 
   try {
     const [ga4, ga4auto, ga4ext, ga4trend, gsc, fb, fbpage, brevo, club, yt, li, veille, fbpageytd, fbytd, buffer,
-           ga4geo, ga4sections, gsccompare, ga4funnel, seopos, clubglobal, clublist, wrike] = await Promise.allSettled([
+           ga4geo, ga4sections, gsccompare, ga4funnel, seopos, clubglobal, clublist, wrike, carreg] = await Promise.allSettled([
       api('/ga4'), api('/ga4/autotouring'), api('/ga4/extended'), api('/ga4/trend'),
       api('/gsc'), api('/fb'), api('/fb/page'), api('/brevo'), api('/brevo/club'),
       api('/youtube'), api('/supermetrics/linkedin'), api('/veille'),
@@ -1729,7 +1776,7 @@ async function loadAll() {
       api('/ga4/geographic'), api('/ga4/sections'), api('/gsc/compare'),
       api('/ga4/funnel'), api('/seo-positions'),
       apiSlow('/club-partners/global'), apiSlow('/club-partners/list'),
-      api('/wrike')
+      api('/wrike'), api('/car-registrations')
     ]);
 
     const v = r => r.status === 'fulfilled' ? r.value : null;
@@ -1745,6 +1792,7 @@ async function loadAll() {
     const dPartners    = v(clubglobal);
     const dPartnerList = v(clublist);
     const dWrike       = v(wrike);
+    const dCarReg      = v(carreg);
 
     updateStatus('bs-ga4',      dGA4      && !dGA4.error);
     updateStatus('bs-gsc',      dGSC      && !dGSC.error);
@@ -1759,8 +1807,9 @@ async function loadAll() {
     updateStatus('bs-seopos',   dSEO      && !dSEO.error);
     updateStatus('bs-partners', dPartners && !dPartners.error);
     updateStatus('bs-wrike',   dWrike   && !dWrike.error);
+    updateStatus('bs-car-market', dCarReg && !dCarReg.error);
 
-    window._dashData = {dGA4, dGA4A, dGA4E, dGA4T, dGSC, dFB, dFBP, dBrevo, dClub, dYT, dLI, dVeille, dFBPytd, dFBytd, dBuffer, dGA4Geo, dSections, dGSCCompare, dFunnel, dSEO, dPartners, dPartnerList, dWrike};
+    window._dashData = {dGA4, dGA4A, dGA4E, dGA4T, dGSC, dFB, dFBP, dBrevo, dClub, dYT, dLI, dVeille, dFBPytd, dFBytd, dBuffer, dGA4Geo, dSections, dGSCCompare, dFunnel, dSEO, dPartners, dPartnerList, dWrike, dCarReg};
     window._tabRendered = {};
 
     const activeTab = document.querySelector('.tab-btn.active')?.dataset.tab || 'overview';
@@ -6724,6 +6773,366 @@ function openWrikeMatrixCell(target, stage, cell) {
   document.querySelectorAll('.tab-btn').forEach(b => b.addEventListener('click', closeSb));
 })();
 
+// ── MARCHÉ AUTOMOBILE LU ────────────────────────────────────────
+// Source : "Parc Automobile du Luxembourg" (SNCA / data.public.lu, CC0).
+// data/car-registrations-data.json est un cube pré-agrégé
+// [monthIdx, brandIdx, modelIdx, fuelIdx, colorIdx, count] — tout le
+// filtrage croisé (marque / modèle / motorisation) se fait ici, côté client,
+// par simple somme sur les lignes du cube qui correspondent au filtre actif.
+const CAR_DIM_POS  = {brand: 1, model: 2, fuel: 3, color: 4};
+const CAR_MONTHS_FR = ['','janv.','févr.','mars','avr.','mai','juin','juil.','août','sept.','oct.','nov.','déc.'];
+
+let _carRawData = null;
+let _carFilter  = null; // {dim:'brand'|'model'|'fuel', value:string} | null
+
+function carMonthLabel(ym) {
+  const [y, m] = ym.split('-');
+  return `${CAR_MONTHS_FR[parseInt(m, 10)]} ${y}`;
+}
+
+function carRowsForFilter(d, filter) {
+  if (!filter) return d.cube;
+  const pos = CAR_DIM_POS[filter.dim];
+  const dict = filter.dim === 'brand' ? d.brands : filter.dim === 'model' ? d.models : filter.dim === 'fuel' ? d.fuels : d.colors;
+  const idx = dict.indexOf(filter.value);
+  if (idx < 0) return d.cube;
+  return d.cube.filter(r => r[pos] === idx);
+}
+
+function carSumByMonth(d, rows) {
+  const sums = new Array(d.months.length).fill(0);
+  rows.forEach(r => { sums[r[0]] += r[5]; });
+  return sums;
+}
+
+function carGroupSum(rows, dimPos, labels) {
+  const sums = new Map();
+  rows.forEach(r => { const k = r[dimPos]; sums.set(k, (sums.get(k) || 0) + r[5]); });
+  return Array.from(sums.entries())
+    .map(([idx, count]) => ({label: labels[idx], count}))
+    .sort((a, b) => b.count - a.count);
+}
+
+function carDeltaLine(curr, prev, label) {
+  if (prev == null) return `<div class="car-kpi-delta neutral">Pas de comparaison disponible</div>`;
+  const abs = curr - prev;
+  const pct = prev ? (abs / prev * 100) : 0;
+  const cls  = abs > 0 ? 'good' : abs < 0 ? 'bad' : 'neutral';
+  const sign = abs > 0 ? '+' : '';
+  return `<div class="car-kpi-delta ${cls}">${sign}${fmtN(abs)} (${sign}${pct.toFixed(1)}%) <span class="car-kpi-delta-label">vs. ${fmtN(prev)} ${label}</span></div>`;
+}
+
+function carKpiCardHtml(label, value, deltaLines) {
+  return `<div class="kpi-card" style="--src:var(--n);--src-bg:var(--c-club-bg)">
+    <div class="kpi-label">${label}</div>
+    <div class="kpi-body"><div class="kpi-val">${value}</div></div>
+    <div class="car-kpi-deltas">${deltaLines.join('')}</div>
+  </div>`;
+}
+
+function carBarListHtml(items, dim, selectedValue, upper) {
+  if (!items.length) return '<p class="tbl-empty">Aucune donnée</p>';
+  const max = items[0].count || 1;
+  return items.map(it => {
+    const isSel  = selectedValue != null && it.label === selectedValue;
+    const dimmed = selectedValue != null && !isSel;
+    return `<div class="bar-row car-bar-row${dimmed ? ' car-bar-dimmed' : ''}${isSel ? ' car-bar-selected' : ''}"
+                 role="button" tabindex="0" data-dim="${dim}" data-value="${it.label.replace(/"/g,'&quot;')}">
+      <div class="bar-meta">
+        <span class="bar-name" title="${it.label}">${upper ? it.label.toUpperCase() : it.label}</span>
+        <div class="bar-track"><div class="bar-fill" style="--src:var(--n);width:${Math.round(it.count / max * 100)}%"></div></div>
+      </div>
+      <span class="bar-val">${fmtN(it.count)}</span>
+    </div>`;
+  }).join('');
+}
+
+function carContrastText(hex) {
+  const c = (hex || '#B7B3AA').replace('#', '');
+  const r = parseInt(c.substr(0, 2), 16), g = parseInt(c.substr(2, 2), 16), b = parseInt(c.substr(4, 2), 16);
+  const lum = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+  return lum > 0.6 ? '#161513' : '#fff';
+}
+
+function carColorListHtml(items, colorHex, maxItems = 8) {
+  if (!items.length) return '<p class="tbl-empty">Aucune donnée</p>';
+  const shown = items.slice(0, maxItems);
+  const rest  = items.slice(maxItems).reduce((s, it) => s + it.count, 0);
+  const rows = shown.map(it => {
+    const hex  = colorHex[it.label] || '#B7B3AA';
+    const text = carContrastText(hex);
+    return {name: it.label, count: it.count, hex, text};
+  });
+  if (rest > 0) rows.push({name: 'Autres', count: rest, hex: '#E8E6E0', text: '#161513'});
+  return rows.map(r => `
+    <div class="car-color-block" style="background:${r.hex};color:${r.text}">
+      <span class="car-color-name">${r.name}</span>
+      <span class="car-color-count">${fmtN(r.count)}</span>
+    </div>`).join('');
+}
+
+// ── Chart.js plugins maison (pas de plugin externe chargé) ─────
+if (typeof Chart !== 'undefined' && !Chart.registry.plugins.get('carVLine')) {
+  Chart.register({
+    id: 'carVLine',
+    afterDraw(chart, args, opts) {
+      if (opts?.index == null) return;
+      const {ctx, chartArea: area} = chart;
+      const x = chart.scales.x.getPixelForValue(opts.index);
+      ctx.save();
+      ctx.beginPath();
+      ctx.moveTo(x, area.top);
+      ctx.lineTo(x, area.bottom);
+      ctx.lineWidth = 1.5;
+      ctx.strokeStyle = '#e8871e';
+      ctx.setLineDash([4, 4]);
+      ctx.stroke();
+      ctx.restore();
+    },
+  });
+  Chart.register({
+    id: 'carEndLabels',
+    afterDatasetsDraw(chart, args, opts) {
+      if (!opts?.points) return;
+      const {ctx} = chart;
+      const meta = chart.getDatasetMeta(0);
+      opts.points.forEach(i => {
+        const pt = meta.data[i];
+        if (!pt) return;
+        const val = chart.data.datasets[0].data[i];
+        if (val == null) return;
+        ctx.save();
+        ctx.font = "700 11px 'Albert Sans', sans-serif";
+        ctx.fillStyle = opts.color || '#123C62';
+        ctx.textAlign = 'center';
+        ctx.fillText(fmtN(val), pt.x, pt.y + (val >= 0 ? -8 : 16));
+        ctx.restore();
+      });
+    },
+  });
+}
+
+function renderCarMonthlyCharts(d, rows) {
+  const labels = d.months.map(carMonthLabel);
+  const sums   = carSumByMonth(d, rows);
+  const deltas = sums.map((v, i) => i === 0 ? null : v - sums[i - 1]);
+  const latestYear = parseInt(d.months[d.months.length - 1].split('-')[0], 10);
+  const transitionIdx = d.months.indexOf(`${latestYear}-01`);
+
+  ['carMonthlyVolume', 'carMonthlyDelta'].forEach(k => {
+    if (chartInstances[k]) { chartInstances[k].destroy(); delete chartInstances[k]; }
+  });
+
+  const volCanvas = document.getElementById('chartCarMonthlyVolume');
+  if (volCanvas) {
+    chartInstances['carMonthlyVolume'] = new Chart(volCanvas, {
+      type: 'line',
+      data: {
+        labels,
+        datasets: [{
+          data: sums, borderColor: '#123C62', backgroundColor: 'rgba(18,60,98,0.08)',
+          borderWidth: 2, pointRadius: 0, tension: 0.3, fill: true,
+        }],
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        layout: {padding: {top: 20}},
+        plugins: {
+          legend: {display: false},
+          tooltip: {callbacks: {label: ctx => ` ${fmtN(ctx.raw)} immatriculations`}, bodyFont: {family: 'Albert Sans'}},
+          carVLine: {index: transitionIdx >= 0 ? transitionIdx : null},
+          carEndLabels: {points: [0, sums.length - 1], color: '#123C62'},
+        },
+        scales: {
+          x: {grid: {display: false}, ticks: {display: false}},
+          y: {display: false, grace: '15%'},
+        },
+      },
+    });
+  }
+
+  const deltaCanvas = document.getElementById('chartCarMonthlyDelta');
+  if (deltaCanvas) {
+    chartInstances['carMonthlyDelta'] = new Chart(deltaCanvas, {
+      type: 'bar',
+      data: {labels, datasets: [{data: deltas, backgroundColor: '#123C62', borderRadius: 2, maxBarThickness: 18}]},
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        layout: {padding: {top: 16}},
+        plugins: {
+          legend: {display: false},
+          tooltip: {callbacks: {label: ctx => ` ${ctx.raw >= 0 ? '+' : ''}${fmtN(ctx.raw)} vs. mois précédent`}, bodyFont: {family: 'Albert Sans'}},
+          carEndLabels: {points: [deltas.length - 1], color: '#123C62'},
+        },
+        scales: {
+          x: {grid: {display: false}, ticks: {font: {size: 9.5, family: 'Albert Sans'}, color: '#808080', maxRotation: 0, autoSkip: true, maxTicksLimit: 12}},
+          y: {display: false},
+        },
+      },
+    });
+  }
+}
+
+function renderCarFuelDonut(d, rows) {
+  if (chartInstances['carFuelDonut']) { chartInstances['carFuelDonut'].destroy(); delete chartInstances['carFuelDonut']; }
+  const canvas = document.getElementById('chartCarFuelDonut');
+  const legend = document.getElementById('carFuelDonutLegend');
+  if (!canvas) return;
+
+  const groups = carGroupSum(rows, CAR_DIM_POS.fuel, d.fuels).filter(g => g.count > 0);
+  const total  = groups.reduce((s, g) => s + g.count, 0) || 1;
+  const FUEL_COLORS = {Essence: '#123C62', Diesel: '#2E5E8C', Hybride: '#4E86B4', Electrique: '#8FBEDD', Autre: '#C7DCEC'};
+  const labels = groups.map(g => g.label);
+  const data   = groups.map(g => g.count);
+  const colors = labels.map(l => FUEL_COLORS[l] || '#C7DCEC');
+
+  chartInstances['carFuelDonut'] = new Chart(canvas, {
+    type: 'doughnut',
+    data: {labels, datasets: [{data, backgroundColor: colors, borderColor: '#fff', borderWidth: 2, hoverOffset: 4}]},
+    options: {
+      responsive: false, maintainAspectRatio: false, cutout: '68%',
+      plugins: {
+        legend: {display: false},
+        tooltip: {callbacks: {label: ctx => ` ${ctx.label}: ${fmtN(ctx.raw)} (${((ctx.raw / total) * 100).toFixed(1)}%)`}, bodyFont: {family: 'Albert Sans', size: 11}},
+      },
+      onClick: (evt, elements) => {
+        if (!elements.length) return;
+        window._carToggleFilter('fuel', labels[elements[0].index]);
+      },
+      onHover: (evt, elements) => { evt.native.target.style.cursor = elements.length ? 'pointer' : 'default'; },
+    },
+  });
+
+  if (legend) {
+    legend.innerHTML = groups.map(g => {
+      const pct = (g.count / total * 100).toFixed(0);
+      const color = FUEL_COLORS[g.label] || '#C7DCEC';
+      const isSel = _carFilter?.dim === 'fuel' && _carFilter.value === g.label;
+      const dimmed = _carFilter?.dim === 'fuel' && !isSel;
+      return `<div class="channel-leg-item car-fuel-leg${dimmed ? ' car-bar-dimmed' : ''}" role="button" data-dim="fuel" data-value="${g.label}">
+        <div class="channel-leg-dot" style="background:${color}"></div>
+        <span>${g.label}</span>
+        <span class="channel-leg-val">${pct}%</span>
+      </div>`;
+    }).join('');
+  }
+}
+
+window._carToggleFilter = function(dim, value) {
+  _carFilter = (_carFilter && _carFilter.dim === dim && _carFilter.value === value) ? null : {dim, value};
+  renderCarMarket(_carRawData);
+};
+
+function renderCarMarket(d) {
+  const el = document.getElementById('panel-car-market');
+  if (!el) return;
+  if (!d || d.error) {
+    el.innerHTML = `<div class="no-key"><strong>Marché automobile</strong><br>${d?.error || "Données non disponibles — exécutez le workflow GitHub Actions « Immatriculations LU » pour générer car-registrations-data.json."}</div>`;
+    return;
+  }
+  _carRawData = d;
+
+  const rows = carRowsForFilter(d, _carFilter);
+  const months = d.months;
+  const latest = months[months.length - 1];
+  const [latestYear, latestMonthNum] = latest.split('-').map(Number);
+  const prevMonth = months.length > 1 ? months[months.length - 2] : null;
+  const yoyMonth  = `${latestYear - 1}-${String(latestMonthNum).padStart(2, '0')}`;
+
+  const sums = carSumByMonth(d, rows);
+  const monthSum = ym => { const i = months.indexOf(ym); return i < 0 ? null : sums[i]; };
+
+  // KPI 1 — cumul janvier → dernier mois, vs même période l'an dernier
+  let ytdCurr = 0, ytdPrev = 0;
+  months.forEach((ym, i) => {
+    const [y, m] = ym.split('-').map(Number);
+    if (y === latestYear && m <= latestMonthNum) ytdCurr += sums[i];
+    if (y === latestYear - 1 && m <= latestMonthNum) ytdPrev += sums[i];
+  });
+  const ytdLabel = `${CAR_MONTHS_FR[1]} – ${carMonthLabel(latest)}`;
+
+  // KPI 2 — dernier mois vs mois précédent & vs même mois l'an dernier
+  const curMonthSum = sums[sums.length - 1];
+
+  const filterPill = _carFilter ? `
+    <div class="car-filter-pill">
+      <span>Filtre actif&nbsp;: <b>${_carFilter.dim === 'brand' ? _carFilter.value.toUpperCase() : _carFilter.value}</b></span>
+      <button id="carFilterReset" title="Réinitialiser le filtre">×</button>
+    </div>` : '';
+
+  const topBrands = carGroupSum(rows, CAR_DIM_POS.brand, d.brands);
+  const topModels = carGroupSum(rows, CAR_DIM_POS.model, d.models).filter(m => m.label !== 'N/D').slice(0, 10);
+  const topColors = carGroupSum(rows, CAR_DIM_POS.color, d.colors);
+
+  el.innerHTML = `
+    <div class="sec-title"><h2>Marché automobile — Luxembourg</h2><div class="line"></div>
+      <span class="src-pill" style="--src:var(--n);--src-bg:var(--c-club-bg)">SNCA · Open Data</span>
+    </div>
+    ${filterPill}
+    <div class="car-kpi-row">
+      ${carKpiCardHtml(`Nouvelles immatriculations · ${ytdLabel} ${latestYear}`, fmtN(ytdCurr), [carDeltaLine(ytdCurr, ytdPrev, `sur la même période ${latestYear - 1}`)])}
+      ${carKpiCardHtml(`Nouvelles immatriculations · ${carMonthLabel(latest)}`, fmtN(curMonthSum), [
+        carDeltaLine(curMonthSum, monthSum(prevMonth), 'le mois précédent'),
+        carDeltaLine(curMonthSum, monthSum(yoyMonth), `en ${carMonthLabel(yoyMonth)}`),
+      ])}
+    </div>
+
+    <div class="car-grid">
+      <div class="car-col car-col-left">
+        <div class="card">
+          <div class="card-head"><div><div class="card-title">Immatriculations par mois</div><div class="card-sub">Depuis ${carMonthLabel(d.min_month)}</div></div></div>
+          <div class="card-body flush" style="padding:4px 20px 0"><canvas id="chartCarMonthlyVolume" height="130"></canvas></div>
+          <div class="card-body flush" style="padding:0 20px 16px"><canvas id="chartCarMonthlyDelta" height="70"></canvas></div>
+        </div>
+      </div>
+
+      <div class="car-col car-col-mid">
+        <div class="card">
+          <div class="card-head"><div class="card-title">Top Brands</div><span class="car-click-hint">Cliquez sur un élément</span></div>
+          <div class="card-body" id="carBrandsList">${carBarListHtml(topBrands, 'brand', _carFilter?.dim === 'brand' ? _carFilter.value : null, true)}</div>
+        </div>
+        <div class="card">
+          <div class="card-head"><div class="card-title">Engine Type</div></div>
+          <div class="card-body">
+            <div class="channel-donut-inner">
+              <div class="channel-donut-canvas-wrap"><canvas id="chartCarFuelDonut" width="140" height="140"></canvas></div>
+              <div class="channel-donut-legend" id="carFuelDonutLegend"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="car-col car-col-right">
+        <div class="card">
+          <div class="card-head"><div class="card-title">Top Models</div><span class="car-click-hint">Cliquez sur un élément</span></div>
+          <div class="card-body" id="carModelsList">${carBarListHtml(topModels, 'model', _carFilter?.dim === 'model' ? _carFilter.value : null, false)}</div>
+        </div>
+        <div class="card">
+          <div class="card-head"><div class="card-title">Top Colors</div></div>
+          <div class="card-body" id="carColorsList">${carColorListHtml(topColors, d.colorHex)}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="car-footnote">
+      <span class="car-footnote-i">i</span>
+      Analyse &amp; visualisation&nbsp;: ACL Marcom &nbsp;|&nbsp; Source des données&nbsp;: SNCA — data.public.lu (Parc Automobile du Luxembourg) &nbsp;|&nbsp;
+      Dernière publication&nbsp;: ${d.source_file || '—'}
+    </div>`;
+
+  el.querySelectorAll('.car-bar-row').forEach(row => {
+    row.addEventListener('click', () => window._carToggleFilter(row.dataset.dim, row.dataset.value));
+  });
+  el.querySelectorAll('.car-fuel-leg').forEach(row => {
+    row.addEventListener('click', () => window._carToggleFilter(row.dataset.dim, row.dataset.value));
+  });
+  document.getElementById('carFilterReset')?.addEventListener('click', () => { _carFilter = null; renderCarMarket(_carRawData); });
+
+  animateCards(el);
+  renderCarMonthlyCharts(d, rows);
+  renderCarFuelDonut(d, rows);
+}
+
 // ── Dark mode toggle ──────────────────────────────────────────
 (function() {
   const btn  = document.getElementById('btnTheme');
@@ -6778,6 +7187,7 @@ const TAB_ENDPOINTS = {
   partners:     ['club-partners/global','club-partners/list'],
   intelligence: ['ga4','gsc','fb','brevo','supermetrics/linkedin','youtube'],
   'veille-ia':  [],
+  'car-market': ['car-registrations'],
 };
 
 // Endpoint → clé dans window._dashData
@@ -6788,7 +7198,7 @@ const EP_TO_KEY = {
   'buffer':'dBuffer','ga4/geographic':'dGA4Geo','ga4/sections':'dSections',
   'gsc/compare':'dGSCCompare','ga4/funnel':'dFunnel','seo-positions':'dSEO',
   'club-partners/global':'dPartners','club-partners/list':'dPartnerList',
-  'pagespeed':'dPageSpeed','wrike':'dWrike',
+  'pagespeed':'dPageSpeed','wrike':'dWrike','car-registrations':'dCarReg',
 };
 const EP_SLOW = new Set(['club-partners/global','club-partners/list']);
 
@@ -6796,6 +7206,7 @@ const STATUS_MAP = {
   dGA4:'bs-ga4',dGSC:'bs-gsc',dFB:'bs-fbads',dBrevo:'bs-brevo',dClub:'bs-club',
   dYT:'bs-yt',dLI:'bs-li',dVeille:'bs-veille',dBuffer:'bs-buffer',
   dSections:'bs-sections',dSEO:'bs-seopos',dPartners:'bs-partners',dWrike:'bs-wrike',
+  dCarReg:'bs-car-market',
 };
 
 async function refreshTab(tabName) {

@@ -57,6 +57,7 @@ def require_internal_token(f):
 VEILLE_DATA_URL      = 'https://raw.githubusercontent.com/Marcom-acl/dashboard/main/data/veille-data.json'
 VEILLE_IA_DATA_URL   = 'https://raw.githubusercontent.com/Marcom-acl/dashboard/main/data/veille-ia-data.json'
 SEO_POSITIONS_URL    = 'https://raw.githubusercontent.com/Marcom-acl/dashboard/main/data/seo-positions-data.json'
+CAR_REGISTRATIONS_URL = 'https://raw.githubusercontent.com/Marcom-acl/dashboard/main/data/car-registrations-data.json'
 PSI_HISTORY_URL      = 'https://raw.githubusercontent.com/Marcom-acl/dashboard/main/data/pagespeed-history.json'
 GITHUB_REPO          = 'Marcom-acl/dashboard'
 PSI_HISTORY_PATH     = 'data/pagespeed-history.json'
@@ -688,6 +689,21 @@ def seo_positions():
             return jsonify({'error': f'GitHub raw HTTP {r.status_code}'}), 503
         data = r.json()
         _cache_set('seo-positions', data, 3600)
+        return jsonify(data)
+    except Exception as e:
+        return jsonify({'error': str(e)}), 503
+
+
+@app.route('/car-registrations')
+def car_registrations():
+    cached = _cache_get('car-registrations')
+    if cached: return jsonify(cached)
+    try:
+        r = _get(CAR_REGISTRATIONS_URL, timeout=10)
+        if not r.ok:
+            return jsonify({'error': f'GitHub raw HTTP {r.status_code}'}), 503
+        data = r.json()
+        _cache_set('car-registrations', data, 3600)
         return jsonify(data)
     except Exception as e:
         return jsonify({'error': str(e)}), 503
