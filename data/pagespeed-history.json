@@ -185,5 +185,115 @@
       "mobile": 57,
       "desktop": 79
     }
+  },
+  {
+    "date": "2026-09-01",
+    "acl": {
+      "mobile": null,
+      "desktop": null
+    },
+    "auto": {
+      "mobile": null,
+      "desktop": null
+    }
+  },
+  {
+    "date": "2026-09-02",
+    "acl": {
+      "mobile": 39,
+      "desktop": 44
+    },
+    "auto": {
+      "mobile": 55,
+      "desktop": 68
+    }
+  },
+  {
+    "date": "2026-09-03",
+    "acl": {
+      "mobile": 35,
+      "desktop": null
+    },
+    "auto": {
+      "mobile": null,
+      "desktop": 85
+    }
+  },
+  {
+    "date": "2026-09-07",
+    "acl": {
+      "mobile": 31,
+      "desktop": 34
+    },
+    "auto": {
+      "mobile": 59,
+      "desktop": 68
+    }
+  },
+  {
+    "date": "2026-09-09",
+    "acl": {
+      "mobile": 39,
+      "desktop": 50
+    },
+    "auto": {
+      "mobile": 54,
+      "desktop": 67
+    }
+  },
+  {
+    "date": "2026-09-10",
+    "acl": {
+      "mobile": 29,
+      "desktop": 34
+    },
+    "auto": {
+      "mobile": 60,
+      "desktop": 82
+    }
+  },
+  {
+    "date": "2026-09-11",
+    "acl": {
+      "mobile": 48,
+      "desktop": 57
+    },
+    "auto": {
+      "mobile": 39,
+      "desktop": 71
+    }
+  },
+  {
+    "date": "2026-09-15",
+    "acl": {
+      "mobile": 48,
+      "desktop": 29
+    },
+    "auto": {
+      "mobile": 57,
+      "desktop": null
+    }
+  },
+  {
+    "date": "2026-09-16",
+    "acl": {
+      "mobile": 37,
+      "desktop": 57
+    },
+    "auto": {
+      "mobile": 52,
+      "desktop": 69
+    }
+  },
+  {
+    "date": "2026-09-17",
+    "acl": {
+      "mobile": 30,
+      "desktop": 46
+    },
+    "auto": {
+      "mobile": 53,
+      "desktop": 68
+    }
   }
 ]
