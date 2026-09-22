@@ -7,14 +7,32 @@ en circulation (tous véhicules confondus). Il n'existe pas de fichier "nouvelle
 immatriculations" séparé : on reconstitue les nouvelles immatriculations de
 voitures particulières (catégorie européenne M1) en regroupant les véhicules
 encore en circulation par leur date de première mise en circulation au
-Luxembourg (DATCIR_GD). Un même instantané suffit donc à reconstruire tout
-l'historique — inutile de télécharger un fichier par mois.
+Luxembourg (DATCIR_GD).
 
-Limite connue : un véhicule immatriculé neuf puis sorti du parc depuis (accident,
-export, réexportation leasing) n'apparaît plus dans l'instantané courant. Les
-volumes des mois anciens peuvent donc être révisés (très légèrement) à la
-baisse d'un mois sur l'autre. C'est la même limite que rencontre toute
-reconstruction à partir de ce jeu de données open data.
+Filtre PAYPVN == 'LU' : le Luxembourg immatricule chaque mois un volume
+important de véhicules qui arrivent avec un historique de leasing/location
+à l'étranger (flottes corporate cross-border) — un phénomène statistique bien
+connu qui gonfle les chiffres bruts d'immatriculation par rapport au marché
+réel. Comparaison empirique avec le dashboard LuxInsights (considéré comme
+référence) sur août 2026 : sans filtre, tous les volumes par marque étaient
+~30 % trop hauts (ex. Volkswagen 350 vs 199) ; avec PAYPVN == 'LU', l'écart
+tombe à 1-3 % par marque (Volkswagen 196 vs 199, Skoda 187 vs 189, Opel 133
+vs 134). C'est le filtre le plus proche testé (LO, INDUTI et leurs
+combinaisons donnaient des écarts nettement plus grands) — on l'adopte donc,
+tout en sachant qu'un écart résiduel de quelques % subsiste probablement pour
+des raisons de méthodologie propre à LuxInsights qu'on ne peut pas reproduire
+à l'identique depuis ce jeu de données public.
+
+Limite connue (biais de survie) : un véhicule immatriculé neuf puis sorti du
+parc depuis (accident, export, réexportation leasing) n'apparaît plus dans
+l'instantané courant. Plus un mois est ancien, plus ce biais s'accumule et
+plus le volume reconstruit pour ce mois risque d'être sous-estimé. C'est pour
+cette raison que le script ne recalcule PAS tout l'historique à chaque
+exécution : seuls les ROLLING_MONTHS derniers mois sont recalculés depuis le
+nouvel instantané (les mois plus anciens continuent de se stabiliser au fil
+des semaines suivant leur publication) ; les mois plus anciens que ça sont
+gelés à leur valeur déjà persistée dans data/car-registrations-data.json,
+pour ne pas les voir dériver silencieusement à la baisse mois après mois.
 
 Sortie : data/car-registrations-data.json (format compact indexé, voir
 build_output()) consommé par l'onglet "Marché automobile" du dashboard.
@@ -34,6 +52,9 @@ import requests
 DATASET_API_URL = "https://data.public.lu/api/1/datasets/parc-automobile-du-luxembourg/"
 MIN_MONTH = "2024-11"
 CAR_CATEGORY_EU = "M1"  # voitures particulières
+ROLLING_MONTHS = 3       # nombre de mois récents recalculés à chaque run ; plus anciens = gelés
+
+DATA_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "car-registrations-data.json")
 
 FUEL_MAP = {
     "Standard Essence": "Essence",
@@ -75,6 +96,13 @@ def color_hex_for(name):
     return COLOR_HEX.get(first, DEFAULT_COLOR_HEX)
 
 
+def shift_month(ym, n):
+    """'2026-08' shifted by n (can be negative) -> '2026-05' etc."""
+    y, m = (int(p) for p in ym.split("-"))
+    total = y * 12 + (m - 1) + n
+    return f"{total // 12}-{total % 12 + 1:02d}"
+
+
 def find_latest_xml_resource():
     """Interroge l'API data.public.lu et retourne (url, title) de l'export XML
     'Parc Automobile' le plus récent. Les ressources sont déjà triées du plus
@@ -100,8 +128,8 @@ def download(url, dest_path):
 def extract_cube(xml_path, min_month=MIN_MONTH):
     """Parcourt le XML en streaming et retourne un Counter
     (month, brand, model, fuel, color) -> count, limité aux voitures
-    particulières (M1) immatriculées pour la première fois au Luxembourg
-    à partir de min_month."""
+    particulières (M1) de provenance Luxembourg (PAYPVN == 'LU'), immatriculées
+    pour la première fois au Luxembourg à partir de min_month."""
     cube = collections.Counter()
     n_total = 0
     n_kept = 0
@@ -112,6 +140,9 @@ def extract_cube(xml_path, min_month=MIN_MONTH):
             continue
         n_total += 1
         if elem.findtext("CATEU") != CAR_CATEGORY_EU:
+            elem.clear()
+            continue
+        if (elem.findtext("PAYPVN") or "").strip() != "LU":
             elem.clear()
             continue
 
@@ -137,8 +168,58 @@ def extract_cube(xml_path, min_month=MIN_MONTH):
         if n_total % 1_000_000 == 0:
             print(f"  ... {n_total} véhicules scannés, {n_kept} conservés ({time.time()-t0:.0f}s)", file=sys.stderr)
 
-    print(f"Terminé : {n_total} véhicules scannés, {n_kept} immatriculations M1 retenues depuis {min_month} ({time.time()-t0:.0f}s)", file=sys.stderr)
+    print(f"Terminé : {n_total} véhicules scannés, {n_kept} immatriculations M1/LU retenues depuis {min_month} ({time.time()-t0:.0f}s)", file=sys.stderr)
     return cube
+
+
+def load_existing_cube():
+    """Relit data/car-registrations-data.json s'il existe et le reconvertit en
+    tuples bruts (month, brand, model, fuel, color) -> count, pour pouvoir le
+    fusionner avec une nouvelle extraction."""
+    if not os.path.exists(DATA_PATH):
+        return None
+    try:
+        with open(DATA_PATH, encoding="utf-8") as f:
+            old = json.load(f)
+        cube = collections.Counter()
+        for month_i, brand_i, model_i, fuel_i, color_i, count in old["cube"]:
+            key = (old["months"][month_i], old["brands"][brand_i], old["models"][model_i],
+                   old["fuels"][fuel_i], old["colors"][color_i])
+            cube[key] += count
+        return cube
+    except Exception as e:
+        print(f"Impossible de relire l'existant ({e}) — reconstruction complète.", file=sys.stderr)
+        return None
+
+
+def merge_cubes(new_cube, old_cube, rolling_months=ROLLING_MONTHS):
+    """Mois récents (rolling_months derniers mois de new_cube) : valeurs
+    fraîches de new_cube. Mois plus anciens : gelés à old_cube s'ils y sont
+    déjà présents (sinon repli sur new_cube, ex. tout premier run)."""
+    if old_cube is None:
+        return new_cube
+
+    new_months = sorted({k[0] for k in new_cube})
+    if not new_months:
+        return old_cube
+    latest = new_months[-1]
+    cutoff = shift_month(latest, -(rolling_months - 1))  # mois à partir duquel on rafraîchit
+
+    old_months_available = {k[0] for k in old_cube}
+    merged = collections.Counter()
+    all_months = sorted(set(new_months) | old_months_available)
+
+    for ym in all_months:
+        if ym >= cutoff or ym not in old_months_available:
+            source, label = new_cube, "frais"
+        else:
+            source, label = old_cube, "gelé"
+        for key, count in source.items():
+            if key[0] == ym:
+                merged[key] += count
+        print(f"  {ym}: {label}", file=sys.stderr)
+
+    return merged
 
 
 def build_output(cube, source_title):
@@ -164,6 +245,7 @@ def build_output(cube, source_title):
         "source_file": source_title,
         "source_dataset": "https://data.public.lu/fr/datasets/parc-automobile-du-luxembourg/",
         "min_month": MIN_MONTH,
+        "rolling_months": ROLLING_MONTHS,
         "months": months,
         "brands": brands,
         "models": models,
@@ -184,14 +266,17 @@ def main():
         download(url, xml_path)
         print(f"Téléchargé ({os.path.getsize(xml_path) / 1e6:.0f} Mo), extraction…", file=sys.stderr)
 
-        cube = extract_cube(xml_path)
+        new_cube = extract_cube(xml_path)
+
+    old_cube = load_existing_cube()
+    print(f"Fusion (fenêtre glissante = {ROLLING_MONTHS} derniers mois) :", file=sys.stderr)
+    cube = merge_cubes(new_cube, old_cube)
 
     output = build_output(cube, title)
 
-    out_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "car-registrations-data.json")
-    with open(out_path, "w", encoding="utf-8") as f:
+    with open(DATA_PATH, "w", encoding="utf-8") as f:
         json.dump(output, f, ensure_ascii=False, separators=(",", ":"))
-    print(f"Écrit {out_path} ({len(output['cube'])} lignes, {len(output['months'])} mois, {len(output['brands'])} marques)", file=sys.stderr)
+    print(f"Écrit {DATA_PATH} ({len(output['cube'])} lignes, {len(output['months'])} mois, {len(output['brands'])} marques)", file=sys.stderr)
 
 
 if __name__ == "__main__":

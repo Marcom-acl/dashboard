@@ -948,6 +948,11 @@
     .car-filter-pill button{border:none;background:rgba(18,60,98,.12);color:var(--n);width:18px;height:18px;border-radius:50%;font-size:13px;line-height:1;cursor:pointer;display:grid;place-items:center;}
     .car-filter-pill button:hover{background:var(--n);color:#fff;}
 
+    .car-period-select{font-family:'Albert Sans',sans-serif;font-size:12px;font-weight:600;color:var(--n);background:var(--c-club-bg);border:none;border-radius:99px;padding:6px 28px 6px 12px;cursor:pointer;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23123C62' stroke-width='2'><path d='m6 9 6 6 6-6'/></svg>");background-repeat:no-repeat;background-position:right 8px center;background-size:12px;}
+    .car-scroll-list{max-height:340px;overflow-y:auto;padding-right:4px;}
+    .car-scroll-list::-webkit-scrollbar{width:6px;}
+    .car-scroll-list::-webkit-scrollbar-thumb{background:var(--border-strong);border-radius:99px;}
+
     .car-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:16px;align-items:start;}
     .car-col{display:flex;flex-direction:column;gap:16px;}
     .car-click-hint{margin-left:auto;font-size:11px;font-style:italic;color:var(--muted);}
@@ -6808,7 +6813,8 @@ const CAR_DIM_POS  = {brand: 1, model: 2, fuel: 3, color: 4};
 const CAR_MONTHS_FR = ['','janv.','févr.','mars','avr.','mai','juin','juil.','août','sept.','oct.','nov.','déc.'];
 
 let _carRawData = null;
-let _carFilter  = null; // {dim:'brand'|'model'|'fuel', value:string} | null
+let _carFilter  = null; // {dim:'brand'|'model'|'fuel', value:string} | null — filtre croisé (KPI + graphique + classements)
+let _carPeriod  = null; // 'YYYY-MM' | null — restreint uniquement les classements (Top Brands/Models/Engine/Colors), pas les KPI
 
 function carMonthLabel(ym) {
   const [y, m] = ym.split('-');
@@ -7085,12 +7091,22 @@ function renderCarMarket(d) {
       <button id="carFilterReset" title="Réinitialiser le filtre">×</button>
     </div>` : '';
 
-  const topBrands = carGroupSum(rows, CAR_DIM_POS.brand, d.brands);
-  const topModels = carGroupSum(rows, CAR_DIM_POS.model, d.models).filter(m => m.label !== 'N/D').slice(0, 10);
-  const topColors = carGroupSum(rows, CAR_DIM_POS.color, d.colors);
+  // Les classements (Top Brands/Models/Engine/Colors) peuvent en plus être
+  // restreints à un seul mois via le sélecteur de période — les 2 cartes KPI
+  // et le graphique mensuel, eux, restent toujours sur l'historique complet.
+  const rankingRows = _carPeriod ? rows.filter(r => months[r[0]] === _carPeriod) : rows;
+  const periodOptions = [`<option value="">Tout l'historique</option>`]
+    .concat([...months].reverse().map(ym => `<option value="${ym}"${ym === _carPeriod ? ' selected' : ''}>${carMonthLabel(ym)}</option>`))
+    .join('');
+  const rankingNote = _carPeriod ? `<span class="car-click-hint" style="margin-left:0">${carMonthLabel(_carPeriod)} uniquement</span>` : '';
+
+  const topBrands = carGroupSum(rankingRows, CAR_DIM_POS.brand, d.brands);
+  const topModels = carGroupSum(rankingRows, CAR_DIM_POS.model, d.models).filter(m => m.label !== 'N/D').slice(0, 10);
+  const topColors = carGroupSum(rankingRows, CAR_DIM_POS.color, d.colors);
 
   el.innerHTML = `
     <div class="sec-title"><h2>Marché automobile — Luxembourg</h2><div class="line"></div>
+      <select class="car-period-select" id="carPeriodSelect" title="Période des classements (marques, modèles, motorisation, couleurs)">${periodOptions}</select>
       <span class="src-pill" style="--src:var(--n);--src-bg:var(--c-club-bg)">SNCA · Open Data</span>
     </div>
     ${filterPill}
@@ -7109,15 +7125,8 @@ function renderCarMarket(d) {
           <div class="card-body flush" style="padding:4px 20px 0"><canvas id="chartCarMonthlyVolume" height="130"></canvas></div>
           <div class="card-body flush" style="padding:0 20px 16px"><canvas id="chartCarMonthlyDelta" height="70"></canvas></div>
         </div>
-      </div>
-
-      <div class="car-col car-col-mid">
         <div class="card">
-          <div class="card-head"><div class="card-title">Top Brands</div><span class="car-click-hint">Cliquez sur un élément</span></div>
-          <div class="card-body" id="carBrandsList">${carBarListHtml(topBrands, 'brand', _carFilter?.dim === 'brand' ? _carFilter.value : null, true)}</div>
-        </div>
-        <div class="card">
-          <div class="card-head"><div class="card-title">Engine Type</div></div>
+          <div class="card-head"><div class="card-title">Engine Type</div>${rankingNote}</div>
           <div class="card-body">
             <div class="channel-donut-inner">
               <div class="channel-donut-canvas-wrap"><canvas id="chartCarFuelDonut" width="140" height="140"></canvas></div>
@@ -7127,10 +7136,17 @@ function renderCarMarket(d) {
         </div>
       </div>
 
+      <div class="car-col car-col-mid">
+        <div class="card">
+          <div class="card-head"><div class="card-title">Top Brands</div><span class="car-click-hint">Cliquez sur un élément</span></div>
+          <div class="card-body car-scroll-list" id="carBrandsList">${carBarListHtml(topBrands, 'brand', _carFilter?.dim === 'brand' ? _carFilter.value : null, true)}</div>
+        </div>
+      </div>
+
       <div class="car-col car-col-right">
         <div class="card">
           <div class="card-head"><div class="card-title">Top Models</div><span class="car-click-hint">Cliquez sur un élément</span></div>
-          <div class="card-body" id="carModelsList">${carBarListHtml(topModels, 'model', _carFilter?.dim === 'model' ? _carFilter.value : null, false)}</div>
+          <div class="card-body car-scroll-list" id="carModelsList">${carBarListHtml(topModels, 'model', _carFilter?.dim === 'model' ? _carFilter.value : null, false)}</div>
         </div>
         <div class="card">
           <div class="card-head"><div class="card-title">Top Colors</div></div>
@@ -7141,7 +7157,7 @@ function renderCarMarket(d) {
 
     <div class="car-footnote">
       <span class="car-footnote-i">i</span>
-      Analyse &amp; visualisation&nbsp;: ACL Marcom &nbsp;|&nbsp; Source des données&nbsp;: SNCA — data.public.lu (Parc Automobile du Luxembourg) &nbsp;|&nbsp;
+      Analyse &amp; visualisation&nbsp;: ACL Marcom &nbsp;|&nbsp; Source des données&nbsp;: SNCA — data.public.lu (Parc Automobile du Luxembourg, filtré provenance LU) &nbsp;|&nbsp;
       Dernière publication&nbsp;: ${d.source_file || '—'}
     </div>`;
 
@@ -7152,10 +7168,11 @@ function renderCarMarket(d) {
     row.addEventListener('click', () => window._carToggleFilter(row.dataset.dim, row.dataset.value));
   });
   document.getElementById('carFilterReset')?.addEventListener('click', () => { _carFilter = null; renderCarMarket(_carRawData); });
+  document.getElementById('carPeriodSelect')?.addEventListener('change', (e) => { _carPeriod = e.target.value || null; renderCarMarket(_carRawData); });
 
   animateCards(el);
   renderCarMonthlyCharts(d, rows);
-  renderCarFuelDonut(d, rows);
+  renderCarFuelDonut(d, rankingRows);
 }
 
 // ── Dark mode toggle ──────────────────────────────────────────
