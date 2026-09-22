@@ -9,30 +9,46 @@ voitures particulières (catégorie européenne M1) en regroupant les véhicules
 encore en circulation par leur date de première mise en circulation au
 Luxembourg (DATCIR_GD).
 
-Filtre PAYPVN == 'LU' : le Luxembourg immatricule chaque mois un volume
-important de véhicules qui arrivent avec un historique de leasing/location
-à l'étranger (flottes corporate cross-border) — un phénomène statistique bien
-connu qui gonfle les chiffres bruts d'immatriculation par rapport au marché
-réel. Comparaison empirique avec le dashboard LuxInsights (considéré comme
-référence) sur août 2026 : sans filtre, tous les volumes par marque étaient
-~30 % trop hauts (ex. Volkswagen 350 vs 199) ; avec PAYPVN == 'LU', l'écart
-tombe à 1-3 % par marque (Volkswagen 196 vs 199, Skoda 187 vs 189, Opel 133
-vs 134). C'est le filtre le plus proche testé (LO, INDUTI et leurs
-combinaisons donnaient des écarts nettement plus grands) — on l'adopte donc,
-tout en sachant qu'un écart résiduel de quelques % subsiste probablement pour
-des raisons de méthodologie propre à LuxInsights qu'on ne peut pas reproduire
-à l'identique depuis ce jeu de données public.
+Filtres retenus (validés empiriquement contre le dashboard LuxInsights,
+considéré comme référence, sur août 2026) :
+- CATEU in ('M1', 'M1G') : voitures particulières classiques + SUV/4x4 à
+  garde au sol élevée (catégorie européenne dédiée mais qui reste, pour le
+  marché, des voitures).
+- PAYPVN == 'LU' : le Luxembourg immatricule chaque mois un volume important
+  de véhicules qui arrivent avec un historique de leasing/location à
+  l'étranger (flottes corporate cross-border) — un phénomène statistique bien
+  connu qui gonfle les chiffres bruts d'immatriculation par rapport au marché
+  réel.
+Sans ces deux filtres, tous les volumes par marque étaient ~30 % trop hauts
+(ex. Volkswagen 350 vs 199 chez LuxInsights). Avec les deux combinés, l'écart
+tombe à 1-3 % par marque et ~2 % sur les totaux mensuels (LO, INDUTI et leurs
+combinaisons donnaient des écarts nettement plus grands, écartés). Un écart
+résiduel subsiste probablement pour des raisons de méthodologie propre à
+LuxInsights qu'on ne peut pas reproduire à l'identique depuis ce jeu de
+données public.
+
+IMPORTANT — sens du nom de fichier : "Parc_Automobile_202609.xml" (publié le
+4 septembre 2026) reflète l'état du parc jusqu'à peu avant sa date de
+publication — il ne contient quasiment AUCUNE immatriculation de septembre,
+mais contient les immatriculations d'août quasi complètes. Autrement dit,
+pour obtenir le volume du mois M, il faut lire l'export étiqueté M+1. Le
+script de rafraîchissement mensuel (celui-ci) exploite ça nativement : il
+prend toujours le dernier export disponible, qui correspond donc au mois M+1
+par rapport au dernier mois qu'il permet de calculer.
 
 Limite connue (biais de survie) : un véhicule immatriculé neuf puis sorti du
 parc depuis (accident, export, réexportation leasing) n'apparaît plus dans
-l'instantané courant. Plus un mois est ancien, plus ce biais s'accumule et
-plus le volume reconstruit pour ce mois risque d'être sous-estimé. C'est pour
-cette raison que le script ne recalcule PAS tout l'historique à chaque
-exécution : seuls les ROLLING_MONTHS derniers mois sont recalculés depuis le
-nouvel instantané (les mois plus anciens continuent de se stabiliser au fil
-des semaines suivant leur publication) ; les mois plus anciens que ça sont
-gelés à leur valeur déjà persistée dans data/car-registrations-data.json,
-pour ne pas les voir dériver silencieusement à la baisse mois après mois.
+un instantané ultérieur. Le script ne recalcule donc PAS tout l'historique à
+chaque exécution : seuls les ROLLING_MONTHS derniers mois sont recalculés
+depuis le nouvel instantané (ils continuent de se stabiliser au fil des
+semaines suivant leur publication) ; les mois plus anciens sont gelés à leur
+valeur déjà persistée dans data/car-registrations-data.json, pour ne pas les
+voir dériver silencieusement à la baisse mois après mois. L'historique
+initial (nov. 2024 → août 2026) a été construit une fois avec
+scripts/car-registrations-backfill.py, qui lit l'export M+1 propre à CHAQUE
+mois plutôt qu'un seul instantané récent — ça évite d'accumuler le biais de
+survie sur les mois anciens (validé : l'écart sur août 2025 est passé de
+-6.7 % à -2.3 % avec cette méthode).
 
 Sortie : data/car-registrations-data.json (format compact indexé, voir
 build_output()) consommé par l'onglet "Marché automobile" du dashboard.
@@ -51,7 +67,7 @@ import requests
 
 DATASET_API_URL = "https://data.public.lu/api/1/datasets/parc-automobile-du-luxembourg/"
 MIN_MONTH = "2024-11"
-CAR_CATEGORY_EU = "M1"  # voitures particulières
+CAR_CATEGORIES_EU = ("M1", "M1G")  # voitures particulières (classiques + SUV/4x4)
 ROLLING_MONTHS = 3       # nombre de mois récents recalculés à chaque run ; plus anciens = gelés
 
 DATA_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "car-registrations-data.json")
@@ -128,8 +144,8 @@ def download(url, dest_path):
 def extract_cube(xml_path, min_month=MIN_MONTH):
     """Parcourt le XML en streaming et retourne un Counter
     (month, brand, model, fuel, color) -> count, limité aux voitures
-    particulières (M1) de provenance Luxembourg (PAYPVN == 'LU'), immatriculées
-    pour la première fois au Luxembourg à partir de min_month."""
+    particulières (M1/M1G) de provenance Luxembourg (PAYPVN == 'LU'),
+    immatriculées pour la première fois au Luxembourg à partir de min_month."""
     cube = collections.Counter()
     n_total = 0
     n_kept = 0
@@ -139,7 +155,7 @@ def extract_cube(xml_path, min_month=MIN_MONTH):
         if elem.tag != "VEHICLE":
             continue
         n_total += 1
-        if elem.findtext("CATEU") != CAR_CATEGORY_EU:
+        if elem.findtext("CATEU") not in CAR_CATEGORIES_EU:
             elem.clear()
             continue
         if (elem.findtext("PAYPVN") or "").strip() != "LU":
@@ -168,7 +184,7 @@ def extract_cube(xml_path, min_month=MIN_MONTH):
         if n_total % 1_000_000 == 0:
             print(f"  ... {n_total} véhicules scannés, {n_kept} conservés ({time.time()-t0:.0f}s)", file=sys.stderr)
 
-    print(f"Terminé : {n_total} véhicules scannés, {n_kept} immatriculations M1/LU retenues depuis {min_month} ({time.time()-t0:.0f}s)", file=sys.stderr)
+    print(f"Terminé : {n_total} véhicules scannés, {n_kept} immatriculations M1/M1G/LU retenues depuis {min_month} ({time.time()-t0:.0f}s)", file=sys.stderr)
     return cube
 
 
