@@ -6934,6 +6934,28 @@ function carMotorisationSeries(d, rows) {
   return series;
 }
 
+// Version simplifiée à 3 groupes (Électrique / Hybride / Thermique) pour le
+// graphique de part de marché en % — Thermique regroupe Essence+Diesel+Autre.
+function carPowertrainLabel(raw) {
+  if (raw === 'Electrique') return 'Électrique';
+  if (raw === 'HEV' || raw === 'PHEV') return 'Hybride';
+  return 'Thermique';
+}
+const CAR_POWERTRAIN_CATS = ['Thermique', 'Hybride', 'Électrique'];
+const CAR_POWERTRAIN_COLORS = {Thermique: '#123C62', Hybride: '#4E86B4', Électrique: '#8FBEDD'};
+
+function carPowertrainShareSeries(d, rows) {
+  const counts = Object.fromEntries(CAR_POWERTRAIN_CATS.map(c => [c, new Array(d.months.length).fill(0)]));
+  rows.forEach(r => {
+    const cat = carPowertrainLabel(d.fuels[r[3]]);
+    counts[cat][r[0]] += r[5];
+  });
+  const totals = new Array(d.months.length).fill(0);
+  CAR_POWERTRAIN_CATS.forEach(c => counts[c].forEach((v, i) => { totals[i] += v; }));
+  const pct = Object.fromEntries(CAR_POWERTRAIN_CATS.map(c => [c, counts[c].map((v, i) => totals[i] ? v / totals[i] * 100 : 0)]));
+  return pct;
+}
+
 function carDeltaLine(curr, prev, label) {
   if (prev == null) return `<div class="car-kpi-delta neutral">Pas de comparaison disponible</div>`;
   const abs = curr - prev;
@@ -7027,6 +7049,29 @@ if (typeof Chart !== 'undefined' && !Chart.registry.plugins.get('carVLine')) {
         ctx.fillStyle = opts.color || '#123C62';
         ctx.textAlign = 'center';
         ctx.fillText(fmtN(val), pt.x, pt.y + (val >= 0 ? -8 : 16));
+        ctx.restore();
+      });
+    },
+  });
+  // Étiquette de pourcentage à droite de chaque segment de la dernière barre
+  // d'un stacked bar chart — chaque dataset est étiqueté à la hauteur où
+  // Chart.js a déjà positionné son segment, pas besoin de recalculer le cumul.
+  Chart.register({
+    id: 'carStackEndLabels',
+    afterDatasetsDraw(chart) {
+      const {ctx} = chart;
+      chart.data.datasets.forEach((ds, dsIndex) => {
+        const meta = chart.getDatasetMeta(dsIndex);
+        if (meta.hidden) return;
+        const lastIdx = ds.data.length - 1;
+        const bar = meta.data[lastIdx];
+        const val = ds.data[lastIdx];
+        if (!bar || val == null) return;
+        ctx.save();
+        ctx.font = "700 11px 'Albert Sans', sans-serif";
+        ctx.fillStyle = ds.borderColor || '#161513';
+        ctx.textAlign = 'left';
+        ctx.fillText(`${val.toFixed(1)}%`, bar.x + 8, bar.y + 4);
         ctx.restore();
       });
     },
@@ -7189,6 +7234,42 @@ function renderCarMotorisationChart(d, rows) {
       scales: {
         x: {grid: {display: false}, ticks: {font: {size: 9.5, family: 'Albert Sans'}, color: '#808080', maxRotation: 0, autoSkip: true, maxTicksLimit: 12}},
         y: {grid: {color: 'rgba(0,0,0,0.05)'}, ticks: {font: {size: 10, family: 'Albert Sans'}, color: '#808080'}},
+      },
+    },
+  });
+}
+
+function renderCarPowertrainShareChart(d, rows) {
+  if (chartInstances['carPowertrainShare']) { chartInstances['carPowertrainShare'].destroy(); delete chartInstances['carPowertrainShare']; }
+  const canvas = document.getElementById('chartCarPowertrainShare');
+  if (!canvas) return;
+  const labels = d.months.map(carMonthLabel);
+  const pct = carPowertrainShareSeries(d, rows);
+
+  chartInstances['carPowertrainShare'] = new Chart(canvas, {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: CAR_POWERTRAIN_CATS.map(cat => ({
+        label: cat, data: pct[cat], backgroundColor: CAR_POWERTRAIN_COLORS[cat], borderColor: CAR_POWERTRAIN_COLORS[cat],
+        stack: 'share', maxBarThickness: 26,
+      })),
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      layout: {padding: {right: 46}},
+      interaction: {mode: 'index', intersect: false},
+      plugins: {
+        legend: {position: 'top', align: 'end', labels: {font: {family: 'Albert Sans', size: 11}, boxWidth: 10, usePointStyle: true, pointStyle: 'circle'}},
+        tooltip: {
+          titleFont: {family: 'Albert Sans', weight: '700'}, bodyFont: {family: 'Albert Sans'},
+          callbacks: {title: ctx => labels[ctx[0].dataIndex], label: ctx => ` ${ctx.dataset.label}: ${ctx.raw.toFixed(1)}%`},
+        },
+        carStackEndLabels: {},
+      },
+      scales: {
+        x: {stacked: true, grid: {display: false}, ticks: {font: {size: 9.5, family: 'Albert Sans'}, color: '#808080', maxRotation: 0, autoSkip: true, maxTicksLimit: 12}},
+        y: {stacked: true, min: 0, max: 100, grid: {color: 'rgba(0,0,0,0.05)'}, ticks: {font: {size: 10, family: 'Albert Sans'}, color: '#808080', callback: v => v + '%'}},
       },
     },
   });
@@ -7440,6 +7521,11 @@ function renderCarMarket(d) {
       <div class="card-body" style="padding:8px 20px 20px;height:320px"><canvas id="chartCarMotorisation"></canvas></div>
     </div>
 
+    <div class="card" style="margin-top:16px">
+      <div class="card-head"><div><div class="card-title">Part de marché — Électrique / Hybride / Thermique</div><div class="card-sub">% du total des immatriculations, par mois — depuis ${carMonthLabel(d.min_month)}</div></div></div>
+      <div class="card-body" style="padding:8px 20px 20px;height:320px"><canvas id="chartCarPowertrainShare"></canvas></div>
+    </div>
+
     <div class="sec-title" style="margin-top:20px"><h2>Marché des véhicules électriques (BEV)</h2><div class="line"></div>
       <span class="src-pill" style="--src:#16A34A;--src-bg:#E7F6EC">${fmtN(evTotal)} immatriculations au total</span>
     </div>
@@ -7502,6 +7588,7 @@ function renderCarMarket(d) {
   renderCarMonthlyCharts(d, rows);
   renderCarFuelDonut(d, rankingRows);
   renderCarMotorisationChart(d, rows);
+  renderCarPowertrainShareChart(d, rows);
   renderCarEvTrendChart(d, evRows);
 }
 
