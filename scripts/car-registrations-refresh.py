@@ -10,22 +10,27 @@ encore en circulation par leur date de première mise en circulation au
 Luxembourg (DATCIR_GD).
 
 Filtres retenus (validés empiriquement contre le dashboard LuxInsights,
-considéré comme référence, sur août 2026) :
+considéré comme référence, sur 4 points indépendants : août 2026, juillet
+2026, août 2025, cumul jan-août 2026) :
 - CATEU in ('M1', 'M1G') : voitures particulières classiques + SUV/4x4 à
   garde au sol élevée (catégorie européenne dédiée mais qui reste, pour le
   marché, des voitures).
-- PAYPVN == 'LU' : le Luxembourg immatricule chaque mois un volume important
-  de véhicules qui arrivent avec un historique de leasing/location à
-  l'étranger (flottes corporate cross-border) — un phénomène statistique bien
-  connu qui gonfle les chiffres bruts d'immatriculation par rapport au marché
-  réel.
-Sans ces deux filtres, tous les volumes par marque étaient ~30 % trop hauts
-(ex. Volkswagen 350 vs 199 chez LuxInsights). Avec les deux combinés, l'écart
-tombe à 1-3 % par marque et ~2 % sur les totaux mensuels (LO, INDUTI et leurs
-combinaisons donnaient des écarts nettement plus grands, écartés). Un écart
-résiduel subsiste probablement pour des raisons de méthodologie propre à
-LuxInsights qu'on ne peut pas reproduire à l'identique depuis ce jeu de
-données public.
+- PAYPVN == 'LU' appliqué à M1 SEULEMENT, pas à M1G : le Luxembourg
+  immatricule chaque mois un volume important de véhicules qui arrivent avec
+  un historique de leasing/location à l'étranger (flottes corporate
+  cross-border) — un phénomène statistique bien connu qui gonfle les chiffres
+  bruts d'immatriculation par rapport au marché réel. Ces flottes concernent
+  surtout des berlines/citadines classiques (M1) ; appliquer le même filtre à
+  M1G dégradait la précision (testé : -2 à -2.3 % partout avec le filtre sur
+  les deux catégories, contre +0.3 à +1.6 % en le limitant à M1).
+Sans ces filtres, tous les volumes par marque étaient ~30 % trop hauts (ex.
+Volkswagen 350 vs 199 chez LuxInsights). LO, INDUTI et leurs combinaisons
+donnaient des écarts nettement plus grands, écartés. Un écart résiduel
+subsiste probablement pour des raisons de méthodologie propre à LuxInsights
+qu'on ne peut pas reproduire à l'identique depuis ce jeu de données public
+(notamment sur le cumul jan-août 2025, encore à -6.9 % sans qu'on ait pu
+isoler pourquoi faute de références mensuelles individuelles pour cette
+période).
 
 IMPORTANT — sens du nom de fichier : "Parc_Automobile_202609.xml" (publié le
 4 septembre 2026) reflète l'état du parc jusqu'à peu avant sa date de
@@ -155,10 +160,12 @@ def extract_cube(xml_path, min_month=MIN_MONTH):
         if elem.tag != "VEHICLE":
             continue
         n_total += 1
-        if elem.findtext("CATEU") not in CAR_CATEGORIES_EU:
+        cateu = elem.findtext("CATEU")
+        if cateu not in CAR_CATEGORIES_EU:
             elem.clear()
             continue
-        if (elem.findtext("PAYPVN") or "").strip() != "LU":
+        # PAYPVN == 'LU' n'est requis que pour M1 (voir docstring).
+        if cateu == "M1" and (elem.findtext("PAYPVN") or "").strip() != "LU":
             elem.clear()
             continue
 

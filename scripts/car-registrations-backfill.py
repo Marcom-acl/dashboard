@@ -15,6 +15,18 @@ l'état du parc jusqu'à peu avant sa publication — il ne contient quasiment
 aucune immatriculation de septembre, mais les immatriculations d'août sont
 quasi complètes. Le mois M se lit donc dans l'export étiqueté M+1.
 
+Filtre PAYPVN == 'LU' appliqué à M1 seulement (pas à M1G) : validé
+empiriquement sur 4 points de référence LuxInsights indépendants (août 2026,
+juillet 2026, août 2025, cumul jan-août 2026) — appliquer ce filtre aux DEUX
+catégories donnait un écart de -2 à -2.3 % partout ; ne l'appliquer qu'à M1
+(laisser M1G intégralement, quelle que soit sa provenance) resserre l'écart
+à +0.3 à +1.6 % sur ces 4 points. Hypothèse la plus probable : les flottes de
+leasing cross-border qui gonflent les immatriculations LU concernent surtout
+des berlines/citadines classiques (M1), rarement des SUV/4x4 M1G. Écart
+résiduel sur le cumul jan-août 2025 (-6.9 %) non expliqué — probablement une
+particularité de la méthodologie LuxInsights pour ce point précis, qu'on n'a
+pas pu isoler faute de chiffres mensuels de référence pour jan-juil. 2025.
+
 Coûteux (télécharge et parse un export ~900 Mo par mois d'historique) : à
 lancer ponctuellement (reconstruction initiale, extension de MIN_MONTH, ou
 si l'historique doit être régénéré), pas à chaque refresh mensuel — c'est le
@@ -103,12 +115,30 @@ def get_resource_map():
     return by_month
 
 
-def download(url, dest_path):
-    with requests.get(url, stream=True, timeout=180) as r:
-        r.raise_for_status()
-        with open(dest_path, "wb") as f:
-            for chunk in r.iter_content(chunk_size=1024 * 1024):
-                f.write(chunk)
+def download(url, dest_path, attempts=4):
+    """Le serveur data.public.lu coupe parfois la connexion en cours de
+    streaming sur ces gros fichiers (~900 Mo) — observé 2 fois sur des runs
+    différents, à des positions différentes dans la séquence, donc probable
+    instabilité réseau/serveur plutôt qu'un fichier précis en cause. Retry
+    avec backoff plutôt que de faire échouer tout le backfill sur un hoquet
+    transitoire."""
+    last_err = None
+    for attempt in range(1, attempts + 1):
+        try:
+            with requests.get(url, stream=True, timeout=180) as r:
+                r.raise_for_status()
+                with open(dest_path, "wb") as f:
+                    for chunk in r.iter_content(chunk_size=1024 * 1024):
+                        f.write(chunk)
+            return
+        except (requests.exceptions.ConnectionError, requests.exceptions.Timeout) as e:
+            last_err = e
+            print(f"    téléchargement échoué (tentative {attempt}/{attempts}) : {e}", file=sys.stderr)
+            if os.path.exists(dest_path):
+                os.remove(dest_path)
+            if attempt < attempts:
+                time.sleep(5 * attempt)
+    raise last_err
 
 
 def extract_month(xml_path, target_month, cube):
@@ -119,9 +149,12 @@ def extract_month(xml_path, target_month, cube):
         if elem.tag != "VEHICLE":
             continue
         n_total += 1
-        if elem.findtext("CATEU") not in CAR_CATEGORIES_EU:
+        cateu = elem.findtext("CATEU")
+        if cateu not in CAR_CATEGORIES_EU:
             elem.clear(); continue
-        if (elem.findtext("PAYPVN") or "").strip() != "LU":
+        # PAYPVN == 'LU' n'est requis que pour M1 (voitures standard) — voir
+        # docstring pour la validation empirique de cette asymétrie.
+        if cateu == "M1" and (elem.findtext("PAYPVN") or "").strip() != "LU":
             elem.clear(); continue
         datcir_gd = (elem.findtext("DATCIR_GD") or "").strip()
         if len(datcir_gd) != 8 or not datcir_gd.isdigit():
