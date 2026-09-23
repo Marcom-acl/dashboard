@@ -80,10 +80,10 @@ DATA_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file_
 FUEL_MAP = {
     "Standard Essence": "Essence",
     "Standard Diesel": "Diesel",
-    "Hybride Electrique Essence": "Hybride",
-    "Hybride Electrique Diesel": "Hybride",
-    "Plug-in Hybride Electrique Essence": "Hybride",
-    "Plug-in Hybride Electrique Diesel": "Hybride",
+    "Hybride Electrique Essence": "HEV",
+    "Hybride Electrique Diesel": "HEV",
+    "Plug-in Hybride Electrique Essence": "PHEV",
+    "Plug-in Hybride Electrique Diesel": "PHEV",
     "Pur Electrique": "Electrique",
 }
 
@@ -249,7 +249,7 @@ def build_output(cube, source_title):
     months = sorted({k[0] for k in cube})
     brands = sorted({k[1] for k in cube})
     models = sorted({k[2] for k in cube})
-    fuels = ["Essence", "Diesel", "Hybride", "Electrique", "Autre"]
+    fuels = ["Essence", "Diesel", "HEV", "PHEV", "Electrique", "Autre"]
     colors = sorted({k[4] for k in cube})
 
     month_idx = {v: i for i, v in enumerate(months)}
