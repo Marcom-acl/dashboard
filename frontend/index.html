@@ -6815,6 +6815,8 @@ const CAR_MONTHS_FR = ['','janv.','févr.','mars','avr.','mai','juin','juil.','a
 let _carRawData = null;
 let _carFilter  = null; // {dim:'brand'|'model'|'fuel', value:string} | null — filtre croisé (KPI + graphique + classements)
 let _carPeriod  = null; // 'YYYY-MM' | null — restreint uniquement les classements (Top Brands/Models/Engine/Colors), pas les KPI
+let _carModelSearch = ''; // texte de recherche Top Models — n'affecte que l'affichage de cette liste
+let _carModelsAll   = []; // liste complète (non tronquée) des modèles pour la recherche, mise à jour à chaque render
 
 function carMonthLabel(ym) {
   const [y, m] = ym.split('-');
@@ -6962,15 +6964,21 @@ function renderCarMonthlyCharts(d, rows) {
         labels,
         datasets: [{
           data: sums, borderColor: '#123C62', backgroundColor: 'rgba(18,60,98,0.08)',
-          borderWidth: 2, pointRadius: 0, tension: 0.3, fill: true,
+          borderWidth: 2, pointRadius: 0, pointHoverRadius: 4, pointHitRadius: 20,
+          pointBackgroundColor: '#123C62', pointHoverBackgroundColor: '#123C62',
+          tension: 0.3, fill: true,
         }],
       },
       options: {
         responsive: true, maintainAspectRatio: false,
         layout: {padding: {top: 20}},
+        interaction: {mode: 'index', intersect: false},
         plugins: {
           legend: {display: false},
-          tooltip: {callbacks: {label: ctx => ` ${fmtN(ctx.raw)} immatriculations`}, bodyFont: {family: 'Albert Sans'}},
+          tooltip: {
+            titleFont: {family: 'Albert Sans', weight: '700'}, bodyFont: {family: 'Albert Sans'},
+            callbacks: {title: ctx => labels[ctx[0].dataIndex], label: ctx => ` ${fmtN(ctx.raw)} immatriculations`},
+          },
           carVLine: {index: transitionIdx >= 0 ? transitionIdx : null},
           carEndLabels: {points: [0, sums.length - 1], color: '#123C62'},
         },
@@ -6986,13 +6994,20 @@ function renderCarMonthlyCharts(d, rows) {
   if (deltaCanvas) {
     chartInstances['carMonthlyDelta'] = new Chart(deltaCanvas, {
       type: 'bar',
-      data: {labels, datasets: [{data: deltas, backgroundColor: '#123C62', borderRadius: 2, maxBarThickness: 18}]},
+      data: {labels, datasets: [{data: deltas, backgroundColor: '#123C62', hoverBackgroundColor: '#0B2A45', borderRadius: 2, maxBarThickness: 18}]},
       options: {
         responsive: true, maintainAspectRatio: false,
         layout: {padding: {top: 16}},
+        interaction: {mode: 'index', intersect: false},
         plugins: {
           legend: {display: false},
-          tooltip: {callbacks: {label: ctx => ` ${ctx.raw >= 0 ? '+' : ''}${fmtN(ctx.raw)} vs. mois précédent`}, bodyFont: {family: 'Albert Sans'}},
+          tooltip: {
+            titleFont: {family: 'Albert Sans', weight: '700'}, bodyFont: {family: 'Albert Sans'},
+            callbacks: {
+              title: ctx => labels[ctx[0].dataIndex],
+              label: ctx => ctx.raw == null ? 'Pas de comparaison (premier mois)' : ` ${ctx.raw >= 0 ? '+' : ''}${fmtN(ctx.raw)} vs. mois précédent`,
+            },
+          },
           carEndLabels: {points: [deltas.length - 1], color: '#123C62'},
         },
         scales: {
@@ -7054,6 +7069,23 @@ window._carToggleFilter = function(dim, value) {
   renderCarMarket(_carRawData);
 };
 
+// Recherche Top Models : ne touche que la liste (pas les graphiques), pour
+// rester fluide pendant la frappe. Cherche dans la liste complète (pas
+// seulement les 50 affichés par défaut) pour trouver n'importe quel modèle.
+window._carUpdateModelsList = function() {
+  const input = document.getElementById('carModelSearch');
+  _carModelSearch = input ? input.value : '';
+  const el = document.getElementById('carModelsList');
+  if (!el) return;
+  const shown = _carModelSearch
+    ? _carModelsAll.filter(m => m.label.toLowerCase().includes(_carModelSearch.toLowerCase()))
+    : _carModelsAll.slice(0, 50);
+  el.innerHTML = carBarListHtml(shown, 'model', _carFilter?.dim === 'model' ? _carFilter.value : null, false);
+  el.querySelectorAll('.car-bar-row').forEach(row => {
+    row.addEventListener('click', () => window._carToggleFilter(row.dataset.dim, row.dataset.value));
+  });
+};
+
 function renderCarMarket(d) {
   const el = document.getElementById('panel-car-market');
   if (!el) return;
@@ -7101,7 +7133,11 @@ function renderCarMarket(d) {
   const rankingNote = _carPeriod ? `<span class="car-click-hint" style="margin-left:0">${carMonthLabel(_carPeriod)} uniquement</span>` : '';
 
   const topBrands = carGroupSum(rankingRows, CAR_DIM_POS.brand, d.brands);
-  const topModels = carGroupSum(rankingRows, CAR_DIM_POS.model, d.models).filter(m => m.label !== 'N/D').slice(0, 10);
+  const topModels = carGroupSum(rankingRows, CAR_DIM_POS.model, d.models).filter(m => m.label !== 'N/D');
+  _carModelsAll = topModels;
+  const modelsShown = _carModelSearch
+    ? topModels.filter(m => m.label.toLowerCase().includes(_carModelSearch.toLowerCase()))
+    : topModels.slice(0, 50);
   const topColors = carGroupSum(rankingRows, CAR_DIM_POS.color, d.colors);
 
   el.innerHTML = `
@@ -7146,7 +7182,10 @@ function renderCarMarket(d) {
       <div class="car-col car-col-right">
         <div class="card">
           <div class="card-head"><div class="card-title">Top Models</div><span class="car-click-hint">Cliquez sur un élément</span></div>
-          <div class="card-body car-scroll-list" id="carModelsList">${carBarListHtml(topModels, 'model', _carFilter?.dim === 'model' ? _carFilter.value : null, false)}</div>
+          <div class="card-body" style="padding-bottom:0">
+            <input type="search" class="camp-search-inp" id="carModelSearch" placeholder="Rechercher un modèle…" value="${(_carModelSearch || '').replace(/"/g,'&quot;')}" style="width:100%;margin-bottom:10px;box-sizing:border-box">
+          </div>
+          <div class="card-body car-scroll-list" style="padding-top:0" id="carModelsList">${carBarListHtml(modelsShown, 'model', _carFilter?.dim === 'model' ? _carFilter.value : null, false)}</div>
         </div>
         <div class="card">
           <div class="card-head"><div class="card-title">Top Colors</div></div>
@@ -7169,6 +7208,7 @@ function renderCarMarket(d) {
   });
   document.getElementById('carFilterReset')?.addEventListener('click', () => { _carFilter = null; renderCarMarket(_carRawData); });
   document.getElementById('carPeriodSelect')?.addEventListener('change', (e) => { _carPeriod = e.target.value || null; renderCarMarket(_carRawData); });
+  document.getElementById('carModelSearch')?.addEventListener('input', window._carUpdateModelsList);
 
   animateCards(el);
   renderCarMonthlyCharts(d, rows);
