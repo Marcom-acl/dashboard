@@ -974,6 +974,10 @@
     .car-footnote{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--muted);margin-top:4px;}
     .car-footnote-i{display:inline-grid;place-items:center;width:15px;height:15px;border-radius:50%;border:1px solid var(--muted-2);font-size:9.5px;font-weight:700;flex-shrink:0;}
 
+    .car-methodo{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);padding:14px 18px;margin-top:20px;font-size:12px;color:var(--muted);}
+    .car-methodo-title{font-weight:700;color:var(--text);font-size:12.5px;margin-bottom:8px;}
+    .car-methodo ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:5px;}
+
     @media (max-width:1100px){.car-grid{grid-template-columns:1fr;}}
     @media (max-width:640px){.car-kpi-row{grid-template-columns:1fr;}}
 
@@ -6849,6 +6853,10 @@ function carPeriodLabel(period) {
   return carMonthLabel(period);
 }
 
+function carYearMonths(year) {
+  return Array.from({length: 12}, (_, i) => `${year}-${String(i + 1).padStart(2, '0')}`);
+}
+
 function carPeriodOptionsHtml(d, current) {
   const years = [...new Set(d.months.map(m => m.split('-')[0]))].sort().reverse();
   const opt = (value, label) => `<option value="${value}"${value === (current || '') ? ' selected' : ''}>${label}</option>`;
@@ -6904,17 +6912,18 @@ function carFuelDisplayLabel(raw) {
 }
 
 // Regroupement pour le graphique "Évolution par motorisation" : BEV / PHEV /
-// Diesel / Essence / Autres (HEV classique + Autre — demandé explicitement
-// dans cette forme par l'utilisateur, distinct du regroupement du donut).
+// HEV / Diesel / Essence / Autres (le fourre-tout "Autres" ne contient plus
+// que la poignée de motorisations non classées ailleurs — LPG/CNG, etc.).
 function carMotorisationLabel(raw) {
   if (raw === 'Electrique') return 'BEV';
   if (raw === 'PHEV') return 'PHEV';
+  if (raw === 'HEV') return 'HEV';
   if (raw === 'Diesel') return 'Diesel';
   if (raw === 'Essence') return 'Essence';
   return 'Autres';
 }
-const CAR_MOTOR_CATS = ['BEV', 'PHEV', 'Diesel', 'Essence', 'Autres'];
-const CAR_MOTOR_COLORS = {BEV: '#16A34A', PHEV: '#0EA5E9', Diesel: '#6B7280', Essence: '#F97316', Autres: '#A855F7'};
+const CAR_MOTOR_CATS = ['BEV', 'PHEV', 'HEV', 'Diesel', 'Essence', 'Autres'];
+const CAR_MOTOR_COLORS = {BEV: '#16A34A', PHEV: '#0EA5E9', HEV: '#84CC16', Diesel: '#6B7280', Essence: '#F97316', Autres: '#A855F7'};
 
 function carMotorisationSeries(d, rows) {
   const series = Object.fromEntries(CAR_MOTOR_CATS.map(c => [c, new Array(d.months.length).fill(0)]));
@@ -7278,17 +7287,65 @@ function renderCarMarket(d) {
   const sums = carSumByMonth(d, rows);
   const monthSum = ym => { const i = months.indexOf(ym); return i < 0 ? null : sums[i]; };
 
-  // KPI 1 — cumul janvier → dernier mois, vs même période l'an dernier
-  let ytdCurr = 0, ytdPrev = 0;
-  months.forEach((ym, i) => {
-    const [y, m] = ym.split('-').map(Number);
-    if (y === latestYear && m <= latestMonthNum) ytdCurr += sums[i];
-    if (y === latestYear - 1 && m <= latestMonthNum) ytdPrev += sums[i];
-  });
-  const ytdLabel = `${CAR_MONTHS_FR[1]} – ${carMonthLabel(latest)}`;
-
-  // KPI 2 — dernier mois vs mois précédent & vs même mois l'an dernier
+  // KPI 2 — toujours le dernier mois disponible, vs mois précédent & vs même
+  // mois l'an dernier. Sert de repère fixe "où en est-on maintenant",
+  // indépendant du sélecteur de période.
   const curMonthSum = sums[sums.length - 1];
+
+  // KPI 1 — reflète le sélecteur de période : tout l'historique (cumul YTD
+  // vs même période l'an dernier, comportement par défaut), une année civile
+  // (vs même sous-ensemble de mois l'année précédente si disponible), les 12
+  // derniers mois (vs les 12 mois précédents si disponibles), ou un mois
+  // précis (vs mois précédent + même mois l'an dernier, comme la carte KPI 2).
+  const periodMonths = carMonthsInPeriod(d, _carPeriod);
+  let kpi1Label, kpi1Value, kpi1DeltaLines;
+  if (!_carPeriod) {
+    let ytdCurr = 0, ytdPrev = 0;
+    months.forEach((ym, i) => {
+      const [y, m] = ym.split('-').map(Number);
+      if (y === latestYear && m <= latestMonthNum) ytdCurr += sums[i];
+      if (y === latestYear - 1 && m <= latestMonthNum) ytdPrev += sums[i];
+    });
+    kpi1Label = `Nouvelles immatriculations · ${CAR_MONTHS_FR[1]} – ${carMonthLabel(latest)} ${latestYear}`;
+    kpi1Value = ytdCurr;
+    kpi1DeltaLines = [carDeltaLine(ytdCurr, ytdPrev, `sur la même période ${latestYear - 1}`)];
+  } else {
+    const curSum = [...periodMonths].reduce((s, m) => s + (monthSum(m) || 0), 0);
+    if (_carPeriod.startsWith('Y:')) {
+      const year = _carPeriod.slice(2);
+      const prevYear = String(parseInt(year, 10) - 1);
+      // Compare le même sous-ensemble de mois d'une année à l'autre (ex.
+      // jan-août 2026 vs jan-août 2025), pas année pleine vs année pleine —
+      // sinon une année en cours (donc partielle) paraît artificiellement
+      // en forte baisse face à l'année précédente complète.
+      const curMonthsPresent = carYearMonths(year).filter(m => months.includes(m));
+      const prevMonthsMatched = curMonthsPresent.map(m => `${prevYear}-${m.slice(5)}`);
+      const prevAvailable = prevMonthsMatched.length > 0 && prevMonthsMatched.every(m => months.includes(m));
+      const prevSum = prevAvailable ? prevMonthsMatched.reduce((s, m) => s + monthSum(m), 0) : null;
+      kpi1Label = `Nouvelles immatriculations · Année ${year}`;
+      kpi1Value = curSum;
+      kpi1DeltaLines = [carDeltaLine(curSum, prevSum, `sur la même période ${prevYear}`)];
+    } else if (_carPeriod === 'last12') {
+      const end = months.length - 1;
+      const curStart = Math.max(0, end - 11);
+      const prevStart = curStart - 12, prevEnd = curStart - 1;
+      const prevSum = prevStart >= 0 ? sums.slice(prevStart, prevEnd + 1).reduce((a, b) => a + b, 0) : null;
+      kpi1Label = `Nouvelles immatriculations · 12 derniers mois`;
+      kpi1Value = curSum;
+      kpi1DeltaLines = [carDeltaLine(curSum, prevSum, 'sur les 12 mois précédents')];
+    } else {
+      const [py, pm] = _carPeriod.split('-').map(Number);
+      const yoyPeriod = `${py - 1}-${String(pm).padStart(2, '0')}`;
+      const idx = months.indexOf(_carPeriod);
+      const prevMonthOfPeriod = idx > 0 ? months[idx - 1] : null;
+      kpi1Label = `Nouvelles immatriculations · ${carMonthLabel(_carPeriod)}`;
+      kpi1Value = curSum;
+      kpi1DeltaLines = [
+        carDeltaLine(curSum, monthSum(prevMonthOfPeriod), 'le mois précédent'),
+        carDeltaLine(curSum, monthSum(yoyPeriod), `en ${carMonthLabel(yoyPeriod)}`),
+      ];
+    }
+  }
 
   const filterPill = _carFilter ? `
     <div class="car-filter-pill">
@@ -7297,10 +7354,9 @@ function renderCarMarket(d) {
     </div>` : '';
 
   // Les classements (Top Brands/Models/Engine/Colors + le sous-marché EV)
-  // peuvent en plus être restreints à une période via le sélecteur — les 2
-  // cartes KPI et les graphiques d'évolution, eux, restent toujours sur
+  // peuvent en plus être restreints à une période via le sélecteur — le
+  // graphique mensuel et celui par motorisation, eux, restent toujours sur
   // l'historique complet.
-  const periodMonths = carMonthsInPeriod(d, _carPeriod);
   const rankingRows = periodMonths ? rows.filter(r => periodMonths.has(months[r[0]])) : rows;
   const periodOptions = carPeriodOptionsHtml(d, _carPeriod);
   const rankingNote = _carPeriod ? `<span class="car-click-hint" style="margin-left:0">${carPeriodLabel(_carPeriod)} uniquement</span>` : '';
@@ -7332,7 +7388,7 @@ function renderCarMarket(d) {
     </div>
     ${filterPill}
     <div class="car-kpi-row">
-      ${carKpiCardHtml(`Nouvelles immatriculations · ${ytdLabel} ${latestYear}`, fmtN(ytdCurr), [carDeltaLine(ytdCurr, ytdPrev, `sur la même période ${latestYear - 1}`)])}
+      ${carKpiCardHtml(kpi1Label, fmtN(kpi1Value), kpi1DeltaLines)}
       ${carKpiCardHtml(`Nouvelles immatriculations · ${carMonthLabel(latest)}`, fmtN(curMonthSum), [
         carDeltaLine(curMonthSum, monthSum(prevMonth), 'le mois précédent'),
         carDeltaLine(curMonthSum, monthSum(yoyMonth), `en ${carMonthLabel(yoyMonth)}`),
@@ -7381,7 +7437,7 @@ function renderCarMarket(d) {
 
     <div class="card" style="margin-top:16px">
       <div class="card-head"><div><div class="card-title">Évolution par motorisation</div><div class="card-sub">BEV · PHEV · Diesel · Essence · Autres (hybride classique inclus) — depuis ${carMonthLabel(d.min_month)}</div></div></div>
-      <div class="card-body" style="padding:8px 20px 20px"><canvas id="chartCarMotorisation" height="90"></canvas></div>
+      <div class="card-body" style="padding:8px 20px 20px;height:320px"><canvas id="chartCarMotorisation"></canvas></div>
     </div>
 
     <div class="sec-title" style="margin-top:20px"><h2>Marché des véhicules électriques (BEV)</h2><div class="line"></div>
@@ -7409,6 +7465,17 @@ function renderCarMarket(d) {
           <div class="card-body car-scroll-list" style="padding-top:0" id="carEvModelsList">${carBarListHtml(evModelsShown, 'model', _carFilter?.dim === 'model' ? _carFilter.value : null, false)}</div>
         </div>
       </div>
+    </div>
+
+    <div class="car-methodo">
+      <div class="car-methodo-title">Comment ces chiffres sont calculés</div>
+      <ul>
+        <li>Source : SNCA — data.public.lu, jeu de données "Parc Automobile du Luxembourg" (licence ouverte, mise à jour mensuelle).</li>
+        <li>Ce jeu de données ne fournit pas de fichier "nouvelles immatriculations" tout prêt : chaque véhicule encore en circulation indique sa date de première mise en circulation au Luxembourg, et on compte ceux dont cette date tombe dans le mois considéré.</li>
+        <li>Périmètre : voitures particulières uniquement (catégories européennes M1 et M1G — SUV/4x4 inclus).</li>
+        <li>On exclut les véhicules qui arrivent avec un historique d'immatriculation à l'étranger (essentiellement des flottes de leasing transfrontalières, très présentes au Luxembourg), pour se rapprocher du marché réel plutôt que des volumes bruts.</li>
+        <li>Un écart de quelques % peut subsister avec d'autres sources (ex. LuxInsights), qui ont leur propre méthodologie qu'on ne peut pas reproduire à l'identique depuis ces données publiques.</li>
+      </ul>
     </div>
 
     <div class="car-footnote">
