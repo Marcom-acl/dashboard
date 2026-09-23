@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-22",
+  "generated_at": "2026-09-23",
   "next_edition": "",
   "editions": [
     {
@@ -297,18 +297,154 @@
     {
       "date": "2026-09-22",
       "label": "Semaine du 2026-09-22"
+    },
+    {
+      "date": "2026-09-23",
+      "label": "Semaine du 2026-09-23"
     }
   ],
   "items": [
+    {
+      "id": "2026-09-23-saaskia-web-qvsqQY",
+      "club": "Le Quotidien",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Article concernant la vignette routière belge, sujet relevant de la catégorie ACL et impactant les automobilistes luxembourgeois.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1790140967.1238.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790140967.1238.pdf",
+      "date": "2026-09-23"
+    },
+    {
+      "id": "2026-09-23-saaskia-web-TUm4LF",
+      "club": "virgule.lu (Wort.lu/FR)",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Guide pratique sur les règles à respecter lorsqu'on conduit avec une plaque d'immatriculation rose au Luxembourg, information importante pour les automobilistes.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1790146340.6171.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790146340.6171.pdf",
+      "date": "2026-09-23"
+    },
+    {
+      "id": "2026-09-23-saaskia-web-EHwW8i",
+      "club": "chronicle.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Le Luxembourg appelle à une approche coordonnée de la conduite autonome lors d'une réunion de l'UE. Enjeu majeur de politique et sécurité routière.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1790141758.3185.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790141758.3185.pdf",
+      "date": "2026-09-23"
+    },
+    {
+      "id": "2026-09-23-saaskia-web-KSjRRz",
+      "club": "lessentiel.lu FR",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Tesla est la voiture électrique la plus subventionnée au Luxembourg. Analyse du marché des véhicules électriques et des aides gouvernementales.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1790141042.3572.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790141042.3572.pdf",
+      "date": "2026-09-23"
+    },
+    {
+      "id": "2026-09-23-saaskia-web-HImCuw",
+      "club": "janette.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Journée mondiale sans voiture : article explorant les alternatives de mobilité au Luxembourg pour se déplacer sans automobile.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1790141783.518.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790141783.518.pdf",
+      "date": "2026-09-23"
+    },
+    {
+      "id": "2026-09-23-saaskia-web-nSxvqx",
+      "club": "L'Essentiel",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Tesla en pole position des aides gouvernementales au Luxembourg. Analyse du marché automobile et des subventions aux véhicules électriques.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1790140551.9425.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790140551.9425.pdf",
+      "date": "2026-09-23"
+    },
+    {
+      "id": "2026-09-23-saaskia-web-Ektrjw",
+      "club": "100komma7.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Rassemblement illégal de tuning à Wittlich avec 300-400 voitures, impliquant également des participants luxembourgeois. Question de sécurité routière.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1790141645.3899.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790141645.3899.pdf",
+      "date": "2026-09-23"
+    },
+    {
+      "id": "2026-09-23-saaskia-web-OOmP8V",
+      "club": "infos.rtl.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Article sur le contournement de Bascharage. Projet d'infrastructure de transport en cours de discussion.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1790141616.0836.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790141616.0836.pdf",
+      "date": "2026-09-23"
+    },
     {
       "id": "2026-09-22-saaskia-web-3dHmRC",
       "club": "lessentiel.lu DE",
       "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "content": "Event GO electric day organisé avec possibilité de gagner un upgrade de mobilité. Initiative liée à la promotion de la mobilité électrique et des solutions alternatives.",
-      "relevance": "ACL explicitement cité : \"GO electric day\"",
+      "content": "Event GO electric day organisé par l'ACL offrant la possibilité de gagner un upgrade de mobilité. Initiative de l'Automobile Club visant à promouvoir la mobilité électrique.",
+      "relevance": "ACL explicitement cité : \"GO electric day - ACL\"",
       "url": "https://saaskia.keepcontact.lu/data/files/1790053995.5805.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790053995.5805.pdf",
+      "date": "2026-09-22"
+    },
+    {
+      "id": "2026-09-22-saaskia-web-4Z9LJd",
+      "club": "lessentiel.lu FR",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Au Luxembourg, l'approvisionnement en carburant reste garanti pour l'instant, malgré les tensions actuelles. Point de situation sur la disponibilité du carburant.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1790053898.9369.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790053898.9369.pdf",
+      "date": "2026-09-22"
+    },
+    {
+      "id": "2026-09-22-saaskia-web-5wyWH2",
+      "club": "lessentiel.lu FR",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "En France, la gérante d'une station-service envoie ses clients au Luxembourg où les prix du carburant sont plus avantageux. Comparaison des prix transfrontaliers.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1790053837.6879.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790053837.6879.pdf",
+      "date": "2026-09-22"
+    },
+    {
+      "id": "2026-09-22-saaskia-web-obNRA4",
+      "club": "virgule.lu (Wort.lu/FR)",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Test du Leapmotor B03X : SUV familial spacieux avec quelques perfectionnements à apporter sur la route. Essai automobile d'un nouveau modèle.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1790054023.1674.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790054023.1674.pdf",
+      "date": "2026-09-22"
+    },
+    {
+      "id": "2026-09-22-saaskia-web-cotabm",
+      "club": "L'Essentiel",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Article sur la dépendance à la voiture au Luxembourg. Analyse de la mobilité et des enjeux de transport.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1790053762.2121.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790053762.2121.pdf",
       "date": "2026-09-22"
     },
     {
@@ -323,50 +459,6 @@
       "date": "2026-09-22"
     },
     {
-      "id": "2026-09-22-saaskia-web-4Z9LJd",
-      "club": "lessentiel.lu FR",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Assurance que l'approvisionnement en carburant reste garanti au Luxembourg malgré la crise pétrolière actuelle.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1790053898.9369.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790053898.9369.pdf",
-      "date": "2026-09-22"
-    },
-    {
-      "id": "2026-09-22-saaskia-web-5wyWH2",
-      "club": "lessentiel.lu FR",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Crise carburant en France : une gérante de station-service envoie ses clients au Luxembourg pour s'approvisionner, soulignant l'impact transfrontalier.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1790053837.6879.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790053837.6879.pdf",
-      "date": "2026-09-22"
-    },
-    {
-      "id": "2026-09-22-saaskia-web-cotabm",
-      "club": "L'Essentiel",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Article sur la dépendance à la voiture au Luxembourg et ses implications pour la mobilité et les transports.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1790053762.2121.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790053762.2121.pdf",
-      "date": "2026-09-22"
-    },
-    {
-      "id": "2026-09-22-saaskia-web-obNRA4",
-      "club": "virgule.lu (Wort.lu/FR)",
-      "category": "Veille presse LU",
-      "badge": "INFO",
-      "content": "Test du SUV familial Leapmotor B03X : analyse de ses qualités d'espace et de ses faiblesses routières.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1790054023.1674.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790054023.1674.pdf",
-      "date": "2026-09-22"
-    },
-    {
       "id": "2026-09-22-saaskia-web-xvbLTT",
       "club": "today.RTL.lu",
       "category": "Veille presse LU",
@@ -378,25 +470,25 @@
       "date": "2026-09-22"
     },
     {
+      "id": "2026-09-21-saaskia-web-YuJQVP",
+      "club": "L'Essentiel",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Face aux prix élevés du diesel, certains automobilistes adoptent l'huile de friture comme carburant alternatif. Tendance illustrant l'impact économique des prix des carburants.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1789969724.3736.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789969724.3736.pdf",
+      "date": "2026-09-21"
+    },
+    {
       "id": "2026-09-21-saaskia-web-pLLLEn",
       "club": "virgule.lu (Wort.lu/FR)",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Analyse hypothétique sur les choix de mobilité (voiture vs train) si le carburant atteignait 3€/litre au Luxembourg.",
+      "content": "Réflexion sur le choix entre voiture ou train pour se rendre au travail au Luxembourg si le litre de carburant coûtait trois euros. Enjeu de mobilité et transport.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1789973475.8909.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789973475.8909.pdf",
-      "date": "2026-09-21"
-    },
-    {
-      "id": "2026-09-21-saaskia-web-wkZtkn",
-      "club": "lessentiel.lu DE",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "L'Allemagne planifie un plafonnement des prix du carburant inspiré du modèle luxembourgeois.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1789970296.2236.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789970296.2236.pdf",
       "date": "2026-09-21"
     },
     {
@@ -404,10 +496,54 @@
       "club": "virgule.lu (Wort.lu/FR)",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Article sur les inégalités de mobilité pour les frontaliers au Luxembourg dès le trajet domicile-travail.",
+      "content": "Article sur les inégalités que rencontrent les frontaliers dès leur trajet domicile-travail. Problématique de mobilité transfrontalière au Luxembourg.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1789970115.9595.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789970115.9595.pdf",
+      "date": "2026-09-21"
+    },
+    {
+      "id": "2026-09-21-saaskia-web-wkZtkn",
+      "club": "lessentiel.lu DE",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "L'Allemagne envisage un plafonnement des prix du carburant inspiré du modèle luxembourgeois. Reconnaissance de la politique énergétique luxembourgeoise.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1789970296.2236.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789970296.2236.pdf",
+      "date": "2026-09-21"
+    },
+    {
+      "id": "2026-09-21-saaskia-web-ERKdxG",
+      "club": "Zeitung zum Lëtzebuerger Vollek",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Campagne GoGo Velo pour promouvoir l'utilisation du vélo au Luxembourg. Initiative de mobilité alternative et durable.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1789970228.1453.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789970228.1453.pdf",
+      "date": "2026-09-21"
+    },
+    {
+      "id": "2026-09-21-saaskia-web-eC6sUN",
+      "club": "Le Quotidien",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Analyse des accidents de la route : moins de chocs en agglomération, mais plus de drames hors agglomération au Luxembourg. Statistiques de sécurité routière.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1789969890.7661.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789969890.7661.pdf",
+      "date": "2026-09-21"
+    },
+    {
+      "id": "2026-09-21-saaskia-web-gUCUXC",
+      "club": "100komma7.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "L'Allemagne introduit une réduction de carburant tandis que la France ne le fait pas actuellement. Comparaison des politiques énergétiques transfrontalières.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1789970087.2663.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789970087.2663.pdf",
       "date": "2026-09-21"
     },
     {
@@ -430,50 +566,6 @@
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1789970273.3216.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789970273.3216.pdf",
-      "date": "2026-09-21"
-    },
-    {
-      "id": "2026-09-21-saaskia-web-ERKdxG",
-      "club": "Zeitung zum Lëtzebuerger Vollek",
-      "category": "Veille presse LU",
-      "badge": "INFO",
-      "content": "Campagne GoGo Velo de promotion du vélo comme mode de mobilité au Luxembourg.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1789970228.1453.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789970228.1453.pdf",
-      "date": "2026-09-21"
-    },
-    {
-      "id": "2026-09-21-saaskia-web-gUCUXC",
-      "club": "100komma7.lu",
-      "category": "Veille presse LU",
-      "badge": "INFO",
-      "content": "L'Allemagne met en place une réduction carburant tandis que la France n'envisage pas cette mesure actuellement.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1789970087.2663.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789970087.2663.pdf",
-      "date": "2026-09-21"
-    },
-    {
-      "id": "2026-09-21-saaskia-web-eC6sUN",
-      "club": "Le Quotidien",
-      "category": "Veille presse LU",
-      "badge": "INFO",
-      "content": "Analyse des sinistres routiers : moins d'accidents en agglomération mais plus d'accidents mortels hors agglomération.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1789969890.7661.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789969890.7661.pdf",
-      "date": "2026-09-21"
-    },
-    {
-      "id": "2026-09-21-saaskia-web-YuJQVP",
-      "club": "L'Essentiel",
-      "category": "Veille presse LU",
-      "badge": "NOTABLE",
-      "content": "Article sur les alternatives aux carburants traditionnels face à la hausse des prix du diesel, avec des conducteurs ayant recours à l'huile de friture.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1789969724.3736.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789969724.3736.pdf",
       "date": "2026-09-21"
     },
     {
