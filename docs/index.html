@@ -342,6 +342,10 @@
     .tab-panel{display:none;}
     .tab-panel.active{display:flex;flex-direction:column;gap:20px;animation:fadeUp .25s ease forwards;}
 
+    /* ─── VUE PUBLIQUE (?public=xxx) ─────────────────────────────── */
+    body.public-mode .sb, body.public-mode .sb-overlay, body.public-mode .hamburger-btn,
+    body.public-mode .tb-filter, body.public-mode #openCfgTop, body.public-mode .pw-overlay{display:none!important;}
+
     /* ─── KPI GRID & CARDS ────────────────────────────────────────── */
     .kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
     .kpi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px;}
@@ -1560,6 +1564,12 @@ const DEFAULT_API = 'https://dashboard-production-482e.up.railway.app';
 let API_BASE = localStorage.getItem('acl_api_base') || DEFAULT_API;
 let globalStart = null, globalEnd = null, globalDays = 30;
 let chartInstances = {};
+
+// Vue publique sans login (ex. ?public=car-market) : réservée aux sections
+// dont l'endpoint est déjà public côté backend (pas de garde serveur ajoutée
+// ici, juste une UI qui n'affiche/n'appelle plus que cette section-là).
+const PUBLIC_TAB = new URLSearchParams(location.search).get('public');
+const PUBLIC_TAB_TITLES = {'car-market': 'Marché automobile'};
 
 function getCurrentUserFirstName() {
   try {
@@ -7995,6 +8005,7 @@ document.getElementById('btnRefresh')?.addEventListener('click', () => {
 
 // ── Multi-user authentication ─────────────────────────────────
 (function() {
+  if (PUBLIC_TAB && PUBLIC_TAB_TITLES[PUBLIC_TAB]) { document.getElementById('pwOverlay')?.remove(); return; }
   const SESSION_KEY  = 'acl_dash_session';
   const USERS_CACHE  = 'acl_dash_users_cache';
 
@@ -8944,9 +8955,33 @@ function renderBuffer(d) {
   animateCards(el);
 }
 
+// ── Vue publique sans login ────────────────────────────────────
+// Affiche uniquement l'onglet demandé (sidebar/config/filtre période
+// masqués côté UI) et ne charge que ses propres endpoints via le mécanisme
+// de rafraîchissement par onglet déjà existant (TAB_ENDPOINTS) — pas de
+// nouvelle route ni de garde serveur, l'endpoint /car-registrations est
+// déjà public côté backend.
+function enterPublicMode(tab) {
+  document.body.classList.add('public-mode');
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector(`.tab-btn[data-tab="${tab}"]`)?.classList.add('active');
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('panel-' + tab)?.classList.add('active');
+  const crumb = document.getElementById('crumbCurrent');
+  if (crumb) crumb.textContent = PUBLIC_TAB_TITLES[tab] || tab;
+}
+
 // ── Boot ──────────────────────────────────────────────────────
 setDateRange(30);
-loadAll();
+// Liste blanche explicite (PUBLIC_TAB_TITLES) : ?public=xxx ne doit
+// contourner le login que pour les sections qu'on a choisi d'exposer, pas
+// pour n'importe quel onglet existant (GA4, Brevo, Wrike...).
+if (PUBLIC_TAB && PUBLIC_TAB_TITLES[PUBLIC_TAB] && document.getElementById('panel-' + PUBLIC_TAB)) {
+  enterPublicMode(PUBLIC_TAB);
+  refreshTab(PUBLIC_TAB);
+} else {
+  loadAll();
+}
 
 // ── Sidebar collapse ──────────────────────────────────────────
 (function() {
