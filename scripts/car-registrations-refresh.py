@@ -87,6 +87,24 @@ FUEL_MAP = {
     "Pur Electrique": "Electrique",
 }
 
+# LIBCAR (libellé carrosserie européen) n'a que 9 valeurs distinctes observées
+# sur notre période (nov. 2024 -> auj.), stables depuis la migration TRVIM de
+# 11/2023 : on les regroupe en 6 catégories lisibles. "Multi-usages" est un
+# code européen fourre-tout (SUV ET monospaces) — on ne peut pas les séparer
+# avec ce seul champ, d'où le libellé assumé "SUV / Monospace" plutôt qu'un
+# "SUV" qui serait trompeusement précis.
+BODYSTYLE_MAP = {
+    "Berline": "Berline",
+    "Break (familiale)": "Break",
+    "Voiture à hayon arrière": "Compacte / Hayon",
+    "à usages multiples": "Multi-usages (SUV / Monospace)",
+    "Coupé": "Coupé / Cabriolet",
+    "Cabriolet": "Coupé / Cabriolet",
+}
+BODYSTYLES = ["Berline", "Break", "Compacte / Hayon", "Multi-usages (SUV / Monospace)", "Coupé / Cabriolet", "Autre"]
+ORIGINS = ["Neuf", "Occasion importée"]
+OWNERS = ["Particulier", "Société", "Non déterminé"]
+
 # Doublons connus dans le référentiel marque de la SNCA
 BRAND_ALIASES = {
     "MERCEDES": "MERCEDES-BENZ",
@@ -108,6 +126,33 @@ def fuel_category(libcrb):
     if not libcrb:
         return "Autre"
     return FUEL_MAP.get(libcrb.strip(), "Autre")
+
+
+def bodystyle_category(libcar):
+    return BODYSTYLE_MAP.get((libcar or "").strip(), "Autre")
+
+
+def owner_category(infouti):
+    return {"PP": "Particulier", "PM": "Société"}.get((infouti or "").strip(), "Non déterminé")
+
+
+def origin_category(datcirprm, datcir_gd):
+    prm = (datcirprm or "").strip()
+    return "Neuf" if prm and prm == datcir_gd else "Occasion importée"
+
+
+def parse_float(s):
+    s = (s or "").strip()
+    if not s:
+        return None
+    try:
+        return float(s)
+    except ValueError:
+        return None
+
+
+def new_stats_entry():
+    return {"co2_sum": 0.0, "co2_n": 0, "l100_sum": 0.0, "l100_n": 0, "auto_sum": 0.0, "auto_n": 0}
 
 
 def color_hex_for(name):
@@ -147,11 +192,15 @@ def download(url, dest_path):
 
 
 def extract_cube(xml_path, min_month=MIN_MONTH):
-    """Parcourt le XML en streaming et retourne un Counter
-    (month, brand, model, fuel, color) -> count, limité aux voitures
-    particulières (M1/M1G) de provenance Luxembourg (PAYPVN == 'LU'),
-    immatriculées pour la première fois au Luxembourg à partir de min_month."""
+    """Parcourt le XML en streaming et retourne (cube, stats) :
+    - cube : Counter (month, brand, model, fuel, color, origin, owner,
+      bodystyle) -> count, limité aux voitures particulières (M1/M1G) de
+      provenance Luxembourg (PAYPVN == 'LU'), immatriculées pour la première
+      fois au Luxembourg à partir de min_month.
+    - stats : dict month -> sommes/compteurs pour les moyennes CO2 /
+      consommation / autonomie électrique (voir build_output)."""
     cube = collections.Counter()
+    stats = collections.defaultdict(new_stats_entry)
     n_total = 0
     n_kept = 0
     t0 = time.time()
@@ -183,36 +232,100 @@ def extract_cube(xml_path, min_month=MIN_MONTH):
         model = (elem.findtext("TYPCOM") or "").strip() or "N/D"
         color = (elem.findtext("COUL") or "").strip() or "Non-spécifiée"
         fuel = fuel_category(elem.findtext("LIBCRB"))
+        bodystyle = bodystyle_category(elem.findtext("LIBCAR"))
+        owner = owner_category(elem.findtext("INFOUTI"))
+        origin = origin_category(elem.findtext("DATCIRPRM"), datcir_gd)
 
-        cube[(ym, brand, model, fuel, color)] += 1
+        cube[(ym, brand, model, fuel, color, origin, owner, bodystyle)] += 1
         n_kept += 1
+
+        st = stats[ym]
+        co2 = 0.0 if fuel == "Electrique" else parse_float(elem.findtext("CO2WLTP") or elem.findtext("INFCO2"))
+        if co2 is not None:
+            st["co2_sum"] += co2; st["co2_n"] += 1
+        l100 = parse_float(elem.findtext("L100KM"))
+        if l100 is not None:
+            st["l100_sum"] += l100; st["l100_n"] += 1
+        if fuel == "Electrique":
+            auto = parse_float(elem.findtext("AUTOELEC"))
+            if auto is not None:
+                st["auto_sum"] += auto; st["auto_n"] += 1
+
         elem.clear()
 
         if n_total % 1_000_000 == 0:
             print(f"  ... {n_total} véhicules scannés, {n_kept} conservés ({time.time()-t0:.0f}s)", file=sys.stderr)
 
     print(f"Terminé : {n_total} véhicules scannés, {n_kept} immatriculations M1/M1G/LU retenues depuis {min_month} ({time.time()-t0:.0f}s)", file=sys.stderr)
-    return cube
+    return cube, stats
 
 
 def load_existing_cube():
     """Relit data/car-registrations-data.json s'il existe et le reconvertit en
-    tuples bruts (month, brand, model, fuel, color) -> count, pour pouvoir le
-    fusionner avec une nouvelle extraction."""
+    tuples bruts (month, brand, model, fuel, color, origin, owner, bodystyle)
+    -> count, plus les moyennes CO2/conso/autonomie déjà persistées par mois,
+    pour pouvoir fusionner avec une nouvelle extraction. Tolère l'ancien
+    format à 5 dimensions (avant l'ajout origin/owner/bodystyle) en complétant
+    avec "Non déterminé"/"Autre"."""
     if not os.path.exists(DATA_PATH):
-        return None
+        return None, None
     try:
         with open(DATA_PATH, encoding="utf-8") as f:
             old = json.load(f)
+        origins = old.get("origins", ORIGINS)
+        owners = old.get("owners", OWNERS)
+        bodystyles = old.get("bodystyles", BODYSTYLES)
         cube = collections.Counter()
-        for month_i, brand_i, model_i, fuel_i, color_i, count in old["cube"]:
+        for row in old["cube"]:
+            month_i, brand_i, model_i, fuel_i, color_i = row[:5]
+            if len(row) >= 9:
+                origin_i, owner_i, bodystyle_i, count = row[5:9]
+                origin, owner, bodystyle = origins[origin_i], owners[owner_i], bodystyles[bodystyle_i]
+            else:
+                count = row[5]
+                origin, owner, bodystyle = "Neuf", "Non déterminé", "Autre"
             key = (old["months"][month_i], old["brands"][brand_i], old["models"][model_i],
-                   old["fuels"][fuel_i], old["colors"][color_i])
+                   old["fuels"][fuel_i], old["colors"][color_i], origin, owner, bodystyle)
             cube[key] += count
-        return cube
+
+        avgs = {}
+        for i, ym in enumerate(old["months"]):
+            avgs[ym] = {
+                "co2": (old.get("co2Avg") or [None] * len(old["months"]))[i],
+                "conso": (old.get("consoAvg") or [None] * len(old["months"]))[i],
+                "auto": (old.get("autoElecAvg") or [None] * len(old["months"]))[i],
+            }
+        return cube, avgs
     except Exception as e:
         print(f"Impossible de relire l'existant ({e}) — reconstruction complète.", file=sys.stderr)
-        return None
+        return None, None
+
+
+def compute_avgs(stats, months):
+    def avg_or_none(st, sum_key, n_key):
+        if not st[n_key]:
+            return None
+        return round(st[sum_key] / st[n_key], 1)
+    return {
+        ym: {
+            "co2": avg_or_none(stats[ym], "co2_sum", "co2_n"),
+            "conso": avg_or_none(stats[ym], "l100_sum", "l100_n"),
+            "auto": avg_or_none(stats[ym], "auto_sum", "auto_n"),
+        }
+        for ym in months if ym in stats
+    }
+
+
+def merge_avgs(new_avgs, old_avgs, cutoff, old_months_available):
+    if old_avgs is None:
+        return new_avgs
+    merged = {}
+    for ym in set(new_avgs) | set(old_avgs):
+        if ym >= cutoff or ym not in old_months_available:
+            merged[ym] = new_avgs.get(ym) or old_avgs.get(ym)
+        else:
+            merged[ym] = old_avgs.get(ym) or new_avgs.get(ym)
+    return merged
 
 
 def merge_cubes(new_cube, old_cube, rolling_months=ROLLING_MONTHS):
@@ -245,7 +358,7 @@ def merge_cubes(new_cube, old_cube, rolling_months=ROLLING_MONTHS):
     return merged
 
 
-def build_output(cube, source_title):
+def build_output(cube, source_title, avgs):
     months = sorted({k[0] for k in cube})
     brands = sorted({k[1] for k in cube})
     models = sorted({k[2] for k in cube})
@@ -257,10 +370,14 @@ def build_output(cube, source_title):
     model_idx = {v: i for i, v in enumerate(models)}
     fuel_idx = {v: i for i, v in enumerate(fuels)}
     color_idx = {v: i for i, v in enumerate(colors)}
+    origin_idx = {v: i for i, v in enumerate(ORIGINS)}
+    owner_idx = {v: i for i, v in enumerate(OWNERS)}
+    bodystyle_idx = {v: i for i, v in enumerate(BODYSTYLES)}
 
     rows = [
-        [month_idx[ym], brand_idx[brand], model_idx[model], fuel_idx[fuel], color_idx[color], count]
-        for (ym, brand, model, fuel, color), count in cube.items()
+        [month_idx[ym], brand_idx[brand], model_idx[model], fuel_idx[fuel], color_idx[color],
+         origin_idx[origin], owner_idx[owner], bodystyle_idx[bodystyle], count]
+        for (ym, brand, model, fuel, color, origin, owner, bodystyle), count in cube.items()
     ]
 
     return {
@@ -275,7 +392,13 @@ def build_output(cube, source_title):
         "fuels": fuels,
         "colors": colors,
         "colorHex": {c: color_hex_for(c) for c in colors},
+        "origins": ORIGINS,
+        "owners": OWNERS,
+        "bodystyles": BODYSTYLES,
         "cube": rows,
+        "co2Avg": [(avgs.get(ym) or {}).get("co2") for ym in months],
+        "consoAvg": [(avgs.get(ym) or {}).get("conso") for ym in months],
+        "autoElecAvg": [(avgs.get(ym) or {}).get("auto") for ym in months],
     }
 
 
@@ -289,13 +412,19 @@ def main():
         download(url, xml_path)
         print(f"Téléchargé ({os.path.getsize(xml_path) / 1e6:.0f} Mo), extraction…", file=sys.stderr)
 
-        new_cube = extract_cube(xml_path)
+        new_cube, new_stats = extract_cube(xml_path)
 
-    old_cube = load_existing_cube()
+    old_cube, old_avgs = load_existing_cube()
     print(f"Fusion (fenêtre glissante = {ROLLING_MONTHS} derniers mois) :", file=sys.stderr)
     cube = merge_cubes(new_cube, old_cube)
 
-    output = build_output(cube, title)
+    new_months = sorted({k[0] for k in new_cube})
+    cutoff = shift_month(new_months[-1], -(ROLLING_MONTHS - 1)) if new_months else MIN_MONTH
+    old_months_available = {k[0] for k in old_cube} if old_cube else set()
+    new_avgs = compute_avgs(new_stats, new_months)
+    avgs = merge_avgs(new_avgs, old_avgs, cutoff, old_months_available)
+
+    output = build_output(cube, title, avgs)
 
     with open(DATA_PATH, "w", encoding="utf-8") as f:
         json.dump(output, f, ensure_ascii=False, separators=(",", ":"))

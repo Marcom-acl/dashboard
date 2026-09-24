@@ -61,6 +61,24 @@ FUEL_MAP = {
     "Plug-in Hybride Electrique Diesel": "PHEV",
     "Pur Electrique": "Electrique",
 }
+
+# LIBCAR (libellé carrosserie européen) n'a que 9 valeurs distinctes observées
+# sur notre période (nov. 2024 -> auj.), stables depuis la migration TRVIM de
+# 11/2023 : on les regroupe en 6 catégories lisibles. "Multi-usages" est un
+# code européen fourre-tout (SUV ET monospaces) — on ne peut pas les séparer
+# avec ce seul champ, d'où le libellé assumé "SUV / Monospace" plutôt qu'un
+# "SUV" qui serait trompeusement précis.
+BODYSTYLE_MAP = {
+    "Berline": "Berline",
+    "Break (familiale)": "Break",
+    "Voiture à hayon arrière": "Compacte / Hayon",
+    "à usages multiples": "Multi-usages (SUV / Monospace)",
+    "Coupé": "Coupé / Cabriolet",
+    "Cabriolet": "Coupé / Cabriolet",
+}
+BODYSTYLES = ["Berline", "Break", "Compacte / Hayon", "Multi-usages (SUV / Monospace)", "Coupé / Cabriolet", "Autre"]
+ORIGINS = ["Neuf", "Occasion importée"]
+OWNERS = ["Particulier", "Société", "Non déterminé"]
 BRAND_ALIASES = {
     "MERCEDES": "MERCEDES-BENZ",
     "FORD (D)": "FORD",
@@ -86,6 +104,29 @@ def fuel_category(libcrb):
     if not libcrb:
         return "Autre"
     return FUEL_MAP.get(libcrb.strip(), "Autre")
+
+
+def bodystyle_category(libcar):
+    return BODYSTYLE_MAP.get((libcar or "").strip(), "Autre")
+
+
+def owner_category(infouti):
+    return {"PP": "Particulier", "PM": "Société"}.get((infouti or "").strip(), "Non déterminé")
+
+
+def origin_category(datcirprm, datcir_gd):
+    prm = (datcirprm or "").strip()
+    return "Neuf" if prm and prm == datcir_gd else "Occasion importée"
+
+
+def parse_float(s):
+    s = (s or "").strip()
+    if not s:
+        return None
+    try:
+        return float(s)
+    except ValueError:
+        return None
 
 
 def color_hex_for(name):
@@ -141,8 +182,10 @@ def download(url, dest_path, attempts=4):
     raise last_err
 
 
-def extract_month(xml_path, target_month, cube):
-    """Ajoute au cube les lignes concernant exactement target_month."""
+def extract_month(xml_path, target_month, cube, stats):
+    """Ajoute au cube les lignes concernant exactement target_month, et
+    accumule dans stats[target_month] les sommes/compteurs nécessaires aux
+    moyennes CO2 / consommation / autonomie électrique."""
     n_total = n_kept = 0
     t0 = time.time()
     for _, elem in ET.iterparse(xml_path, events=("end",)):
@@ -168,14 +211,34 @@ def extract_month(xml_path, target_month, cube):
         model = (elem.findtext("TYPCOM") or "").strip() or "N/D"
         color = (elem.findtext("COUL") or "").strip() or "Non-spécifiée"
         fuel = fuel_category(elem.findtext("LIBCRB"))
+        bodystyle = bodystyle_category(elem.findtext("LIBCAR"))
+        owner = owner_category(elem.findtext("INFOUTI"))
+        origin = origin_category(elem.findtext("DATCIRPRM"), datcir_gd)
 
-        cube[(ym, brand, model, fuel, color)] += 1
+        cube[(ym, brand, model, fuel, color, origin, owner, bodystyle)] += 1
         n_kept += 1
+
+        # CO2WLTP (norme actuelle) prioritaire sur INFCO2 (legacy NEDC) ; pour
+        # les électriques ce champ n'est jamais alimenté côté SNCA — 0 g/km à
+        # l'échappement est la convention réglementaire UE, pas une valeur
+        # manquante à exclure.
+        st = stats[ym]
+        co2 = 0.0 if fuel == "Electrique" else parse_float(elem.findtext("CO2WLTP") or elem.findtext("INFCO2"))
+        if co2 is not None:
+            st["co2_sum"] += co2; st["co2_n"] += 1
+        l100 = parse_float(elem.findtext("L100KM"))
+        if l100 is not None:
+            st["l100_sum"] += l100; st["l100_n"] += 1
+        if fuel == "Electrique":
+            auto = parse_float(elem.findtext("AUTOELEC"))
+            if auto is not None:
+                st["auto_sum"] += auto; st["auto_n"] += 1
+
         elem.clear()
     print(f"    {n_total} scannés, {n_kept} retenus pour {target_month} ({time.time()-t0:.0f}s)", file=sys.stderr)
 
 
-def build_output(cube):
+def build_output(cube, stats):
     months = sorted({k[0] for k in cube})
     brands = sorted({k[1] for k in cube})
     models = sorted({k[2] for k in cube})
@@ -186,10 +249,21 @@ def build_output(cube):
     model_idx = {v: i for i, v in enumerate(models)}
     fuel_idx = {v: i for i, v in enumerate(fuels)}
     color_idx = {v: i for i, v in enumerate(colors)}
+    origin_idx = {v: i for i, v in enumerate(ORIGINS)}
+    owner_idx = {v: i for i, v in enumerate(OWNERS)}
+    bodystyle_idx = {v: i for i, v in enumerate(BODYSTYLES)}
     rows = [
-        [month_idx[ym], brand_idx[b], model_idx[mo], fuel_idx[f], color_idx[c], count]
-        for (ym, b, mo, f, c), count in cube.items()
+        [month_idx[ym], brand_idx[b], model_idx[mo], fuel_idx[f], color_idx[c],
+         origin_idx[o], owner_idx[ow], bodystyle_idx[bs], count]
+        for (ym, b, mo, f, c, o, ow, bs), count in cube.items()
     ]
+
+    def avg_or_none(sum_key, n_key, ym):
+        st = stats.get(ym)
+        if not st or not st[n_key]:
+            return None
+        return round(st[sum_key] / st[n_key], 1)
+
     return {
         "generated_at": datetime.datetime.utcnow().isoformat() + "Z",
         "source_file": "backfill: exports mensuels contemporains de chaque mois (data.public.lu)",
@@ -202,7 +276,13 @@ def build_output(cube):
         "fuels": fuels,
         "colors": colors,
         "colorHex": {c: color_hex_for(c) for c in colors},
+        "origins": ORIGINS,
+        "owners": OWNERS,
+        "bodystyles": BODYSTYLES,
         "cube": rows,
+        "co2Avg": [avg_or_none("co2_sum", "co2_n", ym) for ym in months],
+        "consoAvg": [avg_or_none("l100_sum", "l100_n", ym) for ym in months],
+        "autoElecAvg": [avg_or_none("auto_sum", "auto_n", ym) for ym in months],
     }
 
 
@@ -218,6 +298,7 @@ def main():
     print(f"Reconstruction de {targets[0]} à {targets[-1]} ({len(targets)} mois)…", file=sys.stderr)
 
     cube = collections.Counter()
+    stats = collections.defaultdict(lambda: {"co2_sum": 0.0, "co2_n": 0, "l100_sum": 0.0, "l100_n": 0, "auto_sum": 0.0, "auto_n": 0})
     with tempfile.TemporaryDirectory() as tmp:
         for target in targets:
             snapshot_month = shift_month(target, 1)
@@ -228,10 +309,10 @@ def main():
             print(f"{target} <- {title}", file=sys.stderr)
             xml_path = os.path.join(tmp, "snapshot.xml")
             download(url, xml_path)
-            extract_month(xml_path, target, cube)
+            extract_month(xml_path, target, cube, stats)
             os.remove(xml_path)
 
-    output = build_output(cube)
+    output = build_output(cube, stats)
     with open(DATA_PATH, "w", encoding="utf-8") as f:
         json.dump(output, f, ensure_ascii=False, separators=(",", ":"))
     print(f"\nÉcrit {DATA_PATH} : {len(output['cube'])} lignes, {len(output['months'])} mois, {len(output['brands'])} marques", file=sys.stderr)

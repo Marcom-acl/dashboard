@@ -954,8 +954,13 @@
     .car-scroll-list::-webkit-scrollbar-thumb{background:var(--border-strong);border-radius:99px;}
 
     .car-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:16px;align-items:start;}
+    .car-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start;}
     .car-col{display:flex;flex-direction:column;gap:16px;}
     .car-click-hint{margin-left:auto;font-size:11px;font-style:italic;color:var(--muted);}
+
+    .car-insight{display:flex;align-items:flex-start;gap:12px;background:var(--c-club-bg);border:1px solid var(--c-club);border-radius:var(--r-md);padding:14px 18px;margin:12px 0 16px;font-size:13px;line-height:1.55;color:var(--text);}
+    .car-insight-icon{flex-shrink:0;font-size:16px;line-height:1.55;}
+    .car-insight b{color:var(--n);}
 
     .car-bar-row{cursor:pointer;border-radius:6px;padding:3px 4px;margin:-3px -4px;transition:opacity 220ms,background 160ms;}
     .car-bar-row:hover{background:rgba(0,0,0,.03);}
@@ -6785,10 +6790,14 @@ function openWrikeMatrixCell(target, stage, cell) {
 // ── MARCHÉ AUTOMOBILE LU ────────────────────────────────────────
 // Source : "Parc Automobile du Luxembourg" (SNCA / data.public.lu, CC0).
 // data/car-registrations-data.json est un cube pré-agrégé
-// [monthIdx, brandIdx, modelIdx, fuelIdx, colorIdx, count] — tout le
-// filtrage croisé (marque / modèle / motorisation) se fait ici, côté client,
-// par simple somme sur les lignes du cube qui correspondent au filtre actif.
-const CAR_DIM_POS  = {brand: 1, model: 2, fuel: 3, color: 4};
+// [monthIdx, brandIdx, modelIdx, fuelIdx, colorIdx, originIdx, ownerIdx,
+// bodystyleIdx, count] — tout le filtrage croisé (marque / modèle /
+// motorisation / neuf-occasion / particulier-société / carrosserie) se fait
+// ici, côté client, par simple somme sur les lignes du cube qui
+// correspondent au filtre actif. Le compte est toujours en dernière
+// position (CAR_COUNT_POS) — jamais un index fixe en dur ailleurs.
+const CAR_DIM_POS  = {brand: 1, model: 2, fuel: 3, color: 4, origin: 5, owner: 6, bodystyle: 7};
+const CAR_COUNT_POS = 8;
 const CAR_MONTHS_FR = ['','janv.','févr.','mars','avr.','mai','juin','juil.','août','sept.','oct.','nov.','déc.'];
 
 let _carRawData = null;
@@ -6841,13 +6850,17 @@ function carPeriodOptionsHtml(d, current) {
   return html;
 }
 
+function carDictFor(d, dim) {
+  return {brand: d.brands, model: d.models, fuel: d.fuels, color: d.colors, origin: d.origins, owner: d.owners, bodystyle: d.bodystyles}[dim];
+}
+
 // filter.value accepte une valeur unique ou un tableau (ex. le donut Engine
 // Type fusionne HEV+PHEV sous "Hybride" à l'affichage — cliquer dessus doit
 // filtrer sur les deux catégories brutes à la fois).
 function carRowsForFilter(d, filter) {
   if (!filter) return d.cube;
   const pos = CAR_DIM_POS[filter.dim];
-  const dict = filter.dim === 'brand' ? d.brands : filter.dim === 'model' ? d.models : filter.dim === 'fuel' ? d.fuels : d.colors;
+  const dict = carDictFor(d, filter.dim);
   const values = Array.isArray(filter.value) ? filter.value : [filter.value];
   const idxSet = new Set(values.map(v => dict.indexOf(v)).filter(i => i >= 0));
   if (!idxSet.size) return d.cube;
@@ -6856,13 +6869,13 @@ function carRowsForFilter(d, filter) {
 
 function carSumByMonth(d, rows) {
   const sums = new Array(d.months.length).fill(0);
-  rows.forEach(r => { sums[r[0]] += r[5]; });
+  rows.forEach(r => { sums[r[0]] += r[CAR_COUNT_POS]; });
   return sums;
 }
 
 function carGroupSum(rows, dimPos, labels) {
   const sums = new Map();
-  rows.forEach(r => { const k = r[dimPos]; sums.set(k, (sums.get(k) || 0) + r[5]); });
+  rows.forEach(r => { const k = r[dimPos]; sums.set(k, (sums.get(k) || 0) + r[CAR_COUNT_POS]); });
   return Array.from(sums.entries())
     .map(([idx, count]) => ({label: labels[idx], count}))
     .sort((a, b) => b.count - a.count);
@@ -6875,7 +6888,7 @@ function carGroupSumMapped(rows, dimPos, labels, mapFn) {
   const sums = new Map();
   rows.forEach(r => {
     const k = mapFn(labels[r[dimPos]]);
-    sums.set(k, (sums.get(k) || 0) + r[5]);
+    sums.set(k, (sums.get(k) || 0) + r[CAR_COUNT_POS]);
   });
   return Array.from(sums.entries())
     .map(([label, count]) => ({label, count}))
@@ -6904,7 +6917,7 @@ function carMotorisationSeries(d, rows) {
   const series = Object.fromEntries(CAR_MOTOR_CATS.map(c => [c, new Array(d.months.length).fill(0)]));
   rows.forEach(r => {
     const cat = carMotorisationLabel(d.fuels[r[3]]);
-    series[cat][r[0]] += r[5];
+    series[cat][r[0]] += r[CAR_COUNT_POS];
   });
   return series;
 }
@@ -6923,12 +6936,64 @@ function carPowertrainShareSeries(d, rows) {
   const counts = Object.fromEntries(CAR_POWERTRAIN_CATS.map(c => [c, new Array(d.months.length).fill(0)]));
   rows.forEach(r => {
     const cat = carPowertrainLabel(d.fuels[r[3]]);
-    counts[cat][r[0]] += r[5];
+    counts[cat][r[0]] += r[CAR_COUNT_POS];
   });
   const totals = new Array(d.months.length).fill(0);
   CAR_POWERTRAIN_CATS.forEach(c => counts[c].forEach((v, i) => { totals[i] += v; }));
   const pct = Object.fromEntries(CAR_POWERTRAIN_CATS.map(c => [c, counts[c].map((v, i) => totals[i] ? v / totals[i] * 100 : 0)]));
   return pct;
+}
+
+// Version générique de carPowertrainShareSeries pour les dimensions déjà
+// pré-catégorisées côté Python (origin, owner, bodystyle) : pas besoin de
+// fonction de regroupement, dictLabels[r[dimPos]] donne directement la
+// catégorie d'affichage.
+function carShareSeries(d, rows, dimPos, dictLabels, cats) {
+  const counts = Object.fromEntries(cats.map(c => [c, new Array(d.months.length).fill(0)]));
+  rows.forEach(r => {
+    const cat = dictLabels[r[dimPos]];
+    if (counts[cat]) counts[cat][r[0]] += r[CAR_COUNT_POS];
+  });
+  const totals = new Array(d.months.length).fill(0);
+  cats.forEach(c => counts[c].forEach((v, i) => { totals[i] += v; }));
+  return Object.fromEntries(cats.map(c => [c, counts[c].map((v, i) => totals[i] ? v / totals[i] * 100 : 0)]));
+}
+
+const CAR_ORIGIN_CATS = ['Neuf', 'Occasion importée'];
+const CAR_ORIGIN_COLORS = {'Neuf': '#123C62', 'Occasion importée': '#FEDB00'};
+const CAR_OWNER_CATS = ['Particulier', 'Société', 'Non déterminé'];
+const CAR_OWNER_COLORS = {'Particulier': '#123C62', 'Société': '#4E86B4', 'Non déterminé': '#C7DCEC'};
+// "Multi-usages" est un code carrosserie européen fourre-tout (SUV ET
+// monospaces) — voir la note dans scripts/car-registrations-backfill.py.
+const CAR_BODYSTYLE_CATS = ['Compacte / Hayon', 'Break', 'Multi-usages (SUV / Monospace)', 'Berline', 'Coupé / Cabriolet', 'Autre'];
+const CAR_BODYSTYLE_COLORS = {
+  'Compacte / Hayon': '#123C62', 'Break': '#2E5E8C', 'Multi-usages (SUV / Monospace)': '#4E86B4',
+  'Berline': '#8FBEDD', 'Coupé / Cabriolet': '#C7DCEC', 'Autre': '#E8E6E0',
+};
+
+// Bandeau "insight du mois" : quelques phrases générées automatiquement à
+// partir du dernier mois disponible, toujours sur les données non filtrées
+// (indépendant du filtre croisé / de la période choisis dans l'UI) — se
+// régénère tout seul à chaque mise à jour mensuelle de car-registrations-data.json.
+function carGenerateInsight(d) {
+  const latestIdx = d.months.length - 1;
+  const latestRows = d.cube.filter(r => r[0] === latestIdx);
+  const total = latestRows.reduce((s, r) => s + r[CAR_COUNT_POS], 0);
+  if (!total) return '';
+
+  const ptShare = {Thermique: 0, Hybride: 0, 'Électrique': 0};
+  latestRows.forEach(r => { ptShare[carPowertrainLabel(d.fuels[r[3]])] += r[CAR_COUNT_POS]; });
+  const electrifiedPct = (ptShare['Hybride'] + ptShare['Électrique']) / total * 100;
+
+  const topBrand  = carGroupSum(latestRows, CAR_DIM_POS.brand, d.brands)[0];
+  const owners    = carGroupSum(latestRows, CAR_DIM_POS.owner, d.owners);
+  const societePct = ((owners.find(o => o.label === 'Société') || {count: 0}).count / total) * 100;
+  const bodys     = carGroupSum(latestRows, CAR_DIM_POS.bodystyle, d.bodystyles);
+  const multiPct  = ((bodys.find(b => b.label === 'Multi-usages (SUV / Monospace)') || {count: 0}).count / total) * 100;
+
+  return `En <b>${carMonthLabel(d.months[latestIdx])}</b>, <b>${electrifiedPct.toFixed(0)}%</b> des ${fmtN(total)} nouvelles immatriculations étaient électriques ou hybrides.
+    <b>${topBrand ? topBrand.label : '—'}</b> était la marque la plus immatriculée${topBrand ? ` (${fmtN(topBrand.count)} véhicules)` : ''}.
+    <b>${societePct.toFixed(0)}%</b> des véhicules ont été immatriculés au nom d'une société, et <b>${multiPct.toFixed(0)}%</b> étaient des véhicules multi-usages (SUV / monospace).`;
 }
 
 function carDeltaLine(curr, prev, label) {
@@ -7254,6 +7319,194 @@ function renderCarPowertrainShareChart(d, rows) {
   });
 }
 
+// Occasion importée reste une part faible (quelques %) : un seul graphique
+// en aires empilées à 100% l'écraserait visuellement — une simple courbe de
+// sa part suffit à en suivre la tendance.
+function renderCarOriginChart(d, rows) {
+  if (chartInstances['carOrigin']) { chartInstances['carOrigin'].destroy(); delete chartInstances['carOrigin']; }
+  const canvas = document.getElementById('chartCarOrigin');
+  if (!canvas) return;
+  const labels = d.months.map(carMonthLabel);
+  const pct = carShareSeries(d, rows, CAR_DIM_POS.origin, d.origins, CAR_ORIGIN_CATS);
+  const data = pct['Occasion importée'];
+
+  chartInstances['carOrigin'] = new Chart(canvas, {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [{
+        label: 'Occasion importée', data, borderColor: CAR_ORIGIN_COLORS['Occasion importée'], backgroundColor: 'rgba(254,219,0,0.18)',
+        borderWidth: 2, pointRadius: 0, pointHoverRadius: 4, pointHitRadius: 14, tension: 0.3, fill: true,
+      }],
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      interaction: {mode: 'index', intersect: false},
+      plugins: {
+        legend: {display: false},
+        tooltip: {
+          titleFont: {family: 'Albert Sans', weight: '700'}, bodyFont: {family: 'Albert Sans'},
+          callbacks: {title: ctx => labels[ctx[0].dataIndex], label: ctx => ` ${ctx.raw.toFixed(1)}% des nouvelles immatriculations`},
+        },
+      },
+      scales: {
+        x: {grid: {display: false}, ticks: {font: {size: 9.5, family: 'Albert Sans'}, color: '#808080', maxRotation: 0, autoSkip: true, maxTicksLimit: 12}},
+        y: {min: 0, grid: {color: 'rgba(0,0,0,0.05)'}, ticks: {font: {size: 10, family: 'Albert Sans'}, color: '#808080', callback: v => v + '%'}},
+      },
+    },
+  });
+}
+
+function renderCarOwnerShareChart(d, rows) {
+  if (chartInstances['carOwnerShare']) { chartInstances['carOwnerShare'].destroy(); delete chartInstances['carOwnerShare']; }
+  const canvas = document.getElementById('chartCarOwnerShare');
+  if (!canvas) return;
+  const labels = d.months.map(carMonthLabel);
+  const pct = carShareSeries(d, rows, CAR_DIM_POS.owner, d.owners, CAR_OWNER_CATS);
+
+  chartInstances['carOwnerShare'] = new Chart(canvas, {
+    type: 'line',
+    data: {
+      labels,
+      datasets: CAR_OWNER_CATS.map((cat, i) => ({
+        label: cat, data: pct[cat], backgroundColor: CAR_OWNER_COLORS[cat], borderColor: CAR_OWNER_COLORS[cat],
+        borderWidth: 2, pointRadius: 0, pointHoverRadius: 4, pointHitRadius: 14,
+        tension: 0.3, fill: i === 0 ? 'origin' : '-1',
+      })),
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      layout: {padding: {right: 46}},
+      interaction: {mode: 'index', intersect: false},
+      plugins: {
+        legend: {position: 'top', align: 'end', labels: {font: {family: 'Albert Sans', size: 11}, boxWidth: 10, usePointStyle: true, pointStyle: 'circle'}},
+        tooltip: {
+          titleFont: {family: 'Albert Sans', weight: '700'}, bodyFont: {family: 'Albert Sans'},
+          callbacks: {title: ctx => labels[ctx[0].dataIndex], label: ctx => ` ${ctx.dataset.label}: ${ctx.raw.toFixed(1)}%`},
+        },
+        carStackEndLabels: {},
+      },
+      scales: {
+        x: {grid: {display: false}, ticks: {font: {size: 9.5, family: 'Albert Sans'}, color: '#808080', maxRotation: 0, autoSkip: true, maxTicksLimit: 12}},
+        y: {stacked: true, min: 0, max: 100, grid: {color: 'rgba(0,0,0,0.05)'}, ticks: {font: {size: 10, family: 'Albert Sans'}, color: '#808080', callback: v => v + '%'}},
+      },
+    },
+  });
+}
+
+// CO2/consommation moyens : moyennes mensuelles globales pré-calculées côté
+// Python (d.co2Avg/d.consoAvg), pas dérivées du cube — indépendant du filtre
+// croisé actif, toujours "tout le marché".
+function renderCarEfficiencyChart(d) {
+  if (chartInstances['carEfficiency']) { chartInstances['carEfficiency'].destroy(); delete chartInstances['carEfficiency']; }
+  const canvas = document.getElementById('chartCarEfficiency');
+  if (!canvas) return;
+  const labels = d.months.map(carMonthLabel);
+
+  chartInstances['carEfficiency'] = new Chart(canvas, {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [
+        {
+          label: 'CO2 moyen (g/km)', data: d.co2Avg, borderColor: '#123C62', backgroundColor: '#123C62',
+          borderWidth: 2, pointRadius: 0, pointHoverRadius: 4, pointHitRadius: 14, tension: 0.3, spanGaps: true, yAxisID: 'y',
+        },
+        {
+          label: 'Consommation moyenne (l/100km)', data: d.consoAvg, borderColor: '#F4C400', backgroundColor: '#F4C400',
+          borderWidth: 2, pointRadius: 0, pointHoverRadius: 4, pointHitRadius: 14, tension: 0.3, spanGaps: true, yAxisID: 'y1',
+        },
+      ],
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      interaction: {mode: 'index', intersect: false},
+      plugins: {
+        legend: {position: 'top', align: 'end', labels: {font: {family: 'Albert Sans', size: 11}, boxWidth: 10, usePointStyle: true, pointStyle: 'circle'}},
+        tooltip: {
+          titleFont: {family: 'Albert Sans', weight: '700'}, bodyFont: {family: 'Albert Sans'},
+          callbacks: {title: ctx => labels[ctx[0].dataIndex], label: ctx => ` ${ctx.dataset.label}: ${Number(ctx.raw).toFixed(1)}`},
+        },
+      },
+      scales: {
+        x: {grid: {display: false}, ticks: {font: {size: 9.5, family: 'Albert Sans'}, color: '#808080', maxRotation: 0, autoSkip: true, maxTicksLimit: 12}},
+        y:  {position: 'left',  grid: {color: 'rgba(0,0,0,0.05)'}, ticks: {font: {size: 10, family: 'Albert Sans'}, color: '#123C62', callback: v => v + ' g'}},
+        y1: {position: 'right', grid: {display: false}, ticks: {font: {size: 10, family: 'Albert Sans'}, color: '#8a7400', callback: v => v + ' l'}},
+      },
+    },
+  });
+}
+
+function renderCarBodystyleChart(d, rows) {
+  if (chartInstances['carBodystyle']) { chartInstances['carBodystyle'].destroy(); delete chartInstances['carBodystyle']; }
+  const canvas = document.getElementById('chartCarBodystyle');
+  if (!canvas) return;
+  const labels = d.months.map(carMonthLabel);
+  const pct = carShareSeries(d, rows, CAR_DIM_POS.bodystyle, d.bodystyles, CAR_BODYSTYLE_CATS);
+
+  chartInstances['carBodystyle'] = new Chart(canvas, {
+    type: 'line',
+    data: {
+      labels,
+      datasets: CAR_BODYSTYLE_CATS.map((cat, i) => ({
+        label: cat, data: pct[cat], backgroundColor: CAR_BODYSTYLE_COLORS[cat], borderColor: CAR_BODYSTYLE_COLORS[cat],
+        borderWidth: 2, pointRadius: 0, pointHoverRadius: 4, pointHitRadius: 14,
+        tension: 0.3, fill: i === 0 ? 'origin' : '-1',
+      })),
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      layout: {padding: {right: 46}},
+      interaction: {mode: 'index', intersect: false},
+      plugins: {
+        legend: {position: 'top', align: 'end', labels: {font: {family: 'Albert Sans', size: 11}, boxWidth: 10, usePointStyle: true, pointStyle: 'circle'}},
+        tooltip: {
+          titleFont: {family: 'Albert Sans', weight: '700'}, bodyFont: {family: 'Albert Sans'},
+          callbacks: {title: ctx => labels[ctx[0].dataIndex], label: ctx => ` ${ctx.dataset.label}: ${ctx.raw.toFixed(1)}%`},
+        },
+        carStackEndLabels: {},
+      },
+      scales: {
+        x: {grid: {display: false}, ticks: {font: {size: 9.5, family: 'Albert Sans'}, color: '#808080', maxRotation: 0, autoSkip: true, maxTicksLimit: 12}},
+        y: {stacked: true, min: 0, max: 100, grid: {color: 'rgba(0,0,0,0.05)'}, ticks: {font: {size: 10, family: 'Albert Sans'}, color: '#808080', callback: v => v + '%'}},
+      },
+    },
+  });
+}
+
+function renderCarAutoElecChart(d) {
+  if (chartInstances['carAutoElec']) { chartInstances['carAutoElec'].destroy(); delete chartInstances['carAutoElec']; }
+  const canvas = document.getElementById('chartCarAutoElec');
+  if (!canvas) return;
+  const labels = d.months.map(carMonthLabel);
+
+  chartInstances['carAutoElec'] = new Chart(canvas, {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [{
+        label: 'Autonomie moyenne (km)', data: d.autoElecAvg, borderColor: '#16A34A', backgroundColor: 'rgba(22,163,74,0.1)',
+        borderWidth: 2, pointRadius: 0, pointHoverRadius: 4, pointHitRadius: 14, tension: 0.3, fill: true, spanGaps: true,
+      }],
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      interaction: {mode: 'index', intersect: false},
+      plugins: {
+        legend: {display: false},
+        tooltip: {
+          titleFont: {family: 'Albert Sans', weight: '700'}, bodyFont: {family: 'Albert Sans'},
+          callbacks: {title: ctx => labels[ctx[0].dataIndex], label: ctx => ` ${fmtN(Math.round(ctx.raw))} km d'autonomie moyenne (WLTP)`},
+        },
+      },
+      scales: {
+        x: {grid: {display: false}, ticks: {font: {size: 9.5, family: 'Albert Sans'}, color: '#808080', maxRotation: 0, autoSkip: true, maxTicksLimit: 12}},
+        y: {min: 0, grid: {color: 'rgba(0,0,0,0.05)'}, ticks: {font: {size: 10, family: 'Albert Sans'}, color: '#808080', callback: v => v + ' km'}},
+      },
+    },
+  });
+}
+
 function renderCarEvTrendChart(d, evRows) {
   if (chartInstances['carEvTrend']) { chartInstances['carEvTrend'].destroy(); delete chartInstances['carEvTrend']; }
   const canvas = document.getElementById('chartCarEvTrend');
@@ -7441,11 +7694,22 @@ function renderCarMarket(d) {
     : evTopModels.slice(0, 50);
   const evTotal = carSumByMonth(d, evRows).reduce((s, v) => s + v, 0);
 
+  // Part "occasion importée" du dernier mois — utilisée dans le sous-titre
+  // de la carte Neuf/Occasion (le graphique montre déjà la tendance).
+  const originLatestRows = rows.filter(r => r[0] === months.length - 1);
+  const originLatestTotal = originLatestRows.reduce((s, r) => s + r[CAR_COUNT_POS], 0) || 1;
+  const originLatestOccasion = originLatestRows.filter(r => d.origins[r[CAR_DIM_POS.origin]] === 'Occasion importée')
+    .reduce((s, r) => s + r[CAR_COUNT_POS], 0);
+  const originLatestPct = originLatestOccasion / originLatestTotal * 100;
+
+  const insightHtml = carGenerateInsight(d);
+
   el.innerHTML = `
     <div class="sec-title"><h2>Marché automobile — Luxembourg</h2><div class="line"></div>
       <select class="car-period-select" id="carPeriodSelect" title="Période des classements (marques, modèles, motorisation, couleurs)">${periodOptions}</select>
       <span class="src-pill" style="--src:var(--n);--src-bg:var(--c-club-bg)">SNCA · Open Data</span>
     </div>
+    ${insightHtml ? `<div class="car-insight"><span class="car-insight-icon">💡</span><span>${insightHtml}</span></div>` : ''}
     ${filterPill}
     <div class="car-kpi-row">
       ${carKpiCardHtml(kpi1Label, fmtN(kpi1Value), kpi1DeltaLines)}
@@ -7505,6 +7769,28 @@ function renderCarMarket(d) {
       <div class="card-body" style="padding:8px 20px 20px;height:320px"><canvas id="chartCarPowertrainShare"></canvas></div>
     </div>
 
+    <div class="sec-title" style="margin-top:20px"><h2>Profil des immatriculations</h2><div class="line"></div></div>
+    <div class="car-grid-2">
+      <div class="card">
+        <div class="card-head"><div><div class="card-title">Neuf vs. occasion importée</div><div class="card-sub">${originLatestPct.toFixed(1)}% des immatriculations de ${carMonthLabel(latest)} sont des véhicules déjà immatriculés à l'étranger avant leur arrivée au Luxembourg</div></div></div>
+        <div class="card-body" style="padding:8px 20px 20px;height:240px"><canvas id="chartCarOrigin"></canvas></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div><div class="card-title">Particulier vs. société</div><div class="card-sub">% du total des immatriculations, par mois</div></div></div>
+        <div class="card-body" style="padding:8px 20px 20px;height:240px"><canvas id="chartCarOwnerShare"></canvas></div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:16px">
+      <div class="card-head"><div><div class="card-title">CO2 &amp; consommation moyens</div><div class="card-sub">Moyenne mensuelle toutes motorisations confondues (0 g/km retenu pour les électriques, convention réglementaire UE) — depuis ${carMonthLabel(d.min_month)}</div></div></div>
+      <div class="card-body" style="padding:8px 20px 20px;height:280px"><canvas id="chartCarEfficiency"></canvas></div>
+    </div>
+
+    <div class="card" style="margin-top:16px">
+      <div class="card-head"><div><div class="card-title">Type de carrosserie</div><div class="card-sub">% du total des immatriculations, par mois — "Multi-usages" regroupe SUV et monospaces (la donnée source ne les distingue pas) — depuis ${carMonthLabel(d.min_month)}</div></div></div>
+      <div class="card-body" style="padding:8px 20px 20px;height:320px"><canvas id="chartCarBodystyle"></canvas></div>
+    </div>
+
     <div class="sec-title" style="margin-top:20px"><h2>Marché des véhicules électriques (BEV)</h2><div class="line"></div>
       <span class="src-pill" style="--src:#16A34A;--src-bg:#E7F6EC">${fmtN(evTotal)} immatriculations au total</span>
     </div>
@@ -7513,6 +7799,10 @@ function renderCarMarket(d) {
         <div class="card">
           <div class="card-head"><div><div class="card-title">Immatriculations BEV par mois</div><div class="card-sub">Depuis ${carMonthLabel(d.min_month)}</div></div></div>
           <div class="card-body flush" style="padding:4px 20px 20px"><canvas id="chartCarEvTrend" height="160"></canvas></div>
+        </div>
+        <div class="card">
+          <div class="card-head"><div><div class="card-title">Autonomie électrique moyenne</div><div class="card-sub">Autonomie WLTP déclarée, moyenne des BEV immatriculées dans le mois</div></div></div>
+          <div class="card-body flush" style="padding:4px 20px 20px"><canvas id="chartCarAutoElec" height="160"></canvas></div>
         </div>
       </div>
       <div class="car-col car-col-mid">
@@ -7539,6 +7829,10 @@ function renderCarMarket(d) {
         <li>Ce jeu de données ne fournit pas de fichier "nouvelles immatriculations" tout prêt : chaque véhicule encore en circulation indique sa date de première mise en circulation au Luxembourg, et on compte ceux dont cette date tombe dans le mois considéré.</li>
         <li>Périmètre : voitures particulières uniquement (catégories européennes M1 et M1G — SUV/4x4 inclus).</li>
         <li>On exclut les véhicules qui arrivent avec un historique d'immatriculation à l'étranger (essentiellement des flottes de leasing transfrontalières, très présentes au Luxembourg), pour se rapprocher du marché réel plutôt que des volumes bruts.</li>
+        <li>"Neuf vs. occasion importée" : un véhicule est classé "occasion importée" quand sa date de première mise en circulation (quel que soit le pays) est antérieure à sa date de première mise en circulation au Luxembourg — signe qu'il a déjà roulé à l'étranger avant d'être immatriculé ici.</li>
+        <li>"Particulier vs. société" : indicateur d'utilisateur déclaré à l'immatriculation (personne physique / personne morale).</li>
+        <li>"Type de carrosserie" : classement européen fourni par la source (9 libellés observés, regroupés en 6 catégories lisibles) — "Multi-usages" mélange SUV et monospaces, la donnée source ne permet pas de les séparer plus finement.</li>
+        <li>CO2 et autonomie électrique : norme WLTP quand disponible, sinon ancienne norme NEDC ; 0 g/km retenu pour les véhicules 100% électriques (convention réglementaire UE), pas une valeur manquante exclue du calcul.</li>
         <li>Un écart de quelques % peut subsister avec d'autres sources (ex. LuxInsights), qui ont leur propre méthodologie qu'on ne peut pas reproduire à l'identique depuis ces données publiques.</li>
       </ul>
     </div>
@@ -7568,7 +7862,12 @@ function renderCarMarket(d) {
   renderCarFuelDonut(d, rankingRows);
   renderCarMotorisationChart(d, rows);
   renderCarPowertrainShareChart(d, rows);
+  renderCarOriginChart(d, rows);
+  renderCarOwnerShareChart(d, rows);
+  renderCarEfficiencyChart(d);
+  renderCarBodystyleChart(d, rows);
   renderCarEvTrendChart(d, evRows);
+  renderCarAutoElecChart(d);
 }
 
 // ── Dark mode toggle ──────────────────────────────────────────
