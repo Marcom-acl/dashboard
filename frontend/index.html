@@ -953,7 +953,12 @@
     .car-filter-pill button{border:none;background:rgba(18,60,98,.12);color:var(--n);width:18px;height:18px;border-radius:50%;font-size:13px;line-height:1;cursor:pointer;display:grid;place-items:center;}
     .car-filter-pill button:hover{background:var(--n);color:#fff;}
 
-    .car-period-select{font-family:'Albert Sans',sans-serif;font-size:12px;font-weight:600;color:var(--n);background:var(--c-club-bg);border:none;border-radius:99px;padding:6px 28px 6px 12px;cursor:pointer;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23123C62' stroke-width='2'><path d='m6 9 6 6 6-6'/></svg>");background-repeat:no-repeat;background-position:right 8px center;background-size:12px;}
+    .car-period-wrap{display:inline-flex;align-items:center;gap:6px;background:var(--c-club-bg);border:1.5px solid var(--n);border-radius:99px;padding:4px 6px 4px 12px;flex-shrink:0;}
+    .car-period-icon{color:var(--n);flex-shrink:0;}
+    .car-period-label{font-family:'Albert Sans',sans-serif;font-size:10.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--n);white-space:nowrap;}
+    .car-period-select{font-family:'Albert Sans',sans-serif;font-size:12.5px;font-weight:700;color:var(--n);background:transparent;border:none;border-radius:99px;padding:4px 22px 4px 6px;cursor:pointer;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23123C62' stroke-width='2.5'><path d='m6 9 6 6 6-6'/></svg>");background-repeat:no-repeat;background-position:right 4px center;background-size:13px;}
+    .car-export-btn{margin-left:auto;background:none;border:none;padding:4px;cursor:pointer;color:var(--muted);border-radius:6px;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;transition:background 160ms,color 160ms;}
+    .car-export-btn:hover{background:var(--c-club-bg);color:var(--n);}
     .car-scroll-list{max-height:340px;overflow-y:auto;padding-right:4px;}
     .car-scroll-list::-webkit-scrollbar{width:6px;}
     .car-scroll-list::-webkit-scrollbar-thumb{background:var(--border-strong);border-radius:99px;}
@@ -7100,6 +7105,14 @@ function carColorListHtml(items, colorHex, maxItems = 8) {
     </div>`).join('');
 }
 
+// Bouton d'export par module (une carte à la fois) — voir carModuleExport()
+// dans renderCarMarket, qui fait le lien entre l'id et les données à exporter.
+function carExportBtnHtml(id) {
+  return `<button class="car-export-btn" data-export="${id}" title="Exporter cette donnée en Excel">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+  </button>`;
+}
+
 // ── Chart.js plugins maison (pas de plugin externe chargé) ─────
 if (typeof Chart !== 'undefined' && !Chart.registry.plugins.get('carVLine')) {
   Chart.register({
@@ -7713,9 +7726,100 @@ function renderCarMarket(d) {
 
   const insightHtml = carGenerateInsight(d);
 
+  // Export par module (une carte à la fois) — chaque id correspond au
+  // data-export posé sur le bouton via carExportBtnHtml(), et reproduit
+  // exactement la donnée affichée par la carte correspondante (mêmes rows,
+  // mêmes rankingRows/rows selon que la carte respecte ou non le sélecteur
+  // de période — voir les appels renderCarXxxChart plus bas dans cette
+  // fonction pour la même distinction).
+  function carModuleExport(id) {
+    const labels = months.map(carMonthLabel);
+    let filename, sheets;
+    switch (id) {
+      case 'monthly': {
+        const deltas = sums.map((v, i) => i === 0 ? null : v - sums[i - 1]);
+        sheets = [{name: 'Immatriculations', headers: ['Mois', 'Immatriculations', 'Variation vs mois précédent'], rows: labels.map((l, i) => [l, sums[i], deltas[i]])}];
+        filename = `ACL_car_immatriculations_mensuelles_${latest}.xlsx`;
+        break;
+      }
+      case 'fuel': {
+        const groups = carGroupSumMapped(rankingRows, CAR_DIM_POS.fuel, d.fuels, carFuelDisplayLabel).filter(g => g.count > 0);
+        sheets = [{name: 'Motorisation', headers: ['Motorisation', 'Nombre'], rows: groups.map(g => [g.label, g.count])}];
+        filename = `ACL_car_motorisation_${latest}.xlsx`;
+        break;
+      }
+      case 'brands':
+        sheets = [{name: 'Top marques', headers: ['Marque', 'Nombre'], rows: topBrands.map(b => [b.label, b.count])}];
+        filename = `ACL_car_top_marques_${latest}.xlsx`;
+        break;
+      case 'models':
+        sheets = [{name: 'Top modèles', headers: ['Modèle', 'Nombre'], rows: topModels.map(m => [m.label, m.count])}];
+        filename = `ACL_car_top_modeles_${latest}.xlsx`;
+        break;
+      case 'colors':
+        sheets = [{name: 'Top couleurs', headers: ['Couleur', 'Nombre'], rows: topColors.map(c => [c.label, c.count])}];
+        filename = `ACL_car_top_couleurs_${latest}.xlsx`;
+        break;
+      case 'motorisation': {
+        const series = carMotorisationSeries(d, rows);
+        sheets = [{name: 'Évolution motorisation', headers: ['Mois', ...CAR_MOTOR_CATS], rows: labels.map((l, i) => [l, ...CAR_MOTOR_CATS.map(c => series[c][i])])}];
+        filename = `ACL_car_evolution_motorisation_${latest}.xlsx`;
+        break;
+      }
+      case 'powertrain-share': {
+        const pct = carPowertrainShareSeries(d, rows);
+        sheets = [{name: 'Part de marché', headers: ['Mois', ...CAR_POWERTRAIN_CATS.map(c => c + ' (%)')], rows: labels.map((l, i) => [l, ...CAR_POWERTRAIN_CATS.map(c => +pct[c][i].toFixed(1))])}];
+        filename = `ACL_car_part_marche_${latest}.xlsx`;
+        break;
+      }
+      case 'origin': {
+        const pct = carShareSeries(d, rows, CAR_DIM_POS.origin, d.origins, CAR_ORIGIN_CATS);
+        sheets = [{name: 'Neuf vs occasion', headers: ['Mois', ...CAR_ORIGIN_CATS.map(c => c + ' (%)')], rows: labels.map((l, i) => [l, ...CAR_ORIGIN_CATS.map(c => +pct[c][i].toFixed(1))])}];
+        filename = `ACL_car_neuf_occasion_${latest}.xlsx`;
+        break;
+      }
+      case 'owner': {
+        const pct = carShareSeries(d, rows, CAR_DIM_POS.owner, d.owners, CAR_OWNER_CATS);
+        sheets = [{name: 'Particulier vs société', headers: ['Mois', ...CAR_OWNER_CATS.map(c => c + ' (%)')], rows: labels.map((l, i) => [l, ...CAR_OWNER_CATS.map(c => +pct[c][i].toFixed(1))])}];
+        filename = `ACL_car_particulier_societe_${latest}.xlsx`;
+        break;
+      }
+      case 'efficiency':
+        sheets = [{name: 'CO2 & consommation', headers: ['Mois', 'CO2 moyen (g/km)', 'Conso moyenne (l/100km)'], rows: labels.map((l, i) => [l, d.co2Avg?.[i] ?? '', d.consoAvg?.[i] ?? ''])}];
+        filename = `ACL_car_co2_consommation_${latest}.xlsx`;
+        break;
+      case 'ev-trend': {
+        const evSums = carSumByMonth(d, evRows);
+        sheets = [{name: 'Immatriculations BEV', headers: ['Mois', 'Immatriculations BEV'], rows: labels.map((l, i) => [l, evSums[i]])}];
+        filename = `ACL_car_bev_mensuel_${latest}.xlsx`;
+        break;
+      }
+      case 'autoelec':
+        sheets = [{name: 'Autonomie moyenne', headers: ['Mois', 'Autonomie moyenne (km)'], rows: labels.map((l, i) => [l, d.autoElecAvg?.[i] ?? ''])}];
+        filename = `ACL_car_autonomie_bev_${latest}.xlsx`;
+        break;
+      case 'ev-brands':
+        sheets = [{name: 'Top marques BEV', headers: ['Marque', 'Nombre'], rows: evTopBrands.map(b => [b.label, b.count])}];
+        filename = `ACL_car_top_marques_bev_${latest}.xlsx`;
+        break;
+      case 'ev-models':
+        sheets = [{name: 'Top modèles BEV', headers: ['Modèle', 'Nombre'], rows: evTopModels.map(m => [m.label, m.count])}];
+        filename = `ACL_car_top_modeles_bev_${latest}.xlsx`;
+        break;
+      default:
+        return;
+    }
+    exportSheetsToXLSX(filename, sheets);
+  }
+  window._carExportModule = carModuleExport;
+
   el.innerHTML = `
     <div class="sec-title"><h2>Marché automobile — Luxembourg</h2><div class="line"></div>
-      <select class="car-period-select" id="carPeriodSelect" title="Période des classements (marques, modèles, motorisation, couleurs)">${periodOptions}</select>
+      <div class="car-period-wrap" title="Période des classements (marques, modèles, motorisation, couleurs)">
+        <svg class="car-period-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        <span class="car-period-label">Période</span>
+        <select class="car-period-select" id="carPeriodSelect">${periodOptions}</select>
+      </div>
       <span class="src-pill" style="--src:var(--n);--src-bg:var(--c-club-bg)">SNCA · Open Data</span>
     </div>
     ${insightHtml ? `<div class="car-insight"><span class="car-insight-icon">💡</span><span>${insightHtml}</span></div>` : ''}
@@ -7731,12 +7835,12 @@ function renderCarMarket(d) {
     <div class="car-grid">
       <div class="car-col car-col-left">
         <div class="card">
-          <div class="card-head"><div><div class="card-title">Immatriculations par mois</div><div class="card-sub">Depuis ${carMonthLabel(d.min_month)}</div></div></div>
+          <div class="card-head"><div><div class="card-title">Immatriculations par mois</div><div class="card-sub">Depuis ${carMonthLabel(d.min_month)}</div></div>${carExportBtnHtml('monthly')}</div>
           <div class="card-body flush" style="padding:4px 20px 0"><canvas id="chartCarMonthlyVolume" height="130"></canvas></div>
           <div class="card-body flush" style="padding:0 20px 16px"><canvas id="chartCarMonthlyDelta" height="70"></canvas></div>
         </div>
         <div class="card">
-          <div class="card-head"><div class="card-title">Engine Type</div>${rankingNote}</div>
+          <div class="card-head"><div class="card-title">Engine Type</div>${rankingNote}${carExportBtnHtml('fuel')}</div>
           <div class="card-body">
             <div class="channel-donut-inner">
               <div class="channel-donut-canvas-wrap"><canvas id="chartCarFuelDonut" width="140" height="140"></canvas></div>
@@ -7748,50 +7852,50 @@ function renderCarMarket(d) {
 
       <div class="car-col car-col-mid">
         <div class="card">
-          <div class="card-head"><div class="card-title">Top Brands</div><span class="car-click-hint">Cliquez sur un élément</span></div>
+          <div class="card-head"><div class="card-title">Top Brands</div><span class="car-click-hint">Cliquez sur un élément</span>${carExportBtnHtml('brands')}</div>
           <div class="card-body car-scroll-list" id="carBrandsList">${carBarListHtml(topBrands, 'brand', _carFilter?.dim === 'brand' ? _carFilter.value : null, true)}</div>
         </div>
       </div>
 
       <div class="car-col car-col-right">
         <div class="card">
-          <div class="card-head"><div class="card-title">Top Models</div><span class="car-click-hint">Cliquez sur un élément</span></div>
+          <div class="card-head"><div class="card-title">Top Models</div><span class="car-click-hint">Cliquez sur un élément</span>${carExportBtnHtml('models')}</div>
           <div class="card-body" style="padding-bottom:0">
             <input type="search" class="camp-search-inp" id="carModelSearch" placeholder="Rechercher un modèle…" value="${(_carModelSearch || '').replace(/"/g,'&quot;')}" style="width:100%;margin-bottom:10px;box-sizing:border-box">
           </div>
           <div class="card-body car-scroll-list" style="padding-top:0" id="carModelsList">${carBarListHtml(modelsShown, 'model', _carFilter?.dim === 'model' ? _carFilter.value : null, false)}</div>
         </div>
         <div class="card">
-          <div class="card-head"><div class="card-title">Top Colors</div></div>
+          <div class="card-head"><div class="card-title">Top Colors</div>${carExportBtnHtml('colors')}</div>
           <div class="card-body" id="carColorsList">${carColorListHtml(topColors, d.colorHex)}</div>
         </div>
       </div>
     </div>
 
     <div class="card" style="margin-top:16px">
-      <div class="card-head"><div><div class="card-title">Évolution par motorisation</div><div class="card-sub">BEV · PHEV · Diesel · Essence · Autres (hybride classique inclus) — depuis ${carMonthLabel(d.min_month)}</div></div></div>
+      <div class="card-head"><div><div class="card-title">Évolution par motorisation</div><div class="card-sub">BEV · PHEV · Diesel · Essence · Autres (hybride classique inclus) — depuis ${carMonthLabel(d.min_month)}</div></div>${carExportBtnHtml('motorisation')}</div>
       <div class="card-body" style="padding:8px 20px 20px;height:320px"><canvas id="chartCarMotorisation"></canvas></div>
     </div>
 
     <div class="card" style="margin-top:16px">
-      <div class="card-head"><div><div class="card-title">Part de marché — Électrique / Hybride / Thermique</div><div class="card-sub">% du total des immatriculations, par mois — depuis ${carMonthLabel(d.min_month)}</div></div></div>
+      <div class="card-head"><div><div class="card-title">Part de marché — Électrique / Hybride / Thermique</div><div class="card-sub">% du total des immatriculations, par mois — depuis ${carMonthLabel(d.min_month)}</div></div>${carExportBtnHtml('powertrain-share')}</div>
       <div class="card-body" style="padding:8px 20px 20px;height:320px"><canvas id="chartCarPowertrainShare"></canvas></div>
     </div>
 
     <div class="sec-title" style="margin-top:20px"><h2>Profil des immatriculations</h2><div class="line"></div></div>
     <div class="car-grid-2">
       <div class="card">
-        <div class="card-head"><div><div class="card-title">Neuf vs. occasion importée</div><div class="card-sub">${originLatestPct.toFixed(1)}% des immatriculations de ${carMonthLabel(latest)} sont des véhicules déjà immatriculés à l'étranger avant leur arrivée au Luxembourg</div></div></div>
+        <div class="card-head"><div><div class="card-title">Neuf vs. occasion importée</div><div class="card-sub">${originLatestPct.toFixed(1)}% des immatriculations de ${carMonthLabel(latest)} sont des véhicules déjà immatriculés à l'étranger avant leur arrivée au Luxembourg</div></div>${carExportBtnHtml('origin')}</div>
         <div class="card-body" style="padding:8px 20px 20px;height:240px"><canvas id="chartCarOrigin"></canvas></div>
       </div>
       <div class="card">
-        <div class="card-head"><div><div class="card-title">Particulier vs. société</div><div class="card-sub">% du total des immatriculations, par mois</div></div></div>
+        <div class="card-head"><div><div class="card-title">Particulier vs. société</div><div class="card-sub">% du total des immatriculations, par mois</div></div>${carExportBtnHtml('owner')}</div>
         <div class="card-body" style="padding:8px 20px 20px;height:240px"><canvas id="chartCarOwnerShare"></canvas></div>
       </div>
     </div>
 
     <div class="card" style="margin-top:16px">
-      <div class="card-head"><div><div class="card-title">CO2 &amp; consommation moyens</div><div class="card-sub">Moyenne mensuelle toutes motorisations confondues (0 g/km retenu pour les électriques, convention réglementaire UE) — depuis ${carMonthLabel(d.min_month)}</div></div></div>
+      <div class="card-head"><div><div class="card-title">CO2 &amp; consommation moyens</div><div class="card-sub">Moyenne mensuelle toutes motorisations confondues (0 g/km retenu pour les électriques, convention réglementaire UE) — depuis ${carMonthLabel(d.min_month)}</div></div>${carExportBtnHtml('efficiency')}</div>
       <div class="card-body" style="padding:8px 20px 20px;height:280px"><canvas id="chartCarEfficiency"></canvas></div>
     </div>
 
@@ -7801,23 +7905,23 @@ function renderCarMarket(d) {
     <div class="car-grid">
       <div class="car-col car-col-left">
         <div class="card">
-          <div class="card-head"><div><div class="card-title">Immatriculations BEV par mois</div><div class="card-sub">Depuis ${carMonthLabel(d.min_month)}</div></div></div>
+          <div class="card-head"><div><div class="card-title">Immatriculations BEV par mois</div><div class="card-sub">Depuis ${carMonthLabel(d.min_month)}</div></div>${carExportBtnHtml('ev-trend')}</div>
           <div class="card-body flush" style="padding:4px 20px 20px"><canvas id="chartCarEvTrend" height="160"></canvas></div>
         </div>
         <div class="card">
-          <div class="card-head"><div><div class="card-title">Autonomie électrique moyenne</div><div class="card-sub">Autonomie WLTP déclarée, moyenne des BEV immatriculées dans le mois</div></div></div>
+          <div class="card-head"><div><div class="card-title">Autonomie électrique moyenne</div><div class="card-sub">Autonomie WLTP déclarée, moyenne des BEV immatriculées dans le mois</div></div>${carExportBtnHtml('autoelec')}</div>
           <div class="card-body flush" style="padding:4px 20px 20px"><canvas id="chartCarAutoElec" height="160"></canvas></div>
         </div>
       </div>
       <div class="car-col car-col-mid">
         <div class="card">
-          <div class="card-head"><div class="card-title">Top Brands (BEV)</div><span class="car-click-hint">Cliquez sur un élément</span></div>
+          <div class="card-head"><div class="card-title">Top Brands (BEV)</div><span class="car-click-hint">Cliquez sur un élément</span>${carExportBtnHtml('ev-brands')}</div>
           <div class="card-body car-scroll-list" id="carEvBrandsList">${carBarListHtml(evTopBrands, 'brand', _carFilter?.dim === 'brand' ? _carFilter.value : null, true)}</div>
         </div>
       </div>
       <div class="car-col car-col-right">
         <div class="card">
-          <div class="card-head"><div class="card-title">Top Models (BEV)</div><span class="car-click-hint">Cliquez sur un élément</span></div>
+          <div class="card-head"><div class="card-title">Top Models (BEV)</div><span class="car-click-hint">Cliquez sur un élément</span>${carExportBtnHtml('ev-models')}</div>
           <div class="card-body" style="padding-bottom:0">
             <input type="search" class="camp-search-inp" id="carEvModelSearch" placeholder="Rechercher un modèle…" value="${(_carEvModelSearch || '').replace(/"/g,'&quot;')}" style="width:100%;margin-bottom:10px;box-sizing:border-box">
           </div>
@@ -7859,6 +7963,9 @@ function renderCarMarket(d) {
   document.getElementById('carPeriodSelect')?.addEventListener('change', (e) => { _carPeriod = e.target.value || null; renderCarMarket(_carRawData); });
   document.getElementById('carModelSearch')?.addEventListener('input', window._carUpdateModelsList);
   document.getElementById('carEvModelSearch')?.addEventListener('input', window._carUpdateEvModelsList);
+  el.querySelectorAll('.car-export-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => { e.stopPropagation(); window._carExportModule(btn.dataset.export); });
+  });
 
   animateCards(el);
   renderCarMonthlyCharts(d, rows);
