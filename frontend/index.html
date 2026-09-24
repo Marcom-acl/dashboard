@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,700;1,800;1,900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.20.2/dist/xlsx.full.min.js"></script>
   <style>
 
     /* ─── FaricyNew ─────────────────────────────────────────────── */
@@ -1441,6 +1442,9 @@
         </button>
         <button class="icon-btn" id="openCfgTop" title="Configuration">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h0a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h0a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v0a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        </button>
+        <button class="icon-btn" id="btnExport" title="Exporter cet onglet en Excel">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
         </button>
         <button class="btn-refresh" id="btnRefresh">
           <span class="ri" id="ri">↻</span>
@@ -3398,6 +3402,10 @@ function renderVeilleIA() {
   </div><div>${skel(3)}</div>`;
 
   api('/veille-ia').then(d => {
+    // Pas dans TAB_ENDPOINTS/window._dashData (fetch propre à cet onglet) —
+    // on le stashe quand même pour que l'export Excel puisse le lire.
+    if (!window._dashData) window._dashData = {};
+    window._dashData.dVeilleIA = d;
     if (!d || d.error) { el.innerHTML = errState('Veille IA', d?.error || 'Données non disponibles'); return; }
 
     const ALL      = d.items || [];
@@ -3556,6 +3564,10 @@ function renderIntelligence() {
 
   // Fetch intelligence data (slow — GA4+GSC+SERP+2 appels Claude côté backend)
   apiVerySlow('/insights/web').then(d => {
+    // Pas dans TAB_ENDPOINTS/window._dashData (fetch propre à cet onglet) —
+    // on le stashe quand même pour que l'export Excel puisse le lire.
+    if (!window._dashData) window._dashData = {};
+    window._dashData.dIntelligenceWeb = d;
     if (d.error) {
       const rawDebug = d.raw ? `<details style="margin-top:12px"><summary style="font-size:11px;color:var(--muted);cursor:pointer">Réponse brute Claude (debug)</summary><pre style="font-size:10px;overflow:auto;max-height:200px;background:#f5f5f5;padding:8px;border-radius:4px;margin-top:6px;white-space:pre-wrap">${String(d.raw).replace(/</g,'&lt;')}</pre></details>` : '';
       // "Intelligence Web" n'est pas une source OAuth autonome : elle dépend de
@@ -7936,6 +7948,217 @@ const STATUS_MAP = {
   dSections:'bs-sections',dSEO:'bs-seopos',dPartners:'bs-partners',dWrike:'bs-wrike',
   dCarReg:'bs-car-market',
 };
+
+// ── Export Excel par onglet ─────────────────────────────────────
+// Un classeur (SheetJS/XLSX, chargé en <script> dans le <head>) par export,
+// une ou plusieurs feuilles selon l'onglet — construit directement depuis
+// window._dashData (déjà en mémoire, pas de nouvel appel réseau).
+function exportSheetsToXLSX(filename, sheets) {
+  const wb = XLSX.utils.book_new();
+  sheets.forEach(({name, headers, rows}) => {
+    const ws = XLSX.utils.aoa_to_sheet([headers, ...rows]);
+    XLSX.utils.book_append_sheet(wb, ws, name.slice(0, 31)); // 31 car. max pour un nom de feuille Excel
+  });
+  XLSX.writeFile(wb, filename);
+}
+
+// Chaque exporteur reçoit window._dashData et renvoie soit null (rien à
+// exporter pour cet onglet / données pas encore chargées), soit
+// {filename, sheets: [{name, headers, rows}]}. `rows` est un tableau de
+// tableaux (une ligne par sous-tableau), pas un tableau d'objets.
+const EXPORTERS = {
+  'car-market': (d) => {
+    const reg = d.dCarReg;
+    if (!reg || reg.error || !reg.cube?.length) return null;
+    const latest = reg.months[reg.months.length - 1];
+    const monthlyRows = reg.months.map((m, i) => {
+      const sum = reg.cube.filter(r => r[0] === i).reduce((s, r) => s + r[CAR_COUNT_POS], 0);
+      return [carMonthLabel(m), sum, reg.co2Avg?.[i] ?? '', reg.consoAvg?.[i] ?? '', reg.autoElecAvg?.[i] ?? ''];
+    });
+    const detailRows = reg.cube.map(r => [
+      carMonthLabel(reg.months[r[0]]), reg.brands[r[1]], reg.models[r[2]], reg.fuels[r[3]],
+      reg.colors[r[4]], reg.origins[r[5]], reg.owners[r[6]], r[CAR_COUNT_POS],
+    ]);
+    return {
+      filename: `ACL_marche_automobile_${latest}.xlsx`,
+      sheets: [
+        {name: 'Résumé mensuel', headers: ['Mois', 'Immatriculations', 'CO2 moyen (g/km)', 'Conso moyenne (l/100km)', 'Autonomie BEV moyenne (km)'], rows: monthlyRows},
+        {name: 'Détail', headers: ['Mois', 'Marque', 'Modèle', 'Motorisation', 'Couleur', 'Origine', 'Propriétaire', 'Nombre'], rows: detailRows},
+      ],
+    };
+  },
+
+  overview: (d) => {
+    const sheets = [];
+    if (d.dGA4?.topPages?.length) sheets.push({name: 'Top Pages GA4', headers: ['Page', 'Vues'], rows: d.dGA4.topPages.map(p => [p.page, p.views])});
+    if (d.dGSC?.topQueries?.length) sheets.push({name: 'Top Requêtes GSC', headers: ['Requête', 'Clics', 'Impressions', 'CTR (%)', 'Position'], rows: d.dGSC.topQueries.map(q => [q.query, q.clicks, q.impressions, q.ctr, q.position])});
+    if (d.dGA4?.channelBreakdown?.length) sheets.push({name: 'Canaux GA4', headers: ['Canal', 'Sessions'], rows: d.dGA4.channelBreakdown.map(c => [c.channel, c.sessions])});
+    const veilleItems = (d.dVeille?.items || []).filter(i => i.category !== 'Veille presse LU');
+    if (veilleItems.length) sheets.push({name: 'Veille', headers: ['Date', 'Club', 'Catégorie', 'Niveau', 'Contenu'], rows: veilleItems.map(i => [i.date, i.club, i.category, i.badge, i.content])});
+    if (!sheets.length) return null;
+    return {filename: `ACL_overview_${new Date().toISOString().slice(0, 10)}.xlsx`, sheets};
+  },
+
+  ga4: (d) => {
+    const g = d.dGA4, a = d.dGA4A, e = d.dGA4E, geo = d.dGA4Geo, fu = d.dFunnel, tr = d.dGA4T;
+    const sheets = [];
+    if (g?.topPages?.length) sheets.push({name: 'Top Pages ACL', headers: ['Page', 'Vues'], rows: g.topPages.map(p => [p.page, p.views])});
+    if (a?.topPages?.length) sheets.push({name: 'Top Pages Autotouring', headers: ['Page', 'Vues'], rows: a.topPages.map(p => [p.page, p.views])});
+    if (g?.channelBreakdown?.length) sheets.push({name: 'Canaux ACL', headers: ['Canal', 'Sessions'], rows: g.channelBreakdown.map(c => [c.channel, c.sessions])});
+    if (a?.channelBreakdown?.length) sheets.push({name: 'Canaux Autotouring', headers: ['Canal', 'Sessions'], rows: a.channelBreakdown.map(c => [c.channel, c.sessions])});
+    if (e?.devices?.length) sheets.push({name: 'Devices', headers: ['Type', '%'], rows: e.devices.map(x => [x.name, x.pct])});
+    if (e?.newVsReturning?.length) sheets.push({name: 'Nouveaux vs récurrents', headers: ['Type', 'Sessions'], rows: e.newVsReturning.map(x => [x.type, x.sessions])});
+    if (geo?.cities?.length) sheets.push({name: 'Géographie', headers: ['Ville', 'Sessions engagées', 'Tx engagement (%)', 'Key events'], rows: geo.cities.map(c => [c.city, c.engagedSessions, c.engagementRate, c.keyEvents])});
+    if (fu?.steps?.length) sheets.push({name: 'Funnel adhésion', headers: ['Étape', 'Valeur'], rows: fu.steps.map(s => [s.label, s.value])});
+    if (tr?.trend?.length) sheets.push({name: 'Trend quotidien', headers: ['Date', 'Sessions', 'Utilisateurs'], rows: tr.trend.map(t => [t.date, t.sessions, t.users])});
+    if (!sheets.length) return null;
+    return {filename: `ACL_GA4_${new Date().toISOString().slice(0, 10)}.xlsx`, sheets};
+  },
+
+  gsc: (d) => {
+    const g = d.dGSC, cmp = d.dGSCCompare;
+    const sheets = [];
+    if (g?.topQueries?.length) sheets.push({name: 'Top Requêtes', headers: ['Requête', 'Clics', 'Impressions', 'CTR (%)', 'Position'], rows: g.topQueries.map(q => [q.query, q.clicks, q.impressions, q.ctr, q.position])});
+    if (g?.topPages?.length) sheets.push({name: 'Top Pages', headers: ['Page', 'Clics'], rows: g.topPages.map(p => [p.page, p.clicks])});
+    if (g?.opportunities?.length) sheets.push({name: 'Opportunités CTR', headers: ['Page', 'Impressions', 'CTR (%)', 'Position', 'Potentiel'], rows: g.opportunities.map(o => [o.page, o.impressions, o.ctr, o.position, o.potential])});
+    if (cmp?.current?.topQueries?.length) sheets.push({name: 'Comparaison — actuelle', headers: ['Requête', 'Clics', 'Impressions', 'CTR (%)', 'Position'], rows: cmp.current.topQueries.map(q => [q.query, q.clicks, q.impressions, q.ctr, q.position])});
+    if (cmp?.previous?.topQueries?.length) sheets.push({name: 'Comparaison — précédente', headers: ['Requête', 'Clics', 'Impressions', 'CTR (%)', 'Position'], rows: cmp.previous.topQueries.map(q => [q.query, q.clicks, q.impressions, q.ctr, q.position])});
+    const trendSrc = g?.trend?.length ? g.trend : cmp?.current?.trend;
+    if (trendSrc?.length) sheets.push({name: 'Trend', headers: ['Date', 'Clics', 'Impressions'], rows: trendSrc.map(t => [t.date, t.clicks, t.impressions])});
+    if (!sheets.length) return null;
+    return {filename: `ACL_GSC_${new Date().toISOString().slice(0, 10)}.xlsx`, sheets};
+  },
+
+  sections: (d) => {
+    const secs = d.dSections?.sections || [];
+    const top = secs.filter(s => !s.parent);
+    if (!top.length) return null;
+    const compRows = top.map(s => [s.label, s.views, s.engagedSessions, s.engagementRate, s.avgDuration, s.keyEvents]);
+    const pagesRows = [];
+    top.forEach(s => (s.topPages || []).forEach(p => pagesRows.push([s.label, p.page, p.views, p.duration, p.engageRate])));
+    const sheets = [{name: 'Comparatif sections', headers: ['Section', 'Vues', 'Sessions engagées', 'Tx engagement (%)', 'Durée moy. (s)', 'Key events'], rows: compRows}];
+    if (pagesRows.length) sheets.push({name: 'Top pages par section', headers: ['Section', 'Page', 'Vues', 'Durée (s)', 'Tx engagement (%)'], rows: pagesRows});
+    return {filename: `ACL_sections_${new Date().toISOString().slice(0, 10)}.xlsx`, sheets};
+  },
+
+  brevo: (d) => {
+    const camps = d.dBrevo?.campaigns || [];
+    if (!camps.length) return null;
+    const rows = camps.map(c => {
+      const gs = c.statistics?.globalStats || {};
+      const dlvr = gs.delivered || 0, opens = gs.uniqueOpens || 0, clics = gs.uniqueClicks || 0, unsb = gs.unsubscriptions || 0;
+      const openRate = dlvr ? opens / dlvr * 100 : 0, clickRate = dlvr ? clics / dlvr * 100 : 0;
+      const ctor = opens ? clics / opens * 100 : 0, unsubRate = dlvr ? unsb / dlvr * 100 : 0;
+      return [c.name, getCampaignType(c.name), getCampaignLang(c.name), c.sentDate, dlvr, opens, clics, unsb, +openRate.toFixed(1), +clickRate.toFixed(1), +ctor.toFixed(1), +unsubRate.toFixed(1)];
+    });
+    const sheets = [{name: 'Campagnes', headers: ['Campagne', 'Type', 'Langue', 'Date envoi', 'Livrés', 'Ouvertures', 'Clics', 'Désabonnements', 'Taux ouverture (%)', 'Taux clic (%)', 'CTOR (%)', 'Taux désab. (%)'], rows}];
+    const cs = d.dBrevo?.contactStats;
+    if (cs) sheets.push({name: 'Contacts', headers: ['Total', 'Abonnés', 'Blacklistés', 'Hard bounces', 'Désabonnés'], rows: [[cs.total, cs.subscribed, cs.blacklisted, cs.hardBounces, cs.unsubscribed]]});
+    return {filename: `ACL_brevo_${new Date().toISOString().slice(0, 10)}.xlsx`, sheets};
+  },
+
+  club: (d) => {
+    const offers = d.dClub?.offers || [];
+    if (!offers.length) return null;
+    const rows = offers.map(o => [o.name, o.reachYtd, o.leadsYtd, o.leadsMonth, o.leadRateYtd]);
+    return {filename: `ACL_club_${new Date().toISOString().slice(0, 10)}.xlsx`, sheets: [{name: 'Offres', headers: ['Offre', 'Touchés YTD', 'Ouv. uniques YTD', 'Ouv. uniques mois', 'Taux ouverture YTD (%)'], rows}]};
+  },
+
+  youtube: (d) => {
+    const vids = d.dYT?.topVideos || [];
+    if (!vids.length) return null;
+    const rows = vids.map(v => { const code = getVideoTheme(v.title); return [v.title, YT_THEME_LABELS[code] || code, v.date, v.views, v.likes, v.comments]; });
+    return {filename: `ACL_youtube_${new Date().toISOString().slice(0, 10)}.xlsx`, sheets: [{name: 'Vidéos', headers: ['Titre', 'Thème', 'Date', 'Vues', 'Likes', 'Commentaires'], rows}]};
+  },
+
+  linkedin: (d) => {
+    const li = d.dLI || {};
+    const posts = li.posts || li.topPosts || li.recentPosts || [];
+    const sheets = [];
+    if (posts.length) sheets.push({name: 'Posts', headers: ['Post', 'Type', 'Impressions', 'Clics', "J'aime", 'Commentaires', 'Partages', 'Tx engagement (%)'], rows: posts.map(p => [p.title || p.text || p.commentary || '', p.mediaCategory, p.impressions, p.clicks, p.likes || p.reactions, p.comments, p.shares, p.engagementRate])});
+    if (li.trend?.length) sheets.push({name: 'Trend', headers: ['Date', 'Impressions', 'Nouveaux abonnés'], rows: li.trend.map(t => [t.date, t.impressions, t.newFollowers])});
+    if (!sheets.length) return null;
+    return {filename: `ACL_linkedin_${new Date().toISOString().slice(0, 10)}.xlsx`, sheets};
+  },
+
+  veille: (d) => {
+    const items = (d.dVeille?.items || []).filter(i => i.category !== 'Veille presse LU');
+    if (!items.length) return null;
+    const rows = items.map(i => [i.date, i.club, i.category, i.badge, i.content, i.relevance || '', i.url || '']);
+    return {filename: `ACL_veille_${new Date().toISOString().slice(0, 10)}.xlsx`, sheets: [{name: 'Veille', headers: ['Date', 'Club/Acteur', 'Catégorie', 'Niveau', 'Contenu', 'Pertinence ACL', 'URL'], rows}]};
+  },
+
+  'presse-lu': (d) => {
+    const items = (d.dVeille?.items || []).filter(i => i.category === 'Veille presse LU');
+    if (!items.length) return null;
+    const rows = items.map(i => [i.date, i.club, i.badge, i.content, i.relevance || '', i.url || '', i.pdf_url || '']);
+    return {filename: `ACL_presse_lu_${new Date().toISOString().slice(0, 10)}.xlsx`, sheets: [{name: 'Presse LU', headers: ['Date', 'Source', 'Niveau', 'Article', 'Pertinence ACL', 'URL', 'PDF'], rows}]};
+  },
+
+  seopos: (d) => {
+    const markets = d.dSEO?.markets || {};
+    const rows = [];
+    ['fr', 'en', 'de'].forEach(lang => {
+      (markets[lang]?.acl_keywords || []).forEach(k => rows.push([lang, k.kw, k.segment, k.pos, k.delta]));
+    });
+    if (!rows.length) return null;
+    return {filename: `ACL_seo_positions_${new Date().toISOString().slice(0, 10)}.xlsx`, sheets: [{name: 'Mots-clés', headers: ['Langue', 'Mot-clé', 'Segment', 'Position', 'Variation'], rows}]};
+  },
+
+  buffer: (d) => {
+    const b = d.dBuffer || {};
+    const rowOf = p => [p.due_at, p.service, p.channel_name, p.text, !!p.has_media];
+    const sheets = [];
+    if (b.scheduled?.length) sheets.push({name: 'Planifiés', headers: ['Date', 'Réseau', 'Canal', 'Contenu', 'Média'], rows: b.scheduled.map(rowOf)});
+    if (b.sent?.length) sheets.push({name: 'Publiés', headers: ['Date', 'Réseau', 'Canal', 'Contenu', 'Média'], rows: b.sent.map(rowOf)});
+    if (!sheets.length) return null;
+    return {filename: `ACL_buffer_${new Date().toISOString().slice(0, 10)}.xlsx`, sheets};
+  },
+
+  wrike: (d) => {
+    const projects = d.dWrike?.projects || [];
+    if (!projects.length) return null;
+    const rows = projects.map(p => [p.title, p.status, p.due_date, p.days_left, p.urgency, (p.owners || []).join(', ')]);
+    return {filename: `ACL_wrike_${new Date().toISOString().slice(0, 10)}.xlsx`, sheets: [{name: 'Projets', headers: ['Titre', 'Statut', 'Échéance', 'Jours restants', 'Urgence', 'Responsables'], rows}]};
+  },
+
+  partners: (d) => {
+    const sheets = [];
+    const list = d.dPartnerList?.partners || [];
+    if (list.length) sheets.push({name: 'Partenaires', headers: ['Clé', 'Nom', 'Lien de partage'], rows: list.map(p => [p.key, p.label, p.shareUrl])});
+    const byPartner = d.dPartners?.leads?.byPartner || [];
+    if (byPartner.length) sheets.push({name: 'Leads par partenaire', headers: ['Clé', 'Partenaire', 'Leads (période)'], rows: byPartner.map(p => [p.key, p.label, p.leads])});
+    if (!sheets.length) return null;
+    return {filename: `ACL_partenaires_${new Date().toISOString().slice(0, 10)}.xlsx`, sheets};
+  },
+
+  intelligence: (d) => {
+    const iw = d.dIntelligenceWeb;
+    if (!iw || iw.error) return null;
+    const sheets = [];
+    if (iw.mergedPages?.length) sheets.push({name: 'Opportunités pages', headers: ['URL', 'Clics GSC', 'Impressions', 'CTR', 'CTR attendu', 'Position', 'Vues GA', 'Score', 'Intent', 'Écart concurrents', 'Recommandation', 'Effort'], rows: iw.mergedPages.map(p => [p.url, p.gscClicks, p.gscImpressions, p.gscCtr, p.ctrAttendu, p.gscPosition, p.gaViews, p.scoreV2 ?? p.opportunityScore, p.intent, p.gapConcurrents, p.recommandationTitle, p.effort])});
+    if (iw.recommendations?.length) sheets.push({name: 'Recommandations', headers: ['Priorité', 'Catégorie', 'Titre', 'Justification', 'Action'], rows: iw.recommendations.map(r => [r.priority, r.category, r.title, r.rationale, r.action])});
+    if (iw.anomalies?.length) sheets.push({name: 'Anomalies', headers: ['Type', 'Message'], rows: iw.anomalies.map(a => [a.type, a.message])});
+    if (!sheets.length) return null;
+    return {filename: `ACL_intelligence_${new Date().toISOString().slice(0, 10)}.xlsx`, sheets};
+  },
+
+  'veille-ia': (d) => {
+    const items = d.dVeilleIA?.items || [];
+    if (!items.length) return null;
+    const rows = items.map(i => [i.date, i.theme, i.badge, i.titre, i.horizon, i.synthese, i.actionACL, (i.sources || []).map(s => s.name).join(', ')]);
+    return {filename: `ACL_veille_ia_${new Date().toISOString().slice(0, 10)}.xlsx`, sheets: [{name: 'Veille IA', headers: ['Date', 'Thème', 'Niveau', 'Titre', 'Horizon', 'Synthèse', 'Action ACL', 'Sources'], rows}]};
+  },
+};
+
+document.getElementById('btnExport')?.addEventListener('click', () => {
+  const activeTab = document.querySelector('.tab-btn.active')?.dataset.tab || 'overview';
+  const exporter = EXPORTERS[activeTab];
+  if (!exporter) { showToast("Export non disponible pour cet onglet pour l'instant", 'error'); return; }
+  const result = exporter(window._dashData || {});
+  if (!result || !result.sheets?.some(s => s.rows.length)) { showToast('Aucune donnée à exporter — chargez d\'abord cet onglet', 'error'); return; }
+  exportSheetsToXLSX(result.filename, result.sheets);
+});
 
 async function refreshTab(tabName) {
   const btn = document.getElementById('btnRefresh');
