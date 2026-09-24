@@ -8031,7 +8031,10 @@ document.getElementById('btnRefresh')?.addEventListener('click', () => {
 
 // ── Multi-user authentication ─────────────────────────────────
 (function() {
-  if (PUBLIC_TAB && PUBLIC_TAB_TITLES[PUBLIC_TAB]) { document.getElementById('pwOverlay')?.remove(); return; }
+  // Ne PAS retirer l'overlay ici sur la seule foi du paramètre d'URL : le
+  // login normal doit rester affiché tant que enterPublicMode() n'a pas
+  // confirmé via le kill-switch distant (voir plus bas) que ce lien public
+  // est toujours actif — fail-closed si ce contrôle échoue ou est lent.
   const SESSION_KEY  = 'acl_dash_session';
   const USERS_CACHE  = 'acl_dash_users_cache';
 
@@ -8988,6 +8991,7 @@ function renderBuffer(d) {
 // nouvelle route ni de garde serveur, l'endpoint /car-registrations est
 // déjà public côté backend.
 function enterPublicMode(tab) {
+  document.getElementById('pwOverlay')?.remove();
   document.body.classList.add('public-mode');
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   document.querySelector(`.tab-btn[data-tab="${tab}"]`)?.classList.add('active');
@@ -8997,17 +9001,34 @@ function enterPublicMode(tab) {
   if (crumb) crumb.textContent = PUBLIC_TAB_TITLES[tab] || tab;
 }
 
+// Kill-switch distant : un petit fichier JSON à part (pas dans ce fichier
+// index.html) qu'on peut éditer directement sur GitHub pour couper un lien
+// public déjà distribué, sans toucher au code ni redéployer le dashboard.
+// cache:'no-store' pour ne jamais servir une réponse "activé" mise en cache
+// après une désactivation. Fail-closed : toute erreur => accès refusé.
+async function isPublicLinkEnabled(tab) {
+  try {
+    const r = await fetch('https://raw.githubusercontent.com/Marcom-acl/dashboard/main/data/public-access.json', {cache: 'no-store', signal: AbortSignal.timeout(5000)});
+    if (!r.ok) return false;
+    const cfg = await r.json();
+    return cfg[tab] === true;
+  } catch (e) { return false; }
+}
+
 // ── Boot ──────────────────────────────────────────────────────
 setDateRange(30);
 // Liste blanche explicite (PUBLIC_TAB_TITLES) : ?public=xxx ne doit
 // contourner le login que pour les sections qu'on a choisi d'exposer, pas
-// pour n'importe quel onglet existant (GA4, Brevo, Wrike...).
-if (PUBLIC_TAB && PUBLIC_TAB_TITLES[PUBLIC_TAB] && document.getElementById('panel-' + PUBLIC_TAB)) {
-  enterPublicMode(PUBLIC_TAB);
-  refreshTab(PUBLIC_TAB);
-} else {
-  loadAll();
-}
+// pour n'importe quel onglet existant (GA4, Brevo, Wrike...) — et seulement
+// si le kill-switch distant confirme que ce lien est toujours actif.
+(async () => {
+  if (PUBLIC_TAB && PUBLIC_TAB_TITLES[PUBLIC_TAB] && document.getElementById('panel-' + PUBLIC_TAB) && await isPublicLinkEnabled(PUBLIC_TAB)) {
+    enterPublicMode(PUBLIC_TAB);
+    refreshTab(PUBLIC_TAB);
+  } else {
+    loadAll();
+  }
+})();
 
 // ── Sidebar collapse ──────────────────────────────────────────
 (function() {
