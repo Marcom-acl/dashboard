@@ -7222,12 +7222,16 @@ function renderCarPowertrainShareChart(d, rows) {
   const pct = carPowertrainShareSeries(d, rows);
 
   chartInstances['carPowertrainShare'] = new Chart(canvas, {
-    type: 'bar',
+    // Stacked area plutôt que barres empilées : les courbes continues rendent
+    // la tendance (notamment celle de la bande médiane "Hybride") lisible en
+    // un coup d'oeil, ce que des barres discrètes mois par mois ne permettent pas.
+    type: 'line',
     data: {
       labels,
-      datasets: CAR_POWERTRAIN_CATS.map(cat => ({
+      datasets: CAR_POWERTRAIN_CATS.map((cat, i) => ({
         label: cat, data: pct[cat], backgroundColor: CAR_POWERTRAIN_COLORS[cat], borderColor: CAR_POWERTRAIN_COLORS[cat],
-        stack: 'share', maxBarThickness: 26,
+        borderWidth: 2, pointRadius: 0, pointHoverRadius: 4, pointHitRadius: 14,
+        tension: 0.3, fill: i === 0 ? 'origin' : '-1',
       })),
     },
     options: {
@@ -7243,7 +7247,7 @@ function renderCarPowertrainShareChart(d, rows) {
         carStackEndLabels: {},
       },
       scales: {
-        x: {stacked: true, grid: {display: false}, ticks: {font: {size: 9.5, family: 'Albert Sans'}, color: '#808080', maxRotation: 0, autoSkip: true, maxTicksLimit: 12}},
+        x: {grid: {display: false}, ticks: {font: {size: 9.5, family: 'Albert Sans'}, color: '#808080', maxRotation: 0, autoSkip: true, maxTicksLimit: 12}},
         y: {stacked: true, min: 0, max: 100, grid: {color: 'rgba(0,0,0,0.05)'}, ticks: {font: {size: 10, family: 'Albert Sans'}, color: '#808080', callback: v => v + '%'}},
       },
     },
