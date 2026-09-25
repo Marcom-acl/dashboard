@@ -170,7 +170,7 @@ def shift_month(ym, n):
 
 
 def find_latest_xml_resource():
-    """Interroge l'API data.public.lu et retourne (url, title) de l'export XML
+    """Interroge l'API data.public.lu et retourne (url, title, last_modified) de l'export XML
     'Parc Automobile' le plus récent. Les ressources sont déjà triées du plus
     récent au plus ancien par l'API udata."""
     r = requests.get(DATASET_API_URL, timeout=30)
@@ -179,7 +179,7 @@ def find_latest_xml_resource():
     for res in resources:
         title = (res.get("title") or "")
         if res.get("format") == "xml" and title.lower().startswith("parc_automobile"):
-            return res["url"], title
+            return res["url"], title, res.get("last_modified")
     raise RuntimeError("Aucune ressource XML 'Parc_Automobile_*' trouvée sur data.public.lu")
 
 
@@ -358,7 +358,7 @@ def merge_cubes(new_cube, old_cube, rolling_months=ROLLING_MONTHS):
     return merged
 
 
-def build_output(cube, source_title, avgs):
+def build_output(cube, source_title, avgs, source_last_modified=None):
     months = sorted({k[0] for k in cube})
     brands = sorted({k[1] for k in cube})
     models = sorted({k[2] for k in cube})
@@ -383,6 +383,8 @@ def build_output(cube, source_title, avgs):
     return {
         "generated_at": datetime.datetime.utcnow().isoformat() + "Z",
         "source_file": source_title,
+        # Date du dépôt source intégré : affichée « Données au … » dans le dashboard.
+        "source_last_modified": source_last_modified,
         "source_dataset": "https://data.public.lu/fr/datasets/parc-automobile-du-luxembourg/",
         "min_month": MIN_MONTH,
         "rolling_months": ROLLING_MONTHS,
@@ -403,7 +405,7 @@ def build_output(cube, source_title, avgs):
 
 
 def main():
-    url, title = find_latest_xml_resource()
+    url, title, last_modified = find_latest_xml_resource()
     print(f"Ressource la plus récente : {title}\n  {url}", file=sys.stderr)
 
     with tempfile.TemporaryDirectory() as tmp:
@@ -424,7 +426,7 @@ def main():
     new_avgs = compute_avgs(new_stats, new_months)
     avgs = merge_avgs(new_avgs, old_avgs, cutoff, old_months_available)
 
-    output = build_output(cube, title, avgs)
+    output = build_output(cube, title, avgs, last_modified)
 
     with open(DATA_PATH, "w", encoding="utf-8") as f:
         json.dump(output, f, ensure_ascii=False, separators=(",", ":"))

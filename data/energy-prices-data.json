@@ -1,0 +1,146 @@
+{
+ "generated_at": "2026-09-25T06:41:13.380640+00:00",
+ "source": {
+  "slug": "comparaison-des-prix-de-carburants-par-motorisation",
+  "dataset_url": "https://data.public.lu/fr/datasets/comparaison-des-prix-de-carburants-par-motorisation/",
+  "resource_title": "comparaisonprix-carburants-par-motorisation.csv",
+  "resource_url": "https://download.data.public.lu/resources/comparaison-des-prix-de-carburants-par-motorisation/20260909-100617/comparaisonprix-carburants-par-motorisation.csv",
+  "last_deposit": "2026-09-09T10:06:21.590000+00:00",
+  "frequency": "monthly",
+  "frequency_days": 30.44,
+  "stale_factor": 1.5
+ },
+ "series": [
+  {
+   "key": "Essence_E10",
+   "label": "Essence E10",
+   "unit": "€/l",
+   "vector": "liquide",
+   "provider": "STATEC"
+  },
+  {
+   "key": "Diesel_B7",
+   "label": "Diesel B7",
+   "unit": "€/l",
+   "vector": "liquide",
+   "provider": "STATEC"
+  },
+  {
+   "key": "LPG",
+   "label": "GPL",
+   "unit": "€/l",
+   "vector": "liquide",
+   "provider": "STATEC"
+  },
+  {
+   "key": "Hydrogene",
+   "label": "Hydrogène",
+   "unit": "€/kg",
+   "vector": "hydrogene",
+   "provider": "H2.live"
+  },
+  {
+   "key": "Electricie_Fournisseur",
+   "label": "Électricité — domicile",
+   "unit": "€/kWh",
+   "vector": "electricite",
+   "provider": "Ministère de l'Économie (estimation client résidentiel)"
+  },
+  {
+   "key": "Recharge_AC",
+   "label": "Recharge publique AC",
+   "unit": "€/kWh",
+   "vector": "electricite",
+   "provider": "Chargeprice"
+  },
+  {
+   "key": "Recharge_DC",
+   "label": "Recharge publique DC",
+   "unit": "€/kWh",
+   "vector": "electricite",
+   "provider": "Chargeprice"
+  }
+ ],
+ "months": [
+  "2026-01",
+  "2026-02",
+  "2026-03",
+  "2026-04",
+  "2026-05",
+  "2026-06",
+  "2026-07",
+  "2026-08"
+ ],
+ "values": {
+  "Essence_E10": [
+   1.424,
+   1.457,
+   1.646,
+   1.743,
+   1.805,
+   1.686,
+   1.705,
+   1.709
+  ],
+  "Diesel_B7": [
+   1.398,
+   1.439,
+   1.831,
+   1.947,
+   1.848,
+   1.696,
+   1.753,
+   1.9
+  ],
+  "LPG": [
+   0.689,
+   0.709,
+   0.87,
+   0.848,
+   0.775,
+   0.719,
+   0.704,
+   0.697
+  ],
+  "Hydrogene": [
+   13.85,
+   13.85,
+   13.85,
+   13.85,
+   13.85,
+   13.85,
+   13.85,
+   13.85
+  ],
+  "Electricie_Fournisseur": [
+   0.251,
+   0.251,
+   0.251,
+   0.251,
+   0.251,
+   0.251,
+   0.251,
+   0.211
+  ],
+  "Recharge_AC": [
+   0.52,
+   0.52,
+   0.52,
+   0.52,
+   0.52,
+   0.52,
+   0.533,
+   0.54
+  ],
+  "Recharge_DC": [
+   0.672,
+   0.672,
+   0.672,
+   0.672,
+   0.672,
+   0.672,
+   0.7,
+   0.691
+  ]
+ }
+}

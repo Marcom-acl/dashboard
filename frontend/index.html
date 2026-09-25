@@ -1073,6 +1073,45 @@
     .obj-mc-note{font-size:11px;color:#aaa;line-height:1.4;}
     .obj-mc-target{font-size:12px;color:#aaa;}
 
+    /* ─── FRAÎCHEUR SOURCES OPEN DATA ─────────────────────────── */
+    .fresh-bar{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;font-size:12px;color:var(--muted);margin:4px 0 12px;}
+    .fresh-asof{display:inline-flex;align-items:center;gap:6px;font-weight:700;color:var(--text);background:var(--surface);border:1px solid var(--border);border-radius:99px;padding:4px 11px;}
+    .fresh-asof::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--good);}
+    .fresh-bar.is-stale .fresh-asof::before{background:var(--bad);}
+    .fresh-alert{flex-basis:100%;display:flex;gap:10px;align-items:flex-start;background:#FBE3E3;border:1px solid var(--bad);color:#7f1d1d;border-radius:var(--r-md);padding:10px 14px;font-size:12.5px;line-height:1.5;}
+    .fresh-info{flex-basis:100%;background:var(--y-soft);border:1px solid var(--y-deep);color:var(--text);border-radius:var(--r-md);padding:8px 14px;font-size:12.5px;}
+    [data-theme="dark"] .fresh-alert{background:#2a0b0b;color:#fca5a5;}
+
+    /* ─── COÛT DE L'ÉNERGIE ───────────────────────────────────── */
+    .en-select{font-family:'Albert Sans',sans-serif;font-size:12.5px;font-weight:700;color:var(--text);background:var(--surface);border:1.5px solid var(--border-strong);border-radius:99px;padding:5px 12px;cursor:pointer;}
+    .en-kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:16px;}
+    .en-kpi-sub{font-size:11.5px;color:var(--muted);padding-top:8px;border-top:1px dashed var(--border);line-height:1.45;}
+    .en-grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+    .en-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px;align-items:start;}
+    .en-chart-box h4{font-size:12.5px;font-weight:700;margin:0 0 6px;color:var(--text);}
+    .en-chart-box h4 span{font-weight:500;color:var(--muted);}
+    .en-canvas-wrap{position:relative;height:200px;}
+    .en-canvas-wrap.tall{height:260px;}
+    .en-params{width:100%;border-collapse:collapse;font-size:12.5px;}
+    .en-params th{font-size:11px;font-weight:700;color:var(--muted);text-align:right;padding:6px 6px;border-bottom:1px solid var(--border);white-space:nowrap;}
+    .en-params th:first-child,.en-params td:first-child{text-align:left;}
+    .en-params td{padding:5px 6px;border-bottom:1px solid var(--border);text-align:right;}
+    .en-params input{width:64px;font:inherit;font-variant-numeric:tabular-nums;text-align:right;background:var(--bg);color:var(--text);border:1px solid var(--border-strong);border-radius:6px;padding:4px 6px;}
+    .en-params-extra{display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center;margin-top:14px;font-size:12.5px;}
+    .en-params-extra label{display:inline-flex;align-items:center;gap:6px;color:var(--muted);font-weight:600;}
+    .en-params-extra input{width:62px;font:inherit;text-align:right;background:var(--bg);color:var(--text);border:1px solid var(--border-strong);border-radius:6px;padding:4px 6px;}
+    .en-btn{font:inherit;font-size:12px;font-weight:700;background:none;border:1.5px solid var(--border-strong);color:var(--text);border-radius:99px;padding:5px 12px;cursor:pointer;}
+    .en-btn:hover{border-color:#000;}
+    .en-note{font-size:11.5px;color:var(--muted);line-height:1.55;margin-top:10px;}
+    .en-note code{font-family:'JetBrains Mono',monospace;font-size:11px;}
+    .en-rise{color:var(--bad);font-weight:700;}
+    .en-fall{color:var(--good);font-weight:700;}
+    .en-flag{display:inline-block;margin-left:6px;padding:2px 7px;border-radius:99px;background:#FBE3E3;color:#b91c1c;font-size:10.5px;font-weight:700;}
+    .en-method{font-size:12.5px;line-height:1.6;color:var(--text);}
+    .en-method li{margin-bottom:4px;}
+    @media (max-width:1100px){.en-kpi-row{grid-template-columns:repeat(2,1fr);}.en-grid-3,.en-grid-2{grid-template-columns:1fr;}}
+    @media (max-width:640px){.en-kpi-row{grid-template-columns:1fr;}.en-params-wrap{overflow-x:auto;}}
+
     /* ─── DARK MODE ────────────────────────────────────────── */
     [data-theme="dark"]{
       --bg:#0A0A0A;--surface:#111;--border:#1e1e1e;--border-strong:#2a2a2a;
@@ -1362,6 +1401,11 @@
           <span class="sb-pill">Marché automobile</span>
           <span class="sb-dot" id="bs-car-market" style="background:var(--muted-2);"></span>
         </button>
+        <button class="sb-item tab-btn" data-tab="energy-costs" title="Coût de l'énergie par motorisation">
+          <span class="sb-ic-wrap" style="background:rgba(52,168,83,.15);--ic-color:#34A853"><svg class="sb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 22V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v17"/><path d="M2 22h14"/><path d="M15 9h2a2 2 0 0 1 2 2v6a1.5 1.5 0 0 0 3 0V8l-3-3"/><path d="M7 7h4"/></svg></span>
+          <span class="sb-item-label">Coût de l'énergie</span>
+          <span class="sb-pill">Coût de l'énergie</span>
+        </button>
         <button class="sb-item tab-btn" data-tab="veille-ia" title="Veille IA &amp; Marcom">
           <span class="sb-ic-wrap" style="background:rgba(168,85,247,.15);--ic-color:#A855F7"><svg class="sb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l1.5 4.5L18 8l-4.5 1.5L12 14l-1.5-4.5L6 8l4.5-1.5z"/><path d="M19 15l.75 2.25L22 18l-2.25.75L19 21l-.75-2.25L16 18l2.25-.75z"/></svg></span>
           <span class="sb-item-label">Veille IA &amp; Marcom</span>
@@ -1508,6 +1552,9 @@
 
         <!-- ── MARCHÉ AUTOMOBILE LU ──────────────────────────────── -->
         <div id="panel-car-market" class="tab-panel"></div>
+
+        <!-- ── COÛT DE L'ÉNERGIE ─────────────────────────────────── -->
+        <div id="panel-energy-costs" class="tab-panel"></div>
 
         <!-- ── INTELLIGENCE WEB ──────────────────────────────────── -->
         <div id="panel-intelligence" class="tab-panel"></div>
@@ -1792,6 +1839,7 @@ function _renderTab(tab) {
   else if (tab === 'intelligence') renderIntelligence();
   else if (tab === 'veille-ia')   renderVeilleIA();
   else if (tab === 'car-market')  renderCarMarket(d.dCarReg);
+  else if (tab === 'energy-costs') renderEnergyCosts(_energyData);
 }
 
 // ── loadAll ───────────────────────────────────────────────────
@@ -7822,6 +7870,7 @@ function renderCarMarket(d) {
       </div>
       <span class="src-pill" style="--src:var(--n);--src-bg:var(--c-club-bg)">SNCA · Open Data</span>
     </div>
+    <div class="fresh-bar" id="carFresh"></div>
     ${insightHtml ? `<div class="car-insight"><span class="car-insight-icon">💡</span><span>${insightHtml}</span></div>` : ''}
     ${filterPill}
     <div class="car-kpi-row">
@@ -7968,6 +8017,11 @@ function renderCarMarket(d) {
   });
 
   animateCards(el);
+  mountFreshnessBar('carFresh', {
+    slug: 'parc-automobile-du-luxembourg', format: 'xml', frequency: 'monthly',
+    lastDeposit: d.source_last_modified || d.generated_at,
+    coverage: `Dernier mois calculé : ${carMonthLabel(latest)}`,
+  });
   renderCarMonthlyCharts(d, rows);
   renderCarFuelDonut(d, rankingRows);
   renderCarMotorisationChart(d, rows);
@@ -7991,6 +8045,461 @@ function renderCarMarket(d) {
     localStorage.setItem('acl_theme', isDark ? 'light' : 'dark');
   });
 })();
+
+// ── FRAÎCHEUR DES SOURCES data.public.lu ──────────────────────
+// Bandeau commun aux onglets alimentés par l'Open Data : « Données au
+// JJ/MM/AAAA » (date du dépôt source réellement intégré par le pipeline)
+// affiché en permanence, + alerte si la source n'a pas été mise à jour
+// depuis plus de DPL_STALE_FACTOR x sa fréquence déclarée. La fréquence et
+// la date du dernier dépôt sont relues en direct sur l'API udata (même
+// règle que scripts/check_freshness.py : ressource la plus récente au
+// format attendu, triée par last_modified) ; à défaut on retombe sur les
+// métadonnées écrites dans le JSON par le pipeline.
+const DPL_STALE_FACTOR = 1.5;
+const DPL_FREQ_DAYS = {
+  continuous: 1, hourly: 1 / 24, daily: 1, weekly: 7, biweekly: 14, semimonthly: 15, monthly: 30.44,
+  bimonthly: 61, quarterly: 91.3, threeTimesAYear: 121.7, semiannual: 182.6, annual: 365.25, biennial: 730.5,
+};
+const DPL_FREQ_FR = {daily: 'quotidienne', weekly: 'hebdomadaire', monthly: 'mensuelle', quarterly: 'trimestrielle', semiannual: 'semestrielle', annual: 'annuelle'};
+
+function dplDateFR(iso) {
+  return iso ? new Date(iso).toLocaleDateString('fr-LU', {day: '2-digit', month: '2-digit', year: 'numeric'}) : '—';
+}
+
+// meta = {slug, format, lastDeposit (ISO, dépôt intégré), frequency (clé udata), coverage (texte optionnel)}
+async function mountFreshnessBar(id, meta) {
+  const paint = live => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const frequency = live?.frequency || meta.frequency;
+    const freqDays = DPL_FREQ_DAYS[frequency];
+    const sourceLast = live?.lastDeposit || meta.lastDeposit;
+    const ageDays = sourceLast ? (Date.now() - new Date(sourceLast)) / 86400000 : null;
+    const stale = freqDays && ageDays != null && ageDays > freqDays * DPL_STALE_FACTOR;
+    const pending = live?.lastDeposit && meta.lastDeposit && new Date(live.lastDeposit) - new Date(meta.lastDeposit) > 3600000;
+    const freqTxt = DPL_FREQ_FR[frequency] || frequency || 'inconnue';
+    el.classList.toggle('is-stale', !!stale);
+    el.innerHTML = `
+      <span class="fresh-asof">Données au ${dplDateFR(meta.lastDeposit)}</span>
+      ${meta.coverage ? `<span>${meta.coverage}</span>` : ''}
+      <span>Fréquence déclarée : ${freqTxt}</span>
+      <span>Dernier dépôt source : ${dplDateFR(sourceLast)}${ageDays != null ? ` (il y a ${Math.floor(ageDays)} j)` : ''}</span>
+      ${live?.error ? '<span>Vérification en direct indisponible, contrôle sur les métadonnées du dernier import</span>' : ''}
+      ${stale ? `<div class="fresh-alert"><span>⚠</span><span><b>Source en retard :</b> aucun nouveau dépôt depuis ${Math.floor(ageDays)} jours, alors que la fréquence déclarée est ${freqTxt} (seuil d'alerte : ${Math.round(freqDays * DPL_STALE_FACTOR)} j). Les chiffres ci-dessous peuvent ne plus refléter la situation actuelle.</span></div>` : ''}
+      ${pending && !stale ? `<div class="fresh-info">Un dépôt plus récent (${dplDateFR(live.lastDeposit)}) est disponible sur data.public.lu mais n'est pas encore intégré. Il le sera au prochain passage du pipeline.</div>` : ''}`;
+  };
+  paint(null);
+  try {
+    const r = await fetch(`https://data.public.lu/api/1/datasets/${meta.slug}/`, {cache: 'no-store', signal: AbortSignal.timeout(8000)});
+    if (!r.ok) throw new Error(r.status);
+    const ds = await r.json();
+    const res = (ds.resources || [])
+      .filter(x => (x.format || '').toLowerCase() === meta.format)
+      .sort((a, b) => (b.last_modified || '').localeCompare(a.last_modified || ''))[0];
+    paint({frequency: ds.frequency, lastDeposit: res?.last_modified || null});
+  } catch (e) {
+    paint({error: true});
+  }
+}
+
+// ── COÛT DE L'ÉNERGIE PAR MOTORISATION ────────────────────────
+// Source : data/energy-prices-data.json (scripts/energy-prices-refresh.py,
+// workflow « Coût de l'énergie »), lu directement sur GitHub : pas de route
+// backend. Les prix restent dans l'unité source (€/l, €/kg, €/kWh). La
+// seule opération est prix x consommation, pour obtenir un coût en € aux
+// 100 km, voir le bloc « Méthode & conversions » de l'onglet.
+const ENERGY_DATA_URL = 'https://raw.githubusercontent.com/Marcom-acl/dashboard/main/data/energy-prices-data.json';
+const ENERGY_RISE_1M = 5;    // % : hausse marquée sur 1 mois
+const ENERGY_RISE_12M = 10;  // % : hausse marquée sur 12 mois
+const ENERGY_PARAMS_KEY = 'acl_energy_params_v1';
+
+// Consommations réelles moyennes indicatives (pas WLTP), modifiables dans
+// l'onglet. Électrique en kWh « à la prise », pertes de recharge incluses.
+// Pas de citadine hydrogène commercialisée : null = n.d.
+const ENERGY_PARAMS_DEFAULT = {
+  profiles: {
+    citadine:   {label: 'Citadine',   essence: 6.0,  diesel: 5.0, gpl: 7.5,  h2: null, elec: 15},
+    suv:        {label: 'SUV',        essence: 8.0,  diesel: 6.5, gpl: 10.0, h2: 1.0,  elec: 20},
+    utilitaire: {label: 'Utilitaire', essence: 10.0, diesel: 8.5, gpl: 12.5, h2: 1.4,  elec: 27},
+  },
+  mix: {home: 70, ac: 20, dc: 10},  // % de l'énergie rechargée
+  kmYear: 15000,
+  profile: 'suv',
+};
+const ENERGY_MOTORS = [
+  {k: 'essence', label: 'Essence',   price: 'Essence_E10', unit: 'l/100 km'},
+  {k: 'diesel',  label: 'Diesel',    price: 'Diesel_B7',   unit: 'l/100 km'},
+  {k: 'gpl',     label: 'GPL',       price: 'LPG',         unit: 'l/100 km'},
+  {k: 'h2',      label: 'Hydrogène', price: 'Hydrogene',   unit: 'kg/100 km'},
+  {k: 'elec',    label: 'Électrique', price: null,         unit: 'kWh/100 km'},
+];
+
+let _energyData = null;
+let _energyParams = null;
+
+function energyColor(key) {
+  const dark = document.documentElement.getAttribute('data-theme') === 'dark';
+  return {
+    Essence_E10: '#F4B400', essence: '#F4B400',
+    Diesel_B7: dark ? '#F0EDE6' : '#231f20', diesel: dark ? '#F0EDE6' : '#231f20',
+    LPG: '#1877F2', gpl: '#1877F2',
+    Hydrogene: '#0B996E', h2: '#0B996E',
+    Electricie_Fournisseur: '#34A853', elec: '#34A853',
+    Recharge_AC: '#0B996E', Recharge_DC: '#1877F2',
+  }[key] || '#7A7770';
+}
+
+function energyLoadParams() {
+  const base = JSON.parse(JSON.stringify(ENERGY_PARAMS_DEFAULT));
+  try {
+    const saved = JSON.parse(localStorage.getItem(ENERGY_PARAMS_KEY) || 'null');
+    if (saved && saved.profiles) {
+      Object.keys(base.profiles).forEach(p => Object.assign(base.profiles[p], saved.profiles[p] || {}, {label: base.profiles[p].label}));
+      Object.assign(base.mix, saved.mix || {});
+      if (saved.kmYear > 0) base.kmYear = saved.kmYear;
+      if (base.profiles[saved.profile]) base.profile = saved.profile;
+    }
+  } catch (e) { /* stockage indisponible : valeurs par défaut */ }
+  return base;
+}
+function energySaveParams() {
+  try { localStorage.setItem(ENERGY_PARAMS_KEY, JSON.stringify(_energyParams)); } catch (e) {}
+}
+
+function enNum(v, dec) {
+  return v == null || !isFinite(v) ? 'n.d.' : v.toLocaleString('fr-BE', {minimumFractionDigits: dec, maximumFractionDigits: dec});
+}
+function enPct(v) {
+  if (v == null || !isFinite(v)) return 'n.d.';
+  return `${v > 0 ? '+' : ''}${v.toLocaleString('fr-BE', {minimumFractionDigits: 1, maximumFractionDigits: 1})} %`;
+}
+
+// Prix de l'électricité pondéré par le mix de recharge (€/kWh).
+function energyElecMixPrice(d, i, mix) {
+  const v = d.values;
+  const parts = [[mix.home, v.Electricie_Fournisseur[i]], [mix.ac, v.Recharge_AC[i]], [mix.dc, v.Recharge_DC[i]]];
+  const w = parts.reduce((s, [p]) => s + (p || 0), 0);
+  if (!w || parts.some(([p, x]) => p > 0 && x == null)) return null;
+  return parts.reduce((s, [p, x]) => s + (p || 0) * (x || 0), 0) / w;
+}
+function energyUnitPrice(d, motor, i, mix) {
+  return motor.price ? d.values[motor.price][i] : energyElecMixPrice(d, i, mix);
+}
+// € / 100 km = prix (€/unité) x consommation (unités / 100 km)
+function energyCost100(d, motor, profile, i, mix) {
+  const price = energyUnitPrice(d, motor, i, mix);
+  const cons = profile[motor.k];
+  return price == null || cons == null || cons === '' ? null : price * cons;
+}
+
+// Décalage en mois entre deux 'AAAA-MM' (les mois peuvent être non contigus
+// si la source saute un mois : on cherche le mois M-12 par sa clé).
+function energyIndexOf(d, ym, lag) {
+  const [y, m] = ym.split('-').map(Number);
+  const t = y * 12 + (m - 1) - lag;
+  return d.months.indexOf(`${Math.floor(t / 12)}-${String(t % 12 + 1).padStart(2, '0')}`);
+}
+function energyVariations(d) {
+  const L = d.months.length - 1;
+  const iPrev = energyIndexOf(d, d.months[L], 1), iYoy = energyIndexOf(d, d.months[L], 12);
+  return d.series.map(s => {
+    const a = d.values[s.key];
+    const pct = j => (j < 0 || a[L] == null || a[j] == null || !a[j]) ? null : (a[L] - a[j]) / a[j] * 100;
+    const d1 = pct(iPrev), d12 = pct(iYoy);
+    return {...s, last: a[L], prev: iPrev >= 0 ? a[iPrev] : null, d1, d12,
+      marked: (d1 != null && d1 >= ENERGY_RISE_1M) || (d12 != null && d12 >= ENERGY_RISE_12M)};
+  });
+}
+function energyMarkedRises(d) {
+  const out = [];
+  d.series.forEach(s => d.months.forEach((ym, i) => {
+    const j = energyIndexOf(d, ym, 1);
+    const a = d.values[s.key];
+    if (j < 0 || a[i] == null || a[j] == null) return;
+    const p = (a[i] - a[j]) / a[j] * 100;
+    if (p >= ENERGY_RISE_1M) out.push({ym, label: s.label, unit: s.unit, from: a[j], to: a[i], pct: p});
+  }));
+  return out.sort((x, y) => y.ym.localeCompare(x.ym) || y.pct - x.pct);
+}
+
+function energyDestroyCharts() {
+  Object.keys(chartInstances).filter(k => k.startsWith('energy')).forEach(k => { chartInstances[k].destroy(); delete chartInstances[k]; });
+}
+
+function energyLineOptions(fmtY, yTitle) {
+  return {
+    responsive: true, maintainAspectRatio: false,
+    interaction: {mode: 'index', intersect: false},
+    plugins: {
+      legend: {position: 'top', align: 'end', labels: {font: {family: 'Albert Sans', size: 11}, boxWidth: 10, usePointStyle: true, pointStyle: 'circle'}},
+      tooltip: {titleFont: {family: 'Albert Sans', weight: '700'}, bodyFont: {family: 'Albert Sans'},
+        callbacks: {label: ctx => ` ${ctx.dataset.label} : ${fmtY(ctx.raw)}`}},
+    },
+    scales: {
+      x: {grid: {display: false}, ticks: {font: {family: 'Albert Sans', size: 10.5}}},
+      y: {grid: {color: 'rgba(0,0,0,.05)'}, ticks: {font: {family: 'Albert Sans', size: 10.5}, callback: v => fmtY(v)},
+        title: {display: !!yTitle, text: yTitle, font: {family: 'Albert Sans', size: 10.5}}},
+    },
+  };
+}
+
+function energyRenderPriceCharts(d) {
+  const labels = d.months.map(carMonthLabel);
+  const groups = [
+    {id: 'energyPriceLiquid', unit: '€/l',   keys: ['Essence_E10', 'Diesel_B7', 'LPG']},
+    {id: 'energyPriceElec',   unit: '€/kWh', keys: ['Electricie_Fournisseur', 'Recharge_AC', 'Recharge_DC']},
+    {id: 'energyPriceH2',     unit: '€/kg',  keys: ['Hydrogene']},
+  ];
+  groups.forEach(g => {
+    const cvs = document.getElementById(g.id);
+    if (!cvs) return;
+    const dec = g.unit === '€/kg' ? 2 : 3;
+    chartInstances[g.id] = new Chart(cvs, {
+      type: 'line',
+      data: {labels, datasets: g.keys.map(k => {
+        const s = d.series.find(x => x.key === k);
+        const a = d.values[k];
+        // Points rouges agrandis = hausse marquée sur 1 mois (≥ ENERGY_RISE_1M %).
+        const rise = a.map((v, i) => { const j = energyIndexOf(d, d.months[i], 1); return j >= 0 && v != null && a[j] ? (v - a[j]) / a[j] * 100 >= ENERGY_RISE_1M : false; });
+        return {label: s.label, data: a, borderColor: energyColor(k), backgroundColor: energyColor(k), borderWidth: 2, tension: 0.25, spanGaps: false,
+          pointRadius: rise.map(r => r ? 5 : 2), pointBackgroundColor: rise.map(r => r ? '#DC2626' : energyColor(k)), pointBorderColor: rise.map(r => r ? '#DC2626' : energyColor(k)), pointHitRadius: 12};
+      })},
+      options: energyLineOptions(v => `${enNum(v, dec)} ${g.unit}`),
+    });
+  });
+}
+
+function energyRenderCostCharts(d, p) {
+  const labels = d.months.map(carMonthLabel);
+  const prof = p.profiles[p.profile];
+  const eur = v => `${enNum(v, 2)} €`;
+  const cvs = document.getElementById('energyCost100');
+  if (cvs) {
+    chartInstances.energyCost100 = new Chart(cvs, {
+      type: 'line',
+      data: {labels, datasets: ENERGY_MOTORS.filter(m => prof[m.k] != null && prof[m.k] !== '').map(m => ({
+        label: m.k === 'elec' ? 'Électrique (mix)' : m.label,
+        data: d.months.map((_, i) => energyCost100(d, m, prof, i, p.mix)),
+        borderColor: energyColor(m.k), backgroundColor: energyColor(m.k), borderWidth: 2, pointRadius: 2, tension: 0.25,
+      }))},
+      options: energyLineOptions(eur, '€ / 100 km'),
+    });
+  }
+  const gap = document.getElementById('energyGap');
+  if (gap) {
+    const elec = ENERGY_MOTORS.find(m => m.k === 'elec');
+    const series = ['essence', 'diesel'].map(k => {
+      const m = ENERGY_MOTORS.find(x => x.k === k);
+      return {label: `${m.label} − Électrique`, k, data: d.months.map((_, i) => {
+        const a = energyCost100(d, m, prof, i, p.mix), b = energyCost100(d, elec, prof, i, p.mix);
+        return a == null || b == null ? null : a - b;
+      })};
+    });
+    chartInstances.energyGap = new Chart(gap, {
+      type: 'line',
+      data: {labels, datasets: series.map(s => ({label: s.label, data: s.data, borderColor: energyColor(s.k), backgroundColor: energyColor(s.k) + '22',
+        borderWidth: 2, pointRadius: 2, tension: 0.25, fill: 'origin'}))},
+      options: energyLineOptions(eur, 'Surcoût thermique, € / 100 km'),
+    });
+  }
+}
+
+function energyParamsHtml(p) {
+  const cell = (pk, mk) => `<td><input type="number" min="0" step="0.1" data-profile="${pk}" data-motor="${mk}" value="${p.profiles[pk][mk] ?? ''}" placeholder="n.d."></td>`;
+  return `
+    <div class="en-params-wrap"><table class="en-params">
+      <thead><tr><th>Profil</th>${ENERGY_MOTORS.map(m => `<th>${m.label}<br><span style="font-weight:500">${m.unit}</span></th>`).join('')}</tr></thead>
+      <tbody>${Object.entries(p.profiles).map(([pk, pr]) => `<tr><td><b>${pr.label}</b></td>${ENERGY_MOTORS.map(m => cell(pk, m.k)).join('')}</tr>`).join('')}</tbody>
+    </table></div>
+    <div class="en-params-extra">
+      <span style="font-weight:700;color:var(--text)">Mix de recharge électrique :</span>
+      <label>Domicile <input type="number" min="0" max="100" step="5" data-mix="home" value="${p.mix.home}"> %</label>
+      <label>Borne AC <input type="number" min="0" max="100" step="5" data-mix="ac" value="${p.mix.ac}"> %</label>
+      <label>Borne DC <input type="number" min="0" max="100" step="5" data-mix="dc" value="${p.mix.dc}"> %</label>
+      <label>Kilométrage annuel <input type="number" min="0" step="1000" data-km="1" value="${p.kmYear}" style="width:76px"> km</label>
+      <button class="en-btn" id="energyReset">Valeurs par défaut</button>
+    </div>
+    <p class="en-note">Valeurs indicatives de consommation réelle moyenne (pas WLTP), à ajuster selon le véhicule. Électrique : kWh <b>à la prise</b>, pertes de recharge incluses. Case vide = motorisation non disponible sur ce segment (ex. pas de citadine hydrogène). Le mix est normalisé s'il ne fait pas 100 %. Vos réglages sont mémorisés dans ce navigateur uniquement.</p>`;
+}
+
+function energyBindParams(d) {
+  const el = document.getElementById('panel-energy-costs');
+  const rerender = () => { energySaveParams(); renderEnergyCosts(d); };
+  el.querySelectorAll('input[data-profile]').forEach(inp => inp.addEventListener('change', () => {
+    const v = inp.value.trim() === '' ? null : Math.max(0, parseFloat(inp.value.replace(',', '.')));
+    _energyParams.profiles[inp.dataset.profile][inp.dataset.motor] = isFinite(v) ? v : null;
+    rerender();
+  }));
+  el.querySelectorAll('input[data-mix]').forEach(inp => inp.addEventListener('change', () => {
+    _energyParams.mix[inp.dataset.mix] = Math.max(0, parseFloat(inp.value) || 0); rerender();
+  }));
+  el.querySelector('input[data-km]')?.addEventListener('change', e => { _energyParams.kmYear = Math.max(0, parseFloat(e.target.value) || 0); rerender(); });
+  document.getElementById('energyReset')?.addEventListener('click', () => {
+    const keepProfile = _energyParams.profile;
+    _energyParams = JSON.parse(JSON.stringify(ENERGY_PARAMS_DEFAULT)); _energyParams.profile = keepProfile; rerender();
+  });
+  document.getElementById('energyProfileSelect')?.addEventListener('change', e => { _energyParams.profile = e.target.value; rerender(); });
+}
+
+function renderEnergyCosts(dIn) {
+  const el = document.getElementById('panel-energy-costs');
+  if (!el) return;
+  if (!_energyParams) _energyParams = energyLoadParams();
+
+  if (!dIn) {
+    el.innerHTML = `<div class="sec-title"><h2>Coût de l'énergie par motorisation</h2><div class="line"></div></div>
+      <div class="fresh-bar" id="energyFresh"></div><div>${skel(4)}</div>`;
+    fetch(ENERGY_DATA_URL, {cache: 'no-store', signal: AbortSignal.timeout(10000)})
+      .then(r => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); })
+      .then(d => {
+        if (!d?.months?.length || !d.values || !d.series) throw new Error('format de energy-prices-data.json inattendu');
+        _energyData = d;
+        if (!window._dashData) window._dashData = {};
+        window._dashData.dEnergy = d;
+        renderEnergyCosts(d);
+      })
+      .catch(e => {
+        el.innerHTML = `<div class="sec-title"><h2>Coût de l'énergie par motorisation</h2><div class="line"></div></div>
+          <div class="fresh-bar" id="energyFresh"></div>
+          <div class="no-key"><strong>Coût de l'énergie</strong><br>Données non disponibles (${e.message}). Exécutez le workflow GitHub Actions « Coût de l'énergie — Mise à jour » pour générer <code>data/energy-prices-data.json</code>.</div>`;
+        mountFreshnessBar('energyFresh', {slug: 'comparaison-des-prix-de-carburants-par-motorisation', format: 'csv', frequency: 'monthly'});
+      });
+    return;
+  }
+
+  const d = dIn, p = _energyParams;
+  const prof = p.profiles[p.profile];
+  const L = d.months.length - 1;
+  const latest = d.months[L];
+  const iPrev = energyIndexOf(d, latest, 1);
+  const vars = energyVariations(d);
+  const rises = energyMarkedRises(d);
+  const latestRises = rises.filter(r => r.ym === latest);
+  const hasYoy = energyIndexOf(d, latest, 12) >= 0;
+  const elec = ENERGY_MOTORS.find(m => m.k === 'elec');
+  const cost = (k, i) => energyCost100(d, ENERGY_MOTORS.find(m => m.k === k), prof, i, p.mix);
+  const mixPrice = energyElecMixPrice(d, L, p.mix);
+
+  // KPI : coût aux 100 km du dernier mois, profil sélectionné
+  const kpi = (k, label) => {
+    const v = cost(k, L), prev = iPrev >= 0 ? cost(k, iPrev) : null;
+    const ch = v != null && prev ? (v - prev) / prev * 100 : null;
+    return `<div class="kpi-card"><div class="kpi-label">${label} · ${prof.label}</div>
+      <div class="kpi-body"><div class="kpi-val">${enNum(v, 2)}<span class="kpi-suf">€/100 km</span></div></div>
+      <div class="en-kpi-sub">${ch == null ? 'Pas de comparaison disponible' : `<span class="${ch > 0 ? 'en-rise' : ch < 0 ? 'en-fall' : ''}">${enPct(ch)}</span> vs ${carMonthLabel(d.months[iPrev])}`}</div></div>`;
+  };
+  const gapE = cost('essence', L) != null && cost('elec', L) != null ? cost('essence', L) - cost('elec', L) : null;
+  const gapYear = gapE == null ? null : gapE * p.kmYear / 100;
+
+  const insight = latestRises.length
+    ? `<b>Hausses marquées en ${carMonthLabel(latest)}</b> (≥ +${ENERGY_RISE_1M} % sur 1 mois) : ${latestRises.map(r => `${r.label} ${enPct(r.pct)} (${enNum(r.from, 3)} → ${enNum(r.to, 3)} ${r.unit})`).join(' · ')}.`
+    : `Aucune hausse marquée en ${carMonthLabel(latest)} (seuil : +${ENERGY_RISE_1M} % sur 1 mois${hasYoy ? `, +${ENERGY_RISE_12M} % sur 12 mois` : ''}).`;
+
+  const profileOptions = Object.entries(p.profiles).map(([k, v]) => `<option value="${k}"${k === p.profile ? ' selected' : ''}>${v.label}</option>`).join('');
+
+  energyDestroyCharts();
+  el.innerHTML = `
+    <div class="sec-title"><h2>Coût de l'énergie par motorisation</h2><div class="line"></div>
+      <label style="font-size:12px;font-weight:600;color:var(--muted)">Profil&nbsp;<select class="en-select" id="energyProfileSelect">${profileOptions}</select></label>
+      <span class="src-pill" style="--src:#34A853;--src-bg:rgba(52,168,83,.1)">data.public.lu · Open Data</span>
+    </div>
+    <div class="fresh-bar" id="energyFresh"></div>
+    <div class="car-insight" style="background:var(--y-soft);border-color:var(--y-deep)"><span class="car-insight-icon">${latestRises.length ? '📈' : '💡'}</span><span>${insight}</span></div>
+
+    <div class="en-kpi-row">
+      ${kpi('essence', 'Essence')}
+      ${kpi('diesel', 'Diesel')}
+      ${kpi('elec', 'Électrique (mix)')}
+      <div class="kpi-card"><div class="kpi-label">Surcoût annuel essence vs électrique · ${prof.label}</div>
+        <div class="kpi-body"><div class="kpi-val">${enNum(gapYear, 0)}<span class="kpi-suf">€/an</span></div></div>
+        <div class="en-kpi-sub">${enNum(gapE, 2)} €/100 km × ${fmtN(p.kmYear)} km/an, prix de ${carMonthLabel(latest)}</div></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><div><div class="card-title">Prix moyens mensuels par vecteur énergétique</div>
+        <div class="card-sub">TVAC, dans l'unité de vente de chaque énergie. Point rouge : hausse ≥ +${ENERGY_RISE_1M} % sur 1 mois</div></div>${carExportBtnHtml('energy-prices')}</div>
+      <div class="card-body"><div class="en-grid-3">
+        <div class="en-chart-box"><h4>Carburants liquides <span>€/litre</span></h4><div class="en-canvas-wrap"><canvas id="energyPriceLiquid"></canvas></div></div>
+        <div class="en-chart-box"><h4>Électricité <span>€/kWh</span></h4><div class="en-canvas-wrap"><canvas id="energyPriceElec"></canvas></div></div>
+        <div class="en-chart-box"><h4>Hydrogène <span>€/kg</span></h4><div class="en-canvas-wrap"><canvas id="energyPriceH2"></canvas></div></div>
+      </div></div>
+    </div>
+
+    <div class="card" style="margin-top:16px">
+      <div class="card-head"><div><div class="card-title">Hypothèses de consommation</div>
+        <div class="card-sub">Paramétrables. Elles servent au calcul du coût aux 100 km et de l'écart thermique / électrique</div></div></div>
+      <div class="card-body">${energyParamsHtml(p)}</div>
+    </div>
+
+    <div class="en-grid-2">
+      <div class="card">
+        <div class="card-head"><div><div class="card-title">Coût aux 100 km · ${prof.label}</div>
+          <div class="card-sub">Électrique au mix ${p.mix.home} / ${p.mix.ac} / ${p.mix.dc} (domicile / AC / DC), soit ${enNum(mixPrice, 3)} €/kWh en ${carMonthLabel(latest)}</div></div>${carExportBtnHtml('energy-cost')}</div>
+        <div class="card-body"><div class="en-canvas-wrap tall"><canvas id="energyCost100"></canvas></div></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div><div class="card-title">Écart thermique vs électrique · ${prof.label}</div>
+          <div class="card-sub">Surcoût en € aux 100 km d'une motorisation thermique par rapport à l'électrique (mix de recharge)</div></div>${carExportBtnHtml('energy-gap')}</div>
+        <div class="card-body"><div class="en-canvas-wrap tall"><canvas id="energyGap"></canvas></div></div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:16px">
+      <div class="card-head"><div><div class="card-title">Coût aux 100 km, tous profils · ${carMonthLabel(latest)}</div>
+        <div class="card-sub">€ / 100 km. Électricité : détail par mode de recharge</div></div></div>
+      <div class="card-body flush"><div class="en-params-wrap"><table class="tbl">
+        <thead><tr><th>Profil</th>${ENERGY_MOTORS.filter(m => m.k !== 'elec').map(m => `<th class="r">${m.label}</th>`).join('')}<th class="r">Élec. domicile</th><th class="r">Élec. AC</th><th class="r">Élec. DC</th><th class="r">Élec. mix</th></tr></thead>
+        <tbody>${Object.values(p.profiles).map(pr => `<tr><td><b>${pr.label}</b></td>
+          ${ENERGY_MOTORS.filter(m => m.k !== 'elec').map(m => `<td class="r">${enNum(energyCost100(d, m, pr, L, p.mix), 2)}</td>`).join('')}
+          ${[{home: 1, ac: 0, dc: 0}, {home: 0, ac: 1, dc: 0}, {home: 0, ac: 0, dc: 1}, p.mix].map(mx => `<td class="r">${enNum(energyCost100(d, elec, pr, L, mx), 2)}</td>`).join('')}
+        </tr>`).join('')}</tbody>
+      </table></div></div>
+    </div>
+
+    <div class="card" style="margin-top:16px">
+      <div class="card-head"><div><div class="card-title">Variations de prix · ${carMonthLabel(latest)}</div>
+        <div class="card-sub">Hausse marquée : ≥ +${ENERGY_RISE_1M} % sur 1 mois ou ≥ +${ENERGY_RISE_12M} % sur 12 mois</div></div>${carExportBtnHtml('energy-var')}</div>
+      <div class="card-body flush"><table class="tbl">
+        <thead><tr><th>Vecteur</th><th>Unité</th><th class="r">${carMonthLabel(latest)}</th><th class="r">${iPrev >= 0 ? carMonthLabel(d.months[iPrev]) : 'Mois préc.'}</th><th class="r">Var. 1 mois</th><th class="r">Var. 12 mois</th></tr></thead>
+        <tbody>${vars.map(v => `<tr><td><b>${v.label}</b>${v.marked ? '<span class="en-flag">Hausse marquée</span>' : ''}</td><td>${v.unit}</td>
+          <td class="r">${enNum(v.last, v.unit === '€/kg' ? 2 : 3)}</td><td class="r">${enNum(v.prev, v.unit === '€/kg' ? 2 : 3)}</td>
+          <td class="r ${v.d1 >= ENERGY_RISE_1M ? 'en-rise' : v.d1 <= -ENERGY_RISE_1M ? 'en-fall' : ''}">${enPct(v.d1)}</td>
+          <td class="r ${v.d12 >= ENERGY_RISE_12M ? 'en-rise' : ''}">${enPct(v.d12)}</td></tr>`).join('')}</tbody>
+      </table></div>
+      <div class="card-body">
+        ${hasYoy ? '' : `<p class="en-note">Var. 12 mois « n.d. » : la source ne publie l'historique que depuis ${carMonthLabel(d.months[0])}. La comparaison sur 12 mois apparaîtra automatiquement à partir des données de ${carMonthLabel(`${Number(d.months[0].slice(0, 4)) + 1}${d.months[0].slice(4)}`)} (le pipeline conserve l'historique mois après mois).</p>`}
+        <p class="en-note" style="margin-top:12px"><b style="color:var(--text)">Hausses marquées sur 1 mois, tout l'historique :</b>
+          ${rises.length ? rises.map(r => `${carMonthLabel(r.ym)} · ${r.label} <span class="en-rise">${enPct(r.pct)}</span>`).join(' &nbsp;|&nbsp; ') : 'aucune'}</p>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:16px">
+      <div class="card-head"><div class="card-title">Méthode &amp; conversions</div></div>
+      <div class="card-body en-method"><ul>
+        <li><b>Unités conservées :</b> les prix sont affichés dans l'unité de la source, TVAC. Essence E10, Diesel B7 et GPL en €/litre (STATEC), hydrogène en €/kg (H2.live), électricité en €/kWh : prix estimatif client résidentiel (Ministère de l'Économie) et recharge publique AC / DC (Chargeprice). Aucune conversion d'unité n'est appliquée aux prix, pas d'équivalent kWh ou litre.</li>
+        <li><b>Seul calcul effectué :</b> coût aux 100 km = prix (€/unité) × consommation (unités / 100 km). Exemple : ${enNum(d.values.Essence_E10[L], 3)} €/l × ${enNum(prof.essence, 1)} l/100 km = ${enNum(cost('essence', L), 2)} €/100 km.</li>
+        <li><b>Électrique (mix) :</b> prix pondéré = (domicile × ${p.mix.home} + AC × ${p.mix.ac} + DC × ${p.mix.dc}) / ${p.mix.home + p.mix.ac + p.mix.dc}, en €/kWh, puis × kWh/100 km.</li>
+        <li><b>Écart thermique vs électrique :</b> coût aux 100 km thermique − coût aux 100 km électrique (mix), même profil, même mois. Surcoût annuel = écart × kilométrage annuel / 100.</li>
+        <li><b>Variations :</b> (prix du mois − prix du mois de référence) / prix du mois de référence, calculées sur le prix unitaire source, pas sur le coût aux 100 km.</li>
+        <li><b>Hors périmètre :</b> entretien, assurance, achat, fiscalité du véhicule. Ne comparer que le poste « énergie ».</li>
+        <li><b>Source :</b> <a href="${d.source?.dataset_url}" target="_blank" rel="noopener">data.public.lu, Comparaison des prix de carburants par motorisation</a>, licence ouverte. Dernière ressource résolue via l'API à chaque mise à jour, sans URL de fichier figée.</li>
+      </ul></div>
+    </div>`;
+
+  mountFreshnessBar('energyFresh', {
+    slug: d.source?.slug || 'comparaison-des-prix-de-carburants-par-motorisation', format: 'csv',
+    lastDeposit: d.source?.last_deposit, frequency: d.source?.frequency,
+    coverage: `Période couverte : ${carMonthLabel(d.months[0])} → ${carMonthLabel(latest)}`,
+  });
+  animateCards(el);
+  energyRenderPriceCharts(d);
+  energyRenderCostCharts(d, p);
+  energyBindParams(d);
+  el.querySelectorAll('.car-export-btn').forEach(btn => btn.addEventListener('click', () => {
+    const r = EXPORTERS['energy-costs']?.(window._dashData || {}, btn.dataset.export);
+    if (r) exportSheetsToXLSX(r.filename, r.sheets);
+  }));
+}
 
 // ── Sidebar tab switching ─────────────────────────────────────
 document.querySelectorAll('.tab-btn').forEach(btn => {
@@ -8035,6 +8544,7 @@ const TAB_ENDPOINTS = {
   intelligence: ['ga4','gsc','fb','brevo','supermetrics/linkedin','youtube'],
   'veille-ia':  [],
   'car-market': ['car-registrations'],
+  'energy-costs': [],
 };
 
 // Endpoint → clé dans window._dashData
@@ -8255,6 +8765,34 @@ const EXPORTERS = {
     if (iw.anomalies?.length) sheets.push({name: 'Anomalies', headers: ['Type', 'Message'], rows: iw.anomalies.map(a => [a.type, a.message])});
     if (!sheets.length) return null;
     return {filename: `ACL_intelligence_${new Date().toISOString().slice(0, 10)}.xlsx`, sheets};
+  },
+
+  // module (optionnel) = id du bouton d'export d'une carte ; sans module
+  // (bouton global) : classeur complet.
+  'energy-costs': (d, module) => {
+    const e = d.dEnergy;
+    if (!e?.months?.length || !_energyParams) return null;
+    const p = _energyParams, labels = e.months.map(carMonthLabel), latest = e.months[e.months.length - 1];
+    const prices = {name: 'Prix mensuels', headers: ['Mois', ...e.series.map(s => `${s.label} (${s.unit} TVAC)`)],
+      rows: labels.map((l, i) => [l, ...e.series.map(s => e.values[s.key][i] ?? '')])};
+    const costRows = [];
+    Object.values(p.profiles).forEach(pr => labels.forEach((l, i) => costRows.push([l, pr.label,
+      ...ENERGY_MOTORS.map(m => { const v = energyCost100(e, m, pr, i, p.mix); return v == null ? '' : Math.round(v * 100) / 100; })])));
+    const cost = {name: 'Coût aux 100 km', headers: ['Mois', 'Profil', ...ENERGY_MOTORS.map(m => `${m.k === 'elec' ? 'Électrique (mix)' : m.label} (€/100 km)`)], rows: costRows};
+    const gap = {name: 'Écart thermique-élec', headers: ['Mois', 'Profil', 'Essence − Élec (€/100 km)', 'Diesel − Élec (€/100 km)'], rows: []};
+    Object.values(p.profiles).forEach(pr => labels.forEach((l, i) => {
+      const el = energyCost100(e, ENERGY_MOTORS[4], pr, i, p.mix);
+      const g = k => { const v = energyCost100(e, ENERGY_MOTORS.find(m => m.k === k), pr, i, p.mix); return v == null || el == null ? '' : Math.round((v - el) * 100) / 100; };
+      gap.rows.push([l, pr.label, g('essence'), g('diesel')]);
+    }));
+    const vars = {name: 'Variations', headers: ['Vecteur', 'Unité', carMonthLabel(latest), 'Mois précédent', 'Var. 1 mois (%)', 'Var. 12 mois (%)', 'Hausse marquée'],
+      rows: energyVariations(e).map(v => [v.label, v.unit, v.last ?? '', v.prev ?? '', v.d1 == null ? 'n.d.' : Math.round(v.d1 * 10) / 10, v.d12 == null ? 'n.d.' : Math.round(v.d12 * 10) / 10, v.marked ? 'oui' : ''])};
+    const hyp = {name: 'Hypothèses', headers: ['Profil', ...ENERGY_MOTORS.map(m => `${m.label} (${m.unit})`)],
+      rows: [...Object.values(p.profiles).map(pr => [pr.label, ...ENERGY_MOTORS.map(m => pr[m.k] ?? 'n.d.')]),
+        [], ['Mix recharge domicile / AC / DC (%)', `${p.mix.home} / ${p.mix.ac} / ${p.mix.dc}`], ['Kilométrage annuel', p.kmYear],
+        ['Source', e.source?.dataset_url], ['Données au', dplDateFR(e.source?.last_deposit)]]};
+    const pick = {'energy-prices': [prices], 'energy-cost': [cost, hyp], 'energy-gap': [gap, hyp], 'energy-var': [vars]}[module] || [prices, cost, gap, vars, hyp];
+    return {filename: `ACL_cout_energie_${module ? module.replace('energy-', '') + '_' : ''}${latest}.xlsx`, sheets: pick};
   },
 
   'veille-ia': (d) => {
