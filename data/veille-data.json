@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-24",
+  "generated_at": "2026-09-25",
   "next_edition": "",
   "editions": [
     {
@@ -305,26 +305,140 @@
     {
       "date": "2026-09-24",
       "label": "Semaine du 2026-09-24"
+    },
+    {
+      "date": "2026-09-25",
+      "label": "Semaine du 2026-09-25"
     }
   ],
   "items": [
     {
-      "id": "2026-09-24-saaskia-web-rLCtRq",
-      "club": "lequotidien.lu",
+      "id": "2026-09-25-saaskia-web-I5JoGH",
+      "club": "lessentiel.lu FR",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "Événement GO electric day organisé par l'ACL présentant la mobilité électrique sous toutes ses formes.",
+      "relevance": "ACL explicitement cité : \"GO electric day\"",
+      "url": "https://saaskia.keepcontact.lu/data/files/1790314146.2599.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790314146.2599.pdf",
+      "date": "2026-09-25"
+    },
+    {
+      "id": "2026-09-25-saaskia-web-g8nxdD",
+      "club": "virgule.lu (Wort.lu/FR)",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Article sur la vignette routière belge et son impact, relevant pour la mobilité transfrontalière au Luxembourg.",
+      "content": "Analyse des raisons pour lesquelles la voiture résiste encore au Luxembourg malgré les transports gratuits.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1790228099.3188.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790228099.3188.pdf",
-      "date": "2026-09-24"
+      "url": "https://saaskia.keepcontact.lu/data/files/1790319337.9444.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790319337.9444.pdf",
+      "date": "2026-09-25"
+    },
+    {
+      "id": "2026-09-25-saaskia-web-xCtbou",
+      "club": "paperjam.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Les banques pourraient refuser d'accorder des contrats de leasing social au Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1790314103.1349.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790314103.1349.pdf",
+      "date": "2026-09-25"
+    },
+    {
+      "id": "2026-09-25-saaskia-web-I4xzux",
+      "club": "lesfrontaliers.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Nouveau chantier prévu sur l'autoroute d'Esch ce week-end impactant la circulation.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1790314084.1502.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790314084.1502.pdf",
+      "date": "2026-09-25"
+    },
+    {
+      "id": "2026-09-25-saaskia-web-BRuH4f",
+      "club": "L'Essentiel",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Propriétaires de quadricycle obtiennent finalement une vignette au Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1790313922.8171.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790313922.8171.pdf",
+      "date": "2026-09-25"
+    },
+    {
+      "id": "2026-09-25-saaskia-web-t5brRt",
+      "club": "magazinepremium.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Réservation du Roadster Tesla pour 50 000 dollars, un véhicule encore non présenté.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1790314165.4776.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790314165.4776.pdf",
+      "date": "2026-09-25"
+    },
+    {
+      "id": "2026-09-25-saaskia-web-htkXZg",
+      "club": "L'Essentiel",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Losch parie sur le nouveau modèle ID. Polo de Volkswagen.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1790313837.7952.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790313837.7952.pdf",
+      "date": "2026-09-25"
+    },
+    {
+      "id": "2026-09-25-saaskia-web-hZp0DM",
+      "club": "Luxemburger Wort",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Guide sur les cas où l'assurance couvre les accidents impliquant des pedelecs.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1790311096.4488.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790311096.4488.pdf",
+      "date": "2026-09-25"
+    },
+    {
+      "id": "2026-09-25-saaskia-web-rbF4m9",
+      "club": "Le Quotidien",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Nouvelle demande de révision du projet du contournement de Bascharage.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1790314009.1659.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790314009.1659.pdf",
+      "date": "2026-09-25"
+    },
+    {
+      "id": "2026-09-25-saaskia-web-uwy9c8",
+      "club": "wort.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Plus de 30 millions d'euros ont été alloués aux propriétaires de Tesla au Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1790313963.2126.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790313963.2126.pdf",
+      "date": "2026-09-25"
+    },
+    {
+      "id": "2026-09-25-saaskia-web-a8ALR1",
+      "club": "Luxemburger Wort",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Analyse des domaines où le Luxembourg doit progresser en matière de politique environnementale.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1790310789.1181.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790310789.1181.pdf",
+      "date": "2026-09-25"
     },
     {
       "id": "2026-09-24-saaskia-web-ibYV3x",
       "club": "100komma7.lu",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Projet de loi permettant à 17% de la population de louer des voitures électriques pour 150 euros par mois au Luxembourg.",
+      "content": "Projet de loi permettant à 17% de la population de louer des voitures électriques pour 150 euros par mois.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1790227796.0718.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790227796.0718.pdf",
@@ -335,21 +449,10 @@
       "club": "Luxemburger Wort",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Investissements massifs en sécurité routière sur la N7 au Luxembourg.",
+      "content": "Investissements de plusieurs millions d'euros pour améliorer la sécurité sur la N7.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1790224915.4302.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790224915.4302.pdf",
-      "date": "2026-09-24"
-    },
-    {
-      "id": "2026-09-24-saaskia-web-YJPlfE",
-      "club": "infos.rtl.lu",
-      "category": "Veille presse LU",
-      "badge": "INFO",
-      "content": "Comparaison des écarts de prix des carburants en Europe, incluant le Luxembourg.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1790227822.8702.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790227822.8702.pdf",
       "date": "2026-09-24"
     },
     {
@@ -357,10 +460,32 @@
       "club": "L'Essentiel",
       "category": "Veille presse LU",
       "badge": "INFO",
-      "content": "Une nouvelle voiture sur deux devra être électrique selon les nouvelles normes européennes.",
+      "content": "Une nouvelle voiture sur deux devra être électrique selon les normes européennes.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1790227639.1577.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790227639.1577.pdf",
+      "date": "2026-09-24"
+    },
+    {
+      "id": "2026-09-24-saaskia-web-YJPlfE",
+      "club": "infos.rtl.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Analyse des écarts importants de prix des carburants entre la Belgique, France, Luxembourg et Malte.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1790227822.8702.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790227822.8702.pdf",
+      "date": "2026-09-24"
+    },
+    {
+      "id": "2026-09-24-saaskia-web-rLCtRq",
+      "club": "lequotidien.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Article sur la vignette routière belge et son impact, relevant pour la mobilité transfrontalière au Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1790228099.3188.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790228099.3188.pdf",
       "date": "2026-09-24"
     },
     {
@@ -408,33 +533,11 @@
       "date": "2026-09-24"
     },
     {
-      "id": "2026-09-23-saaskia-web-TUm4LF",
-      "club": "virgule.lu (Wort.lu/FR)",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Guide des règles de conduite au Luxembourg avec plaque d'immatriculation rose.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1790146340.6171.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790146340.6171.pdf",
-      "date": "2026-09-23"
-    },
-    {
-      "id": "2026-09-23-saaskia-web-HImCuw",
-      "club": "janette.lu",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Article sur la Journée mondiale sans voiture et les alternatives de mobilité au Luxembourg.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1790141783.518.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790141783.518.pdf",
-      "date": "2026-09-23"
-    },
-    {
       "id": "2026-09-23-saaskia-web-EHwW8i",
       "club": "chronicle.lu",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Luxembourg appelle à une approche coordonnée de la conduite automatisée lors d'une réunion européenne.",
+      "content": "Le Luxembourg demande une approche coordonnée de la conduite automatisée lors d'une réunion de l'UE.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1790141758.3185.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790141758.3185.pdf",
@@ -445,10 +548,43 @@
       "club": "lessentiel.lu FR",
       "category": "Veille presse LU",
       "badge": "INFO",
-      "content": "Tesla est la voiture électrique la plus subventionnée au Luxembourg.",
+      "content": "Tesla est la marque de voiture électrique la plus subventionnée au Luxembourg.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1790141042.3572.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790141042.3572.pdf",
+      "date": "2026-09-23"
+    },
+    {
+      "id": "2026-09-23-saaskia-web-nSxvqx",
+      "club": "L'Essentiel",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Tesla en première position des véhicules électriques bénéficiant des aides d'État au Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1790140551.9425.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790140551.9425.pdf",
+      "date": "2026-09-23"
+    },
+    {
+      "id": "2026-09-23-saaskia-web-TUm4LF",
+      "club": "virgule.lu (Wort.lu/FR)",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Explication des règles à respecter en conduisant avec une plaque d'immatriculation rose au Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1790146340.6171.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790146340.6171.pdf",
+      "date": "2026-09-23"
+    },
+    {
+      "id": "2026-09-23-saaskia-web-HImCuw",
+      "club": "janette.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Journée mondiale sans voiture : alternatives de déplacement au Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1790141783.518.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790141783.518.pdf",
       "date": "2026-09-23"
     },
     {
@@ -460,17 +596,6 @@
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1790140967.1238.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790140967.1238.pdf",
-      "date": "2026-09-23"
-    },
-    {
-      "id": "2026-09-23-saaskia-web-nSxvqx",
-      "club": "L'Essentiel",
-      "category": "Veille presse LU",
-      "badge": "INFO",
-      "content": "Tesla en première position des aides gouvernementales pour véhicules électriques au Luxembourg.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1790140551.9425.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790140551.9425.pdf",
       "date": "2026-09-23"
     },
     {
