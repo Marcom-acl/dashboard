@@ -1,3 +1,8 @@
 # Ce fichier est géré exclusivement par POST /veille-ia/ingest via l'API GitHub REST.
 # Protection locale : git update-index --skip-worktree data/veille-ia-data.json
 # Ne pas committer manuellement — écrase l'historique accumulé.
+
+# Fichiers de variables d'environnement locaux (clés réelles) : ne jamais committer
+backend/.env
+.env
+*.env
