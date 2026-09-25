@@ -1,0 +1,61 @@
+name: Coût de l'énergie — Mise à jour
+
+on:
+  schedule:
+    # Chaque lundi à 06:30 UTC. La source est mensuelle mais sans jour de
+    # dépôt fixe (09/09 pour août 2026) : un passage hebdomadaire l'intègre
+    # sous 7 jours. Aucun commit si rien n'a changé.
+    - cron: '30 6 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  refresh-energy-prices:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Check source freshness
+        # 0 = à jour, 1 = source en retard (signalé dans le dashboard, pas
+        # un échec du pipeline), 2 = erreur API -> échec.
+        run: python scripts/check_freshness.py || [ $? -eq 1 ]
+
+      - name: Run energy prices refresh script
+        run: python scripts/energy-prices-refresh.py
+
+      - name: Commit updated energy-prices-data.json
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/energy-prices-data.json
+          # generated_at change à chaque run : ne committer que si les données changent.
+          if git diff --cached -U0 | grep -E '^[+-] ' | grep -vq '"generated_at"'; then
+            git commit -m "chore: coût de l'énergie — $(date +'%Y-%m-%d')"
+            git push
+          else
+            git reset -q data/energy-prices-data.json
+            echo "Aucune nouvelle donnée."
+          fi
+
+      - name: Notify failure (GitHub issue)
+        if: failure()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          TITLE="Pipeline « Coût de l'énergie » en échec"
+          BODY="Le rafraîchissement de data/energy-prices-data.json a échoué (schéma source modifié ou erreur API). Le dashboard continue d'afficher la dernière version valide. Détails : $RUN_URL"
+          NUM=$(gh issue list --state open --search "in:title \"$TITLE\"" --json number -q '.[0].number')
+          if [ -n "$NUM" ]; then gh issue comment "$NUM" --body "$BODY"; else gh issue create --title "$TITLE" --body "$BODY"; fi
