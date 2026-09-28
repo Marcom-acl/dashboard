@@ -1,6 +1,6 @@
 {
   "generated_at": "2026-09-28",
-  "next_edition": "2026-10-05",
+  "next_edition": "",
   "editions": [
     {
       "date": "2026-05-03",
@@ -325,74 +325,202 @@
   ],
   "items": [
     {
-      "id": "2026-09-28-tcs-1",
-      "date": "2026-09-23",
-      "club": "TCS",
-      "category": "Mobilité",
-      "content": "Le TCS a lancé dans son application un radar des prix de recharge électrique affichant en temps réel les tarifs de près de 19000 bornes en Suisse, avec filtres par type de prise, vitesse de charge et opérateur ; une fonction de signalement des prix erronés est prévue fin octobre 2026.",
-      "relevance": "Cet outil répond à un besoin croissant de transparence tarifaire pour les conducteurs de véhicules électriques et complète le radar carburants déjà existant du TCS. L'ACL pourrait évaluer la faisabilité d'un outil similaire pour les bornes de recharge publiques au Luxembourg et dans la Grande Région.",
+      "id": "2026-09-28-saaskia-web-Nl8Czo",
+      "club": "chronicle.lu",
+      "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "url": "https://www.presseportal.ch/fr/pm/100000091/100942493"
+      "content": "GO Electric Day met en avant les dernières solutions en électromobilité. Événement majeur dans le secteur de la mobilité électrique au Luxembourg.",
+      "relevance": "ACL explicitement cité : \"GO Electric Day\"",
+      "url": "https://saaskia.keepcontact.lu/data/files/1790574569.2614.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790574569.2614.pdf",
+      "date": "2026-09-28"
     },
     {
-      "id": "2026-09-28-rac-1",
-      "date": "2026-09-11",
-      "club": "RAC",
-      "category": "EU",
-      "content": "Le RAC a organisé la première édition de ses RAC New Car Awards, désignant la Kia EV2, citadine électrique abordable, voiture de l'année et meilleure petite voiture électrique parmi 27 modèles finalistes répartis en neuf catégories.",
-      "relevance": "Ce nouveau prix propriétaire renforce la visibilité média et l'image d'expertise indépendante du RAC. L'ACL a-t-il intérêt à lancer ou renforcer un prix ACL récompensant les meilleurs modèles vendus au Luxembourg, en s'appuyant sur ses propres tests ?",
+      "id": "2026-09-28-saaskia-web-rDWYfH",
+      "club": "100komma7.lu",
+      "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "url": "https://www.rac.co.uk/drive/car-reviews/new-car-awards/winners/"
+      "content": "L'électromobilité gagne en popularité avec 10 fois plus d'immatriculations qu'il y a 6 ans au Luxembourg. Tendance positive du secteur des véhicules électriques.",
+      "relevance": "ACL explicitement cité : \"Elektromobilitéit\"",
+      "url": "https://saaskia.keepcontact.lu/data/files/1790574493.3082.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790574493.3082.pdf",
+      "date": "2026-09-28"
     },
     {
-      "id": "2026-09-28-aci-1",
-      "date": "2026-09-10",
-      "club": "ACI",
-      "category": "EU",
-      "content": "ACI et la Région I de la FIA ont lancé la campagne sociale 2026 de sécurité routière sur le thème des distractions au volant, avec une participation record de 45 clubs affiliés diffusant le message en 24 langues en Europe, au Moyen-Orient et en Afrique, jusqu'en août 2027.",
-      "relevance": "Cette campagne illustre la capacité de mobilisation collective des clubs FIA à l'échelle européenne sur la sécurité routière, avec une portée et une durée inédites. L'ACL participe-t-elle à cette campagne régionale FIA et pourrait-elle en relayer le message auprès de ses membres ?",
+      "id": "2026-09-28-saaskia-web-H0IK6s",
+      "club": "rtl.lu",
+      "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "url": "https://www.lautomobile.aci.it/attualita/sicurezza-stradale-aci-e-fia-lanciano-la-campagna-2026-contro-le-distrazioni-al-volante/"
+      "content": "Informations, experts et tests disponibles pour les consommateurs. Contenu éducatif sur l'électromobilité et les solutions de mobilité.",
+      "relevance": "ACL explicitement cité : \"Tester\"",
+      "url": "https://saaskia.keepcontact.lu/data/files/1790574459.8139.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790574459.8139.pdf",
+      "date": "2026-09-28"
     },
     {
-      "id": "2026-09-28-adac-1",
-      "date": "2026-09-09",
-      "club": "ADAC",
-      "category": "EU",
-      "content": "L'ADAC SE a lancé un partenariat avec l'entreprise kleines kraftwerk pour proposer à ses 22 millions de membres trois solutions de centrales solaires de balcon prêtes à brancher, de 1000 à 2000 watts avec stockage sur batterie, avec un rabais d'au moins 10%.",
-      "relevance": "Ce partenariat élargit l'offre de services non automobiles de l'ADAC vers l'énergie domestique, un axe de diversification des avantages membres déjà observé chez d'autres grands clubs. L'ACL pourrait-elle explorer des partenariats similaires dans l'énergie ou l'habitat pour diversifier ses avantages membres ?",
+      "id": "2026-09-28-saaskia-web-8Asn9x",
+      "club": "Le Quotidien",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "Guide pratique pour se lancer dans la mobilité électrique au Luxembourg. Ressource informative pour les futurs utilisateurs de véhicules électriques.",
+      "relevance": "ACL explicitement cité : \"Mobilité électrique\"",
+      "url": "https://saaskia.keepcontact.lu/data/files/1790574412.6026.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790574412.6026.pdf",
+      "date": "2026-09-28"
+    },
+    {
+      "id": "2026-09-28-saaskia-web-x8M3xk",
+      "club": "lequotidien.lu",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "La mobilité électrique s'accélère au Luxembourg avec un focus sur l'optimisation de l'autoconsommation énergétique. Interview sur les tendances actuelles.",
+      "relevance": "ACL explicitement cité : \"mobilité électrique\"",
+      "url": "https://saaskia.keepcontact.lu/data/files/1790574376.5476.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790574376.5476.pdf",
+      "date": "2026-09-28"
+    },
+    {
+      "id": "2026-09-28-saaskia-web-x8r0rS",
+      "club": "siliconluxembourg.lu",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "Wolt s'associe avec ETSC sur la sécurité routière. Partenariat important pour améliorer les normes de sécurité sur les routes.",
+      "relevance": "ACL explicitement cité : \"Road Safety\"",
+      "url": "https://saaskia.keepcontact.lu/data/files/1790574176.4868.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790574176.4868.pdf",
+      "date": "2026-09-28"
+    },
+    {
+      "id": "2026-09-28-saaskia-web-ZFKhFZ",
+      "club": "virgule.lu (Wort.lu/FR)",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "GO electric day 2026 propose des essais de véhicules et des solutions de recharge à domicile. Événement pratique d'électromobilité pour les citoyens.",
+      "relevance": "ACL explicitement cité : \"GO electric day\"",
+      "url": "https://saaskia.keepcontact.lu/data/files/1790574097.0986.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790574097.0986.pdf",
+      "date": "2026-09-28"
+    },
+    {
+      "id": "2026-09-28-saaskia-web-k03n6U",
+      "club": "today.RTL.lu",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "70 véhicules en exposition lors d'un événement de mobilité. Showcase important du secteur automobile et électromobilité.",
+      "relevance": "ACL explicitement cité : \"70 vehicles on display\"",
+      "url": "https://saaskia.keepcontact.lu/data/files/1790573991.7043.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790573991.7043.pdf",
+      "date": "2026-09-28"
+    },
+    {
+      "id": "2026-09-28-saaskia-web-IicSYF",
+      "club": "wort.lu",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "Analyse de la pertinence d'acheter un diesel en 2026 au Luxembourg. Réflexion sur les choix de motorisation et l'électromobilité.",
+      "relevance": "ACL explicitement cité : \"Diesel\"",
+      "url": "https://saaskia.keepcontact.lu/data/files/1790573783.9126.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790573783.9126.pdf",
+      "date": "2026-09-28"
+    },
+    {
+      "id": "2026-09-28-saaskia-web-nDXPku",
+      "club": "Agefi.lu",
+      "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "url": "https://www.presseportal.de/pm/122834/6348517"
+      "content": "Construction d'un nouveau pôle de mobilité à Hollerich à Luxembourg. Investissement majeur en infrastructure de mobilité urbaine.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1790574539.5381.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790574539.5381.pdf",
+      "date": "2026-09-28"
     },
     {
-      "id": "2026-09-28-adac-2",
-      "date": "2026-09-17",
-      "club": "ADAC",
-      "category": "Mobilité",
-      "content": "Une enquête ADAC menée auprès de plus de 1000 conducteurs de véhicules électriques montre que 97% se disent satisfaits ou très satisfaits de leur véhicule, mais environ un quart des répondants critique le manque de transparence et le coût des prix de recharge.",
-      "relevance": "Cette étude fournit des données chiffrées utiles sur la satisfaction et les freins perçus par les conducteurs de véhicules électriques. L'ACL pourrait-elle mener une enquête similaire auprès de ses membres électromobilistes pour objectiver leur satisfaction et leurs besoins au Luxembourg ?",
-      "badge": "INFO",
-      "url": "https://presse.adac.de/meldungen/adac-ev/technik/adac-umfrage-wie-zufrieden-sind-fahrer-von-e-autos.html"
-    },
-    {
-      "id": "2026-09-28-tcs-2",
-      "date": "2026-09-18",
-      "club": "TCS",
-      "category": "EU",
-      "content": "Le prix moyen du diesel en Suisse a atteint un niveau historique de 2,41 francs le litre le 18 septembre 2026, dépassant pour la première fois le précédent record de 2,40 francs établi en 2022, en raison de tensions géopolitiques et de difficultés d'approvisionnement.",
-      "relevance": "Cette communication illustre le rôle du TCS comme relais d'information fiable sur les prix carburants pour ses membres. L'ACL suit-il un indicateur comparable pour informer rapidement ses membres en cas de pic de prix au Luxembourg ?",
-      "badge": "INFO",
-      "url": "https://www.presseportal.ch/de/pm/100000091/100942393"
-    },
-    {
-      "id": "2026-09-28-tcs-3",
-      "date": "2026-09-22",
-      "club": "TCS",
-      "category": "EU",
-      "content": "Le TCS a testé 32 pneus hiver dans deux dimensions (185/65 R15 et 225/50 R17) selon 19 critères, révélant jusqu'à 18 mètres d'écart de distance de freinage à 80 km/h entre les meilleurs et les pires modèles, et déconseille six références pour les berlines de taille moyenne.",
-      "relevance": "Ce test comparatif renforce la crédibilité du TCS en tant que conseiller technique indépendant avant la saison hivernale, à l'image de tests similaires menés en parallèle par l'ÖAMTC et l'ANWB. L'ACL publie-t-elle ou pourrait-elle publier un comparatif pneus hiver adapté au marché luxembourgeois ?",
+      "id": "2026-09-28-saaskia-web-0AGsz9",
+      "club": "tageblatt.lu",
+      "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "url": "https://www.presseportal.ch/fr/pm/100000091/100942459"
+      "content": "Le conseil municipal souhaite réduire les vitesses devant la mairie. Mesure de sécurité routière locale.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1790574035.9558.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790574035.9558.pdf",
+      "date": "2026-09-28"
+    },
+    {
+      "id": "2026-09-28-saaskia-web-cBZJkB",
+      "club": "lesfrontaliers.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Les carburants connaissent une hausse au Luxembourg. Impact sur les prix des carburants pour les automobilistes.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1790573951.3585.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790573951.3585.pdf",
+      "date": "2026-09-28"
+    },
+    {
+      "id": "2026-09-28-saaskia-web-b7x4bQ",
+      "club": "Delano.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Volkswagen et Audi procèdent au rappel de plus de 2,8 millions de voitures. Campagne importante de sécurité automobile.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1790574513.3969.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790574513.3969.pdf",
+      "date": "2026-09-28"
+    },
+    {
+      "id": "2026-09-28-saaskia-web-PnzR8T",
+      "club": "Tageblatt",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "11.325 voitures au Luxembourg sont affectées par le rappel Volkswagen. Impact du rappel sur le marché luxembourgeois.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1790574285.7601.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790574285.7601.pdf",
+      "date": "2026-09-28"
+    },
+    {
+      "id": "2026-09-28-saaskia-web-YzWy0l",
+      "club": "tageblatt.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Grand rappel Volkswagen affectant un nombre significatif de véhicules au Luxembourg. Détails du rappel de sécurité.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1790574149.4808.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790574149.4808.pdf",
+      "date": "2026-09-28"
+    },
+    {
+      "id": "2026-09-28-saaskia-web-7xxxHC",
+      "club": "virgule.lu (Wort.lu/FR)",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Test et critique du Suzuki Across par rapport au RAV4. Comparaison de véhicules sur le marché automobile.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/clippingsTools?id_clipping=113650",
+      "pdf_url": "",
+      "date": "2026-09-28"
+    },
+    {
+      "id": "2026-09-28-saaskia-web-rRWJdl",
+      "club": "infogreen.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Visite inaugurale de l'Agence européenne pour l'environnement au Luxembourg. Reconnaissance de l'engagement environnemental du pays.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1790573930.948.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790573930.948.pdf",
+      "date": "2026-09-28"
+    },
+    {
+      "id": "2026-09-28-saaskia-web-HAkL8e",
+      "club": "infogreen.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "eHandwierk explore les réalités des entreprises et propose des solutions adaptées. Initiative pour l'électromobilité dans le secteur des services.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1790573901.7553.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790573901.7553.pdf",
+      "date": "2026-09-28"
     },
     {
       "id": "2026-09-28-rac-2",
@@ -405,36 +533,6 @@
       "url": "https://media.rac.co.uk/diesel-teeters-on-brink-of-all-time-high"
     },
     {
-      "id": "2026-09-28-anwb-1",
-      "date": "2026-09-22",
-      "club": "ANWB",
-      "category": "EU",
-      "content": "Le test hivernal 2026 de l'ANWB, portant sur des dizaines de pneus dans deux dimensions courantes (185/65 R15 et 225/50 R17), montre que les pneus toutes saisons de qualité constituent une alternative sûre et avantageuse au pneu hiver pour les petites voitures, avec d'importants écarts de qualité parmi les modèles bon marché.",
-      "relevance": "Ce type de test comparatif renforce la crédibilité du club auprès de ses membres automobilistes en approche de l'hiver. L'ACL pourrait-elle publier un comparatif similaire pneus toutes saisons versus pneus hiver, adapté au climat luxembourgeois ?",
-      "badge": "INFO",
-      "url": "https://www.anwb.nl/auto/nieuws/2026/september/allseasonband-voordeliger-dan-winterband"
-    },
-    {
-      "id": "2026-09-28-anwb-2",
-      "date": "2026-09-22",
-      "club": "ANWB",
-      "category": "Mobilité",
-      "content": "L'ANWB a dévoilé les 43 nominés de l'élection Auto van het Jaar 2027 ; le segment des voitures électriques sous 30000 euros s'est nettement étoffé avec l'arrivée de nouveaux modèles Kia, Mercedes et MG.",
-      "relevance": "L'élargissement rapide de l'offre de véhicules électriques abordables en Europe est un signal à surveiller pour les conseils d'achat de l'ACL à ses membres. Faut-il enrichir les guides d'achat de l'ACL d'un comparatif des véhicules électriques sous 30000 euros ?",
-      "badge": "SURVEILLER",
-      "url": "https://www.anwb.nl/auto/nieuws/2026/september/genomineerden-auto-van-het-jaar-2027-bekend"
-    },
-    {
-      "id": "2026-09-28-aci-2",
-      "date": "2026-09-03",
-      "club": "ACI",
-      "category": "Mobilité",
-      "content": "ACI a commenté les nouveaux résultats Euro NCAP 2026, où les protocoles renforcés ont attribué 5 étoiles à trois véhicules électriques chinois (Aion UT, Geely E2, Leapmotor B05) et 4 étoiles, 5 avec pack sécurité optionnel, à la Cupra Raval.",
-      "relevance": "Ces résultats confirment la montée en puissance des constructeurs chinois sur la sécurité des véhicules électriques, un point de vigilance pour les recommandations d'achat de l'ACL à ses membres. L'ACL devrait-elle intégrer ces résultats Euro NCAP dans sa communication sur le choix d'un véhicule électrique ?",
-      "badge": "SURVEILLER",
-      "url": "https://aci.gov.it/notizie/euro-ncap-le-case-automobilistiche-continuano-a-investire-in-sicurezza/"
-    },
-    {
       "id": "2026-09-28-touring-1",
       "date": "2026-09-25",
       "club": "Touring Belgique",
@@ -443,86 +541,6 @@
       "relevance": "Cette réforme fiscale belge illustre une transition vers une taxation basée sur le poids et le CO2 plutôt que la cylindrée, un modèle que le Luxembourg pourrait un jour envisager. L'ACL pourrait se renseigner sur les modalités pratiques de la vignette numérique belge pour anticiper d'éventuelles réformes similaires au Luxembourg.",
       "badge": "SURVEILLER",
       "url": "https://www.touring.be/fr/articles/calcul-tmc-et-taxe-circulation-voiture-occasion"
-    },
-    {
-      "id": "2026-09-28-touring-2",
-      "date": "2026-09-01",
-      "club": "Touring Belgique",
-      "category": "EU",
-      "content": "Touring Belgique a détaillé les documents nécessaires pour immatriculer un véhicule d'occasion, dont le Car-Pass obligatoire et l'acte de vente, en rappelant que de nouvelles règles entreront en vigueur en Flandre à partir du 1er janvier 2027.",
-      "relevance": "Ce type de guide pratique pas à pas sur l'achat d'occasion est un format de contenu membre à forte utilité. L'ACL pourrait évaluer si un guide équivalent, adapté au contexte transfrontalier luxembourgeois, apporterait une valeur similaire à ses membres.",
-      "badge": "INFO",
-      "url": "https://www.touring.be/fr/articles/conseils-utiles-pour-lachat-dun-vehicule-doccasion"
-    },
-    {
-      "id": "2026-09-28-roole-1",
-      "date": "2026-09-01",
-      "club": "Roole",
-      "category": "EU",
-      "content": "Roole a publié sa synthèse mensuelle des changements réglementaires pour les automobilistes français au 1er septembre 2026, incluant un nouveau bonus pour l'achat ou la location longue durée d'un véhicule électrique d'occasion, des évolutions liées au permis de conduire et de nouvelles règles de sécurité routière.",
-      "relevance": "Ce format de synthèse mensuelle des changements réglementaires est un service à forte valeur ajoutée pour les membres. L'ACL pourrait évaluer l'intérêt de proposer un format similaire, adapté au contexte luxembourgeois et transfrontalier.",
-      "badge": "INFO",
-      "url": "https://media.roole.fr/quotidien/au-volant/ce-qui-change-pour-les-automobilistes-au-1er-septembre-2026-nouvelles-aides-permis-securite-routiere-travaux"
-    },
-    {
-      "id": "2026-09-28-oeamtc-1",
-      "date": "2026-09-22",
-      "club": "ÖAMTC",
-      "category": "EU",
-      "content": "L'ÖAMTC a publié les résultats de son test de pneus hiver 2026 portant sur 32 modèles dans les dimensions 185/65 R15 et 225/50 R17 : seulement 6 pneus obtiennent la mention globale bonne, 11 satisfaisante, 6 suffisante et 9 échouent avec la mention insuffisante, notamment sur la tenue de route mouillée.",
-      "relevance": "Ce test comparatif indépendant, largement repris dans les médias autrichiens et mené en parallèle par le TCS et l'ANWB, renforce la crédibilité de l'ÖAMTC comme référence technique auprès du grand public. L'ACL pourrait-elle évaluer l'intérêt de publier ou relayer des tests de pneus similaires pour renforcer sa position d'expert auprès des membres luxembourgeois ?",
-      "badge": "SURVEILLER",
-      "url": "https://www.oeamtc.at/presse/oeamtc-winterreifentest-2026-viele-modelle-scheitern-an-ausgewogenheit-89560292"
-    },
-    {
-      "id": "2026-09-28-oeamtc-2",
-      "date": "2026-09-01",
-      "club": "ÖAMTC",
-      "category": "EU",
-      "content": "L'ÖAMTC a informé ses membres de l'entrée en vigueur, le 1er septembre 2026, de la 23e modification de la loi autrichienne sur le permis de conduire : nouvel examen possible après 12 jours au lieu de deux semaines en cas d'échec, attestation de perte valable 8 semaines au lieu de 4, permis international valable 3 ans au lieu d'un an, mais sanction de fraude à l'examen théorique portée à 18 mois d'interdiction contre 9 auparavant.",
-      "relevance": "Ces assouplissements administratifs combinés à un durcissement des sanctions contre la fraude illustrent une tendance sectorielle en Europe sur la modernisation des règles du permis. L'ACL pourrait vérifier si des mesures comparables sont à l'étude au Luxembourg pour ses propres services liés au permis de conduire.",
-      "badge": "INFO",
-      "url": "https://www.oeamtc.at/thema/fuehrerschein/23-fuehrerscheingesetz-novelle-was-sich-ab-september-2026-aendert-89071693"
-    },
-    {
-      "id": "2026-09-28-oeamtc-3",
-      "date": "2026-09-01",
-      "club": "ÖAMTC",
-      "category": "EU",
-      "content": "Andreas Rouschal a pris la direction d'ÖAMTC Fahrtechnik GmbH, la filiale de formation à la conduite du club autrichien, en remplacement de Karl-Martin Studener parti à la retraite après huit ans à ce poste ; le centre de Marchtrenk qu'il dirigeait depuis 2019 a accueilli plus de 20000 participants en 2025.",
-      "relevance": "Ce changement de direction souligne le poids économique de l'activité de formation à la conduite pour l'ÖAMTC, structurée en filiale dédiée. L'ACL pourrait s'inspirer de ce modèle pour structurer ou développer sa propre offre de formation à la conduite.",
-      "badge": "INFO",
-      "url": "https://www.oeamtc.at/presse/andreas-rouschal-neuer-geschaeftsfuehrer-der-oeamtc-fahrtechnik-89354502"
-    },
-    {
-      "id": "2026-09-28-aa-1",
-      "date": "2026-09-11",
-      "club": "AA",
-      "category": "Mobilité",
-      "content": "The AA a participé au Greenfleet Mythbusters EV Rally 2026 (7-11 septembre), un parcours de 1600 km à travers la Grande-Bretagne testant la fiabilité et l'autonomie des véhicules électriques, avec pour la première fois un itinéraire dédié aux poids lourds et remorques électriques ; Toyota GB a fourni les véhicules de l'équipe AA, arrivée parmi les plus efficientes de l'épreuve.",
-      "relevance": "Cette opération illustre comment un club automobile peut se positionner comme tiers de confiance sur la transition électrique via une démonstration terrain plutôt qu'un discours théorique, y compris sur le segment poids lourds/utilitaires. L'ACL pourrait-elle organiser ou co-parrainer un événement similaire au Luxembourg pour crédibiliser son expertise VE auprès des flottes professionnelles ?",
-      "badge": "SURVEILLER",
-      "url": "https://www.theaa.com/about-us/newsroom/AA-joins-EV-Rally-to-put-Britains-EV-readiness-to-the-test"
-    },
-    {
-      "id": "2026-09-28-aaa-1",
-      "date": "2026-09-11",
-      "club": "AAA",
-      "category": "Mobilité",
-      "content": "AAA a annoncé l'extension de son service de recharge mobile pour véhicules électriques à de nouvelles villes américaines, permettant aux patrouilles de recharger un VE en panne d'énergie directement sur place plutôt que de le remorquer.",
-      "relevance": "Ce service répond à un point de friction concret pour les automobilistes VE, l'absence de recharge de secours, et pourrait devenir un standard attendu par les membres à mesure que le parc électrique luxembourgeois croît. L'ACL devrait évaluer la faisabilité et le coût d'un service de recharge mobile d'appoint pour ses patrouilles.",
-      "badge": "SURVEILLER",
-      "url": "https://newsroom.acg.aaa.com/aaa-expanding-service-offers-mobile-electric-vehicle-charging-in-select-cities/"
-    },
-    {
-      "id": "2026-09-28-aaa-2",
-      "date": "2026-09-08",
-      "club": "AAA",
-      "category": "Monde",
-      "content": "AAA Western and Central New York a lancé avec l'équipe NFL des Buffalo Bills la carte \"AAA Bills MVP Membership\", combinant les services classiques (assistance routière 24/7, avantages voyage) à des expériences exclusives liées à l'équipe (billets, accès terrain, marchandising), avec le joueur Dion Dawkins comme ambassadeur.",
-      "relevance": "Ce partenariat montre une stratégie de recrutement de membres par affinité sportive et communautaire plutôt que par le seul argument sécurité/assistance. L'ACL pourrait-elle tester un partenariat similaire avec un club ou une fédération sportive luxembourgeoise pour toucher un public plus jeune ?",
-      "badge": "SURVEILLER",
-      "url": "https://westerncentralnyaaa.com/membership/AAA-Bills-MVP-Membership"
     },
     {
       "id": "2026-09-25-saaskia-web-I5JoGH",
@@ -756,6 +774,16 @@
       "date": "2026-09-24"
     },
     {
+      "id": "2026-09-28-tcs-1",
+      "date": "2026-09-23",
+      "club": "TCS",
+      "category": "Mobilité",
+      "content": "Le TCS a lancé dans son application un radar des prix de recharge électrique affichant en temps réel les tarifs de près de 19000 bornes en Suisse, avec filtres par type de prise, vitesse de charge et opérateur ; une fonction de signalement des prix erronés est prévue fin octobre 2026.",
+      "relevance": "Cet outil répond à un besoin croissant de transparence tarifaire pour les conducteurs de véhicules électriques et complète le radar carburants déjà existant du TCS. L'ACL pourrait évaluer la faisabilité d'un outil similaire pour les bornes de recharge publiques au Luxembourg et dans la Grande Région.",
+      "badge": "NOTABLE",
+      "url": "https://www.presseportal.ch/fr/pm/100000091/100942493"
+    },
+    {
       "id": "2026-09-23-saaskia-web-EHwW8i",
       "club": "chronicle.lu",
       "category": "Veille presse LU",
@@ -853,6 +881,46 @@
       "url": "https://saaskia.keepcontact.lu/data/files/1790141645.3899.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790141645.3899.pdf",
       "date": "2026-09-23"
+    },
+    {
+      "id": "2026-09-28-tcs-3",
+      "date": "2026-09-22",
+      "club": "TCS",
+      "category": "EU",
+      "content": "Le TCS a testé 32 pneus hiver dans deux dimensions (185/65 R15 et 225/50 R17) selon 19 critères, révélant jusqu'à 18 mètres d'écart de distance de freinage à 80 km/h entre les meilleurs et les pires modèles, et déconseille six références pour les berlines de taille moyenne.",
+      "relevance": "Ce test comparatif renforce la crédibilité du TCS en tant que conseiller technique indépendant avant la saison hivernale, à l'image de tests similaires menés en parallèle par l'ÖAMTC et l'ANWB. L'ACL publie-t-elle ou pourrait-elle publier un comparatif pneus hiver adapté au marché luxembourgeois ?",
+      "badge": "SURVEILLER",
+      "url": "https://www.presseportal.ch/fr/pm/100000091/100942459"
+    },
+    {
+      "id": "2026-09-28-anwb-1",
+      "date": "2026-09-22",
+      "club": "ANWB",
+      "category": "EU",
+      "content": "Le test hivernal 2026 de l'ANWB, portant sur des dizaines de pneus dans deux dimensions courantes (185/65 R15 et 225/50 R17), montre que les pneus toutes saisons de qualité constituent une alternative sûre et avantageuse au pneu hiver pour les petites voitures, avec d'importants écarts de qualité parmi les modèles bon marché.",
+      "relevance": "Ce type de test comparatif renforce la crédibilité du club auprès de ses membres automobilistes en approche de l'hiver. L'ACL pourrait-elle publier un comparatif similaire pneus toutes saisons versus pneus hiver, adapté au climat luxembourgeois ?",
+      "badge": "INFO",
+      "url": "https://www.anwb.nl/auto/nieuws/2026/september/allseasonband-voordeliger-dan-winterband"
+    },
+    {
+      "id": "2026-09-28-anwb-2",
+      "date": "2026-09-22",
+      "club": "ANWB",
+      "category": "Mobilité",
+      "content": "L'ANWB a dévoilé les 43 nominés de l'élection Auto van het Jaar 2027 ; le segment des voitures électriques sous 30000 euros s'est nettement étoffé avec l'arrivée de nouveaux modèles Kia, Mercedes et MG.",
+      "relevance": "L'élargissement rapide de l'offre de véhicules électriques abordables en Europe est un signal à surveiller pour les conseils d'achat de l'ACL à ses membres. Faut-il enrichir les guides d'achat de l'ACL d'un comparatif des véhicules électriques sous 30000 euros ?",
+      "badge": "SURVEILLER",
+      "url": "https://www.anwb.nl/auto/nieuws/2026/september/genomineerden-auto-van-het-jaar-2027-bekend"
+    },
+    {
+      "id": "2026-09-28-oeamtc-1",
+      "date": "2026-09-22",
+      "club": "ÖAMTC",
+      "category": "EU",
+      "content": "L'ÖAMTC a publié les résultats de son test de pneus hiver 2026 portant sur 32 modèles dans les dimensions 185/65 R15 et 225/50 R17 : seulement 6 pneus obtiennent la mention globale bonne, 11 satisfaisante, 6 suffisante et 9 échouent avec la mention insuffisante, notamment sur la tenue de route mouillée.",
+      "relevance": "Ce test comparatif indépendant, largement repris dans les médias autrichiens et mené en parallèle par le TCS et l'ANWB, renforce la crédibilité de l'ÖAMTC comme référence technique auprès du grand public. L'ACL pourrait-elle évaluer l'intérêt de publier ou relayer des tests de pneus similaires pour renforcer sa position d'expert auprès des membres luxembourgeois ?",
+      "badge": "SURVEILLER",
+      "url": "https://www.oeamtc.at/presse/oeamtc-winterreifentest-2026-viele-modelle-scheitern-an-ausgewogenheit-89560292"
     },
     {
       "id": "2026-09-22-saaskia-web-3dHmRC",
@@ -1096,6 +1164,16 @@
       "url": "https://www.fnv.nl/nieuwsbericht/algemeen-nieuws/2026/09/fnv-anwb-negeert-ultimatum-acties-starten-maandag"
     },
     {
+      "id": "2026-09-28-tcs-2",
+      "date": "2026-09-18",
+      "club": "TCS",
+      "category": "EU",
+      "content": "Le prix moyen du diesel en Suisse a atteint un niveau historique de 2,41 francs le litre le 18 septembre 2026, dépassant pour la première fois le précédent record de 2,40 francs établi en 2022, en raison de tensions géopolitiques et de difficultés d'approvisionnement.",
+      "relevance": "Cette communication illustre le rôle du TCS comme relais d'information fiable sur les prix carburants pour ses membres. L'ACL suit-il un indicateur comparable pour informer rapidement ses membres en cas de pic de prix au Luxembourg ?",
+      "badge": "INFO",
+      "url": "https://www.presseportal.ch/de/pm/100000091/100942393"
+    },
+    {
       "id": "2026-09-18-saaskia-web-pXNv1q",
       "club": "contacto.lu (Wort.lu/PT)",
       "category": "Veille presse LU",
@@ -1226,6 +1304,16 @@
       "url": "https://saaskia.keepcontact.lu/data/files/1789708476.0234.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789708476.0234.pdf",
       "date": "2026-09-18"
+    },
+    {
+      "id": "2026-09-28-adac-2",
+      "date": "2026-09-17",
+      "club": "ADAC",
+      "category": "Mobilité",
+      "content": "Une enquête ADAC menée auprès de plus de 1000 conducteurs de véhicules électriques montre que 97% se disent satisfaits ou très satisfaits de leur véhicule, mais environ un quart des répondants critique le manque de transparence et le coût des prix de recharge.",
+      "relevance": "Cette étude fournit des données chiffrées utiles sur la satisfaction et les freins perçus par les conducteurs de véhicules électriques. L'ACL pourrait-elle mener une enquête similaire auprès de ses membres électromobilistes pour objectiver leur satisfaction et leurs besoins au Luxembourg ?",
+      "badge": "INFO",
+      "url": "https://presse.adac.de/meldungen/adac-ev/technik/adac-umfrage-wie-zufrieden-sind-fahrer-von-e-autos.html"
     },
     {
       "id": "2026-09-17-saaskia-web-WgbFvU",
@@ -1696,6 +1784,36 @@
       "date": "2026-09-14"
     },
     {
+      "id": "2026-09-28-rac-1",
+      "date": "2026-09-11",
+      "club": "RAC",
+      "category": "EU",
+      "content": "Le RAC a organisé la première édition de ses RAC New Car Awards, désignant la Kia EV2, citadine électrique abordable, voiture de l'année et meilleure petite voiture électrique parmi 27 modèles finalistes répartis en neuf catégories.",
+      "relevance": "Ce nouveau prix propriétaire renforce la visibilité média et l'image d'expertise indépendante du RAC. L'ACL a-t-il intérêt à lancer ou renforcer un prix ACL récompensant les meilleurs modèles vendus au Luxembourg, en s'appuyant sur ses propres tests ?",
+      "badge": "NOTABLE",
+      "url": "https://www.rac.co.uk/drive/car-reviews/new-car-awards/winners/"
+    },
+    {
+      "id": "2026-09-28-aa-1",
+      "date": "2026-09-11",
+      "club": "AA",
+      "category": "Mobilité",
+      "content": "The AA a participé au Greenfleet Mythbusters EV Rally 2026 (7-11 septembre), un parcours de 1600 km à travers la Grande-Bretagne testant la fiabilité et l'autonomie des véhicules électriques, avec pour la première fois un itinéraire dédié aux poids lourds et remorques électriques ; Toyota GB a fourni les véhicules de l'équipe AA, arrivée parmi les plus efficientes de l'épreuve.",
+      "relevance": "Cette opération illustre comment un club automobile peut se positionner comme tiers de confiance sur la transition électrique via une démonstration terrain plutôt qu'un discours théorique, y compris sur le segment poids lourds/utilitaires. L'ACL pourrait-elle organiser ou co-parrainer un événement similaire au Luxembourg pour crédibiliser son expertise VE auprès des flottes professionnelles ?",
+      "badge": "SURVEILLER",
+      "url": "https://www.theaa.com/about-us/newsroom/AA-joins-EV-Rally-to-put-Britains-EV-readiness-to-the-test"
+    },
+    {
+      "id": "2026-09-28-aaa-1",
+      "date": "2026-09-11",
+      "club": "AAA",
+      "category": "Mobilité",
+      "content": "AAA a annoncé l'extension de son service de recharge mobile pour véhicules électriques à de nouvelles villes américaines, permettant aux patrouilles de recharger un VE en panne d'énergie directement sur place plutôt que de le remorquer.",
+      "relevance": "Ce service répond à un point de friction concret pour les automobilistes VE, l'absence de recharge de secours, et pourrait devenir un standard attendu par les membres à mesure que le parc électrique luxembourgeois croît. L'ACL devrait évaluer la faisabilité et le coût d'un service de recharge mobile d'appoint pour ses patrouilles.",
+      "badge": "SURVEILLER",
+      "url": "https://newsroom.acg.aaa.com/aaa-expanding-service-offers-mobile-electric-vehicle-charging-in-select-cities/"
+    },
+    {
       "id": "2026-09-11-saaskia-web-9UyjTI",
       "club": "infos.rtl.lu",
       "category": "Veille presse LU",
@@ -1894,6 +2012,16 @@
       "date": "2026-09-11"
     },
     {
+      "id": "2026-09-28-aci-1",
+      "date": "2026-09-10",
+      "club": "ACI",
+      "category": "EU",
+      "content": "ACI et la Région I de la FIA ont lancé la campagne sociale 2026 de sécurité routière sur le thème des distractions au volant, avec une participation record de 45 clubs affiliés diffusant le message en 24 langues en Europe, au Moyen-Orient et en Afrique, jusqu'en août 2027.",
+      "relevance": "Cette campagne illustre la capacité de mobilisation collective des clubs FIA à l'échelle européenne sur la sécurité routière, avec une portée et une durée inédites. L'ACL participe-t-elle à cette campagne régionale FIA et pourrait-elle en relayer le message auprès de ses membres ?",
+      "badge": "NOTABLE",
+      "url": "https://www.lautomobile.aci.it/attualita/sicurezza-stradale-aci-e-fia-lanciano-la-campagna-2026-contro-le-distrazioni-al-volante/"
+    },
+    {
       "id": "2026-09-21-aa-1",
       "date": "2026-09-10",
       "club": "AA",
@@ -1946,6 +2074,16 @@
       "url": "https://saaskia.keepcontact.lu/data/files/1789017102.1405.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789017102.1405.pdf",
       "date": "2026-09-10"
+    },
+    {
+      "id": "2026-09-28-adac-1",
+      "date": "2026-09-09",
+      "club": "ADAC",
+      "category": "EU",
+      "content": "L'ADAC SE a lancé un partenariat avec l'entreprise kleines kraftwerk pour proposer à ses 22 millions de membres trois solutions de centrales solaires de balcon prêtes à brancher, de 1000 à 2000 watts avec stockage sur batterie, avec un rabais d'au moins 10%.",
+      "relevance": "Ce partenariat élargit l'offre de services non automobiles de l'ADAC vers l'énergie domestique, un axe de diversification des avantages membres déjà observé chez d'autres grands clubs. L'ACL pourrait-elle explorer des partenariats similaires dans l'énergie ou l'habitat pour diversifier ses avantages membres ?",
+      "badge": "SURVEILLER",
+      "url": "https://www.presseportal.de/pm/122834/6348517"
     },
     {
       "id": "2026-09-09-saaskia-web-vK4SK3",
@@ -2001,6 +2139,16 @@
       "url": "https://saaskia.keepcontact.lu/data/files/1788930189.4608.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1788930189.4608.pdf",
       "date": "2026-09-09"
+    },
+    {
+      "id": "2026-09-28-aaa-2",
+      "date": "2026-09-08",
+      "club": "AAA",
+      "category": "Monde",
+      "content": "AAA Western and Central New York a lancé avec l'équipe NFL des Buffalo Bills la carte \"AAA Bills MVP Membership\", combinant les services classiques (assistance routière 24/7, avantages voyage) à des expériences exclusives liées à l'équipe (billets, accès terrain, marchandising), avec le joueur Dion Dawkins comme ambassadeur.",
+      "relevance": "Ce partenariat montre une stratégie de recrutement de membres par affinité sportive et communautaire plutôt que par le seul argument sécurité/assistance. L'ACL pourrait-elle tester un partenariat similaire avec un club ou une fédération sportive luxembourgeoise pour toucher un public plus jeune ?",
+      "badge": "SURVEILLER",
+      "url": "https://westerncentralnyaaa.com/membership/AAA-Bills-MVP-Membership"
     },
     {
       "id": "2026-09-08-saaskia-web-X5gZwN",
@@ -2350,6 +2498,16 @@
       "date": "2026-09-04"
     },
     {
+      "id": "2026-09-28-aci-2",
+      "date": "2026-09-03",
+      "club": "ACI",
+      "category": "Mobilité",
+      "content": "ACI a commenté les nouveaux résultats Euro NCAP 2026, où les protocoles renforcés ont attribué 5 étoiles à trois véhicules électriques chinois (Aion UT, Geely E2, Leapmotor B05) et 4 étoiles, 5 avec pack sécurité optionnel, à la Cupra Raval.",
+      "relevance": "Ces résultats confirment la montée en puissance des constructeurs chinois sur la sécurité des véhicules électriques, un point de vigilance pour les recommandations d'achat de l'ACL à ses membres. L'ACL devrait-elle intégrer ces résultats Euro NCAP dans sa communication sur le choix d'un véhicule électrique ?",
+      "badge": "SURVEILLER",
+      "url": "https://aci.gov.it/notizie/euro-ncap-le-case-automobilistiche-continuano-a-investire-in-sicurezza/"
+    },
+    {
       "id": "2026-09-21-adac-1",
       "date": "2026-09-03",
       "club": "ADAC",
@@ -2599,6 +2757,46 @@
       "url": "https://saaskia.keepcontact.lu/data/files/1788326498.4259.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1788326498.4259.pdf",
       "date": "2026-09-02"
+    },
+    {
+      "id": "2026-09-28-touring-2",
+      "date": "2026-09-01",
+      "club": "Touring Belgique",
+      "category": "EU",
+      "content": "Touring Belgique a détaillé les documents nécessaires pour immatriculer un véhicule d'occasion, dont le Car-Pass obligatoire et l'acte de vente, en rappelant que de nouvelles règles entreront en vigueur en Flandre à partir du 1er janvier 2027.",
+      "relevance": "Ce type de guide pratique pas à pas sur l'achat d'occasion est un format de contenu membre à forte utilité. L'ACL pourrait évaluer si un guide équivalent, adapté au contexte transfrontalier luxembourgeois, apporterait une valeur similaire à ses membres.",
+      "badge": "INFO",
+      "url": "https://www.touring.be/fr/articles/conseils-utiles-pour-lachat-dun-vehicule-doccasion"
+    },
+    {
+      "id": "2026-09-28-roole-1",
+      "date": "2026-09-01",
+      "club": "Roole",
+      "category": "EU",
+      "content": "Roole a publié sa synthèse mensuelle des changements réglementaires pour les automobilistes français au 1er septembre 2026, incluant un nouveau bonus pour l'achat ou la location longue durée d'un véhicule électrique d'occasion, des évolutions liées au permis de conduire et de nouvelles règles de sécurité routière.",
+      "relevance": "Ce format de synthèse mensuelle des changements réglementaires est un service à forte valeur ajoutée pour les membres. L'ACL pourrait évaluer l'intérêt de proposer un format similaire, adapté au contexte luxembourgeois et transfrontalier.",
+      "badge": "INFO",
+      "url": "https://media.roole.fr/quotidien/au-volant/ce-qui-change-pour-les-automobilistes-au-1er-septembre-2026-nouvelles-aides-permis-securite-routiere-travaux"
+    },
+    {
+      "id": "2026-09-28-oeamtc-2",
+      "date": "2026-09-01",
+      "club": "ÖAMTC",
+      "category": "EU",
+      "content": "L'ÖAMTC a informé ses membres de l'entrée en vigueur, le 1er septembre 2026, de la 23e modification de la loi autrichienne sur le permis de conduire : nouvel examen possible après 12 jours au lieu de deux semaines en cas d'échec, attestation de perte valable 8 semaines au lieu de 4, permis international valable 3 ans au lieu d'un an, mais sanction de fraude à l'examen théorique portée à 18 mois d'interdiction contre 9 auparavant.",
+      "relevance": "Ces assouplissements administratifs combinés à un durcissement des sanctions contre la fraude illustrent une tendance sectorielle en Europe sur la modernisation des règles du permis. L'ACL pourrait vérifier si des mesures comparables sont à l'étude au Luxembourg pour ses propres services liés au permis de conduire.",
+      "badge": "INFO",
+      "url": "https://www.oeamtc.at/thema/fuehrerschein/23-fuehrerscheingesetz-novelle-was-sich-ab-september-2026-aendert-89071693"
+    },
+    {
+      "id": "2026-09-28-oeamtc-3",
+      "date": "2026-09-01",
+      "club": "ÖAMTC",
+      "category": "EU",
+      "content": "Andreas Rouschal a pris la direction d'ÖAMTC Fahrtechnik GmbH, la filiale de formation à la conduite du club autrichien, en remplacement de Karl-Martin Studener parti à la retraite après huit ans à ce poste ; le centre de Marchtrenk qu'il dirigeait depuis 2019 a accueilli plus de 20000 participants en 2025.",
+      "relevance": "Ce changement de direction souligne le poids économique de l'activité de formation à la conduite pour l'ÖAMTC, structurée en filiale dédiée. L'ACL pourrait s'inspirer de ce modèle pour structurer ou développer sa propre offre de formation à la conduite.",
+      "badge": "INFO",
+      "url": "https://www.oeamtc.at/presse/andreas-rouschal-neuer-geschaeftsfuehrer-der-oeamtc-fahrtechnik-89354502"
     },
     {
       "id": "2026-09-21-tcs-1",
