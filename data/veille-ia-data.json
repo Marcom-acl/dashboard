@@ -1,6 +1,121 @@
 {
-  "generated_at": "2026-09-21",
+  "generated_at": "2026-09-28",
   "items": [
+    {
+      "date": "2026-09-22",
+      "theme": "IA générative en marketing",
+      "titre": "Picsart et Zappi lancent Vera, agent IA de validation créative publicitaire",
+      "synthese": "Le 22 septembre 2026, Picsart et Zappi ont dévoilé Vera, un agent IA disponible dans la Picsart Agent Marketplace qui évalue les créations publicitaires avant leur diffusion. Contrairement aux modèles génériques entraînés sur des données ouvertes, Vera s'appuie sur les données propriétaires de Zappi, issues de tests menés auprès de consommateurs réels pour des marques comme McDonald's, PepsiCo et Vodafone. L'outil délivre deux fonctions : des insights sur les préférences et comportements des audiences, et un score de validation créative avant mise en ligne. Validé sur des centaines de publicités numériques évaluées par de vrais consommateurs, le modèle de Zappi identifie la création la plus performante avec une précision de 86 à 93% selon les métriques testées. L'objectif affiché est de résoudre le goulot d'étranglement entre création et décision, en permettant de tester vidéos et concepts avant d'engager du budget média.",
+      "actionACL": "Avec une équipe Marcom réduite, un outil qui prédit la performance d'une création avant diffusion peut réduire le gaspillage de budget média sur les campagnes Facebook et Instagram. Suivre l'évolution tarifaire et la disponibilité européenne de Vera, actuellement intégré à Picsart, et comparer son ROI potentiel face à des tests A/B classiques avant toute adoption.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "FinancialContent (Business Wire)",
+          "url": "https://www.financialcontent.com/article/bizwire-2026-9-22-picsart-partners-with-zappi-to-unveil-vera-the-latest-ai-agent-bringing-real-world-consumer-insights-into-the-creative-workflow"
+        },
+        {
+          "name": "MarTech Series",
+          "url": "https://martechseries.com/content/picsart-partners-with-zappi-to-unveil-vera-the-latest-ai-agent-bringing-real-world-consumer-insights-into-the-creative-workflow/"
+        },
+        {
+          "name": "Yahoo Finance (syndication)",
+          "url": "https://finance.yahoo.com/technology/ai/articles/picsart-partners-zappi-unveil-vera-120000686.html"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-15",
+      "theme": "CRM & member marketing",
+      "titre": "Salesforce lance Koa, premier modèle de raisonnement dédié au CRM",
+      "synthese": "Annoncé le 15 septembre 2026 lors de Dreamforce, Koa est le premier modèle de raisonnement de Salesforce conçu spécifiquement pour les workflows CRM d'Agentforce, construit par post-entraînement de NVIDIA Nemotron 3 Super sur un jeu de données synthétique modélisé à partir de près de 30 ans de déploiements CRM. Sur le benchmark interne de Salesforce (mise à jour d'une opportunité, routage d'un dossier, planification d'une relance), Koa égale ou dépasse les modèles généralistes leaders avec 3 fois moins d'erreurs et une fiabilité 2,1 fois supérieure. Salesforce conserve les poids du modèle et l'exécute dans sa propre infrastructure, garantissant qu'aucune donnée client ne sort du périmètre de confiance pendant l'inférence. Le modèle est actuellement en pilote chez des clients sélectionnés (dont Xero, Formula 1, UChicago Medicine), avec une disponibilité générale prévue pour l'hiver 2026 aux États-Unis.",
+      "actionACL": "Ce modèle spécialisé illustre la tendance des CRM à intégrer un raisonnement métier propre plutôt qu'un LLM générique, un critère à ajouter au cahier des charges si l'ACL évalue une migration ou une mise à niveau de CRM dans les 12 prochains mois. Aucune action immédiate n'est requise vu le stade pilote, mais surveiller la disponibilité générale et son intégration éventuelle dans Salesforce si l'ACL utilise déjà cette plateforme.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "Salesforce (communiqué officiel)",
+          "url": "https://www.salesforce.com/news/press-releases/2026/09/15/koa-reasoning-model/"
+        },
+        {
+          "name": "Salesforce Ben",
+          "url": "https://www.salesforceben.com/salesforces-first-crm-reasoning-model-koa-is-revealed-at-dreamforce-26/"
+        },
+        {
+          "name": "Constellation Research",
+          "url": "https://www.constellationr.com/insights/news/salesforce-launches-koa-crm-reasoning-model-built-nvidias-nemotron"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-15",
+      "theme": "Social & Ads",
+      "titre": "Meta lance Meta One, abonnement payant avec IA pour les entreprises",
+      "synthese": "Meta a lancé le 15 septembre 2026 Meta One, un service d'abonnement mondial regroupant Instagram, Facebook, WhatsApp et Meta AI, avec quatre paliers pour les entreprises : Essential (14,99$/mois), Advanced (49,99$), Expert (149$) et Max (499$), facturés par profil. L'abonnement conditionne désormais l'accès à des fonctionnalités auparavant gratuites ou dispersées : badge vérifié, protection contre l'usurpation, insights concurrentiels et historique d'analyses exportable en CSV, programmation de contenu, liens dans les publications organiques et Reels, et un nombre croissant de réponses générées par le Meta Business Agent selon le palier. Le palier Advanced ajoute la programmation de stories jusqu'à 30 jours à l'avance et un accès multi-comptes sans partage de mot de passe. Meta revendique déjà 15 millions d'abonnements et essais actifs sur l'ensemble du service.",
+      "actionACL": "Meta transforme des outils historiquement gratuits (insights concurrentiels, badge vérifié, programmation avancée) en fonctionnalités payantes : évaluer dès maintenant si les pages Facebook et Instagram de l'ACL nécessitent le palier Essential ou Advanced pour conserver un niveau de service équivalent. Budgétiser cette dépense récurrente potentielle dans le plan Marcom 2027 et comparer le rapport coût/fonctionnalités avant la fin d'une éventuelle période d'essai.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "Meta Newsroom (communiqué officiel)",
+          "url": "https://about.fb.com/news/2026/09/introducing-meta-one-subscription-service-more-features-ai/"
+        },
+        {
+          "name": "TechCrunch",
+          "url": "https://techcrunch.com/2026/09/15/meta-expands-subscription-push-with-new-ai-focused-plans/"
+        },
+        {
+          "name": "Forbes",
+          "url": "https://www.forbes.com/sites/gabrielalinzainescu/2026/09/15/meta-one-turns-instagram-whatsapp-and-meta-ai-into-a-subscription/"
+        },
+        {
+          "name": "Jon Loomer Digital",
+          "url": "https://www.jonloomer.com/meta-one-business-plans/"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-23",
+      "theme": "Design & branding",
+      "titre": "YouTube dévoile un assistant IA conversationnel pour monter les Shorts",
+      "synthese": "Lors de l'événement Made on YouTube, tenu le 23 septembre 2026, YouTube a présenté plus de 30 nouveautés dont un assistant IA conversationnel intégré à l'application YouTube Create, basé sur les modèles Gemini Omni. Cet assistant agit comme un co-monteur virtuel capable d'assembler des rushs, proposer des idées et affiner un montage à partir d'instructions en langage naturel : réduction des silences, réorganisation des plans pour le rythme, ajout de texte à l'écran. YouTube a aussi annoncé un test de doublage automatique en temps réel pour les diffusions en direct, d'abord en anglais et espagnol début 2027, ainsi que la possibilité d'organiser des Shorts en saisons et épisodes pour les formats de micro-fictions verticales. De nouveaux outils de mise en relation avec les marques (modèles de pitch, détection facilitée par les annonceurs) viennent également faciliter les partenariats de sponsoring.",
+      "actionACL": "Tester l'assistant de montage conversationnel de YouTube Create pour accélérer la production de courtes vidéos institutionnelles (sécurité routière, conseils mobilité) avec une équipe réduite et sans compétences de montage avancées. Anticiper le doublage automatique en temps réel comme option future pour toucher les communautés frontalières non francophones lors d'événements diffusés en direct.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "INFO",
+      "sources": [
+        {
+          "name": "YouTube Blog (officiel)",
+          "url": "https://blog.youtube/news-and-events/innovation-youtube-era-made-on-viewers-creators/"
+        },
+        {
+          "name": "Social Media Today",
+          "url": "https://www.socialmediatoday.com/news/youtube-presents-new-ai-and-engagement-features-at-made-on-2026/831216/"
+        },
+        {
+          "name": "iPhone in Canada",
+          "url": "https://www.iphoneincanada.ca/2026/09/23/made-on-youtube-2026-event-unveils-major-ai-upgrades/"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-25",
+      "theme": "Design & branding",
+      "titre": "Nielsen Norman Group propose le cadre PACED pour divulguer l'usage de l'IA",
+      "synthese": "Publié le 25 septembre 2026 par Nielsen Norman Group, l'article propose le cadre PACED (Policy, Audience, Context, Expectations, Degree) pour décider quand et comment divulguer l'usage de l'IA générative dans un contenu. La recherche montre que les réactions à une divulgation varient fortement selon l'audience, le contexte et le degré réel de contribution de l'IA, la divulgation par un tiers plutôt que par la marque elle-même déclenchant les réactions les plus négatives. Le cadre recommande de divulguer proactivement avant qu'une plateforme ou un tiers ne le fasse à la place de la marque. Ce travail intervient alors que les obligations de transparence de l'AI Act européen sur le contenu généré par IA sont entrées en application en août 2026.",
+      "actionACL": "Formaliser une politique interne de divulgation de l'IA générative pour les communications ACL (newsletters, visuels, vidéos courtes) en s'appuyant sur la grille PACED, en priorité pour les contenus à forte exigence de confiance (sécurité routière, assurance) où la crédibilité perçue est critique. Vérifier la conformité de cette politique avec les obligations de transparence de l'AI Act déjà en vigueur.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "Nielsen Norman Group",
+          "url": "https://www.nngroup.com/articles/disclose-ai-paced/"
+        },
+        {
+          "name": "iMasters (résumé/traduction)",
+          "url": "https://imasters.com.br/design-ux/o-framework-paced-ajuda-a-decidir-quando-revelar-o-uso-de-ia-no-produto"
+        }
+      ]
+    },
     {
       "date": "2026-09-16",
       "theme": "CRM & member marketing",
