@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-28",
+  "generated_at": "2026-09-29",
   "next_edition": "",
   "editions": [
     {
@@ -321,18 +321,132 @@
     {
       "date": "2026-09-28",
       "label": "Semaine du 2026-09-28"
+    },
+    {
+      "date": "2026-09-29",
+      "label": "Semaine du 2026-09-29"
     }
   ],
   "items": [
+    {
+      "id": "2026-09-29-saaskia-web-ah7ePP",
+      "club": "virgule.lu (Wort.lu/FR)",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Analyse comparative du temps de travail nécessaire pour se payer un plein d'essence au Luxembourg et en Europe, offrant un aperçu des coûts de carburant relatifs.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1790660481.0768.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790660481.0768.pdf",
+      "date": "2026-09-29"
+    },
+    {
+      "id": "2026-09-29-saaskia-web-BxqKb3",
+      "club": "contacto.lu (Wort.lu/PT)",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Article questionnant la pertinence de l'achat de voitures diesel au Luxembourg face à l'évolution du marché automobile.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1790660446.3835.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790660446.3835.pdf",
+      "date": "2026-09-29"
+    },
+    {
+      "id": "2026-09-29-saaskia-web-JJYEFI",
+      "club": "Corporatenews.lu / Merkur.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Wolt s'associe au Conseil européen de la sécurité des transports pour améliorer la sécurité routière en ville pour les coursiers, cyclistes et piétons.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1790660388.4098.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790660388.4098.pdf",
+      "date": "2026-09-29"
+    },
+    {
+      "id": "2026-09-29-saaskia-web-L3PZeK",
+      "club": "diegrenzgaenger.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Analyse de l'impact des transports publics gratuits sur l'utilisation de l'automobile au Luxembourg, montrant que la voiture reste un mode de transport dominant.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1790660352.3229.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790660352.3229.pdf",
+      "date": "2026-09-29"
+    },
+    {
+      "id": "2026-09-29-saaskia-web-Bp8lZn",
+      "club": "luxtimes.lu (Wort.lu/en)",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Article en anglais analysant la viabilité des voitures diesel au Luxembourg avec les immatriculations en baisse en dessous de 10%.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1790660321.3183.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790660321.3183.pdf",
+      "date": "2026-09-29"
+    },
+    {
+      "id": "2026-09-29-saaskia-web-c5drUx",
+      "club": "Le Quotidien",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "La commune d'Esch développe un réseau cyclable pour l'avenir, reflétant les efforts de mobilité douce au Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1790660274.0115.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790660274.0115.pdf",
+      "date": "2026-09-29"
+    },
+    {
+      "id": "2026-09-29-saaskia-web-wUJuur",
+      "club": "4x3",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Développement du projet LuxHyVal favorisant l'hydrogène vert luxembourgeois comme solution de mobilité durable.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1790660193.1094.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790660193.1094.pdf",
+      "date": "2026-09-29"
+    },
+    {
+      "id": "2026-09-29-saaskia-web-YBys9U",
+      "club": "Luxemburger Wort",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Article en allemand questionnant la pertinence de l'achat de voitures diesel au Luxembourg dans le contexte actuel du marché.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1790657112.8822.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790657112.8822.pdf",
+      "date": "2026-09-29"
+    },
     {
       "id": "2026-09-28-saaskia-web-Nl8Czo",
       "club": "chronicle.lu",
       "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "content": "GO Electric Day met en avant les dernières solutions en électromobilité. Événement majeur dans le secteur de la mobilité électrique au Luxembourg.",
+      "content": "GO Electric Day présente les dernières solutions en électromobilité, un événement clé pour la promotion de véhicules électriques.",
       "relevance": "ACL explicitement cité : \"GO Electric Day\"",
       "url": "https://saaskia.keepcontact.lu/data/files/1790574569.2614.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790574569.2614.pdf",
+      "date": "2026-09-28"
+    },
+    {
+      "id": "2026-09-28-saaskia-web-nDXPku",
+      "club": "Agefi.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Construction d'un nouveau pôle de mobilité à Hollerich, projet porté par la Chambre des Députés pour améliorer les infrastructures de transport.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1790574539.5381.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790574539.5381.pdf",
+      "date": "2026-09-28"
+    },
+    {
+      "id": "2026-09-28-saaskia-web-b7x4bQ",
+      "club": "Delano.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Volkswagen et Audi lancent un rappel de plus de 2,8 millions de voitures pour des raisons de sécurité.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1790574513.3969.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790574513.3969.pdf",
       "date": "2026-09-28"
     },
     {
@@ -340,10 +454,98 @@
       "club": "100komma7.lu",
       "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "content": "L'électromobilité gagne en popularité avec 10 fois plus d'immatriculations qu'il y a 6 ans au Luxembourg. Tendance positive du secteur des véhicules électriques.",
-      "relevance": "ACL explicitement cité : \"Elektromobilitéit\"",
+      "content": "L'électromobilité connaît une croissance explosive au Luxembourg avec 10 fois plus d'immatriculations qu'il y a 6 ans.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1790574493.3082.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790574493.3082.pdf",
+      "date": "2026-09-28"
+    },
+    {
+      "id": "2026-09-28-saaskia-web-8Asn9x",
+      "club": "Le Quotidien",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "Guide pratique sur les clés essentielles pour adopter la mobilité électrique au Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1790574412.6026.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790574412.6026.pdf",
+      "date": "2026-09-28"
+    },
+    {
+      "id": "2026-09-28-saaskia-web-x8M3xk",
+      "club": "lequotidien.lu",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "Accélération de la mobilité électrique au Luxembourg avec focus sur l'optimisation de l'autoconsommation énergétique chez les utilisateurs.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1790574376.5476.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790574376.5476.pdf",
+      "date": "2026-09-28"
+    },
+    {
+      "id": "2026-09-28-saaskia-web-x8r0rS",
+      "club": "siliconluxembourg.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Wolt collabore avec l'European Transport Safety Council pour renforcer la sécurité routière au Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1790574176.4868.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790574176.4868.pdf",
+      "date": "2026-09-28"
+    },
+    {
+      "id": "2026-09-28-saaskia-web-ZFKhFZ",
+      "club": "virgule.lu (Wort.lu/FR)",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "GO Electric Day 2026 offre la possibilité de tester des véhicules électriques et de découvrir les solutions de recharge à domicile.",
+      "relevance": "ACL explicitement cité : \"GO electric day\"",
+      "url": "https://saaskia.keepcontact.lu/data/files/1790574097.0986.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790574097.0986.pdf",
+      "date": "2026-09-28"
+    },
+    {
+      "id": "2026-09-28-saaskia-web-0AGsz9",
+      "club": "tageblatt.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Le conseil municipal envisage de réduire la limite de vitesse devant la mairie pour améliorer la sécurité routière.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1790574035.9558.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790574035.9558.pdf",
+      "date": "2026-09-28"
+    },
+    {
+      "id": "2026-09-28-saaskia-web-k03n6U",
+      "club": "today.RTL.lu",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "70 véhicules sont exposés lors d'un événement automobile majeur, showcase d'électromobilité et de solutions de transport.",
+      "relevance": "ACL explicitement cité : \"70 vehicles\"",
+      "url": "https://saaskia.keepcontact.lu/data/files/1790573991.7043.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790573991.7043.pdf",
+      "date": "2026-09-28"
+    },
+    {
+      "id": "2026-09-28-saaskia-web-cBZJkB",
+      "club": "lesfrontaliers.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Les prix des carburants repartent à la hausse au Luxembourg, impactant les coûts de mobilité des résidents et frontaliers.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1790573951.3585.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790573951.3585.pdf",
+      "date": "2026-09-28"
+    },
+    {
+      "id": "2026-09-28-saaskia-web-IicSYF",
+      "club": "wort.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Article en allemand réexaminant la question de la pertinence de l'achat de véhicules diesel au Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1790573783.9126.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790573783.9126.pdf",
       "date": "2026-09-28"
     },
     {
@@ -355,116 +557,6 @@
       "relevance": "ACL explicitement cité : \"Tester\"",
       "url": "https://saaskia.keepcontact.lu/data/files/1790574459.8139.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790574459.8139.pdf",
-      "date": "2026-09-28"
-    },
-    {
-      "id": "2026-09-28-saaskia-web-8Asn9x",
-      "club": "Le Quotidien",
-      "category": "Veille presse LU",
-      "badge": "NOTABLE",
-      "content": "Guide pratique pour se lancer dans la mobilité électrique au Luxembourg. Ressource informative pour les futurs utilisateurs de véhicules électriques.",
-      "relevance": "ACL explicitement cité : \"Mobilité électrique\"",
-      "url": "https://saaskia.keepcontact.lu/data/files/1790574412.6026.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790574412.6026.pdf",
-      "date": "2026-09-28"
-    },
-    {
-      "id": "2026-09-28-saaskia-web-x8M3xk",
-      "club": "lequotidien.lu",
-      "category": "Veille presse LU",
-      "badge": "NOTABLE",
-      "content": "La mobilité électrique s'accélère au Luxembourg avec un focus sur l'optimisation de l'autoconsommation énergétique. Interview sur les tendances actuelles.",
-      "relevance": "ACL explicitement cité : \"mobilité électrique\"",
-      "url": "https://saaskia.keepcontact.lu/data/files/1790574376.5476.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790574376.5476.pdf",
-      "date": "2026-09-28"
-    },
-    {
-      "id": "2026-09-28-saaskia-web-x8r0rS",
-      "club": "siliconluxembourg.lu",
-      "category": "Veille presse LU",
-      "badge": "NOTABLE",
-      "content": "Wolt s'associe avec ETSC sur la sécurité routière. Partenariat important pour améliorer les normes de sécurité sur les routes.",
-      "relevance": "ACL explicitement cité : \"Road Safety\"",
-      "url": "https://saaskia.keepcontact.lu/data/files/1790574176.4868.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790574176.4868.pdf",
-      "date": "2026-09-28"
-    },
-    {
-      "id": "2026-09-28-saaskia-web-ZFKhFZ",
-      "club": "virgule.lu (Wort.lu/FR)",
-      "category": "Veille presse LU",
-      "badge": "NOTABLE",
-      "content": "GO electric day 2026 propose des essais de véhicules et des solutions de recharge à domicile. Événement pratique d'électromobilité pour les citoyens.",
-      "relevance": "ACL explicitement cité : \"GO electric day\"",
-      "url": "https://saaskia.keepcontact.lu/data/files/1790574097.0986.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790574097.0986.pdf",
-      "date": "2026-09-28"
-    },
-    {
-      "id": "2026-09-28-saaskia-web-k03n6U",
-      "club": "today.RTL.lu",
-      "category": "Veille presse LU",
-      "badge": "NOTABLE",
-      "content": "70 véhicules en exposition lors d'un événement de mobilité. Showcase important du secteur automobile et électromobilité.",
-      "relevance": "ACL explicitement cité : \"70 vehicles on display\"",
-      "url": "https://saaskia.keepcontact.lu/data/files/1790573991.7043.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790573991.7043.pdf",
-      "date": "2026-09-28"
-    },
-    {
-      "id": "2026-09-28-saaskia-web-IicSYF",
-      "club": "wort.lu",
-      "category": "Veille presse LU",
-      "badge": "NOTABLE",
-      "content": "Analyse de la pertinence d'acheter un diesel en 2026 au Luxembourg. Réflexion sur les choix de motorisation et l'électromobilité.",
-      "relevance": "ACL explicitement cité : \"Diesel\"",
-      "url": "https://saaskia.keepcontact.lu/data/files/1790573783.9126.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790573783.9126.pdf",
-      "date": "2026-09-28"
-    },
-    {
-      "id": "2026-09-28-saaskia-web-nDXPku",
-      "club": "Agefi.lu",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Construction d'un nouveau pôle de mobilité à Hollerich à Luxembourg. Investissement majeur en infrastructure de mobilité urbaine.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1790574539.5381.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790574539.5381.pdf",
-      "date": "2026-09-28"
-    },
-    {
-      "id": "2026-09-28-saaskia-web-0AGsz9",
-      "club": "tageblatt.lu",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Le conseil municipal souhaite réduire les vitesses devant la mairie. Mesure de sécurité routière locale.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1790574035.9558.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790574035.9558.pdf",
-      "date": "2026-09-28"
-    },
-    {
-      "id": "2026-09-28-saaskia-web-cBZJkB",
-      "club": "lesfrontaliers.lu",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Les carburants connaissent une hausse au Luxembourg. Impact sur les prix des carburants pour les automobilistes.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1790573951.3585.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790573951.3585.pdf",
-      "date": "2026-09-28"
-    },
-    {
-      "id": "2026-09-28-saaskia-web-b7x4bQ",
-      "club": "Delano.lu",
-      "category": "Veille presse LU",
-      "badge": "INFO",
-      "content": "Volkswagen et Audi procèdent au rappel de plus de 2,8 millions de voitures. Campagne importante de sécurité automobile.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1790574513.3969.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790574513.3969.pdf",
       "date": "2026-09-28"
     },
     {
