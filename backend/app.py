@@ -5682,6 +5682,176 @@ def wrike_create_request():
 
 
 # ─────────────────────────────────────────────────────────────────────────────
+# Générateur newsletter PowerON
+# ─────────────────────────────────────────────────────────────────────────────
+# Les routes du dashboard ne sont pas protégées côté serveur (login vérifié
+# côté navigateur) : chaque route ci-dessous borne donc elle-même ce qu'elle
+# accepte (taille, type, destinataires @acl.lu uniquement pour l'envoi test).
+
+import tempfile as _tempfile
+import uuid as _uuid
+
+POWERON_SENDER       = {'email': 'digital@acl.lu', 'name': 'ACL – POWER ON!'}
+POWERON_TEST_DOMAIN  = '@acl.lu'
+POWERON_MAX_IMAGE    = 8 * 1024 * 1024
+POWERON_MAX_HTML     = 400 * 1024
+POWERON_IMAGE_TYPES  = {'image/jpeg': '.jpg', 'image/png': '.png'}
+# Dossier disque (et non mémoire) : Brevo vient chercher l'image par HTTP,
+# la requête peut tomber sur un autre worker si l'app passe sous gunicorn.
+POWERON_TMP_DIR      = os.path.join(_tempfile.gettempdir(), 'poweron-uploads')
+POWERON_TMP_TTL      = 15 * 60
+
+
+def _poweron_purge_tmp():
+    try:
+        now = time.time()
+        for name in os.listdir(POWERON_TMP_DIR):
+            p = os.path.join(POWERON_TMP_DIR, name)
+            if now - os.path.getmtime(p) > POWERON_TMP_TTL:
+                os.remove(p)
+    except OSError:
+        pass
+
+
+@app.route('/poweron/tmp/<name>')
+def poweron_tmp_image(name):
+    """Sert brièvement l'image uploadée pour que Brevo puisse la récupérer."""
+    if not re.fullmatch(r'[0-9a-f]{32}\.(jpg|png)', name):
+        return jsonify({'error': 'Not found'}), 404
+    path = os.path.join(POWERON_TMP_DIR, name)
+    if not os.path.exists(path):
+        return jsonify({'error': 'Not found'}), 404
+    from flask import send_file
+    return send_file(path, mimetype='image/jpeg' if name.endswith('.jpg') else 'image/png')
+
+
+@app.route('/poweron/upload-image', methods=['POST'])
+def poweron_upload_image():
+    """Reçoit une image, la dépose dans la galerie Brevo, renvoie son URL HTTPS publique.
+    L'API Brevo n'accepte qu'une URL source : l'image est donc d'abord exposée
+    temporairement via /poweron/tmp/<id>, puis supprimée une fois copiée."""
+    if not BREVO_API_KEY:
+        return jsonify({'error': 'BREVO_API_KEY manquante'}), 503
+    f = request.files.get('image')
+    if not f:
+        return jsonify({'error': 'Aucune image reçue'}), 400
+    ext = POWERON_IMAGE_TYPES.get(f.mimetype)
+    if not ext:
+        return jsonify({'error': 'Format accepté : JPG ou PNG'}), 400
+    data = f.read(POWERON_MAX_IMAGE + 1)
+    if len(data) > POWERON_MAX_IMAGE:
+        return jsonify({'error': 'Image trop lourde (8 Mo max)'}), 400
+
+    os.makedirs(POWERON_TMP_DIR, exist_ok=True)
+    _poweron_purge_tmp()
+    name = _uuid.uuid4().hex + ext
+    path = os.path.join(POWERON_TMP_DIR, name)
+    with open(path, 'wb') as out:
+        out.write(data)
+
+    label = re.sub(r'[^A-Za-z0-9_-]+', '-', (request.form.get('name') or 'image'))[:60].strip('-') or 'image'
+    try:
+        r = requests.post(
+            'https://api.brevo.com/v3/emailCampaigns/images',
+            headers={'api-key': BREVO_API_KEY, 'accept': 'application/json', 'content-type': 'application/json'},
+            json={'imageUrl': f'{APP_URL}/poweron/tmp/{name}', 'name': f'poweron-{label}{ext}'},
+            timeout=30, verify=_VERIFY,
+        )
+        if not r.ok:
+            return jsonify({'error': f'Brevo {r.status_code}', 'detail': r.text[:300]}), 502
+        url = (r.json() or {}).get('url', '')
+        if not url.startswith('https://'):
+            return jsonify({'error': 'Réponse Brevo inattendue', 'detail': r.text[:300]}), 502
+        return jsonify({'url': url})
+    except requests.RequestException as e:
+        return jsonify({'error': f'Brevo injoignable : {e}'}), 502
+    finally:
+        try:
+            os.remove(path)
+        except OSError:
+            pass
+
+
+@app.route('/poweron/translate', methods=['POST'])
+def poweron_translate():
+    """Traduit en allemand un dictionnaire {clé: texte FR} et renvoie les mêmes clés."""
+    if not ANTHROPIC_API_KEY:
+        return jsonify({'error': 'ANTHROPIC_API_KEY manquante'}), 503
+    texts = (request.json or {}).get('texts') or {}
+    if not isinstance(texts, dict) or not texts:
+        return jsonify({'error': 'Aucun texte à traduire'}), 400
+    texts = {str(k): str(v) for k, v in texts.items() if str(v).strip()}
+    if sum(len(v) for v in texts.values()) > 60000:
+        return jsonify({'error': 'Texte trop long pour une traduction'}), 400
+
+    prompt = (
+        "Tu traduis en allemand (Hochdeutsch, usage luxembourgeois) une newsletter interne "
+        "destinée aux collaborateurs d'une entreprise. Ton : professionnel, chaleureux, direct ; "
+        "garder le tutoiement/vouvoiement collectif équivalent (« vous » → « Sie »).\n"
+        "Règles :\n"
+        "- Conserver exactement les balises HTML présentes (<p>, <strong>, <em>, <a href>, <br>) et leurs attributs.\n"
+        "- Ne pas traduire les noms de personnes, de marques ni de produits.\n"
+        "- Conserver les chiffres, dates et formats numériques tels quels.\n"
+        "- Guillemets français « » → guillemets allemands „ “.\n"
+        "- Ne jamais ajouter d'indication de fréquence de parution.\n"
+        "Réponds UNIQUEMENT avec un objet JSON ayant exactement les mêmes clés, valeurs traduites.\n\n"
+        + json.dumps(texts, ensure_ascii=False)
+    )
+    try:
+        import anthropic
+        client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
+        msg = client.messages.create(
+            model='claude-sonnet-5',
+            max_tokens=16000,
+            messages=[{'role': 'user', 'content': prompt}],
+        )
+        raw = ''.join(b.text for b in msg.content if getattr(b, 'type', '') == 'text').strip()
+        m = re.search(r'\{.*\}', raw, re.S)
+        out = json.loads(m.group(0) if m else raw)
+        return jsonify({'texts': {k: str(out.get(k, '')) for k in texts}})
+    except (ValueError, AttributeError):
+        return jsonify({'error': 'Traduction illisible, réessayer'}), 502
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/poweron/send-test', methods=['POST'])
+def poweron_send_test():
+    """Envoie le HTML généré en test via Brevo, uniquement vers des adresses @acl.lu."""
+    if not BREVO_API_KEY:
+        return jsonify({'error': 'BREVO_API_KEY manquante'}), 503
+    data = request.json or {}
+    html = data.get('html') or ''
+    subject = (data.get('subject') or 'POWER ON!').strip()[:200]
+    to = [e.strip().lower() for e in (data.get('to') or []) if isinstance(e, str) and e.strip()]
+    if not html or len(html.encode('utf-8')) > POWERON_MAX_HTML:
+        return jsonify({'error': 'HTML vide ou trop lourd'}), 400
+    if not to or len(to) > 3:
+        return jsonify({'error': '1 à 3 destinataires'}), 400
+    bad = [e for e in to if not re.fullmatch(r'[a-z0-9._%+-]+' + re.escape(POWERON_TEST_DOMAIN), e)]
+    if bad:
+        return jsonify({'error': f'Envoi test limité aux adresses {POWERON_TEST_DOMAIN} : {", ".join(bad)}'}), 400
+    try:
+        r = requests.post(
+            'https://api.brevo.com/v3/smtp/email',
+            headers={'api-key': BREVO_API_KEY, 'accept': 'application/json', 'content-type': 'application/json'},
+            json={
+                'sender': POWERON_SENDER,
+                'to': [{'email': e} for e in to],
+                'subject': f'[TEST] {subject}',
+                'htmlContent': html,
+                'tags': ['poweron-test'],
+            },
+            timeout=30, verify=_VERIFY,
+        )
+        if not r.ok:
+            return jsonify({'error': f'Brevo {r.status_code}', 'detail': r.text[:300]}), 502
+        return jsonify({'ok': True})
+    except requests.RequestException as e:
+        return jsonify({'error': f'Brevo injoignable : {e}'}), 502
+
+
+# ─────────────────────────────────────────────────────────────────────────────
 # Entrypoint
 # ─────────────────────────────────────────────────────────────────────────────
 

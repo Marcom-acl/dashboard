@@ -1422,6 +1422,11 @@
     <div class="sb-section">
       <div class="sb-section-title">Outils</div>
       <nav class="sb-nav">
+        <button class="sb-item tab-btn" data-tab="poweron" title="Newsletter POWER ON!">
+          <span class="sb-ic-wrap" style="background:rgba(254,219,0,.25);--ic-color:#231f20"><svg class="sb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg></span>
+          <span class="sb-item-label">Newsletter PowerON</span>
+          <span class="sb-pill">Newsletter PowerON</span>
+        </button>
         <button class="sb-item" id="openCfg" title="Configuration">
           <span class="sb-ic-wrap" style="background:rgba(107,114,128,.15);--ic-color:#6B7280"><svg class="sb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h0a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h0a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v0a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span>
           <span class="sb-item-label">Configuration</span>
@@ -1555,6 +1560,9 @@
 
         <!-- ── COÛT DE L'ÉNERGIE ─────────────────────────────────── -->
         <div id="panel-energy-costs" class="tab-panel"></div>
+
+        <!-- ── NEWSLETTER POWERON (outil) ────────────────────────── -->
+        <div id="panel-poweron" class="tab-panel"></div>
 
         <!-- ── INTELLIGENCE WEB ──────────────────────────────────── -->
         <div id="panel-intelligence" class="tab-panel"></div>
@@ -1840,6 +1848,7 @@ function _renderTab(tab) {
   else if (tab === 'veille-ia')   renderVeilleIA();
   else if (tab === 'car-market')  renderCarMarket(d.dCarReg);
   else if (tab === 'energy-costs') renderEnergyCosts(_energyData);
+  else if (tab === 'poweron')      window.renderPowerOn?.();
 }
 
 // ── loadAll ───────────────────────────────────────────────────
@@ -8545,6 +8554,7 @@ const TAB_ENDPOINTS = {
   'veille-ia':  [],
   'car-market': ['car-registrations'],
   'energy-costs': [],
+  'poweron':    [],
 };
 
 // Endpoint → clé dans window._dashData
@@ -9884,5 +9894,6 @@ setDateRange(30);
   });
 })();
 </script>
+<script src="poweron-builder.js"></script>
 </body>
 </html>
