@@ -16,11 +16,18 @@
   const person = () => ({ name: '', photo: { url: '' } });
   const newFocus = () => ({ ...person(), twoCols: true,
     t: { fr: { label: 'Focus projet', title: '', role: '', body: '' }, de: { label: 'Projekt im Fokus' } },
-    contrib: { on: false, ...person(), t: { fr: { title: '', role: '', quote: '' }, de: {} } } });
+    contrib: { on: false, ...person(), t: { fr: { title: '', role: '', quote: '' }, de: {} } },
+    // Blocs affichés juste après ce projet (en plus de ceux de fin d'email)
+    extras: { gallery: newGallery(), encadre: newEncadre(), kpis: newKpis() } });
   const newMetier = () => ({ ...person(),
     t: { fr: { label: 'Focus métier', title: '', role: '', quote: '' }, de: { label: 'Berufsfokus' } } });
   const newKpi = () => ({ t: { fr: { value: '', label: '' }, de: {} } });
   const newCol = () => ({ t: { fr: { subtitle: '', items: '' }, de: {} } });
+  const newGallery = () => ({ on: false, photos: [{ url: '', alt: '' }] });
+  const newEncadre = () => ({ on: false, cols: [newCol(), newCol()], t: { fr: { title: '' }, de: {} } });
+  const newKpis = () => ({ on: false, items: [newKpi(), newKpi(), newKpi()] });
+  // sig : signature manuscrite (image PNG), w/h = taille d'affichage en px
+  const newSigner = () => ({ ...person(), sig: { url: '', w: 0, h: 0 }, t: { fr: { title: '' }, de: {} } });
 
   function blank() {
     return {
@@ -28,11 +35,11 @@
       meta: { edition: '', t: { fr: { periode: '', headline: '', preheader: '' }, de: { headline: '' } } },
       edito:     { on: true, ...person(), t: { fr: { label: 'Édito', title: '', body: '' }, de: { label: 'Editorial' } } },
       focus:     [newFocus()],
-      gallery:   { on: false, photos: [{ url: '', alt: '' }] },
+      gallery:   newGallery(),
       metier:    [],
-      encadre:   { on: false, cols: [newCol(), newCol()], t: { fr: { title: '' }, de: {} } },
-      kpis:      { on: false, items: [newKpi(), newKpi(), newKpi()] },
-      signature: { on: true, ...person(), t: { fr: { title: '', body: '' }, de: {} } },
+      encadre:   newEncadre(),
+      kpis:      newKpis(),
+      signature: { on: true, people: [newSigner()], t: { fr: { body: '' }, de: {} } },
       de:        { on: false, src: '' },
     };
   }
@@ -44,8 +51,19 @@
   let built = false;
 
   function load() {
-    try { const s = JSON.parse(localStorage.getItem(LS_KEY) || 'null'); if (s && s.v === 1) return s; } catch (e) {}
+    try { const s = JSON.parse(localStorage.getItem(LS_KEY) || 'null'); if (s && s.v === 1) return migrate(s); } catch (e) {}
     return blank();
+  }
+  // Brouillons créés avant l'ajout des blocs par projet et des 2 signataires
+  function migrate(s) {
+    s.focus.forEach(f => { if (!f.extras) f.extras = { gallery: newGallery(), encadre: newEncadre(), kpis: newKpis() }; });
+    const g = s.signature;
+    if (!g.people) {
+      g.people = [{ name: g.name || '', photo: g.photo || { url: '' }, sig: { url: '', w: 0, h: 0 },
+        t: { fr: { title: g.t.fr.title || '' }, de: { title: (g.t.de || {}).title || '' } } }];
+      delete g.name; delete g.photo; delete g.t.fr.title; if (g.t.de) delete g.t.de.title;
+    }
+    return s;
   }
   function save() { try { localStorage.setItem(LS_KEY, JSON.stringify(S)); } catch (e) {} }
 
@@ -191,8 +209,8 @@ ${pp(ps.slice(mid))}
           <!-- FOCUS PROJET -->` + row(22, [secLabel(tx(f, 'label', l)), f.name ? personHead(f, subOf(f, l), SZ_HEAD) : '', body, contrib].filter(Boolean).join('\n'));
   }
 
-  function blkGallery(l) {
-    const ph = S.gallery.photos.filter(p => isUrl(p.url));
+  function blkGallery(g) {
+    const ph = g.photos.filter(p => isUrl(p.url));
     if (!ph.length) return '';
     const n = ph.length, w = n === 1 ? 552 : n === 2 ? 268 : 173, h = Math.round(w * 0.75);
     const pct = n === 1 ? '100%' : n === 2 ? '50%' : '33.33%';
@@ -213,8 +231,7 @@ ${cells}
           <!-- FOCUS MÉTIER -->` + row(28, [secLabel(tx(m, 'label', l)), quoteCard(m, m, l)].join('\n'));
   }
 
-  function blkEncadre(l) {
-    const E = S.encadre;
+  function blkEncadre(E, l) {
     const cols = E.cols.filter(c => tx(c, 'subtitle', l).trim() || tx(c, 'items', l).trim());
     if (!cols.length && !tx(E, 'title', l).trim()) return '';
     const col = (c, i, n) => {
@@ -240,8 +257,8 @@ ${cols.map((c, i) => col(c, i, cols.length)).join('\n')}
               </table>`);
   }
 
-  function blkKpis(l) {
-    const items = S.kpis.items.filter(k => tx(k, 'value', l).trim());
+  function blkKpis(K, l) {
+    const items = K.items.filter(k => tx(k, 'value', l).trim());
     if (!items.length) return '';
     const w = Math.floor(100 / items.length) + '%';
     const cells = items.map((k, i) => `                  <td class="kpi-stack" width="${w}" align="center" style="padding:20px 8px;${i < items.length - 1 ? ' border-right:1px solid #ededed;' : ''}">
@@ -256,27 +273,45 @@ ${cells}
               </table>`);
   }
 
+  // Signature manuscrite (optionnelle) au-dessus du nom de chaque signataire
+  function signer(p, l, ind) {
+    const sig = isUrl(p.sig && p.sig.url) ? `${ind}<img src="${esc(p.sig.url)}" alt="Signature de ${esc(p.name)}" width="${p.sig.w || 180}" height="${p.sig.h || 60}" style="display:block; width:${p.sig.w || 180}px; height:${p.sig.h || 60}px; margin:0 0 10px 0;" />\n` : '';
+    return sig + personHead(p, tx(p, 'title', l), SZ_SIGN).replace(/^ {14}/gm, ind);
+  }
   function blkSignature(l) {
     const s = S.signature;
     const parts = [`              <div style="height:1px; background-color:#ededed; font-size:0; line-height:0; margin-bottom:22px;">&nbsp;</div>`];
     const b = paras(tx(s, 'body', l), BODY, '0 0 16px 0');
     if (b) parts.push(b);
-    if (s.name) parts.push(personHead(s, tx(s, 'title', l), SZ_SIGN));
+    const ppl = s.people.filter(p => p.name.trim());
+    if (ppl.length === 1) parts.push(signer(ppl[0], l, '              '));
+    if (ppl.length === 2) parts.push(`              <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td class="stack" valign="bottom" width="50%" style="padding-right:20px;">
+${signer(ppl[0], l, '                    ')}
+                  </td>
+                  <td class="stack stack-pad" valign="bottom" width="50%">
+${signer(ppl[1], l, '                    ')}
+                  </td>
+                </tr>
+              </table>`);
     return `
           <!-- SIGNATURE -->` + row(30, parts.join('\n'));
   }
+
+  const extras = (x, l) => (x.gallery.on ? blkGallery(x.gallery) : '') + (x.encadre.on ? blkEncadre(x.encadre, l) : '') + (x.kpis.on ? blkKpis(x.kpis, l) : '');
 
   function blocks(l) {
     let h = '';
     if (S.edito.on) h += blkEdito(l);
     S.focus.forEach((f, i) => {
       if (i === 0 && S.edito.on) h += divider(22);
-      h += blkFocus(f, l, i === 0);
+      h += blkFocus(f, l, i === 0) + extras(f.extras, l);
     });
-    if (S.gallery.on) h += blkGallery(l);
+    if (S.gallery.on) h += blkGallery(S.gallery);
     S.metier.forEach(m => { h += blkMetier(m, l); });
-    if (S.encadre.on) h += blkEncadre(l);
-    if (S.kpis.on) h += blkKpis(l);
+    if (S.encadre.on) h += blkEncadre(S.encadre, l);
+    if (S.kpis.on) h += blkKpis(S.kpis, l);
     if (S.signature.on) h += blkSignature(l);
     return h;
   }
@@ -413,7 +448,6 @@ ${cells}
       }
       for (const [k, v] of Object.entries(o)) if (k !== 't' && v && typeof v === 'object') walk(v, `${base}${k}.`);
     })(S, '');
-    if (!S.gallery.on) Object.keys(out).forEach(k => { if (k.startsWith('gallery.')) delete out[k]; });
     delete out['meta.t.de.preheader'];
     delete out['meta.t.de.periode'];
     return out;
@@ -452,6 +486,16 @@ ${cells}
   // ignore object-fit). Portrait 1:1, galerie 4:3.
   async function prepareImage(file, kind) {
     const bmp = await createImageBitmap(file);
+    if (kind === 'signature') {
+      // Signature : pas de recadrage, PNG pour garder la transparence,
+      // 360×120 max (affichée en 180×60 max, nette sur écrans haute densité)
+      const k = Math.min(360 / bmp.width, 120 / bmp.height, 1);
+      const cw = Math.max(1, Math.round(bmp.width * k)), ch = Math.max(1, Math.round(bmp.height * k));
+      const c = document.createElement('canvas'); c.width = cw; c.height = ch;
+      c.getContext('2d').drawImage(bmp, 0, 0, cw, ch);
+      const blob = await new Promise(res => c.toBlob(res, 'image/png'));
+      return { blob, ext: 'png', w: Math.round(cw / 2), h: Math.round(ch / 2) };
+    }
     const [tw, th] = kind === 'portrait' ? [240, 240] : [1104, 828];
     const s = Math.max(tw / bmp.width, th / bmp.height);
     const w = bmp.width * s, h = bmp.height * s;
@@ -459,21 +503,23 @@ ${cells}
     const ctx = c.getContext('2d');
     ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, tw, th);
     ctx.drawImage(bmp, (tw - w) / 2, (th - h) / 2, w, h);
-    return new Promise(res => c.toBlob(res, 'image/jpeg', 0.85));
+    const blob = await new Promise(res => c.toBlob(res, 'image/jpeg', 0.85));
+    return { blob, ext: 'jpg' };
   }
 
   async function uploadPhoto(path, kind, file) {
     if (!file || !/^image\//.test(file.type)) { showToast('Choisissez un fichier image (JPG, PNG…)', 'error'); return; }
     pending.add(path); renderForm(); schedule();
     try {
-      const blob = await prepareImage(file, kind);
+      const img = await prepareImage(file, kind);
       const fd = new FormData();
-      fd.append('image', blob, 'image.jpg');
+      fd.append('image', img.blob, 'image.' + img.ext);
       fd.append('name', `${kind}-${file.name.replace(/\.[^.]+$/, '')}`);
       const r = await fetch(`${API_BASE}/poweron/upload-image`, { method: 'POST', body: fd, signal: AbortSignal.timeout(60000) });
       const d = await r.json().catch(() => ({}));
       if (!r.ok || !d.url) throw new Error(d.error || `HTTP ${r.status}`);
       setP(S, path + '.url', d.url);
+      if (img.w) { setP(S, path + '.w', img.w); setP(S, path + '.h', img.h); }
       save();
       showToast('Image enregistrée dans la galerie Brevo');
     } catch (e) {
@@ -503,21 +549,24 @@ ${cells}
       }
     });
     S.metier.forEach((m, i) => { ppl.push([`Focus métier ${i + 1}`, m]); if (!stripQuotes(m.t.fr.quote)) w.push(`Focus métier ${i + 1} : citation vide`); });
-    if (S.signature.on) ppl.push(['Signature', S.signature]);
+    if (S.signature.on) S.signature.people.forEach((p, i) => ppl.push([`Signataire ${i + 1}`, p]));
     ppl.forEach(([lbl, p]) => {
       if (!p.name.trim()) w.push(`${lbl} : nom manquant`);
-      else if (!isUrl(p.photo.url)) w.push(`${lbl} : pas de photo (le bloc s'affichera sans portrait)`);
+      else if (!isUrl(p.photo.url) && !(p.sig && isUrl(p.sig.url))) w.push(`${lbl} : pas de photo (le bloc s'affichera sans portrait)`);
       if (p.photo.url && !isUrl(p.photo.url)) w.push(`${lbl} : l'URL de la photo doit commencer par https://`);
     });
-    if (S.gallery.on) {
-      const ph = S.gallery.photos;
-      if (!ph.some(p => isUrl(p.url))) w.push('Galerie activée mais aucune photo chargée');
-      ph.forEach((p, i) => {
-        if (!isUrl(p.url)) w.push(`Galerie : emplacement ${i + 1} vide (ignoré)`);
-        else if (!p.alt.trim()) w.push(`Galerie : photo ${i + 1} sans texte alternatif`);
+    const chkGallery = (g, lbl) => {
+      if (!g.on) return;
+      if (!g.photos.some(p => isUrl(p.url))) w.push(`${lbl}Galerie activée mais aucune photo chargée`);
+      g.photos.forEach((p, i) => {
+        if (!isUrl(p.url)) w.push(`${lbl}Galerie : emplacement ${i + 1} vide (ignoré)`);
+        else if (!p.alt.trim()) w.push(`${lbl}Galerie : photo ${i + 1} sans texte alternatif`);
       });
-    }
-    if (S.kpis.on && S.kpis.items.some(k => !k.t.fr.value.trim())) w.push('Chiffres clés : valeur manquante (KPI ignoré)');
+    };
+    const chkKpis = (K, lbl) => { if (K.on && K.items.some(k => !k.t.fr.value.trim())) w.push(`${lbl}Chiffres clés : valeur manquante (KPI ignoré)`); };
+    S.focus.forEach((f, i) => { chkGallery(f.extras.gallery, `Focus projet ${i + 1} — `); chkKpis(f.extras.kpis, `Focus projet ${i + 1} — `); });
+    chkGallery(S.gallery, '');
+    chkKpis(S.kpis, '');
     const allText = JSON.stringify(S);
     const fm = allText.match(FREQ_RE);
     if (fm) w.push(`« ${fm[0]} » : PowerON n'a pas de cadence fixe, évitez toute mention de fréquence`);
@@ -565,7 +614,8 @@ ${cells}
     const ph = getP(S, p) || {};
     const busy = pending.has(p);
     const thumb = busy ? '<span class="pob-spin"></span>' : isUrl(ph.url) ? `<img src="${esc(ph.url)}" alt="">` : '<span>＋</span>';
-    return `<div class="pob-f pob-photo${kind === 'portrait' ? ' round' : ''}" data-photo="${p}" data-kind="${kind}">
+    const help = kind === 'portrait' ? 'Recadrage automatique carré.' : kind === 'gallery' ? 'Recadrage automatique 4:3.' : 'PNG sur fond transparent ou blanc idéalement. Redimensionnée automatiquement (180×60 px max).';
+    return `<div class="pob-f pob-photo${kind === 'portrait' ? ' round' : kind === 'signature' ? ' sig' : ''}" data-photo="${p}" data-kind="${kind}">
       <span>${label}</span>
       <div class="pob-photo-row">
         <button type="button" class="pob-thumb" data-act="pick" title="Choisir ou déposer une image">${thumb}</button>
@@ -574,7 +624,7 @@ ${cells}
             <button type="button" class="pob-btn sm" data-act="pick">${isUrl(ph.url) ? 'Remplacer' : 'Choisir une image'}</button>
             ${ph.url ? '<button type="button" class="pob-btn sm ghost" data-act="photo-del">Retirer</button>' : ''}
           </div>
-          <small>${busy ? 'Envoi vers Brevo…' : 'Glisser-déposer ou cliquer. Recadrage automatique ' + (kind === 'portrait' ? 'carré.' : '4:3.')}</small>
+          <small>${busy ? 'Envoi vers Brevo…' : 'Glisser-déposer ou cliquer. ' + help}</small>
           <input class="pob-in sm" type="url" data-p="${p}.url" value="${esc(ph.url || '')}" placeholder="…ou coller l'URL https d'une image en ligne">
           ${o.alt ? `<input class="pob-in sm" type="text" data-p="${p}.alt" value="${esc(ph.alt || '')}" placeholder="Texte alternatif (description de la photo)">` : ''}
         </div>
@@ -599,6 +649,40 @@ ${cells}
       o.role ? fT('Rôle dans le projet', item, base, 'role', { ph: 'Sponsor du projet, Chef de projet, Contributeur…', hint: 'Affiché après le poste : « Poste · Rôle projet ».' }) : '',
       fPhoto('Photo', `${base}.photo`, 'portrait'),
     ].join('');
+  }
+
+  // Galerie / encadré / KPIs : mêmes champs en fin d'email et sous un projet.
+  // base = chemin de l'objet dans S (ex : "gallery" ou "focus.0.extras.gallery")
+  function galleryFields(g, base) {
+    if (DE()) return '<p class="pob-muted">Les photos sont communes aux deux versions.</p>';
+    return g.photos.map((p, i) => `<div class="pob-gal-item">${fPhoto(`Photo ${i + 1}`, `${base}.photos.${i}`, 'gallery', { alt: true })}${g.photos.length > 1 ? `<button type="button" class="pob-x" data-act="del-photo" data-base="${base}" data-i="${i}" title="Retirer cet emplacement">✕</button>` : ''}</div>`).join('')
+      + (g.photos.length < 3 ? `<button type="button" class="pob-add" data-act="add-photo" data-base="${base}">＋ Ajouter une photo (3 max)</button>` : '');
+  }
+  function encadreFields(E, base) {
+    return [
+      fT('Titre de l\'encadré', E, base, 'title', { ph: 'Ce que cela représente, concrètement' }),
+      DE() ? '' : `<div class="pob-seg mini">
+        <button type="button" data-act="cols" data-base="${base}" data-n="1" class="${E.cols.length === 1 ? 'on' : ''}">1 colonne</button>
+        <button type="button" data-act="cols" data-base="${base}" data-n="2" class="${E.cols.length === 2 ? 'on' : ''}">2 colonnes</button></div>`,
+      `<div class="pob-cols">${E.cols.map((c, i) => `<div>${fT('Sous-titre', c, `${base}.cols.${i}`, 'subtitle', { ph: i ? 'En cours de préparation' : 'Ce qui change' })}${fT('Points (un par ligne)', c, `${base}.cols.${i}`, 'items', { area: true, rows: 5 })}</div>`).join('')}</div>`,
+    ].join('');
+  }
+  function kpiFields(K, base) {
+    return `<div class="pob-kpis">${K.items.map((k, i) => `<div class="pob-kpi">
+        ${fT('Valeur', k, `${base}.items.${i}`, 'value', { ph: '150.000+' })}
+        ${fT('Libellé', k, `${base}.items.${i}`, 'label', { ph: 'véhicules couverts' })}
+        ${!DE() && K.items.length > 2 ? `<button type="button" class="pob-x" data-act="del-kpi" data-base="${base}" data-i="${i}" title="Retirer">✕</button>` : ''}
+      </div>`).join('')}</div>
+      ${!DE() && K.items.length < 4 ? `<button type="button" class="pob-add" data-act="add-kpi" data-base="${base}">＋ Ajouter un chiffre (4 max)</button>` : ''}`;
+  }
+  // Sous-bloc activable à l'intérieur d'une carte
+  function subBlock(title, togglePath, body) {
+    const on = getP(S, togglePath);
+    if (DE() && !on) return '';
+    return `<div class="pob-sub">
+      ${DE() ? `<h5>${title}</h5>` : `<label class="pob-sw-inline"><input type="checkbox" data-act="toggle" data-p="${togglePath}" ${on ? 'checked' : ''}> ${title}</label>`}
+      ${on ? body : ''}
+    </div>`;
   }
 
   function renderForm() {
@@ -633,24 +717,28 @@ ${cells}
     // Focus projet
     S.focus.forEach((f, i) => {
       const b = `focus.${i}`;
-      const contrib = DE() && !f.contrib.on ? '' : `<div class="pob-sub">
-          ${DE() ? '<h5>Citation d\'un contributeur</h5>' : `<label class="pob-sw-inline"><input type="checkbox" data-act="toggle" data-p="${b}.contrib.on" ${f.contrib.on ? 'checked' : ''}> Ajouter la citation d'un contributeur (encadré jaune)</label>`}
-          ${f.contrib.on ? personFields(f.contrib, `${b}.contrib`, { role: true }) + fT('Citation', f.contrib, `${b}.contrib`, 'quote', { area: true, rows: 4, hint: 'Les guillemets sont ajoutés automatiquement.' }) : ''}
-        </div>`;
+      const contrib = subBlock('Citation d\'un contributeur (encadré jaune)', `${b}.contrib.on`,
+        personFields(f.contrib, `${b}.contrib`, { role: true }) + fT('Citation', f.contrib, `${b}.contrib`, 'quote', { area: true, rows: 4, hint: 'Les guillemets sont ajoutés automatiquement.' }));
+      const x = f.extras, xb = `${b}.extras`;
+      const after = (DE() && !x.gallery.on && !x.encadre.on && !x.kpis.on) ? '' : `<div class="pob-group"><h5>Juste après ce projet</h5>`
+        + subBlock('Galerie photos', `${xb}.gallery.on`, galleryFields(x.gallery, `${xb}.gallery`))
+        + subBlock('Encadré « Ce qui change »', `${xb}.encadre.on`, encadreFields(x.encadre, `${xb}.encadre`))
+        + subBlock('Chiffres clés', `${xb}.kpis.on`, kpiFields(x.kpis, `${xb}.kpis`))
+        + '</div>';
       h += card(`Focus projet${S.focus.length > 1 ? ' ' + (i + 1) : ''}`, [
         fT('Titre de section', f, b, 'label', { half: true }),
         personFields(f, b, { role: true }),
         fT('Texte', f, b, 'body', { ph: 'Le témoignage, en plusieurs paragraphes…' }),
         DE() ? '' : `<label class="pob-sw-inline"><input type="checkbox" data-act="toggle" data-p="${b}.twoCols" ${f.twoCols ? 'checked' : ''}> Répartir le texte sur 2 colonnes (desktop)</label>`,
         contrib,
+        after,
       ].join(''), { del: 'del-focus', i });
     });
     if (!DE()) h += `<button type="button" class="pob-add" data-act="add-focus">＋ Ajouter un focus projet</button>`;
 
     // Galerie
-    const g = S.gallery;
-    h += card('Galerie photos', DE() ? '<p class="pob-muted">Les photos sont communes aux deux versions.</p>' : g.photos.map((p, i) => `<div class="pob-gal-item">${fPhoto(`Photo ${i + 1}`, `gallery.photos.${i}`, 'gallery', { alt: true })}${g.photos.length > 1 ? `<button type="button" class="pob-x" data-act="del-photo" data-i="${i}" title="Retirer cet emplacement">✕</button>` : ''}</div>`).join('')
-      + (g.photos.length < 3 ? `<button type="button" class="pob-add" data-act="add-photo">＋ Ajouter une photo (3 max)</button>` : ''), { toggle: 'gallery.on' });
+    h += `<div class="pob-divider">Fin d'email, après tous les projets</div>`;
+    h += card('Galerie photos', galleryFields(S.gallery, 'gallery'), { toggle: 'gallery.on' });
 
     // Focus métier
     S.metier.forEach((mt, i) => {
@@ -664,27 +752,22 @@ ${cells}
     if (!DE()) h += `<button type="button" class="pob-add" data-act="add-metier">＋ Ajouter un focus métier</button>`;
 
     // Encadré
-    const E = S.encadre;
-    h += card('Encadré « Ce qui change »', [
-      fT('Titre de l\'encadré', E, 'encadre', 'title', { ph: 'Ce que cela représente, concrètement' }),
-      DE() ? '' : `<div class="pob-seg mini">
-        <button type="button" data-act="cols" data-n="1" class="${E.cols.length === 1 ? 'on' : ''}">1 colonne</button>
-        <button type="button" data-act="cols" data-n="2" class="${E.cols.length === 2 ? 'on' : ''}">2 colonnes</button></div>`,
-      `<div class="pob-cols">${E.cols.map((c, i) => `<div>${fT('Sous-titre', c, `encadre.cols.${i}`, 'subtitle', { ph: i ? 'En cours de préparation' : 'Ce qui change' })}${fT('Points (un par ligne)', c, `encadre.cols.${i}`, 'items', { area: true, rows: 5 })}</div>`).join('')}</div>`,
-    ].join(''), { toggle: 'encadre.on' });
+    h += card('Encadré « Ce qui change »', encadreFields(S.encadre, 'encadre'), { toggle: 'encadre.on' });
 
     // KPIs
-    const K = S.kpis;
-    h += card('Chiffres clés', `<div class="pob-kpis">${K.items.map((k, i) => `<div class="pob-kpi">
-        ${fT('Valeur', k, `kpis.items.${i}`, 'value', { ph: '150.000+' })}
-        ${fT('Libellé', k, `kpis.items.${i}`, 'label', { ph: 'véhicules couverts' })}
-        ${!DE() && K.items.length > 2 ? `<button type="button" class="pob-x" data-act="del-kpi" data-i="${i}" title="Retirer">✕</button>` : ''}
-      </div>`).join('')}</div>
-      ${!DE() && K.items.length < 4 ? '<button type="button" class="pob-add" data-act="add-kpi">＋ Ajouter un chiffre (4 max)</button>' : ''}`, { toggle: 'kpis.on' });
+    h += card('Chiffres clés', kpiFields(S.kpis, 'kpis'), { toggle: 'kpis.on' });
 
     // Signature
     const s = S.signature;
-    h += card('Signature', [fT('Mot de fin', s, 'signature', 'body', { ph: 'Merci à toutes les équipes…' }), personFields(s, 'signature')].join(''), { toggle: 'signature.on' });
+    h += card('Signature', [
+      fT('Mot de fin', s, 'signature', 'body', { ph: 'Merci à toutes les équipes…', hint: 'Texte commun, affiché au-dessus du ou des signataires.' }),
+      ...s.people.map((p, i) => `<div class="pob-sub">
+        <h5>Signataire ${i + 1}${i && !DE() ? `<button type="button" class="pob-x" data-act="del-signer" data-i="${i}" title="Retirer ce signataire">✕</button>` : ''}</h5>
+        ${personFields(p, `signature.people.${i}`)}
+        ${fPhoto('Signature manuscrite (optionnelle)', `signature.people.${i}.sig`, 'signature')}
+      </div>`),
+      !DE() && s.people.length < 2 ? '<button type="button" class="pob-add" data-act="add-signer">＋ Ajouter un 2e signataire</button>' : '',
+    ].join(''), { toggle: 'signature.on' });
 
     h += `<div class="pob-foot-actions">
       <button type="button" class="pob-btn ghost sm" data-act="export-json">Exporter le brouillon (.json)</button>
@@ -760,7 +843,7 @@ ${cells}
 
   // ── Événements ──────────────────────────────────────────────────────────────
   function onAction(btn) {
-    const act = btn.dataset.act, i = +btn.dataset.i;
+    const act = btn.dataset.act, i = +btn.dataset.i, base = btn.dataset.base;
     const restructure = () => { save(); renderForm(); schedule(); };
     switch (act) {
       case 'lang': lang = btn.dataset.l; renderForm(); break;
@@ -769,18 +852,20 @@ ${cells}
       case 'del-focus': if (confirm('Supprimer ce focus projet ?')) { S.focus.splice(i, 1); restructure(); } break;
       case 'add-metier': S.metier.push(newMetier()); restructure(); break;
       case 'del-metier': if (confirm('Supprimer ce focus métier ?')) { S.metier.splice(i, 1); restructure(); } break;
-      case 'add-photo': S.gallery.photos.push({ url: '', alt: '' }); restructure(); break;
-      case 'del-photo': S.gallery.photos.splice(i, 1); restructure(); break;
-      case 'add-kpi': S.kpis.items.push(newKpi()); restructure(); break;
-      case 'del-kpi': S.kpis.items.splice(i, 1); restructure(); break;
+      case 'add-photo': getP(S, base).photos.push({ url: '', alt: '' }); restructure(); break;
+      case 'del-photo': getP(S, base).photos.splice(i, 1); restructure(); break;
+      case 'add-kpi': getP(S, base).items.push(newKpi()); restructure(); break;
+      case 'del-kpi': getP(S, base).items.splice(i, 1); restructure(); break;
       case 'cols': {
-        const n = +btn.dataset.n;
-        if (n === 1) S.encadre.cols = S.encadre.cols.slice(0, 1);
-        else while (S.encadre.cols.length < 2) S.encadre.cols.push(newCol());
+        const E = getP(S, base), n = +btn.dataset.n;
+        if (n === 1) E.cols = E.cols.slice(0, 1);
+        else while (E.cols.length < 2) E.cols.push(newCol());
         restructure(); break;
       }
       case 'pick': btn.closest('.pob-photo').querySelector('input[type=file]').click(); break;
       case 'photo-del': { const p = btn.closest('.pob-photo').dataset.photo; setP(S, p + '.url', ''); restructure(); break; }
+      case 'add-signer': S.signature.people.push(newSigner()); restructure(); break;
+      case 'del-signer': S.signature.people.splice(i, 1); restructure(); break;
       case 'export-json': download(`${fileBase()}_brouillon.json`, JSON.stringify(S, null, 2), 'application/json'); break;
       case 'import-json': document.getElementById('pob-import').click(); break;
       case 'reset':
@@ -838,7 +923,7 @@ ${cells}
         f.text().then(t => {
           const d = JSON.parse(t);
           if (!d || d.v !== 1) throw new Error('format');
-          S = d; lang = 'fr'; save(); renderForm(); schedule();
+          S = migrate(d); lang = 'fr'; save(); renderForm(); schedule();
           showToast('Brouillon importé');
         }).catch(() => showToast('Fichier de brouillon invalide', 'error'));
         el.value = '';
@@ -903,7 +988,13 @@ ${cells}
   #pob .pob-rich-tb button{font:inherit;font-size:12px;border:0;background:transparent;color:var(--text);padding:4px 9px;border-radius:4px;cursor:pointer;}
   #pob .pob-rich-tb button:hover{background:var(--surface);}
   #pob .pob-sub{width:100%;border:1px dashed var(--border-strong);border-radius:var(--r-md);padding:12px;display:flex;flex-wrap:wrap;gap:12px;}
-  #pob .pob-sub h5{margin:0;font-size:12px;width:100%;}
+  #pob .pob-sub h5{margin:0;font-size:12px;width:100%;display:flex;align-items:center;}
+  #pob .pob-group{width:100%;display:flex;flex-direction:column;gap:10px;margin-top:4px;padding-top:12px;border-top:1px solid var(--border);}
+  #pob .pob-group>h5{margin:0;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);}
+  #pob .pob-divider{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:10px;margin-top:8px;}
+  #pob .pob-divider::before,#pob .pob-divider::after{content:"";flex:1;height:1px;background:var(--border-strong);}
+  #pob .pob-photo.sig .pob-thumb{width:120px;height:48px;background:#fff;}
+  #pob .pob-photo.sig .pob-thumb img{object-fit:contain;}
   #pob .pob-sw{position:relative;display:inline-block;width:34px;height:20px;flex-shrink:0;cursor:pointer;}
   #pob .pob-sw input{opacity:0;width:0;height:0;position:absolute;}
   #pob .pob-sw i{position:absolute;inset:0;background:var(--border-strong);border-radius:99px;transition:.15s;}
