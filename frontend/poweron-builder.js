@@ -33,7 +33,7 @@
     return {
       v: 1,
       meta: { edition: '', t: { fr: { periode: '', headline: '', preheader: '' }, de: { headline: '' } } },
-      edito:     { on: true, ...person(), t: { fr: { label: 'Édito', title: '', body: '' }, de: { label: 'Editorial' } } },
+      edito:     { on: true, ...person(), sign: { on: false, people: [newSigner()] }, t: { fr: { label: 'Édito', title: '', body: '' }, de: { label: 'Editorial' } } },
       focus:     [newFocus()],
       gallery:   newGallery(),
       metier:    [],
@@ -56,6 +56,7 @@
   }
   // Brouillons créés avant l'ajout des blocs par projet et des 2 signataires
   function migrate(s) {
+    if (!s.edito.sign) s.edito.sign = { on: false, people: [newSigner()] };
     s.focus.forEach(f => { if (!f.extras) f.extras = { gallery: newGallery(), encadre: newEncadre(), kpis: newKpis() }; });
     const g = s.signature;
     if (!g.people) {
@@ -179,8 +180,10 @@ ${personHead(p, subOf(item, l), SZ_CARD).replace(/^ {14}/gm, '                  
 
   function blkEdito(l) {
     const e = S.edito;
+    const sg = e.sign.on ? signers(e.sign.people, l) : '';
     return `
-          <!-- EDITO -->` + row(26, [secLabel(tx(e, 'label', l)), e.name ? personHead(e, tx(e, 'title', l), SZ_HEAD) : '', paras(tx(e, 'body', l), BODY)].filter(Boolean).join('\n'));
+          <!-- EDITO -->` + row(26, [secLabel(tx(e, 'label', l)), e.name ? personHead(e, tx(e, 'title', l), SZ_HEAD) : '',
+      paras(tx(e, 'body', l), BODY, sg ? '0 0 16px 0' : '0'), sg].filter(Boolean).join('\n'));
   }
 
   function blkFocus(f, l, first) {
@@ -283,9 +286,17 @@ ${cells}
     const parts = [`              <div style="height:1px; background-color:#ededed; font-size:0; line-height:0; margin-bottom:22px;">&nbsp;</div>`];
     const b = paras(tx(s, 'body', l), BODY, '0 0 16px 0');
     if (b) parts.push(b);
-    const ppl = s.people.filter(p => p.name.trim());
-    if (ppl.length === 1) parts.push(signer(ppl[0], l, '              '));
-    if (ppl.length === 2) parts.push(`              <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+    const sg = signers(s.people, l);
+    if (sg) parts.push(sg);
+    return `
+          <!-- SIGNATURE -->` + row(30, parts.join('\n'));
+  }
+
+  // 1 signataire : bloc simple ; 2 : côte à côte (empilés sur mobile)
+  function signers(people, l) {
+    const ppl = people.filter(p => p.name.trim());
+    if (ppl.length === 1) return signer(ppl[0], l, '              ');
+    if (ppl.length === 2) return `              <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
                 <tr>
                   <td class="stack" valign="bottom" width="50%" style="padding-right:20px;">
 ${signer(ppl[0], l, '                    ')}
@@ -294,9 +305,8 @@ ${signer(ppl[0], l, '                    ')}
 ${signer(ppl[1], l, '                    ')}
                   </td>
                 </tr>
-              </table>`);
-    return `
-          <!-- SIGNATURE -->` + row(30, parts.join('\n'));
+              </table>`;
+    return '';
   }
 
   const extras = (x, l) => (x.gallery.on ? blkGallery(x.gallery) : '') + (x.encadre.on ? blkEncadre(x.encadre, l) : '') + (x.kpis.on ? blkKpis(x.kpis, l) : '');
@@ -538,7 +548,10 @@ ${signer(ppl[1], l, '                    ')}
     if (!fr.preheader.trim()) w.push('Préheader vide (texte d\'aperçu affiché dans la boîte de réception)');
     if (pending.size) w.push('Image en cours d\'envoi, attendez la fin avant de copier');
     const ppl = [];
-    if (S.edito.on) ppl.push(['Édito', S.edito]);
+    if (S.edito.on) {
+      ppl.push(['Édito', S.edito]);
+      if (S.edito.sign.on) S.edito.sign.people.forEach((p, i) => ppl.push([`Édito — signataire ${i + 1}`, p]));
+    }
     S.focus.forEach((f, i) => {
       ppl.push([`Focus projet ${i + 1}`, f]);
       if (!f.t.fr.role.trim()) w.push(`Focus projet ${i + 1} : rôle projet manquant (sponsor, chef de projet, contributeur…)`);
@@ -675,6 +688,16 @@ ${signer(ppl[1], l, '                    ')}
       </div>`).join('')}</div>
       ${!DE() && K.items.length < 4 ? `<button type="button" class="pob-add" data-act="add-kpi" data-base="${base}">＋ Ajouter un chiffre (4 max)</button>` : ''}`;
   }
+  // Signataires (signature de fin et signature d'édito). base = chemin du tableau people
+  function signerFields(people, base) {
+    return people.map((p, i) => `<div class="pob-sub">
+        <h5>Signataire ${i + 1}${i && !DE() ? `<button type="button" class="pob-x" data-act="del-signer" data-base="${base}" data-i="${i}" title="Retirer ce signataire">✕</button>` : ''}</h5>
+        ${personFields(p, `${base}.${i}`)}
+        ${fPhoto('Signature manuscrite (optionnelle)', `${base}.${i}.sig`, 'signature')}
+      </div>`).join('')
+      + (!DE() && people.length < 2 ? `<button type="button" class="pob-add" data-act="add-signer" data-base="${base}">＋ Ajouter un 2e signataire</button>` : '');
+  }
+
   // Sous-bloc activable à l'intérieur d'une carte
   function subBlock(title, togglePath, body) {
     const on = getP(S, togglePath);
@@ -712,7 +735,8 @@ ${signer(ppl[1], l, '                    ')}
 
     // Édito
     const e = S.edito;
-    h += card('Édito', [fT('Titre de section', e, 'edito', 'label', { half: true }), personFields(e, 'edito'), fT('Texte', e, 'edito', 'body', { ph: 'Le mot d\'introduction…' })].join(''), { toggle: 'edito.on' });
+    h += card('Édito', [fT('Titre de section', e, 'edito', 'label', { half: true }), personFields(e, 'edito'), fT('Texte', e, 'edito', 'body', { ph: 'Le mot d\'introduction…' }),
+      subBlock('Signature en fin d\'édito', 'edito.sign.on', signerFields(e.sign.people, 'edito.sign.people'))].join(''), { toggle: 'edito.on' });
 
     // Focus projet
     S.focus.forEach((f, i) => {
@@ -761,12 +785,7 @@ ${signer(ppl[1], l, '                    ')}
     const s = S.signature;
     h += card('Signature', [
       fT('Mot de fin', s, 'signature', 'body', { ph: 'Merci à toutes les équipes…', hint: 'Texte commun, affiché au-dessus du ou des signataires.' }),
-      ...s.people.map((p, i) => `<div class="pob-sub">
-        <h5>Signataire ${i + 1}${i && !DE() ? `<button type="button" class="pob-x" data-act="del-signer" data-i="${i}" title="Retirer ce signataire">✕</button>` : ''}</h5>
-        ${personFields(p, `signature.people.${i}`)}
-        ${fPhoto('Signature manuscrite (optionnelle)', `signature.people.${i}.sig`, 'signature')}
-      </div>`),
-      !DE() && s.people.length < 2 ? '<button type="button" class="pob-add" data-act="add-signer">＋ Ajouter un 2e signataire</button>' : '',
+      signerFields(s.people, 'signature.people'),
     ].join(''), { toggle: 'signature.on' });
 
     h += `<div class="pob-foot-actions">
@@ -864,8 +883,8 @@ ${signer(ppl[1], l, '                    ')}
       }
       case 'pick': btn.closest('.pob-photo').querySelector('input[type=file]').click(); break;
       case 'photo-del': { const p = btn.closest('.pob-photo').dataset.photo; setP(S, p + '.url', ''); restructure(); break; }
-      case 'add-signer': S.signature.people.push(newSigner()); restructure(); break;
-      case 'del-signer': S.signature.people.splice(i, 1); restructure(); break;
+      case 'add-signer': getP(S, base).push(newSigner()); restructure(); break;
+      case 'del-signer': getP(S, base).splice(i, 1); restructure(); break;
       case 'export-json': download(`${fileBase()}_brouillon.json`, JSON.stringify(S, null, 2), 'application/json'); break;
       case 'import-json': document.getElementById('pob-import').click(); break;
       case 'reset':
@@ -917,7 +936,17 @@ ${signer(ppl[1], l, '                    ')}
     });
     root.addEventListener('change', e => {
       const el = e.target;
-      if (el.dataset.act === 'toggle') { setP(S, el.dataset.p, el.checked); if (el.dataset.p === 'de.on' && !el.checked) lang = 'fr'; save(); renderForm(); schedule(); return; }
+      if (el.dataset.act === 'toggle') {
+        setP(S, el.dataset.p, el.checked);
+        if (el.dataset.p === 'de.on' && !el.checked) lang = 'fr';
+        // Signature d'édito : pré-remplie avec l'auteur de l'édito
+        const p0 = S.edito.sign.people[0];
+        if (el.dataset.p === 'edito.sign.on' && el.checked && !p0.name.trim()) {
+          p0.name = S.edito.name; p0.photo = { ...S.edito.photo };
+          p0.t.fr.title = S.edito.t.fr.title; p0.t.de.title = (S.edito.t.de || {}).title || '';
+        }
+        save(); renderForm(); schedule(); return;
+      }
       if (el.type === 'file' && el.id === 'pob-import') {
         const f = el.files[0]; if (!f) return;
         f.text().then(t => {
