@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-02",
+  "generated_at": "2026-10-03",
   "next_edition": "",
   "editions": [
     {
@@ -337,6 +337,10 @@
     {
       "date": "2026-10-02",
       "label": "Semaine du 2026-10-02"
+    },
+    {
+      "date": "2026-10-03",
+      "label": "Semaine du 2026-10-03"
     }
   ],
   "items": [
@@ -345,7 +349,7 @@
       "club": "contacto.lu (Wort.lu/PT)",
       "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "content": "L'ACL alerte sur les risques d'aquaplanage, mettant en avant l'importance de la sécurité routière en conditions météorologiques difficiles.",
+      "content": "L'ACL alerte sur les risques d'aquaplanage, probablement en lien avec les conditions météorologiques automnales et la sécurité routière.",
       "relevance": "ACL explicitement cité : \"ACL alerta\"",
       "url": "https://saaskia.keepcontact.lu/data/files/1790919272.2094.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790919272.2094.pdf",
@@ -356,8 +360,8 @@
       "club": "L'Essentiel",
       "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "content": "Article sur la mobilité électrique en période de crise, avec un focus sur l'évolution du marché et les solutions proposées par l'ACL.",
-      "relevance": "ACL explicitement cité : \"La mobilité électrique\"",
+      "content": "Article sur la mobilité électrique qui prend de l'ampleur en contexte de crise, publié en collaboration avec ou mentionnant l'ACL.",
+      "relevance": "ACL explicitement cité : \"ACL\"",
       "url": "https://saaskia.keepcontact.lu/data/files/1790918871.0422.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790918871.0422.pdf",
       "date": "2026-10-02"
@@ -367,7 +371,7 @@
       "club": "lesfrontaliers.lu",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Analyse de l'impact de la gratuité des transports au Luxembourg, montrant des effets positifs mais une persistance de l'utilisation automobile.",
+      "content": "Article sur la gratuité des transports au Luxembourg et ses effets positifs, mais avec une persistance de l'utilisation de la voiture personnelle.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1790919242.8828.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790919242.8828.pdf",
@@ -378,18 +382,29 @@
       "club": "lessentiel.lu FR",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Article sur les modalités d'aptitude à la conduite pour les seniors de plus de 60 ans au Luxembourg, sujet important pour la sécurité routière.",
+      "content": "Dossier sur les conditions d'aptitude à la conduite pour les seniors (60+) au Luxembourg, question de sécurité routière pertinente.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1790919140.6517.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790919140.6517.pdf",
       "date": "2026-10-02"
     },
     {
+      "id": "2026-10-02-saaskia-web-rxvsZ8",
+      "club": "wort.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Article en allemand questionnant l'intérêt d'acheter un diesel en 2026, tendance du marché automobile.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1790919214.8056.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790919214.8056.pdf",
+      "date": "2026-10-02"
+    },
+    {
       "id": "2026-10-02-saaskia-web-6RPxfg",
       "club": "infogreen.lu",
       "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Présentation d'une solution complète (e_mobility) pour gérer l'électromobilité des entreprises au Luxembourg.",
+      "badge": "INFO",
+      "content": "Présentation d'une solution complète de gestion de l'électromobilité pour les entreprises.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1790919081.4289.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790919081.4289.pdf",
@@ -400,21 +415,10 @@
       "club": "virgule.lu (Wort.lu/FR)",
       "category": "Veille presse LU",
       "badge": "INFO",
-      "content": "La Belgique utilisera l'intelligence artificielle pour détecter les plaques d'immatriculation offensantes, une initiative novatrice de sécurité routière.",
+      "content": "Intelligence artificielle utilisée en Belgique pour détecter les plaques d'immatriculation offensantes, tendance technologique régionale.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1790924210.7426.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790924210.7426.pdf",
-      "date": "2026-10-02"
-    },
-    {
-      "id": "2026-10-02-saaskia-web-rxvsZ8",
-      "club": "wort.lu",
-      "category": "Veille presse LU",
-      "badge": "INFO",
-      "content": "Article analysant la pertinence d'acheter un véhicule diesel à l'heure actuelle, tenant compte des évolutions réglementaires et économiques.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1790919214.8056.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790919214.8056.pdf",
       "date": "2026-10-02"
     },
     {
@@ -422,7 +426,7 @@
       "club": "chronicle.lu",
       "category": "Veille presse LU",
       "badge": "INFO",
-      "content": "Mobibus Transport Service reçoit un engagement du gouvernement luxembourgeois, renforçant les services de mobilité locale.",
+      "content": "Mobibus Transport Service reçoit un engagement du gouvernement pour développer ses services.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1790919187.7332.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790919187.7332.pdf",
@@ -433,8 +437,8 @@
       "club": "infogreen.lu",
       "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "content": "L'ACL organise le GO electric day 2026, un événement permettant aux citoyens de tester et comprendre les solutions de mobilité électrique.",
-      "relevance": "ACL explicitement cité : \"GO electric day 2026\"",
+      "content": "GO electric day 2026 : événement pour tester, comprendre et choisir sa mobilité électrique, organisé ou soutenu par l'ACL.",
+      "relevance": "ACL explicitement cité : \"GO electric day\"",
       "url": "https://saaskia.keepcontact.lu/data/files/1790831002.423.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790831002.423.pdf",
       "date": "2026-10-01"
@@ -451,22 +455,11 @@
       "date": "2026-10-01"
     },
     {
-      "id": "2026-10-01-saaskia-web-yx9XtF",
-      "club": "virgule.lu (Wort.lu/FR)",
-      "category": "Veille presse LU",
-      "badge": "INFO",
-      "content": "Récapitulatif des changements réglementaires et administratifs d'octobre 2026 au Luxembourg, Belgique, France et Allemagne.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1790837564.5546.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790837564.5546.pdf",
-      "date": "2026-10-01"
-    },
-    {
       "id": "2026-10-01-saaskia-web-LgI0YQ",
       "club": "Télécran",
       "category": "Veille presse LU",
       "badge": "INFO",
-      "content": "Article sur l'avenir des boîtes de vitesses manuelles face à l'électrification et l'automatisation croissante de l'automobile.",
+      "content": "Article en allemand sur l'avenir des boîtes de vitesses manuelles face à l'électrification du parc automobile.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1790831208.136.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790831208.136.pdf",
@@ -477,10 +470,21 @@
       "club": "Luxemburger Wort",
       "category": "Veille presse LU",
       "badge": "INFO",
-      "content": "L'automobile évolue et les concessions automobiles s'adaptent aux nouveaux enjeux du secteur, notamment l'électromobilité.",
+      "content": "Article sur l'évolution du secteur automobile et ses impacts sur les réseaux de concessions.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1790830884.3515.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790830884.3515.pdf",
+      "date": "2026-10-01"
+    },
+    {
+      "id": "2026-10-01-saaskia-web-yx9XtF",
+      "club": "virgule.lu (Wort.lu/FR)",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Résumé des changements réglementaires en octobre au Luxembourg, Belgique, France et Allemagne.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1790837564.5546.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790837564.5546.pdf",
       "date": "2026-10-01"
     },
     {
