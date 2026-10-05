@@ -1,6 +1,163 @@
 {
-  "generated_at": "2026-09-28",
+  "generated_at": "2026-10-05",
   "items": [
+    {
+      "date": "2026-10-01",
+      "theme": "IA générative en marketing",
+      "titre": "Contentstack lance Canoe pour mesurer la visibilité des marques dans les IA",
+      "synthese": "Le 1er octobre 2026, Contentstack a lancé Canoe, son premier produit autonome, qui évalue en environ deux minutes comment une marque apparaît dans les réponses de ChatGPT, Gemini, Perplexity et Claude lorsqu'un acheteur pose une question dans son secteur. Chaque rapport indique si la marque est citée, comment elle est décrite, quels concurrents apparaissent et quelles sources les IA citent en référence. L'outil fonctionne sur n'importe quel site sans nécessiter l'écosystème Contentstack, avec un plan gratuit (ChatGPT et Gemini) et un plan Growth à 279 dollars par mois incluant les quatre moteurs. Ce lancement illustre la montée du GEO (Generative Engine Optimization), discipline qui vise à être cité par les IA plutôt que seulement référencé par les moteurs de recherche classiques.",
+      "actionACL": "Lancer un rapport gratuit Canoe pour vérifier comment ACL apparaît dans les réponses de ChatGPT et Gemini sur des requêtes type « meilleur club automobile au Luxembourg » ou « assistance routière Luxembourg ». Comparer ensuite avec la visibilité déjà suivie dans les rapports IA générative de Search Console.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "GlobeNewswire",
+          "url": "https://www.globenewswire.com/news-release/2026/10/01/3372570/0/en/contentstack-launches-contentstack-canoe-an-ai-visibility-tool-that-shows-brands-what-ai-tells-their-buyers.html"
+        },
+        {
+          "name": "AiThority",
+          "url": "https://aithority.com/machine-learning/contentstack-launches-contentstack-canoe-an-ai-visibility-tool-that-shows-brands-what-ai-tells-their-buyers/"
+        },
+        {
+          "name": "Agile Brand Guide",
+          "url": "https://agilebrandguide.com/contentstack-launches-contentstack-canoe-an-ai-visibility-tool-that-shows-brands-what-ai-tells-their-buyers/"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-30",
+      "theme": "CRM & member marketing",
+      "titre": "Une étude Momentive Software chiffre l'impact de l'adhésion associative",
+      "synthese": "Publiée le 30 septembre 2026, une étude de Momentive Software montre que les membres d'associations cumulent en moyenne 2,12 promotions de carrière contre 1,22 pour les non-membres, et 27 % d'entre eux ont connu au moins trois promotions. 60 % des membres se disent prêts face aux changements liés à l'IA dans leur métier, contre 41 % des non-membres, et ils sont deux fois plus nombreux à se décrire comme adopteurs précoces de technologie (25 % contre 12 %). L'étude révèle toutefois une érosion de la fidélité : la satisfaction des membres recule de 61 % à 52 %, avec une chute de 17 points chez les Millennials (71 % à 54 %). Elle pointe un écart de 22 points entre l'importance que les membres accordent à l'accès aux tendances technologiques (52 %) et la priorité que les associations y accordent réellement (30 %), écart directement corrélé au recul de la fidélité.",
+      "actionACL": "Utiliser ces chiffres (promotions de carrière, préparation à l'IA) dans la communication de recrutement et de rétention ACL pour objectiver la valeur de l'adhésion. Prioriser une offre de contenu sur les nouvelles technologies (mobilité, IA, sécurité routière) pour combler l'écart identifié chez les membres Millennials, segment où la satisfaction a le plus chuté.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "GlobeNewswire",
+          "url": "https://www.globenewswire.com/news-release/2026/09/30/3371953/0/en/association-members-earn-nearly-twice-as-many-career-promotions-as-nonmember-peers-new-momentive-software-research-finds.html"
+        },
+        {
+          "name": "Momentive Software (communiqué officiel)",
+          "url": "https://momentivesoftware.com/press-releases/2026-associations-membership-report/"
+        },
+        {
+          "name": "FinancialContent",
+          "url": "https://www.financialcontent.com/article/gnwcq-2026-9-30-association-members-earn-nearly-twice-as-many-career-promotions-as-nonmember-peers-new-momentive-software-research-finds"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-30",
+      "theme": "Design & branding",
+      "titre": "Figma Motion s'enrichit : styles personnalisés, audio et export Lottie",
+      "synthese": "Le 30 septembre 2026, Figma a mis à jour Motion (toujours en bêta ouverte) avec quatre nouveautés : des styles d'animation personnalisés et réutilisables (easing, durée, propriétés) que l'on peut combiner et publier dans ses bibliothèques ; le support audio, permettant de glisser un fichier son sur un clip ou une timeline, de le découper et de l'exporter avec l'animation en MP4 ou WebM ; l'animation de texte caractère par caractère, mot par mot ou ligne par ligne tout en gardant le texte éditable ; et l'export au format Lottie ou dotLottie pour une intégration fluide dans des sites ou applications. Cette mise à jour rapproche Figma des usages du motion design court format utilisé pour les Reels et Shorts, directement dans l'outil de design.",
+      "actionACL": "Tester Figma Motion pour produire en interne de courtes animations de titres ou d'éléments de marque pour les Reels et Shorts ACL, sans recourir systématiquement à un motion designer externe pour les formats simples. Exporter en Lottie les animations récurrentes (logo, pictogrammes services) pour les réutiliser sur le site web ACL avec un poids de fichier réduit.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "Figma (Product Updates)",
+          "url": "https://forum.figma.com/product-updates-3/motion-adds-custom-styles-audio-text-animations-and-lottie-export-58554"
+        },
+        {
+          "name": "Figma Help Center",
+          "url": "https://help.figma.com/hc/en-us/articles/41307983648407-Export-animations-from-Figma"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-29",
+      "theme": "IA générative en marketing",
+      "titre": "Adobe ajoute l'édition interactive à son plugin unique dans ChatGPT",
+      "synthese": "Lors d'OpenAI DevDay 2026 (29 septembre), Adobe a annoncé de nouveaux contrôles d'édition interactifs pour son plugin Adobe dans ChatGPT, qui regroupe déjà plus de 70 outils du groupe (Photoshop, Firefly, Premiere, Acrobat) accessibles depuis une conversation. L'utilisateur peut désormais sélectionner une zone précise d'une image ou d'un document, demander une modification en langage naturel, puis affiner le résultat avec des contrôles dédiés sans quitter ChatGPT. Cette fonctionnalité transforme ChatGPT en atelier de retouche conversationnel complet, Adobe ayant déjà étendu Firefly à Claude, Gemini, Copilot et Slack plus tôt dans l'année. Le déploiement se fait en bêta publique sur ChatGPT, ChatGPT Work et Codex.",
+      "actionACL": "Tester ce plugin pour des retouches rapides de visuels Marcom (recadrage, redimensionnement multi-formats réseaux sociaux, correction ponctuelle) directement depuis ChatGPT, sans basculer vers Photoshop ou Illustrator. Évaluer si cela réduit les allers-retours avec un prestataire graphique pour des ajustements mineurs.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "Adobe Blog",
+          "url": "https://blog.adobe.com/en/publish/2026/09/29/openai-devday-2026-introducing-hands-on-editing-adobe-plugin-chatgpt"
+        },
+        {
+          "name": "Agile Brand Guide",
+          "url": "https://agilebrandguide.com/adobe-adds-hands-on-editing-controls-to-its-chatgpt-plugin-at-openai-devday/"
+        },
+        {
+          "name": "RedShark News",
+          "url": "https://www.redsharknews.com/adobe-chatgpt-plugin-interactive-editing"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-23",
+      "theme": "Social & Ads",
+      "titre": "Meta rend les publicités Threads indépendantes d'Instagram",
+      "synthese": "À partir de septembre 2026, Meta supprime l'obligation de faire correspondre le nom d'utilisateur entre les profils Threads et Instagram pour diffuser des publicités, et permet pour la première fois aux entreprises sans présence Instagram de lancer des campagnes directement depuis leur profil Threads natif. Threads revendique 500 millions d'utilisateurs actifs mensuels, avec des CPM inférieurs de 30 à 50 % à ceux du fil Instagram. Ce changement s'accompagne de nouvelles permissions spécifiques à Threads, permettant d'attribuer la gestion publicitaire à des collaborateurs différents de ceux gérant Instagram.",
+      "actionACL": "Évaluer l'ouverture d'un profil Threads dédié à ACL pour toucher une audience plus jeune à moindre coût média que sur Instagram, sans dépendre du compte Instagram existant. Prioriser ce test si les campagnes Instagram actuelles montrent un CPM élevé sur les cibles 18-34 ans.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "Social Media Today",
+          "url": "https://www.socialmediatoday.com/news/threads-advertisers-will-no-longer-need-an-instagram-account/830967/"
+        },
+        {
+          "name": "MediaPost",
+          "url": "https://www.mediapost.com/publications/article/418194/brand-identity-on-threads-to-become-independent-of.html"
+        },
+        {
+          "name": "Social Samosa",
+          "url": "https://www.socialsamosa.com/news-2/meta-businesses-threads-ads-without-instagram-12563247"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-22",
+      "theme": "Design & branding",
+      "titre": "McLaren dévoile une identité visuelle unifiée entre course et automobile",
+      "synthese": "Le 22 septembre 2026, McLaren a présenté une identité de marque « évoluée », unifiant pour la première fois les systèmes visuels de McLaren Racing et McLaren Automotive sous une marque commune couvrant voitures de route, F1, endurance et merchandising. Le nouveau wordmark s'inspire de l'enseigne de la station-service familiale de Bruce McLaren à Auckland, le Speedmark et la couleur papaye emblématiques sont conservés et complétés d'une palette élargie puisée dans l'histoire de la marque, et le « Speedy Kiwi » perdure en clin d'œil aux origines néo-zélandaises du fondateur. L'accueil de la presse spécialisée est partagé, certains saluant un patrimoine réaffirmé, d'autres jugeant le changement dispensable pour une marque déjà forte.",
+      "actionACL": "Retenir cet exemple pour toute réflexion future sur l'évolution de l'identité visuelle ACL : un système visuel unifié peut rassembler plusieurs entités sous une marque commune sans renier l'héritage, à condition de conserver les éléments les plus reconnaissables. Documenter l'accueil mitigé du public comme argument pour tester une évolution progressive plutôt qu'une rupture totale.",
+      "horizon": "long terme (12+ mois)",
+      "badge": "INFO",
+      "sources": [
+        {
+          "name": "McLaren Racing (officiel)",
+          "url": "https://www.mclaren.com/racing/2026/mclaren-announces-evolved-identity/"
+        },
+        {
+          "name": "PMW Magazine",
+          "url": "https://www.pmw-magazine.com/news/team-news/mclaren-unveils-unified-brand-identity-across-racing-and-automotive.html"
+        },
+        {
+          "name": "Design Compass",
+          "url": "https://designcompass.org/en/2026/09/23/mclaren-new-logo-controversy/"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-16",
+      "theme": "CRM & member marketing",
+      "titre": "Salesforce dévoile Marketing Cloud Next avec des agents IA autonomes",
+      "synthese": "Lors de Dreamforce 2026 (15-17 septembre, San Francisco), Salesforce a présenté Marketing Cloud Next, une refonte complète de sa plateforme marketing reposant sur Data 360 et intégrant des agents autonomes. Le Campaign Agent conçoit, lance et optimise des campagnes à partir des objectifs et de la charte de marque, l'Account Discovery Agent identifie les comptes à fort potentiel et les lacunes dans un comité d'achat, et la fonctionnalité Headless Marketing permet de piloter parcours, flux et messages en langage naturel depuis n'importe quel outil compatible MCP. Ces trois capacités doivent atteindre la disponibilité générale en octobre 2026. Salesforce affirme que la plateforme peut désormais générer et exécuter une campagne, briefs et segmentation compris, en quelques heures.",
+      "actionACL": "Suivre cette bascule vers des agents marketing autonomes comme indicateur de la direction prise par le secteur CRM, même si Marketing Cloud Next cible des organisations plus grandes qu'ACL. Si un CRM Salesforce est déjà utilisé pour la gestion des membres, vérifier la disponibilité de ces agents dans l'offre actuelle avant d'envisager une montée en gamme.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "Salesforce Blog",
+          "url": "https://www.salesforce.com/blog/dreamforce-2026-5-ways-marketing-cloud-is-building-a-new-model-for-growth/"
+        },
+        {
+          "name": "Salesforce Ben",
+          "url": "https://www.salesforceben.com/salesforce-reveal-marketing-cloud-next-agentic-marketing-to-help-engage-at-scale/"
+        },
+        {
+          "name": "MarTech",
+          "url": "https://martech.org/salesforce-unveils-agentic-marketing-cloud-next/"
+        }
+      ]
+    },
     {
       "date": "2026-09-22",
       "theme": "IA générative en marketing",
