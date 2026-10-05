@@ -13,6 +13,9 @@ import datetime
 import threading
 import secrets
 import functools
+import hmac
+import hashlib
+import base64
 import requests
 import concurrent.futures
 from flask import Flask, request, jsonify, redirect, session
@@ -740,6 +743,126 @@ def api_users_delete(email):
     return jsonify({'ok': True, 'persisted': persisted,
                     'persist_error': persist_err,
                     'export': None if persisted else export})
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Objectifs Mission Control — lecture pour tous, écriture admin uniquement
+# ─────────────────────────────────────────────────────────────────────────────
+# L'auth du dashboard est côté navigateur : pour l'écriture on revérifie donc
+# le mot de passe admin ici (hashé côté serveur, le hash public ne suffit pas)
+# puis on délivre un jeton HMAC court (12 h) envoyé en Bearer sur le PUT.
+
+_GIST_OBJECTIVES_FILENAME = 'dashboard_objectives.json'
+_ADMIN_TOKEN_SECRET = (os.environ.get('ADMIN_TOKEN_SECRET') or secrets.token_hex(32)).encode()
+_ADMIN_TOKEN_TTL    = 12 * 3600
+_OBJECTIVES_CACHE   = {'loaded': False, 'data': None}
+_UNLOCK_FAILS       = {}  # ip -> [timestamps]
+
+def _admin_email():
+    return _ADMIN_USER['email']
+
+def _make_admin_token():
+    exp     = int(time.time()) + _ADMIN_TOKEN_TTL
+    payload = f'{_admin_email()}|{exp}'
+    sig     = hmac.new(_ADMIN_TOKEN_SECRET, payload.encode(), hashlib.sha256).hexdigest()
+    return base64.urlsafe_b64encode(f'{payload}|{sig}'.encode()).decode(), exp
+
+def _check_admin_token(token):
+    try:
+        email, exp, sig = base64.urlsafe_b64decode(token.encode()).decode().split('|')
+    except Exception:
+        return False
+    expected = hmac.new(_ADMIN_TOKEN_SECRET, f'{email}|{exp}'.encode(), hashlib.sha256).hexdigest()
+    return (hmac.compare_digest(sig, expected) and email == _admin_email()
+            and int(exp) > time.time())
+
+def _load_objectives():
+    if _OBJECTIVES_CACHE['loaded']:
+        return _OBJECTIVES_CACHE['data']
+    data = None
+    if GITHUB_TOKEN and GIST_ID:
+        try:
+            r = requests.get(f'https://api.github.com/gists/{GIST_ID}',
+                             headers=_GH_HEADERS(), timeout=6, verify=_VERIFY)
+            if r.ok:
+                content = r.json()['files'].get(_GIST_OBJECTIVES_FILENAME, {}).get('content', '')
+                data = json.loads(content) if content else None
+                _OBJECTIVES_CACHE['loaded'] = True
+        except Exception:
+            pass
+    _OBJECTIVES_CACHE['data'] = data
+    return data
+
+def _validate_objectives(body):
+    year  = body.get('year')
+    items = body.get('items')
+    if not isinstance(year, int) or not 2020 <= year <= 2100:
+        return None, 'year invalide'
+    if not isinstance(items, list) or len(items) > 30:
+        return None, 'items invalide (liste de 30 max)'
+    clean = []
+    for it in items:
+        if not isinstance(it, dict):
+            return None, 'item invalide'
+        metric = str(it.get('metric') or '')[:60]
+        target = it.get('target')
+        if not metric or not isinstance(target, (int, float)) or target <= 0:
+            return None, f'objectif « {metric or "?"} » : cible > 0 requise'
+        clean.append({'id':     str(it.get('id') or secrets.token_hex(4))[:24],
+                      'metric': metric,
+                      'label':  str(it.get('label') or '')[:80],
+                      'target': target})
+    return {'year': year, 'items': clean}, None
+
+@app.route('/api/objectives', methods=['GET'])
+def api_objectives_get():
+    return jsonify({'objectives': _load_objectives(),
+                    'persist': bool(GITHUB_TOKEN and GIST_ID)})
+
+@app.route('/api/objectives/unlock', methods=['POST'])
+def api_objectives_unlock():
+    ip    = request.headers.get('X-Forwarded-For', request.remote_addr or '').split(',')[0].strip()
+    now   = time.time()
+    fails = [t for t in _UNLOCK_FAILS.get(ip, []) if now - t < 900]
+    if len(fails) >= 5:
+        return jsonify({'error': 'Trop de tentatives — réessayez dans 15 minutes'}), 429
+    pw    = ((request.get_json(silent=True) or {}).get('password') or '').strip()
+    admin = _RUNTIME_USERS.get(_admin_email(), _ADMIN_USER)
+    if not pw or hashlib.sha256(pw.encode()).hexdigest() != admin['hash']:
+        _UNLOCK_FAILS[ip] = fails + [now]
+        return jsonify({'error': 'Mot de passe incorrect'}), 401
+    _UNLOCK_FAILS.pop(ip, None)
+    token, exp = _make_admin_token()
+    return jsonify({'token': token, 'expires': exp})
+
+@app.route('/api/objectives', methods=['PUT'])
+def api_objectives_put():
+    token = request.headers.get('Authorization', '').replace('Bearer ', '').strip()
+    if not _check_admin_token(token):
+        return jsonify({'error': 'Session admin expirée — ressaisir le mot de passe'}), 401
+    clean, err = _validate_objectives(request.get_json(silent=True) or {})
+    if err:
+        return jsonify({'error': err}), 400
+    prev    = _load_objectives() or {}
+    history = (prev.get('history') or [])[-29:]
+    history.append({'at': datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ'),
+                    'by': _ADMIN_USER['name'],
+                    'count': len(clean['items'])})
+    data = {**clean, 'history': history}
+    _OBJECTIVES_CACHE.update(loaded=True, data=data)
+    if not (GITHUB_TOKEN and GIST_ID):
+        return jsonify({'ok': True, 'persisted': False, 'objectives': data,
+                        'persist_error': 'GITHUB_TOKEN ou GIST_ID manquant sur Railway'})
+    try:
+        r = requests.patch(f'https://api.github.com/gists/{GIST_ID}', headers=_GH_HEADERS(),
+                           json={'files': {_GIST_OBJECTIVES_FILENAME: {'content': json.dumps(data, ensure_ascii=False, indent=1)}}},
+                           timeout=8, verify=_VERIFY)
+        if not r.ok:
+            return jsonify({'ok': True, 'persisted': False, 'objectives': data,
+                            'persist_error': f'GitHub API HTTP {r.status_code}'})
+    except Exception as e:
+        return jsonify({'ok': True, 'persisted': False, 'objectives': data, 'persist_error': str(e)})
+    return jsonify({'ok': True, 'persisted': True, 'objectives': data})
 
 
 @app.route('/google/debug')

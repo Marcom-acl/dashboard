@@ -1255,6 +1255,7 @@
     [data-theme="dark"] .ai-summary-link:hover{background:var(--y);color:#000;}
 
   </style>
+  <link rel="stylesheet" href="command-center.css">
 </head>
 <body data-accent="bar" data-density="comfortable" data-sidebar="light">
 
@@ -2098,139 +2099,11 @@ function renderCalendar() {
 }
 
 // ── OVERVIEW ─────────────────────────────────────────────────
-function renderOverview({dGA4, dGSC, dFB, dFBP, dBrevo, dLI, dYT, dGA4T, dVeille, dFBPytd, dFBytd, dBuffer}) {
-  const el = document.getElementById('panel-overview');
-  if (!el) return;
-
-  const sessions = dGA4?.sessions || 0;
-  const clicks   = dGSC?.clicks   || 0;
-  const spend    = dFB?.spend     || 0;
-  const avgPos   = dGSC?.avgPosition || 0;
-  const score    = scoreGlobal({dGA4, dGSC, dFB, dBrevo, dLI, dYT});
-
-  // Sparkline data
-  const sparkGA4 = dGA4T?.trend?.map(t => t.sessions) || [];
-  const sparkGSC = dGSC?.trend?.map(t => t.clicks) || [];
-
-  const scoreLabel = score >= 70 ? 'Bon' : score >= 40 ? 'Moyen' : 'Attention';
-  const scoreDesc  = [
-    dGA4?.deltas?.sessions != null ? `Sessions ${dGA4.deltas.sessions > 0 ? '↑' : '↓'}` : null,
-    dGSC?.deltas?.clicks   != null ? `SEO ${dGSC.deltas.clicks > 0 ? '↑' : '↓'}` : null,
-    dFB?.roas != null ? `ROAS ${dFB.roas > 1 ? '↑' : '↓'}` : null,
-  ].filter(Boolean).join(' · ') || 'En attente de données';
-
-  el.innerHTML = `
-    <!-- 1. HERO — greeting + health ring -->
-    <div class="hero">
-      <div class="hero-greet">
-        <div class="hero-eyebrow"><span class="live-dot"></span>Semaine ${getWeekNum()} · ${globalDays}j</div>
-        <h1 class="hero-title f-display">Bonjour <span class="hl-y">${getCurrentUserFirstName()}</span></h1>
-        <p class="hero-sub">Vue d'ensemble de tous les canaux marketing ACL Luxembourg.</p>
-      </div>
-    </div>
-
-    <!-- 2. RÉSUMÉ IA — synthèse 1-2 phrases + ancre vers recommandations -->
-    <div class="ai-summary-row" id="ov-ai-summary" style="display:none">
-      <span class="ai-summary-icon">✦</span>
-      <p class="ai-summary-text" id="ov-ai-summary-text"></p>
-      <a class="ai-summary-link" href="#ov-insights-anchor">Voir les recommandations ↓</a>
-    </div>
-
-    <!-- 3. MISSION CONTROL — objectifs (après hero, avant KPIs) -->
-    <div id="ov-objectives"></div>
-
-    <!-- 3. KPI ROW -->
-    <div class="kpi-row">
-      ${kpiCard({label:'Sessions acl.lu', value:fmtN(sessions), badge:trendBadge(dGA4?.deltas?.sessions), src:'var(--c-ga4)', srcBg:'var(--c-ga4-bg)', spark:sparkGA4})}
-      ${kpiCard({label:'Clics SEO', value:fmtN(clicks), badge:trendBadge(dGSC?.deltas?.clicks), src:'var(--c-gsc)', srcBg:'var(--c-gsc-bg)', spark:sparkGSC})}
-      ${kpiCard({label:'Budget Meta Ads', value:fmtEur(spend), src:'var(--c-fb)', srcBg:'var(--c-fb-bg)'})}
-      ${kpiCard({label:'Position Moy. GSC', value:avgPos > 0 ? avgPos.toFixed(1) : '—', badge:trendBadge(dGSC?.deltas?.avgPosition, true), src:'var(--c-gsc)', srcBg:'var(--c-gsc-bg)'})}
-    </div>
-
-    <!-- 4. CALENDRIER MARKETING 2026 -->
-    <div class="cal-module" id="calModule">
-      <div class="cal-head">
-        <div class="cal-title-wrap">
-          <span class="cal-icon">📅</span>
-          <span class="cal-title">Calendrier marketing 2026</span>
-        </div>
-        <div class="cal-count" id="calCount"></div>
-      </div>
-      <div class="cal-list" id="calList"></div>
-      <button class="cal-more" id="calMore" style="display:none">Voir plus ↓</button>
-    </div>
-
-    <!-- 4b. BUFFER — posts planifiés cette semaine -->
-    <div id="ov-buffer-posts"></div>
-
-    <!-- 5. TOP BARS 2-COL (compact) -->
-    <div class="overview-bars-2">
-      <div class="card"><div class="card-head"><div class="card-title">Top pages acl.lu</div></div>
-        <div class="card-body">${barListHtml(dGA4?.topPages?.slice(0,5)||[], 'var(--c-ga4)', null, 'page', 'views', fmtN)}</div>
-      </div>
-      <div class="card"><div class="card-head"><div class="card-title">Top requêtes GSC</div></div>
-        <div class="card-body">${barListHtml(dGSC?.topQueries?.slice(0,5)||[], 'var(--c-gsc)', null, 'query', 'clicks', fmtN)}</div>
-      </div>
-    </div>
-
-    <!-- 5. MID GRID : donut + positions GSC -->
-    <div class="ov-mid-grid">
-      <div class="channel-donut-wrap">
-        <div class="channel-donut-title">Mix canaux GA4</div>
-        <div class="channel-donut-inner">
-          <div class="channel-donut-canvas-wrap">
-            <canvas id="chartChannelDonut" width="200" height="200"></canvas>
-          </div>
-          <div class="channel-donut-legend" id="channelDonutLegend"></div>
-        </div>
-      </div>
-      <div class="gsc-pos-wrap" id="gscPosModule"></div>
-    </div>
-
-    <!-- 6. BOTTOM GRID : insights IA (top 3) + benchmark -->
-    <div class="ov-bottom-grid">
-      <div class="ap-wrap" id="ov-insights-anchor">
-        <div class="ap-head">
-          <div class="ap-title"><span class="ap-title-star">✦</span> Actions prioritaires</div>
-          <button class="ap-link" id="apToutVoir" style="display:none">Tout voir →</button>
-        </div>
-        <div class="ap-subtitle" id="apSubtitle">Générées depuis vos données — analyse en cours…</div>
-        <div class="ap-body" id="insights-body">
-          <div class="ap-loading"><div class="spin-star">✦</div><br>Génération des recommandations IA…</div>
-        </div>
-      </div>
-      <div id="ov-benchmark"></div>
-    </div>
-    <div id="ov-veille" style="margin-top:14px"></div>`;
-
-  // Wire "Tout voir" expand/collapse (guard against duplicate listeners on refresh)
-  if (!el.dataset.apWired) {
-    el.dataset.apWired = '1';
-    el.addEventListener('click', function(e) {
-      const btn = e.target.closest('#apToutVoir');
-      if (!btn) return;
-      const body = document.getElementById('insights-body');
-      if (!body) return;
-      const hidden = body.querySelectorAll('.rec.rec-hidden');
-      const total  = body.querySelectorAll('.rec').length;
-      if (hidden.length) {
-        hidden.forEach(r => r.classList.remove('rec-hidden'));
-        btn.textContent = 'Voir moins ↑';
-      } else {
-        body.querySelectorAll('.rec').forEach((r, i) => { if (i >= 3) r.classList.add('rec-hidden'); });
-        btn.textContent = `Tout voir (${total}) →`;
-      }
-    });
-  }
-
-  animateCards(el);
-  renderObjectives({dFBP, dFB, dBrevo, dFBPytd, dFBytd});
-  renderCalendar();
-  renderBufferWidget(dBuffer);
-  renderChannelDonut(dGA4?.channelBreakdown || []);
-  renderGSCPositions(dGSC?.topQueries || []);
-  renderBenchmarks({dGA4, dGSC, dFB, dBrevo, dLI, dYT});
-  renderVeilleOverview(dVeille);
+// Rendu délégué au Command Center (command-center.js, chargé après ce
+// script). Si les données arrivent avant lui, on met l'appel en attente.
+function renderOverview(args) {
+  if (window.CC?.renderOverview) return window.CC.renderOverview(args);
+  window._ccPending = args;
 }
 
 function renderVeilleOverview(d) {
@@ -3853,120 +3726,9 @@ function renderIntelligence() {
 }
 
 // ── OBJECTIFS ÉQUIPE ──────────────────────────────────────────
-function renderObjectives({dFBP, dFB, dBrevo, dFBPytd, dFBytd}) {
-  const el = document.getElementById('ov-objectives');
-  if (!el) return;
-
-  // YTD (2026-01-01 → aujourd'hui) pour les barres de progression
-  const ytdPages    = dFBPytd?.pages || [];
-  // Période sélectionnée pour la tendance
-  const periodPages = dFBP?.pages    || [];
-
-  const sportYtd      = ytdPages.find(p => /sport/i.test(p.name))    || {};
-  const kartingYtd    = ytdPages.find(p => /karting/i.test(p.name))  || {};
-  const sportPeriod   = periodPages.find(p => /sport/i.test(p.name))   || {};
-  const kartingPeriod = periodPages.find(p => /karting/i.test(p.name)) || {};
-
-  // Fans — totaux courants (indépendants de la période)
-  const sportFans   = sportYtd.fans   || sportPeriod.fans   || 0;
-  const kartingFans = kartingYtd.fans || kartingPeriod.fans || 0;
-
-  // Posts YTD + rythme annuel
-  const sportYtdPosts   = sportYtd.posts_count   || 0;
-  const kartingYtdPosts = kartingYtd.posts_count || 0;
-  const ytdDays         = Math.max(1, Math.round((new Date() - new Date(`${new Date().getFullYear()}-01-01`)) / 86400000));
-  const sportYtdWkly    = +(sportYtdPosts   / ytdDays * 7).toFixed(1);
-  const kartingYtdWkly  = +(kartingYtdPosts / ytdDays * 7).toFixed(1);
-  const sportAnnual     = Math.round(sportYtdPosts   / ytdDays * 365);
-  const kartingAnnual   = Math.round(kartingYtdPosts / ytdDays * 365);
-
-  // Tendance : rythme sur la période sélectionnée vs rythme YTD
-  const sportPeriodWkly   = globalDays ? +((sportPeriod.posts_count   || 0) / globalDays * 7).toFixed(1) : 0;
-  const kartingPeriodWkly = globalDays ? +((kartingPeriod.posts_count || 0) / globalDays * 7).toFixed(1) : 0;
-  function trendBadge(recent, ytd) {
-    if (!ytd || !recent) return '';
-    const diff = (recent - ytd) / ytd;
-    if (diff >  0.05) return ` <span style="color:#22c55e;font-weight:600">↑ ${recent.toFixed(1)}/sem</span>`;
-    if (diff < -0.05) return ` <span style="color:#ef4444;font-weight:600">↓ ${recent.toFixed(1)}/sem</span>`;
-    return ` <span style="color:#94a3b8">→ stable</span>`;
-  }
-
-  // Meta Ads — YTD vs objectif annuel fixe 2 000 000
-  const metaYtd    = dFBytd?.impressions || dFBytd?.totalImpressions || 0;
-  const metaPeriod = dFB?.impressions    || 0;
-  const metaTarget = 2000000;
-
-  // Engaged users YTD
-  const engagedYtd    = dFBPytd?.totals?.engaged_users || dFBP?.totals?.engaged_users || 0;
-  const engagedTarget = engagedYtd ? Math.round(engagedYtd * 1.2) : 0;
-
-  // Brevo — taux d'ouverture (toutes campagnes, non filtré par période)
-  const camps         = dBrevo?.campaigns || [];
-  const totalDlvr     = camps.reduce((a,c) => a + (c.statistics?.globalStats?.delivered  || 0), 0);
-  const totalOpens    = camps.reduce((a,c) => a + ((c.statistics?.globalStats?.uniqueOpens || c.statistics?.globalStats?.uniqueViews) || 0), 0);
-  const openRateAll   = dBrevo?.avgOpenRate != null ? dBrevo.avgOpenRate : (totalDlvr ? totalOpens / totalDlvr * 100 : 0);
-
-  // Hors relances (réactivation membres) et enquêtes — objectif Marketing
-  const _isRelanceOrEnquete = n => /relance|reactivat|desactiv|dormant/.test((n||'').toLowerCase()) || /enquete|sondage|survey|satisfaction/.test((n||'').toLowerCase());
-  const campsFiltered = camps.filter(c => !_isRelanceOrEnquete(c.name));
-  const dlvrFiltered  = campsFiltered.reduce((a,c) => a + (c.statistics?.globalStats?.delivered || 0), 0);
-  const opensFiltered = campsFiltered.reduce((a,c) => a + ((c.statistics?.globalStats?.uniqueOpens || c.statistics?.globalStats?.uniqueViews) || 0), 0);
-  const openRate      = dlvrFiltered ? opensFiltered / dlvrFiltered * 100 : openRateAll;
-
-  function objMcCard(group, label, current, target, display, targetDisplay, note, color) {
-    const pct = Math.min(100, target ? Math.round(current / target * 100) : 0);
-    return `<div class="obj-mc" style="--obj-color:${color}">
-      <div class="obj-mc-group">${group}</div>
-      <div class="obj-mc-label">${label}</div>
-      <div class="obj-mc-vals">
-        <span class="obj-mc-current">${display}</span>
-        <span class="obj-mc-target">/ obj. ${targetDisplay}</span>
-      </div>
-      ${note ? `<div class="obj-mc-note">${note}</div>` : ''}
-      <div class="obj-mc-bar-wrap">
-        <div class="obj-mc-track"><div class="obj-mc-fill" style="width:${pct}%"></div></div>
-        <span class="obj-mc-pct">${pct >= 100 ? '✓' : pct + '%'}</span>
-      </div>
-    </div>`;
-  }
-
-  const isCollapsed = localStorage.getItem('mission_collapsed') === '1';
-  el.innerHTML = `
-    <div class="mission-panel${isCollapsed ? ' collapsed' : ''}">
-      <div class="mission-header">
-        <div>
-          <div class="mission-title">Mission Control — Objectifs 2026</div>
-          <div class="mission-subtitle">Suivi des objectifs annuels ACL Marcom</div>
-        </div>
-        <div class="mission-header-right">
-          <div class="mission-period-badge">2026 YTD</div>
-          <button class="mission-collapse-btn" id="missionCollapseBtn" title="${isCollapsed ? 'Développer' : 'Réduire'}">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-              ${isCollapsed ? '<polyline points="18 15 12 9 6 15"/>' : '<polyline points="6 9 12 15 18 9"/>'}
-            </svg>
-          </button>
-        </div>
-      </div>
-      <div class="mission-grid">
-        ${objMcCard('Facebook · Abonnés', 'ACL Sport — Abonnés page', sportFans, 2500, fmtN(sportFans), '2 500', 'Objectif annuel tous comptes', '#1877F2')}
-        ${objMcCard('Facebook · Abonnés', 'ACL Karting — Abonnés page', kartingFans, 3000, fmtN(kartingFans), '3 000', 'Objectif annuel tous comptes', '#1877F2')}
-        ${objMcCard('Facebook · Posts', 'ACL Sport — Rythme 2026', sportYtdWkly, 1.5, sportYtdWkly+'/sem', '1.5/sem', `${sportYtdPosts} posts YTD · ≈${sportAnnual}/an${trendBadge(sportPeriodWkly, sportYtdWkly)}`, '#FEDB00')}
-        ${objMcCard('Facebook · Posts', 'ACL Karting — Rythme 2026', kartingYtdWkly, 1.5, kartingYtdWkly+'/sem', '1.5/sem', `${kartingYtdPosts} posts YTD · ≈${kartingAnnual}/an${trendBadge(kartingPeriodWkly, kartingYtdWkly)}`, '#FEDB00')}
-        ${objMcCard('Meta Ads', 'Impressions 2026', metaYtd, metaTarget, fmtN(metaYtd), '2 000 000', `Objectif annuel · période : ${fmtN(metaPeriod)}`, '#F97316')}
-        ${engagedYtd ? objMcCard('Facebook · Engagement', 'Utilisateurs engagés 2026', engagedYtd, engagedTarget, fmtN(engagedYtd), '+20%', 'Interactions uniques avec les posts', '#1877F2') : ''}
-        ${objMcCard('Marketing Emails', "Taux d'ouverture moyen", openRate, 65, fmtPct(openRate), '65.0%', `Hors relances &amp; enquêtes · Toutes campagnes : ${fmtPct(openRateAll)}`, '#0B996E')}
-      </div>
-    </div>`;
-
-  document.getElementById('missionCollapseBtn')?.addEventListener('click', function() {
-    const panel = this.closest('.mission-panel');
-    const grid  = panel.querySelector('.mission-grid');
-    const now   = panel.classList.toggle('collapsed');
-    localStorage.setItem('mission_collapsed', now ? '1' : '0');
-    this.title = now ? 'Développer' : 'Réduire';
-    this.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">${now ? '<polyline points="18 15 12 9 6 15"/>' : '<polyline points="6 9 12 15 18 9"/>'}</svg>`;
-  });
-}
+// Mission Control : catalogue de métriques, cibles éditables (admin) et
+// rendu dans command-center.js — cibles stockées via /api/objectives.
+function renderObjectives() { window.CC?.renderObjectives?.(); }
 
 // ── YOUTUBE THEME ─────────────────────────────────────────────
 function getVideoTheme(title) {
@@ -9868,6 +9630,7 @@ setDateRange(30);
   });
 })();
 </script>
+<script src="command-center.js"></script>
 <script src="poweron-builder.js"></script>
 </body>
 </html>
