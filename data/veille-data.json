@@ -1,6 +1,6 @@
 {
   "generated_at": "2026-10-05",
-  "next_edition": "2026-10-12",
+  "next_edition": "",
   "editions": [
     {
       "date": "2026-05-03",
@@ -353,54 +353,202 @@
   ],
   "items": [
     {
-      "id": "2026-10-05-adac-1",
-      "date": "2026-09-09",
-      "club": "ADAC",
-      "category": "EU",
-      "content": "ADAC SE a lancé une coopération avec le fournisseur kleines kraftwerk (Achim, Basse-Saxe) pour proposer à ses 22 millions de membres des centrales solaires de balcon prêtes à l'emploi, avec une remise d'au moins 10%, de 314€ pour un kit de 1000 W à 1709€ pour une configuration 2000 W avec batterie de 5 kWh.",
-      "relevance": "Cette diversification vers l'énergie domestique illustre une stratégie d'élargissement de la valeur perçue de l'adhésion au-delà de l'automobile. L'ACL pourrait-elle explorer un partenariat similaire avec un acteur luxembourgeois de l'énergie solaire résidentielle pour ses membres ?",
+      "id": "2026-10-05-saaskia-web-Z5Hbmp",
+      "club": "virgule.lu (Wort.lu/FR)",
+      "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "url": "https://presse.adac.de/meldungen/adac-se/das-unternehmen/adac-se-und-kleines-kraftwerk-starten-kooperation-fuer-balkonkraftwerke.html"
+      "content": "Article analysant l'intérêt actuel d'acheter un véhicule diesel au Luxembourg, dans le contexte des évolutions réglementaires et technologiques.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791183311.7414.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791183311.7414.pdf",
+      "date": "2026-10-05"
     },
     {
-      "id": "2026-10-05-tcs-1",
-      "date": "2026-10-01",
-      "club": "TCS",
-      "category": "EU",
-      "content": "Le TCS et l'ACS (Automobile Club de Suisse) ont salué l'entrée en vigueur, le 1er octobre 2026, de la nouvelle réglementation fédérale encadrant le passage au 30 km/h en ville : les communes devront désormais prouver par une expertise que l'abaissement de vitesse sur un axe de circulation générale n'entraîne pas de report de trafic vers les rues résidentielles, le 50 km/h restant la règle générale en localité.",
-      "relevance": "Cette victoire obtenue après cinq ans de mobilisation (motion Schilliger) montre la capacité d'un club automobile à peser sur une réglementation nationale de vitesse en ville. L'ACL mène-t-elle une action de lobbying comparable face aux projets d'extension des zones 30 au Luxembourg ?",
+      "id": "2026-10-05-saaskia-web-ogDmtV",
+      "club": "wort.lu",
+      "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "url": "https://www.presseportal.ch/fr/pm/100000091/100942680"
+      "content": "Présentation des véhicules électriques testables lors du 'GO electric day', événement de sensibilisation à la mobilité électrique.",
+      "relevance": "ACL explicitement cité : \"GO electric day\"",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791177789.9681.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791177789.9681.pdf",
+      "date": "2026-10-05"
     },
     {
-      "id": "2026-10-05-rac-1",
-      "date": "2026-09-11",
-      "club": "RAC",
-      "category": "Mobilité",
-      "content": "OMODA&JAECOO UK a élargi son partenariat avec le RAC en mettant en place une opération dédiée de gestion des véhicules immobilisés (Vehicle Off Road) : l'équipe RAC coordonne désormais le rapatriement, la réparation et l'approvisionnement en pièces pour les cas complexes, et les 400 mécaniciens mobiles du RAC, classés réparateurs agréés, peuvent réaliser des travaux de garantie et de rappel directement chez les flottes clientes.",
-      "relevance": "Ce modèle de partenariat constructeur-assisteur, premier du genre pour une marque chinoise au Royaume-Uni, approfondit la relation entre RAC et OMODA&JAECOO au-delà du simple dépannage routier. L'ACL pourrait-elle nouer des partenariats similaires avec les marques chinoises en forte croissance sur le marché luxembourgeois ?",
-      "badge": "SURVEILLER",
-      "url": "https://media.rac.co.uk/omodajaecoo-expands-rac-partnership-to-enhance-uk-roadside-and-repair-support"
+      "id": "2026-10-05-saaskia-web-os9BxZ",
+      "club": "lessentiel.lu DE",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "Le 'GO electric day' à la Coque propose des essais gratuits de véhicules électriques au public luxembourgeois.",
+      "relevance": "ACL explicitement cité : \"GO electric day\"",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791177742.2574.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791177742.2574.pdf",
+      "date": "2026-10-05"
     },
     {
-      "id": "2026-10-05-oeamtc-1",
-      "date": "2026-09-14",
-      "club": "ÖAMTC",
-      "category": "EU",
-      "content": "L'ÖAMTC réclame une sécurité juridique pour les utilisateurs d'e-mopeds (classe L1e-B) en Autriche : depuis le 1er octobre 2026, ces véhicules ne sont plus assimilés à des vélos mais à des cyclomoteurs légers, nécessitant immatriculation, assurance responsabilité civile, vignette de contrôle, permis et casque ; le club estime qu'au moins 20000 utilisateurs privés sont concernés et demande une immatriculation simplifiée pour les véhicules déjà en circulation.",
-      "relevance": "Cette reclassification soudaine illustre les risques de dévalorisation patrimoniale et de confusion réglementaire lors d'un changement de statut de micromobilité électrique. L'ACL devrait-elle anticiper une communication préventive si une reclassification similaire des engins de micromobilité électrique était envisagée au Luxembourg ?",
-      "badge": "SURVEILLER",
-      "url": "https://www.oeamtc.at/presse/e-mopeds-oeamtc-fordert-rechtssicherheit-fuer-tausende-nutzerinnen-89409419"
+      "id": "2026-10-05-saaskia-web-VH1fXU",
+      "club": "lessentiel.lu FR",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "Un citoyen luxembourgeois a l'opportunité de tester la nouvelle Mazda CX-6e électrique durant un mois.",
+      "relevance": "ACL explicitement cité : \"test véhicule\"",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791177455.6401.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791177455.6401.pdf",
+      "date": "2026-10-05"
     },
     {
-      "id": "2026-10-05-aaa-1",
-      "date": "2026-10-01",
-      "club": "AAA",
-      "category": "Monde",
-      "content": "The Auto Club Group (ACG), deuxième plus grand club AAA d'Amérique du Nord, a annoncé le 1er octobre 2026 son affiliation avec AAA Minneapolis (environ 200000 membres, 175 employés), portant sa couverture à plus de 830000 membres dans le Minnesota et à 14,2 millions de membres sur l'ensemble de son territoire.",
-      "relevance": "Cette consolidation par affiliation entre clubs AAA voisins illustre une stratégie de croissance par rapprochement plutôt que par recrutement individuel. Une veille sur les modalités de gouvernance de ces affiliations pourrait-elle éclairer d'éventuels partenariats transfrontaliers de l'ACL dans la Grande Région ?",
+      "id": "2026-10-05-saaskia-web-KUdi1m",
+      "club": "lessentiel.lu DE",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "Un résident du Luxembourg remporte l'essai d'une semaine de la nouvelle électrique Mazda CX-6e, organisé via un partenariat automobile.",
+      "relevance": "ACL explicitement cité : \"Elektro-Mazda\"",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791177404.5538.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791177404.5538.pdf",
+      "date": "2026-10-05"
+    },
+    {
+      "id": "2026-10-05-saaskia-web-jigIpY",
+      "club": "Luxemburger Wort",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "Présentation des véhicules électriques disponibles au test lors du 'GO electric day', initiative de promotion de la mobilité électrique.",
+      "relevance": "ACL explicitement cité : \"GO electric day\"",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791177186.1889.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791177186.1889.pdf",
+      "date": "2026-10-05"
+    },
+    {
+      "id": "2026-10-05-saaskia-web-YsuekP",
+      "club": "virgule.lu (Wort.lu/FR)",
+      "category": "Veille presse LU",
       "badge": "INFO",
-      "url": "https://newsroom.acg.aaa.com/aaa---the-auto-club-group-affiliates-with-aaa-minneapolis"
+      "content": "La nouvelle Mazda CX-6e est désormais disponible à la vente au Garage Binsfeld à Differdange.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791183345.1975.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791183345.1975.pdf",
+      "date": "2026-10-05"
+    },
+    {
+      "id": "2026-10-05-saaskia-web-wojPbk",
+      "club": "wort.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Rappel de véhicules VW, Audi et Seat : le Luxembourg n'est pas affecté par cette action actuellement.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791177891.3729.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791177891.3729.pdf",
+      "date": "2026-10-05"
+    },
+    {
+      "id": "2026-10-05-saaskia-web-oBQQOh",
+      "club": "lessentiel.lu FR",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Skoda procède au rappel de 1,7 million de véhicules mondialement sur quatre modèles affectés.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791177873.6455.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791177873.6455.pdf",
+      "date": "2026-10-05"
+    },
+    {
+      "id": "2026-10-05-saaskia-web-PSht7I",
+      "club": "infos.rtl.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Signalement de vitesses excessives et dangereuses observées sur les routes luxembourgeoises.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791177840.7602.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791177840.7602.pdf",
+      "date": "2026-10-05"
+    },
+    {
+      "id": "2026-10-05-saaskia-web-u7rFhX",
+      "club": "infos.rtl.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Point sur l'électromobilité et son développement au Luxembourg, transitions technologiques et infrastructures.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791177757.9716.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791177757.9716.pdf",
+      "date": "2026-10-05"
+    },
+    {
+      "id": "2026-10-05-saaskia-web-K8ezYm",
+      "club": "virgule.lu (Wort.lu/FR)",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Près de 200 infractions routières, dont plusieurs excès de vitesse graves, commis par des motards au Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791177712.8122.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791177712.8122.pdf",
+      "date": "2026-10-05"
+    },
+    {
+      "id": "2026-10-05-saaskia-web-qbLCYr",
+      "club": "virgule.lu (Wort.lu/FR)",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Les députés DP réclament une exemption de la vignette belge pour les zones frontalières belgo-luxembourgeoises.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791177683.9149.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791177683.9149.pdf",
+      "date": "2026-10-05"
+    },
+    {
+      "id": "2026-10-05-saaskia-web-n2pyBo",
+      "club": "infos.rtl.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Sensibilisation sur les risques et infractions liés à l'utilisation du téléphone au volant au Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791177585.5974.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791177585.5974.pdf",
+      "date": "2026-10-05"
+    },
+    {
+      "id": "2026-10-05-saaskia-web-VgwgWb",
+      "club": "100komma7.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Une station-service à Feutz propose du diesel et de l'essence en-dessous des prix normaux du marché.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791177554.3568.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791177554.3568.pdf",
+      "date": "2026-10-05"
+    },
+    {
+      "id": "2026-10-05-saaskia-web-T1t7yT",
+      "club": "luxtimes.lu (Wort.lu/en)",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Les maires demandent l'extension du tram jusqu'à l'est du Luxembourg pour améliorer les transports publics.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791177508.0362.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791177508.0362.pdf",
+      "date": "2026-10-05"
+    },
+    {
+      "id": "2026-10-05-saaskia-web-3E6vF0",
+      "club": "lesfrontaliers.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Les climatiseurs des transports publics luxembourgeois sont à leur limite pendant l'été, causant des défaillances.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791177485.1952.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791177485.1952.pdf",
+      "date": "2026-10-05"
+    },
+    {
+      "id": "2026-10-05-saaskia-web-x5Hgcc",
+      "club": "Tageblatt",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "L'approvisionnement en diesel crée des tensions et préoccupations au Luxembourg et régions voisines.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791177307.8329.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791177307.8329.pdf",
+      "date": "2026-10-05"
     },
     {
       "id": "2026-10-02-saaskia-web-sr8WvR",
@@ -500,6 +648,26 @@
       "url": "https://saaskia.keepcontact.lu/data/files/1790919041.3345.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790919041.3345.pdf",
       "date": "2026-10-02"
+    },
+    {
+      "id": "2026-10-05-tcs-1",
+      "date": "2026-10-01",
+      "club": "TCS",
+      "category": "EU",
+      "content": "Le TCS et l'ACS (Automobile Club de Suisse) ont salué l'entrée en vigueur, le 1er octobre 2026, de la nouvelle réglementation fédérale encadrant le passage au 30 km/h en ville : les communes devront désormais prouver par une expertise que l'abaissement de vitesse sur un axe de circulation générale n'entraîne pas de report de trafic vers les rues résidentielles, le 50 km/h restant la règle générale en localité.",
+      "relevance": "Cette victoire obtenue après cinq ans de mobilisation (motion Schilliger) montre la capacité d'un club automobile à peser sur une réglementation nationale de vitesse en ville. L'ACL mène-t-elle une action de lobbying comparable face aux projets d'extension des zones 30 au Luxembourg ?",
+      "badge": "NOTABLE",
+      "url": "https://www.presseportal.ch/fr/pm/100000091/100942680"
+    },
+    {
+      "id": "2026-10-05-aaa-1",
+      "date": "2026-10-01",
+      "club": "AAA",
+      "category": "Monde",
+      "content": "The Auto Club Group (ACG), deuxième plus grand club AAA d'Amérique du Nord, a annoncé le 1er octobre 2026 son affiliation avec AAA Minneapolis (environ 200000 membres, 175 employés), portant sa couverture à plus de 830000 membres dans le Minnesota et à 14,2 millions de membres sur l'ensemble de son territoire.",
+      "relevance": "Cette consolidation par affiliation entre clubs AAA voisins illustre une stratégie de croissance par rapprochement plutôt que par recrutement individuel. Une veille sur les modalités de gouvernance de ces affiliations pourrait-elle éclairer d'éventuels partenariats transfrontaliers de l'ACL dans la Grande Région ?",
+      "badge": "INFO",
+      "url": "https://newsroom.acg.aaa.com/aaa---the-auto-club-group-affiliates-with-aaa-minneapolis"
     },
     {
       "id": "2026-10-01-saaskia-web-VjxCaD",
@@ -2061,6 +2229,16 @@
       "date": "2026-09-15"
     },
     {
+      "id": "2026-10-05-oeamtc-1",
+      "date": "2026-09-14",
+      "club": "ÖAMTC",
+      "category": "EU",
+      "content": "L'ÖAMTC réclame une sécurité juridique pour les utilisateurs d'e-mopeds (classe L1e-B) en Autriche : depuis le 1er octobre 2026, ces véhicules ne sont plus assimilés à des vélos mais à des cyclomoteurs légers, nécessitant immatriculation, assurance responsabilité civile, vignette de contrôle, permis et casque ; le club estime qu'au moins 20000 utilisateurs privés sont concernés et demande une immatriculation simplifiée pour les véhicules déjà en circulation.",
+      "relevance": "Cette reclassification soudaine illustre les risques de dévalorisation patrimoniale et de confusion réglementaire lors d'un changement de statut de micromobilité électrique. L'ACL devrait-elle anticiper une communication préventive si une reclassification similaire des engins de micromobilité électrique était envisagée au Luxembourg ?",
+      "badge": "SURVEILLER",
+      "url": "https://www.oeamtc.at/presse/e-mopeds-oeamtc-fordert-rechtssicherheit-fuer-tausende-nutzerinnen-89409419"
+    },
+    {
       "id": "2026-09-21-oeamtc-2",
       "date": "2026-09-14",
       "club": "ÖAMTC",
@@ -2179,6 +2357,16 @@
       "url": "https://saaskia.keepcontact.lu/data/files/1789364062.098.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789364062.098.pdf",
       "date": "2026-09-14"
+    },
+    {
+      "id": "2026-10-05-rac-1",
+      "date": "2026-09-11",
+      "club": "RAC",
+      "category": "Mobilité",
+      "content": "OMODA&JAECOO UK a élargi son partenariat avec le RAC en mettant en place une opération dédiée de gestion des véhicules immobilisés (Vehicle Off Road) : l'équipe RAC coordonne désormais le rapatriement, la réparation et l'approvisionnement en pièces pour les cas complexes, et les 400 mécaniciens mobiles du RAC, classés réparateurs agréés, peuvent réaliser des travaux de garantie et de rappel directement chez les flottes clientes.",
+      "relevance": "Ce modèle de partenariat constructeur-assisteur, premier du genre pour une marque chinoise au Royaume-Uni, approfondit la relation entre RAC et OMODA&JAECOO au-delà du simple dépannage routier. L'ACL pourrait-elle nouer des partenariats similaires avec les marques chinoises en forte croissance sur le marché luxembourgeois ?",
+      "badge": "SURVEILLER",
+      "url": "https://media.rac.co.uk/omodajaecoo-expands-rac-partnership-to-enhance-uk-roadside-and-repair-support"
     },
     {
       "id": "2026-09-28-rac-1",
@@ -2471,6 +2659,16 @@
       "url": "https://saaskia.keepcontact.lu/data/files/1789017102.1405.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789017102.1405.pdf",
       "date": "2026-09-10"
+    },
+    {
+      "id": "2026-10-05-adac-1",
+      "date": "2026-09-09",
+      "club": "ADAC",
+      "category": "EU",
+      "content": "ADAC SE a lancé une coopération avec le fournisseur kleines kraftwerk (Achim, Basse-Saxe) pour proposer à ses 22 millions de membres des centrales solaires de balcon prêtes à l'emploi, avec une remise d'au moins 10%, de 314€ pour un kit de 1000 W à 1709€ pour une configuration 2000 W avec batterie de 5 kWh.",
+      "relevance": "Cette diversification vers l'énergie domestique illustre une stratégie d'élargissement de la valeur perçue de l'adhésion au-delà de l'automobile. L'ACL pourrait-elle explorer un partenariat similaire avec un acteur luxembourgeois de l'énergie solaire résidentielle pour ses membres ?",
+      "badge": "SURVEILLER",
+      "url": "https://presse.adac.de/meldungen/adac-se/das-unternehmen/adac-se-und-kleines-kraftwerk-starten-kooperation-fuer-balkonkraftwerke.html"
     },
     {
       "id": "2026-09-28-adac-1",
