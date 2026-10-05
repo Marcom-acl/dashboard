@@ -617,6 +617,14 @@ function wireOverview(el) {
       }
       return;
     }
+    const sg = e.target.closest('[data-cc-sig]');
+    if (sg) {
+      const t = sg.dataset.ccSig;
+      if (t === '#mission') document.getElementById('ccMission')?.scrollIntoView({behavior: RM ? 'auto' : 'smooth', block: 'start'});
+      else if (t === '#fresh') toggleFreshPop(document.getElementById('ccFreshBtn'));
+      else openTab(t);
+      return;
+    }
     if (e.target.closest('#ccFreshBtn')) { toggleFreshPop(e.target.closest('#ccFreshBtn')); return; }
     const btn = e.target.closest('#apToutVoir');
     if (btn) {
@@ -699,6 +707,7 @@ function refreshTile(tab) {
   el.innerHTML = tileInner(tab, t);
   animateCounts(el);
   renderFreshness();
+  renderHealth();
   renderSince();
 }
 
@@ -736,40 +745,67 @@ function toggleFreshPop(btn) {
 }
 
 // ── Score de santé (expliqué signal par signal) ─────────────────
+// Chaque signal : la mesure réelle, la règle qui le met au vert, et
+// l'onglet où creuser. Le score = part des signaux au vert (sur ceux dont
+// la donnée est disponible), pour la période sélectionnée.
 function healthSignals() {
   const d = window._dashData || {};
   const sig = [];
-  const add = (label, v, okFn) => { if (num(v) != null) sig.push({label, ok: okFn(v)}); };
-  add('Trafic web',    ok(d.dGA4)?.deltas?.sessions,     v => v >= 0);
-  add('Clics SEO',     ok(d.dGSC)?.deltas?.clicks,       v => v >= 0);
-  add('Position SEO',  ok(d.dGSC)?.deltas?.avgPosition,  v => v <= 0);
+  const sgn = v => (v > 0 ? '+' : '') + fmtDec(v, 1) + ' %';
+  const add = (o) => { if (num(o.raw) != null) sig.push({...o, ok: o.test(o.raw)}); };
+  const ga = ok(d.dGA4), gs = ok(d.dGSC);
+  add({label: 'Trafic web', tab: 'ga4', raw: ga?.deltas?.sessions, test: v => v >= 0,
+       value: v => `${sgn(v)} de sessions`, rule: 'Sessions acl.lu stables ou en hausse vs période précédente'});
+  add({label: 'Clics SEO', tab: 'gsc', raw: gs?.deltas?.clicks, test: v => v >= 0,
+       value: v => `${sgn(v)} de clics`, rule: 'Clics Google stables ou en hausse vs période précédente'});
+  add({label: 'Position SEO', tab: 'gsc', raw: gs?.deltas?.avgPosition, test: v => v <= 0,
+       value: v => `${fmtDec(gs.avgPosition, 1)} (${v <= 0 ? 'meilleure' : 'moins bonne'})`, rule: 'Position moyenne Google stable ou meilleure'});
   const brevoObj = objCfg().items.find(o => o.metric === 'brevo_open');
-  add('Emails',        brevoOpenRates(d)?.mkt,           v => v >= (brevoObj?.target || 50));
-  add('LinkedIn',      ok(d.dLI)?.summary?.engagementRate, v => v >= 2);
+  const brevoTarget = brevoObj?.target || 50;
+  add({label: 'Emails', tab: 'brevo', raw: brevoOpenRates(d)?.mkt, test: v => v >= brevoTarget,
+       value: v => `${fmtDec(v, 1)} % d'ouverture`, rule: `Taux d'ouverture ≥ ${fmtDec(brevoTarget, 0)} %${brevoObj ? ' (objectif Mission Control)' : ''}`});
+  add({label: 'LinkedIn', tab: 'linkedin', raw: ok(d.dLI)?.summary?.engagementRate, test: v => v >= 2,
+       value: v => `${fmtDec(v, 1)} % d'engagement`, rule: 'Engagement ≥ 2 % (moyenne secteur : 1 à 3 %)'});
   const w = ok(d.dWrike)?.summary;
-  if (w?.active) add('Projets', w.overdue_projects / w.active, v => v <= .25);
+  if (w?.active) add({label: 'Projets', tab: 'wrike', raw: w.overdue_projects / w.active, test: v => v <= .25,
+       value: () => `${w.overdue_projects} en retard sur ${w.active}`, rule: 'Au plus 25 % des projets Wrike en retard'});
   const ev = objCfg().items.map(o => evalObjective(o, d)).filter(x => x && x.status !== 'na');
-  if (ev.length) add('Objectifs', ev.filter(x => x.status === 'done' || x.status === 'on').length / ev.length, v => v >= .5);
+  if (ev.length) { const g = ev.filter(x => x.status === 'done' || x.status === 'on').length;
+    add({label: 'Objectifs', tab: '#mission', raw: g / ev.length, test: v => v >= .5,
+       value: () => `${g} sur ${ev.length} en bonne voie`, rule: 'Au moins la moitié des objectifs Mission Control en bonne voie'}); }
   const s = sourceStates().filter(x => x.state !== 'loading');
-  if (s.length) add('Sources', s.filter(x => x.state === 'ok').length / s.length, v => v >= .85);
-  return sig;
+  if (s.length) { const g = s.filter(x => x.state === 'ok').length;
+    add({label: 'Sources', tab: '#fresh', raw: g / s.length, test: v => v >= .85,
+       value: () => `${g} sur ${s.length} à jour`, rule: 'Au moins 85 % des sources de données à jour'}); }
+  return sig.map(x => ({...x, value: x.value(x.raw)}));
 }
 function renderHealth() {
   const el = document.getElementById('ccHealth'); if (!el) return;
   const sig = healthSignals();
-  const score = sig.length ? Math.round(sig.filter(s => s.ok).length / sig.length * 100) : 0;
+  const good = sig.filter(s => s.ok).length;
+  const score = sig.length ? Math.round(good / sig.length * 100) : 0;
   const color = score >= 70 ? 'var(--good)' : score >= 40 ? 'var(--warn)' : 'var(--bad)';
-  const lbl = score >= 70 ? 'Bonne dynamique' : score >= 40 ? 'Mitigée' : 'Vigilance';
+  const lbl = score >= 70 ? 'Bonne dynamique' : score >= 40 ? 'Dynamique mitigée' : 'Vigilance';
   const R = 54, C = 2 * Math.PI * R;
   el.innerHTML = `
-    <div class="cc-health-title">Santé marketing</div>
-    <div class="cc-ring" role="img" aria-label="Score de santé ${score} sur 100">
-      <svg viewBox="0 0 132 132"><circle class="cc-ring-track" cx="66" cy="66" r="${R}" fill="none" stroke-width="10"/>
-        <circle class="cc-ring-val" cx="66" cy="66" r="${R}" fill="none" stroke="${color}" stroke-width="10" stroke-linecap="round"
-          stroke-dasharray="${C}" stroke-dashoffset="${C}"/></svg>
-      <div class="cc-ring-num"><span class="f-num" data-cc-count="${score}" data-cc-fmt="_score">${score}</span><small>${lbl}</small></div>
+    <div class="cc-health-side">
+      <div class="cc-health-title">Santé marketing</div>
+      <div class="cc-ring" role="img" aria-label="Score de santé ${score} sur 100 : ${good} signaux sur ${sig.length} au vert">
+        <svg viewBox="0 0 132 132"><circle class="cc-ring-track" cx="66" cy="66" r="${R}" fill="none" stroke-width="10"/>
+          <circle class="cc-ring-val" cx="66" cy="66" r="${R}" fill="none" stroke="${color}" stroke-width="10" stroke-linecap="round"
+            stroke-dasharray="${C}" stroke-dashoffset="${C}"/></svg>
+        <div class="cc-ring-num"><span class="f-num" data-cc-count="${score}" data-cc-fmt="_score">${score}</span><small>/ 100</small></div>
+      </div>
+      <div class="cc-health-verdict" style="color:${color}">${lbl}</div>
+      <p class="cc-health-how"><b>${good} signaux sur ${sig.length}</b> sont au vert. Le score est la part des signaux au vert, sur la période sélectionnée.</p>
     </div>
-    <div class="cc-signals">${sig.map(s => `<div class="cc-signal ${s.ok ? 'ok' : 'ko'}" title="${s.ok ? 'Signal positif' : 'Signal à surveiller'}"><i>${s.ok ? '✓' : '✗'}</i>${esc(s.label)}</div>`).join('')}</div>`;
+    <ul class="cc-signals">${sig.map(s => `
+      <li><button class="cc-signal ${s.ok ? 'ok' : 'ko'}" data-cc-sig="${s.tab}" title="Ouvrir le détail">
+        <i aria-hidden="true">${s.ok ? '✓' : '✗'}</i>
+        <span class="cc-signal-txt"><span class="cc-signal-top"><b>${esc(s.label)}</b><em>${esc(s.value)}</em></span>
+        <small>${esc(s.rule)}</small></span>
+        <span class="sr-only">${s.ok ? 'au vert' : 'au rouge'}</span>
+      </button></li>`).join('')}</ul>`;
   CC._fmts._score = v => String(Math.round(v));
   requestAnimationFrame(() => requestAnimationFrame(() => {
     const c = el.querySelector('.cc-ring-val'); if (c) c.style.strokeDashoffset = String(C * (1 - score / 100));

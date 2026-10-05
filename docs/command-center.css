@@ -67,25 +67,41 @@
 .cc-dot.warn{background:var(--warn);box-shadow:0 0 0 3px rgba(249,115,22,.18);}
 .cc-dot.err{background:var(--bad);box-shadow:0 0 0 3px rgba(220,38,38,.18);}
 
-/* Score de santé */
+/* Score de santé — anneau + liste des signaux (mesure + règle) */
 .cc-health{
-  display:flex;flex-direction:column;align-items:center;gap:14px;min-width:260px;
-  padding:18px 20px;border-radius:14px;background:rgba(255,255,255,.03);border:1px solid var(--cc-hero-line);
+  display:grid;grid-template-columns:150px minmax(0,1fr);gap:18px;align-items:start;width:min(560px,46vw);
+  padding:18px 18px 16px;border-radius:14px;background:rgba(255,255,255,.03);border:1px solid var(--cc-hero-line);
 }
+.cc-health-side{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;}
 .cc-health-title{font-size:10.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--cc-hero-muted);}
-.cc-ring{position:relative;width:132px;height:132px;}
+.cc-ring{position:relative;width:118px;height:118px;}
 .cc-ring svg{width:100%;height:100%;transform:rotate(-90deg);}
 .cc-ring-track{stroke:rgba(255,255,255,.08);}
 .cc-ring-val{transition:stroke-dashoffset 1.2s var(--cc-ease);}
 .cc-ring-num{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;}
-.cc-ring-num .f-num{font-size:40px;color:#fff;}
-.cc-ring-num small{font-size:11px;color:var(--cc-hero-muted);margin-top:4px;font-weight:600;}
-.cc-signals{display:grid;grid-template-columns:1fr 1fr;gap:5px 14px;width:100%;}
-.cc-signal{display:flex;align-items:center;gap:6px;font-size:11.5px;color:#cfcbc2;white-space:nowrap;}
-.cc-signal i{font-style:normal;font-weight:800;width:14px;text-align:center;}
+.cc-ring-num .f-num{font-size:38px;color:#fff;}
+.cc-ring-num small{font-size:11px;color:var(--cc-hero-muted);margin-top:3px;font-weight:600;}
+.cc-health-verdict{font-size:13px;font-weight:700;}
+.cc-health-how{font-size:11.5px;line-height:1.45;color:var(--cc-hero-muted);margin:0;}
+.cc-health-how b{color:var(--cc-hero-text);font-weight:600;}
+.cc-signals{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px;}
+.cc-signal{
+  display:flex;align-items:flex-start;gap:9px;width:100%;padding:6px 8px;border-radius:8px;border:0;background:none;
+  color:var(--cc-hero-text);font:inherit;text-align:left;cursor:pointer;transition:background 140ms;
+}
+.cc-signal:hover{background:rgba(255,255,255,.06);}
+.cc-signal:focus-visible{outline:2px solid var(--y);outline-offset:1px;}
+.cc-signal i{font-style:normal;font-weight:800;width:14px;flex-shrink:0;text-align:center;line-height:1.35;font-size:12.5px;}
 .cc-signal.ok i{color:var(--good);}
 .cc-signal.ko i{color:var(--bad);}
-.cc-signal.ko{color:var(--cc-hero-muted);}
+.cc-signal-txt{display:flex;flex-direction:column;gap:1px;min-width:0;flex:1;}
+.cc-signal-top{display:flex;align-items:baseline;justify-content:space-between;gap:10px;}
+.cc-signal-top b{font-size:12.5px;font-weight:700;white-space:nowrap;}
+.cc-signal-top em{font-style:normal;font-size:12px;font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap;}
+.cc-signal.ok em{color:#7ee2a0;}
+.cc-signal.ko em{color:#ff9a9a;}
+.cc-signal small{font-size:11px;line-height:1.35;color:var(--cc-hero-muted);}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;}
 
 /* Popover fraîcheur des sources */
 .cc-pop{
@@ -314,12 +330,17 @@
 @media(max-width:900px){.cc-tb-search span:not(.cc-kbd){display:none;}}
 
 /* ─── RESPONSIVE / ACCESSIBILITÉ ───────────────────────────────── */
+@media(max-width:1180px){
+  .cc-hero{grid-template-columns:1fr;}
+  .cc-health{width:auto;}
+}
+@media(max-width:560px){
+  .cc-health{grid-template-columns:1fr;}
+}
 @media(max-width:900px){
   .cc-hero{grid-template-columns:1fr;padding:22px 18px;}
   .cc-hero .hero-title{font-size:30px;}
-  .cc-health{flex-direction:row;flex-wrap:wrap;justify-content:center;min-width:0;}
-  .cc-ring{width:104px;height:104px;}
-  .cc-signals{flex:1;min-width:200px;}
+  .cc-health{width:auto;}
 }
 @media(prefers-reduced-motion:reduce){
   .cc-hero::after,.cc-tile,.cc-obj,.cc-since-chip,.cc-skel{animation:none!important;}

@@ -3026,8 +3026,9 @@ def build_insights_prompt(data):
 
     if brevo:
         n_camps  = brevo.get('campaigns', 'N/A')
-        contacts = (brevo.get('contactStats') or {}).get('total', 'N/A')
-        lines.append(f"**Brevo** : {n_camps} campagnes analysées, {contacts} contacts")
+        open_rt  = brevo.get('avgOpenRate')
+        lines.append(f"**Brevo** : {n_camps} campagnes analysées"
+                     + (f", taux d'ouverture moyen {open_rt:.1f}%" if isinstance(open_rt, (int, float)) else ''))
         lines.append(f"  → Benchmark email B2C Europe : taux d'ouverture moyen = 25%, taux de clic = 2-3%, CTOR = 10-15%")
 
     if li:
@@ -3233,28 +3234,43 @@ def get_insights():
         client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
         msg = client.messages.create(
             model='claude-haiku-4-5-20251001',
-            max_tokens=1024,
+            max_tokens=3000,
             messages=[{'role': 'user', 'content': prompt}],
         )
-        text = msg.content[0].text
-        # Extract JSON array — try direct parse first, then regex
-        insights = []
-        try:
-            parsed = json.loads(text.strip())
-            if isinstance(parsed, list):
-                insights = parsed
-        except Exception:
-            # Find the longest JSON array in the response
-            for m in re.finditer(r'\[[\s\S]*?\]', text):
-                try:
-                    candidate = json.loads(m.group())
-                    if isinstance(candidate, list) and len(candidate) > len(insights):
-                        insights = candidate
-                except Exception:
-                    pass
+        insights = _parse_insights(msg.content[0].text)
+        if not insights:
+            return jsonify({'insights': [], 'error': f'Réponse IA illisible (stop_reason={msg.stop_reason})'}), 502
         return jsonify({'insights': insights})
     except Exception as e:
         return jsonify({'error': str(e), 'insights': []}), 500
+
+
+def _parse_insights(text):
+    """Extrait la liste de recommandations de la réponse du modèle.
+    Tolère un bloc ```json et une réponse tronquée : on garde alors chaque
+    objet complet déjà émis plutôt que de tout perdre."""
+    text = re.sub(r'^```(?:json)?\s*|\s*```$', '', (text or '').strip())
+    start = text.find('[')
+    if start < 0:
+        return []
+    try:
+        parsed = json.loads(text[start:text.rfind(']') + 1])
+        if isinstance(parsed, list):
+            return [i for i in parsed if isinstance(i, dict) and i.get('title')]
+    except Exception:
+        pass
+    items, dec, pos = [], json.JSONDecoder(), start + 1
+    while True:
+        nxt = text.find('{', pos)
+        if nxt < 0:
+            break
+        try:
+            obj, pos = dec.raw_decode(text, nxt)
+        except Exception:
+            break
+        if isinstance(obj, dict) and obj.get('title'):
+            items.append(obj)
+    return items
 
 
 # ─────────────────────────────────────────────────────────────────────────────

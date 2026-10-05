@@ -5642,6 +5642,10 @@ async function fetchInsights({dGA4, dGSC, dFB, dBrevo, dLI, dYT}) {
   const sub = document.getElementById('apSubtitle');
   if (!el) return;
 
+  // État de chargement visible à chaque appel (y compris « Réessayer »)
+  el.innerHTML = '<div class="ap-loading"><div class="spin-star">✦</div><br>Génération des recommandations IA…</div>';
+  if (sub) sub.textContent = 'Générées depuis vos données — analyse en cours…';
+
   // Show "slow server" warning after 12 seconds
   const slowTimer = setTimeout(() => {
     if (el.querySelector('.spin-star')) {
