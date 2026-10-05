@@ -3238,6 +3238,10 @@ def get_insights():
             messages=[{'role': 'user', 'content': prompt}],
         )
         insights = _parse_insights(msg.content[0].text)
+        # Le front attend high / med / low ; le modèle renvoie parfois « medium ».
+        _prio = {'high': 'high', 'urgent': 'high', 'med': 'med', 'medium': 'med', 'low': 'low'}
+        for i in insights:
+            i['priority'] = _prio.get(str(i.get('priority', '')).lower(), 'med')
         if not insights:
             return jsonify({'insights': [], 'error': f'Réponse IA illisible (stop_reason={msg.stop_reason})'}), 502
         return jsonify({'insights': insights})
