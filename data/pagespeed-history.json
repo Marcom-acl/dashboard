@@ -332,12 +332,12 @@
   {
     "date": "2026-10-05",
     "acl": {
-      "mobile": 33,
-      "desktop": 50
+      "mobile": 34,
+      "desktop": 44
     },
     "auto": {
-      "mobile": 57,
-      "desktop": 85
+      "mobile": 60,
+      "desktop": 81
     }
   }
 ]
