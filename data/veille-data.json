@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-04",
-  "next_edition": "",
+  "generated_at": "2026-10-05",
+  "next_edition": "2026-10-12",
   "editions": [
     {
       "date": "2026-05-03",
@@ -345,9 +345,63 @@
     {
       "date": "2026-10-04",
       "label": "Semaine du 2026-10-04"
+    },
+    {
+      "date": "2026-10-05",
+      "label": "Semaine du 2026-10-05"
     }
   ],
   "items": [
+    {
+      "id": "2026-10-05-adac-1",
+      "date": "2026-09-09",
+      "club": "ADAC",
+      "category": "EU",
+      "content": "ADAC SE a lancé une coopération avec le fournisseur kleines kraftwerk (Achim, Basse-Saxe) pour proposer à ses 22 millions de membres des centrales solaires de balcon prêtes à l'emploi, avec une remise d'au moins 10%, de 314€ pour un kit de 1000 W à 1709€ pour une configuration 2000 W avec batterie de 5 kWh.",
+      "relevance": "Cette diversification vers l'énergie domestique illustre une stratégie d'élargissement de la valeur perçue de l'adhésion au-delà de l'automobile. L'ACL pourrait-elle explorer un partenariat similaire avec un acteur luxembourgeois de l'énergie solaire résidentielle pour ses membres ?",
+      "badge": "SURVEILLER",
+      "url": "https://presse.adac.de/meldungen/adac-se/das-unternehmen/adac-se-und-kleines-kraftwerk-starten-kooperation-fuer-balkonkraftwerke.html"
+    },
+    {
+      "id": "2026-10-05-tcs-1",
+      "date": "2026-10-01",
+      "club": "TCS",
+      "category": "EU",
+      "content": "Le TCS et l'ACS (Automobile Club de Suisse) ont salué l'entrée en vigueur, le 1er octobre 2026, de la nouvelle réglementation fédérale encadrant le passage au 30 km/h en ville : les communes devront désormais prouver par une expertise que l'abaissement de vitesse sur un axe de circulation générale n'entraîne pas de report de trafic vers les rues résidentielles, le 50 km/h restant la règle générale en localité.",
+      "relevance": "Cette victoire obtenue après cinq ans de mobilisation (motion Schilliger) montre la capacité d'un club automobile à peser sur une réglementation nationale de vitesse en ville. L'ACL mène-t-elle une action de lobbying comparable face aux projets d'extension des zones 30 au Luxembourg ?",
+      "badge": "NOTABLE",
+      "url": "https://www.presseportal.ch/fr/pm/100000091/100942680"
+    },
+    {
+      "id": "2026-10-05-rac-1",
+      "date": "2026-09-11",
+      "club": "RAC",
+      "category": "Mobilité",
+      "content": "OMODA&JAECOO UK a élargi son partenariat avec le RAC en mettant en place une opération dédiée de gestion des véhicules immobilisés (Vehicle Off Road) : l'équipe RAC coordonne désormais le rapatriement, la réparation et l'approvisionnement en pièces pour les cas complexes, et les 400 mécaniciens mobiles du RAC, classés réparateurs agréés, peuvent réaliser des travaux de garantie et de rappel directement chez les flottes clientes.",
+      "relevance": "Ce modèle de partenariat constructeur-assisteur, premier du genre pour une marque chinoise au Royaume-Uni, approfondit la relation entre RAC et OMODA&JAECOO au-delà du simple dépannage routier. L'ACL pourrait-elle nouer des partenariats similaires avec les marques chinoises en forte croissance sur le marché luxembourgeois ?",
+      "badge": "SURVEILLER",
+      "url": "https://media.rac.co.uk/omodajaecoo-expands-rac-partnership-to-enhance-uk-roadside-and-repair-support"
+    },
+    {
+      "id": "2026-10-05-oeamtc-1",
+      "date": "2026-09-14",
+      "club": "ÖAMTC",
+      "category": "EU",
+      "content": "L'ÖAMTC réclame une sécurité juridique pour les utilisateurs d'e-mopeds (classe L1e-B) en Autriche : depuis le 1er octobre 2026, ces véhicules ne sont plus assimilés à des vélos mais à des cyclomoteurs légers, nécessitant immatriculation, assurance responsabilité civile, vignette de contrôle, permis et casque ; le club estime qu'au moins 20000 utilisateurs privés sont concernés et demande une immatriculation simplifiée pour les véhicules déjà en circulation.",
+      "relevance": "Cette reclassification soudaine illustre les risques de dévalorisation patrimoniale et de confusion réglementaire lors d'un changement de statut de micromobilité électrique. L'ACL devrait-elle anticiper une communication préventive si une reclassification similaire des engins de micromobilité électrique était envisagée au Luxembourg ?",
+      "badge": "SURVEILLER",
+      "url": "https://www.oeamtc.at/presse/e-mopeds-oeamtc-fordert-rechtssicherheit-fuer-tausende-nutzerinnen-89409419"
+    },
+    {
+      "id": "2026-10-05-aaa-1",
+      "date": "2026-10-01",
+      "club": "AAA",
+      "category": "Monde",
+      "content": "The Auto Club Group (ACG), deuxième plus grand club AAA d'Amérique du Nord, a annoncé le 1er octobre 2026 son affiliation avec AAA Minneapolis (environ 200000 membres, 175 employés), portant sa couverture à plus de 830000 membres dans le Minnesota et à 14,2 millions de membres sur l'ensemble de son territoire.",
+      "relevance": "Cette consolidation par affiliation entre clubs AAA voisins illustre une stratégie de croissance par rapprochement plutôt que par recrutement individuel. Une veille sur les modalités de gouvernance de ces affiliations pourrait-elle éclairer d'éventuels partenariats transfrontaliers de l'ACL dans la Grande Région ?",
+      "badge": "INFO",
+      "url": "https://newsroom.acg.aaa.com/aaa---the-auto-club-group-affiliates-with-aaa-minneapolis"
+    },
     {
       "id": "2026-10-02-saaskia-web-sr8WvR",
       "club": "contacto.lu (Wort.lu/PT)",
@@ -8042,17 +8096,17 @@
     }
   ],
   "trends": [
-    "Multiplication des tests comparatifs pneus hiver en amont de la saison froide (TCS, ÖAMTC, ANWB publient tous leurs résultats fin septembre), confirmant ce format comme un pilier récurrent de la communication d'expertise technique des grands clubs européens.",
-    "Diversification des services membres vers l'énergie domestique et le partenariat d'affinité (ADAC/kleines kraftwerk sur le solaire de balcon, AAA/Buffalo Bills sur le sport), illustrant deux voies distinctes pour élargir la base de valeur perçue au-delà de l'assistance automobile pure.",
-    "Structuration de nouveaux outils numériques de transparence tarifaire pour la mobilité électrique (radar de prix de recharge du TCS, service de recharge mobile de secours AAA), un axe d'investissement technologique désormais partagé par plusieurs clubs.",
-    "Poursuite de la mobilisation collective des clubs affiliés à la FIA sur la sécurité routière (campagne ACI/FIA 2026 relayée par 45 clubs dans 24 langues), confirmant l'intérêt de coalitions inter-clubs à l'échelle européenne déjà observé les semaines précédentes.",
-    "Lancement de nouveaux prix et distinctions propriétaires par les clubs automobiles (RAC New Car Awards, première édition) pour renforcer leur visibilité média et leur crédibilité d'expert indépendant sur le marché automobile."
+    "Diversification des clubs automobiles vers des services hors automobile pour élargir la valeur perçue de l'adhésion (ADAC et l'énergie solaire domestique via kleines kraftwerk), confirmant une tendance déjà observée les semaines précédentes avec d'autres partenariats d'affinité.",
+    "Approfondissement des partenariats entre clubs assisteurs et constructeurs chinois émergents pour sécuriser l'après-vente (RAC et OMODA&JAECOO), un terrain de coopération inédit qui accompagne la montée en puissance de ces marques sur les marchés européens.",
+    "Capacité de lobbying réglementaire démontrée par les clubs automobiles sur la politique de vitesse en ville, avec la victoire du TCS et de l'ACS sur l'encadrement du 30 km/h en Suisse après cinq ans de mobilisation.",
+    "Tensions récurrentes entre innovation produit et cadre légal autour de la micromobilité électrique, illustrées par la demande de sécurité juridique de l'ÖAMTC pour les utilisateurs d'e-mopeds reclassés du jour au lendemain.",
+    "Poursuite de la consolidation du réseau nord-américain AAA par affiliations entre clubs régionaux voisins plutôt que par recrutement individuel, un mode de croissance distinct de celui des clubs européens."
   ],
   "signals": [
-    "Extension des services de recharge mobile de secours pour véhicules électriques (AAA) : un signal à surveiller pour évaluer si l'ACL doit équiper ses patrouilles de solutions de recharge d'appoint à mesure que le parc électrique luxembourgeois croît.",
-    "Réforme fiscale belge de la taxe de circulation basée sur le poids et le CO2 avec vignette numérique dès mai 2027 (Touring Belgique) : un précédent réglementaire à suivre pour anticiper une évolution possible de la fiscalité automobile luxembourgeoise.",
-    "Percée des véhicules électriques chinois aux tests Euro NCAP 2026 (ACI) : un point de vigilance pour les recommandations d'achat de l'ACL à ses membres sur la sécurité des modèles électriques d'entrée de gamme.",
-    "Partenariats des clubs automobiles avec des marques hors secteur pour recruter de nouveaux membres par affinité (AAA/NFL, ADAC/énergie solaire) : à évaluer pour diversifier les canaux de recrutement de l'ACL au-delà de l'argument sécurité/assistance.",
-    "Modernisation des règles administratives du permis de conduire en Autriche (délais d'examen raccourcis, durcissement des sanctions anti-fraude) : un modèle à observer pour d'éventuelles réformes similaires au Luxembourg."
+    "Diversification énergétique des clubs automobiles vers le solaire résidentiel (ADAC/kleines kraftwerk) : un signal à surveiller comme nouveau canal de fidélisation hors mobilité pour l'ACL.",
+    "Partenariats structurés entre assisteurs et constructeurs chinois pour la gestion de l'après-vente (RAC/OMODA&JAECOO) : un modèle à évaluer face à la montée des marques chinoises au Luxembourg.",
+    "Durcissement de l'encadrement réglementaire des zones 30 km/h en Suisse sous la pression conjointe du TCS et de l'ACS : un précédent de lobbying à observer pour la politique de vitesse en ville au Luxembourg.",
+    "Reclassification réglementaire soudaine de la micromobilité électrique (e-mopeds en Autriche) : un risque de confusion et de dévalorisation patrimoniale à anticiper si une mesure similaire émergeait au Luxembourg.",
+    "Consolidation du réseau AAA par affiliations inter-clubs régionales en Amérique du Nord : un modèle de coopération à observer pour d'éventuels rapprochements transfrontaliers de l'ACL dans la Grande Région."
   ]
 }
