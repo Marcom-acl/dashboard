@@ -343,12 +343,12 @@
   {
     "date": "2026-10-06",
     "acl": {
-      "mobile": 40,
-      "desktop": 49
+      "mobile": 46,
+      "desktop": 50
     },
     "auto": {
-      "mobile": 77,
-      "desktop": 87
+      "mobile": 38,
+      "desktop": null
     }
   }
 ]
