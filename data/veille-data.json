@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-05",
+  "generated_at": "2026-10-06",
   "next_edition": "",
   "editions": [
     {
@@ -349,18 +349,99 @@
     {
       "date": "2026-10-05",
       "label": "Semaine du 2026-10-05"
+    },
+    {
+      "date": "2026-10-06",
+      "label": "Semaine du 2026-10-06"
     }
   ],
   "items": [
     {
-      "id": "2026-10-05-saaskia-web-Z5Hbmp",
-      "club": "virgule.lu (Wort.lu/FR)",
+      "id": "2026-10-06-saaskia-web-2Sa8ec",
+      "club": "wort.lu",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "Lors du « GO electric day », La Coque a été mise sous tension pour tester des véhicules électriques. Événement organisé autour de l'électromobilité au Luxembourg.",
+      "relevance": "ACL explicitement cité : \"GO electric day\"",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791263554.7671.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791263554.7671.pdf",
+      "date": "2026-10-06"
+    },
+    {
+      "id": "2026-10-06-saaskia-web-ygs7Pv",
+      "club": "infos.rtl.lu",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "Reportage sur l'électromobilité au Luxembourg, couvrant les développements et initiatives dans le secteur des véhicules électriques.",
+      "relevance": "ACL explicitement cité : \"Électromobilité au Luxembourg\"",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791263853.7598.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791263853.7598.pdf",
+      "date": "2026-10-06"
+    },
+    {
+      "id": "2026-10-06-saaskia-web-kwIxDY",
+      "club": "tageblatt.lu",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Article analysant l'intérêt actuel d'acheter un véhicule diesel au Luxembourg, dans le contexte des évolutions réglementaires et technologiques.",
+      "content": "La police relève plus de 1.000 amendes lors de contrôles routiers au début de l'année scolaire au Luxembourg. Renforcement de la sécurité routière et application de la loi.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1791183311.7414.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791183311.7414.pdf",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791263623.8193.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791263623.8193.pdf",
+      "date": "2026-10-06"
+    },
+    {
+      "id": "2026-10-06-saaskia-web-bH9efC",
+      "club": "infogreen.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Pour les professionnels, l'électrification signifie formation. Article sur les enjeux de compétences liés à la transition vers les véhicules électriques.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791263675.9087.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791263675.9087.pdf",
+      "date": "2026-10-06"
+    },
+    {
+      "id": "2026-10-06-saaskia-web-7XVxBi",
+      "club": "paperjam.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Présentation de véhicules électriques promettant 1.000 km d'autonomie. Évolution technologique des batteries et autonomie des modèles récents.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791263812.7353.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791263812.7353.pdf",
+      "date": "2026-10-06"
+    },
+    {
+      "id": "2026-10-06-saaskia-web-MTKaTZ",
+      "club": "paperjam.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Interview de Véronique Bourgois d'Arval: « Une nouvelle période s'ouvre pour nous ». Perspective sur l'évolution du secteur de la mobilité d'entreprise.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791263776.0414.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791263776.0414.pdf",
+      "date": "2026-10-06"
+    },
+    {
+      "id": "2026-10-05-saaskia-web-os9BxZ",
+      "club": "lessentiel.lu DE",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "Le « GO electric day » propose des essais gratuits de véhicules électriques à La Coque. Cet événement majeur permet aux visiteurs de tester différents modèles d'E-Autos.",
+      "relevance": "ACL explicitement cité : \"GO electric day\"",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791177742.2574.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791177742.2574.pdf",
+      "date": "2026-10-05"
+    },
+    {
+      "id": "2026-10-05-saaskia-web-jigIpY",
+      "club": "Luxemburger Wort",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "Présentation des véhicules électriques testables lors du « GO electric day » au Luxembourg. Information détaillée sur les modèles disponibles pour essai.",
+      "relevance": "ACL explicitement cité : \"GO electric day\"",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791177186.1889.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791177186.1889.pdf",
       "date": "2026-10-05"
     },
     {
@@ -368,21 +449,10 @@
       "club": "wort.lu",
       "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "content": "Présentation des véhicules électriques testables lors du 'GO electric day', événement de sensibilisation à la mobilité électrique.",
+      "content": "Listing des véhicules électriques disponibles pour essai lors du « GO electric day ». Événement dédié à l'électromobilité avec présentation de modèles variés.",
       "relevance": "ACL explicitement cité : \"GO electric day\"",
       "url": "https://saaskia.keepcontact.lu/data/files/1791177789.9681.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791177789.9681.pdf",
-      "date": "2026-10-05"
-    },
-    {
-      "id": "2026-10-05-saaskia-web-os9BxZ",
-      "club": "lessentiel.lu DE",
-      "category": "Veille presse LU",
-      "badge": "NOTABLE",
-      "content": "Le 'GO electric day' à la Coque propose des essais gratuits de véhicules électriques au public luxembourgeois.",
-      "relevance": "ACL explicitement cité : \"GO electric day\"",
-      "url": "https://saaskia.keepcontact.lu/data/files/1791177742.2574.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791177742.2574.pdf",
       "date": "2026-10-05"
     },
     {
@@ -390,8 +460,8 @@
       "club": "lessentiel.lu FR",
       "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "content": "Un citoyen luxembourgeois a l'opportunité de tester la nouvelle Mazda CX-6e électrique durant un mois.",
-      "relevance": "ACL explicitement cité : \"test véhicule\"",
+      "content": "Aurélien teste la nouvelle Mazda CX-6e durant un mois au Luxembourg. Essai d'un véhicule électrique dans le cadre d'une opération promotionnelle.",
+      "relevance": "ACL explicitement cité : \"test Mazda CX-6e\"",
       "url": "https://saaskia.keepcontact.lu/data/files/1791177455.6401.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791177455.6401.pdf",
       "date": "2026-10-05"
@@ -401,21 +471,76 @@
       "club": "lessentiel.lu DE",
       "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "content": "Un résident du Luxembourg remporte l'essai d'une semaine de la nouvelle électrique Mazda CX-6e, organisé via un partenariat automobile.",
+      "content": "Un habitant du Luxembourg gagne une Mazda électrique pour un mois. Cet essai fait partie d'une opération de promotion des véhicules électriques.",
       "relevance": "ACL explicitement cité : \"Elektro-Mazda\"",
       "url": "https://saaskia.keepcontact.lu/data/files/1791177404.5538.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791177404.5538.pdf",
       "date": "2026-10-05"
     },
     {
-      "id": "2026-10-05-saaskia-web-jigIpY",
-      "club": "Luxemburger Wort",
+      "id": "2026-10-05-saaskia-web-qbLCYr",
+      "club": "virgule.lu (Wort.lu/FR)",
       "category": "Veille presse LU",
-      "badge": "NOTABLE",
-      "content": "Présentation des véhicules électriques disponibles au test lors du 'GO electric day', initiative de promotion de la mobilité électrique.",
-      "relevance": "ACL explicitement cité : \"GO electric day\"",
-      "url": "https://saaskia.keepcontact.lu/data/files/1791177186.1889.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791177186.1889.pdf",
+      "badge": "SURVEILLER",
+      "content": "Députés du DP réclament une exemption pour la zone frontalière belgo-luxembourgeoise concernant la vignette belge. Enjeu de mobilité transfrontalière.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791177683.9149.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791177683.9149.pdf",
+      "date": "2026-10-05"
+    },
+    {
+      "id": "2026-10-05-saaskia-web-K8ezYm",
+      "club": "virgule.lu (Wort.lu/FR)",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Près de 200 infractions dont importants excès de vitesse commis par des motards au Luxembourg. Opération de contrôle routier et sécurité routière.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791177712.8122.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791177712.8122.pdf",
+      "date": "2026-10-05"
+    },
+    {
+      "id": "2026-10-05-saaskia-web-PSht7I",
+      "club": "infos.rtl.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Reportage sur des vitesses excessives au Luxembourg et les enjeux de sécurité routière. Contrôles et infractions liées au dépassement des limites de vitesse.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791177840.7602.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791177840.7602.pdf",
+      "date": "2026-10-05"
+    },
+    {
+      "id": "2026-10-05-saaskia-web-n2pyBo",
+      "club": "infos.rtl.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Information sur l'utilisation du téléphone au volant au Luxembourg. Enjeu majeur de sécurité routière et application de la réglementation.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791177585.5974.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791177585.5974.pdf",
+      "date": "2026-10-05"
+    },
+    {
+      "id": "2026-10-05-saaskia-web-T1t7yT",
+      "club": "luxtimes.lu (Wort.lu/en)",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Les maires demandent l'extension du tramway vers l'est du Luxembourg. Projet d'infrastructure de transport public majeur.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791177508.0362.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791177508.0362.pdf",
+      "date": "2026-10-05"
+    },
+    {
+      "id": "2026-10-05-saaskia-web-Z5Hbmp",
+      "club": "virgule.lu (Wort.lu/FR)",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Question sur l'intérêt d'acheter un véhicule diesel au Luxembourg en 2026. Analyse comparative des alternatives de motorisation.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791183311.7414.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791183311.7414.pdf",
       "date": "2026-10-05"
     },
     {
@@ -423,7 +548,7 @@
       "club": "virgule.lu (Wort.lu/FR)",
       "category": "Veille presse LU",
       "badge": "INFO",
-      "content": "La nouvelle Mazda CX-6e est désormais disponible à la vente au Garage Binsfeld à Differdange.",
+      "content": "La nouvelle Mazda CX-6e est désormais disponible au Garage Binsfeld à Differdange. Lancement commercial d'un nouveau modèle électrique.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1791183345.1975.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791183345.1975.pdf",
@@ -434,7 +559,7 @@
       "club": "wort.lu",
       "category": "Veille presse LU",
       "badge": "INFO",
-      "content": "Rappel de véhicules VW, Audi et Seat : le Luxembourg n'est pas affecté par cette action actuellement.",
+      "content": "Rappel VW, Audi et Seat: le Luxembourg n'est pas concerné pour le moment. Information sur les actions de sécurité constructeur.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1791177891.3729.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791177891.3729.pdf",
@@ -445,21 +570,10 @@
       "club": "lessentiel.lu FR",
       "category": "Veille presse LU",
       "badge": "INFO",
-      "content": "Skoda procède au rappel de 1,7 million de véhicules mondialement sur quatre modèles affectés.",
+      "content": "Skoda rappelle 1,7 million de voitures dans le monde concernant quatre modèles. Campagne de rappel à grande échelle pour raisons de sécurité.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1791177873.6455.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791177873.6455.pdf",
-      "date": "2026-10-05"
-    },
-    {
-      "id": "2026-10-05-saaskia-web-PSht7I",
-      "club": "infos.rtl.lu",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Signalement de vitesses excessives et dangereuses observées sur les routes luxembourgeoises.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1791177840.7602.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791177840.7602.pdf",
       "date": "2026-10-05"
     },
     {
@@ -474,39 +588,6 @@
       "date": "2026-10-05"
     },
     {
-      "id": "2026-10-05-saaskia-web-K8ezYm",
-      "club": "virgule.lu (Wort.lu/FR)",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Près de 200 infractions routières, dont plusieurs excès de vitesse graves, commis par des motards au Luxembourg.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1791177712.8122.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791177712.8122.pdf",
-      "date": "2026-10-05"
-    },
-    {
-      "id": "2026-10-05-saaskia-web-qbLCYr",
-      "club": "virgule.lu (Wort.lu/FR)",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Les députés DP réclament une exemption de la vignette belge pour les zones frontalières belgo-luxembourgeoises.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1791177683.9149.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791177683.9149.pdf",
-      "date": "2026-10-05"
-    },
-    {
-      "id": "2026-10-05-saaskia-web-n2pyBo",
-      "club": "infos.rtl.lu",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Sensibilisation sur les risques et infractions liés à l'utilisation du téléphone au volant au Luxembourg.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1791177585.5974.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791177585.5974.pdf",
-      "date": "2026-10-05"
-    },
-    {
       "id": "2026-10-05-saaskia-web-VgwgWb",
       "club": "100komma7.lu",
       "category": "Veille presse LU",
@@ -515,17 +596,6 @@
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1791177554.3568.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791177554.3568.pdf",
-      "date": "2026-10-05"
-    },
-    {
-      "id": "2026-10-05-saaskia-web-T1t7yT",
-      "club": "luxtimes.lu (Wort.lu/en)",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Les maires demandent l'extension du tram jusqu'à l'est du Luxembourg pour améliorer les transports publics.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1791177508.0362.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791177508.0362.pdf",
       "date": "2026-10-05"
     },
     {
