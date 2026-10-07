@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-06",
+  "generated_at": "2026-10-07",
   "next_edition": "",
   "editions": [
     {
@@ -353,15 +353,118 @@
     {
       "date": "2026-10-06",
       "label": "Semaine du 2026-10-06"
+    },
+    {
+      "date": "2026-10-07",
+      "label": "Semaine du 2026-10-07"
     }
   ],
   "items": [
+    {
+      "id": "2026-10-07-saaskia-web-LiKHK5",
+      "club": "Corporatenews.lu / Merkur.lu",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "L'ACL et la SNCT lancent leur campagne « Éclairage et pneus » 2026, reprenant la route pour sensibiliser à la sécurité routière avant l'hiver.",
+      "relevance": "ACL explicitement cité : \"L'ACL et la SNCT\"",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791349907.9327.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791349907.9327.pdf",
+      "date": "2026-10-07"
+    },
+    {
+      "id": "2026-10-07-saaskia-web-J1xxHM",
+      "club": "chronicle.lu",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "L'ACL annonce des contrôles gratuits de feux et de pneus à l'approche de l'hiver pour garantir la sécurité des automobilistes.",
+      "relevance": "ACL explicitement cité : \"ACL Announces\"",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791349887.8361.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791349887.8361.pdf",
+      "date": "2026-10-07"
+    },
+    {
+      "id": "2026-10-07-saaskia-web-vTrhxT",
+      "club": "lequotidien.lu",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "L'ACL parcourt le pays pour vérifier les feux et les pneus des véhicules en préparation à la saison hivernale.",
+      "relevance": "ACL explicitement cité : \"L'ACL sillonne\"",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791349830.8635.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791349830.8635.pdf",
+      "date": "2026-10-07"
+    },
+    {
+      "id": "2026-10-07-saaskia-web-4kExyk",
+      "club": "lessentiel.lu DE",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "Appel au contrôle des pneus et de l'éclairage avant l'hiver au Luxembourg, dans le cadre de la campagne de sécurité routière.",
+      "relevance": "ACL explicitement cité : \"Reifen und Beleuchtung\"",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791349793.9048.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791349793.9048.pdf",
+      "date": "2026-10-07"
+    },
+    {
+      "id": "2026-10-07-saaskia-web-AfTT6x",
+      "club": "lessentiel.lu FR",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "Au Luxembourg, recommandation de faire contrôler ses pneus et son éclairage avant l'hiver pour la sécurité routière.",
+      "relevance": "ACL explicitement cité : \"pneus et éclairage\"",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791349775.7832.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791349775.7832.pdf",
+      "date": "2026-10-07"
+    },
+    {
+      "id": "2026-10-07-saaskia-web-0SDdul",
+      "club": "virgule.lu (Wort.lu/FR)",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Les ventes de voitures électriques atteignent des records historiques en 2026 en Europe, confirmant la transition vers la mobilité électrique.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791356229.9974.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791356229.9974.pdf",
+      "date": "2026-10-07"
+    },
+    {
+      "id": "2026-10-07-saaskia-web-01eOeU",
+      "club": "lequotidien.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "En France, les automobilistes risquent le retrait du permis pour l'utilisation du téléphone au volant, renforçant les sanctions de sécurité routière.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791349813.8988.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791349813.8988.pdf",
+      "date": "2026-10-07"
+    },
+    {
+      "id": "2026-10-07-saaskia-web-3po3x7",
+      "club": "lessentiel.lu FR",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Étude montrant que le prix reste le critère principal d'achat de voiture, bien avant les considérations environnementales.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791349746.3276.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791349746.3276.pdf",
+      "date": "2026-10-07"
+    },
+    {
+      "id": "2026-10-07-saaskia-web-Nq6sHc",
+      "club": "infogreen.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "La recharge intelligente des véhicules électriques contribue à la transition énergétique en optimisant la consommation d'électricité.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791349728.9848.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791349728.9848.pdf",
+      "date": "2026-10-07"
+    },
     {
       "id": "2026-10-06-saaskia-web-2Sa8ec",
       "club": "wort.lu",
       "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "content": "Lors du « GO electric day », La Coque a été mise sous tension pour tester des véhicules électriques. Événement organisé autour de l'électromobilité au Luxembourg.",
+      "content": "Le « GO electric day » à la Coque met sous les projecteurs les véhicules électriques, avec possibilité de test drive pour les participants.",
       "relevance": "ACL explicitement cité : \"GO electric day\"",
       "url": "https://saaskia.keepcontact.lu/data/files/1791263554.7671.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791263554.7671.pdf",
@@ -372,8 +475,8 @@
       "club": "infos.rtl.lu",
       "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "content": "Reportage sur l'électromobilité au Luxembourg, couvrant les développements et initiatives dans le secteur des véhicules électriques.",
-      "relevance": "ACL explicitement cité : \"Électromobilité au Luxembourg\"",
+      "content": "Reportage sur l'électromobilité au Luxembourg, couvrant les enjeux et opportunités du secteur.",
+      "relevance": "ACL explicitement cité : \"Électromobilité\"",
       "url": "https://saaskia.keepcontact.lu/data/files/1791263853.7598.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791263853.7598.pdf",
       "date": "2026-10-06"
@@ -383,10 +486,21 @@
       "club": "tageblatt.lu",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "La police relève plus de 1.000 amendes lors de contrôles routiers au début de l'année scolaire au Luxembourg. Renforcement de la sécurité routière et application de la loi.",
+      "content": "La police luxembourgeoise a émis plus de 1.000 amendes lors de contrôles routiers au début de l'année scolaire pour violations du code de la route.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1791263623.8193.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791263623.8193.pdf",
+      "date": "2026-10-06"
+    },
+    {
+      "id": "2026-10-06-saaskia-web-7XVxBi",
+      "club": "paperjam.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Présentation de véhicules électriques promettant une autonomie de 1.000 km, marquant une avancée majeure dans la technologie des batteries.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791263812.7353.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791263812.7353.pdf",
       "date": "2026-10-06"
     },
     {
@@ -401,17 +515,6 @@
       "date": "2026-10-06"
     },
     {
-      "id": "2026-10-06-saaskia-web-7XVxBi",
-      "club": "paperjam.lu",
-      "category": "Veille presse LU",
-      "badge": "INFO",
-      "content": "Présentation de véhicules électriques promettant 1.000 km d'autonomie. Évolution technologique des batteries et autonomie des modèles récents.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1791263812.7353.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791263812.7353.pdf",
-      "date": "2026-10-06"
-    },
-    {
       "id": "2026-10-06-saaskia-web-MTKaTZ",
       "club": "paperjam.lu",
       "category": "Veille presse LU",
@@ -423,36 +526,25 @@
       "date": "2026-10-06"
     },
     {
-      "id": "2026-10-05-saaskia-web-os9BxZ",
-      "club": "lessentiel.lu DE",
-      "category": "Veille presse LU",
-      "badge": "NOTABLE",
-      "content": "Le « GO electric day » propose des essais gratuits de véhicules électriques à La Coque. Cet événement majeur permet aux visiteurs de tester différents modèles d'E-Autos.",
-      "relevance": "ACL explicitement cité : \"GO electric day\"",
-      "url": "https://saaskia.keepcontact.lu/data/files/1791177742.2574.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791177742.2574.pdf",
-      "date": "2026-10-05"
-    },
-    {
-      "id": "2026-10-05-saaskia-web-jigIpY",
-      "club": "Luxemburger Wort",
-      "category": "Veille presse LU",
-      "badge": "NOTABLE",
-      "content": "Présentation des véhicules électriques testables lors du « GO electric day » au Luxembourg. Information détaillée sur les modèles disponibles pour essai.",
-      "relevance": "ACL explicitement cité : \"GO electric day\"",
-      "url": "https://saaskia.keepcontact.lu/data/files/1791177186.1889.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791177186.1889.pdf",
-      "date": "2026-10-05"
-    },
-    {
       "id": "2026-10-05-saaskia-web-ogDmtV",
       "club": "wort.lu",
       "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "content": "Listing des véhicules électriques disponibles pour essai lors du « GO electric day ». Événement dédié à l'électromobilité avec présentation de modèles variés.",
+      "content": "Présentation des véhicules électriques disponibles au test lors du « GO electric day » au Luxembourg.",
       "relevance": "ACL explicitement cité : \"GO electric day\"",
       "url": "https://saaskia.keepcontact.lu/data/files/1791177789.9681.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791177789.9681.pdf",
+      "date": "2026-10-05"
+    },
+    {
+      "id": "2026-10-05-saaskia-web-os9BxZ",
+      "club": "lessentiel.lu DE",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "Le « GO electric day » à la Coque propose des essais de véhicules électriques pour découvrir la mobilité durable.",
+      "relevance": "ACL explicitement cité : \"GO electric day\"",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791177742.2574.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791177742.2574.pdf",
       "date": "2026-10-05"
     },
     {
@@ -460,10 +552,54 @@
       "club": "lessentiel.lu FR",
       "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "content": "Aurélien teste la nouvelle Mazda CX-6e durant un mois au Luxembourg. Essai d'un véhicule électrique dans le cadre d'une opération promotionnelle.",
-      "relevance": "ACL explicitement cité : \"test Mazda CX-6e\"",
+      "content": "Un habitant du Luxembourg a la chance de tester la nouvelle Mazda CX-6e électrique pendant un mois.",
+      "relevance": "ACL explicitement cité : \"Mazda CX-6e\"",
       "url": "https://saaskia.keepcontact.lu/data/files/1791177455.6401.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791177455.6401.pdf",
+      "date": "2026-10-05"
+    },
+    {
+      "id": "2026-10-05-saaskia-web-jigIpY",
+      "club": "Luxemburger Wort",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "Sélection de véhicules électriques disponibles pour essais au « GO electric day » au Luxembourg.",
+      "relevance": "ACL explicitement cité : \"GO electric day\"",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791177186.1889.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791177186.1889.pdf",
+      "date": "2026-10-05"
+    },
+    {
+      "id": "2026-10-05-saaskia-web-Z5Hbmp",
+      "club": "virgule.lu (Wort.lu/FR)",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Analyse sur l'intérêt actuel d'acheter un véhicule diesel face à la transition vers l'électrification du marché automobile.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791183311.7414.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791183311.7414.pdf",
+      "date": "2026-10-05"
+    },
+    {
+      "id": "2026-10-05-saaskia-web-wojPbk",
+      "club": "wort.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Rappel de véhicules Volkswagen, Audi et Seat: le Luxembourg n'est pas concerné par cette action préventive de sécurité.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791177891.3729.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791177891.3729.pdf",
+      "date": "2026-10-05"
+    },
+    {
+      "id": "2026-10-05-saaskia-web-K8ezYm",
+      "club": "virgule.lu (Wort.lu/FR)",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Près de 200 infractions, dont d'importants excès de vitesse, ont été relevés lors de contrôles de motards au Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791177712.8122.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791177712.8122.pdf",
       "date": "2026-10-05"
     },
     {
@@ -486,17 +622,6 @@
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1791177683.9149.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791177683.9149.pdf",
-      "date": "2026-10-05"
-    },
-    {
-      "id": "2026-10-05-saaskia-web-K8ezYm",
-      "club": "virgule.lu (Wort.lu/FR)",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Près de 200 infractions dont importants excès de vitesse commis par des motards au Luxembourg. Opération de contrôle routier et sécurité routière.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1791177712.8122.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791177712.8122.pdf",
       "date": "2026-10-05"
     },
     {
@@ -533,17 +658,6 @@
       "date": "2026-10-05"
     },
     {
-      "id": "2026-10-05-saaskia-web-Z5Hbmp",
-      "club": "virgule.lu (Wort.lu/FR)",
-      "category": "Veille presse LU",
-      "badge": "INFO",
-      "content": "Question sur l'intérêt d'acheter un véhicule diesel au Luxembourg en 2026. Analyse comparative des alternatives de motorisation.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1791183311.7414.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791183311.7414.pdf",
-      "date": "2026-10-05"
-    },
-    {
       "id": "2026-10-05-saaskia-web-YsuekP",
       "club": "virgule.lu (Wort.lu/FR)",
       "category": "Veille presse LU",
@@ -552,17 +666,6 @@
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1791183345.1975.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791183345.1975.pdf",
-      "date": "2026-10-05"
-    },
-    {
-      "id": "2026-10-05-saaskia-web-wojPbk",
-      "club": "wort.lu",
-      "category": "Veille presse LU",
-      "badge": "INFO",
-      "content": "Rappel VW, Audi et Seat: le Luxembourg n'est pas concerné pour le moment. Information sur les actions de sécurité constructeur.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1791177891.3729.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791177891.3729.pdf",
       "date": "2026-10-05"
     },
     {
