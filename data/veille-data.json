@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-07",
+  "generated_at": "2026-10-08",
   "next_edition": "",
   "editions": [
     {
@@ -357,15 +357,96 @@
     {
       "date": "2026-10-07",
       "label": "Semaine du 2026-10-07"
+    },
+    {
+      "date": "2026-10-08",
+      "label": "Semaine du 2026-10-08"
     }
   ],
   "items": [
+    {
+      "id": "2026-10-08-saaskia-web-s9tvME",
+      "club": "tageblatt.lu",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "L'ACL et la SNCT organisent des contrôles gratuits de pneus et de feux en automne. Une action de sécurité routière conjointe avant la période hivernale.",
+      "relevance": "ACL explicitement cité : \"ACL und SNCT kontrollieren\"",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791442362.023.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791442362.023.pdf",
+      "date": "2026-10-08"
+    },
+    {
+      "id": "2026-10-08-saaskia-web-x820ZX",
+      "club": "lequotidien.lu",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "L'ACL Kannersëtzbazar fait son retour le 17 octobre. Un événement organisé par l'Automobile Club du Luxembourg pour les enfants et familles.",
+      "relevance": "ACL explicitement cité : \"ACL Kannersëtzbazar\"",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791436889.6628.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791436889.6628.pdf",
+      "date": "2026-10-08"
+    },
+    {
+      "id": "2026-10-08-saaskia-web-eKyMYS",
+      "club": "Le Quotidien",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "L'ACL sillonne le pays pour vérifier feux et pneus avant l'hiver. Campagne de sensibilisation à la sécurité routière organisée par l'Automobile Club.",
+      "relevance": "ACL explicitement cité : \"L'ACL sillonnera\"",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791436638.1598.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791436638.1598.pdf",
+      "date": "2026-10-08"
+    },
+    {
+      "id": "2026-10-08-saaskia-web-IacuGT",
+      "club": "L'Essentiel",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "Contrôle gratuit des pneus et éclairage avant l'hiver. Initiative de sécurité routière menée par l'ACL en collaboration avec les partenaires.",
+      "relevance": "ACL explicitement cité : \"ACL\"",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791436245.3866.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791436245.3866.pdf",
+      "date": "2026-10-08"
+    },
+    {
+      "id": "2026-10-08-saaskia-web-MkZSXz",
+      "club": "diegrenzgaenger.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Schnelle Tram aus dem Süden: Jusqu'à 25 000 passagers par jour attendus. Projet majeur de mobilité au Luxembourg avec un nouveau tramway rapide du sud.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791442381.5198.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791442381.5198.pdf",
+      "date": "2026-10-08"
+    },
+    {
+      "id": "2026-10-08-saaskia-web-DjNVH5",
+      "club": "Gemengen.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Accompagner les communes face au défi de l'électromobilité. Enjeu territorial pour les municipalités luxembourgeoises sur la transition vers les véhicules électriques.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791436938.6074.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791436938.6074.pdf",
+      "date": "2026-10-08"
+    },
+    {
+      "id": "2026-10-08-saaskia-web-tUxMq4",
+      "club": "chronicle.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "CFL Inaugurates Howald Mobility Hub Serving Over 3k Passengers Daily. Un nouveau centre de mobilité multimodal au Luxembourg servant plus de 3000 passagers quotidiens.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791436869.9972.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791436869.9972.pdf",
+      "date": "2026-10-08"
+    },
     {
       "id": "2026-10-07-saaskia-web-LiKHK5",
       "club": "Corporatenews.lu / Merkur.lu",
       "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "content": "L'ACL et la SNCT lancent leur campagne « Éclairage et pneus » 2026, reprenant la route pour sensibiliser à la sécurité routière avant l'hiver.",
+      "content": "Campagne « Éclairage et pneus » 2026 : L'ACL et la SNCT reprennent la route pour sensibiliser aux contrôles de sécurité automobile essentiels.",
       "relevance": "ACL explicitement cité : \"L'ACL et la SNCT\"",
       "url": "https://saaskia.keepcontact.lu/data/files/1791349907.9327.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791349907.9327.pdf",
@@ -376,7 +457,7 @@
       "club": "chronicle.lu",
       "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "content": "L'ACL annonce des contrôles gratuits de feux et de pneus à l'approche de l'hiver pour garantir la sécurité des automobilistes.",
+      "content": "ACL announces free lights and tyres checks as winter approaches. An important safety initiative from the Automobile Club as the cold season begins.",
       "relevance": "ACL explicitement cité : \"ACL Announces\"",
       "url": "https://saaskia.keepcontact.lu/data/files/1791349887.8361.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791349887.8361.pdf",
@@ -387,7 +468,7 @@
       "club": "lequotidien.lu",
       "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "content": "L'ACL parcourt le pays pour vérifier les feux et les pneus des véhicules en préparation à la saison hivernale.",
+      "content": "L'ACL sillonne le pays pour vérifier feux et pneus. Campagne de contrôle gratuit de sécurité routière avant l'hiver.",
       "relevance": "ACL explicitement cité : \"L'ACL sillonne\"",
       "url": "https://saaskia.keepcontact.lu/data/files/1791349830.8635.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791349830.8635.pdf",
@@ -398,8 +479,8 @@
       "club": "lessentiel.lu DE",
       "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "content": "Appel au contrôle des pneus et de l'éclairage avant l'hiver au Luxembourg, dans le cadre de la campagne de sécurité routière.",
-      "relevance": "ACL explicitement cité : \"Reifen und Beleuchtung\"",
+      "content": "Lass Deine Reifen und Beleuchtung vor dem Winter checken. Kampagne der ACL für kostenlose Sicherheitschecks.",
+      "relevance": "ACL explicitement cité : \"ACL\"",
       "url": "https://saaskia.keepcontact.lu/data/files/1791349793.9048.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791349793.9048.pdf",
       "date": "2026-10-07"
@@ -409,8 +490,8 @@
       "club": "lessentiel.lu FR",
       "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "content": "Au Luxembourg, recommandation de faire contrôler ses pneus et son éclairage avant l'hiver pour la sécurité routière.",
-      "relevance": "ACL explicitement cité : \"pneus et éclairage\"",
+      "content": "Faites contrôler vos pneus et éclairage avant l'hiver au Luxembourg. Initiative de l'ACL pour la sécurité automobile hivernale.",
+      "relevance": "ACL explicitement cité : \"ACL\"",
       "url": "https://saaskia.keepcontact.lu/data/files/1791349775.7832.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791349775.7832.pdf",
       "date": "2026-10-07"
@@ -419,11 +500,33 @@
       "id": "2026-10-07-saaskia-web-0SDdul",
       "club": "virgule.lu (Wort.lu/FR)",
       "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Les ventes de voitures électriques atteignent des records historiques en 2026 en Europe, confirmant la transition vers la mobilité électrique.",
+      "badge": "INFO",
+      "content": "Les ventes de voitures électriques atteignent des records historiques en 2026 en Europe. Croissance significative du marché des véhicules électriques dans l'UE.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1791356229.9974.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791356229.9974.pdf",
+      "date": "2026-10-07"
+    },
+    {
+      "id": "2026-10-07-saaskia-web-3po3x7",
+      "club": "lessentiel.lu FR",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Achat de voiture: Le prix, critère principal bien avant l'impact environnemental. Étude sur les priorités des consommateurs lors de l'achat automobile.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791349746.3276.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791349746.3276.pdf",
+      "date": "2026-10-07"
+    },
+    {
+      "id": "2026-10-07-saaskia-web-Nq6sHc",
+      "club": "infogreen.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "La recharge intelligente au service de la transition énergétique. Solutions innovantes pour la recharge des véhicules électriques et la gestion de l'énergie.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791349728.9848.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791349728.9848.pdf",
       "date": "2026-10-07"
     },
     {
@@ -438,33 +541,11 @@
       "date": "2026-10-07"
     },
     {
-      "id": "2026-10-07-saaskia-web-3po3x7",
-      "club": "lessentiel.lu FR",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Étude montrant que le prix reste le critère principal d'achat de voiture, bien avant les considérations environnementales.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1791349746.3276.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791349746.3276.pdf",
-      "date": "2026-10-07"
-    },
-    {
-      "id": "2026-10-07-saaskia-web-Nq6sHc",
-      "club": "infogreen.lu",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "La recharge intelligente des véhicules électriques contribue à la transition énergétique en optimisant la consommation d'électricité.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1791349728.9848.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791349728.9848.pdf",
-      "date": "2026-10-07"
-    },
-    {
       "id": "2026-10-06-saaskia-web-2Sa8ec",
       "club": "wort.lu",
       "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "content": "Le « GO electric day » à la Coque met sous les projecteurs les véhicules électriques, avec possibilité de test drive pour les participants.",
+      "content": "Beim « GO electric day » wurde die Coque unter Strom gesetzt. Événement ACL de promotion de la mobilité électrique au Luxembourg.",
       "relevance": "ACL explicitement cité : \"GO electric day\"",
       "url": "https://saaskia.keepcontact.lu/data/files/1791263554.7671.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791263554.7671.pdf",
@@ -475,8 +556,8 @@
       "club": "infos.rtl.lu",
       "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "content": "Reportage sur l'électromobilité au Luxembourg, couvrant les enjeux et opportunités du secteur.",
-      "relevance": "ACL explicitement cité : \"Électromobilité\"",
+      "content": "Électromobilité au Luxembourg. Article couvrant les initiatives et développements liés à l'électrification des transports.",
+      "relevance": "ACL explicitement cité : \"ACL\"",
       "url": "https://saaskia.keepcontact.lu/data/files/1791263853.7598.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791263853.7598.pdf",
       "date": "2026-10-06"
@@ -485,11 +566,22 @@
       "id": "2026-10-06-saaskia-web-kwIxDY",
       "club": "tageblatt.lu",
       "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "La police luxembourgeoise a émis plus de 1.000 amendes lors de contrôles routiers au début de l'année scolaire pour violations du code de la route.",
+      "badge": "INFO",
+      "content": "Polizei verhängt bei Verkehrskontrollen zum Beginn des Schuljahres mehr als 1.000 Bußgelder. Application stricte des règles de circulation au début de l'année scolaire.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1791263623.8193.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791263623.8193.pdf",
+      "date": "2026-10-06"
+    },
+    {
+      "id": "2026-10-06-saaskia-web-bH9efC",
+      "club": "infogreen.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Pour les pros, électrification veut dire formation. Enjeux de formation professionnelle liés à la transition vers l'électromobilité.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791263675.9087.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791263675.9087.pdf",
       "date": "2026-10-06"
     },
     {
@@ -501,17 +593,6 @@
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1791263812.7353.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791263812.7353.pdf",
-      "date": "2026-10-06"
-    },
-    {
-      "id": "2026-10-06-saaskia-web-bH9efC",
-      "club": "infogreen.lu",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Pour les professionnels, l'électrification signifie formation. Article sur les enjeux de compétences liés à la transition vers les véhicules électriques.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1791263675.9087.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791263675.9087.pdf",
       "date": "2026-10-06"
     },
     {
