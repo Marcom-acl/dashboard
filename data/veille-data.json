@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-08",
+  "generated_at": "2026-10-09",
   "next_edition": "",
   "editions": [
     {
@@ -361,62 +361,132 @@
     {
       "date": "2026-10-08",
       "label": "Semaine du 2026-10-08"
+    },
+    {
+      "date": "2026-10-09",
+      "label": "Semaine du 2026-10-09"
     }
   ],
   "items": [
     {
-      "id": "2026-10-08-saaskia-web-s9tvME",
+      "id": "2026-10-09-saaskia-web-pQaiU7",
       "club": "tageblatt.lu",
       "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "content": "L'ACL et la SNCT organisent des contrôles gratuits de pneus et de feux en automne. Une action de sécurité routière conjointe avant la période hivernale.",
-      "relevance": "ACL explicitement cité : \"ACL und SNCT kontrollieren\"",
-      "url": "https://saaskia.keepcontact.lu/data/files/1791442362.023.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791442362.023.pdf",
-      "date": "2026-10-08"
+      "content": "L'ACL organise un bazar (Basar) à deux emplacements. Événement commercial de l'organisation automobile luxembourgeoise.",
+      "relevance": "ACL explicitement cité : \"ACL veranstaltet Basar\"",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791529032.4415.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791529032.4415.pdf",
+      "date": "2026-10-09"
     },
     {
-      "id": "2026-10-08-saaskia-web-x820ZX",
-      "club": "lequotidien.lu",
+      "id": "2026-10-09-saaskia-web-XhoCUb",
+      "club": "itnation.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Article sur la mutualisation du stationnement pour améliorer la circulation au Luxembourg. Enjeu majeur de mobilité urbaine.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791523517.3765.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791523517.3765.pdf",
+      "date": "2026-10-09"
+    },
+    {
+      "id": "2026-10-09-saaskia-web-SJxO2b",
+      "club": "chronicle.lu",
       "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "content": "L'ACL Kannersëtzbazar fait son retour le 17 octobre. Un événement organisé par l'Automobile Club du Luxembourg pour les enfants et familles.",
-      "relevance": "ACL explicitement cité : \"ACL Kannersëtzbazar\"",
-      "url": "https://saaskia.keepcontact.lu/data/files/1791436889.6628.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791436889.6628.pdf",
-      "date": "2026-10-08"
+      "content": "L'ACL annonce l'édition d'automne de son bazar de sièges auto d'occasion pour enfants. Initiative de l'organisation en faveur de la sécurité routière.",
+      "relevance": "ACL explicitement cité : \"ACL Announces Autumn Edition of Second-Hand Child Car Seat Bazaar\"",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791523491.4254.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791523491.4254.pdf",
+      "date": "2026-10-09"
     },
     {
-      "id": "2026-10-08-saaskia-web-eKyMYS",
+      "id": "2026-10-09-saaskia-web-1J37nO",
+      "club": "lequotidien.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Une loi est prévue sur l'installation de bodycams dans les transports en commun au Luxembourg. Mesure de sécurité dans les transports publics.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791522879.9901.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791522879.9901.pdf",
+      "date": "2026-10-09"
+    },
+    {
+      "id": "2026-10-09-saaskia-web-eecDkP",
+      "club": "rtl.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Inauguration d'un pôle d'échange (Pôle d'échange zu Howald) à Luxembourg. Infrastructure de mobilité intermodale importante.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791522839.4766.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791522839.4766.pdf",
+      "date": "2026-10-09"
+    },
+    {
+      "id": "2026-10-09-saaskia-web-h2qjxG",
+      "club": "infogreen.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Petro Center poursuit ses investissements dans l'électromobilité au Luxembourg. Développement de l'infrastructure de recharge.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791522818.394.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791522818.394.pdf",
+      "date": "2026-10-09"
+    },
+    {
+      "id": "2026-10-09-saaskia-web-P9dZSR",
       "club": "Le Quotidien",
       "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "content": "L'ACL sillonne le pays pour vérifier feux et pneus avant l'hiver. Campagne de sensibilisation à la sécurité routière organisée par l'Automobile Club.",
-      "relevance": "ACL explicitement cité : \"L'ACL sillonnera\"",
-      "url": "https://saaskia.keepcontact.lu/data/files/1791436638.1598.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791436638.1598.pdf",
-      "date": "2026-10-08"
+      "content": "Article sur les sièges auto à petits prix, probablement lié au bazar de l'ACL. Accès à la sécurité routière à prix réduit.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791522768.8359.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791522768.8359.pdf",
+      "date": "2026-10-09"
     },
     {
-      "id": "2026-10-08-saaskia-web-IacuGT",
-      "club": "L'Essentiel",
+      "id": "2026-10-09-saaskia-web-GfMqDx",
+      "club": "Zeitung zum Lëtzebuerger Vollek",
       "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "content": "Contrôle gratuit des pneus et éclairage avant l'hiver. Initiative de sécurité routière menée par l'ACL en collaboration avec les partenaires.",
-      "relevance": "ACL explicitement cité : \"ACL\"",
-      "url": "https://saaskia.keepcontact.lu/data/files/1791436245.3866.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791436245.3866.pdf",
-      "date": "2026-10-08"
+      "content": "Le bazar de sièges auto pour enfants de l'ACL se tiendra le 17 octobre à Bertrange et Ingeldorf. Événement clé de l'organisation.",
+      "relevance": "ACL explicitement cité : \"ACL-Kannersëtzbazar\"",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791522679.7587.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791522679.7587.pdf",
+      "date": "2026-10-09"
+    },
+    {
+      "id": "2026-10-09-saaskia-web-J284rj",
+      "club": "Tageblatt",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "Article sur les sièges auto d'occasion en recherche de nouveaux propriétaires, lié au bazar de l'ACL. Initiative de réutilisation.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791522459.0677.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791522459.0677.pdf",
+      "date": "2026-10-09"
     },
     {
       "id": "2026-10-08-saaskia-web-MkZSXz",
       "club": "diegrenzgaenger.lu",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Schnelle Tram aus dem Süden: Jusqu'à 25 000 passagers par jour attendus. Projet majeur de mobilité au Luxembourg avec un nouveau tramway rapide du sud.",
+      "content": "Tram rapide du sud attendue avec jusqu'à 25.000 passagers par jour. Projet de mobilité collective majeur pour le Luxembourg.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1791442381.5198.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791442381.5198.pdf",
+      "date": "2026-10-08"
+    },
+    {
+      "id": "2026-10-08-saaskia-web-s9tvME",
+      "club": "tageblatt.lu",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "L'ACL et la SNCT contrôlent gratuitement les pneus et les feux en automne. Campagne de sécurité routière majeure.",
+      "relevance": "ACL explicitement cité : \"ACL und SNCT kontrollieren\"",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791442362.023.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791442362.023.pdf",
       "date": "2026-10-08"
     },
     {
@@ -424,10 +494,21 @@
       "club": "Gemengen.lu",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Accompagner les communes face au défi de l'électromobilité. Enjeu territorial pour les municipalités luxembourgeoises sur la transition vers les véhicules électriques.",
+      "content": "Article sur l'accompagnement des communes face au défi de l'électromobilité au Luxembourg. Transition énergétique des transports.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1791436938.6074.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791436938.6074.pdf",
+      "date": "2026-10-08"
+    },
+    {
+      "id": "2026-10-08-saaskia-web-x820ZX",
+      "club": "lequotidien.lu",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "Le bazar de sièges auto pour enfants de l'ACL fait son retour le 17 octobre au Luxembourg. Événement semestriel de l'organisation.",
+      "relevance": "ACL explicitement cité : \"L'ACL Kannersëtzbazar\"",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791436889.6628.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791436889.6628.pdf",
       "date": "2026-10-08"
     },
     {
@@ -435,19 +516,63 @@
       "club": "chronicle.lu",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "CFL Inaugurates Howald Mobility Hub Serving Over 3k Passengers Daily. Un nouveau centre de mobilité multimodal au Luxembourg servant plus de 3000 passagers quotidiens.",
+      "content": "Les CFL inaugurent le pôle de mobilité Howald accueillant plus de 3000 passagers quotidiens. Infrastructure majeure de transports publics.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1791436869.9972.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791436869.9972.pdf",
       "date": "2026-10-08"
     },
     {
+      "id": "2026-10-08-saaskia-web-eKyMYS",
+      "club": "Le Quotidien",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "L'ACL parcourt le pays pour vérifier les feux et les pneus des véhicules. Campagne semestrielle de sécurité routière.",
+      "relevance": "ACL explicitement cité : \"L'ACL sillonnera le pays\"",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791436638.1598.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791436638.1598.pdf",
+      "date": "2026-10-08"
+    },
+    {
+      "id": "2026-10-08-saaskia-web-TfLMea",
+      "club": "Tageblatt",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "Contrôles gratuits proposés par l'ACL sur les pneus et l'éclairage avant l'hiver. Service de sécurité routière de l'organisation.",
+      "relevance": "ACL explicitement cité : \"Kostenlose Kontrollen\"",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791436368.8323.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791436368.8323.pdf",
+      "date": "2026-10-08"
+    },
+    {
+      "id": "2026-10-08-saaskia-web-IacuGT",
+      "club": "L'Essentiel",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "Contrôle des pneus et de l'éclairage avant l'hiver proposé par l'ACL. Initiative de sécurité routière préhivernale.",
+      "relevance": "ACL explicitement cité : \"contrôle des pneus et éclairage\"",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791436245.3866.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791436245.3866.pdf",
+      "date": "2026-10-08"
+    },
+    {
+      "id": "2026-10-07-saaskia-web-0SDdul",
+      "club": "virgule.lu (Wort.lu/FR)",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Les ventes de voitures électriques atteignent des records historiques en 2026 en Europe, incluant le Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791356229.9974.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791356229.9974.pdf",
+      "date": "2026-10-07"
+    },
+    {
       "id": "2026-10-07-saaskia-web-LiKHK5",
       "club": "Corporatenews.lu / Merkur.lu",
       "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "content": "Campagne « Éclairage et pneus » 2026 : L'ACL et la SNCT reprennent la route pour sensibiliser aux contrôles de sécurité automobile essentiels.",
-      "relevance": "ACL explicitement cité : \"L'ACL et la SNCT\"",
+      "content": "Campagne « Éclairage et pneus » 2026 : L'ACL et la SNCT reprennent la route pour les contrôles de sécurité. Initiative conjointe majeure.",
+      "relevance": "ACL explicitement cité : \"Campagne « Éclairage et pneus » 2026 : L'ACL\"",
       "url": "https://saaskia.keepcontact.lu/data/files/1791349907.9327.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791349907.9327.pdf",
       "date": "2026-10-07"
@@ -457,8 +582,8 @@
       "club": "chronicle.lu",
       "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "content": "ACL announces free lights and tyres checks as winter approaches. An important safety initiative from the Automobile Club as the cold season begins.",
-      "relevance": "ACL explicitement cité : \"ACL Announces\"",
+      "content": "L'ACL annonce des contrôles gratuits des feux et pneus avant l'hiver. Service de sécurité routière périodique.",
+      "relevance": "ACL explicitement cité : \"ACL Announces Free Lights & Tyres Checks\"",
       "url": "https://saaskia.keepcontact.lu/data/files/1791349887.8361.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791349887.8361.pdf",
       "date": "2026-10-07"
@@ -494,17 +619,6 @@
       "relevance": "ACL explicitement cité : \"ACL\"",
       "url": "https://saaskia.keepcontact.lu/data/files/1791349775.7832.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791349775.7832.pdf",
-      "date": "2026-10-07"
-    },
-    {
-      "id": "2026-10-07-saaskia-web-0SDdul",
-      "club": "virgule.lu (Wort.lu/FR)",
-      "category": "Veille presse LU",
-      "badge": "INFO",
-      "content": "Les ventes de voitures électriques atteignent des records historiques en 2026 en Europe. Croissance significative du marché des véhicules électriques dans l'UE.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1791356229.9974.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791356229.9974.pdf",
       "date": "2026-10-07"
     },
     {
