@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-10",
+  "generated_at": "2026-10-11",
   "next_edition": "",
   "editions": [
     {
@@ -369,6 +369,10 @@
     {
       "date": "2026-10-10",
       "label": "Semaine du 2026-10-10"
+    },
+    {
+      "date": "2026-10-11",
+      "label": "Semaine du 2026-10-11"
     }
   ],
   "items": [
@@ -377,8 +381,8 @@
       "club": "tageblatt.lu",
       "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "content": "L'ACL organise un bazar à deux emplacements. Événement majeur de l'organisation automobile luxembourgeoise.",
-      "relevance": "ACL explicitement cité : \"ACL veranstaltet\"",
+      "content": "L'ACL organise un bazar à deux emplacements. Événement d'envergure de l'Automobile Club du Luxembourg.",
+      "relevance": "ACL explicitement cité : \"ACL veranstaltet Basar\"",
       "url": "https://saaskia.keepcontact.lu/data/files/1791529032.4415.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791529032.4415.pdf",
       "date": "2026-10-09"
@@ -388,7 +392,7 @@
       "club": "chronicle.lu",
       "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "content": "L'ACL annonce l'édition d'automne de son bazar de sièges auto d'occasion pour enfants. Initiative sociale de l'ACL.",
+      "content": "L'ACL annonce l'édition d'automne de son bazar de sièges auto d'occasion pour enfants. Initiative importante de sensibilisation et de durabilité.",
       "relevance": "ACL explicitement cité : \"ACL Announces\"",
       "url": "https://saaskia.keepcontact.lu/data/files/1791523491.4254.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791523491.4254.pdf",
@@ -399,10 +403,32 @@
       "club": "Zeitung zum Lëtzebuerger Vollek",
       "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "content": "Le bazar de sièges auto de l'ACL («ACL-Kannersëtzbazar») se tient le 17 octobre à Bertrange et Ingeldorf.",
+      "content": "Le bazar de sièges auto pour enfants de l'ACL se tiendra les 17 octobre à Bertrange et Ingeldorf. Événement structurant pour les familles luxembourgeoises.",
       "relevance": "ACL explicitement cité : \"ACL-Kannersëtzbazar\"",
       "url": "https://saaskia.keepcontact.lu/data/files/1791522679.7587.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791522679.7587.pdf",
+      "date": "2026-10-09"
+    },
+    {
+      "id": "2026-10-09-saaskia-web-P9dZSR",
+      "club": "Le Quotidien",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "Des sièges auto à petits prix proposés par l'ACL. Offre accessible pour les familles du Grand-Duché.",
+      "relevance": "ACL explicitement cité : \"Sièges auto\"",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791522768.8359.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791522768.8359.pdf",
+      "date": "2026-10-09"
+    },
+    {
+      "id": "2026-10-09-saaskia-web-J284rj",
+      "club": "Tageblatt",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "Des sièges auto d'occasion cherchent de nouveaux propriétaires via l'ACL. Article relatif au bazar de sièges enfants.",
+      "relevance": "ACL explicitement cité : \"Kindersitze\"",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791522459.0677.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791522459.0677.pdf",
       "date": "2026-10-09"
     },
     {
@@ -410,7 +436,7 @@
       "club": "itnation.lu",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Article sur la mutualisation du stationnement pour améliorer la circulation routière. Sujet de mobilité urbaine au Luxembourg.",
+      "content": "Réflexion sur la mutualisation du stationnement pour améliorer la circulation au Luxembourg. Enjeu de mobilité urbaine pertinent.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1791523517.3765.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791523517.3765.pdf",
@@ -421,7 +447,7 @@
       "club": "lequotidien.lu",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Une nouvelle loi est prévue sur les caméras corporelles dans les transports publics. Enjeu de sécurité et mobilité publique.",
+      "content": "Une loi est prévue concernant l'utilisation de bodycams dans les transports publics luxembourgeois. Mesure de sécurité dans les transports.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1791522879.9901.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791522879.9901.pdf",
@@ -432,21 +458,10 @@
       "club": "rtl.lu",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Pôle d'échange à Howald inauguré. Infrastructure de mobilité et transports en commun au Luxembourg.",
+      "content": "Ouverture d'un pôle d'échange à Howald. Infrastructure de mobilité importante au Luxembourg.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1791522839.4766.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791522839.4766.pdf",
-      "date": "2026-10-09"
-    },
-    {
-      "id": "2026-10-09-saaskia-web-Co7ebR",
-      "club": "L'Essentiel",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Nombre record de cyclistes participant à une épreuve au Luxembourg. Événement de mobilité cycliste.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1791522299.3441.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791522299.3441.pdf",
       "date": "2026-10-09"
     },
     {
@@ -454,32 +469,65 @@
       "club": "infogreen.lu",
       "category": "Veille presse LU",
       "badge": "INFO",
-      "content": "Petro Center poursuit ses investissements dans l'électromobilité. Développement du secteur EV au Luxembourg.",
+      "content": "Petro Center poursuit ses investissements dans l'électromobilité. Évolution du secteur automobile luxembourgeois.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1791522818.394.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791522818.394.pdf",
       "date": "2026-10-09"
     },
     {
-      "id": "2026-10-09-saaskia-web-P9dZSR",
-      "club": "Le Quotidien",
+      "id": "2026-10-09-saaskia-web-5ZRWXf",
+      "club": "Tageblatt",
       "category": "Veille presse LU",
-      "badge": "NOTABLE",
-      "content": "Article sur les sièges auto à petits prix, probablement lié au bazar de l'ACL. Accès à la sécurité routière à prix réduit.",
+      "badge": "INFO",
+      "content": "Article sur la transformation des routes internationales en impasses. Enjeu d'infrastructure routière.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1791522768.8359.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791522768.8359.pdf",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791522549.765.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791522549.765.pdf",
       "date": "2026-10-09"
     },
     {
-      "id": "2026-10-09-saaskia-web-J284rj",
-      "club": "Tageblatt",
+      "id": "2026-10-09-saaskia-web-Co7ebR",
+      "club": "L'Essentiel",
       "category": "Veille presse LU",
-      "badge": "NOTABLE",
-      "content": "Article sur les sièges auto d'occasion en recherche de nouveaux propriétaires, lié au bazar de l'ACL. Initiative de réutilisation.",
+      "badge": "INFO",
+      "content": "Un nombre record de cyclistes en action. Mobilité active et événement cycliste au Luxembourg.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1791522459.0677.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791522459.0677.pdf",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791522299.3441.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791522299.3441.pdf",
+      "date": "2026-10-09"
+    },
+    {
+      "id": "2026-10-09-saaskia-web-eBFA82",
+      "club": "lessentiel.lu DE",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "1500 cyclistes au Luxembourg tentent de battre un record du monde pour la sensibilisation aux dons d'organes. Événement mobilité/santé.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791523352.7561.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791523352.7561.pdf",
+      "date": "2026-10-09"
+    },
+    {
+      "id": "2026-10-09-saaskia-web-RHxujt",
+      "club": "chronicle.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Le Luxembourg accueillera la finale de la Coupe d'Europe FIA Esports de course de côte. Événement sportif automobile.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791523445.1787.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791523445.1787.pdf",
+      "date": "2026-10-09"
+    },
+    {
+      "id": "2026-10-09-saaskia-web-NKG5tt",
+      "club": "Corporatenews.lu / Merkur.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "La course de côte franchit une nouvelle étape au Luxembourg. Évolution de l'événement automobile national.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791522905.1666.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791522905.1666.pdf",
       "date": "2026-10-09"
     },
     {
