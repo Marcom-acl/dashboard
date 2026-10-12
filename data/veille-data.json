@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-11",
+  "generated_at": "2026-10-12",
   "next_edition": "",
   "editions": [
     {
@@ -373,9 +373,134 @@
     {
       "date": "2026-10-11",
       "label": "Semaine du 2026-10-11"
+    },
+    {
+      "date": "2026-10-12",
+      "label": "Semaine du 2026-10-12"
     }
   ],
   "items": [
+    {
+      "id": "2026-10-12-saaskia-web-vA1ZrF",
+      "club": "rtl.lu",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "Article sur la préparation hivernale des véhicules : vérification des pneus et de l'éclairage avant l'hiver.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791788201.1653.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791788201.1653.pdf",
+      "date": "2026-10-12"
+    },
+    {
+      "id": "2026-10-12-saaskia-web-v0u1FA",
+      "club": "virgule.lu (Wort.lu/FR)",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "Guide pratique sur l'écoconduite et les carburants alternatifs pour réduire la consommation au volant.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791782686.3848.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791782686.3848.pdf",
+      "date": "2026-10-12"
+    },
+    {
+      "id": "2026-10-12-saaskia-web-VG0Jyy",
+      "club": "paperjam.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Le projet du tram vers le CHL (Centre Hospitalier de Luxembourg) reçoit l'approbation avec un budget de 171 millions d'euros, majeure infrastructure de mobilité au Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791783251.8077.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791783251.8077.pdf",
+      "date": "2026-10-12"
+    },
+    {
+      "id": "2026-10-12-saaskia-web-uDdvFg",
+      "club": "Luxemburger Wort",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Analyse juridique sur la responsabilité en cas d'accident sur les passages pour piétons aux couleurs arc-en-ciel et implications en matière de sécurité routière.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791782978.5099.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791782978.5099.pdf",
+      "date": "2026-10-12"
+    },
+    {
+      "id": "2026-10-12-saaskia-web-hHhkwl",
+      "club": "virgule.lu (Wort.lu/FR)",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Yuriko Backes propose l'installation de caméras corporelles dans les transports publics luxembourgeois pour améliorer la sécurité.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791782719.371.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791782719.371.pdf",
+      "date": "2026-10-12"
+    },
+    {
+      "id": "2026-10-12-saaskia-web-yERQn3",
+      "club": "Luxemburger Wort",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Record de participation au Vëlosummer 2026 avec plus de 50.000 cyclistes, démontrant le dynamisme de la mobilité douce au Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791783063.7852.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791783063.7852.pdf",
+      "date": "2026-10-12"
+    },
+    {
+      "id": "2026-10-12-saaskia-web-vW0pJ4",
+      "club": "wort.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Article sur la BMW i3 et son arrivée chez Louyet à Esch, illustrant l'évolution du marché automobile vers les véhicules électriques.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791782656.2927.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791782656.2927.pdf",
+      "date": "2026-10-12"
+    },
+    {
+      "id": "2026-10-12-saaskia-web-V6LYYo",
+      "club": "lessentiel.lu FR",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Donald Trump suspend l'embargo sur le diesel russe, impact potentiel sur les prix du carburant et la crise énergétique européenne.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791783177.7789.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791783177.7789.pdf",
+      "date": "2026-10-12"
+    },
+    {
+      "id": "2026-10-12-saaskia-web-5yilbY",
+      "club": "chronicle.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "L'Agence pour le climat annonce 8 conférences publiques sur la transition climatique et énergétique au Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791783278.8858.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791783278.8858.pdf",
+      "date": "2026-10-12"
+    },
+    {
+      "id": "2026-10-12-saaskia-web-8rhx3C",
+      "club": "infos.rtl.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Explications sur le phénomène du 'courant fantôme' et ses implications pour la consommation énergétique domestique.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791782612.1628.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791782612.1628.pdf",
+      "date": "2026-10-12"
+    },
+    {
+      "id": "2026-10-12-saaskia-web-wD0A55",
+      "club": "Le Quotidien",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "La FIA organise une course de côte virtuelle à Wickrange, événement motorsport innovant au Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791783130.7555.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791783130.7555.pdf",
+      "date": "2026-10-12"
+    },
     {
       "id": "2026-10-09-saaskia-web-pQaiU7",
       "club": "tageblatt.lu",
