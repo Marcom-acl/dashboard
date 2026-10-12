@@ -1,6 +1,179 @@
 {
-  "generated_at": "2026-10-05",
+  "generated_at": "2026-10-12",
   "items": [
+    {
+      "date": "2026-10-08",
+      "theme": "IA générative en marketing",
+      "titre": "Claude, ChatGPT, Jasper ou Notion AI : quel outil pour une petite équipe ?",
+      "synthese": "Plusieurs comparatifs publiés en 2026 convergent sur un même constat : pour une équipe marketing restreinte, un assistant généraliste comme Claude ou ChatGPT suffit largement, avec un abonnement individuel à environ 20 dollars par mois. Claude est jugé plus fiable pour la rédaction longue et le respect d'une voix de marque cohérente, tandis que ChatGPT reste plus polyvalent grâce à la génération d'images et un écosystème plus large d'intégrations. Jasper, positionné autour de 59 à 69 dollars par poste et par mois, ne devient rentable qu'à partir de trois rédacteurs ou plus partageant une même charte de marque, grâce à sa fonction de voix de marque entraînée sur un corpus existant. Notion AI, à 20 dollars par utilisateur et par mois, n'a d'intérêt que si l'équipe travaille déjà dans Notion au quotidien.",
+      "actionACL": "Pour l'équipe Marcom ACL, rester sur un abonnement Claude ou ChatGPT individuel plutôt que d'investir dans Jasper tant que moins de trois personnes rédigent des contenus de marque en parallèle. Réévaluer Jasper si l'équipe grandit ou si plusieurs sous-marques ACL nécessitent une voix cohérente sur de gros volumes.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "INFO",
+      "sources": [
+        {
+          "name": "Cut the SaaS",
+          "url": "https://cut-the-saas.com/the-cut/best-ai-for-marketing-2026"
+        },
+        {
+          "name": "Neal Schaffer",
+          "url": "https://nealschaffer.com/claude-vs-chatgpt/"
+        },
+        {
+          "name": "Passionfruit Labs",
+          "url": "https://www.getpassionfruit.com/blog/claude-vs-chatgpt-for-marketing-which-ai-is-better-for-your-team"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-16",
+      "theme": "IA générative en marketing",
+      "titre": "OpenAI teste les Sponsored Agents, pub conversationnelle dans ChatGPT",
+      "synthese": "Le 16 septembre 2026, OpenAI a lancé en alpha limitée les Sponsored Agents, un nouveau format publicitaire dans ChatGPT Ads qui ouvre, au clic sur une publicité, une conversation clairement identifiée avec l'agent IA de l'annonceur. Le test est restreint à une sélection d'annonceurs américains, dont l'entreprise de services à domicile Angi, et OpenAI précise que ces agents ne permettent pas de finaliser un achat. L'annonce inclut aussi des prompts en langage naturel dans Ads Manager pour créer, modifier et analyser des campagnes, ainsi que des intégrations de ChatGPT Ads avec HubSpot et Shopify. OpenAI n'accepte pas de demandes d'accès anticipé et n'a donné aucun calendrier pour un déploiement plus large.",
+      "actionACL": "Suivre l'évolution de ce format sans action immédiate, le test restant limité aux Etats-Unis et fermé aux candidatures. Documenter le concept pour anticiper une éventuelle arrivée en Europe, utile pour un futur assistant conversationnel de réponse aux questions sur l'assistance routière ou l'adhésion.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "PYMNTS",
+          "url": "https://www.pymnts.com/?p=4200040"
+        },
+        {
+          "name": "TechRepublic",
+          "url": "https://www.techrepublic.com/fr/article/chatgpt-sponsored-agents-openai-ads/"
+        },
+        {
+          "name": "Campaign",
+          "url": "https://campaignlive.com/article/openai-kicks-off-test-phase-chatgpt-ads/1948016"
+        },
+        {
+          "name": "The Next Web",
+          "url": "https://thenextweb.com/news/openai-chatgpt-sponsored-agents-ads-manager-hubspot-shopify"
+        }
+      ]
+    },
+    {
+      "date": "2026-05-28",
+      "theme": "CRM & member marketing",
+      "titre": "Mailchimp lance Analytics AI et un générateur de segments en langage naturel",
+      "synthese": "Le 28 mai 2026, Intuit Mailchimp a annoncé Analytics AI, un agent conversationnel qui répond en langage naturel à des questions sur la performance des campagnes, le comportement des audiences et les revenus, sans tableau de bord à construire. L'outil est disponible immédiatement pour tous les clients Mailchimp sur plan payant, partout dans le monde. La même annonce introduit l'AI Segment Builder, actuellement en bêta restreinte, qui permet de décrire une audience cible en langage naturel pour générer automatiquement un segment à partir des données comportementales, démographiques et d'engagement. Mailchimp a aussi rendu son application accessible directement depuis Claude et ChatGPT aux Etats-Unis, au Canada, au Royaume-Uni et en Australie.",
+      "actionACL": "Si ACL utilise ou envisage Mailchimp, tester Analytics AI pour obtenir rapidement des lectures de performance des newsletters membres sans solliciter l'équipe data. Suivre la disponibilité générale de l'AI Segment Builder pour simplifier la segmentation des communications par profil de membre (jeunes conducteurs, familles, seniors).",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "Mailchimp Newsroom",
+          "url": "https://mailchimp.com/newsroom/introducinganalyticsai/"
+        },
+        {
+          "name": "Nasdaq",
+          "url": "https://www.nasdaq.com/press-release/intuit-mailchimp-launches-analytics-ai-and-expanded-data-integrations-give-brands"
+        },
+        {
+          "name": "CMSWire",
+          "url": "https://www.cmswire.com/the-wire/intuit-mailchimp-launches-analytics-ai-and-expanded-data-integrations/"
+        },
+        {
+          "name": "destinationCRM",
+          "url": "https://www.destinationcrm.com/Articles/CRM-News/CRM-Across-the-Wire/Intuit-Mailchimp-Launches-Analytics-AI-and-Expanded-Data-Integrations-175008.aspx"
+        }
+      ]
+    },
+    {
+      "date": "2026-02-10",
+      "theme": "CRM & member marketing",
+      "titre": "Enquête GrowthZone 2026 : la fidélisation reste le premier défi des associations",
+      "synthese": "Publiée le 10 février 2026, la 12e enquête annuelle de GrowthZone a recueilli plus de 1000 réponses d'associations et de chambres de commerce aux Etats-Unis et au Canada. Seules 41 % des associations rapportent une croissance de leurs effectifs, contre 50 % côté chambres de commerce, un chiffre en léger recul par rapport à 2025. Le manque d'engagement reste identifié comme la première cause de non-renouvellement, et une part importante des organisations interrogées n'a toujours pas de plan écrit formalisé pour améliorer cet engagement. Près de la moitié des répondants jugent par ailleurs l'intelligence artificielle déterminante pour l'avenir de leur structure, tout en citant le budget comme principal frein à son adoption.",
+      "actionACL": "Formaliser, si ce n'est pas déjà fait, un plan écrit d'engagement membre avec des jalons de contact (onboarding, mi-vie d'adhésion, pré-renouvellement) pour limiter l'attrition liée au désengagement. Comparer les indicateurs de rétention ACL à ces benchmarks nord-américains pour objectiver la position du club.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "AccessNewswire",
+          "url": "https://www.accessnewswire.com/newsroom/en/computers-technology-and-internet/growthzone-releases-2026-annual-survey-results-revealing-key-tren-1134491"
+        },
+        {
+          "name": "GrowthZone",
+          "url": "https://www.growthzone.com/ams-survey-2026"
+        },
+        {
+          "name": "Association Trends",
+          "url": "https://www.associationtrends.com/free-resource/2026-Annual-Association-Survey-Results/"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-18",
+      "theme": "Social & Ads",
+      "titre": "LinkedIn teste un onglet \"Réseau\" séparé du fil algorithmique",
+      "synthese": "Le directeur produit de LinkedIn, Hari Srinivasan, a annoncé le 18 septembre 2026 le test d'un nouvel onglet \"Réseau\", qui affiche un fil composé uniquement des publications des relations directes et des comptes suivis par l'utilisateur. Ce fil cohabite avec l'onglet \"Pour vous\" existant, qui conserve la logique de recommandation algorithmique actuelle et reste positionné en premier dans l'application mobile. LinkedIn justifie ce test par la volonté de renouer avec des connexions réelles, dans un contexte où les contenus générés par IA et les pratiques coordonnées d'engagement artificiel saturent le fil principal. L'entreprise n'a communiqué ni la taille du groupe test, ni de calendrier de déploiement plus large, et des tests de fils alternatifs précédents n'ont jamais dépassé le stade expérimental.",
+      "actionACL": "Continuer à soigner l'engagement direct (commentaires, partages par les collaborateurs) sur les publications LinkedIn ACL, ce type de fil valorisant les interactions avec un réseau direct plutôt que la portée algorithmique large. Surveiller un éventuel déploiement général avant d'ajuster la stratégie de contenu LinkedIn de l'association.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "Social Media Today",
+          "url": "https://www.socialmediatoday.com/news/linkedin-tests-network-tab-to-encourage-engagement-among-connections/830853/"
+        },
+        {
+          "name": "Siècle Digital",
+          "url": "https://siecledigital.fr/2026/09/25/linkedin-teste-un-nouveau-fil-uniquement-consacre-aux-publications-de-votre-reseau/"
+        },
+        {
+          "name": "Blog du Modérateur",
+          "url": "https://www.blogdumoderateur.com/linkedin-teste-fil-actualite-limite-relations-abonnements/"
+        },
+        {
+          "name": "WERSM",
+          "url": "https://wersm.com/?p=121062"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-12",
+      "theme": "Social & Ads",
+      "titre": "Instagram généralise les publicités \"post-view\" dans les Reels",
+      "synthese": "A partir du 12 juin 2026, Meta a étendu à tous les annonceurs dans le monde le format publicitaire \"post-view\" dans les Reels Instagram, après une phase de test limitée à un groupe restreint. Ce format insère un compte à rebours de cinq secondes puis une publicité en lecture automatique à la fin d'un Reel organique de plus de 60 secondes, avec un bouton pour passer directement l'annonce et revenir au Reel d'origine. Le déploiement s'est effectué progressivement sur quelques jours et la publicité reste accessible via les outils existants du Gestionnaire de campagnes Meta. Ce format cible spécifiquement les Reels longs, une durée que Meta encourage par ailleurs pour maximiser le temps de visionnage.",
+      "actionACL": "Si ACL diffuse des Reels sponsorisés, prioriser des contenus organiques de plus de 60 secondes pour rester éligible à ce placement et comparer son coût à celui des formats in-feed classiques. Tester ce placement sur une campagne pilote (assistance routière ou événement membre) avant un déploiement plus large.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "Social Media Today",
+          "url": "https://www.socialmediatoday.com/news/instagram-expands-reels-post-view-ads-to-all-advertisers/"
+        },
+        {
+          "name": "Exchange4Media",
+          "url": "https://www.exchange4media.com/digital-news/instagram-opens-post-reel-ads-to-global-advertisers-155410.html"
+        },
+        {
+          "name": "Net Influencer",
+          "url": "https://www.netinfluencer.com/instagram-opens-reels-post-view-ad-placement-to-all-advertisers/"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-01",
+      "theme": "Design & branding",
+      "titre": "Figma lance Check Designs pour auditer la conformité aux design systems",
+      "synthese": "Dévoilé autour de la conférence Config 2026, l'outil Check Designs de Figma compare un fichier au design system de référence et signale automatiquement les écarts : valeurs codées en dur, contrastes de couleur insuffisants, composants détachés et tokens issus de bibliothèques non liées. Contrairement à d'autres fonctionnalités Figma récentes, l'outil ne repose pas sur l'IA générative mais sur un comptage systématique des violations, avec des corrections suggérées en un clic vers le bon composant ou le bon token. La fonctionnalité est disponible sur les forfaits Full seat, Organization et Enterprise. Plusieurs commentateurs du secteur soulignent qu'elle rend visible, y compris pour des non-designers, une dette de design system jusque-là difficile à quantifier.",
+      "actionACL": "Si l'équipe design ACL travaille sous Figma avec une bibliothèque de composants partagée, activer Check Designs pour objectiver les écarts à la charte graphique ACL avant la prochaine refonte de gabarits. Utiliser le rapport généré comme argument chiffré pour prioriser le temps de nettoyage du design system auprès de la direction.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "UX Collective",
+          "url": "https://uxdesign.cc/figma-just-made-your-design-system-debt-everyones-problem-now-use-it-2e9ecb6272bf"
+        },
+        {
+          "name": "Zurb Radar",
+          "url": "https://radar.zurb.com/article/config-2026-put-a-number-on-your-design-system-debt-it-didnt-hand-you-the-budget"
+        },
+        {
+          "name": "CreateWith",
+          "url": "https://www.createwith.com/tool/figma/updates/figma-releases-check-designs-for-design-system-compliance-across-team-plans"
+        }
+      ]
+    },
     {
       "date": "2026-10-01",
       "theme": "IA générative en marketing",
