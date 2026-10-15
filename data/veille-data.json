@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-14",
+  "generated_at": "2026-10-15",
   "next_edition": "",
   "editions": [
     {
@@ -385,9 +385,123 @@
     {
       "date": "2026-10-14",
       "label": "Semaine du 2026-10-14"
+    },
+    {
+      "date": "2026-10-15",
+      "label": "Semaine du 2026-10-15"
     }
   ],
   "items": [
+    {
+      "id": "2026-10-15-saaskia-web-aYQNCn",
+      "club": "Paperjam",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "Article consacré à l'ACL (Automobile Club du Luxembourg) et à ses personnalités dirigeantes.",
+      "relevance": "ACL explicitement cité : \"Inside the Club\"",
+      "url": "https://saaskia.keepcontact.lu/data/files/1792042790.4909.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1792042790.4909.pdf",
+      "date": "2026-10-15"
+    },
+    {
+      "id": "2026-10-15-saaskia-web-tPUxbE",
+      "club": "lessentiel.lu FR",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Article sur la prolongation de la ristourne à la pompe au Luxembourg, sujet politique et fiscal majeur.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1792042668.3986.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1792042668.3986.pdf",
+      "date": "2026-10-15"
+    },
+    {
+      "id": "2026-10-15-saaskia-web-WmiQ8s",
+      "club": "infogreen.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Les ventes de voitures électriques 100% en forte hausse au Luxembourg, tendance clé du marché auto national.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1792042555.0768.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1792042555.0768.pdf",
+      "date": "2026-10-15"
+    },
+    {
+      "id": "2026-10-15-saaskia-web-BFaS68",
+      "club": "L'Essentiel",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Article sur le non-respect de la voie de covoiturage par un tiers des usagers, enjeu de sécurité routière et mobilité.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1792041660.1812.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1792041660.1812.pdf",
+      "date": "2026-10-15"
+    },
+    {
+      "id": "2026-10-15-saaskia-web-nTxCv3",
+      "club": "paperjam.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Article sur le rôle de l'Europe dans la course aux véhicules autonomes.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1792042689.1069.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1792042689.1069.pdf",
+      "date": "2026-10-15"
+    },
+    {
+      "id": "2026-10-15-saaskia-web-XXmAve",
+      "club": "wort.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Interview du COO du groupe Car Avenue, acteur important du secteur automobile au Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1792046946.7125.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1792046946.7125.pdf",
+      "date": "2026-10-15"
+    },
+    {
+      "id": "2026-10-15-saaskia-web-wUw6E1",
+      "club": "Delano.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Boson Energy classée parmi les 10 meilleures entreprises de mobilité en Europe.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1792042727.8343.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1792042727.8343.pdf",
+      "date": "2026-10-15"
+    },
+    {
+      "id": "2026-10-15-saaskia-web-CGrxD6",
+      "club": "Agefi.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Analyse du marché du diesel en fonction des évolutions géopolitiques du détroit d'Ormuz.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1792042577.5883.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1792042577.5883.pdf",
+      "date": "2026-10-15"
+    },
+    {
+      "id": "2026-10-14-saaskia-web-HYCrIg",
+      "club": "luxtimes.lu (Wort.lu/en)",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Article sur la réglementation du code de la route au Luxembourg concernant la lecture du journal au volant.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791956147.6821.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791956147.6821.pdf",
+      "date": "2026-10-14"
+    },
+    {
+      "id": "2026-10-14-saaskia-web-SHLBQC",
+      "club": "infogreen.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Article sur le smart charging comme option intelligente et économique pour les véhicules électriques.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791956057.6331.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791956057.6331.pdf",
+      "date": "2026-10-14"
+    },
     {
       "id": "2026-10-14-saaskia-web-OxKNw6",
       "club": "Paperjam Plus",
@@ -400,34 +514,12 @@
       "date": "2026-10-14"
     },
     {
-      "id": "2026-10-14-saaskia-web-HYCrIg",
-      "club": "luxtimes.lu (Wort.lu/en)",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Article sur la sécurité routière au Luxembourg : lire un journal au volant n'est techniquement pas interdit par la loi luxembourgeoise.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1791956147.6821.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791956147.6821.pdf",
-      "date": "2026-10-14"
-    },
-    {
-      "id": "2026-10-14-saaskia-web-SHLBQC",
-      "club": "infogreen.lu",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Article sur la recharge intelligente des véhicules électriques, présentée comme une option économique et pratique pour les utilisateurs.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1791956057.6331.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791956057.6331.pdf",
-      "date": "2026-10-14"
-    },
-    {
       "id": "2026-10-13-saaskia-web-dJTXLH",
       "club": "rtl.lu",
       "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "content": "Article catégorisé ACL traitant de sujets liés à la sécurité routière et à la circulation.",
-      "relevance": "ACL explicitement cité : \"Catégorie ACL\"",
+      "content": "Contenu relatif aux activités et événements de l'ACL.",
+      "relevance": "ACL explicitement cité : \"ACL\"",
       "url": "https://saaskia.keepcontact.lu/data/files/1791874612.0092.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791874612.0092.pdf",
       "date": "2026-10-13"
@@ -437,21 +529,10 @@
       "club": "virgule.lu (Wort.lu/FR)",
       "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "content": "Article sur les pneus quatre saisons comme compromis pratique et économique pour les automobilistes luxembourgeois.",
-      "relevance": "ACL explicitement cité : \"Catégorie ACL\"",
+      "content": "Article sur les pneus quatre saisons en partenariat ou couverture ACL.",
+      "relevance": "ACL explicitement cité : \"ACL\"",
       "url": "https://saaskia.keepcontact.lu/data/files/1791874676.367.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791874676.367.pdf",
-      "date": "2026-10-13"
-    },
-    {
-      "id": "2026-10-13-saaskia-web-SlebJb",
-      "club": "lessentiel.lu FR",
-      "category": "Veille presse LU",
-      "badge": "INFO",
-      "content": "L'Union européenne va plafonner les importations de voitures hybrides chinoises, impactant potentiellement le marché automobile luxembourgeois.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1791868462.5349.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791868462.5349.pdf",
       "date": "2026-10-13"
     },
     {
@@ -459,8 +540,8 @@
       "club": "City Magazine",
       "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "content": "Article catégorisé ACL mettant l'accent sur la circulation en toute sécurité.",
-      "relevance": "ACL explicitement cité : \"Catégorie ACL\"",
+      "content": "Article de sécurité routière associé aux activités de l'ACL.",
+      "relevance": "ACL explicitement cité : \"ACL\"",
       "url": "https://saaskia.keepcontact.lu/data/files/1791868505.4858.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791868505.4858.pdf",
       "date": "2026-10-13"
@@ -470,8 +551,8 @@
       "club": "wort.lu",
       "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "content": "Article catégorisé ACL interrogeant l'avenir de la transmission manuelle au Luxembourg face à la montée des automatiques.",
-      "relevance": "ACL explicitement cité : \"Catégorie ACL\"",
+      "content": "Article sur la disparition des boîtes manuelles au Luxembourg, catégorisé ACL.",
+      "relevance": "ACL explicitement cité : \"ACL\"",
       "url": "https://saaskia.keepcontact.lu/data/files/1791868562.4274.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791868562.4274.pdf",
       "date": "2026-10-13"
@@ -481,8 +562,8 @@
       "club": "wort.lu",
       "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "content": "Article catégorisé ACL sur les pneus quatre saisons comme compromis pratique pour les automobilistes.",
-      "relevance": "ACL explicitement cité : \"Catégorie ACL\"",
+      "content": "Article sur les pneus toutes saisons en tant que compromis, catégorisé ACL.",
+      "relevance": "ACL explicitement cité : \"ACL\"",
       "url": "https://saaskia.keepcontact.lu/data/files/1791868604.1478.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791868604.1478.pdf",
       "date": "2026-10-13"
@@ -492,8 +573,8 @@
       "club": "rtl.lu",
       "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "content": "Article catégorisé ACL datant du 17 octobre 2026 traitant de sujets liés à l'automobile et à la mobilité.",
-      "relevance": "ACL explicitement cité : \"Catégorie ACL\"",
+      "content": "Annonce ou événement ACL du 17 octobre 2026.",
+      "relevance": "ACL explicitement cité : \"ACL\"",
       "url": "https://saaskia.keepcontact.lu/data/files/1791868641.6413.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791868641.6413.pdf",
       "date": "2026-10-13"
@@ -503,8 +584,8 @@
       "club": "today.RTL.lu",
       "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "content": "Article catégorisé ACL en anglais datant du 17 octobre 2026 couvrant des thématiques automobiles.",
-      "relevance": "ACL explicitement cité : \"Catégorie ACL\"",
+      "content": "Annonce ou événement ACL du 17 octobre 2026 (version anglaise).",
+      "relevance": "ACL explicitement cité : \"ACL\"",
       "url": "https://saaskia.keepcontact.lu/data/files/1791868670.1943.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791868670.1943.pdf",
       "date": "2026-10-13"
@@ -514,10 +595,32 @@
       "club": "infogreen.lu",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Article sur l'accélération du marché luxembourgeois des véhicules électriques, montrant une dynamique croissante dans la transition énergétique.",
+      "content": "Accélération du marché luxembourgeois des voitures électriques, tendance clé de la mobilité durable.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1791868759.903.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791868759.903.pdf",
+      "date": "2026-10-13"
+    },
+    {
+      "id": "2026-10-13-saaskia-web-SlebJb",
+      "club": "lessentiel.lu FR",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "L'UE envisage de plafonner les importations de voitures hybrides chinoises en réaction à la concurrence.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791868462.5349.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791868462.5349.pdf",
+      "date": "2026-10-13"
+    },
+    {
+      "id": "2026-10-13-saaskia-web-H5eu4U",
+      "club": "L'Essentiel",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Article sur les risques et coûts liés à l'utilisation de diesel rouge pour les véhicules.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1791869047.6867.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791869047.6867.pdf",
       "date": "2026-10-13"
     },
     {
@@ -529,17 +632,6 @@
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1791868806.0318.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791868806.0318.pdf",
-      "date": "2026-10-13"
-    },
-    {
-      "id": "2026-10-13-saaskia-web-H5eu4U",
-      "club": "L'Essentiel",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Article d'information sur les risques légaux et financiers liés à l'utilisation de diesel rouge non autorisé pour la circulation routière.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1791869047.6867.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791869047.6867.pdf",
       "date": "2026-10-13"
     },
     {
