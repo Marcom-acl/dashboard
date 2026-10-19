@@ -1,6 +1,136 @@
 {
-  "generated_at": "2026-10-12",
+  "generated_at": "2026-10-19",
   "items": [
+    {
+      "date": "2026-10-15",
+      "theme": "Social & Ads",
+      "titre": "Meta active par défaut le product browsing dans les pubs existantes",
+      "synthese": "Mi-octobre 2026, Meta a averti les annonceurs qu'à partir du 28 octobre 2026, un clic sur une publicité Facebook ou Instagram en cours ouvrira par défaut une page de navigation produit intégrée à l'application, plutôt que de rediriger vers le site de l'annonceur, sauf refus explicite avant cette date. Le réglage peut aussi être désactivé publicité par publicité dans les paramètres Advantage+ Creative et Destination. Meta justifie ce changement par un gain moyen de 3% de conversions, mesuré lors d'un test mené du 6 au 21 août 2026 sur environ 117 700 annonceurs, sans publier sa méthodologie complète. Au 15 octobre, aucun article d'aide ni communiqué officiel de Meta ne documentait ce changement, seule une notification directe aux annonceurs.",
+      "actionACL": "Décider avant le 28 octobre si les publicités Facebook/Instagram de l'ACL doivent garder la redirection directe vers le site (adhésion, devis assurance) ou accepter la page de navigation produit intégrée, selon l'impact attendu sur le tunnel de conversion. Documenter le choix dans les paramètres Advantage+ Creative pour chaque campagne active.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "PPC Land",
+          "url": "https://ppc.land/meta-will-turn-on-product-browsing-in-existing-ads-on-october-28/"
+        },
+        {
+          "name": "Relevant Audience",
+          "url": "https://www.relevantaudience.com/meta/meta-product-browsing-existing-ads-october-28/"
+        },
+        {
+          "name": "MediaPost",
+          "url": "https://www.mediapost.com/publications/article/418790/meta-wants-to-take-performance-through-purchase.html"
+        }
+      ]
+    },
+    {
+      "date": "2026-10-15",
+      "theme": "CRM & member marketing",
+      "titre": "HubSpot ajoute des plafonds de dépense IA et une facturation flexible",
+      "synthese": "Le 15 octobre 2026, HubSpot a annoncé de nouveaux contrôles de dépenses pour ses crédits IA consommés par les agents Breeze et les autres fonctions facturées à l'usage. Un plafond par défaut, fixé jusqu'à 50% au-dessus du quota mensuel, limite automatiquement les dépassements, et les clients peuvent définir des limites plus fines par fonctionnalité ou par action. HubSpot propose aussi un choix entre forfaits de crédits à tarif fixe et facturation à la consommation, ainsi que la possibilité de réaffecter du budget entre sièges et crédits en cours de contrat, sans attendre le renouvellement. L'éditeur précise qu'il ne fera plus basculer automatiquement un client vers un forfait supérieur en cas de hausse d'usage.",
+      "actionACL": "Si ACL utilise HubSpot, vérifier la configuration des plafonds de crédits IA pour éviter les surprises de facturation liées à l'usage croissant des agents Breeze. Profiter de la possibilité de réallocation de budget en cours de contrat pour ajuster les sièges si l'équipe Marcom évolue.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "INFO",
+      "sources": [
+        {
+          "name": "CMSWire",
+          "url": "https://www.cmswire.com/digital-experience/hubspot-rolls-out-ai-spend-caps-flexible-billing/"
+        },
+        {
+          "name": "Let's Data Science",
+          "url": "https://letsdatascience.com/news/hubspot-adds-ai-spend-caps-and-flexible-credit-billing-19858a86"
+        }
+      ]
+    },
+    {
+      "date": "2026-10-12",
+      "theme": "CRM & member marketing",
+      "titre": "Salesforce Winter '27 : agents de campagne dans Marketing Cloud Next",
+      "synthese": "Le 12 octobre 2026, la version Winter '27 de Salesforce est devenue généralement disponible, avec deux nouveaux agents IA pour Marketing Cloud Next. Le premier construit une campagne multicanale complète à partir d'un brief stratégique, jusqu'au contenu final. Le second est spécialisé dans la génération et la maturation de leads à fort volume. Ces agents restent réservés aux clients de Marketing Cloud Next et ne concernent pas les utilisateurs de Marketing Cloud Engagement, la version historique encore répandue chez la plupart des clients européens.",
+      "actionACL": "Sans licence Salesforce, suivre cette évolution comme indicateur de la direction prise par le marché CRM vers des agents de bout en bout plutôt qu'une simple assistance à la rédaction. Si une migration CRM est envisagée à moyen terme, interroger les éditeurs candidats sur leur feuille de route équivalente.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "Salesforce Ben",
+          "url": "https://salesforceben.com/10-winter-27-updates-salesforce-marketers-need-to-know"
+        },
+        {
+          "name": "The Starr Conspiracy",
+          "url": "https://www.thestarrconspiracy.com/insights/newsfeed/10-salesforce-winter-27-updates-marketers-need-to-c6fbc2"
+        }
+      ]
+    },
+    {
+      "date": "2026-10-07",
+      "theme": "IA générative en marketing",
+      "titre": "OpenAI déploie GPT-6 et l'Intelligent UI dans ChatGPT",
+      "synthese": "Le 7 octobre 2026, OpenAI a commencé le déploiement de GPT-6 dans ChatGPT, accompagné d'un nouveau format de réponse appelé Intelligent UI qui peut intégrer graphiques interactifs, formulaires et calculateurs directement dans les réponses. Les utilisateurs Pro, Business et Enterprise ont eu accès en premier, suivis par les offres Free et Go le 8 octobre. GPT-6, bâti sur le modèle GPT-6 Sol, et l'Intelligent UI sont disponibles pour les espaces de travail Business éligibles, selon la configuration de l'espace et le client utilisé. GPT-6 Pro, bâti sur le modèle GPT-6 Astra, reste réservé aux formules payantes, avec un nombre de messages Pro mensuel limité et partagé entre les deux modèles.",
+      "actionACL": "Tester l'Intelligent UI pour produire des contenus marketing interactifs (comparatifs d'offres, calculateurs de coûts d'assurance ou d'adhésion) directement exploitables dans les communications digitales de l'ACL. Vérifier avec l'IT si l'abonnement ChatGPT Business actuel inclut déjà GPT-6 avant d'envisager un changement de forfait.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "Let's Data Science",
+          "url": "https://letsdatascience.com/news/openai-brings-gpt-6-and-intelligent-ui-to-chatgpt-4f0d797c"
+        },
+        {
+          "name": "Renascence",
+          "url": "https://www.renascence.io/news/53680/gpt-6-astra-rolls-out-to-top-chatgpt-tiers-cuts-plus-cap"
+        },
+        {
+          "name": "OpenAI Help Center",
+          "url": "https://help.openai.com/en/articles/12003714-gpt-5-6-and-gpt-6-pro-in-chatgpt"
+        }
+      ]
+    },
+    {
+      "date": "2026-10-06",
+      "theme": "Social & Ads",
+      "titre": "Meta dévoile un lot d'outils publicitaires IA à l'Advertising Week",
+      "synthese": "Le 6 octobre 2026, à l'Advertising Week New York, Meta a présenté plusieurs nouveautés pour ses outils publicitaires IA. La conversion de visuels statiques en vidéo dans Advantage+ Creative passe en disponibilité générale pour tous les annonceurs. L'assistant IA professionnel de Meta peut désormais s'appuyer sur l'historique des campagnes, la saisonnalité et les objectifs déclarés précédemment, et accepte l'import de documents de voix de marque ; les actions agentiques comme le paramétrage de campagne restent en test. Un ciblage par découverte d'audience piloté par IA dans Detailed Targeting est annoncé pour la fin 2026. Meta revendique, sans publier sa méthodologie, 5% de conversions supplémentaires à coût par conversion égal grâce aux recommandations de l'assistant.",
+      "actionACL": "Activer la conversion automatique des visuels statiques existants en vidéo dans Advantage+ Creative pour les campagnes ACL (assurance, assistance routière, adhésion) sans produire de nouveaux tournages. Importer les documents de voix de marque ACL dans l'assistant IA Meta pour fiabiliser les suggestions de copie publicitaire.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "Relevant Audience",
+          "url": "https://www.relevantaudience.com/meta/meta-advertising-week-new-york-2026-ad-tools/"
+        },
+        {
+          "name": "TechJuice",
+          "url": "https://www.techjuice.pk/meta-ai-advertising-tools-advertising-week-2026/"
+        },
+        {
+          "name": "MediaPost",
+          "url": "https://www.mediapost.com/publications/article/385340/meta-bows-ai-sandbox-new-advantage-features-for.html"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-01",
+      "theme": "Design & branding",
+      "titre": "Vidéos courtes 2026 : authenticité et typographie cinétique dominent",
+      "synthese": "Plusieurs analyses de tendances 2026 pour Reels et Shorts convergent sur un recul du motion design trop léché au profit d'un rendu plus brut : grain, texture et imperfections assumées gagnent du terrain. La typographie cinétique reste citée comme la tendance motion la plus reprise de l'année, portée par des cartons de titre animés plutôt que par la seule voix off. Une analyse de 100 vidéos produit publiées par des éditeurs logiciels en 2026 montre un recul des graphismes animés dessinés au profit de captures d'écran réelles, passées de 22 cas sur 60 au premier trimestre à 25 sur 40 entre avril et août. Les formats restent courts : malgré l'extension de YouTube Shorts à 3 minutes, les vidéos les plus performantes se situent encore entre 15 et 35 secondes pour préserver la rétention.",
+      "actionACL": "Privilégier, pour les Reels et Shorts ACL (conseils sécurité routière, témoignages membres), des captures réelles sous-titrées en typographie animée plutôt que des graphismes trop polis, en gardant des formats de 15 à 35 secondes. Tester un style plus brut sur une série de contenus pour comparer la rétention avec le style de production actuel.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "INFO",
+      "sources": [
+        {
+          "name": "Advids",
+          "url": "https://advids.co/blog/ui-animation-motion-design-trends"
+        },
+        {
+          "name": "Really Good Designs",
+          "url": "https://reallygooddesigns.com/web-design-trends-2026/"
+        },
+        {
+          "name": "AutoAE",
+          "url": "https://autoae.online/blog/motion-graphics-trends-2026"
+        }
+      ]
+    },
     {
       "date": "2026-10-08",
       "theme": "IA générative en marketing",
