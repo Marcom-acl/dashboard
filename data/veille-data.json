@@ -1,6 +1,6 @@
 {
   "generated_at": "2026-10-19",
-  "next_edition": "2026-10-26",
+  "next_edition": "",
   "editions": [
     {
       "date": "2026-05-03",
@@ -409,74 +409,180 @@
   ],
   "items": [
     {
-      "id": "2026-10-19-adac-1",
-      "date": "2026-10-06",
-      "club": "ADAC",
-      "category": "EU",
-      "content": "L'ADAC alerte, avant la publication le 20 octobre de son test semestriel complet, sur deux sièges auto dangereux : le Britax Römer Baby-Safe Pro (avec base Vario Base 5Z) peut libérer le harnais lors d'un choc, et l'Axkid Minikid Core présente un risque de déverrouillage, son fabricant ayant lancé un rappel volontaire.",
-      "relevance": "Alerte sécurité enfant à fort potentiel de reprise médiatique, publiée le même jour par le TCS et l'ÖAMTC, signe d'une coordination entre clubs européens. L'ACL devrait vérifier si elle teste ou référence ces mêmes modèles et relayer l'alerte à ses membres avant les vacances d'automne.",
+      "id": "2026-10-19-saaskia-web-6cb2Dk",
+      "club": "Le Quotidien",
+      "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "url": "https://presse.adac.de/meldungen/adac-ev/tests/adac-warnt-vor-zwei-kindersitzen.html"
+      "content": "L'Autofestival commencera le 23 janvier. Cet événement majeur du secteur automobile au Luxembourg sera lancé à cette date.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1792391540.3601.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1792391540.3601.pdf",
+      "date": "2026-10-19"
     },
     {
-      "id": "2026-10-19-adac-2",
-      "date": "2026-10-15",
-      "club": "ADAC",
-      "category": "EU",
-      "content": "L'ADAC lance un calculateur en ligne d'amendes pour infractions routières à l'étranger, couvrant d'abord l'Autriche, la Suisse et l'Italie (Espagne, Pays-Bas et France prévues en 2027), qui part de l'infraction précise plutôt que d'un barème général et indique aussi les conséquences sur le permis.",
-      "relevance": "Service numérique directement transposable pour les membres ACL voyageant en Allemagne, en Belgique ou en France. L'ACL pourrait étudier un outil équivalent ou un partenariat de données avec l'ADAC.",
-      "badge": "NOTABLE",
-      "url": "https://presse.adac.de/meldungen/adac-ev/recht/geblitzt-im-ausland-neuer-adac-rechner-zeigt-moegliche-bussgelder.html"
-    },
-    {
-      "id": "2026-10-19-adac-3",
-      "date": "2026-09-17",
-      "club": "ADAC",
-      "category": "Mobilité",
-      "content": "Une enquête ADAC auprès de 1060 propriétaires de véhicules électriques montre que 97% d'entre eux sont satisfaits de leur véhicule et près des deux tiers du réseau de recharge public, mais environ un quart critique le manque de transparence des prix de recharge.",
-      "relevance": "Donnée chiffrée utile pour argumenter sur la mobilité électrique auprès des membres. L'ACL pourrait mener une enquête comparable auprès de ses membres luxembourgeois pour se positionner sur ce sujet.",
+      "id": "2026-10-19-saaskia-web-zQAYBt",
+      "club": "100komma7.lu",
+      "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "url": "https://www.adac.de/rund-ums-fahrzeug/elektromobilitaet/elektroauto/umfrage-zufriedenheit-mit-e-autos/"
+      "content": "Les partis d'opposition ne s'accordent pas sur la prolongation du Tankrabatt (rabais carburant). Débat politique autour des mesures de soutien aux automobilistes.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1792392373.7664.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1792392373.7664.pdf",
+      "date": "2026-10-19"
     },
     {
-      "id": "2026-10-19-tcs-1",
-      "date": "2026-10-06",
-      "club": "TCS",
-      "category": "EU",
-      "content": "Le TCS publie la même alerte que l'ADAC et l'ÖAMTC sur les sièges auto Britax Römer Baby-Safe Pro et Axkid Minikid Core, en amont des résultats complets du test d'automne.",
-      "relevance": "Confirme un test de sécurité enfant coordonné entre plusieurs clubs européens. L'ACL devrait vérifier si elle participe à ce type de consortium de tests et diffuser l'alerte en parallèle à ses membres.",
-      "badge": "NOTABLE",
-      "url": "https://www.tcs.ch/fr/le-tcs/presse/communiques-de-presse-2026/alerte-sieges-enfants_automne-2026.php"
-    },
-    {
-      "id": "2026-10-19-tcs-2",
-      "date": "2026-10-07",
-      "club": "TCS",
-      "category": "EU",
-      "content": "TCS Camping se dirige vers plus d'un million de nuitées en 2026 (deuxième fois de son histoire après 2021) et franchit le cap des 30 000 adhésions, contre environ 28 700 en 2025.",
-      "relevance": "Illustre la force du modèle club et infrastructure de loisirs comme levier de fidélisation et de recrutement. L'ACL pourrait évaluer une offre camping ou loisirs comparable en partenariat avec le secteur touristique luxembourgeois.",
+      "id": "2026-10-19-saaskia-web-HJSXyQ",
+      "club": "Tageblatt",
+      "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "url": "https://www.tcs.ch/fr/le-tcs/presse/communiques-de-presse-2026/saison-camping-2026.php"
+      "content": "Étude sur les marques automobiles préférées des Luxembourgeois. Tendances du marché auto national.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1792387464.1799.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1792387464.1799.pdf",
+      "date": "2026-10-19"
     },
     {
-      "id": "2026-10-19-tcs-3",
-      "date": "2026-09-23",
-      "club": "TCS",
-      "category": "Mobilité",
-      "content": "Après son radar des prix des carburants, le TCS lance dans son application un radar des prix de recharge électrique couvrant 19 000 bornes en Suisse, avec filtres par type de prise, puissance et opérateur.",
-      "relevance": "Service numérique à fort potentiel de transposition directe pour l'ACL : un comparateur de prix de recharge dans l'application membre répondrait à un besoin croissant de transparence tarifaire pour les conducteurs de véhicules électriques.",
-      "badge": "NOTABLE",
-      "url": "https://www.tcs.ch/fr/le-tcs/presse/communiques-de-presse-2026/apr-s-le-radar-des-prix-des-carburants-le-tcs-lance-le-radar-des-prix-de-recharge.php"
+      "id": "2026-10-19-saaskia-web-R2xxhS",
+      "club": "luxtimes.lu (Wort.lu/en)",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Un frontalier abandonne son emploi au Luxembourg en raison des perturbations des transports ferroviaires. Impact des problèmes de mobilité transfrontalière.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1792387563.5988.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1792387563.5988.pdf",
+      "date": "2026-10-19"
     },
     {
-      "id": "2026-10-19-rac-1",
-      "date": "2026-10-02",
-      "club": "RAC",
-      "category": "EU",
-      "content": "Le prix moyen du diesel au Royaume-Uni franchit pour la première fois la barre des 2 livres par litre (200,01 pence), dépassant le précédent record de juin 2022 ; un plein de 55 litres coûte désormais environ 110 livres.",
-      "relevance": "Signal fort de pression inflationniste sur les carburants, pertinent pour la communication de l'ACL sur le pouvoir d'achat automobile. L'ACL pourrait publier un comparatif transfrontalier des prix carburant Luxembourg/pays voisins sur ce modèle.",
-      "badge": "NOTABLE",
-      "url": "https://media.rac.co.uk/price-of-diesel-reaches-record-high"
+      "id": "2026-10-19-saaskia-web-IYkGZt",
+      "club": "tageblatt.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Une pétition vise à combattre le trafic de transit au Luxembourg. Enjeu de mobilité et de trafic routier.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1792387648.9105.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1792387648.9105.pdf",
+      "date": "2026-10-19"
+    },
+    {
+      "id": "2026-10-19-saaskia-web-YSHhAx",
+      "club": "100komma7.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Un premier test d'urgence a été effectué au tunnel de Micheville. Sécurité routière et infrastructure luxembourgeoise.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1792387615.8267.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1792387615.8267.pdf",
+      "date": "2026-10-19"
+    },
+    {
+      "id": "2026-10-19-saaskia-web-WPLljA",
+      "club": "infos.rtl.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Nouvelle campagne de sensibilisation ou de communication sur la mobilité. Initiative relative aux transports ou à la sécurité routière.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1792388331.2114.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1792388331.2114.pdf",
+      "date": "2026-10-19"
+    },
+    {
+      "id": "2026-10-19-saaskia-web-fbAi9a",
+      "club": "Tageblatt",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Article sur les risques et accidents liés à l'utilisation des e-bikes. Sécurité des nouveaux modes de mobilité.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1792387979.0242.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1792387979.0242.pdf",
+      "date": "2026-10-19"
+    },
+    {
+      "id": "2026-10-19-saaskia-web-8l3vO5",
+      "club": "Luxemburger Wort",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Geely renforce sa présence sur le marché. Expansion d'une marque automobile sur le marché luxembourgeois/européen.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1792387798.7159.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1792387798.7159.pdf",
+      "date": "2026-10-19"
+    },
+    {
+      "id": "2026-10-19-saaskia-web-Iwxwvd",
+      "club": "Tageblatt",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Le diesel perd de son importance. Tendance du marché automobile européen vers l'électrification.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1792388280.9712.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1792388280.9712.pdf",
+      "date": "2026-10-19"
+    },
+    {
+      "id": "2026-10-19-saaskia-web-eLxHv9",
+      "club": "wort.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Mercedes-AMG GT SUV électrique avec 700 km d'autonomie et plus de 1000 PS. Innovation automobile électrique.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1792387715.0648.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1792387715.0648.pdf",
+      "date": "2026-10-19"
+    },
+    {
+      "id": "2026-10-19-saaskia-web-jZixwN",
+      "club": "wort.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Analyse des véhicules électriques compacts disponibles sous 25 000 euros et leur autonomie réelle. Marché du véhicule électrique abordable.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1792387232.9078.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1792387232.9078.pdf",
+      "date": "2026-10-19"
+    },
+    {
+      "id": "2026-10-19-saaskia-web-gMtWjE",
+      "club": "Tageblatt",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Assouplissement des règles concernant l'interdiction des moteurs thermiques. Politique automobile européenne.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1792388207.1697.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1792388207.1697.pdf",
+      "date": "2026-10-19"
+    },
+    {
+      "id": "2026-10-19-saaskia-web-cYBKlD",
+      "club": "lessentiel.lu FR",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Portrait d'Elon Musk couvrant ses projets de voiture volante, fusées et implication politique. Industrie automobile et innovation disruptive.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1792387755.0657.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1792387755.0657.pdf",
+      "date": "2026-10-19"
+    },
+    {
+      "id": "2026-10-19-saaskia-web-HQQbxp",
+      "club": "infos.rtl.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Article sur un crédit d'impôt pour la compétitivité. Mesure de politique économique luxembourgeoise.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1792392014.7911.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1792392014.7911.pdf",
+      "date": "2026-10-19"
+    },
+    {
+      "id": "2026-10-19-saaskia-web-Wvie0a",
+      "club": "paperjam.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "L'inflation et le choc énergétique menacent de se propager. Contexte économique affectant potentiellement les secteurs de l'énergie et des transports.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1792387685.1376.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1792387685.1376.pdf",
+      "date": "2026-10-19"
     },
     {
       "id": "2026-10-19-anwb-1",
@@ -489,36 +595,6 @@
       "url": "https://www.anwb.nl/belangenbehartiging/nieuws/2026/oktober/anwb-neemt-nextenergy-over"
     },
     {
-      "id": "2026-10-19-anwb-2",
-      "date": "2026-10-13",
-      "club": "ANWB",
-      "category": "EU",
-      "content": "Une majorité des membres ANWB sondés s'opposent au projet belge d'instaurer dès mai 2027 un péage numérique (environ 125 euros par an) sur les routes A et N ; l'ANWB porte le message auprès des autorités belges et de la Commission européenne.",
-      "relevance": "Un péage belge toucherait directement les frontaliers et voyageurs luxembourgeois vers la Belgique. L'ACL devrait coordonner une veille ou une position commune avec l'ANWB sur ce dossier transfrontalier et sonder ses membres concernés.",
-      "badge": "SURVEILLER",
-      "url": "https://www.anwb.nl/belangenbehartiging/nieuws/2026/oktober/anwb-leden-kritisch-op-belgisch-tolplan"
-    },
-    {
-      "id": "2026-10-19-anwb-3",
-      "date": "2026-10-05",
-      "club": "ANWB",
-      "category": "EU",
-      "content": "Evert-Jan Hulshof, directeur de Veilig Verkeer Nederland, devient président de la coalition néerlandaise pour la sécurité routière, élu à l'unanimité pour deux ans et succédant à la présidente de l'ANWB.",
-      "relevance": "Illustre le rôle institutionnel actif de l'ANWB dans la gouvernance nationale de la sécurité routière, un benchmark pour le positionnement de l'ACL vis-à-vis des instances luxembourgeoises de sécurité routière.",
-      "badge": "INFO",
-      "url": "https://www.anwb.nl/belangenbehartiging/nieuws/2026/oktober/evert-jan-hulshof-nieuwe-voorzitter-verkeersveiligheidscoalitie"
-    },
-    {
-      "id": "2026-10-19-aci-1",
-      "date": "2026-10-15",
-      "club": "ACI",
-      "category": "EU",
-      "content": "Un rapport conjoint ACI-ISTAT recense 177 207 accidents avec lésions (+2,2%), 2 868 morts (-5,3% par rapport à 2024) et 237 822 blessés en 2025 sur 107 provinces italiennes, dont 41 en hausse des décès par rapport à 2019.",
-      "relevance": "L'ACI coproduit des statistiques officielles de sécurité routière avec l'institut national de statistique, renforçant sa légitimité institutionnelle. Un partenariat similaire avec la Police grand-ducale ou le Statec pourrait renforcer la voix de l'ACL sur la sécurité routière.",
-      "badge": "NOTABLE",
-      "url": "https://aci.gov.it/comunicati-stampa/aci-istat-gli-incidenti-stradali-2025-nelle-107-province-italiane/"
-    },
-    {
       "id": "2026-10-19-aci-2",
       "date": "2026-10-16",
       "club": "ACI",
@@ -527,106 +603,6 @@
       "relevance": "Les clubs automobiles sont des cibles de choix pour le phishing visant leurs membres. L'ACL devrait vérifier l'existence d'une veille active sur l'usurpation de sa marque et envisager une communication préventive à ses membres.",
       "badge": "SURVEILLER",
       "url": "https://aci.gov.it/notizie/sms-fake-aci-ignorare-il-messaggio-che-invita-al-pagamento-delle-multe/"
-    },
-    {
-      "id": "2026-10-19-aci-3",
-      "date": "2026-10-10",
-      "club": "ACI",
-      "category": "EU",
-      "content": "Lors de l'assemblée nationale des délégations ACI à Milan, le ministre des Transports et le président de l'ACI ont souligné l'importance du réseau territorial des délégations (examen du permis, formation, taxe automobile) pour les usagers moins à l'aise avec le numérique.",
-      "relevance": "Valorise le modèle de présence physique face à la digitalisation des services. Pertinent pour l'ACL dans l'arbitrage entre digitalisation et maintien de points de contact physiques au Luxembourg.",
-      "badge": "INFO",
-      "url": "https://www.lautomobile.aci.it/?p=50566"
-    },
-    {
-      "id": "2026-10-19-touringbelgique-1",
-      "date": "2026-10-12",
-      "club": "Touring Belgique",
-      "category": "EU",
-      "content": "Touring a recensé en interne 59 initiatives d'amélioration continue à travers tous ses départements, dont 4 projets actuellement pilotés avec des points d'avancement réguliers et un système de notation par alignement stratégique et difficulté de mise en œuvre.",
-      "relevance": "Démarche structurée de pilotage de l'amélioration continue transposable à l'ACL pour prioriser ses propres chantiers internes. L'ACL pourrait vérifier si elle dispose d'un processus comparable de recensement et de notation de ses initiatives.",
-      "badge": "INFO",
-      "url": "https://www.touring.be/fr/articles/touring-toujours-a-la-recherche-de-lexcellence"
-    },
-    {
-      "id": "2026-10-19-roole-1",
-      "date": "2026-10-01",
-      "club": "Roole",
-      "category": "EU",
-      "content": "Roole publie un récapitulatif mensuel des changements réglementaires pour les automobilistes français : prix du gasoil en hausse, aide de 100 euros par an pour les grands rouleurs prolongée, plafond d'exonération de la prime carburant employeur relevé, et mise en service de la troisième autoroute française en flux libre.",
-      "relevance": "Format de contenu à forte valeur pour les membres, condensant l'actualité réglementaire en un seul article mensuel. L'ACL pourrait tester un format équivalent, mensuel, pour le Luxembourg.",
-      "badge": "SURVEILLER",
-      "url": "https://media.roole.fr/quotidien/au-volant/ce-qui-change-pour-les-automobilistes-au-1er-octobre-2026-prix-records-des-carburants-aides-nouvelle-autoroute-en-flux-libre"
-    },
-    {
-      "id": "2026-10-19-roole-2",
-      "date": "2026-10-07",
-      "club": "Roole",
-      "category": "EU",
-      "content": "Roole, partenaire média du Mondial de l'Auto 2026 à Paris, organise un jeu-concours sur les réseaux sociaux offrant des places gratuites pour l'événement.",
-      "relevance": "Illustre une stratégie de partenariat événementiel et de jeu-concours pour engager la communauté autour d'un salon automobile. L'ACL pourrait envisager un partenariat similaire avec un salon automobile régional.",
-      "badge": "INFO",
-      "url": "https://media.roole.fr/quotidien/au-volant/mondial-de-lauto-2026-a-paris-tentez-de-gagner-des-places-gratuites-et-decouvrez-le-programme-de-levenement"
-    },
-    {
-      "id": "2026-10-19-oamtc-1",
-      "date": "2026-10-06",
-      "club": "ÖAMTC",
-      "category": "EU",
-      "content": "L'ÖAMTC alerte, comme l'ADAC et le TCS le même jour, sur les sièges auto Britax Römer Baby-Safe Pro et Axkid Minikid Core, avant la publication des résultats complets du test d'automne le 20 octobre.",
-      "relevance": "Confirme une alerte sécurité enfant coordonnée entre trois clubs européens le même jour. L'ACL devrait vérifier si elle référence ces modèles et relayer l'alerte à ses membres luxembourgeois.",
-      "badge": "NOTABLE",
-      "url": "https://www.oeamtc.at/news/oeamtc-warnt-vor-gravierenden-sicherheitsproblemen-bei-zwei-kindersitzen-89846289"
-    },
-    {
-      "id": "2026-10-19-oamtc-2",
-      "date": "2026-10-07",
-      "club": "ÖAMTC",
-      "category": "Mobilité",
-      "content": "Une étude de l'ÖAMTC sur 18 participants et 72 trajets montre que le soir, les utilisateurs de trottinettes électriques réagissent plus lentement, perdent plus souvent l'équilibre et roulent plus vite sans s'en rendre compte, en soutien à une campagne de sécurité routière de la FIA déployée en 23 langues.",
-      "relevance": "Étude originale sur un angle de sécurité peu couvert, fatigue et mobilité douce, rattachée à une campagne internationale de la FIA. L'ACL pourrait vérifier si elle relaie déjà cette campagne et envisager une communication conjointe sur la sécurité des trottinettes au Luxembourg.",
-      "badge": "SURVEILLER",
-      "url": "https://www.oeamtc.at/thema/verkehr/oeamtc-studie-muede-auf-dem-e-scooter-89848896"
-    },
-    {
-      "id": "2026-10-19-oamtc-3",
-      "date": "2026-10-07",
-      "club": "ÖAMTC",
-      "category": "EU",
-      "content": "L'ÖAMTC met en garde contre les dangers automnaux de la route : feuilles mortes et humidité rendant la chaussée aussi glissante que du verglas, et recommande pour le brouillard de réduire la vitesse et d'utiliser les feux arrière sans appel de phares.",
-      "relevance": "Communication saisonnière classique bien calibrée dans le temps, utile comme référentiel pour le calendrier de communication préventive de l'ACL sur la même période de l'année.",
-      "badge": "INFO",
-      "url": "https://www.oeamtc.at/presse/oeamtc-fahrtechnik-warnt-vor-herbstgefahren-im-strassenverkehr-82216038"
-    },
-    {
-      "id": "2026-10-19-aa-1",
-      "date": "2026-10-12",
-      "club": "AA",
-      "category": "EU",
-      "content": "À l'approche du budget britannique du 28 octobre 2026, The AA demande au gouvernement de maintenir la réduction existante de 5 pence par litre sur la taxe carburant et d'y ajouter une nouvelle baisse de 5 pence, pour un effet combiné estimé à environ 3,30 livres d'économie sur un plein de 55 litres.",
-      "relevance": "Prise de position institutionnelle classique de lobbying pré-budgétaire. L'ACL pourrait s'inspirer de cette communication chiffrée, en euros par plein, pour renforcer son discours sur la fiscalité des carburants avant les discussions budgétaires luxembourgeoises.",
-      "badge": "INFO",
-      "url": "https://www.theaa.com/about-us/newsroom/aa-calls-for-fuel-duty-cut-budget-2026"
-    },
-    {
-      "id": "2026-10-19-aaa-1",
-      "date": "2026-10-01",
-      "club": "AAA",
-      "category": "Monde",
-      "content": "La moyenne nationale américaine du prix de l'essence recule d'environ 7 cents en une semaine à 4,41 dollars le gallon, après un mois de septembre 2026 record avec une moyenne mensuelle 50 cents au-dessus du précédent record de 2023.",
-      "relevance": "Illustre une communication hebdomadaire très structurée sur les prix carburant comme service aux membres et point de repère médiatique récurrent. L'ACL pourrait comparer sa propre fréquence de communication sur les prix à la pompe à ce rythme.",
-      "badge": "INFO",
-      "url": "https://gasprices.aaa.com/national-average-dips-following-record-setting-september/"
-    },
-    {
-      "id": "2026-10-19-aaa-2",
-      "date": "2026-10-08",
-      "club": "AAA",
-      "category": "Monde",
-      "content": "La moyenne nationale américaine atteint 4,36 dollars le gallon, en hausse d'environ 1,25 dollar sur un an, la première fois que la moyenne nationale d'octobre dépasse 4 dollars, avec des écarts régionaux marqués et un facteur de risque cité (ouragan) pour les raffineries.",
-      "relevance": "Signal d'un contexte inflationniste automobile durable aux Etats-Unis. L'ACL pourrait suivre ce format de contextualisation des variations de prix par facteurs de risque pour son propre bulletin carburant.",
-      "badge": "SURVEILLER",
-      "url": "https://gasprices.aaa.com/pump-prices-remain-at-record-highs-for-autumn/"
     },
     {
       "id": "2026-10-16-saaskia-web-msluOP",
@@ -759,6 +735,26 @@
       "url": "https://saaskia.keepcontact.lu/data/files/1792133775.7505.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1792133775.7505.pdf",
       "date": "2026-10-16"
+    },
+    {
+      "id": "2026-10-19-adac-2",
+      "date": "2026-10-15",
+      "club": "ADAC",
+      "category": "EU",
+      "content": "L'ADAC lance un calculateur en ligne d'amendes pour infractions routières à l'étranger, couvrant d'abord l'Autriche, la Suisse et l'Italie (Espagne, Pays-Bas et France prévues en 2027), qui part de l'infraction précise plutôt que d'un barème général et indique aussi les conséquences sur le permis.",
+      "relevance": "Service numérique directement transposable pour les membres ACL voyageant en Allemagne, en Belgique ou en France. L'ACL pourrait étudier un outil équivalent ou un partenariat de données avec l'ADAC.",
+      "badge": "NOTABLE",
+      "url": "https://presse.adac.de/meldungen/adac-ev/recht/geblitzt-im-ausland-neuer-adac-rechner-zeigt-moegliche-bussgelder.html"
+    },
+    {
+      "id": "2026-10-19-aci-1",
+      "date": "2026-10-15",
+      "club": "ACI",
+      "category": "EU",
+      "content": "Un rapport conjoint ACI-ISTAT recense 177 207 accidents avec lésions (+2,2%), 2 868 morts (-5,3% par rapport à 2024) et 237 822 blessés en 2025 sur 107 provinces italiennes, dont 41 en hausse des décès par rapport à 2019.",
+      "relevance": "L'ACI coproduit des statistiques officielles de sécurité routière avec l'institut national de statistique, renforçant sa légitimité institutionnelle. Un partenariat similaire avec la Police grand-ducale ou le Statec pourrait renforcer la voix de l'ACL sur la sécurité routière.",
+      "badge": "NOTABLE",
+      "url": "https://aci.gov.it/comunicati-stampa/aci-istat-gli-incidenti-stradali-2025-nelle-107-province-italiane/"
     },
     {
       "id": "2026-10-15-saaskia-web-aYQNCn",
@@ -904,6 +900,16 @@
       "date": "2026-10-14"
     },
     {
+      "id": "2026-10-19-anwb-2",
+      "date": "2026-10-13",
+      "club": "ANWB",
+      "category": "EU",
+      "content": "Une majorité des membres ANWB sondés s'opposent au projet belge d'instaurer dès mai 2027 un péage numérique (environ 125 euros par an) sur les routes A et N ; l'ANWB porte le message auprès des autorités belges et de la Commission européenne.",
+      "relevance": "Un péage belge toucherait directement les frontaliers et voyageurs luxembourgeois vers la Belgique. L'ACL devrait coordonner une veille ou une position commune avec l'ANWB sur ce dossier transfrontalier et sonder ses membres concernés.",
+      "badge": "SURVEILLER",
+      "url": "https://www.anwb.nl/belangenbehartiging/nieuws/2026/oktober/anwb-leden-kritisch-op-belgisch-tolplan"
+    },
+    {
       "id": "2026-10-13-saaskia-web-dJTXLH",
       "club": "rtl.lu",
       "category": "Veille presse LU",
@@ -1036,6 +1042,26 @@
       "date": "2026-10-13"
     },
     {
+      "id": "2026-10-19-touringbelgique-1",
+      "date": "2026-10-12",
+      "club": "Touring Belgique",
+      "category": "EU",
+      "content": "Touring a recensé en interne 59 initiatives d'amélioration continue à travers tous ses départements, dont 4 projets actuellement pilotés avec des points d'avancement réguliers et un système de notation par alignement stratégique et difficulté de mise en œuvre.",
+      "relevance": "Démarche structurée de pilotage de l'amélioration continue transposable à l'ACL pour prioriser ses propres chantiers internes. L'ACL pourrait vérifier si elle dispose d'un processus comparable de recensement et de notation de ses initiatives.",
+      "badge": "INFO",
+      "url": "https://www.touring.be/fr/articles/touring-toujours-a-la-recherche-de-lexcellence"
+    },
+    {
+      "id": "2026-10-19-aa-1",
+      "date": "2026-10-12",
+      "club": "AA",
+      "category": "EU",
+      "content": "À l'approche du budget britannique du 28 octobre 2026, The AA demande au gouvernement de maintenir la réduction existante de 5 pence par litre sur la taxe carburant et d'y ajouter une nouvelle baisse de 5 pence, pour un effet combiné estimé à environ 3,30 livres d'économie sur un plein de 55 litres.",
+      "relevance": "Prise de position institutionnelle classique de lobbying pré-budgétaire. L'ACL pourrait s'inspirer de cette communication chiffrée, en euros par plein, pour renforcer son discours sur la fiscalité des carburants avant les discussions budgétaires luxembourgeoises.",
+      "badge": "INFO",
+      "url": "https://www.theaa.com/about-us/newsroom/aa-calls-for-fuel-duty-cut-budget-2026"
+    },
+    {
       "id": "2026-10-12-saaskia-web-vdHKN9",
       "club": "Luxemburger Wort",
       "category": "Veille presse LU",
@@ -1166,6 +1192,16 @@
       "url": "https://saaskia.keepcontact.lu/data/files/1791783130.7555.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791783130.7555.pdf",
       "date": "2026-10-12"
+    },
+    {
+      "id": "2026-10-19-aci-3",
+      "date": "2026-10-10",
+      "club": "ACI",
+      "category": "EU",
+      "content": "Lors de l'assemblée nationale des délégations ACI à Milan, le ministre des Transports et le président de l'ACI ont souligné l'importance du réseau territorial des délégations (examen du permis, formation, taxe automobile) pour les usagers moins à l'aise avec le numérique.",
+      "relevance": "Valorise le modèle de présence physique face à la digitalisation des services. Pertinent pour l'ACL dans l'arbitrage entre digitalisation et maintien de points de contact physiques au Luxembourg.",
+      "badge": "INFO",
+      "url": "https://www.lautomobile.aci.it/?p=50566"
     },
     {
       "id": "2026-10-09-saaskia-web-pQaiU7",
@@ -1322,6 +1358,16 @@
       "date": "2026-10-09"
     },
     {
+      "id": "2026-10-19-aaa-2",
+      "date": "2026-10-08",
+      "club": "AAA",
+      "category": "Monde",
+      "content": "La moyenne nationale américaine atteint 4,36 dollars le gallon, en hausse d'environ 1,25 dollar sur un an, la première fois que la moyenne nationale d'octobre dépasse 4 dollars, avec des écarts régionaux marqués et un facteur de risque cité (ouragan) pour les raffineries.",
+      "relevance": "Signal d'un contexte inflationniste automobile durable aux Etats-Unis. L'ACL pourrait suivre ce format de contextualisation des variations de prix par facteurs de risque pour son propre bulletin carburant.",
+      "badge": "SURVEILLER",
+      "url": "https://gasprices.aaa.com/pump-prices-remain-at-record-highs-for-autumn/"
+    },
+    {
       "id": "2026-10-08-saaskia-web-s9tvME",
       "club": "tageblatt.lu",
       "category": "Veille presse LU",
@@ -1454,6 +1500,46 @@
       "date": "2026-10-08"
     },
     {
+      "id": "2026-10-19-tcs-2",
+      "date": "2026-10-07",
+      "club": "TCS",
+      "category": "EU",
+      "content": "TCS Camping se dirige vers plus d'un million de nuitées en 2026 (deuxième fois de son histoire après 2021) et franchit le cap des 30 000 adhésions, contre environ 28 700 en 2025.",
+      "relevance": "Illustre la force du modèle club et infrastructure de loisirs comme levier de fidélisation et de recrutement. L'ACL pourrait évaluer une offre camping ou loisirs comparable en partenariat avec le secteur touristique luxembourgeois.",
+      "badge": "SURVEILLER",
+      "url": "https://www.tcs.ch/fr/le-tcs/presse/communiques-de-presse-2026/saison-camping-2026.php"
+    },
+    {
+      "id": "2026-10-19-roole-2",
+      "date": "2026-10-07",
+      "club": "Roole",
+      "category": "EU",
+      "content": "Roole, partenaire média du Mondial de l'Auto 2026 à Paris, organise un jeu-concours sur les réseaux sociaux offrant des places gratuites pour l'événement.",
+      "relevance": "Illustre une stratégie de partenariat événementiel et de jeu-concours pour engager la communauté autour d'un salon automobile. L'ACL pourrait envisager un partenariat similaire avec un salon automobile régional.",
+      "badge": "INFO",
+      "url": "https://media.roole.fr/quotidien/au-volant/mondial-de-lauto-2026-a-paris-tentez-de-gagner-des-places-gratuites-et-decouvrez-le-programme-de-levenement"
+    },
+    {
+      "id": "2026-10-19-oamtc-2",
+      "date": "2026-10-07",
+      "club": "ÖAMTC",
+      "category": "Mobilité",
+      "content": "Une étude de l'ÖAMTC sur 18 participants et 72 trajets montre que le soir, les utilisateurs de trottinettes électriques réagissent plus lentement, perdent plus souvent l'équilibre et roulent plus vite sans s'en rendre compte, en soutien à une campagne de sécurité routière de la FIA déployée en 23 langues.",
+      "relevance": "Étude originale sur un angle de sécurité peu couvert, fatigue et mobilité douce, rattachée à une campagne internationale de la FIA. L'ACL pourrait vérifier si elle relaie déjà cette campagne et envisager une communication conjointe sur la sécurité des trottinettes au Luxembourg.",
+      "badge": "SURVEILLER",
+      "url": "https://www.oeamtc.at/thema/verkehr/oeamtc-studie-muede-auf-dem-e-scooter-89848896"
+    },
+    {
+      "id": "2026-10-19-oamtc-3",
+      "date": "2026-10-07",
+      "club": "ÖAMTC",
+      "category": "EU",
+      "content": "L'ÖAMTC met en garde contre les dangers automnaux de la route : feuilles mortes et humidité rendant la chaussée aussi glissante que du verglas, et recommande pour le brouillard de réduire la vitesse et d'utiliser les feux arrière sans appel de phares.",
+      "relevance": "Communication saisonnière classique bien calibrée dans le temps, utile comme référentiel pour le calendrier de communication préventive de l'ACL sur la même période de l'année.",
+      "badge": "INFO",
+      "url": "https://www.oeamtc.at/presse/oeamtc-fahrtechnik-warnt-vor-herbstgefahren-im-strassenverkehr-82216038"
+    },
+    {
       "id": "2026-10-07-saaskia-web-0SDdul",
       "club": "virgule.lu (Wort.lu/FR)",
       "category": "Veille presse LU",
@@ -1553,6 +1639,36 @@
       "date": "2026-10-07"
     },
     {
+      "id": "2026-10-19-adac-1",
+      "date": "2026-10-06",
+      "club": "ADAC",
+      "category": "EU",
+      "content": "L'ADAC alerte, avant la publication le 20 octobre de son test semestriel complet, sur deux sièges auto dangereux : le Britax Römer Baby-Safe Pro (avec base Vario Base 5Z) peut libérer le harnais lors d'un choc, et l'Axkid Minikid Core présente un risque de déverrouillage, son fabricant ayant lancé un rappel volontaire.",
+      "relevance": "Alerte sécurité enfant à fort potentiel de reprise médiatique, publiée le même jour par le TCS et l'ÖAMTC, signe d'une coordination entre clubs européens. L'ACL devrait vérifier si elle teste ou référence ces mêmes modèles et relayer l'alerte à ses membres avant les vacances d'automne.",
+      "badge": "NOTABLE",
+      "url": "https://presse.adac.de/meldungen/adac-ev/tests/adac-warnt-vor-zwei-kindersitzen.html"
+    },
+    {
+      "id": "2026-10-19-tcs-1",
+      "date": "2026-10-06",
+      "club": "TCS",
+      "category": "EU",
+      "content": "Le TCS publie la même alerte que l'ADAC et l'ÖAMTC sur les sièges auto Britax Römer Baby-Safe Pro et Axkid Minikid Core, en amont des résultats complets du test d'automne.",
+      "relevance": "Confirme un test de sécurité enfant coordonné entre plusieurs clubs européens. L'ACL devrait vérifier si elle participe à ce type de consortium de tests et diffuser l'alerte en parallèle à ses membres.",
+      "badge": "NOTABLE",
+      "url": "https://www.tcs.ch/fr/le-tcs/presse/communiques-de-presse-2026/alerte-sieges-enfants_automne-2026.php"
+    },
+    {
+      "id": "2026-10-19-oamtc-1",
+      "date": "2026-10-06",
+      "club": "ÖAMTC",
+      "category": "EU",
+      "content": "L'ÖAMTC alerte, comme l'ADAC et le TCS le même jour, sur les sièges auto Britax Römer Baby-Safe Pro et Axkid Minikid Core, avant la publication des résultats complets du test d'automne le 20 octobre.",
+      "relevance": "Confirme une alerte sécurité enfant coordonnée entre trois clubs européens le même jour. L'ACL devrait vérifier si elle référence ces modèles et relayer l'alerte à ses membres luxembourgeois.",
+      "badge": "NOTABLE",
+      "url": "https://www.oeamtc.at/news/oeamtc-warnt-vor-gravierenden-sicherheitsproblemen-bei-zwei-kindersitzen-89846289"
+    },
+    {
       "id": "2026-10-06-saaskia-web-2Sa8ec",
       "club": "wort.lu",
       "category": "Veille presse LU",
@@ -1617,6 +1733,16 @@
       "url": "https://saaskia.keepcontact.lu/data/files/1791263776.0414.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791263776.0414.pdf",
       "date": "2026-10-06"
+    },
+    {
+      "id": "2026-10-19-anwb-3",
+      "date": "2026-10-05",
+      "club": "ANWB",
+      "category": "EU",
+      "content": "Evert-Jan Hulshof, directeur de Veilig Verkeer Nederland, devient président de la coalition néerlandaise pour la sécurité routière, élu à l'unanimité pour deux ans et succédant à la présidente de l'ANWB.",
+      "relevance": "Illustre le rôle institutionnel actif de l'ANWB dans la gouvernance nationale de la sécurité routière, un benchmark pour le positionnement de l'ACL vis-à-vis des instances luxembourgeoises de sécurité routière.",
+      "badge": "INFO",
+      "url": "https://www.anwb.nl/belangenbehartiging/nieuws/2026/oktober/evert-jan-hulshof-nieuwe-voorzitter-verkeersveiligheidscoalitie"
     },
     {
       "id": "2026-10-05-saaskia-web-ogDmtV",
@@ -1817,6 +1943,16 @@
       "date": "2026-10-05"
     },
     {
+      "id": "2026-10-19-rac-1",
+      "date": "2026-10-02",
+      "club": "RAC",
+      "category": "EU",
+      "content": "Le prix moyen du diesel au Royaume-Uni franchit pour la première fois la barre des 2 livres par litre (200,01 pence), dépassant le précédent record de juin 2022 ; un plein de 55 litres coûte désormais environ 110 livres.",
+      "relevance": "Signal fort de pression inflationniste sur les carburants, pertinent pour la communication de l'ACL sur le pouvoir d'achat automobile. L'ACL pourrait publier un comparatif transfrontalier des prix carburant Luxembourg/pays voisins sur ce modèle.",
+      "badge": "NOTABLE",
+      "url": "https://media.rac.co.uk/price-of-diesel-reaches-record-high"
+    },
+    {
       "id": "2026-10-02-saaskia-web-sr8WvR",
       "club": "contacto.lu (Wort.lu/PT)",
       "category": "Veille presse LU",
@@ -1914,6 +2050,26 @@
       "url": "https://saaskia.keepcontact.lu/data/files/1790919041.3345.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790919041.3345.pdf",
       "date": "2026-10-02"
+    },
+    {
+      "id": "2026-10-19-roole-1",
+      "date": "2026-10-01",
+      "club": "Roole",
+      "category": "EU",
+      "content": "Roole publie un récapitulatif mensuel des changements réglementaires pour les automobilistes français : prix du gasoil en hausse, aide de 100 euros par an pour les grands rouleurs prolongée, plafond d'exonération de la prime carburant employeur relevé, et mise en service de la troisième autoroute française en flux libre.",
+      "relevance": "Format de contenu à forte valeur pour les membres, condensant l'actualité réglementaire en un seul article mensuel. L'ACL pourrait tester un format équivalent, mensuel, pour le Luxembourg.",
+      "badge": "SURVEILLER",
+      "url": "https://media.roole.fr/quotidien/au-volant/ce-qui-change-pour-les-automobilistes-au-1er-octobre-2026-prix-records-des-carburants-aides-nouvelle-autoroute-en-flux-libre"
+    },
+    {
+      "id": "2026-10-19-aaa-1",
+      "date": "2026-10-01",
+      "club": "AAA",
+      "category": "Monde",
+      "content": "La moyenne nationale américaine du prix de l'essence recule d'environ 7 cents en une semaine à 4,41 dollars le gallon, après un mois de septembre 2026 record avec une moyenne mensuelle 50 cents au-dessus du précédent record de 2023.",
+      "relevance": "Illustre une communication hebdomadaire très structurée sur les prix carburant comme service aux membres et point de repère médiatique récurrent. L'ACL pourrait comparer sa propre fréquence de communication sur les prix à la pompe à ce rythme.",
+      "badge": "INFO",
+      "url": "https://gasprices.aaa.com/national-average-dips-following-record-setting-september/"
     },
     {
       "id": "2026-10-05-tcs-1",
@@ -2605,6 +2761,16 @@
       "date": "2026-09-24"
     },
     {
+      "id": "2026-10-19-tcs-3",
+      "date": "2026-09-23",
+      "club": "TCS",
+      "category": "Mobilité",
+      "content": "Après son radar des prix des carburants, le TCS lance dans son application un radar des prix de recharge électrique couvrant 19 000 bornes en Suisse, avec filtres par type de prise, puissance et opérateur.",
+      "relevance": "Service numérique à fort potentiel de transposition directe pour l'ACL : un comparateur de prix de recharge dans l'application membre répondrait à un besoin croissant de transparence tarifaire pour les conducteurs de véhicules électriques.",
+      "badge": "NOTABLE",
+      "url": "https://www.tcs.ch/fr/le-tcs/presse/communiques-de-presse-2026/apr-s-le-radar-des-prix-des-carburants-le-tcs-lance-le-radar-des-prix-de-recharge.php"
+    },
+    {
       "id": "2026-09-28-tcs-1",
       "date": "2026-09-23",
       "club": "TCS",
@@ -3135,6 +3301,16 @@
       "url": "https://saaskia.keepcontact.lu/data/files/1789708476.0234.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1789708476.0234.pdf",
       "date": "2026-09-18"
+    },
+    {
+      "id": "2026-10-19-adac-3",
+      "date": "2026-09-17",
+      "club": "ADAC",
+      "category": "Mobilité",
+      "content": "Une enquête ADAC auprès de 1060 propriétaires de véhicules électriques montre que 97% d'entre eux sont satisfaits de leur véhicule et près des deux tiers du réseau de recharge public, mais environ un quart critique le manque de transparence des prix de recharge.",
+      "relevance": "Donnée chiffrée utile pour argumenter sur la mobilité électrique auprès des membres. L'ACL pourrait mener une enquête comparable auprès de ses membres luxembourgeois pour se positionner sur ce sujet.",
+      "badge": "SURVEILLER",
+      "url": "https://www.adac.de/rund-ums-fahrzeug/elektromobilitaet/elektroauto/umfrage-zufriedenheit-mit-e-autos/"
     },
     {
       "id": "2026-09-28-adac-2",
