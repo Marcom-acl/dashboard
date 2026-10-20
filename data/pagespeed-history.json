@@ -387,12 +387,12 @@
   {
     "date": "2026-10-20",
     "acl": {
-      "mobile": 30,
-      "desktop": 29
+      "mobile": 31,
+      "desktop": 33
     },
     "auto": {
-      "mobile": 59,
-      "desktop": 84
+      "mobile": 55,
+      "desktop": 85
     }
   }
 ]
