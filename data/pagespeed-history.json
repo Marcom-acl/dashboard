@@ -398,12 +398,12 @@
   {
     "date": "2026-10-21",
     "acl": {
-      "mobile": 35,
-      "desktop": 31
+      "mobile": 39,
+      "desktop": 39
     },
     "auto": {
-      "mobile": 58,
-      "desktop": 72
+      "mobile": 60,
+      "desktop": 71
     }
   }
 ]
