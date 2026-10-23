@@ -17,6 +17,7 @@
   const newFocus = () => ({ ...person(), twoCols: true,
     t: { fr: { label: 'Focus projet', title: '', role: '', body: '' }, de: { label: 'Projekt im Fokus' } },
     contrib: { on: false, ...person(), t: { fr: { title: '', role: '', quote: '' }, de: {} } },
+    cta: { on: false, url: '', t: { fr: { text: 'En savoir plus' }, de: { text: 'Mehr erfahren' } } },
     // Blocs affichés juste après ce projet (en plus de ceux de fin d'email)
     extras: { gallery: newGallery(), encadre: newEncadre(), kpis: newKpis() } });
   const newMetier = () => ({ ...person(),
@@ -57,7 +58,10 @@
   // Brouillons créés avant l'ajout des blocs par projet et des 2 signataires
   function migrate(s) {
     if (!s.edito.sign) s.edito.sign = { on: false, people: [newSigner()] };
-    s.focus.forEach(f => { if (!f.extras) f.extras = { gallery: newGallery(), encadre: newEncadre(), kpis: newKpis() }; });
+    s.focus.forEach(f => {
+      if (!f.extras) f.extras = { gallery: newGallery(), encadre: newEncadre(), kpis: newKpis() };
+      if (!f.cta) f.cta = { on: false, url: '', t: { fr: { text: 'En savoir plus' }, de: { text: 'Mehr erfahren' } } };
+    });
     const g = s.signature;
     if (!g.people) {
       g.people = [{ name: g.name || '', photo: g.photo || { url: '' }, sig: { url: '', w: 0, h: 0 },
@@ -186,6 +190,18 @@ ${personHead(p, subOf(item, l), SZ_CARD).replace(/^ {14}/gm, '                  
       paras(tx(e, 'body', l), BODY, sg ? '0 0 16px 0' : '0'), sg].filter(Boolean).join('\n'));
   }
 
+  function blkCta(cta, l) {
+    if (!cta || !cta.on || !isUrl((cta.url || '').trim())) return '';
+    const text = tx(cta, 'text', l) || (l === 'de' ? 'Mehr erfahren' : 'En savoir plus');
+    return `              <table role="presentation" cellpadding="0" cellspacing="0" style="margin-top:22px;">
+                <tr>
+                  <td align="center" bgcolor="#FCD900" style="background-color:#FCD900; border-radius:6px;">
+                    <a href="${esc(cta.url.trim())}" target="_blank" style="${F} display:inline-block; padding:12px 28px; font-size:13.5px; font-weight:bold; color:#1a1a1a; text-decoration:none; border-radius:6px;">${esc(text)}</a>
+                  </td>
+                </tr>
+              </table>`;
+  }
+
   function blkFocus(f, l, first) {
     const ps = richToParas(tx(f, 'body', l));
     const pp = (list, style) => list.map((p, i) => `                    <p style="margin:${i === list.length - 1 ? '0' : '0 0 14px 0'};">${linkStyle(p)}</p>`).join('\n');
@@ -208,8 +224,9 @@ ${pp(ps.slice(mid))}
       }
     }
     const contrib = f.contrib.on && f.contrib.name ? quoteCard(f.contrib, f.contrib, l, ' margin-top:22px;') : '';
+    const ctaBtn = blkCta(f.cta, l);
     return (first ? '' : divider(28)) + `
-          <!-- FOCUS PROJET -->` + row(22, [secLabel(tx(f, 'label', l)), f.name ? personHead(f, subOf(f, l), SZ_HEAD) : '', body, contrib].filter(Boolean).join('\n'));
+          <!-- FOCUS PROJET -->` + row(22, [secLabel(tx(f, 'label', l)), f.name ? personHead(f, subOf(f, l), SZ_HEAD) : '', body, contrib, ctaBtn].filter(Boolean).join('\n'));
   }
 
   function blkGallery(g) {
@@ -556,6 +573,7 @@ ${signer(ppl[1], l, '                    ')}
       ppl.push([`Focus projet ${i + 1}`, f]);
       if (!f.t.fr.role.trim()) w.push(`Focus projet ${i + 1} : rôle projet manquant (sponsor, chef de projet, contributeur…)`);
       if (!richToParas(f.t.fr.body).length) w.push(`Focus projet ${i + 1} : texte vide`);
+      if (f.cta.on && !isUrl(f.cta.url)) w.push(`Focus projet ${i + 1} : bouton CTA activé mais URL manquante ou invalide (doit commencer par https://)`);
       if (f.contrib.on) {
         ppl.push([`Focus projet ${i + 1} — citation`, f.contrib]);
         if (!f.contrib.t.fr.role.trim()) w.push(`Focus projet ${i + 1} — citation : rôle projet manquant`);
@@ -698,6 +716,11 @@ ${signer(ppl[1], l, '                    ')}
       + (!DE() && people.length < 2 ? `<button type="button" class="pob-add" data-act="add-signer" data-base="${base}">＋ Ajouter un 2e signataire</button>` : '');
   }
 
+  function ctaFields(cta, base) {
+    return fT('Texte du bouton', cta, `${base}.cta`, 'text', { half: true, ph: 'En savoir plus' })
+      + fN('Lien URL', `${base}.cta.url`, { half: true, ph: 'https://…' });
+  }
+
   // Sous-bloc activable à l'intérieur d'une carte
   function subBlock(title, togglePath, body) {
     const on = getP(S, togglePath);
@@ -754,6 +777,7 @@ ${signer(ppl[1], l, '                    ')}
         personFields(f, b, { role: true }),
         fT('Texte', f, b, 'body', { ph: 'Le témoignage, en plusieurs paragraphes…' }),
         DE() ? '' : `<label class="pob-sw-inline"><input type="checkbox" data-act="toggle" data-p="${b}.twoCols" ${f.twoCols ? 'checked' : ''}> Répartir le texte sur 2 colonnes (desktop)</label>`,
+        subBlock('Bouton call to action (lien externe)', `${b}.cta.on`, ctaFields(f.cta, b)),
         contrib,
         after,
       ].join(''), { del: 'del-focus', i });
