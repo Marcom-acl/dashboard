@@ -1,6 +1,90 @@
 {
-  "generated_at": "2026-10-19",
+  "generated_at": "2026-10-26",
   "items": [
+    {
+      "date": "2026-10-15",
+      "theme": "IA générative en marketing",
+      "titre": "HubSpot : Claude Cowork réduit un projet de plusieurs semaines à 3h",
+      "synthese": "Dans une étude de cas publiée par Anthropic, des centaines de marketeurs de HubSpot utilisent Claude Cowork, un agent IA capable d'exécuter des tâches multi-étapes en autonomie, pour accélérer la production de livrables marketing. Un développement interne nécessitant plusieurs semaines et plusieurs équipes a été ramené à environ trois heures grâce à un hub de contenu piloté par IA. Pour les notes de stratégie, le temps entre une idée et un premier brouillon exploitable est passé de deux heures à vingt minutes, avec un premier jet jugé à 60-70% de la version finale selon Daniel Jacobson, de HubSpot. Pour des documents récurrents et des présentations exécutives, deux autres responsables rapportent des premiers jets utilisables à plus de 80%, la relecture humaine portant surtout sur le jugement et les contraintes de ressources. Chloe Tambe, directrice de la transformation IA chez HubSpot, souligne aussi que Cowork peut exécuter des tâches en autonomie même hors ligne, ce qui réduit la charge administrative d'une équipe marketing de plusieurs centaines de personnes. Ces chiffres restent autodéclarés par HubSpot et publiés par Anthropic, sans méthodologie indépendante détaillée.",
+      "actionACL": "Tester Claude Cowork sur un cas d'usage circonscrit de l'équipe Marcom ACL, par exemple un premier jet de newsletter membres ou une synthèse de reporting hebdomadaire, pour chiffrer le gain de temps réel avant d'envisager un déploiement plus large. Documenter la qualité des premiers jets produits afin de calibrer le niveau de relecture humaine nécessaire selon le type de document.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "Anthropic (Claude customer stories)",
+          "url": "https://claude.com/customers/hubspot-qa"
+        },
+        {
+          "name": "Anthropic (Claude customer stories)",
+          "url": "https://claude.com/customers/hubspot"
+        }
+      ]
+    },
+    {
+      "date": "2026-04-29",
+      "theme": "Social & Ads",
+      "titre": "Meta ouvre ses comptes publicitaires aux agents IA Claude et ChatGPT",
+      "synthese": "Fin avril 2026, Meta a lancé en bêta ouverte des connecteurs IA (\"Ads AI Connectors\") permettant de piloter des comptes publicitaires Facebook et Instagram directement depuis Claude, ChatGPT ou une CLI dédiée, via un serveur MCP publicitaire. L'authentification se fait avec le compte Facebook Business existant, sans application développeur ni clé API, pour une mise en route de quelques minutes. Les agents peuvent consulter les performances, gérer des catalogues et des signaux d'audience, et créer ou modifier des campagnes, ad sets et budgets, mais chaque action d'écriture nécessite une autorisation explicite de l'annonceur avant exécution. Contrairement aux connecteurs publicitaires de Google et Amazon, limités à la lecture seule à leur lancement, Meta propose dès le départ des capacités d'écriture supervisées. L'accès reste conditionné à l'éligibilité du compte publicitaire, aux permissions accordées et au palier d'abonnement de l'outil IA utilisé.",
+      "actionACL": "Tester les Ads AI Connectors en lecture seule sur un compte publicitaire secondaire pour évaluer l'intérêt en reporting et analyse de performance avant d'envisager la création ou modification de campagnes via IA. Définir une procédure de validation humaine systématique avant toute autorisation d'action d'écriture sur les comptes Facebook/Instagram de l'ACL.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "PPC Land",
+          "url": "https://ppc.land/meta-opens-its-ad-system-to-claude-and-chatgpt-with-new-ai-connectors/"
+        },
+        {
+          "name": "Jon Loomer Digital",
+          "url": "https://www.jonloomer.com/meta-ads-ai-connectors-claude/"
+        },
+        {
+          "name": "The Media Leader (FR)",
+          "url": "https://fr.themedialeader.com/meta-ouvre-ses-campagnes-publicitaires-aux-agents-ia/"
+        },
+        {
+          "name": "Let's Data Science",
+          "url": "https://letsdatascience.com/news/meta-launches-ads-ai-connectors-for-advertisers-8d1a982a"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-03",
+      "theme": "Design & branding",
+      "titre": "Smashing Magazine : rendre son design system compatible avec l'IA",
+      "synthese": "Vitaly Friedman propose sur Smashing Magazine (juin 2026) une méthode en trois piliers pour qu'un design system reste cohérent face aux outils d'IA générative : un fichier de spécifications documentant les principes de décision et des exemples de bon et mauvais usage, une couche de tokens centralisant chaque valeur du système, et un audit automatisé des écarts. L'approche s'appuie notamment sur les travaux de Hardik Pandya, d'Atlassian, sur la restructuration des design systems pour les rendre lisibles par les IA. Smashing souligne que sans règles explicites, une IA générative ne devine ni le bon composant à choisir ni les exigences d'accessibilité, ce qui introduit des incohérences silencieuses dans les interfaces produites. Des outils tiers comme FigmaLint, un plugin Figma gratuit qui audite les tokens, les valeurs codées en dur et les écarts d'accessibilité, s'inscrivent dans cette même démarche.",
+      "actionACL": "Documenter dans un fichier de spécifications les règles de choix de composants et les principes d'accessibilité du design system ACL avant de généraliser l'usage d'outils IA en interne (Figma, Canva, Firefly). Évaluer un plugin d'audit de type FigmaLint sur les fichiers Figma existants pour repérer en priorité les incohérences de tokens à corriger.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "Smashing Magazine",
+          "url": "https://www.smashingmagazine.com/2026/06/how-make-design-system-ai-ready/"
+        },
+        {
+          "name": "Southleft (FigmaLint)",
+          "url": "https://www.southleft.com/insights/design-systems/designing-for-developers-introducing-figmalint"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-09",
+      "theme": "Design & branding",
+      "titre": "Idiap (institut suisse IA) refond son identité pour ses 35 ans",
+      "synthese": "L'institut de recherche suisse Idiap, basé à Martigny et affilié à l'EPFL, a dévoilé le 9 septembre 2026 une nouvelle identité visuelle à l'occasion de ses 35 ans, dix ans après son dernier rafraîchissement de marque. Conçue avec l'agence Octane, l'identité s'articule autour des chiffres 0 et 1, symboles fondamentaux de l'informatique, avec le bleu historique de l'institut rendu plus vif et une nouvelle typographie. Les règles de marque, mises à jour le 12 août 2026, imposent le logo principal avec la mention \"Research Institute\" par défaut sur les communications officielles, réservent une version française aux publics strictement francophones, et interdisent toute déformation des proportions, de la position ou de la taille du logo. L'institut présente cette refonte comme un moyen de réaffirmer son positionnement de centre de recherche en IA indépendant dans un secteur devenu plus concurrentiel ; aucune couverture médiatique indépendante n'a été identifiée à ce stade, seule la communication officielle d'Idiap.",
+      "actionACL": "S'inspirer de cette approche évolutive (conservation de la couleur historique, mise à jour ciblée de la typographie et des règles d'usage) pour toute réflexion future sur le rafraîchissement de l'identité visuelle de l'ACL, afin de moderniser sans perdre la reconnaissance construite auprès des 191 000 membres. Documenter aussi précisément les règles d'usage du logo ACL (proportions, variantes linguistiques FR/DE/EN/PT) dans un guide de marque actualisé, à l'image des press resources d'Idiap.",
+      "horizon": "long terme (12+ mois)",
+      "badge": "INFO",
+      "sources": [
+        {
+          "name": "Idiap",
+          "url": "https://www.idiap.ch/en/allnews/idiap-unveils-a-new-visual-identity"
+        },
+        {
+          "name": "Idiap - Brand Guidelines 2026 (PDF)",
+          "url": "https://www.idiap.ch/en/about/files/idiap-brand-guidelines-2026.pdf"
+        }
+      ]
+    },
     {
       "date": "2026-10-15",
       "theme": "Social & Ads",
