@@ -584,6 +584,8 @@ def status():
         'railway_persist':           bool(GITHUB_TOKEN and GIST_ID),
         'veille':                    veille_ok,
         'user_count':                len(_RUNTIME_USERS),
+        'apple_store':               bool(os.environ.get('ASC_PRIVATE_KEY') and os.environ.get('ASC_APP_ID')),
+        'google_play':               bool(os.environ.get('GPLAY_SERVICE_ACCOUNT_JSON') and os.environ.get('GPLAY_PACKAGE_NAME')),
     })
 
 
@@ -5994,6 +5996,317 @@ def poweron_send_test():
         return jsonify({'ok': True})
     except requests.RequestException as e:
         return jsonify({'error': f'Brevo injoignable : {e}'}), 502
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Mobile App — Apple App Store Connect + Google Play Console
+# ─────────────────────────────────────────────────────────────────────────────
+
+ASC_ISSUER_ID     = os.environ.get('ASC_ISSUER_ID', '')
+ASC_KEY_ID        = os.environ.get('ASC_KEY_ID', '')
+ASC_PRIVATE_KEY   = os.environ.get('ASC_PRIVATE_KEY', '').replace('\\n', '\n')
+ASC_APP_ID        = os.environ.get('ASC_APP_ID', '')
+ASC_VENDOR_NUMBER = os.environ.get('ASC_VENDOR_NUMBER', '')
+
+GPLAY_SA_JSON    = os.environ.get('GPLAY_SERVICE_ACCOUNT_JSON', '')
+GPLAY_BUCKET_URI = os.environ.get('GPLAY_BUCKET_URI', '').rstrip('/')
+GPLAY_PACKAGE    = os.environ.get('GPLAY_PACKAGE_NAME', '')
+
+_ASC_TOKEN_CACHE   = {'token': None, 'exp': 0}
+_GPLAY_TOKEN_CACHE = {'token': None, 'exp': 0}
+
+
+def _asc_token():
+    """JWT App Store Connect (ES256, 20 min)."""
+    now = int(time.time())
+    with _API_CACHE_LOCK:
+        c = _ASC_TOKEN_CACHE
+        if c['token'] and now < c['exp'] - 60:
+            return c['token']
+    if not (ASC_PRIVATE_KEY and ASC_KEY_ID and ASC_ISSUER_ID):
+        return None
+    try:
+        import jwt as pyjwt
+        payload = {'iss': ASC_ISSUER_ID, 'iat': now, 'exp': now + 1200,
+                   'aud': 'appstoreconnect-v1'}
+        token = pyjwt.encode(payload, ASC_PRIVATE_KEY, algorithm='ES256',
+                             headers={'kid': ASC_KEY_ID})
+        with _API_CACHE_LOCK:
+            _ASC_TOKEN_CACHE.update({'token': token, 'exp': now + 1200})
+        return token
+    except Exception as e:
+        print(f'[ASC] JWT error: {e}', flush=True)
+        return None
+
+
+def _gplay_gcs_token():
+    """OAuth2 depuis le compte de service Google Play (lecture GCS)."""
+    now = time.time()
+    with _API_CACHE_LOCK:
+        c = _GPLAY_TOKEN_CACHE
+        if c['token'] and now < c['exp'] - 120:
+            return c['token']
+    if not GPLAY_SA_JSON:
+        return None
+    try:
+        from google.oauth2 import service_account
+        import google.auth.transport.requests as gtr
+        sa_info = json.loads(GPLAY_SA_JSON)
+        creds = service_account.Credentials.from_service_account_info(
+            sa_info, scopes=['https://www.googleapis.com/auth/devstorage.read_only'])
+        creds.refresh(gtr.Request())
+        exp = creds.expiry.timestamp() if creds.expiry else now + 3600
+        with _API_CACHE_LOCK:
+            _GPLAY_TOKEN_CACHE.update({'token': creds.token, 'exp': exp})
+        return creds.token
+    except Exception as e:
+        print(f'[GPLAY] Token error: {e}', flush=True)
+        return None
+
+
+def _gplay_bucket():
+    return GPLAY_BUCKET_URI.replace('gs://', '').split('/')[0] if GPLAY_BUCKET_URI else ''
+
+
+def _gplay_gcs_list(prefix):
+    """Liste les objets GCS sous un préfixe, retourne les noms triés."""
+    token = _gplay_gcs_token()
+    bucket = _gplay_bucket()
+    if not token or not bucket:
+        return []
+    try:
+        r = _get(
+            f'https://storage.googleapis.com/storage/v1/b/{bucket}/o',
+            headers={'Authorization': f'Bearer {token}'},
+            params={'prefix': prefix, 'fields': 'items(name)'},
+            timeout=15,
+        )
+        return sorted(i['name'] for i in r.json().get('items', []) if r.ok and 'name' in i)
+    except Exception:
+        return []
+
+
+def _gplay_gcs_read(object_name):
+    """Télécharge un objet GCS et retourne la liste de dicts CSV."""
+    token = _gplay_gcs_token()
+    bucket = _gplay_bucket()
+    if not token or not bucket:
+        return None
+    import urllib.parse, csv, io as sio
+    encoded = urllib.parse.quote(object_name, safe='')
+    r = _get(
+        f'https://storage.googleapis.com/storage/v1/b/{bucket}/o/{encoded}?alt=media',
+        headers={'Authorization': f'Bearer {token}'}, timeout=30)
+    if not r.ok:
+        return None
+    try:
+        content = r.content.decode('utf-16')  # Google Play reports are UTF-16 LE with BOM
+    except UnicodeDecodeError:
+        try:
+            content = r.content.decode('utf-8-sig')
+        except UnicodeDecodeError:
+            content = r.content.decode('latin-1')
+    return list(csv.DictReader(sio.StringIO(content)))
+
+
+def _gplay_stats():
+    """Dernières stats disponibles depuis GCS Play Console."""
+    if not GPLAY_PACKAGE or not GPLAY_BUCKET_URI:
+        return {'error': 'GPLAY_PACKAGE_NAME ou GPLAY_BUCKET_URI non configuré'}
+
+    def latest_overview(stat_type):
+        prefix = f'stats/{stat_type}/{stat_type}_{GPLAY_PACKAGE}_'
+        names = [n for n in _gplay_gcs_list(prefix) if n.endswith('_overview.csv')]
+        if not names:
+            return None, None
+        name = names[-1]
+        return _gplay_gcs_read(name), name
+
+    def _int(v):
+        try: return int(float(str(v or 0).replace(',', '').strip()))
+        except: return 0
+
+    def _flt(v):
+        try: return round(float(str(v or 0).replace(',', '').strip()), 2)
+        except: return 0.0
+
+    install_rows, install_file = latest_overview('installs')
+    rating_rows,  rating_file  = latest_overview('ratings')
+    crash_rows,   crash_file   = latest_overview('crashes')
+
+    installs = {}
+    if install_rows:
+        last = install_rows[-1]
+        installs = {
+            'date':            last.get('Date', ''),
+            'activeInstalls':  _int(last.get('Active Device Installs')),
+            'totalInstalls':   _int(last.get('Total User Installs')),
+            'dailyInstalls':   _int(last.get('Daily Device Installs')),
+            'dailyUninstalls': _int(last.get('Daily Device Uninstalls')),
+        }
+
+    rating = {}
+    if rating_rows:
+        last = rating_rows[-1]
+        rating = {
+            'daily': _flt(last.get('Daily Average Rating')),
+            'total': _flt(last.get('Total Average Rating')),
+        }
+
+    crashes = {}
+    if crash_rows:
+        last = crash_rows[-1]
+        crashes = {
+            'dailyCrashes': _int(last.get('Daily Crashes')),
+            'dailyANRs':    _int(last.get('Daily ANRs')),
+        }
+
+    trend = []
+    if install_rows:
+        for row in install_rows[-30:]:
+            trend.append({
+                'date':           row.get('Date', ''),
+                'activeInstalls': _int(row.get('Active Device Installs')),
+                'dailyInstalls':  _int(row.get('Daily Device Installs')),
+            })
+
+    return {
+        'installs': installs,
+        'rating':   rating,
+        'crashes':  crashes,
+        'trend':    trend,
+        'source':   install_file or rating_file or crash_file or '',
+    }
+
+
+def _asc_stats():
+    """Stats App Store : rating iTunes + reviews + installs (si vendor number configuré)."""
+    rating_data = {}
+    # Rating via l'API iTunes publique (sans auth, instantané)
+    if ASC_APP_ID:
+        try:
+            r = _get('https://itunes.apple.com/lookup',
+                     params={'id': ASC_APP_ID, 'country': 'lu'}, timeout=10)
+            if r.ok:
+                results = r.json().get('results', [])
+                if results:
+                    app = results[0]
+                    rating_data = {
+                        'rating':                    round(float(app.get('averageUserRating') or 0), 1),
+                        'ratingCount':               int(app.get('userRatingCount') or 0),
+                        'currentVersionRating':      round(float(app.get('averageUserRatingForCurrentVersion') or 0), 1),
+                        'currentVersionRatingCount': int(app.get('userRatingCountForCurrentVersion') or 0),
+                        'version':                   app.get('version', ''),
+                    }
+        except Exception as e:
+            print(f'[ASC] iTunes lookup error: {e}', flush=True)
+
+    # Avis récents via App Store Connect API (JWT)
+    reviews = []
+    token = _asc_token()
+    if token and ASC_APP_ID:
+        try:
+            r = _get(
+                f'https://api.appstoreconnect.apple.com/v1/apps/{ASC_APP_ID}/customerReviews',
+                headers={'Authorization': f'Bearer {token}'},
+                params={
+                    'sort': '-createdDate',
+                    'limit': '5',
+                    'fields[customerReviews]': 'rating,title,body,reviewerNickname,createdDate',
+                },
+                timeout=20,
+            )
+            if r.ok:
+                for item in r.json().get('data', []):
+                    attrs = item.get('attributes', {})
+                    reviews.append({
+                        'rating': attrs.get('rating', 0),
+                        'title':  attrs.get('title', ''),
+                        'body':   (attrs.get('body') or '')[:300],
+                        'author': attrs.get('reviewerNickname', ''),
+                        'date':   (attrs.get('createdDate') or '')[:10],
+                    })
+        except Exception as e:
+            print(f'[ASC] Reviews error: {e}', flush=True)
+
+    # Installations via Sales Reports (nécessite ASC_VENDOR_NUMBER)
+    installs_data = {}
+    if token and ASC_VENDOR_NUMBER and ASC_APP_ID:
+        import gzip, csv, io as sio
+        today = datetime.date.today()
+        for delta in range(3, 10):
+            date_str = (today - datetime.timedelta(days=delta)).isoformat()
+            try:
+                r = _get(
+                    'https://api.appstoreconnect.apple.com/v1/salesReports',
+                    headers={'Authorization': f'Bearer {token}',
+                             'Accept': 'application/a-gzip'},
+                    params={
+                        'filter[reportType]':    'INSTALLS',
+                        'filter[reportSubType]': 'SUMMARY',
+                        'filter[frequency]':     'DAILY',
+                        'filter[reportDate]':    date_str,
+                        'filter[vendorNumber]':  ASC_VENDOR_NUMBER,
+                    },
+                    timeout=20,
+                )
+                if r.ok and r.content:
+                    content = gzip.decompress(r.content).decode('utf-8')
+                    rows = list(csv.DictReader(sio.StringIO(content), delimiter='\t'))
+                    total = sum(int(row.get('Units') or 0) for row in rows)
+                    installs_data = {'date': date_str, 'installs': total}
+                    break
+            except Exception:
+                continue
+
+    return {
+        'rating':       rating_data,
+        'reviews':      reviews,
+        'installs':     installs_data,
+        'configured':   bool(ASC_APP_ID),
+        'fullAccess':   bool(token),
+    }
+
+
+@app.route('/mobile-app')
+def mobile_app():
+    cached = _cache_get('mobile-app')
+    if cached: return jsonify(cached)
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=2) as ex:
+        apple_fut = ex.submit(_asc_stats)
+        gplay_fut = ex.submit(_gplay_stats)
+
+    try:
+        apple_data = apple_fut.result()
+    except Exception as e:
+        apple_data = {'error': str(e)}
+
+    try:
+        gplay_data = gplay_fut.result()
+    except Exception as e:
+        gplay_data = {'error': str(e)}
+
+    data = {
+        'apple': apple_data,
+        'play':  gplay_data,
+        'configured': {
+            'apple': bool(ASC_APP_ID),
+            'play':  bool(GPLAY_SA_JSON and GPLAY_PACKAGE),
+        },
+    }
+    _cache_set('mobile-app', data, 3600)
+    return jsonify(data)
+
+
+@app.route('/mobile-app/play')
+def mobile_app_play():
+    return jsonify(_gplay_stats())
+
+
+@app.route('/mobile-app/apple')
+def mobile_app_apple():
+    return jsonify(_asc_stats())
 
 
 # ─────────────────────────────────────────────────────────────────────────────

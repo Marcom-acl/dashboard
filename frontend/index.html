@@ -1359,6 +1359,12 @@
           <span class="sb-pill">Social media</span>
           <span class="sb-dot" id="bs-buffer" style="background:var(--muted-2);"></span>
         </button>
+        <button class="sb-item tab-btn" data-tab="mobile-app" title="Application MyACL (iOS &amp; Android)">
+          <span class="sb-ic-wrap" style="background:rgba(35,31,32,.1);--ic-color:#231f20"><svg class="sb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></span>
+          <span class="sb-item-label">App MyACL</span>
+          <span class="sb-pill">App MyACL</span>
+          <span class="sb-dot" id="bs-mobile-app" style="background:var(--muted-2);"></span>
+        </button>
       </nav>
     </div>
 
@@ -1572,6 +1578,7 @@
 
         <!-- ── BUFFER / SOCIAL MEDIA ─────────────────────────────── -->
         <div id="panel-buffer" class="tab-panel"></div>
+        <div id="panel-mobile-app" class="tab-panel"></div>
 
       </div>
     </div>
@@ -1849,6 +1856,7 @@ function _renderTab(tab) {
   else if (tab === 'car-market')  renderCarMarket(d.dCarReg);
   else if (tab === 'energy-costs') renderEnergyCosts(_energyData);
   else if (tab === 'poweron')      window.renderPowerOn?.();
+  else if (tab === 'mobile-app')  renderMobileApp();
 }
 
 // ── loadAll ───────────────────────────────────────────────────
@@ -5003,6 +5011,181 @@ function initYouTubeTimeline(ytData) {
       chart.update();
     });
   });
+}
+
+// ── APP MYACL (iOS + Android) ─────────────────────────────────
+async function renderMobileApp() {
+  const el = document.getElementById('panel-mobile-app');
+  if (!el) return;
+  el.innerHTML = `<div style="padding:48px;text-align:center;color:var(--muted)">Chargement des statistiques application…</div>`;
+
+  let d;
+  try { d = await api('/mobile-app'); } catch(e) { d = null; }
+
+  if (!d) {
+    el.innerHTML = errState('App MyACL', 'Impossible de joindre le backend');
+    return;
+  }
+
+  const apple = d.apple || {};
+  const play  = d.play  || {};
+  const cfg   = d.configured || {};
+
+  const APPLE_CLR = '#231f20';
+  const APPLE_BG  = 'rgba(35,31,32,.08)';
+  const PLAY_CLR  = '#34A853';
+  const PLAY_BG   = '#E0F2E6';
+
+  // Status dot
+  const ok = !apple.error && !play.error && (cfg.apple || cfg.play);
+  updateStatus('bs-mobile-app', ok);
+
+  function starsHtml(rating) {
+    if (!rating) return '—';
+    const full  = Math.min(5, Math.floor(rating));
+    const empty = 5 - full;
+    return `<span style="color:#F4B400;font-size:1.1em">${'★'.repeat(full)}${'☆'.repeat(empty)}</span> <strong>${rating.toFixed(1)}</strong>`;
+  }
+
+  function reviewCard(r) {
+    return `<div style="border:1px solid var(--border);border-radius:var(--r-md);padding:14px 16px;background:var(--surface)">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+        <span style="color:#F4B400;font-size:1em">${'★'.repeat(r.rating || 0)}${'☆'.repeat(5-(r.rating||0))}</span>
+        <span style="font-size:11px;color:var(--muted)">${r.date || ''}</span>
+      </div>
+      ${r.title ? `<div style="font-weight:600;font-size:13px;margin-bottom:4px">${r.title}</div>` : ''}
+      <div style="font-size:12px;color:var(--muted);line-height:1.5">${r.body || ''}</div>
+      ${r.author ? `<div style="font-size:11px;color:var(--muted-2);margin-top:6px">— ${r.author}</div>` : ''}
+    </div>`;
+  }
+
+  // ── Apple section ──────────────────────────────────────────────
+  const ar = apple.rating || {};
+  const appleKpis = cfg.apple ? `
+    <div class="kpi-grid">
+      ${kpiCard({label:'Note globale', value: ar.ratingCount ? starsHtml(ar.rating) : '—', src:APPLE_CLR, srcBg:APPLE_BG,
+                 tooltip:'Note moyenne toutes versions confondues (iTunes)'})}
+      ${kpiCard({label:'Avis totaux', value: fmtN(ar.ratingCount || 0), src:APPLE_CLR, srcBg:APPLE_BG})}
+      ${kpiCard({label:'Note version en cours', value: ar.currentVersionRatingCount ? starsHtml(ar.currentVersionRating) : '—',
+                 src:APPLE_CLR, srcBg:APPLE_BG, tooltip:'Note de la version ' + (ar.version || '')})}
+      ${apple.installs?.installs != null
+        ? kpiCard({label:'DL récents (Sales Report)', value: fmtN(apple.installs.installs), src:APPLE_CLR, srcBg:APPLE_BG,
+                   tooltip:'Journée du ' + (apple.installs.date || '')})
+        : kpiCard({label:'Téléchargements', value:'—', src:APPLE_CLR, srcBg:APPLE_BG,
+                   tooltip:'Configurer ASC_VENDOR_NUMBER pour activer les Sales Reports'})}
+    </div>` : `<p style="color:var(--muted);padding:12px 0">Configurer ASC_APP_ID et ASC_PRIVATE_KEY pour activer les stats Apple.</p>`;
+
+  const appleReviews = (apple.reviews || []).length
+    ? `<div class="card" style="margin-top:20px"><div class="card-head"><div class="card-title">Avis récents — App Store</div></div>
+        <div class="card-body" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;padding:16px">
+          ${(apple.reviews || []).map(reviewCard).join('')}
+        </div></div>` : '';
+
+  // ── Google Play section ────────────────────────────────────────
+  const pi  = play.installs || {};
+  const pr  = play.rating   || {};
+  const pc  = play.crashes  || {};
+  const trend = play.trend  || [];
+
+  const playKpis = cfg.play && !play.error ? `
+    <div class="kpi-grid">
+      ${kpiCard({label:'Installations actives', value: fmtN(pi.activeInstalls || 0),
+                 spark: trend.map(t=>t.activeInstalls), src:PLAY_CLR, srcBg:PLAY_BG,
+                 tooltip:'Appareils avec l\'app installée au ' + (pi.date || '')})}
+      ${kpiCard({label:'DL du jour', value: fmtN(pi.dailyInstalls || 0), src:PLAY_CLR, srcBg:PLAY_BG})}
+      ${kpiCard({label:'Désinstallations du jour', value: fmtN(pi.dailyUninstalls || 0), src:PLAY_CLR, srcBg:PLAY_BG})}
+      ${kpiCard({label:'Note totale', value: pr.total ? starsHtml(pr.total) : '—', src:PLAY_CLR, srcBg:PLAY_BG})}
+      ${kpiCard({label:'Crashs du jour', value: fmtN(pc.dailyCrashes || 0), src:PLAY_CLR, srcBg:PLAY_BG})}
+      ${kpiCard({label:'ANR du jour', value: fmtN(pc.dailyANRs || 0), src:PLAY_CLR, srcBg:PLAY_BG,
+                 tooltip:'App Not Responding — gel de l\'app sans crash'})}
+    </div>` : play.error
+      ? `<p style="color:var(--bad);padding:12px 0">Erreur Google Play : ${play.error}</p>`
+      : `<p style="color:var(--muted);padding:12px 0">Configurer GPLAY_SERVICE_ACCOUNT_JSON et GPLAY_PACKAGE_NAME pour activer les stats Google Play.</p>`;
+
+  // Trend chart (active installs 30 j)
+  const trendChartId = 'chart-play-trend-' + Date.now();
+  const trendCard = trend.length > 1 ? `
+    <div class="card" style="margin-top:20px">
+      <div class="card-head"><div class="card-title">Installations actives — 30 derniers jours</div>
+        <div class="card-sub">Source : Google Play Console · données avec 3–7 jours de décalage</div></div>
+      <div class="card-body" style="padding:16px"><canvas id="${trendChartId}" height="160"></canvas></div>
+    </div>` : '';
+
+  // Source freshness
+  const freshness = play.source
+    ? `<p style="font-size:11px;color:var(--muted-2);margin-top:8px">Source : ${play.source}</p>` : '';
+
+  el.innerHTML = `
+    <div class="sec-title"><h2>Application MyACL</h2><div class="line"></div>
+      <span class="src-pill" style="background:${APPLE_BG};color:${APPLE_CLR};border:1px solid rgba(35,31,32,.2)">App Store</span>
+      <span class="src-pill" style="background:${PLAY_BG};color:${PLAY_CLR}">Google Play</span>
+    </div>
+
+    <div class="card" style="margin-bottom:20px">
+      <div class="card-head" style="border-bottom:1px solid var(--border)">
+        <div>
+          <div class="card-title" style="display:flex;align-items:center;gap:8px">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="${APPLE_CLR}" stroke-width="2"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M8 12l2 2 4-4"/></svg>
+            App Store iOS
+          </div>
+          ${ar.version ? `<div class="card-sub">Version ${ar.version}</div>` : ''}
+        </div>
+      </div>
+      <div class="card-body" style="padding:16px">${appleKpis}</div>
+    </div>
+
+    ${appleReviews}
+
+    <div class="card" style="margin-top:20px;margin-bottom:20px">
+      <div class="card-head" style="border-bottom:1px solid var(--border)">
+        <div>
+          <div class="card-title" style="display:flex;align-items:center;gap:8px">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="${PLAY_CLR}" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            Google Play Android
+          </div>
+          ${pi.date ? `<div class="card-sub">Données au ${pi.date} · délai 3–7 j</div>` : ''}
+        </div>
+      </div>
+      <div class="card-body" style="padding:16px">${playKpis}</div>
+    </div>
+
+    ${trendCard}
+    ${freshness}
+  `;
+
+  // Draw trend chart after DOM insertion
+  if (trend.length > 1) {
+    const ctx = document.getElementById(trendChartId);
+    if (ctx) {
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: trend.map(t => t.date),
+          datasets: [{
+            label: 'Installations actives',
+            data: trend.map(t => t.activeInstalls),
+            borderColor: PLAY_CLR,
+            backgroundColor: PLAY_CLR + '18',
+            fill: true,
+            tension: 0.35,
+            pointRadius: 2,
+          }, {
+            label: 'DL du jour',
+            data: trend.map(t => t.dailyInstalls),
+            borderColor: '#F4B400',
+            backgroundColor: 'transparent',
+            tension: 0.35,
+            pointRadius: 2,
+          }]
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          plugins: { legend: { position: 'top', labels: { font: { family: "'Albert Sans'" } } } },
+          scales: { x: { ticks: { maxTicksLimit: 10 } } }
+        }
+      });
+    }
+  }
 }
 
 // ── LINKEDIN ──────────────────────────────────────────────────
