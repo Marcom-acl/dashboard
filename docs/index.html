@@ -4820,7 +4820,8 @@ async function renderMobileApp() {
   }
 
   // ── Apple section ──────────────────────────────────────────────
-  const ar = apple.rating || {};
+  const ar = apple.rating  || {};
+  const au = apple.usage   || {};
   const appleKpis = cfg.apple ? `
     <div class="kpi-grid">
       ${kpiCard({label:'Note globale', value: ar.ratingCount ? starsHtml(ar.rating) : '—', src:APPLE_CLR, srcBg:APPLE_BG,
@@ -4829,10 +4830,26 @@ async function renderMobileApp() {
       ${kpiCard({label:'Note version en cours', value: ar.currentVersionRatingCount ? starsHtml(ar.currentVersionRating) : '—',
                  src:APPLE_CLR, srcBg:APPLE_BG, tooltip:'Note de la version ' + (ar.version || '')})}
       ${apple.installs?.installs != null
-        ? kpiCard({label:'DL récents (Sales Report)', value: fmtN(apple.installs.installs), src:APPLE_CLR, srcBg:APPLE_BG,
+        ? kpiCard({label:'Téléchargements (j)', value: fmtN(apple.installs.installs), src:APPLE_CLR, srcBg:APPLE_BG,
                    tooltip:'Journée du ' + (apple.installs.date || '')})
         : kpiCard({label:'Téléchargements', value:'—', src:APPLE_CLR, srcBg:APPLE_BG,
                    tooltip:'Configurer ASC_VENDOR_NUMBER pour activer les Sales Reports'})}
+      ${au.activeDevices != null
+        ? kpiCard({label:'Appareils actifs', value: fmtN(au.activeDevices), src:APPLE_CLR, srcBg:APPLE_BG,
+                   tooltip:'Appareils ayant ouvert l\'app le ' + (au.date || '')})
+        : ''}
+      ${au.activeDevices30d != null
+        ? kpiCard({label:'Actifs (30 jours)', value: fmtN(au.activeDevices30d), src:APPLE_CLR, srcBg:APPLE_BG,
+                   tooltip:'Appareils actifs sur les 30 derniers jours'})
+        : ''}
+      ${au.sessions != null
+        ? kpiCard({label:'Sessions iOS', value: fmtN(au.sessions), src:APPLE_CLR, srcBg:APPLE_BG,
+                   tooltip:'Sessions du ' + (au.date || '')})
+        : ''}
+      ${au.crashes != null
+        ? kpiCard({label:'Crashs iOS', value: fmtN(au.crashes), src:au.crashes > 5 ? '#e53e3e' : APPLE_CLR, srcBg:APPLE_BG,
+                   tooltip:'Crashs du ' + (au.date || '')})
+        : ''}
     </div>` : `<p style="color:var(--muted);padding:12px 0">Configurer ASC_APP_ID et ASC_PRIVATE_KEY pour activer les stats Apple.</p>`;
 
   const appleReviews = (apple.reviews || []).length
@@ -4912,6 +4929,8 @@ async function renderMobileApp() {
     ${trendCard}
     ${freshness}
   `;
+
+  animateCards(el);
 
   // Draw trend chart after DOM insertion
   if (trend.length > 1) {

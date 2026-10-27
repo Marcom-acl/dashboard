@@ -6229,20 +6229,21 @@ def _asc_stats():
         except Exception as e:
             print(f'[ASC] Reviews error: {e}', flush=True)
 
-    # Installations via Sales Reports (nécessite ASC_VENDOR_NUMBER)
+    # Installations & usage via Sales Reports (nécessite ASC_VENDOR_NUMBER)
     installs_data = {}
+    usage_data    = {}
     if token and ASC_VENDOR_NUMBER and ASC_APP_ID:
         import gzip, csv, io as sio
         today = datetime.date.today()
-        for delta in range(3, 10):
-            date_str = (today - datetime.timedelta(days=delta)).isoformat()
+
+        def _asc_report(report_type, date_str):
             try:
                 r = _get(
                     'https://api.appstoreconnect.apple.com/v1/salesReports',
                     headers={'Authorization': f'Bearer {token}',
                              'Accept': 'application/a-gzip'},
                     params={
-                        'filter[reportType]':    'INSTALLS',
+                        'filter[reportType]':    report_type,
                         'filter[reportSubType]': 'SUMMARY',
                         'filter[frequency]':     'DAILY',
                         'filter[reportDate]':    date_str,
@@ -6251,18 +6252,42 @@ def _asc_stats():
                     timeout=20,
                 )
                 if r.ok and r.content:
-                    content = gzip.decompress(r.content).decode('utf-8')
-                    rows = list(csv.DictReader(sio.StringIO(content), delimiter='\t'))
-                    total = sum(int(row.get('Units') or 0) for row in rows)
-                    installs_data = {'date': date_str, 'installs': total}
-                    break
-            except Exception:
-                continue
+                    return list(csv.DictReader(
+                        sio.StringIO(gzip.decompress(r.content).decode('utf-8')),
+                        delimiter='\t'))
+            except Exception as e:
+                print(f'[ASC] {report_type} {date_str}: {e}', flush=True)
+            return None
+
+        for delta in range(3, 11):
+            date_str = (today - datetime.timedelta(days=delta)).isoformat()
+            rows = _asc_report('INSTALLS', date_str)
+            if rows is not None:
+                total = sum(int(row.get('Units') or 0) for row in rows)
+                installs_data = {'date': date_str, 'installs': total}
+                break
+
+        for delta in range(3, 11):
+            date_str = (today - datetime.timedelta(days=delta)).isoformat()
+            rows = _asc_report('USAGE_V2', date_str)
+            if rows:
+                app_id_str = str(ASC_APP_ID)
+                app_rows = [row for row in rows
+                            if str(row.get('Apple Identifier', '')) == app_id_str] or rows
+                usage_data = {
+                    'date':             date_str,
+                    'activeDevices':    sum(int(row.get('Active Devices') or 0) for row in app_rows),
+                    'activeDevices30d': sum(int(row.get('Active Devices Last 30 Days') or 0) for row in app_rows),
+                    'sessions':         sum(int(row.get('Sessions') or 0) for row in app_rows),
+                    'crashes':          sum(int(row.get('Crashes') or 0) for row in app_rows),
+                }
+                break
 
     return {
         'rating':       rating_data,
         'reviews':      reviews,
         'installs':     installs_data,
+        'usage':        usage_data,
         'configured':   bool(ASC_APP_ID),
         'fullAccess':   bool(token),
     }
