@@ -431,12 +431,12 @@
   {
     "date": "2026-10-27",
     "acl": {
-      "mobile": 32,
-      "desktop": 42
+      "mobile": 43,
+      "desktop": 55
     },
     "auto": {
-      "mobile": 63,
-      "desktop": 64
+      "mobile": 60,
+      "desktop": 86
     }
   }
 ]
