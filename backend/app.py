@@ -96,7 +96,8 @@ def _cache_set(key, data, ttl):
 BREVO_API_KEY     = os.environ.get('BREVO_API_KEY', '')
 FB_APP_ID         = os.environ.get('FB_APP_ID', '')
 FB_APP_SECRET     = os.environ.get('FB_APP_SECRET', '')
-ANTHROPIC_API_KEY = os.environ.get('ANTHROPIC_API_KEY', '')
+ANTHROPIC_API_KEY       = os.environ.get('ANTHROPIC_API_KEY', '')
+ANTHROPIC_WORKSPACE_ID  = os.environ.get('ANTHROPIC_WORKSPACE_ID', '')
 GOOGLE_CLIENT_ID     = os.environ.get('GOOGLE_CLIENT_ID', '')
 GOOGLE_CLIENT_SECRET = os.environ.get('GOOGLE_CLIENT_SECRET', '')
 GOOGLE_REFRESH_TOKEN = os.environ.get('GOOGLE_REFRESH_TOKEN', '')
@@ -108,6 +109,15 @@ DATAFORSEO_LOGIN     = os.environ.get('DATAFORSEO_LOGIN', '')
 DATAFORSEO_PASSWORD  = os.environ.get('DATAFORSEO_PASSWORD', '')
 GOOGLE_API_KEY       = os.environ.get('GOOGLE_API_KEY', '')
 GITHUB_TOKEN         = os.environ.get('GITHUB_TOKEN', '')
+
+# ── Anthropic client factory ──────────────────────────────────────────────────
+def _anthropic_client():
+    """Renvoie un client Anthropic avec le header workspace-id si défini."""
+    import anthropic
+    kwargs = {'api_key': ANTHROPIC_API_KEY}
+    if ANTHROPIC_WORKSPACE_ID:
+        kwargs['default_headers'] = {'anthropic-workspace-id': ANTHROPIC_WORKSPACE_ID}
+    return anthropic.Anthropic(**kwargs)
 
 # ── CTR curve (expected CTR by position, used in /insights/web score_v2) ─────
 _CTR_CURVE = {1:0.28, 2:0.15, 3:0.11, 4:0.08, 5:0.07, 6:0.065, 7:0.055, 8:0.045, 9:0.035, 10:0.02}
@@ -3172,8 +3182,7 @@ def get_insights():
     if mode == 'section':
         prompt = build_section_prompt(data)
         try:
-            import anthropic
-            client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
+            client = _anthropic_client()
             msg = client.messages.create(
                 model='claude-haiku-4-5-20251001',
                 max_tokens=100,
@@ -3187,8 +3196,7 @@ def get_insights():
     if mode == 'greeting':
         prompt = build_greeting_prompt(data)
         try:
-            import anthropic
-            client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
+            client = _anthropic_client()
             msg = client.messages.create(
                 model='claude-haiku-4-5-20251001',
                 max_tokens=80,
@@ -3202,8 +3210,7 @@ def get_insights():
     if mode == 'market':
         prompt = build_market_prompt(data)
         try:
-            import anthropic
-            client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
+            client = _anthropic_client()
             msg = client.messages.create(
                 model='claude-haiku-4-5-20251001',
                 max_tokens=512,
@@ -3216,8 +3223,7 @@ def get_insights():
     if mode == 'partners':
         prompt = build_partners_prompt(data)
         try:
-            import anthropic
-            client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
+            client = _anthropic_client()
             msg = client.messages.create(
                 model='claude-haiku-4-5-20251001',
                 max_tokens=1024,
@@ -3230,8 +3236,7 @@ def get_insights():
     prompt = build_insights_prompt(data)
 
     try:
-        import anthropic
-        client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
+        client = _anthropic_client()
         msg = client.messages.create(
             model='claude-haiku-4-5-20251001',
             max_tokens=3000,
@@ -3405,8 +3410,7 @@ effort (faible=seul snippet à modifier · moyen=snippet pauvre contenu OK · fo
 Réponds UNIQUEMENT avec un JSON array dans le même ordre que l'input.
 {json.dumps(ai_input, ensure_ascii=False)}"""
         try:
-            import anthropic as _anth
-            _c2 = _anth.Anthropic(api_key=ANTHROPIC_API_KEY)
+            _c2 = _anthropic_client()
             _msg2 = _c2.messages.create(
                 model='claude-haiku-4-5-20251001', max_tokens=2500,
                 system='Réponds UNIQUEMENT avec un JSON array valide. Aucun markdown.',
@@ -3494,8 +3498,7 @@ Catégories possibles : SEO, CRO, Contenu, UX, Acquisition.
 Utilise les vrais chiffres des données. Pas de platitudes génériques."""
 
     try:
-        import anthropic
-        client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
+        client = _anthropic_client()
         msg = client.messages.create(
             model='claude-haiku-4-5-20251001',
             max_tokens=1500,
@@ -5941,8 +5944,7 @@ def poweron_translate():
         + json.dumps(texts, ensure_ascii=False)
     )
     try:
-        import anthropic
-        client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
+        client = _anthropic_client()
         msg = client.messages.create(
             model='claude-sonnet-5',
             max_tokens=16000,
