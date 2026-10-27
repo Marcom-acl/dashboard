@@ -6182,22 +6182,37 @@ def _gplay_stats():
 def _asc_stats():
     """Stats App Store : rating iTunes + reviews + installs (si vendor number configuré)."""
     rating_data = {}
-    # Rating via l'API iTunes publique (sans auth, instantané)
+    # Rating via iTunes (public, no auth) — try multiple storefronts in parallel
     if ASC_APP_ID:
+        def _itunes(country):
+            try:
+                r = _get('https://itunes.apple.com/lookup',
+                         params={'id': ASC_APP_ID, 'country': country}, timeout=8)
+                if r.ok:
+                    results = r.json().get('results', [])
+                    if results:
+                        return country, results[0]
+            except Exception as e:
+                print(f'[ASC] iTunes {country}: {e}', flush=True)
+            return country, None
+
         try:
-            r = _get('https://itunes.apple.com/lookup',
-                     params={'id': ASC_APP_ID, 'country': 'lu'}, timeout=10)
-            if r.ok:
-                results = r.json().get('results', [])
-                if results:
-                    app = results[0]
-                    rating_data = {
-                        'rating':                    round(float(app.get('averageUserRating') or 0), 1),
-                        'ratingCount':               int(app.get('userRatingCount') or 0),
-                        'currentVersionRating':      round(float(app.get('averageUserRatingForCurrentVersion') or 0), 1),
-                        'currentVersionRatingCount': int(app.get('userRatingCountForCurrentVersion') or 0),
-                        'version':                   app.get('version', ''),
-                    }
+            with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
+                futs = [pool.submit(_itunes, c) for c in ['lu', 'be', 'fr', 'de']]
+            best_count, best_app = 0, None
+            for fut in concurrent.futures.as_completed(futs):
+                _, app = fut.result()
+                if app and int(app.get('userRatingCount') or 0) > best_count:
+                    best_count = int(app.get('userRatingCount') or 0)
+                    best_app = app
+            if best_app:
+                rating_data = {
+                    'rating':                    round(float(best_app.get('averageUserRating') or 0), 1),
+                    'ratingCount':               int(best_app.get('userRatingCount') or 0),
+                    'currentVersionRating':      round(float(best_app.get('averageUserRatingForCurrentVersion') or 0), 1),
+                    'currentVersionRatingCount': int(best_app.get('userRatingCountForCurrentVersion') or 0),
+                    'version':                   best_app.get('version', ''),
+                }
         except Exception as e:
             print(f'[ASC] iTunes lookup error: {e}', flush=True)
 
