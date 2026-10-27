@@ -4780,7 +4780,7 @@ async function renderMobileApp() {
   el.innerHTML = `<div style="padding:48px;text-align:center;color:var(--muted)">Chargement des statistiques application…</div>`;
 
   let d;
-  try { d = await api('/mobile-app'); } catch(e) { d = null; }
+  try { d = await apiSlow('/mobile-app'); } catch(e) { d = null; }
 
   if (!d) {
     el.innerHTML = errState('App MyACL', 'Impossible de joindre le backend');

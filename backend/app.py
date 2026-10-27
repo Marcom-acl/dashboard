@@ -6249,7 +6249,7 @@ def _asc_stats():
                         'filter[reportDate]':    date_str,
                         'filter[vendorNumber]':  ASC_VENDOR_NUMBER,
                     },
-                    timeout=20,
+                    timeout=10,
                 )
                 if r.ok and r.content:
                     return list(csv.DictReader(
@@ -6259,29 +6259,35 @@ def _asc_stats():
                 print(f'[ASC] {report_type} {date_str}: {e}', flush=True)
             return None
 
-        for delta in range(3, 11):
-            date_str = (today - datetime.timedelta(days=delta)).isoformat()
-            rows = _asc_report('INSTALLS', date_str)
-            if rows is not None:
-                total = sum(int(row.get('Units') or 0) for row in rows)
-                installs_data = {'date': date_str, 'installs': total}
+        # Fetch INSTALLS + USAGE_V2 in parallel per date (max 5 dates)
+        for delta in range(3, 8):
+            if installs_data and usage_data:
                 break
-
-        for delta in range(3, 11):
             date_str = (today - datetime.timedelta(days=delta)).isoformat()
-            rows = _asc_report('USAGE_V2', date_str)
-            if rows:
-                app_id_str = str(ASC_APP_ID)
-                app_rows = [row for row in rows
-                            if str(row.get('Apple Identifier', '')) == app_id_str] or rows
-                usage_data = {
-                    'date':             date_str,
-                    'activeDevices':    sum(int(row.get('Active Devices') or 0) for row in app_rows),
-                    'activeDevices30d': sum(int(row.get('Active Devices Last 30 Days') or 0) for row in app_rows),
-                    'sessions':         sum(int(row.get('Sessions') or 0) for row in app_rows),
-                    'crashes':          sum(int(row.get('Crashes') or 0) for row in app_rows),
-                }
-                break
+            types_needed = []
+            if not installs_data: types_needed.append('INSTALLS')
+            if not usage_data:    types_needed.append('USAGE_V2')
+            with concurrent.futures.ThreadPoolExecutor(max_workers=2) as pool:
+                futs = {rt: pool.submit(_asc_report, rt, date_str) for rt in types_needed}
+            for rt, fut in futs.items():
+                try:
+                    rows = fut.result()
+                except Exception:
+                    rows = None
+                if rows and rt == 'INSTALLS':
+                    installs_data = {'date': date_str,
+                                     'installs': sum(int(row.get('Units') or 0) for row in rows)}
+                elif rows and rt == 'USAGE_V2':
+                    app_id_str = str(ASC_APP_ID)
+                    app_rows = [row for row in rows
+                                if str(row.get('Apple Identifier', '')) == app_id_str] or rows
+                    usage_data = {
+                        'date':             date_str,
+                        'activeDevices':    sum(int(row.get('Active Devices') or 0) for row in app_rows),
+                        'activeDevices30d': sum(int(row.get('Active Devices Last 30 Days') or 0) for row in app_rows),
+                        'sessions':         sum(int(row.get('Sessions') or 0) for row in app_rows),
+                        'crashes':          sum(int(row.get('Crashes') or 0) for row in app_rows),
+                    }
 
     return {
         'rating':       rating_data,
