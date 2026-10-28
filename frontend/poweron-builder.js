@@ -14,9 +14,11 @@
   // Champs traduisibles : item.t.fr / item.t.de. Le reste (noms, photos,
   // structure) est commun aux deux langues.
   const person = () => ({ name: '', photo: { url: '' } });
+  const newContrib = () => ({ type: 'contrib', ...person(), t: { fr: { title: '', role: '', quote: '' }, de: {} } });
+  const newSite = () => ({ type: 'site', url: '', t: { fr: { name: '', description: '' }, de: {} } });
   const newFocus = () => ({ ...person(), twoCols: true,
     t: { fr: { label: 'Focus projet', title: '', role: '', body: '' }, de: { label: 'Projekt im Fokus' } },
-    contrib: { on: false, ...person(), t: { fr: { title: '', role: '', quote: '' }, de: {} } },
+    contribs: [],
     cta: { on: false, url: '', t: { fr: { text: 'En savoir plus' }, de: { text: 'Mehr erfahren' } } },
     // Blocs affichés juste après ce projet (en plus de ceux de fin d'email)
     extras: { gallery: newGallery(), encadre: newEncadre(), kpis: newKpis() } });
@@ -61,6 +63,12 @@
     s.focus.forEach(f => {
       if (!f.extras) f.extras = { gallery: newGallery(), encadre: newEncadre(), kpis: newKpis() };
       if (!f.cta) f.cta = { on: false, url: '', t: { fr: { text: 'En savoir plus' }, de: { text: 'Mehr erfahren' } } };
+      if (!f.contribs) {
+        f.contribs = (f.contrib && f.contrib.on && f.contrib.name)
+          ? [{ type: 'contrib', name: f.contrib.name, photo: { ...f.contrib.photo }, t: { fr: { ...f.contrib.t.fr }, de: { ...(f.contrib.t.de || {}) } } }]
+          : [];
+        delete f.contrib;
+      }
     });
     const g = s.signature;
     if (!g.people) {
@@ -223,10 +231,14 @@ ${pp(ps.slice(mid))}
         body = paras(tx(f, 'body', l), BODY);
       }
     }
-    const contrib = f.contrib.on && f.contrib.name ? quoteCard(f.contrib, f.contrib, l, ' margin-top:22px;') : '';
+    const contribsHtml = (f.contribs || []).map(c => {
+      if (c.type === 'contrib') return c.name ? quoteCard(c, c, l, ' margin-top:22px;') : '';
+      if (c.type === 'site') return blkSiteCard(c, l);
+      return '';
+    }).filter(Boolean).join('\n');
     const ctaBtn = blkCta(f.cta, l);
     return (first ? '' : divider(28)) + `
-          <!-- FOCUS PROJET -->` + row(22, [secLabel(tx(f, 'label', l)), f.name ? personHead(f, subOf(f, l), SZ_HEAD) : '', body, contrib, ctaBtn].filter(Boolean).join('\n'));
+          <!-- FOCUS PROJET -->` + row(22, [secLabel(tx(f, 'label', l)), f.name ? personHead(f, subOf(f, l), SZ_HEAD) : '', body, contribsHtml, ctaBtn].filter(Boolean).join('\n'));
   }
 
   function blkGallery(g) {
@@ -244,6 +256,26 @@ ${pp(ps.slice(mid))}
 ${cells}
                 </tr>
               </table>`);
+  }
+
+  function blkSiteCard(item, l) {
+    const name = tx(item, 'name', l);
+    const url = (item.url || '').trim();
+    const desc = tx(item, 'description', l);
+    if (!name && !url) return '';
+    const nameHtml = name
+      ? (isUrl(url) ? `<a href="${esc(url)}" style="${F} font-size:13.5px; font-weight:bold; color:#1a1a1a; text-decoration:none;">${esc(name)}</a>`
+                     : `<span style="${F} font-size:13.5px; font-weight:bold; color:#1a1a1a;">${esc(name)}</span>`)
+      : '';
+    return `              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #ededed; border-left:4px solid #ededed; border-radius:10px; margin-top:22px;">
+                <tr>
+                  <td style="padding:20px 24px;">
+                    ${nameHtml ? `<p style="margin:0 0 6px 0;">${nameHtml}</p>` : ''}
+                    ${isUrl(url) ? `<p style="margin:0 0 6px 0; ${F} font-size:12px; color:#777777;"><a href="${esc(url)}" style="color:#777777; text-decoration:underline;">${esc(url.replace(/^https?:\/\//, ''))}</a></p>` : ''}
+                    ${desc ? `<p style="margin:0; ${F} font-size:13px; line-height:1.6; color:#333333;">${esc(desc)}</p>` : ''}
+                  </td>
+                </tr>
+              </table>`;
   }
 
   function blkMetier(m, l) {
@@ -574,10 +606,15 @@ ${signer(ppl[1], l, '                    ')}
       if (!f.t.fr.role.trim()) w.push(`Focus projet ${i + 1} : rôle projet manquant (sponsor, chef de projet, contributeur…)`);
       if (!richToParas(f.t.fr.body).length) w.push(`Focus projet ${i + 1} : texte vide`);
       if (f.cta.on && !isUrl(f.cta.url)) w.push(`Focus projet ${i + 1} : bouton CTA activé mais URL manquante ou invalide (doit commencer par https://)`);
-      if (f.contrib.on) {
-        ppl.push([`Focus projet ${i + 1} — citation`, f.contrib]);
-        if (!f.contrib.t.fr.role.trim()) w.push(`Focus projet ${i + 1} — citation : rôle projet manquant`);
-      }
+      (f.contribs || []).forEach((c, ci) => {
+        if (c.type === 'contrib') {
+          ppl.push([`Focus projet ${i + 1} — contributeur ${ci + 1}`, c]);
+          if (!c.t.fr.role.trim()) w.push(`Focus projet ${i + 1} — contributeur ${ci + 1} : rôle manquant`);
+        }
+        if (c.type === 'site' && c.url && !isUrl(c.url)) {
+          w.push(`Focus projet ${i + 1} — site ${ci + 1} : URL invalide (doit commencer par https://)`);
+        }
+      });
     });
     S.metier.forEach((m, i) => { ppl.push([`Focus métier ${i + 1}`, m]); if (!stripQuotes(m.t.fr.quote)) w.push(`Focus métier ${i + 1} : citation vide`); });
     if (S.signature.on) S.signature.people.forEach((p, i) => ppl.push([`Signataire ${i + 1}`, p]));
@@ -764,8 +801,23 @@ ${signer(ppl[1], l, '                    ')}
     // Focus projet
     S.focus.forEach((f, i) => {
       const b = `focus.${i}`;
-      const contrib = subBlock('Citation d\'un contributeur (encadré jaune)', `${b}.contrib.on`,
-        personFields(f.contrib, `${b}.contrib`, { role: true }) + fT('Citation', f.contrib, `${b}.contrib`, 'quote', { area: true, rows: 4, hint: 'Les guillemets sont ajoutés automatiquement.' }));
+      const contribsList = (f.contribs || []).map((c, ci) => {
+        const cb = `${b}.contribs.${ci}`;
+        if (c.type === 'contrib') return `<div class="pob-sub">
+          <h5>Contributeur${!DE() ? `<button type="button" class="pob-x" data-act="del-contrib" data-base="${b}" data-i="${ci}" title="Retirer ce bloc">✕</button>` : ''}</h5>
+          ${personFields(c, cb, { role: true })}
+          ${fT('Citation', c, cb, 'quote', { area: true, rows: 4, hint: 'Les guillemets sont ajoutés automatiquement.' })}
+        </div>`;
+        if (c.type === 'site') return `<div class="pob-sub">
+          <h5>Site / lien${!DE() ? `<button type="button" class="pob-x" data-act="del-contrib" data-base="${b}" data-i="${ci}" title="Retirer ce bloc">✕</button>` : ''}</h5>
+          ${fT('Nom du site', c, cb, 'name', { half: true, ph: 'Mon Intranet' })}
+          ${DE() ? '' : fN('URL', `${cb}.url`, { half: true, ph: 'https://…' })}
+          ${fT('Description', c, cb, 'description', { area: true, rows: 3, ph: 'Courte description ou contexte du lien' })}
+        </div>`;
+        return '';
+      }).join('');
+      const contribsAdd = !DE() ? `<div style="display:flex;gap:8px;width:100%;"><button type="button" class="pob-add" style="flex:1;" data-act="add-contrib" data-base="${b}">＋ Contributeur</button><button type="button" class="pob-add" style="flex:1;" data-act="add-site" data-base="${b}">＋ Site / lien</button></div>` : '';
+      const contrib = contribsList + contribsAdd;
       const x = f.extras, xb = `${b}.extras`;
       const after = (DE() && !x.gallery.on && !x.encadre.on && !x.kpis.on) ? '' : `<div class="pob-group"><h5>Juste après ce projet</h5>`
         + subBlock('Galerie photos', `${xb}.gallery.on`, galleryFields(x.gallery, `${xb}.gallery`))
@@ -893,6 +945,9 @@ ${signer(ppl[1], l, '                    ')}
       case 'translate': translate(); break;
       case 'add-focus': S.focus.push(newFocus()); restructure(); break;
       case 'del-focus': if (confirm('Supprimer ce focus projet ?')) { S.focus.splice(i, 1); restructure(); } break;
+      case 'add-contrib': getP(S, base + '.contribs').push(newContrib()); restructure(); break;
+      case 'add-site': getP(S, base + '.contribs').push(newSite()); restructure(); break;
+      case 'del-contrib': getP(S, base + '.contribs').splice(i, 1); restructure(); break;
       case 'add-metier': S.metier.push(newMetier()); restructure(); break;
       case 'del-metier': if (confirm('Supprimer ce focus métier ?')) { S.metier.splice(i, 1); restructure(); } break;
       case 'add-photo': getP(S, base).photos.push({ url: '', alt: '' }); restructure(); break;
