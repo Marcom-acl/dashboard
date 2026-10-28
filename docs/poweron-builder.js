@@ -53,6 +53,7 @@
   let previewMode = 'desktop';
   const pending = new Set();
   let built = false;
+  const arcState = { open: false, editions: [], loading: false };
 
   function load() {
     try { const s = JSON.parse(localStorage.getItem(LS_KEY) || 'null'); if (s && s.v === 1) return migrate(s); } catch (e) {}
@@ -657,6 +658,70 @@ ${signer(ppl[1], l, '                    ')}
     return w;
   }
 
+  // ── Archive ─────────────────────────────────────────────────────────────────
+  async function arcFetchList() {
+    arcState.loading = true; renderForm();
+    try {
+      const r = await fetch(`${API_BASE}/poweron/archive`, { signal: AbortSignal.timeout(15000) });
+      const d = await r.json().catch(() => ({}));
+      if (!r.ok) throw new Error(d.error || `HTTP ${r.status}`);
+      arcState.editions = d.editions || [];
+    } catch (e) {
+      showToast('Impossible de charger les archives : ' + e.message, 'error');
+    }
+    arcState.loading = false; renderForm();
+  }
+
+  async function arcSave() {
+    const ed = String(S.meta.edition || '').trim();
+    if (!ed) { showToast('Renseignez le numéro d\'édition avant d\'archiver', 'error'); return; }
+    const btn = document.querySelector('#pob [data-act="archive"]');
+    if (btn) { btn.disabled = true; btn.textContent = 'Archivage…'; }
+    try {
+      const r = await fetch(`${API_BASE}/poweron/archive`, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ draft: S }), signal: AbortSignal.timeout(20000),
+      });
+      const d = await r.json().catch(() => ({}));
+      if (!r.ok) throw new Error(d.error || `HTTP ${r.status}`);
+      showToast(`Édition n°${ed} archivée`);
+      if (arcState.open) arcFetchList();
+    } catch (e) {
+      showToast('Archivage impossible : ' + e.message, 'error');
+    }
+    if (btn) { btn.disabled = false; btn.textContent = '📁 Archiver'; }
+  }
+
+  async function arcLoad(id) {
+    const hasDraft = S.meta.edition || S.edito.t.fr.body || S.focus.some(f => f.t.fr.body);
+    if (hasDraft && !confirm(`Charger l'édition n°${id} ? Le brouillon actuel sera remplacé.\nExportez-le d'abord si vous voulez le garder.`)) return;
+    try {
+      const r = await fetch(`${API_BASE}/poweron/archive/${encodeURIComponent(id)}`, { signal: AbortSignal.timeout(15000) });
+      const d = await r.json().catch(() => ({}));
+      if (!r.ok) throw new Error(d.error || `HTTP ${r.status}`);
+      S = migrate(d.draft); lang = 'fr'; save(); renderForm(); schedule();
+      showToast(`Édition n°${id} chargée`);
+    } catch (e) {
+      showToast('Chargement impossible : ' + e.message, 'error');
+    }
+  }
+
+  async function arcDelete(id) {
+    if (!confirm(`Supprimer l'édition n°${id} de l'archive ? Cette action est irréversible.`)) return;
+    try {
+      const r = await fetch(`${API_BASE}/poweron/archive/${encodeURIComponent(id)}`, {
+        method: 'DELETE', signal: AbortSignal.timeout(15000),
+      });
+      const d = await r.json().catch(() => ({}));
+      if (!r.ok) throw new Error(d.error || `HTTP ${r.status}`);
+      arcState.editions = arcState.editions.filter(e => String(e.edition) !== String(id));
+      renderForm();
+      showToast(`Édition n°${id} supprimée de l'archive`);
+    } catch (e) {
+      showToast('Suppression impossible : ' + e.message, 'error');
+    }
+  }
+
   // ── Formulaire ──────────────────────────────────────────────────────────────
   const DE = () => lang === 'de';
   function fT(label, item, base, key, o = {}) {
@@ -873,6 +938,33 @@ ${signer(ppl[1], l, '                    ')}
       signerFields(s.people, 'signature.people'),
     ].join(''), { toggle: 'signature.on' });
 
+    // ── Archives ──────────────────────────────────────────────────────────────
+    const archOpen = arcState.open;
+    const archEditions = arcState.editions;
+    const archLoading = arcState.loading;
+    h += `<div class="pob-arc-wrap">
+      <button type="button" class="pob-arc-toggle" data-act="arc-toggle">
+        <span>📁 Archives${archEditions.length ? ` <em>${archEditions.length}</em>` : ''}</span>
+        <span class="pob-arc-chevron${archOpen ? ' open' : ''}">▾</span>
+      </button>
+      ${archOpen ? `<div class="pob-arc-panel">
+        ${archLoading ? '<p class="pob-muted" style="padding:10px 0;">Chargement…</p>' : archEditions.length === 0
+          ? '<p class="pob-muted" style="padding:10px 0;">Aucune édition archivée pour l\'instant.</p>'
+          : `<ul class="pob-arc-list">${archEditions.map(e => `<li>
+            <div class="pob-arc-meta">
+              <strong>Éd.&nbsp;${esc(e.edition)}${e.periode ? ` · ${esc(e.periode)}` : ''}</strong>
+              ${e.headline ? `<span>${esc(e.headline)}</span>` : ''}
+            </div>
+            <div class="pob-arc-date">${esc((e.saved_at || '').replace('T', ' '))}</div>
+            <div class="pob-arc-actions">
+              <button type="button" class="pob-btn sm ghost" data-act="arc-load" data-id="${esc(e.edition)}" title="Charger cette édition">↩ Charger</button>
+              <button type="button" class="pob-x" data-act="arc-del" data-id="${esc(e.edition)}" title="Supprimer de l'archive">✕</button>
+            </div>
+          </li>`).join('')}</ul>`}
+        <button type="button" class="pob-btn sm" data-act="arc-refresh" style="margin-top:8px;">↺ Rafraîchir</button>
+      </div>` : ''}
+    </div>`;
+
     h += `<div class="pob-foot-actions">
       <button type="button" class="pob-btn ghost sm" data-act="export-json">Exporter le brouillon (.json)</button>
       <button type="button" class="pob-btn ghost sm" data-act="import-json">Importer un brouillon</button>
@@ -981,6 +1073,15 @@ ${signer(ppl[1], l, '                    ')}
       case 'copy': copyHtml(); break;
       case 'download': download(`${fileBase()}.html`, buildEmail(), 'text/html'); break;
       case 'send': sendTest(); break;
+      case 'archive': arcSave(); break;
+      case 'arc-toggle':
+        arcState.open = !arcState.open;
+        if (arcState.open && !arcState.editions.length && !arcState.loading) arcFetchList();
+        else renderForm();
+        break;
+      case 'arc-refresh': arcFetchList(); break;
+      case 'arc-load': arcLoad(btn.dataset.id); break;
+      case 'arc-del': arcDelete(btn.dataset.id); break;
       case 'view':
         previewMode = btn.dataset.v;
         document.querySelectorAll('#pob [data-act="view"]').forEach(b => b.classList.toggle('on', b === btn));
@@ -1152,6 +1253,20 @@ ${signer(ppl[1], l, '                    ')}
   #pob .pob-langbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:12px 16px;}
   #pob .pob-langbar .pob-sw-inline{width:auto;flex:1 1 260px;}
   #pob .pob-note{font-size:12.5px;line-height:1.5;background:var(--y-soft);color:var(--text);border-radius:var(--r-md);padding:10px 14px;}
+  #pob .pob-arc-wrap{border:1px solid var(--border);border-radius:var(--r-lg);background:var(--surface);overflow:hidden;}
+  #pob .pob-arc-toggle{width:100%;display:flex;justify-content:space-between;align-items:center;padding:11px 14px;font:inherit;font-size:13px;font-weight:600;color:var(--text);background:transparent;border:0;cursor:pointer;text-align:left;}
+  #pob .pob-arc-toggle:hover{background:var(--bg);}
+  #pob .pob-arc-toggle em{font-style:normal;font-size:11px;background:var(--y);color:#231f20;border-radius:99px;padding:1px 7px;margin-left:6px;}
+  #pob .pob-arc-chevron{font-size:12px;color:var(--muted);transition:transform .15s;}
+  #pob .pob-arc-chevron.open{transform:rotate(180deg);}
+  #pob .pob-arc-panel{padding:0 14px 14px;border-top:1px solid var(--border);}
+  #pob .pob-arc-list{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-direction:column;gap:6px;}
+  #pob .pob-arc-list li{display:flex;align-items:center;gap:8px;padding:10px 12px;border:1px solid var(--border);border-radius:var(--r-md);background:var(--bg);}
+  #pob .pob-arc-meta{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;}
+  #pob .pob-arc-meta strong{font-size:13px;color:var(--text);}
+  #pob .pob-arc-meta span{font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  #pob .pob-arc-date{font-size:11px;color:var(--muted);white-space:nowrap;}
+  #pob .pob-arc-actions{display:flex;gap:4px;flex-shrink:0;}
   #pob .pob-foot-actions{display:flex;gap:8px;flex-wrap:wrap;padding:4px 0 20px;}
   #pob-right{position:sticky;top:16px;display:flex;flex-direction:column;gap:12px;}
   #pob .pob-out{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:14px 16px;display:flex;flex-direction:column;gap:12px;}
@@ -1190,6 +1305,7 @@ ${signer(ppl[1], l, '                    ')}
           <div class="pob-out-row">
             <button type="button" class="pob-btn primary" data-act="copy">Copier le code HTML</button>
             <button type="button" class="pob-btn ghost" data-act="download">Télécharger le .html</button>
+            <button type="button" class="pob-btn ghost" data-act="archive" title="Sauvegarder cette édition dans l'archive partagée">📁 Archiver</button>
           </div>
           <div class="pob-out-row">
             <input class="pob-in sm" id="pob-test-to" type="email" value="${esc(testTo)}" placeholder="prenom.nom@acl.lu" aria-label="Adresse pour l'envoi test">

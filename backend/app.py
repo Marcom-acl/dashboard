@@ -5839,6 +5839,8 @@ def wrike_create_request():
 import tempfile as _tempfile
 import uuid as _uuid
 
+POWERON_ARCHIVE_PATH = 'data/poweron-archive.json'
+POWERON_ARCHIVE_URL  = f'https://raw.githubusercontent.com/{GITHUB_REPO}/main/{POWERON_ARCHIVE_PATH}'
 POWERON_SENDER       = {'email': 'digital@acl.lu', 'name': 'ACL – POWER ON!'}
 POWERON_TEST_DOMAIN  = '@acl.lu'
 POWERON_MAX_IMAGE    = 8 * 1024 * 1024
@@ -5996,6 +5998,122 @@ def poweron_send_test():
         return jsonify({'ok': True})
     except requests.RequestException as e:
         return jsonify({'error': f'Brevo injoignable : {e}'}), 502
+
+
+# ── Power ON — Archive ────────────────────────────────────────────────────────
+
+def _read_poweron_archive():
+    """Lit poweron-archive.json depuis GitHub. Renvoie {'editions': [...]}."""
+    try:
+        r = requests.get(POWERON_ARCHIVE_URL, timeout=10)
+        if r.status_code == 404:
+            return {'editions': []}
+        r.raise_for_status()
+        return r.json()
+    except Exception:
+        return {'editions': []}
+
+
+def _write_poweron_archive(data):
+    """Écrit poweron-archive.json sur GitHub via l'API REST."""
+    if not GITHUB_TOKEN:
+        return False, 'GITHUB_TOKEN manquant'
+    content_b64 = base64.b64encode(
+        json.dumps(data, ensure_ascii=False, indent=2).encode('utf-8')
+    ).decode('ascii')
+    api_url = f'https://api.github.com/repos/{GITHUB_REPO}/contents/{POWERON_ARCHIVE_PATH}'
+    headers = {'Authorization': f'token {GITHUB_TOKEN}', 'Accept': 'application/vnd.github.v3+json'}
+    sha = None
+    try:
+        r = requests.get(api_url, headers=headers, timeout=10)
+        if r.ok:
+            sha = r.json().get('sha')
+    except Exception:
+        pass
+    payload = {
+        'message': f'archive poweron — {datetime.date.today().isoformat()}',
+        'content': content_b64,
+    }
+    if sha:
+        payload['sha'] = sha
+    try:
+        r = requests.put(api_url, headers=headers, json=payload, timeout=15)
+        return r.ok, ('' if r.ok else f'GitHub {r.status_code}')
+    except Exception as e:
+        return False, str(e)
+
+
+@app.route('/poweron/archive', methods=['GET'])
+def poweron_archive_list():
+    """Liste toutes les éditions archivées (métadonnées uniquement, sans le draft)."""
+    archive = _read_poweron_archive()
+    editions = [
+        {k: v for k, v in e.items() if k != 'draft'}
+        for e in archive.get('editions', [])
+    ]
+    return jsonify({'editions': editions})
+
+
+@app.route('/poweron/archive', methods=['POST'])
+def poweron_archive_save():
+    """Sauvegarde ou met à jour une édition (upsert par numéro d'édition)."""
+    if not GITHUB_TOKEN:
+        return jsonify({'error': 'GITHUB_TOKEN manquant — archivage impossible'}), 503
+    body = request.json or {}
+    draft = body.get('draft')
+    if not draft or not isinstance(draft, dict):
+        return jsonify({'error': 'draft manquant'}), 400
+    meta = draft.get('meta', {})
+    fr = (meta.get('t') or {}).get('fr', {})
+    edition_num = str(meta.get('edition', '')).strip()
+    if not edition_num:
+        return jsonify({'error': 'Numéro d\'édition manquant dans le brouillon'}), 400
+
+    entry = {
+        'id': edition_num,
+        'edition': edition_num,
+        'periode': fr.get('periode', '').strip(),
+        'headline': fr.get('headline', '').strip(),
+        'saved_at': datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M'),
+        'draft': draft,
+    }
+    archive = _read_poweron_archive()
+    editions = archive.get('editions', [])
+    idx = next((i for i, e in enumerate(editions) if str(e.get('id')) == edition_num), None)
+    if idx is not None:
+        editions[idx] = entry
+    else:
+        editions.append(entry)
+    editions.sort(key=lambda e: int(e['id']) if str(e.get('id', '')).isdigit() else 0, reverse=True)
+    ok, err = _write_poweron_archive({'editions': editions})
+    if not ok:
+        return jsonify({'error': f'Écriture GitHub impossible : {err}'}), 502
+    return jsonify({'ok': True, 'id': edition_num})
+
+
+@app.route('/poweron/archive/<edition_id>', methods=['GET'])
+def poweron_archive_get(edition_id):
+    """Renvoie une édition complète (avec draft) par son id."""
+    archive = _read_poweron_archive()
+    entry = next((e for e in archive.get('editions', []) if str(e.get('id')) == str(edition_id)), None)
+    if not entry:
+        return jsonify({'error': 'Édition introuvable'}), 404
+    return jsonify(entry)
+
+
+@app.route('/poweron/archive/<edition_id>', methods=['DELETE'])
+def poweron_archive_delete(edition_id):
+    """Supprime une édition archivée."""
+    if not GITHUB_TOKEN:
+        return jsonify({'error': 'GITHUB_TOKEN manquant'}), 503
+    archive = _read_poweron_archive()
+    editions = [e for e in archive.get('editions', []) if str(e.get('id')) != str(edition_id)]
+    if len(editions) == len(archive.get('editions', [])):
+        return jsonify({'error': 'Édition introuvable'}), 404
+    ok, err = _write_poweron_archive({'editions': editions})
+    if not ok:
+        return jsonify({'error': f'Écriture GitHub impossible : {err}'}), 502
+    return jsonify({'ok': True})
 
 
 # ─────────────────────────────────────────────────────────────────────────────
