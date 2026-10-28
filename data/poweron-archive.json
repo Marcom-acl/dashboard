@@ -1,0 +1,88 @@
+{
+  "editions": [
+    {
+      "id": "99",
+      "edition": "99",
+      "periode": "Test",
+      "headline": "Test headline",
+      "saved_at": "2026-10-28T17:00",
+      "draft": {
+        "v": 1,
+        "meta": {
+          "edition": "99",
+          "t": {
+            "fr": {
+              "periode": "Test",
+              "headline": "Test headline",
+              "preheader": ""
+            },
+            "de": {
+              "headline": ""
+            }
+          }
+        },
+        "header": {
+          "on": false,
+          "image": {
+            "url": ""
+          }
+        },
+        "edito": {
+          "on": true,
+          "name": "",
+          "photo": {
+            "url": ""
+          },
+          "sign": {
+            "on": false,
+            "people": []
+          },
+          "t": {
+            "fr": {
+              "label": "Édito",
+              "title": "",
+              "body": ""
+            },
+            "de": {
+              "label": "Editorial"
+            }
+          }
+        },
+        "focus": [],
+        "gallery": {
+          "on": false,
+          "photos": []
+        },
+        "metier": [],
+        "encadre": {
+          "on": false,
+          "cols": [],
+          "t": {
+            "fr": {
+              "title": ""
+            },
+            "de": {}
+          }
+        },
+        "kpis": {
+          "on": false,
+          "items": []
+        },
+        "signature": {
+          "on": true,
+          "people": [],
+          "t": {
+            "fr": {
+              "body": ""
+            },
+            "de": {}
+          }
+        },
+        "de": {
+          "on": false,
+          "src": ""
+        }
+      }
+    }
+  ]
+}
