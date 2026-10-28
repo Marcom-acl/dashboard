@@ -36,6 +36,7 @@
     return {
       v: 1,
       meta: { edition: '', t: { fr: { periode: '', headline: '', preheader: '' }, de: { headline: '' } } },
+      header:    { on: false, image: { url: '' } },
       edito:     { on: true, ...person(), sign: { on: false, people: [newSigner()] }, t: { fr: { label: 'Édito', title: '', body: '' }, de: { label: 'Editorial' } } },
       focus:     [newFocus()],
       gallery:   newGallery(),
@@ -59,6 +60,7 @@
   }
   // Brouillons créés avant l'ajout des blocs par projet et des 2 signataires
   function migrate(s) {
+    if (!s.header) s.header = { on: false, image: { url: '' } };
     if (!s.edito.sign) s.edito.sign = { on: false, people: [newSigner()] };
     s.focus.forEach(f => {
       if (!f.extras) f.extras = { gallery: newGallery(), encadre: newEncadre(), kpis: newKpis() };
@@ -442,7 +444,13 @@ ${signer(ppl[1], l, '                    ')}
               </table>
             </td>
           </tr>
-` + yellowBar(18);
+` + (S.header.on && isUrl((S.header.image || {}).url) ? `
+          <!-- IMAGE HEADER -->
+          <tr>
+            <td style="padding:0; font-size:0; line-height:0;">
+              <img src="${esc(S.header.image.url)}" alt="" width="640" style="display:block; width:100%; max-width:640px; height:auto;" />
+            </td>
+          </tr>` : '') + yellowBar(18);
     if ((fr.headline || '').trim()) h += row(14, `              <p style="margin:0; ${F} font-size:15px; font-weight:bold; color:#1a1a1a;">${esc(fr.headline)}</p>`);
     if (S.de.on) h += row(8, `              <p style="margin:0; ${F} font-size:11.5px; font-style:italic; color:#9a9a9a;">Eine deutsche Version dieser Ausgabe finden Sie am Ende dieser E-Mail.</p>`);
     h += blocks('fr');
@@ -555,7 +563,7 @@ ${signer(ppl[1], l, '                    ')}
       const blob = await new Promise(res => c.toBlob(res, 'image/png'));
       return { blob, ext: 'png', w: Math.round(cw / 2), h: Math.round(ch / 2) };
     }
-    const [tw, th] = kind === 'portrait' ? [240, 240] : [1104, 828];
+    const [tw, th] = kind === 'portrait' ? [240, 240] : kind === 'header' ? [1280, 480] : [1104, 828];
     const s = Math.max(tw / bmp.width, th / bmp.height);
     const w = bmp.width * s, h = bmp.height * s;
     const c = document.createElement('canvas'); c.width = tw; c.height = th;
@@ -682,7 +690,7 @@ ${signer(ppl[1], l, '                    ')}
     const ph = getP(S, p) || {};
     const busy = pending.has(p);
     const thumb = busy ? '<span class="pob-spin"></span>' : isUrl(ph.url) ? `<img src="${esc(ph.url)}" alt="">` : '<span>＋</span>';
-    const help = kind === 'portrait' ? 'Recadrage automatique carré.' : kind === 'gallery' ? 'Recadrage automatique 4:3.' : 'PNG sur fond transparent ou blanc idéalement. Redimensionnée automatiquement (180×60 px max).';
+    const help = kind === 'portrait' ? 'Recadrage automatique carré.' : kind === 'gallery' ? 'Recadrage automatique 4:3.' : kind === 'header' ? 'Recadrage automatique 8:3 (640×240 px). Photo de projet, visuel d\'ambiance…' : 'PNG sur fond transparent ou blanc idéalement. Redimensionnée automatiquement (180×60 px max).';
     return `<div class="pob-f pob-photo${kind === 'portrait' ? ' round' : kind === 'signature' ? ' sig' : ''}" data-photo="${p}" data-kind="${kind}">
       <span>${label}</span>
       <div class="pob-photo-row">
@@ -791,6 +799,7 @@ ${signer(ppl[1], l, '                    ')}
       DE() ? '' : fT('Période', m, 'meta', 'periode', { half: true, ph: 'Octobre 2026' }),
       fT('Titre de l\'édition', m, 'meta', 'headline', { ph: 'Projet Foyer — un contrat structurant pour notre développement B2B' }),
       DE() ? '' : fT('Préheader', m, 'meta', 'preheader', { area: true, rows: 2, ph: 'Phrase d\'accroche visible dans la boîte de réception, à côté de l\'objet', hint: 'Non affiché dans l\'email lui-même.' }),
+      DE() ? '' : subBlock('Image d\'en-tête (pleine largeur, sous le titre)', 'header.on', fPhoto('Image', 'header.image', 'header')),
     ].join(''), { tag: 'Obligatoire' });
 
     // Édito
