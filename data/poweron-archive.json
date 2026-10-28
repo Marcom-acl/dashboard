@@ -83,6 +83,329 @@
           "src": ""
         }
       }
+    },
+    {
+      "id": "2",
+      "edition": "2",
+      "periode": "",
+      "headline": "myACL fait peau neuve",
+      "saved_at": "2026-10-28T17:02",
+      "draft": {
+        "v": 1,
+        "meta": {
+          "edition": "2",
+          "t": {
+            "fr": {
+              "periode": "",
+              "headline": "myACL fait peau neuve",
+              "preheader": "La nouvelle app myACL arrive : ce qu’elle change pour nos membres et pour l'ACL"
+            },
+            "de": {
+              "headline": "myACL erstrahlt in neuem Glanz"
+            }
+          }
+        },
+        "edito": {
+          "on": true,
+          "name": "Miriam Eisenmenger",
+          "photo": {
+            "url": "https://img.mailinblue.com/4363334/images/rnb/original/6ae220b28fe55c06f92c8dba.jpg"
+          },
+          "t": {
+            "fr": {
+              "label": "Édito",
+              "title": "CEO",
+              "body": "<p>Carte membre dans la poche, assistance en quelques secondes, renouvellement en un geste : la nouvelle app myACL met nos services à portée de smartphone. Et elle concerne chacun d’entre nous, car vous serez les premiers à en parler à nos membres.</p>"
+            },
+            "de": {
+              "label": "Editorial",
+              "body": "<p>Mitgliedskarte in der Tasche, Pannenhilfe in Sekundenschnelle, Verlängerung mit einem Klick: Die neue myACL-App bringt unsere Dienstleistungen aufs Smartphone. Und sie betrifft uns alle, denn Sie werden die Ersten sein, die unseren Mitgliedern davon erzählen.</p>",
+              "title": "Direktor Marketing & Communication"
+            }
+          },
+          "sign": {
+            "on": true,
+            "people": [
+              {
+                "name": "Miriam",
+                "photo": {
+                  "url": ""
+                },
+                "sig": {
+                  "url": "https://img.mailinblue.com/4363334/images/rnb/original/6ae221302bd3da3369051218.png",
+                  "w": 90,
+                  "h": 60
+                },
+                "t": {
+                  "fr": {
+                    "title": ""
+                  },
+                  "de": {
+                    "title": "Dircom"
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "focus": [
+          {
+            "name": "Vincent Huwer",
+            "photo": {
+              "url": "https://img.mailinblue.com/4363334/images/rnb/original/6ae219da8a92ffc3ab63fb35.jpg"
+            },
+            "twoCols": false,
+            "t": {
+              "fr": {
+                "label": "Focus projet",
+                "title": "Directeur Marketing & Communication",
+                "role": "Sponsor",
+                "body": "<p><strong>Près de 191 000 personnes nous font confiance. Pour beaucoup d’entre elles, l’ACL, c’est d’abord un moment précis : une panne, un départ en voyage, un renouvellement de cotisation. Dans ces moments, nos membres comptent sur des personnes qui répondent présentes. Et ils attendent aussi de pouvoir nous joindre simplement, depuis leur smartphone.</strong></p><p>C’est dans cet esprit que l’application ACL avait vu le jour en janvier 2017, avec une promesse forte : pouvoir appeler l’assistance center tout en partageant sa localisation, une fonction appelée &quot;ecall mobile&quot; (bCall pour être techniquement exact). Neuf ans plus tard, cette promesse reste d’actualité, mais l’expérience, elle, n’avait pas suivi. Dans un monde où les usages numériques évoluent en quelques mois, c’est une éternité.</p><p>Nos membres, tout comme vous et moi, ont désormais l’habitude de gérer leurs démarches administratives et d’accéder à leurs services en quelques gestes, depuis une seule plateforme numérique. Ces attentes sont légitimes, et l’ACL se doit d’y répondre. Cela ne remet nullement en cause ce qui fait notre singularité : un service humain, de proximité et de qualité. Mais les nouveaux publics attendent aussi davantage de digital et de self-service, et les deux se complètent.</p><p>C’est tout l’objet de la nouvelle version de myACL. Notre ambition est simple : que chaque membre puisse choisir la façon dont il souhaite être accompagné. Ceux qui aiment décrocher leur téléphone savent que nous répondrons présents. Et pour tous ceux qui préfèrent ne jamais appeler (je pense à toi Gen Z 😉) et vivent dans leurs applications, il fallait un autre chemin : accéder à sa carte, initier une demande d’assistance, renouveler son adhésion et profiter à terme de tous les services du Club, où qu’ils soient, en quelques gestes.</p><p>Pour l’ACL, ce projet est bien plus qu’un chantier technique. Il pose les bases d’une plateforme qui authentifie chaque membre et qui pourra accueillir, demain, de nouveaux services. Pour y parvenir, plusieurs équipes<strong> </strong>de l'ACL, en particulier le CMV, le PMO et le Marcom ainsi que plusieurs partenaires (Biaclog, Epic, Squareflow) ont avancé ensemble, avec une échéance exigeante liée à notre campagne de cotisations.</p><p>Ce lancement n’est pas une ligne d’arrivée, c’est un point de départ. Nous apprendrons des premiers usages, nous ajusterons, et nous continuerons d’améliorer l’expérience au fil des retours.</p><p>Merci à toutes celles et ceux qui ont rendu ce projet possible, en particulier Michaela, Alexandra, Tanja, Adriana, Isa, Christian, Lucia, Louka, Martine, Julian et Boris ! Et maintenant, c’est à vous : découvrez l’app par vous-mêmes et partagez dès à présent vos retours, ils contribueront directement à son évolution.</p><p><strong><a href=\"https://aclclub.sharepoint.com/sites/MyClub/SitePages/La-nouvelle-app-myACL-arrive---tout-ce-qu%E2%80%99il-faut-savoir.aspx\">Rendez-vous sur l’intranet MyClub</a> pour découvrir la vidéo de présentation et la marche à suivre pour télécharger l’app en avant-première. Testez-la et partagez vos retours dès à présent, ils contribueront directement à son évolution.</strong></p>"
+              },
+              "de": {
+                "label": "Projekt-Fokus",
+                "body": "<p><strong>Rund 191 000 Menschen vertrauen uns. Für viele von ihnen ist der ACL zunächst ein ganz bestimmter Moment: eine Panne, eine Reise, die Verlängerung des Mitgliedsbeitrags. In diesen Momenten verlassen sich unsere Mitglieder darauf, dass jemand für sie da ist. Und sie erwarten auch, uns ganz einfach über ihr Smartphone erreichen zu können.</strong></p><p>In diesem Sinne wurde die ACL-App im Januar 2017 ins Leben gerufen – mit einem starken Versprechen: das Assistance Center anrufen zu können und dabei gleichzeitig den eigenen Standort zu teilen, eine Funktion namens „ecall mobile“<strong> </strong>(bCall, um genau zu sein). Neun Jahre später ist dieses Versprechen nach wie vor aktuell, doch das Nutzererlebnis konnte nicht mithalten. In einer Welt, in der sich digitale Nutzungsgewohnheiten innerhalb weniger Monate verändern, ist das eine Ewigkeit.</p><p>Unsere Mitglieder sind, genau wie ihr und ich, es inzwischen gewohnt, ihre administrativen Angelegenheiten zu erledigen und mit wenigen Klicks über eine einzige digitale Plattform auf ihre Dienstleistungen zuzugreifen. Diese Erwartungen sind berechtigt, und der ACL muss ihnen gerecht werden. Das stellt keineswegs das infrage, was uns einzigartig macht: einen menschlichen, nahen und qualitativ hochwertigen Service. Doch neue Zielgruppen erwarten auch mehr Digitales und Self-Service – beides ergänzt sich.</p><p>Genau darum geht es bei der neuen Version von myACL. Unser Anspruch ist einfach: Jedes Mitglied soll selbst wählen können, wie es begleitet werden möchte. Wer gerne zum Telefon greift, weiß, dass wir für ihn da sind. Und für all jene, die am liebsten nie anrufen (ich denke da an dich, Gen Z 😉) und in ihren Apps leben, brauchte es einen anderen Weg: auf die eigene Karte zugreifen, eine Pannenhilfe-Anfrage stellen, die Mitgliedschaft verlängern und künftig mit wenigen Klicks alle Club-Services nutzen können, egal wo sie sich befinden.</p><p>Für den ACL ist dieses Projekt weit mehr als ein technisches Vorhaben. Es legt den Grundstein für eine Plattform, die jedes Mitglied authentifiziert und künftig neue Services aufnehmen kann. Um dies zu erreichen, haben das CMV, das PMO und das MarCom sowie mehrere Partner (Biaclog, Epic, Squareflow) eng zusammengearbeitet, und zwar unter einem anspruchsvollen Zeitplan, der an unseren Beitragsversand gebunden war.</p><p>Dieser Start ist keine Ziellinie, sondern ein Ausgangspunkt. Wir werden aus den ersten Erfahrungen lernen, Anpassungen vornehmen und die Erfahrung anhand des Feedbacks kontinuierlich verbessern.</p><p>Vielen Dank an alle, die dieses Projekt möglich gemacht haben, insbesondere an Michaela, Alexandra, Tanja, Adriana, Isa, Christian, Lucia, Louka, Martine,<strong> </strong>Julian und Boris! Und jetzt seid ihr dran: Entdeckt die App selbst und teilt uns schon jetzt euer Feedback mit – es wird direkt zur Weiterentwicklung der App beitragen.</p><p><strong><a href=\"https://aclclub.sharepoint.com/sites/MyClub/SitePages/La-nouvelle-app-myACL-arrive---tout-ce-qu%E2%80%99il-faut-savoir.aspx\">Besucht das Intranet MyClub</a></strong>, um das Vorstellungsvideo sowie die Vorgehensweise zum Herunterladen der App im Vorab-Zugang zu entdecken. Testet sie und teilt uns schon jetzt euer Feedback mit, denn es trägt direkt zu ihrer Weiterentwicklung bei.</p>",
+                "role": "Sponsor",
+                "title": "Direktor Marketing & Communication"
+              }
+            },
+            "extras": {
+              "gallery": {
+                "on": true,
+                "photos": [
+                  {
+                    "url": "https://img.mailinblue.com/4363334/images/rnb/original/6ae218f7daa0afba48308d31.jpg",
+                    "alt": ""
+                  },
+                  {
+                    "url": "https://img.mailinblue.com/4363334/images/rnb/original/6ae21901daa0afba48308d32.jpg",
+                    "alt": ""
+                  },
+                  {
+                    "url": "https://img.mailinblue.com/4363334/images/rnb/original/6ae2190a32ce8b3bb4ad90a4.jpg",
+                    "alt": ""
+                  }
+                ]
+              },
+              "encadre": {
+                "on": true,
+                "cols": [
+                  {
+                    "t": {
+                      "fr": {
+                        "subtitle": "",
+                        "items": "Une nouvelle méthode de connexion\nUn parcours d'assistance enrichi pour une prise en charge plus rapide\nUn paiement facilité de sa cotisation annuelle\nUn accès centralisé à une série d'infos pratiques : prix carburant et bornes, info trafic et webcams, news du club...\nles avantages club activables plus rapidement\nLa possibilité d'ajouter / retirer un membre à sa charge\nla carte de membre en version digitale, dans son Wallet"
+                      },
+                      "de": {
+                        "items": "Eine neue Anmeldemethode\nEin erweiterter Pannenhilfe-Ablauf für eine schnellere Betreuung\nEine erleichterte Zahlung des Jahresbeitrags\nEin zentraler Zugang zu praktischen Infos: Kraftstoffpreise und Ladesäulen, Verkehrsinfos und Webcams, Club-News...\nschneller aktivierbare Club-Vorteile\nDie Möglichkeit, ein mitversichertes Mitglied hinzuzufügen oder zu entfernen\ndie Mitgliedskarte in digitaler Version, im Wallet"
+                      }
+                    }
+                  }
+                ],
+                "t": {
+                  "fr": {
+                    "title": "Ce qui est nouveau"
+                  },
+                  "de": {
+                    "title": "Was ist neu"
+                  }
+                }
+              },
+              "kpis": {
+                "on": false,
+                "items": [
+                  {
+                    "t": {
+                      "fr": {
+                        "value": "",
+                        "label": ""
+                      },
+                      "de": {}
+                    }
+                  },
+                  {
+                    "t": {
+                      "fr": {
+                        "value": "",
+                        "label": ""
+                      },
+                      "de": {}
+                    }
+                  },
+                  {
+                    "t": {
+                      "fr": {
+                        "value": "",
+                        "label": ""
+                      },
+                      "de": {}
+                    }
+                  }
+                ]
+              }
+            },
+            "cta": {
+              "on": true,
+              "url": "https://aclclub.sharepoint.com/sites/MyClub/SitePages/La-nouvelle-app-myACL-arrive---tout-ce-qu’il-faut-savoir.aspx",
+              "t": {
+                "fr": {
+                  "text": "Voir la vidéo"
+                },
+                "de": {
+                  "text": "Video ansehen"
+                }
+              }
+            },
+            "contribs": [
+              {
+                "type": "contrib",
+                "name": "Alexandra Leonardo",
+                "photo": {
+                  "url": "https://img.mailinblue.com/4363334/images/rnb/original/6adb2a5cd7225ed4ec29bbe9.jpg"
+                },
+                "t": {
+                  "fr": {
+                    "title": "Gestion fichier membre, CMV",
+                    "role": "Key Business User pour le projet myACL",
+                    "quote": "La nouvelle version de l’application représente un vrai changement. Pour moi, l’amélioration la plus importante est le fait que les membres puissent désormais gérer eux-mêmes leurs cotisations. Cela modernise clairement l’application et apporte davantage d’autonomie aux utilisateurs.\n \nLors des premiers tests, j’ai surtout vérifié les fonctionnalités de base, car ce sont elles qui doivent fonctionner parfaitement dès le départ. Je pense notamment à la signalétique et aux informations personnelles du membre.\n \nLe fait qu’un membre puisse gérer sa cotisation lui-même, sans devoir appeler ou envoyer un e-mail, fait toute la différence. Cela le rend réellement indépendant et libre de faire ses choix.\n \nCe qui est également très intuitif, c’est la demande d’assistance. Grâce aux informations préremplies, la démarche est simple, rapide et facile à effectuer pour le membre."
+                  },
+                  "de": {
+                    "quote": "Die neue Version der Anwendung stellt eine echte Veränderung dar. Für mich ist die wichtigste Verbesserung, dass die Mitglieder ihre Beiträge nun selbst verwalten können. Das modernisiert die Anwendung klar und gibt den Nutzern mehr Eigenständigkeit.\n \nBei den ersten Tests habe ich vor allem die grundlegenden Funktionen überprüft, denn diese müssen von Anfang an einwandfrei funktionieren. Ich denke dabei insbesondere an die Beschilderung und die persönlichen Informationen des Mitglieds.\n \nDie Tatsache, dass ein Mitglied seinen Beitrag selbst verwalten kann, ohne anrufen oder eine E-Mail schreiben zu müssen, macht den entscheidenden Unterschied. Das macht ihn wirklich unabhängig und frei in seinen Entscheidungen.\n \nEbenfalls sehr intuitiv ist die Pannenhilfe-Anfrage. Dank der vorausgefüllten Informationen ist der Vorgang für das Mitglied einfach, schnell und leicht durchzuführen.",
+                    "role": "Key Business User für das Projekt myACL",
+                    "title": "Verwaltung Mitgliederdatei, CMV"
+                  }
+                }
+              },
+              {
+                "type": "contrib",
+                "name": "Martine Rausch",
+                "photo": {
+                  "url": "https://img.mailinblue.com/4363334/images/rnb/original/6ae1a41732ce8b3bb4ad8445.jpg"
+                },
+                "t": {
+                  "fr": {
+                    "title": "Responsable Stratégie & Développement Contact Center",
+                    "role": "",
+                    "quote": "Avec le lancement de myACL, les processus de traitement des demandes d’assistance seront progressivement simplifiés et optimisés, tant pour les clients que pour les agents de l’Assistance Center chargés de traiter les B-Calls.\nGrâce à l’application, les clients pourront fournir davantage d’informations et de précisions lors de leur demande d’assistance, permettant ainsi une prise en charge plus efficace.\nÀ partir du 1er janvier 2027, ces demandes seront directement créées dans la GDM. Cette évolution permettra d’automatiser le processus actuellement réalisé manuellement via ACL Hub (Sparx), supprimant ainsi une étape de travail pour les agents.\nL’objectif est de fluidifier le traitement des demandes, de réduire les interventions manuelles et d’améliorer l’efficacité opérationnelle ainsi que l’expérience client."
+                  },
+                  "de": {
+                    "quote": "Mit der Einführung von myACL werden die Abläufe bei der Bearbeitung von Supportanfragen schrittweise vereinfacht und optimiert – sowohl für die Kunden als auch für die Mitarbeiter des Assistance Centers, die für die Bearbeitung der B-Calls zuständig sind.\nDank der App können Kunden bei ihrer Supportanfrage mehr Informationen und Details angeben, was eine effizientere Bearbeitung ermöglicht.\nAb dem 1. Januar 2027 werden diese Anfragen direkt im GDM angelegt. Durch diese Umstellung wird der derzeit manuell über den ACL Hub (Sparx) durchgeführte Prozess automatisiert, wodurch sich ein Arbeitsschritt für die Mitarbeiter erspart.\nDas Ziel ist es, die Bearbeitung der Anfragen zu beschleunigen, manuelle Eingriffe zu reduzieren und sowohl die betriebliche Effizienz als auch das Kundenerlebnis zu verbessern.",
+                    "title": "Leiterin Strategie & Entwicklung im Contact Center"
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "gallery": {
+          "on": false,
+          "photos": [
+            {
+              "url": "",
+              "alt": ""
+            }
+          ]
+        },
+        "metier": [],
+        "encadre": {
+          "on": false,
+          "cols": [
+            {
+              "t": {
+                "fr": {
+                  "subtitle": "",
+                  "items": ""
+                },
+                "de": {}
+              }
+            },
+            {
+              "t": {
+                "fr": {
+                  "subtitle": "",
+                  "items": ""
+                },
+                "de": {}
+              }
+            }
+          ],
+          "t": {
+            "fr": {
+              "title": ""
+            },
+            "de": {}
+          }
+        },
+        "kpis": {
+          "on": false,
+          "items": [
+            {
+              "t": {
+                "fr": {
+                  "value": "232343",
+                  "label": ""
+                },
+                "de": {
+                  "value": "232343"
+                }
+              }
+            },
+            {
+              "t": {
+                "fr": {
+                  "value": "23234",
+                  "label": ""
+                },
+                "de": {
+                  "value": "23234"
+                }
+              }
+            }
+          ]
+        },
+        "signature": {
+          "on": false,
+          "t": {
+            "fr": {
+              "body": "<p><strong>vous 'êtes formidables</strong></p>"
+            },
+            "de": {
+              "body": "<p><strong>Sie sind großartig</strong></p>"
+            }
+          },
+          "people": [
+            {
+              "name": "Vincent",
+              "photo": {
+                "url": ""
+              },
+              "sig": {
+                "url": "",
+                "w": 0,
+                "h": 0
+              },
+              "t": {
+                "fr": {
+                  "title": "Dircom"
+                },
+                "de": {
+                  "title": "Dircom"
+                }
+              }
+            }
+          ]
+        },
+        "de": {
+          "on": true,
+          "src": "{\"meta.t.de.headline\":\"myACL fait peau neuve\",\"edito.t.de.label\":\"Édito\",\"edito.t.de.title\":\"Directeur Marketing & Communication\",\"edito.t.de.body\":\"<p>Carte membre dans la poche, assistance en quelques secondes, renouvellement en un geste : la nouvelle app myACL met nos services à portée de smartphone. Et elle concerne chacun d’entre nous, car vous serez les premiers à en parler à nos membres.</p>\",\"edito.sign.people.0.t.de.title\":\"Dircom\",\"focus.0.t.de.label\":\"Focus projet\",\"focus.0.t.de.title\":\"Directeur Marketing & Communication\",\"focus.0.t.de.role\":\"Sponsor\",\"focus.0.t.de.body\":\"<p>Près de 191 000 personnes nous font confiance. Pour beaucoup d’entre elles, l’ACL, c’est d’abord un moment précis : une panne, un départ en voyage, un renouvellement de cotisation. Dans ces moments, nos membres comptent sur des personnes qui répondent présentes. Et ils attendent aussi de pouvoir nous joindre simplement, depuis leur smartphone.</p><p>C’est dans cet esprit que l’application ACL avait vu le jour en janvier 2017, avec une promesse forte : pouvoir appeler l’assistance center tout en partageant sa localisation, une fonction appelée &quot;ecall mobile&quot;. Neuf ans plus tard, cette promesse reste d’actualité, mais l’expérience, elle, n’avait pas suivi. Dans un monde où les usages numériques évoluent en quelques mois, c’est une éternité.</p><p>Nos membres, tout comme vous et moi, ont désormais l’habitude de gérer leurs démarches administratives et d’accéder à leurs services en quelques gestes, depuis une seule plateforme numérique. Ces attentes sont légitimes, et l’ACL se doit d’y répondre. Cela ne remet nullement en cause ce qui fait notre singularité : un service humain, de proximité et de qualité. Mais les nouveaux publics attendent aussi davantage de digital et de self-service, et les deux se complètent.</p><p>C’est tout l’objet de la nouvelle version de myACL. Notre ambition est simple : que chaque membre puisse choisir la façon dont il souhaite être accompagné. Ceux qui aiment décrocher leur téléphone savent que nous répondrons présents. Et pour tous ceux qui préfèrent ne jamais appeler (je pense à toi Gen Z 😉) et vivent dans leurs applications, il fallait un autre chemin : accéder à sa carte, initier une demande d’assistance, renouveler son adhésion et profiter à terme de tous les services du Club, où qu’ils soient, en quelques gestes.</p><p>Pour l’ACL, ce projet est bien plus qu’un chantier technique. Il pose les bases d’une plateforme qui authentifie chaque membre et qui pourra accueillir, demain, de nouveaux services. Pour y parvenir, plusieurs équipes<strong> </strong>de l'ACL, en particulier le CMV, le PMO et le Marcom ainsi que plusieurs partenaires (Biaclog, Epic, Squareflow) ont avancé ensemble, avec une échéance exigeante liée à notre campagne de cotisations.</p><p>Ce lancement n’est pas une ligne d’arrivée, c’est un point de départ. Nous apprendrons des premiers usages, nous ajusterons, et nous continuerons d’améliorer l’expérience au fil des retours.</p><p>Merci à toutes celles et ceux qui ont rendu ce projet possible ! Et maintenant, c’est à vous : découvrez l’app par vous-mêmes et partagez dès à présent vos retours, ils contribueront directement à son évolution.<strong> </strong></p><p><strong><a href=\\\"https://aclclub.sharepoint.com/sites/MyClub/SitePages/La-nouvelle-app-myACL-arrive---tout-ce-qu%E2%80%99il-faut-savoir.aspx\\\">Rendez-vous sur l’intranet MyClub</a> pour découvrir la vidéo de présentation et la marche à suivre pour télécharger l’app en avant-première. Testez-la et partagez vos retours dès à présent, ils contribueront directement à son évolution.</strong></p>\",\"focus.0.contrib.t.de.title\":\"Gestion fichier membre, CMV\",\"focus.0.contrib.t.de.role\":\"Key Business User pour le projet myACL\",\"focus.0.contrib.t.de.quote\":\"La nouvelle version de l’application représente un vrai changement. Pour moi, l’amélioration la plus importante est le fait que les membres puissent désormais gérer eux-mêmes leurs cotisations. Cela modernise clairement l’application et apporte davantage d’autonomie aux utilisateurs.\\n \\nLors des premiers tests, j’ai surtout vérifié les fonctionnalités de base, car ce sont elles qui doivent fonctionner parfaitement dès le départ. Je pense notamment à la signalétique et aux informations personnelles du membre.\\n \\nLe fait qu’un membre puisse gérer sa cotisation lui-même, sans devoir appeler ou envoyer un e-mail, fait toute la différence. Cela le rend réellement indépendant et libre de faire ses choix.\\n \\nCe qui est également très intuitif, c’est la demande d’assistance. Grâce aux informations préremplies, la démarche est simple, rapide et facile à effectuer pour le membre.\",\"focus.0.extras.encadre.t.de.title\":\"Ce qui est nouveau\",\"focus.0.extras.encadre.cols.0.t.de.items\":\"Une nouvelle méthode de connexion\\nUn parcours d'assistance enrichi pour une prise en charge plus rapide\\nUn paiement facilité de sa cotisation annuelle\\nUn accès centralisé à une série d'infos pratiques : prix carburant et bornes, info trafic et webcams, news du club...\\nles avantages club activables plus rapidement\\nLa possibilité d'ajouter / retirer un membre à sa charge\\nla carte de membre en version digitale, dans son Wallet\",\"focus.0.cta.t.de.text\":\"Voir la vidéo\",\"kpis.items.0.t.de.value\":\"232343\",\"kpis.items.1.t.de.value\":\"23234\",\"signature.t.de.body\":\"<p><strong>vous 'êtes formidables</strong></p>\",\"signature.people.0.t.de.title\":\"Dircom\"}"
+        },
+        "header": {
+          "on": true,
+          "image": {
+            "url": "https://img.mailinblue.com/4363334/images/rnb/original/6ae1ab508a92ffc3ab63eef8.jpg"
+          }
+        }
+      }
     }
   ]
 }
