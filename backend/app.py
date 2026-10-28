@@ -6247,11 +6247,14 @@ def _asc_stats():
     # Installations & usage via Sales Reports (nécessite ASC_VENDOR_NUMBER)
     installs_data = {}
     usage_data    = {}
+    installs_trend = []
+    report_errors  = []
+
     if token and ASC_VENDOR_NUMBER and ASC_APP_ID:
         import gzip, csv, io as sio
         today = datetime.date.today()
 
-        def _asc_report(report_type, date_str):
+        def _asc_report(report_type, date_str, freq='DAILY'):
             try:
                 r = _get(
                     'https://api.appstoreconnect.apple.com/v1/salesReports',
@@ -6260,7 +6263,7 @@ def _asc_stats():
                     params={
                         'filter[reportType]':    report_type,
                         'filter[reportSubType]': 'SUMMARY',
-                        'filter[frequency]':     'DAILY',
+                        'filter[frequency]':     freq,
                         'filter[reportDate]':    date_str,
                         'filter[vendorNumber]':  ASC_VENDOR_NUMBER,
                     },
@@ -6270,47 +6273,81 @@ def _asc_stats():
                     return list(csv.DictReader(
                         sio.StringIO(gzip.decompress(r.content).decode('utf-8')),
                         delimiter='\t'))
+                if not r.ok:
+                    report_errors.append(f'{report_type}/{date_str}: HTTP {r.status_code}')
             except Exception as e:
-                print(f'[ASC] {report_type} {date_str}: {e}', flush=True)
+                report_errors.append(f'{report_type}/{date_str}: {e}')
             return None
 
-        # Fetch INSTALLS + USAGE_V2 in parallel per date (max 5 dates)
-        for delta in range(3, 8):
-            if installs_data and usage_data:
-                break
+        def _installs_from_rows(rows):
+            """Somme des téléchargements depuis un rapport INSTALLS ou SALES."""
+            if rows is None:
+                return None
+            return sum(int(row.get('Units') or 0) for row in rows)
+
+        # ── Snapshot : INSTALLS + USAGE_V2 pour la journée la plus récente ──
+        for delta in range(3, 9):
             date_str = (today - datetime.timedelta(days=delta)).isoformat()
             types_needed = []
-            if not installs_data: types_needed.append('INSTALLS')
+            if not installs_data: types_needed.extend(['INSTALLS', 'SALES'])
             if not usage_data:    types_needed.append('USAGE_V2')
-            with concurrent.futures.ThreadPoolExecutor(max_workers=2) as pool:
-                futs = {rt: pool.submit(_asc_report, rt, date_str) for rt in types_needed}
-            for rt, fut in futs.items():
-                try:
-                    rows = fut.result()
-                except Exception:
-                    rows = None
-                if rows and rt == 'INSTALLS':
-                    installs_data = {'date': date_str,
-                                     'installs': sum(int(row.get('Units') or 0) for row in rows)}
-                elif rows and rt == 'USAGE_V2':
-                    app_id_str = str(ASC_APP_ID)
-                    app_rows = [row for row in rows
-                                if str(row.get('Apple Identifier', '')) == app_id_str] or rows
-                    usage_data = {
-                        'date':             date_str,
-                        'activeDevices':    sum(int(row.get('Active Devices') or 0) for row in app_rows),
-                        'activeDevices30d': sum(int(row.get('Active Devices Last 30 Days') or 0) for row in app_rows),
-                        'sessions':         sum(int(row.get('Sessions') or 0) for row in app_rows),
-                        'crashes':          sum(int(row.get('Crashes') or 0) for row in app_rows),
-                    }
+
+            with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
+                futs = {rt: pool.submit(_asc_report, rt, date_str) for rt in set(types_needed)}
+
+            rows_by_type = {rt: futs[rt].result() for rt in futs}
+
+            # INSTALLS en priorité, SALES en fallback
+            if not installs_data:
+                rows = rows_by_type.get('INSTALLS') or rows_by_type.get('SALES')
+                if rows is not None:
+                    installs_data = {'date': date_str, 'installs': _installs_from_rows(rows) or 0}
+
+            if not usage_data and rows_by_type.get('USAGE_V2'):
+                rows = rows_by_type['USAGE_V2']
+                app_id_str = str(ASC_APP_ID)
+                app_rows = [row for row in rows
+                            if str(row.get('Apple Identifier', '')) == app_id_str] or rows
+                usage_data = {
+                    'date':             date_str,
+                    'activeDevices':    sum(int(row.get('Active Devices') or 0) for row in app_rows),
+                    'activeDevices30d': sum(int(row.get('Active Devices Last 30 Days') or 0) for row in app_rows),
+                    'sessions':         sum(int(row.get('Sessions') or 0) for row in app_rows),
+                    'crashes':          sum(int(row.get('Crashes') or 0) for row in app_rows),
+                }
+
+            if installs_data and usage_data:
+                break
+
+        # ── Tendance 14 jours : INSTALLS (ou SALES) en parallèle ───────────
+        def _fetch_day_installs(delta):
+            date_str = (today - datetime.timedelta(days=delta)).isoformat()
+            rows = _asc_report('INSTALLS', date_str)
+            if rows is None:
+                rows = _asc_report('SALES', date_str)
+            total = _installs_from_rows(rows)
+            if total is not None:
+                return {'date': date_str, 'installs': total}
+            return None
+
+        with concurrent.futures.ThreadPoolExecutor(max_workers=7) as pool:
+            trend_results = list(pool.map(_fetch_day_installs, range(3, 18)))
+
+        installs_trend = sorted(
+            [r for r in trend_results if r is not None],
+            key=lambda x: x['date']
+        )
 
     return {
-        'rating':       rating_data,
-        'reviews':      reviews,
-        'installs':     installs_data,
-        'usage':        usage_data,
-        'configured':   bool(ASC_APP_ID),
-        'fullAccess':   bool(token),
+        'rating':         rating_data,
+        'reviews':        reviews,
+        'installs':       installs_data,
+        'usage':          usage_data,
+        'installsTrend':  installs_trend,
+        'reportErrors':   report_errors[:5],   # diagnostic (premiers 5)
+        'configured':     bool(ASC_APP_ID),
+        'fullAccess':     bool(token),
+        'vendorSet':      bool(ASC_VENDOR_NUMBER),
     }
 
 

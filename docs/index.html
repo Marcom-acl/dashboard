@@ -4820,8 +4820,16 @@ async function renderMobileApp() {
   }
 
   // ── Apple section ──────────────────────────────────────────────
-  const ar = apple.rating  || {};
-  const au = apple.usage   || {};
+  const ar          = apple.rating        || {};
+  const au          = apple.usage         || {};
+  const appleTrend  = apple.installsTrend || [];
+  const appleErrors = apple.reportErrors  || [];
+
+  // Most recent install data (from snapshot or last trend entry)
+  const lastInst = apple.installs?.installs != null
+    ? apple.installs
+    : (appleTrend.length ? appleTrend[appleTrend.length - 1] : null);
+
   const appleKpis = cfg.apple ? `
     <div class="kpi-grid">
       ${kpiCard({label:'Note globale', value: ar.ratingCount ? starsHtml(ar.rating) : '—', src:APPLE_CLR, srcBg:APPLE_BG,
@@ -4829,17 +4837,18 @@ async function renderMobileApp() {
       ${kpiCard({label:'Avis totaux', value: fmtN(ar.ratingCount || 0), src:APPLE_CLR, srcBg:APPLE_BG})}
       ${kpiCard({label:'Note version en cours', value: ar.currentVersionRatingCount ? starsHtml(ar.currentVersionRating) : '—',
                  src:APPLE_CLR, srcBg:APPLE_BG, tooltip:'Note de la version ' + (ar.version || '')})}
-      ${apple.installs?.installs != null
-        ? kpiCard({label:'Téléchargements (j)', value: fmtN(apple.installs.installs), src:APPLE_CLR, srcBg:APPLE_BG,
-                   tooltip:'Journée du ' + (apple.installs.date || '')})
-        : kpiCard({label:'Téléchargements', value:'—', src:APPLE_CLR, srcBg:APPLE_BG,
-                   tooltip:'Configurer ASC_VENDOR_NUMBER pour activer les Sales Reports'})}
+      ${lastInst
+        ? kpiCard({label:'DL (j)', value: fmtN(lastInst.installs), src:APPLE_CLR, srcBg:APPLE_BG,
+                   spark: appleTrend.map(t=>t.installs),
+                   tooltip:'Téléchargements du ' + (lastInst.date || '') + ' · Sales Report'})
+        : kpiCard({label:'DL (j)', value:'—', src:APPLE_CLR, srcBg:APPLE_BG,
+                   tooltip:'Vérifier ASC_VENDOR_NUMBER et le rôle Sales&amp;Trends dans App Store Connect'})}
       ${au.activeDevices != null
         ? kpiCard({label:'Appareils actifs', value: fmtN(au.activeDevices), src:APPLE_CLR, srcBg:APPLE_BG,
                    tooltip:'Appareils ayant ouvert l\'app le ' + (au.date || '')})
         : ''}
       ${au.activeDevices30d != null
-        ? kpiCard({label:'Actifs (30 jours)', value: fmtN(au.activeDevices30d), src:APPLE_CLR, srcBg:APPLE_BG,
+        ? kpiCard({label:'Actifs (30 j)', value: fmtN(au.activeDevices30d), src:APPLE_CLR, srcBg:APPLE_BG,
                    tooltip:'Appareils actifs sur les 30 derniers jours'})
         : ''}
       ${au.sessions != null
@@ -4850,7 +4859,24 @@ async function renderMobileApp() {
         ? kpiCard({label:'Crashs iOS', value: fmtN(au.crashes), src:au.crashes > 5 ? '#e53e3e' : APPLE_CLR, srcBg:APPLE_BG,
                    tooltip:'Crashs du ' + (au.date || '')})
         : ''}
-    </div>` : `<p style="color:var(--muted);padding:12px 0">Configurer ASC_APP_ID et ASC_PRIVATE_KEY pour activer les stats Apple.</p>`;
+    </div>
+    ${!lastInst && appleErrors.length
+      ? `<details style="margin-top:10px;font-size:11px;color:var(--muted)"><summary style="cursor:pointer">Diagnostic Sales Reports (${appleErrors.length} erreur(s))</summary>
+          <pre style="margin:6px 0;padding:8px;background:var(--surface-2);border-radius:6px;overflow:auto">${appleErrors.join('\n')}</pre>
+          <p style="margin:4px 0">Vérifier : ASC_VENDOR_NUMBER (8 chiffres), rôle "Sales and Trends" dans App Store Connect → Utilisateurs → Accès API.</p>
+         </details>`
+      : ''}` : `<p style="color:var(--muted);padding:12px 0">Configurer ASC_APP_ID et ASC_PRIVATE_KEY pour activer les stats Apple.</p>`;
+
+  // Apple trend chart (14 j de téléchargements)
+  const appleTrendChartId = 'chart-apple-trend-' + Date.now();
+  const appleTrendCard = appleTrend.length > 1 ? `
+    <div class="card" style="margin-top:20px">
+      <div class="card-head">
+        <div class="card-title">Téléchargements iOS — 14 derniers jours</div>
+        <div class="card-sub">Source : Apple Sales Reports · données avec 3–5 jours de décalage</div>
+      </div>
+      <div class="card-body" style="padding:16px"><canvas id="${appleTrendChartId}" height="140"></canvas></div>
+    </div>` : '';
 
   const appleReviews = (apple.reviews || []).length
     ? `<div class="card" style="margin-top:20px"><div class="card-head"><div class="card-title">Avis récents — App Store</div></div>
@@ -4859,10 +4885,10 @@ async function renderMobileApp() {
         </div></div>` : '';
 
   // ── Google Play section ────────────────────────────────────────
-  const pi  = play.installs || {};
-  const pr  = play.rating   || {};
-  const pc  = play.crashes  || {};
-  const trend = play.trend  || [];
+  const pi    = play.installs || {};
+  const pr    = play.rating   || {};
+  const pc    = play.crashes  || {};
+  const trend = play.trend    || [];
 
   const playKpis = cfg.play && !play.error ? `
     <div class="kpi-grid">
@@ -4879,7 +4905,7 @@ async function renderMobileApp() {
       ? `<p style="color:var(--bad);padding:12px 0">Erreur Google Play : ${play.error}</p>`
       : `<p style="color:var(--muted);padding:12px 0">Configurer GPLAY_SERVICE_ACCOUNT_JSON et GPLAY_PACKAGE_NAME pour activer les stats Google Play.</p>`;
 
-  // Trend chart (active installs 30 j)
+  // Play trend chart
   const trendChartId = 'chart-play-trend-' + Date.now();
   const trendCard = trend.length > 1 ? `
     <div class="card" style="margin-top:20px">
@@ -4888,7 +4914,6 @@ async function renderMobileApp() {
       <div class="card-body" style="padding:16px"><canvas id="${trendChartId}" height="160"></canvas></div>
     </div>` : '';
 
-  // Source freshness
   const freshness = play.source
     ? `<p style="font-size:11px;color:var(--muted-2);margin-top:8px">Source : ${play.source}</p>` : '';
 
@@ -4911,6 +4936,7 @@ async function renderMobileApp() {
       <div class="card-body" style="padding:16px">${appleKpis}</div>
     </div>
 
+    ${appleTrendCard}
     ${appleReviews}
 
     <div class="card" style="margin-top:20px;margin-bottom:20px">
@@ -4932,7 +4958,36 @@ async function renderMobileApp() {
 
   animateCards(el);
 
-  // Draw trend chart after DOM insertion
+  // Draw Apple trend chart
+  if (appleTrend.length > 1) {
+    const ctx = document.getElementById(appleTrendChartId);
+    if (ctx) {
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: appleTrend.map(t => t.date),
+          datasets: [{
+            label: 'Téléchargements iOS',
+            data: appleTrend.map(t => t.installs),
+            backgroundColor: APPLE_CLR + '22',
+            borderColor: APPLE_CLR,
+            borderWidth: 1.5,
+            borderRadius: 3,
+          }]
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            x: { ticks: { maxTicksLimit: 8 } },
+            y: { beginAtZero: true, ticks: { precision: 0 } }
+          }
+        }
+      });
+    }
+  }
+
+  // Draw Play trend chart
   if (trend.length > 1) {
     const ctx = document.getElementById(trendChartId);
     if (ctx) {
