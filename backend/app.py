@@ -6003,13 +6003,18 @@ def poweron_send_test():
 # ── Power ON — Archive ────────────────────────────────────────────────────────
 
 def _read_poweron_archive():
-    """Lit poweron-archive.json depuis GitHub. Renvoie {'editions': [...]}."""
+    """Lit poweron-archive.json via l'API GitHub (pas de cache CDN)."""
+    if not GITHUB_TOKEN:
+        return {'editions': []}
+    api_url = f'https://api.github.com/repos/{GITHUB_REPO}/contents/{POWERON_ARCHIVE_PATH}'
+    headers = {'Authorization': f'token {GITHUB_TOKEN}', 'Accept': 'application/vnd.github.v3+json'}
     try:
-        r = requests.get(POWERON_ARCHIVE_URL, timeout=10)
+        r = requests.get(api_url, headers=headers, timeout=10)
         if r.status_code == 404:
             return {'editions': []}
         r.raise_for_status()
-        return r.json()
+        content = base64.b64decode(r.json()['content']).decode('utf-8')
+        return json.loads(content)
     except Exception:
         return {'editions': []}
 
