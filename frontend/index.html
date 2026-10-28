@@ -5064,6 +5064,14 @@ async function renderMobileApp() {
   const au          = apple.usage         || {};
   const appleTrend  = apple.installsTrend || [];
   const appleErrors = apple.reportErrors  || [];
+  const trendFreq   = apple.trendFreq     || 'DAILY';
+
+  // Période sélectionnée dans le filtre global
+  const pStart = globalStart ? new Date(globalStart) : null;
+  const pEnd   = globalEnd   ? new Date(globalEnd)   : new Date();
+  const nDaysPeriod = pStart ? Math.round((pEnd - pStart) / 86400000) + 1 : 14;
+  const totalIosDL  = appleTrend.reduce((s, t) => s + (t.installs || 0), 0);
+  const dlLabel = nDaysPeriod <= 1 ? 'DL (j)' : `DL (${nDaysPeriod}j)`;
 
   const lastInst = apple.installs?.installs != null
     ? apple.installs
@@ -5076,11 +5084,15 @@ async function renderMobileApp() {
       ${kpiCard({label:'Avis totaux', value: fmtN(ar.ratingCount || 0), src:APPLE_CLR, srcBg:APPLE_BG})}
       ${kpiCard({label:'Note version en cours', value: ar.currentVersionRatingCount ? starsHtml(ar.currentVersionRating) : '—',
                  src:APPLE_CLR, srcBg:APPLE_BG, tooltip:'Note de la version ' + (ar.version || '')})}
-      ${lastInst
-        ? kpiCard({label:'DL (j)', value: fmtN(lastInst.installs), src:APPLE_CLR, srcBg:APPLE_BG,
+      ${(lastInst || appleTrend.length)
+        ? kpiCard({label: dlLabel,
+                   value: trendFreq === 'DAILY' && lastInst ? fmtN(lastInst.installs) : fmtN(totalIosDL),
+                   src:APPLE_CLR, srcBg:APPLE_BG,
                    spark: appleTrend.map(t=>t.installs),
-                   tooltip:'Téléchargements du ' + (lastInst.date || '') + ' · Sales Report'})
-        : kpiCard({label:'DL (j)', value:'—', src:APPLE_CLR, srcBg:APPLE_BG,
+                   tooltip: trendFreq === 'DAILY'
+                     ? 'Téléchargements du ' + (lastInst?.date || '') + ' · Sales Report'
+                     : `Total sur ${nDaysPeriod} jours · Apple Sales Reports (${trendFreq === 'WEEKLY' ? 'semaines' : 'mois'})`})
+        : kpiCard({label: dlLabel, value:'—', src:APPLE_CLR, srcBg:APPLE_BG,
                    tooltip:'Vérifier ASC_VENDOR_NUMBER et le rôle Sales&amp;Trends dans App Store Connect'})}
       ${au.activeDevices != null
         ? kpiCard({label:'Appareils actifs', value: fmtN(au.activeDevices), src:APPLE_CLR, srcBg:APPLE_BG,
@@ -5108,10 +5120,12 @@ async function renderMobileApp() {
 
   // Apple trend chart
   const appleTrendChartId = 'chart-apple-trend-' + Date.now();
+  const freqLabels = {DAILY: 'jours', WEEKLY: 'semaines', MONTHLY: 'mois'};
+  const trendTitle = `Téléchargements iOS — ${nDaysPeriod}j (${freqLabels[trendFreq] || 'jours'})`;
   const appleTrendCard = appleTrend.length > 1 ? `
     <div class="card" style="margin-top:20px">
       <div class="card-head">
-        <div class="card-title">Téléchargements iOS — 14 derniers jours</div>
+        <div class="card-title">${trendTitle}</div>
         <div class="card-sub">Source : Apple Sales Reports · données avec 3–5 jours de décalage</div>
       </div>
       <div class="card-body" style="padding:16px"><canvas id="${appleTrendChartId}" height="140"></canvas></div>

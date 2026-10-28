@@ -6179,7 +6179,7 @@ def _gplay_stats():
     }
 
 
-def _asc_stats():
+def _asc_stats(start_str='', end_str=''):
     """Stats App Store : rating iTunes + reviews + installs (si vendor number configuré)."""
     rating_data = {}
     # Rating via iTunes (public, no auth) — try multiple storefronts in parallel
@@ -6249,6 +6249,7 @@ def _asc_stats():
     usage_data    = {}
     installs_trend = []
     report_errors  = []
+    trend_freq     = 'DAILY'
 
     if token and ASC_VENDOR_NUMBER and ASC_APP_ID:
         import gzip, csv, io as sio
@@ -6319,24 +6320,60 @@ def _asc_stats():
             if installs_data and usage_data:
                 break
 
-        # ── Tendance 14 jours : INSTALLS (ou SALES) en parallèle ───────────
-        def _fetch_day_installs(delta):
-            date_str = (today - datetime.timedelta(days=delta)).isoformat()
-            rows = _asc_report('INSTALLS', date_str)
+        # ── Tendance : fréquence adaptée à la période demandée ────────────
+        try:
+            end_date = datetime.date.fromisoformat(end_str) if end_str else today
+        except (ValueError, AttributeError):
+            end_date = today
+        try:
+            start_date = datetime.date.fromisoformat(start_str) if start_str else today - datetime.timedelta(days=13)
+        except (ValueError, AttributeError):
+            start_date = today - datetime.timedelta(days=13)
+
+        n_days = max(1, (end_date - start_date).days + 1)
+        avail = today - datetime.timedelta(days=3)  # délai ~3j pour les rapports
+
+        fetch_dates = []
+        if n_days <= 31:
+            trend_freq = 'DAILY'
+            d = min(end_date, avail)
+            while d >= start_date and len(fetch_dates) < 31:
+                fetch_dates.append(d.isoformat())
+                d -= datetime.timedelta(days=1)
+        elif n_days <= 180:
+            trend_freq = 'WEEKLY'
+            d = min(end_date, avail)
+            d -= datetime.timedelta(days=(d.isoweekday() % 7))  # dimanche précédent
+            while d >= start_date and len(fetch_dates) < 26:
+                fetch_dates.append(d.isoformat())
+                d -= datetime.timedelta(weeks=1)
+        else:
+            trend_freq = 'MONTHLY'
+            d = min(end_date, avail).replace(day=1)
+            sm = start_date.replace(day=1)
+            while d >= sm and len(fetch_dates) < 24:
+                fetch_dates.append(d.strftime('%Y-%m'))
+                m = d.month - 1 or 12
+                y = d.year - (1 if d.month == 1 else 0)
+                d = d.replace(year=y, month=m)
+
+        def _fetch_installs(date_str):
+            rows = _asc_report('INSTALLS', date_str, freq=trend_freq)
             if rows is None:
-                rows = _asc_report('SALES', date_str)
+                rows = _asc_report('SALES', date_str, freq=trend_freq)
             total = _installs_from_rows(rows)
             if total is not None:
                 return {'date': date_str, 'installs': total}
             return None
 
-        with concurrent.futures.ThreadPoolExecutor(max_workers=7) as pool:
-            trend_results = list(pool.map(_fetch_day_installs, range(3, 18)))
-
-        installs_trend = sorted(
-            [r for r in trend_results if r is not None],
-            key=lambda x: x['date']
-        )
+        if fetch_dates:
+            n_w = min(len(fetch_dates), 7)
+            with concurrent.futures.ThreadPoolExecutor(max_workers=n_w) as pool:
+                trend_results = list(pool.map(_fetch_installs, fetch_dates))
+            installs_trend = sorted(
+                [r for r in trend_results if r is not None],
+                key=lambda x: x['date']
+            )
 
     return {
         'rating':         rating_data,
@@ -6344,7 +6381,8 @@ def _asc_stats():
         'installs':       installs_data,
         'usage':          usage_data,
         'installsTrend':  installs_trend,
-        'reportErrors':   report_errors[:5],   # diagnostic (premiers 5)
+        'trendFreq':      trend_freq,
+        'reportErrors':   report_errors[:5],
         'configured':     bool(ASC_APP_ID),
         'fullAccess':     bool(token),
         'vendorSet':      bool(ASC_VENDOR_NUMBER),
@@ -6353,11 +6391,14 @@ def _asc_stats():
 
 @app.route('/mobile-app')
 def mobile_app():
-    cached = _cache_get('mobile-app')
+    start_str = request.args.get('start', '')
+    end_str   = request.args.get('end', '')
+    cache_key = f'mobile-app:{start_str}:{end_str}'
+    cached = _cache_get(cache_key)
     if cached: return jsonify(cached)
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=2) as ex:
-        apple_fut = ex.submit(_asc_stats)
+        apple_fut = ex.submit(_asc_stats, start_str, end_str)
         gplay_fut = ex.submit(_gplay_stats)
 
     try:
@@ -6378,7 +6419,7 @@ def mobile_app():
             'play':  bool(GPLAY_SA_JSON and GPLAY_PACKAGE),
         },
     }
-    _cache_set('mobile-app', data, 3600)
+    _cache_set(cache_key, data, 3600)
     return jsonify(data)
 
 
