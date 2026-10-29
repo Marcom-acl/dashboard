@@ -4335,7 +4335,12 @@ function initBrevoTimeline(tpData, TP_COLORS, TP_LABELS, allCamps) {
   };
 
   // Une courbe par combinaison type × langue (seulement si des points existent)
+  // Max plausibles par métrique — les valeurs au-delà sont des anomalies Brevo
+  // (envois test avec très peu de livrés mais beaucoup d'ouvertures/clics cumulées)
+  const METRIC_MAX = { openRate: 100, clickRate: 100, ctor: 150 };
+
   function buildDatasets(metric, langs, types) {
+    const yMax = METRIC_MAX[metric] ?? 100;
     const datasets = [];
     for (const [type, p] of Object.entries(tpData)) {
       if (!p || !types.has(type)) continue;
@@ -4349,7 +4354,8 @@ function initBrevoTimeline(tpData, TP_COLORS, TP_LABELS, allCamps) {
             y: metric === 'openRate' ? c.openRate : metric === 'clickRate' ? c.clickRate : c.ctor,
             name: c.name,
             lang: c.lang,
-          }));
+          }))
+          .filter(pt => pt.y <= yMax);  // exclut les campagnes aux stats aberrantes
         if (!points.length) continue;
         datasets.push({
           label:           `${TP_LABELS[type] || type} · ${LANG_LABEL[lang]}`,
@@ -4376,8 +4382,18 @@ function initBrevoTimeline(tpData, TP_COLORS, TP_LABELS, allCamps) {
   const typeBtns   = card.querySelectorAll('[data-tl-type]');
   const langBtns   = card.querySelectorAll('[data-tl-lang]');
 
+  // Plafond minimal de l'axe Y selon la métrique — évite l'écrasement visuel
+  // quand les valeurs sont petites (ex. Clic % à 1-3% sur un axe 0-8%)
+  const METRIC_CEILING = { openRate: 50, clickRate: 8, ctor: 30 };
+
   function refreshChart() {
-    chart.data.datasets = buildDatasets(currentMetric, activeLangs, activeTypes);
+    const ds = buildDatasets(currentMetric, activeLangs, activeTypes);
+    chart.data.datasets = ds;
+    // Recalcule le plafond Y pour la métrique active
+    const yVals = ds.filter(d => !d._isUnsub).flatMap(d => d.data.map(p => p.y ?? 0));
+    const dataMax = yVals.length ? Math.max(...yVals) : 0;
+    const floor = METRIC_CEILING[currentMetric] ?? 50;
+    chart.options.scales.y.suggestedMax = Math.max(floor, Math.ceil(dataMax * 1.15 / 5) * 5);
     chart.update();
   }
 
@@ -4402,6 +4418,7 @@ function initBrevoTimeline(tpData, TP_COLORS, TP_LABELS, allCamps) {
           },
           y: {
             beginAtZero: true,
+            suggestedMax: METRIC_CEILING['openRate'],
             position: 'left',
             ticks: {
               font: { size: 10, family: "'Albert Sans',sans-serif" },
