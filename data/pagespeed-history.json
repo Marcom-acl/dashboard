@@ -453,12 +453,12 @@
   {
     "date": "2026-10-29",
     "acl": {
-      "mobile": 32,
-      "desktop": 30
+      "mobile": 47,
+      "desktop": 52
     },
     "auto": {
-      "mobile": 66,
-      "desktop": 87
+      "mobile": 60,
+      "desktop": 84
     }
   }
 ]
