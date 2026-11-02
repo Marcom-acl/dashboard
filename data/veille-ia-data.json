@@ -1,6 +1,98 @@
 {
-  "generated_at": "2026-10-26",
+  "generated_at": "2026-11-02",
   "items": [
+    {
+      "date": "2026-10-08",
+      "theme": "IA générative en marketing",
+      "titre": "Claude lance Dashboards et Motion, Docs/Slides/Design passent gratuits",
+      "synthese": "Le 8 octobre 2026, Anthropic a lancé en bêta Claude Dashboards et Claude Motion, deux nouveaux outils intégrés à Claude. Dashboards transforme des questions posées en langage naturel en tableaux de bord qui restent à jour, en se connectant à des plateformes de données (Snowflake, BigQuery, Redshift, Databricks) ou à des CRM comme Salesforce ; chaque graphique affiche la date de sa dernière actualisation et permet de visualiser la requête sous-jacente. Motion génère de courtes vidéos explicatives animées à partir de rapports ou de graphiques, par exemple un rapport trimestriel transformé en résumé animé de 30 secondes pour une réunion d'équipe, exportable en MP4, sans recourir à un modèle de génération vidéo. Au même moment, Claude Docs, Slides et Design sont sortis de bêta et sont désormais accessibles sur tous les forfaits, y compris gratuit : Anthropic indique que plus de 45 millions de documents, présentations et designs ont déjà été créés dans Claude. Le site autonome claude.ai/design fermera le 14 décembre 2026, et pour les comptes Enterprise, Docs/Slides/Design seront activés par défaut à partir du 15 octobre 2026 (Dashboards et Motion restant à activer manuellement).",
+      "actionACL": "Tester Claude Dashboards sur un cas d'usage interne concret, par exemple le reporting mensuel des adhésions ou de l'activité des services membres, pour évaluer le gain face aux tableaux Excel actuels. Profiter de la gratuité de Claude Docs/Slides/Design pour produire des supports de communication interne sans coût additionnel, et surveiller d'ici 3 mois les connecteurs de données disponibles pour voir si les outils de reporting de l'ACL peuvent s'y brancher.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "Claude (Anthropic, Resources/Announcements)",
+          "url": "https://claude.com/resources/articles/dashboards-and-motion"
+        },
+        {
+          "name": "Unite.AI",
+          "url": "https://unite.ai/anthropic-launches-claude-dashboards-and-motion-takes-docs-out-of-beta"
+        },
+        {
+          "name": "The New Stack",
+          "url": "https://thenewstack.io/claude-dashboards-data-motion/"
+        }
+      ]
+    },
+    {
+      "date": "2026-02-03",
+      "theme": "CRM & member marketing",
+      "titre": "Rapport Antavo 2026 : plus de la moitié du budget marketing va à la fidélisation",
+      "synthese": "Antavo a publié le 3 février 2026 son Global Customer Loyalty Report 2026, basé sur une enquête auprès de 3 000 marketeurs et 10 000 consommateurs dans le monde, complétée par l'analyse de 500 millions d'actions de membres fidélité sur sa propre plateforme. Le chiffre central : les marques consacrent en moyenne 51,5% de leur budget marketing total aux programmes de fidélité et au CRM. Parmi les responsables de programmes qui mesurent leur performance, le ROI moyen déclaré atteint 5,3x (contre 5,2x en 2025), et 83% se disent satisfaits de leur programme. Le rapport souligne aussi la montée de l'IA dans la gestion de la fidélité, avec une part croissante de marketeurs déclarant l'utiliser pour personnaliser les parcours membres, tout en notant que 91% des responsables de programmes jugent encore difficile l'exploitation de leurs données de fidélité.",
+      "actionACL": "Comparer la part du budget Marcom actuellement allouée à la fidélisation et à la rétention des 191 000 membres à la moyenne de 51,5% du secteur, pour objectiver un éventuel sous-investissement. Si un audit CRM est prévu, intégrer des indicateurs de ROI de fidélisation (type ROI par membre) au tableau de bord, à l'image de la méthodologie Antavo.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "Business Wire (communiqué Antavo)",
+          "url": "https://secure.businesswire.com/news/home/20260203264831/en/Antavo-Global-Customer-Loyalty-Report-2026-Marketers-Are-Spending-More-Than-Half-of-Total-Budgets-on-Loyalty"
+        },
+        {
+          "name": "Antavo (blog officiel)",
+          "url": "https://antavo.com/blog/global-customer-loyalty-report-2026/"
+        },
+        {
+          "name": "Digital Applied",
+          "url": "https://www.digitalapplied.com/blog/customer-loyalty-statistics-2026-data-points"
+        }
+      ]
+    },
+    {
+      "date": "2026-05-05",
+      "theme": "Social & Ads",
+      "titre": "LinkedIn généralise Accelerate, son créateur de campagnes 100% IA",
+      "synthese": "LinkedIn a commencé à déployer Accelerate, un outil qui construit une campagne publicitaire complète à partir d'une simple URL de page produit : l'IA analyse le site, la page entreprise et les publicités précédentes pour proposer en quelques minutes un ciblage, des créations et un budget, ajustables avant lancement. Une fois la campagne lancée, des modèles d'IA ajustent en continu les enchères et réallouent le budget vers les placements et créations les plus performants, sans intervention manuelle. Accelerate intègre notamment Predictive Audiences, la fonctionnalité de ciblage prédictif de LinkedIn, pour laquelle la plateforme revendique une amélioration de 21% du coût par lead (chiffre communiqué par LinkedIn, à vérifier de façon indépendante). L'accès a d'abord été limité à un nombre restreint d'annonceurs en Amérique du Nord, avant une extension progressive annoncée à l'ensemble des annonceurs dans le monde.",
+      "actionACL": "Dès l'ouverture d'Accelerate aux comptes européens, tester l'outil sur une campagne secondaire à faible risque (ex. recrutement de membres dans un segment professionnel ciblé) tout en gardant un contrôle manuel du budget quotidien, les retours d'expérience signalant un risque de dépense rapide sans supervision. Comparer le coût par lead obtenu à celui des campagnes LinkedIn actuellement pilotées manuellement par l'équipe Marcom.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "Social Media Today",
+          "url": "https://www.socialmediatoday.com/news/linkedin-begins-testing-fully-automated-accelerate-ad-campaigns/"
+        },
+        {
+          "name": "MediaPost",
+          "url": "https://www.mediapost.com/publications/article/397611/linkedin-expands-access-to-accelerate-ai-campaig.html"
+        },
+        {
+          "name": "Social Samosa",
+          "url": "https://www.socialsamosa.com/news-2/linkedin-predictive-audiences-ai-powered-targeting-updates-8845658"
+        }
+      ]
+    },
+    {
+      "date": "2026-10-15",
+      "theme": "Design & branding",
+      "titre": "Figma lance Specs, un format Markdown lisible par les équipes et les agents IA",
+      "synthese": "Figma a présenté Specs le 15 octobre 2026 lors de sa conférence Config India, en même temps que l'ouverture de Code Layers en bêta ouverte. Specs est un document au format Markdown qui vit directement sur le canevas Figma : il peut réunir dans un même espace un brief écrit, des maquettes en direct et des diagrammes FigJam, et s'ouvre via un raccourci clavier ou la barre d'outils. L'agent IA de Figma peut rédiger un premier jet de Spec à partir de matériel existant, lire les commentaires intégrés et proposer des corrections aux fils de discussion ouverts. La fonctionnalité est en bêta ouverte, déployée progressivement sur plusieurs semaines (certains comptes y accèdent avant d'autres), sans date de disponibilité générale ni confirmation sur une éventuelle facturation séparée après la bêta ; les crédits IA associés sont mutualisés avec les autres fonctions IA de Figma, se réinitialisent chaque mois et ne sont ni cumulables ni transférables.",
+      "actionACL": "Si l'ACL utilise ou envisage Figma pour ses supports de communication, suivre le déploiement de Specs pour centraliser brief créatif, maquettes et retours dans un seul document plutôt que de les disperser entre emails et fichiers séparés. Attendre la sortie de bêta avant toute adoption en production, le modèle de crédits et la disponibilité générale n'étant pas encore fixés.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "INFO",
+      "sources": [
+        {
+          "name": "Figma (blog officiel)",
+          "url": "https://www.figma.com/blog/introducing-figma-specs/"
+        },
+        {
+          "name": "TechCrunch",
+          "url": "https://techcrunch.com/?p=3177541"
+        },
+        {
+          "name": "Design Systems Collective",
+          "url": "https://www.designsystemscollective.com/figma-config-india-2026-code-layers-specs-and-what-they-mean-for-design-systems-55922c199209"
+        }
+      ]
+    },
     {
       "date": "2026-10-15",
       "theme": "IA générative en marketing",
