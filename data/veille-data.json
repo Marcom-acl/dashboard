@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-26",
-  "next_edition": "2026-11-02",
+  "generated_at": "2026-11-02",
+  "next_edition": "2026-11-09",
   "editions": [
     {
       "date": "2026-05-03",
@@ -421,9 +421,63 @@
     {
       "date": "2026-10-26",
       "label": "Semaine du 2026-10-26"
+    },
+    {
+      "date": "2026-11-02",
+      "label": "Semaine du 2026-11-02"
     }
   ],
   "items": [
+    {
+      "id": "2026-11-02-adac-1",
+      "date": "2026-10-20",
+      "club": "ADAC",
+      "category": "EU",
+      "content": "Le test d'automne 2026 des sièges auto, mené par l'ADAC avec Stiftung Warentest et des partenaires européens, a publié ses résultats complets le 20 octobre : plusieurs modèles obtiennent la mention « gut », mais le siège Kinderkraft Mink Pro 2 s'est détaché de sa base pendant les essais, poussant le fabricant à proposer un échange ou un remboursement gratuit.",
+      "relevance": "Ce test confirme et élargit (après Axkid et Britax Römer) la série d'alertes sécurité sur les sièges auto enfant relayées par plusieurs clubs européens cet automne ; l'ACL pourrait vérifier si le Kinderkraft Mink Pro 2 est commercialisé au Luxembourg et compléter sa propre communication sécurité enfant.",
+      "badge": "SURVEILLER",
+      "url": "https://presse.adac.de/meldungen/adac-ev/tests/babyschalen-holen-spitzenplaetze-im-adac-kindersitztest.html"
+    },
+    {
+      "id": "2026-11-02-rac-1",
+      "date": "2026-10-28",
+      "club": "RAC",
+      "category": "EU",
+      "content": "Réagissant au Budget d'automne britannique du 28 octobre, le RAC (Rod Dennis) a salué le gel des droits d'accise sur le carburant mais regrette l'absence de baisse supplémentaire, citant son enquête selon laquelle près de deux automobilistes sur trois réclament une réduction de taxe ou de TVA sur le carburant.",
+      "relevance": "Ce positionnement illustre le rôle de porte-parole budgétaire que joue un grand club automobile sur la fiscalité carburant ; l'ACL pourrait envisager une prise de position comparable avant un prochain budget national luxembourgeois, appuyée sur un sondage membres.",
+      "badge": "SURVEILLER",
+      "url": "https://www.rac.co.uk/drive/news/motoring-news/autumn-budget/"
+    },
+    {
+      "id": "2026-11-02-oamtc-1",
+      "date": "2026-10-12",
+      "club": "ÖAMTC",
+      "category": "Mobilité",
+      "content": "Le dernier crash-test de l'ÖAMTC (Audi Q7, Kia EV2, XPENG X9) confirme un retour aux commandes physiques : les fonctions essentielles (clignotants, essuie-glaces, warning) accessibles par de vrais boutons sont mieux notées depuis que l'Euro NCAP sanctionne, depuis 2026, les commandes de sécurité uniquement pilotées par écran tactile.",
+      "relevance": "Ce critère Euro NCAP devient un argument d'achat concret ; l'ACL pourrait l'intégrer dans ses guides d'achat et comparatifs auto destinés aux membres, en signalant les modèles pénalisés pour leur interface entièrement tactile.",
+      "badge": "NOTABLE",
+      "url": "https://www.oeamtc.at/presse/aktueller-crashtest-bestaetigt-trend-zurueck-zu-echten-tasten-89965892"
+    },
+    {
+      "id": "2026-11-02-aa-1",
+      "date": "2026-10-20",
+      "club": "AA",
+      "category": "EU",
+      "content": "Le gouvernement britannique a déposé le 20 octobre le nouveau code de bonne pratique sur le stationnement privé (plafond de 60 livres si payé sous 15 jours, 5 minutes minimum pour décider de se garer, 10 minutes pour repartir sans pénalité) et a inscrit le trafic de compteur kilométrique (« clocking ») sur la liste des pratiques interdites ; l'AA a salué la mesure par la voix de son porte-parole Jack Cousens.",
+      "relevance": "Ce cadre réglementaire sur le stationnement privé et la fraude au kilométrage est un sujet sur lequel l'ACL pourrait se positionner publiquement au Luxembourg ; question à creuser : l'ACL dispose-t-elle de données sur les litiges de stationnement privé ou le trafic de compteur au Luxembourg ?",
+      "badge": "SURVEILLER",
+      "url": "https://www.theaa.com/about-us/newsroom/private-parking-code-of-practice-car-clocking"
+    },
+    {
+      "id": "2026-11-02-aa-2",
+      "date": "2026-10-28",
+      "club": "AA",
+      "category": "EU",
+      "content": "Dans sa réaction au Budget d'automne 2026, l'AA a critiqué le maintien du taux de TVA à 20 % sur la recharge publique de véhicules électriques (contre 5 % à domicile), tout en saluant la prolongation du gel partiel des droits d'accise sur le carburant ; la taxe kilométrique pour véhicules électriques (eVED) reste prévue pour avril 2028.",
+      "relevance": "Cette inégalité de TVA entre recharge à domicile et recharge publique est un argument transposable au débat fiscal luxembourgeois sur l'électromobilité ; l'ACL pourrait formuler une position similaire dans la perspective du prochain budget national.",
+      "badge": "NOTABLE",
+      "url": "https://www.theaa.com/about-us/newsroom/AA-Budget-response-2026"
+    },
     {
       "id": "2026-10-26-adac-1",
       "date": "2026-09-22",
@@ -10193,17 +10247,15 @@
     }
   ],
   "trends": [
-    "Coordination renforcée des clubs européens sur la sécurité enfant : publication cette semaine des résultats complets des tests d'automne sièges auto par le TCS (16 modèles) et le ÖAMTC (15 modèles), confirmant les défaillances alertées conjointement le 6 octobre sur les mêmes deux modèles (Britax Römer, Axkid), avec relais par Touring Belgique et rappel des fabricants concernés.",
-    "Multiplication des outils numériques de transparence et de simplification pour l'automobiliste : radar des prix de recharge électrique du TCS (environ 19 000 bornes) et calculateur d'échéances de contrôle technique du ÖAMTC (Pickerlrechner), un axe d'investissement numérique partagé par plusieurs clubs face aux réformes réglementaires à venir.",
-    "Dossiers transfrontaliers sensibles pour les clubs voisins du Luxembourg : l'ANWB documente l'opposition de ses propres membres au projet belge de vignette routière payante prévu dès mai 2027, dans la continuité du dossier déjà signalé la semaine dernière.",
-    "Lobbying tarifaire pré-budgétaire actif sur la fiscalité des carburants et des infrastructures : The AA réclame une nouvelle baisse de la taxe carburant avant le budget britannique du 28 octobre, pendant que le TCS s'oppose à la suppression de 31 projets routiers suisses à horizon 2045.",
-    "Tensions sociales chez un grand club pair : l'ANWB fait face à un quatrième débrayage national consécutif de ses dépanneurs Wegenwacht, négociations salariales bloquées depuis plusieurs semaines, un signal de risque opérationnel pour la continuité des services d'assistance routière."
+    "Deux clubs britanniques (RAC et AA) réagissent au Budget d'automne 2026 du 28 octobre sur deux axes distincts : le gel des droits d'accise carburant, salué mais jugé insuffisant par les deux, et l'inégalité de TVA entre recharge électrique à domicile (5 %) et publique (20 %), un angle de lobbying tarifaire post-budgétaire à surveiller.",
+    "La vague d'alertes sécurité sur les sièges auto enfant se poursuit et s'élargit : après Axkid et Britax Römer (alerte du 6 octobre), l'ADAC signale désormais un défaut sur le Kinderkraft Mink Pro 2 dans son test d'automne publié le 20 octobre, confirmant un canal de coordination européen actif sur ce sujet.",
+    "L'Euro NCAP impose depuis 2026 un nouveau critère de notation pénalisant les commandes essentielles uniquement pilotées par écran tactile ; l'ÖAMTC documente un retour visible des constructeurs vers des boutons physiques, un signal fort pour les guides d'achat des clubs automobiles.",
+    "Durcissement réglementaire du stationnement privé au Royaume-Uni (code de bonne pratique du 20 octobre, plafond tarifaire, trafic de compteur kilométrique désormais interdit), salué par l'AA : un dossier consommateur transposable pour un club automobile national."
   ],
   "signals": [
-    "Projet belge de vignette routière payante dès mai 2027 : l'ANWB publie un sondage montrant l'opposition de ses membres, renforçant un dossier déjà identifié comme un risque direct pour les frontaliers luxembourgeois travaillant en Belgique.",
-    "Conflit social prolongé à l'ANWB (quatrième débrayage des dépanneurs Wegenwacht, vente de batteries suspendue) : à surveiller comme signal avancé de tensions salariales dans le secteur du dépannage automobile en Europe.",
-    "Réforme du contrôle technique autrichien dès mai 2027 (passage à un intervalle 4-2-2-2-1, accompagné d'un outil numérique dédié du ÖAMTC) : un précédent réglementaire potentiellement suivi par d'autres pays européens, à surveiller pour une éventuelle transposition.",
-    "Hausse marquée de la mortalité des usagers de mobilités douces et électriques en Italie selon ACI-Istat (+50% vélos électriques, +8,7% trottinettes électriques) : un signal à documenter localement au Luxembourg où ces usages progressent également.",
-    "Nouveau protocole de test ADAC pour les voitures électriques (banc d'essai climatique du laboratoire e-mobilité), rendant les classements non comparables aux années précédentes : à surveiller si cette méthodologie devient un standard sectoriel européen."
+    "Si le critère Euro NCAP sur les commandes physiques se généralise, les classements de sécurité pourraient devenir un argument d'achat déterminant dès 2027 : à surveiller dans les prochains comparatifs auto européens.",
+    "Extension possible du champ d'alerte sécurité sièges auto à un troisième fabricant (Kinderkraft) en moins d'un mois, après Axkid et Britax Römer : signal d'une faiblesse structurelle de la filière plutôt que d'incidents isolés.",
+    "Le débat sur la TVA de la recharge électrique publique face à la recharge à domicile, porté par l'AA au Royaume-Uni, pourrait inspirer des revendications similaires d'autres clubs européens dans la perspective des budgets nationaux 2027, y compris au Luxembourg.",
+    "La régulation naissante du stationnement privé et de la fraude au kilométrage au Royaume-Uni (code de bonne pratique, interdiction légale du clocking) pourrait servir de précédent à d'autres pays européens en l'absence de cadre harmonisé : à documenter."
   ]
 }
