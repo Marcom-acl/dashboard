@@ -464,12 +464,12 @@
   {
     "date": "2026-11-03",
     "acl": {
-      "mobile": 52,
-      "desktop": 58
+      "mobile": 50,
+      "desktop": 42
     },
     "auto": {
       "mobile": 61,
-      "desktop": 89
+      "desktop": 85
     }
   }
 ]
