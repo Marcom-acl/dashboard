@@ -476,11 +476,11 @@
     "date": "2026-11-04",
     "acl": {
       "mobile": 31,
-      "desktop": 45
+      "desktop": 39
     },
     "auto": {
-      "mobile": 49,
-      "desktop": 85
+      "mobile": 53,
+      "desktop": 81
     }
   }
 ]
