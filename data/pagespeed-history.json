@@ -486,12 +486,12 @@
   {
     "date": "2026-11-05",
     "acl": {
-      "mobile": 38,
-      "desktop": 32
+      "mobile": 28,
+      "desktop": 56
     },
     "auto": {
-      "mobile": 54,
-      "desktop": 78
+      "mobile": 56,
+      "desktop": 48
     }
   }
 ]
