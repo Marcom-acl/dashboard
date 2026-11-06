@@ -497,12 +497,12 @@
   {
     "date": "2026-11-06",
     "acl": {
-      "mobile": 37,
-      "desktop": 55
+      "mobile": 52,
+      "desktop": 57
     },
     "auto": {
-      "mobile": 62,
-      "desktop": 82
+      "mobile": 69,
+      "desktop": 85
     }
   }
 ]
