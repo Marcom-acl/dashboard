@@ -1,11 +1,11 @@
 {
- "generated_at": "2026-10-05T15:07:30.210264+00:00",
+ "generated_at": "2026-11-09T16:44:23.765012+00:00",
  "source": {
   "slug": "comparaison-des-prix-de-carburants-par-motorisation",
   "dataset_url": "https://data.public.lu/fr/datasets/comparaison-des-prix-de-carburants-par-motorisation/",
   "resource_title": "comparaisonprix-carburants-par-motorisation.csv",
-  "resource_url": "https://download.data.public.lu/resources/comparaison-des-prix-de-carburants-par-motorisation/20261001-123355/comparaisonprix-carburants-par-motorisation.csv",
-  "last_deposit": "2026-10-01T12:33:57.402000+00:00",
+  "resource_url": "https://download.data.public.lu/resources/comparaison-des-prix-de-carburants-par-motorisation/20261104-140453/comparaisonprix-carburants-par-motorisation.csv",
+  "last_deposit": "2026-11-04T14:04:54.962000+00:00",
   "frequency": "monthly",
   "frequency_days": 30.44,
   "stale_factor": 1.5
@@ -70,7 +70,8 @@
   "2026-06",
   "2026-07",
   "2026-08",
-  "2026-09"
+  "2026-09",
+  "2026-10"
  ],
  "values": {
   "Essence_E10": [
@@ -82,7 +83,8 @@
    1.686,
    1.705,
    1.709,
-   1.845
+   1.845,
+   1.805
   ],
   "Diesel_B7": [
    1.398,
@@ -93,6 +95,7 @@
    1.696,
    1.753,
    1.9,
+   2.066,
    2.066
   ],
   "LPG": [
@@ -104,7 +107,8 @@
    0.719,
    0.704,
    0.697,
-   0.789
+   0.789,
+   0.915
   ],
   "Hydrogene": [
    13.85,
@@ -115,7 +119,8 @@
    13.85,
    13.85,
    13.85,
-   13.85
+   13.85,
+   9.95
   ],
   "Electricie_Fournisseur": [
    0.251,
@@ -125,6 +130,7 @@
    0.251,
    0.251,
    0.251,
+   0.211,
    0.211,
    0.211
   ],
@@ -137,7 +143,8 @@
    0.52,
    0.533,
    0.54,
-   0.547
+   0.547,
+   0.565
   ],
   "Recharge_DC": [
    0.672,
@@ -148,7 +155,8 @@
    0.672,
    0.7,
    0.691,
-   0.69
+   0.69,
+   0.693
   ]
  }
 }
