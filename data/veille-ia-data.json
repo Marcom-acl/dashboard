@@ -1,6 +1,75 @@
 {
-  "generated_at": "2026-11-02",
+  "generated_at": "2026-11-09",
   "items": [
+    {
+      "date": "2026-10-28",
+      "theme": "Social & Ads",
+      "titre": "LinkedIn : forte hausse des pubs vidéo et créateurs au T1 FY27",
+      "synthese": "Lors des résultats du premier trimestre fiscal 2027 de Microsoft (trimestre clos le 30 septembre 2026, publiés le 28 octobre 2026), le CEO de LinkedIn Daniel Shapero a indiqué que le temps passé par les membres sur la plateforme a progressé de 15% sur un an. La plateforme dépasse désormais 1,4 milliard de membres, contre 1,3 milliard au trimestre précédent. Côté publicité, les publicités vidéo payantes ont augmenté de 25% sur un an, et les publicités mettant en scène des créateurs ont bondi de 63% sur la même période. Ces chiffres confirment l'essor du contenu vidéo et du marketing d'influence B2B sur la plateforme, porté notamment par les formats Thought Leader Ads et BrandLink.",
+      "actionACL": "Augmenter la part de contenu vidéo natif sur la page LinkedIn de l'ACL (conseils sécurité routière, témoignages membres, coulisses des services) pour profiter de cette dynamique d'engagement. Tester les Thought Leader Ads en sponsorisant les prises de parole d'experts internes (sécurité routière, mobilité) plutôt que la seule page entreprise.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "Social Media Today",
+          "url": "https://socialmediatoday.com/news/linkedin-increases-user-time-members-and-creator-ads/873266"
+        },
+        {
+          "name": "WERSM",
+          "url": "https://wersm.com/linkedin-engagement-gains-feed-quality-pressure/"
+        },
+        {
+          "name": "Gens d'Internet",
+          "url": "https://gensdinternet.fr/?p=47118"
+        }
+      ]
+    },
+    {
+      "date": "2026-10-15",
+      "theme": "Social & Ads",
+      "titre": "LinkedIn teste des pubs pré-roll rémunérant les créateurs (US)",
+      "synthese": "LinkedIn a annoncé le 15 octobre 2026 le test d'In-Stream Ads, un programme qui diffuse de courtes publicités pré-roll (jusqu'à 90 secondes) avant les vidéos de créateurs américains sélectionnés, sans nécessiter de partenariat préalable avec la marque annonceuse. Les créateurs ayant opté in perçoivent une part des revenus publicitaires générés. Le dispositif complète les formats existants BrandLink (lancé en mai 2025) et Thought Leader Ads, qui permettent déjà d'associer une marque au contenu d'un créateur. L'annonce incluait aussi de nouvelles sessions de conseil payantes (Advice Sessions) et des filtres de recherche enrichis dans le Creator Marketplace.",
+      "actionACL": "Suivre l'extension de ce test hors des Etats-Unis avant d'y consacrer un budget. D'ici là, continuer à construire des partenariats avec des créateurs/micro-influenceurs luxembourgeois spécialisés mobilité et sécurité routière, afin d'être prêt si ce format de parrainage vidéo s'ouvre aux annonceurs européens.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "PPC Land",
+          "url": "https://ppc.land/linkedin-tests-paying-us-creators-for-pre-roll-ads-on-their-videos/"
+        },
+        {
+          "name": "A Media Operator",
+          "url": "https://amediaoperator.com/analysis/linkedin-enables-publishers-to-insert-pre-roll-ads-into-organic-video-content/"
+        },
+        {
+          "name": "MediaPost",
+          "url": "https://www.mediapost.com/publications/article/396602/linkedin-ai-services-stream-video-sponsorships-en.html"
+        }
+      ]
+    },
+    {
+      "date": "2026-01-28",
+      "theme": "Design & branding",
+      "titre": "MND Association (UK) dévoile son 1er rebranding en 10 ans, conforme AAA",
+      "synthese": "Le 28 janvier 2026, la MND Association, association britannique de lutte contre la sclérose latérale amyotrophique, a dévoilé sa première identité visuelle majeure depuis plus de dix ans, conçue avec les agences Lukecharles et Radda. Le nouveau logo adopte une couleur terracotta dominante et une imagerie d'empreintes digitales symbolisant le caractère unique de chaque parcours face à la maladie. Le projet s'appuie sur une enquête menée auprès de 2000 personnes, qui a révélé que l'ancien logo ne parlait plus aux nouveaux publics. Le nouveau design respecte le niveau AAA des WCAG (Web Content Accessibility Guidelines) et le rebranding a été réalisé à coût quasiment nul grâce à un don dédié. L'association présente ce changement comme un levier de croissance destiné à renforcer sa notoriété et sa collecte de fonds.",
+      "actionACL": "S'inspirer de cette démarche pour objectiver, via une courte enquête de perception auprès d'un échantillon de membres, si le logo et l'identité actuels de l'ACL parlent encore aux nouvelles générations d'adhérents avant d'envisager toute refonte. Profiter de ce cas pour auditer dès maintenant la conformité AAA WCAG du site acl.lu et des principaux supports de communication, chantier réalisable sans refonte complète de marque.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "Design Week",
+          "url": "https://www.designweek.co.uk/lukecharles-and-radda-create-new-identity-for-the-motor-neurone-disease-mnd-association/"
+        },
+        {
+          "name": "Marketing Week",
+          "url": "https://www.marketingweek.com/motor-neurone-disease-association-rebrand/"
+        },
+        {
+          "name": "MND Association (site officiel)",
+          "url": "https://www.mndassociation.org/about-us/who-we-are/why-have-we-rebranded"
+        }
+      ]
+    },
     {
       "date": "2026-10-08",
       "theme": "IA générative en marketing",
