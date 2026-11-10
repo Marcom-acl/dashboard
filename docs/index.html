@@ -5584,20 +5584,28 @@ function renderVeillePresse(d) {
     const notable = items.filter(i => i.badge === 'NOTABLE').length;
     const acl     = items.filter(i => i.relevance && i.relevance.startsWith('ACL explicitement cité')).length;
 
-    const navBtns = dates.map((dt, idx) => {
-      const active = idx === currentDateIdx;
-      return `<button onclick="window._vpDate(${idx})" style="border:1px solid ${active ? '#231f20' : 'var(--border)'};border-radius:99px;padding:4px 14px;font-size:12px;font-weight:${active ? '700' : '400'};background:${active ? '#231f20' : 'var(--surface)'};color:${active ? '#FEDB00' : 'var(--text)'};cursor:pointer;font-family:inherit;white-space:nowrap">${dateLabelShort(dt)}</button>`;
-    }).join('');
-
     const prevDisabled = currentDateIdx >= dates.length - 1;
     const nextDisabled = currentDateIdx <= 0;
+    const arrowStyle = dis => `border:1px solid var(--border);border-radius:6px;padding:6px 12px;font-size:15px;line-height:1;background:var(--surface);color:var(--text);cursor:${dis ? 'default' : 'pointer'};opacity:${dis ? .35 : 1}`;
+    const ctrlStyle  = 'border:1px solid var(--border);border-radius:6px;padding:6px 10px;font-size:13px;background:var(--surface);color:var(--text);font-family:inherit';
+    const monthNames = ['','janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
+    const monthKeys  = [...new Set(dates.map(d => d.slice(0, 7)))];
+    const curMonth   = date.slice(0, 7);
+    const monthOpts  = monthKeys.map(ym => {
+      const n = dates.filter(d => d.startsWith(ym)).reduce((acc, d) => acc + byDate[d].length, 0);
+      return `<option value="${ym}" ${ym === curMonth ? 'selected' : ''}>${monthNames[parseInt(ym.slice(5))]} ${ym.slice(0, 4)} (${n})</option>`;
+    }).join('');
+    const isLatest = currentDateIdx === 0;
 
     return `
       <!-- Navigation dates -->
       <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;flex-wrap:wrap">
-        <button onclick="window._vpDate(${currentDateIdx + 1})" ${prevDisabled ? 'disabled' : ''} style="border:1px solid var(--border);border-radius:6px;padding:4px 10px;font-size:15px;background:var(--surface);color:var(--text);cursor:pointer;opacity:${prevDisabled ? '.3' : '1'};pointer-events:${prevDisabled ? 'none' : 'auto'}">&#8249;</button>
-        <div style="display:flex;gap:6px;flex-wrap:wrap">${navBtns}</div>
-        <button onclick="window._vpDate(${currentDateIdx - 1})" ${nextDisabled ? 'disabled' : ''} style="border:1px solid var(--border);border-radius:6px;padding:4px 10px;font-size:15px;background:var(--surface);color:var(--text);cursor:pointer;opacity:${nextDisabled ? '.3' : '1'};pointer-events:${nextDisabled ? 'none' : 'auto'}">&#8250;</button>
+        <button onclick="window._vpDate(${currentDateIdx + 1})" ${prevDisabled ? 'disabled' : ''} title="Jour précédent" style="${arrowStyle(prevDisabled)}">‹</button>
+        <input type="date" value="${date}" min="${dates[dates.length - 1]}" max="${dates[0]}" onchange="window._vpPick(this.value)" title="Choisir une date" style="${ctrlStyle}">
+        <button onclick="window._vpDate(${currentDateIdx - 1})" ${nextDisabled ? 'disabled' : ''} title="Jour suivant" style="${arrowStyle(nextDisabled)}">›</button>
+        <select onchange="window._vpMonth(this.value)" title="Aller à un mois" style="${ctrlStyle}">${monthOpts}</select>
+        <button onclick="window._vpDate(0)" ${isLatest ? 'disabled' : ''} style="${ctrlStyle};cursor:${isLatest ? 'default' : 'pointer'};opacity:${isLatest ? .35 : 1}">Dernier jour</button>
+        <span style="font-size:11px;color:var(--muted);margin-left:auto">Jour ${currentDateIdx + 1} / ${dates.length}</span>
       </div>
 
       <!-- Synthèse -->
@@ -5645,6 +5653,20 @@ function renderVeillePresse(d) {
     currentDateIdx = idx;
     refresh();
     document.getElementById('panel-veille-presse').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
+  // Date choisie au sélecteur : si aucun article ce jour-là, on prend le jour disponible le plus proche avant
+  window._vpPick = function(iso) {
+    if (!iso) return;
+    let idx = dates.findIndex(d => d <= iso);
+    if (idx < 0) idx = dates.length - 1;
+    window._vpDate(idx);
+  };
+
+  // Mois choisi : on affiche son jour le plus récent
+  window._vpMonth = function(ym) {
+    const idx = dates.findIndex(d => d.startsWith(ym));
+    if (idx >= 0) window._vpDate(idx);
   };
 
   refresh();
