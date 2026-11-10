@@ -1,15 +1,7 @@
 {
-  "generated_at": "2026-11-09",
-  "next_edition": "2026-11-16",
+  "generated_at": "2026-11-10",
+  "next_edition": "",
   "editions": [
-    {
-      "date": "2026-05-03",
-      "label": "Semaine du 3 mai 2026"
-    },
-    {
-      "date": "2026-05-04",
-      "label": "Semaine du 4 mai 2026"
-    },
     {
       "date": "2026-05-11",
       "label": "Semaine du 11 mai 2026"
@@ -425,18 +417,232 @@
     {
       "date": "2026-11-02",
       "label": "Semaine du 2026-11-02"
+    },
+    {
+      "date": "2026-11-10",
+      "label": "Semaine du 2026-11-10"
     }
   ],
   "items": [
     {
-      "id": "2026-11-02-adac-1",
-      "date": "2026-10-20",
-      "club": "ADAC",
-      "category": "EU",
-      "content": "Le test d'automne 2026 des sièges auto, mené par l'ADAC avec Stiftung Warentest et des partenaires européens, a publié ses résultats complets le 20 octobre : plusieurs modèles obtiennent la mention « gut », mais le siège Kinderkraft Mink Pro 2 s'est détaché de sa base pendant les essais, poussant le fabricant à proposer un échange ou un remboursement gratuit.",
-      "relevance": "Ce test confirme et élargit (après Axkid et Britax Römer) la série d'alertes sécurité sur les sièges auto enfant relayées par plusieurs clubs européens cet automne ; l'ACL pourrait vérifier si le Kinderkraft Mink Pro 2 est commercialisé au Luxembourg et compléter sa propre communication sécurité enfant.",
+      "id": "2026-11-10-saaskia-web-BXsBWy",
+      "club": "wort.lu",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "Article en allemand sur les batteries surdimensionnées des véhicules électriques, qui peuvent dépasser le poids admis pour le permis B. Catégorie ACL dans SAASKIA.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1794290868.6054.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794290868.6054.pdf",
+      "date": "2026-11-10"
+    },
+    {
+      "id": "2026-11-10-saaskia-web-yxIoBo",
+      "club": "Le Quotidien",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "Les garagistes sont submergés de demandes d'équipement en pneus neige à l'approche de l'hiver. Catégorie ACL dans SAASKIA.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1794290629.4056.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794290629.4056.pdf",
+      "date": "2026-11-10"
+    },
+    {
+      "id": "2026-11-10-saaskia-web-GgApoE",
+      "club": "lesfrontaliers.lu",
+      "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "url": "https://presse.adac.de/meldungen/adac-ev/tests/babyschalen-holen-spitzenplaetze-im-adac-kindersitztest.html"
+      "content": "Un radar a été installé dans une zone de chantier sur l'autoroute A3, ce qui intéresse directement les usagers de la route au Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1794297236.0051.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794297236.0051.pdf",
+      "date": "2026-11-10"
+    },
+    {
+      "id": "2026-11-10-saaskia-web-lf0wRI",
+      "club": "lesfrontaliers.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Les bus communaux sont absents de l'information en temps réel au Luxembourg, ce qui touche à la qualité du service de transport public.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1794291027.966.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794291027.966.pdf",
+      "date": "2026-11-10"
+    },
+    {
+      "id": "2026-11-10-saaskia-web-TI5xYW",
+      "club": "paperjam.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Le Luxembourg a réduit sa consommation d'énergie de 15 %, les transports étant en tête de cette baisse.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1794290989.786.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794290989.786.pdf",
+      "date": "2026-11-10"
+    },
+    {
+      "id": "2026-11-10-saaskia-web-DfEmbh",
+      "club": "Le Quotidien",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Les députés examinent les grands chantiers des CFL et du Fonds Belval, avec des enjeux pour le réseau ferroviaire et les infrastructures.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1794290696.2169.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794290696.2169.pdf",
+      "date": "2026-11-10"
+    },
+    {
+      "id": "2026-11-09-saaskia-web-7xxVy7",
+      "club": "Delano.lu",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "Entretien avec une personnalité sur l'accompagnement durable des personnes, « être là quand tout va bien ». Catégorie ACL et PERSONS dans SAASKIA.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1794210888.2887.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794210888.2887.pdf",
+      "date": "2026-11-09"
+    },
+    {
+      "id": "2026-11-09-saaskia-web-ioXGa0",
+      "club": "wort.lu",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "Article sur la couverture en cas de panne ou d'accident dans la Grande Région, et la question de savoir si les automobilistes sont réellement assurés. Catégorie ACL dans SAASKIA.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1794210912.1916.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794210912.1916.pdf",
+      "date": "2026-11-09"
+    },
+    {
+      "id": "2026-11-09-saaskia-web-IyuGAr",
+      "club": "luxtimes.lu (Wort.lu/en)",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "Article en anglais sur les bons réflexes à adopter en cas d'urgence. Catégorie ACL dans SAASKIA.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1794205901.2596.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794205901.2596.pdf",
+      "date": "2026-11-09"
+    },
+    {
+      "id": "2026-11-09-saaskia-web-ZIZJbu",
+      "club": "chronicle.lu",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "Annonce d'un salon automobile chinois organisé par ChinaLux. Catégorie ACL dans SAASKIA.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1794205867.1283.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794205867.1283.pdf",
+      "date": "2026-11-09"
+    },
+    {
+      "id": "2026-11-09-saaskia-web-SHGTG6",
+      "club": "wort.lu",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "Version allemande de l'article sur les batteries trop lourdes des véhicules électriques pour le permis B. Catégorie ACL dans SAASKIA.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1794205559.2347.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794205559.2347.pdf",
+      "date": "2026-11-09"
+    },
+    {
+      "id": "2026-11-09-saaskia-web-B1Fuu6",
+      "club": "paperjam.lu",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "Version française de l'entretien sur l'accompagnement durable des personnes, « être là quand tout va bien ». Catégorie ACL et PERSONS dans SAASKIA.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1794205486.535.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794205486.535.pdf",
+      "date": "2026-11-09"
+    },
+    {
+      "id": "2026-11-09-saaskia-web-16VLSS",
+      "club": "Luxemburger Wort",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "Version imprimée de l'article sur les batteries trop lourdes des véhicules électriques pour le permis B. Catégorie ACL dans SAASKIA.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1794205233.3601.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794205233.3601.pdf",
+      "date": "2026-11-09"
+    },
+    {
+      "id": "2026-11-09-saaskia-web-NxWOIU",
+      "club": "luxtimes.lu (Wort.lu/en)",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "La commune de Leudelange réclame une meilleure protection contre le bruit de l'autoroute dans le cadre du prolongement du tram.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1794206216.8749.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794206216.8749.pdf",
+      "date": "2026-11-09"
+    },
+    {
+      "id": "2026-11-09-saaskia-web-kozAtD",
+      "club": "Tout-Luxembourg.com",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Rappel des règles relatives aux pneus hiver au Luxembourg à l'intention des frontaliers.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1794206193.7165.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794206193.7165.pdf",
+      "date": "2026-11-09"
+    },
+    {
+      "id": "2026-11-09-saaskia-web-b8Lj0v",
+      "club": "lessentiel.lu FR",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Selon un sondage, 33 % des résidents laissent leur voiture au garage en raison du prix à la pompe.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1794206153.2199.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794206153.2199.pdf",
+      "date": "2026-11-09"
+    },
+    {
+      "id": "2026-11-09-saaskia-web-wY4MkU",
+      "club": "Luxemburger Wort",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Le ministre Leon Gloden maintient le projet de reconnaissance automatique des plaques d'immatriculation malgré l'opposition du Conseil d'État.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1794205948.7039.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794205948.7039.pdf",
+      "date": "2026-11-09"
+    },
+    {
+      "id": "2026-11-09-saaskia-web-PQqxrJ",
+      "club": "lequotidien.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "ProVelo.lu demande des actions concrètes pour améliorer les pistes cyclables au Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1794205802.7985.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794205802.7985.pdf",
+      "date": "2026-11-09"
+    },
+    {
+      "id": "2026-11-09-saaskia-web-TIFifq",
+      "club": "Le Quotidien",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Témoignage d'une victime d'accident de la route qui ne tient pas rigueur au conducteur, décrit comme un accident involontaire.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1794205724.8086.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794205724.8086.pdf",
+      "date": "2026-11-09"
+    },
+    {
+      "id": "2026-11-09-saaskia-web-WMUcmE",
+      "club": "L'Essentiel",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Déclaration sur la vignette automobile, sujet relevant de la fiscalité routière au Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1794205117.3916.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794205117.3916.pdf",
+      "date": "2026-11-09"
     },
     {
       "id": "2026-11-02-rac-1",
@@ -449,26 +655,6 @@
       "url": "https://www.rac.co.uk/drive/news/motoring-news/autumn-budget/"
     },
     {
-      "id": "2026-11-02-oamtc-1",
-      "date": "2026-10-12",
-      "club": "ÖAMTC",
-      "category": "Mobilité",
-      "content": "Le dernier crash-test de l'ÖAMTC (Audi Q7, Kia EV2, XPENG X9) confirme un retour aux commandes physiques : les fonctions essentielles (clignotants, essuie-glaces, warning) accessibles par de vrais boutons sont mieux notées depuis que l'Euro NCAP sanctionne, depuis 2026, les commandes de sécurité uniquement pilotées par écran tactile.",
-      "relevance": "Ce critère Euro NCAP devient un argument d'achat concret ; l'ACL pourrait l'intégrer dans ses guides d'achat et comparatifs auto destinés aux membres, en signalant les modèles pénalisés pour leur interface entièrement tactile.",
-      "badge": "NOTABLE",
-      "url": "https://www.oeamtc.at/presse/aktueller-crashtest-bestaetigt-trend-zurueck-zu-echten-tasten-89965892"
-    },
-    {
-      "id": "2026-11-02-aa-1",
-      "date": "2026-10-20",
-      "club": "AA",
-      "category": "EU",
-      "content": "Le gouvernement britannique a déposé le 20 octobre le nouveau code de bonne pratique sur le stationnement privé (plafond de 60 livres si payé sous 15 jours, 5 minutes minimum pour décider de se garer, 10 minutes pour repartir sans pénalité) et a inscrit le trafic de compteur kilométrique (« clocking ») sur la liste des pratiques interdites ; l'AA a salué la mesure par la voix de son porte-parole Jack Cousens.",
-      "relevance": "Ce cadre réglementaire sur le stationnement privé et la fraude au kilométrage est un sujet sur lequel l'ACL pourrait se positionner publiquement au Luxembourg ; question à creuser : l'ACL dispose-t-elle de données sur les litiges de stationnement privé ou le trafic de compteur au Luxembourg ?",
-      "badge": "SURVEILLER",
-      "url": "https://www.theaa.com/about-us/newsroom/private-parking-code-of-practice-car-clocking"
-    },
-    {
       "id": "2026-11-02-aa-2",
       "date": "2026-10-28",
       "club": "AA",
@@ -477,76 +663,6 @@
       "relevance": "Cette inégalité de TVA entre recharge à domicile et recharge publique est un argument transposable au débat fiscal luxembourgeois sur l'électromobilité ; l'ACL pourrait formuler une position similaire dans la perspective du prochain budget national.",
       "badge": "NOTABLE",
       "url": "https://www.theaa.com/about-us/newsroom/AA-Budget-response-2026"
-    },
-    {
-      "id": "2026-10-26-adac-1",
-      "date": "2026-09-22",
-      "club": "ADAC",
-      "category": "Mobilité",
-      "content": "L'ADAC a publié son test de pneus hiver 2026 portant sur 32 modèles en deux dimensions ; le Continental WinterContact TS 870 arrive en tête devant le Michelin Alpin 7, et neuf des seize pneus testés en format citadine (185/65 R15) sont jugés non recommandables.",
-      "relevance": "Ce test consommateur indépendant, largement repris dans la presse automobile allemande, illustre le rôle de conseil technique d'un grand club. L'ACL pourrait relayer ou adapter ce type de comparatif pneus hiver auprès de ses membres avant la saison froide.",
-      "badge": "INFO",
-      "url": "https://presse.adac.de/meldungen/adac-ev/tests/adac-winterreifentest-2026.html"
-    },
-    {
-      "id": "2026-10-26-adac-2",
-      "date": "2026-10-07",
-      "club": "ADAC",
-      "category": "Mobilité",
-      "content": "L'ADAC a mis à jour son classement des meilleures voitures électriques 2026 avec un nouveau protocole de test incluant un banc d'essai climatique de son laboratoire e-mobilité, rendant les notes non comparables aux années précédentes.",
-      "relevance": "Le changement de méthodologie d'un acteur de référence allemand peut influencer les standards sectoriels européens d'évaluation des véhicules électriques. Faut-il suivre l'évolution de ce protocole pour éventuellement harmoniser nos propres critères ?",
-      "badge": "INFO",
-      "url": "https://www.adac.de/rund-ums-fahrzeug/autokatalog/autotest/beste-elektroautos/"
-    },
-    {
-      "id": "2026-10-26-tcs-1",
-      "date": "2026-09-23",
-      "club": "TCS",
-      "category": "Mobilité",
-      "content": "Le TCS a lancé un radar des prix de recharge intégré à son application, en complément de son radar des prix des carburants existant, couvrant environ 19 000 bornes de recharge en Suisse avec filtres par type de prise, puissance, courant et opérateur.",
-      "relevance": "Cet outil répond directement au manque de transparence tarifaire dénoncé par les automobilistes électriques, un problème similaire existe au Luxembourg. L'ACL pourrait évaluer la faisabilité d'un outil équivalent, potentiellement en partenariat avec le TCS.",
-      "badge": "NOTABLE",
-      "url": "https://www.tcs.ch/assets/docs/presse/2026/20260923-communiqu-de-presse-radar-des-prix-de-recharge.pdf"
-    },
-    {
-      "id": "2026-10-26-tcs-2",
-      "date": "2026-10-08",
-      "club": "TCS",
-      "category": "EU",
-      "content": "Le TCS a pris position sur le projet fédéral suisse Transports 45 : il salue la première approche coordonnée route/rail/transports urbains du Conseil fédéral, mais s'oppose à la suppression prévue de 31 projets routiers, jugeant ce choix risqué d'aggraver des points noirs existants pour des décennies.",
-      "relevance": "Cette prise de position institutionnelle illustre comment un club automobile pèse dans un débat d'infrastructure national à long terme. Une communication similaire et documentée serait-elle utile face aux arbitrages d'infrastructure routière au Luxembourg ou en Grande Région ?",
-      "badge": "SURVEILLER",
-      "url": "https://www.tcs.ch/assets/docs/presse/2026/20261008-communiqu-de-presse-transports-45.pdf"
-    },
-    {
-      "id": "2026-10-26-tcs-3",
-      "date": "2026-10-20",
-      "club": "TCS",
-      "category": "EU",
-      "content": "Le TCS a publié son test d'automne 2026 de sièges auto pour enfants sur 16 modèles : 7 sont très recommandés, 5 recommandés et 2 sont jugés non recommandés après de graves défaillances aux crash-tests (Britax Römer Baby-Safe Pro + Vario Base 5Z et Axkid Minikid Core, déjà signalés le 6 octobre).",
-      "relevance": "Ce test de sécurité enfant, très suivi par les familles, confirme l'alerte conjointe ADAC/TCS/ÖAMTC du 6 octobre déjà relayée. L'ACL devrait vérifier si ces deux sièges sont distribués au Luxembourg et envisager une alerte aux membres avant l'achat de sièges auto cet hiver.",
-      "badge": "SURVEILLER",
-      "url": "https://www.tcs.ch/assets/docs/presse/2026/261020-communiqu-de-presse-test-si-ges-enfants-2026.pdf"
-    },
-    {
-      "id": "2026-10-26-rac-1",
-      "date": "2026-10-16",
-      "club": "RAC",
-      "category": "EU",
-      "content": "Une demande d'accès à l'information du RAC révèle que 11 402 automobilistes britanniques ont contesté en 2025 des amendes liées à des plaques d'immatriculation clonées auprès du DVLA, soit +9% sur un an et un quasi-doublement depuis 2018 ; le club estime qu'une voiture sur quinze pourrait porter une plaque modifiée pour échapper aux radars.",
-      "relevance": "Ce travail d'enquête chiffré, basé sur des données officielles obtenues par voie légale, illustre une méthode de plaidoyer reproductible. Une demande d'accès à l'information auprès des autorités luxembourgeoises pourrait-elle documenter un enjeu équivalent ?",
-      "badge": "INFO",
-      "url": "https://media.rac.co.uk/reports-of-cloned-vehicles-rise-to-record-high-as-law-breaking-drivers-look-to-evade-enforcement-cameras"
-    },
-    {
-      "id": "2026-10-26-rac-2",
-      "date": "2026-10-20",
-      "club": "RAC",
-      "category": "EU",
-      "content": "Le gouvernement britannique a lancé son Code de bonnes pratiques pour le stationnement privé (délai de 5 minutes pour décider de se garer, 10 minutes pour quitter, plafond de 20 livres sur recours pour erreur mineure, annulation possible des amendes liées à une panne). Le RAC salue une avancée mais regrette l'absence d'interdiction des frais de recouvrement et d'un organisme d'appel indépendant unique.",
-      "relevance": "Le RAC documente publiquement ses revendications non satisfaites face au régulateur sur le stationnement privé abusif, un sujet qui touche aussi les automobilistes luxembourgeois. Disposons-nous d'une position publique documentée sur ce thème au Luxembourg ?",
-      "badge": "SURVEILLER",
-      "url": "https://media.rac.co.uk/private-parking-code-a-step-in-the-right-direction"
     },
     {
       "id": "2026-10-26-rac-3",
@@ -559,36 +675,6 @@
       "url": "https://media.rac.co.uk/headlight-dazzle-leaves-drivers-struggling-to-see-the-road-ahead"
     },
     {
-      "id": "2026-10-26-anwb-1",
-      "date": "2026-10-21",
-      "club": "ANWB",
-      "category": "EU",
-      "content": "Les syndicats FNV et CNV ont organisé le 21 octobre un quatrième débrayage national consécutif de trois heures chez l'ANWB, les négociations salariales étant bloquées (l'ANWB proposant +3,33% par an sans effet rétroactif) ; depuis fin septembre, les dépanneurs Wegenwacht ne vendent plus de batteries pendant leurs interventions.",
-      "relevance": "Ce conflit social prolongé illustre un risque opérationnel pour la continuité du service de dépannage d'un grand club pair. Le service de dépannage de l'ACL dispose-t-il d'un plan de continuité en cas de mouvement social comparable ?",
-      "badge": "SURVEILLER",
-      "url": "https://www.fnv.nl/nieuwsbericht/regio/noord/2026/10/anwb-staat-woensdag-21-oktober-opnieuw-stil"
-    },
-    {
-      "id": "2026-10-26-aci-1",
-      "date": "2026-10-21",
-      "club": "ACI",
-      "category": "EU",
-      "content": "Du 22 au 25 octobre, ACI et ACI Storico animent l'Arena ACI Storico au salon Auto e Moto d'Epoca de Bologne (plus de 5 000 véhicules, visiteurs de 40 pays), avec le Prix Excellence ACI Storico, la célébration des 120 ans de Lancia et la remise des prix du rallye Youngclassic.",
-      "relevance": "Cet investissement dans le patrimoine automobile montre comment un grand club utilise les événements culturels pour fidéliser ses membres collectionneurs. Un partenariat similaire avec un salon de véhicules anciens au Luxembourg ou en Grande Région est-il envisageable ?",
-      "badge": "INFO",
-      "url": "https://www.lautomobile.aci.it/?p=51018"
-    },
-    {
-      "id": "2026-10-26-aci-2",
-      "date": "2026-10-16",
-      "club": "ACI",
-      "category": "Mobilité",
-      "content": "La mise à jour du rapport ACI-Istat sur l'accidentalité 2025, publiée le 16 octobre, montre une forte hausse des décès chez les usagers vulnérables (+20% cyclistes, +50% utilisateurs de vélos électriques, +8,7% utilisateurs de trottinettes électriques), alors que le nombre total de tués repasse sous 3 000 (-5,3% sur un an).",
-      "relevance": "Cette hausse de la mortalité liée aux mobilités douces et électriques rejoint des enjeux actuels au Luxembourg, où ces usages progressent aussi. Une analyse comparable sur l'accidentalité des mobilités douces localement pourrait nourrir le plaidoyer sécurité routière de l'ACL.",
-      "badge": "SURVEILLER",
-      "url": "https://www.sicurauto.it/news/attualita-e-curiosita/incidenti-stradali-2025-piu-vittime-su-monopattini-e-biciclette/"
-    },
-    {
       "id": "2026-10-26-race-1",
       "date": "2026-10-23",
       "club": "RACE",
@@ -597,96 +683,6 @@
       "relevance": "Ce programme de formation à la sécurité routière pour jeunes conducteurs, enrichi d'une composante véhicule électrique, pourrait inspirer l'ACL pour renouveler ses actions de prévention. Une sélection nationale comparable en lien avec le réseau FIA est-elle envisageable ?",
       "badge": "INFO",
       "url": "https://www.race.es/area-de-prensa/area-de-prensa/el-race-celebra-final-nacional-fia-best-young-driver-2026-y-elige-representantes-para-cita-europea"
-    },
-    {
-      "id": "2026-10-26-touringbelgique-1",
-      "date": "2026-10-13",
-      "club": "Touring Belgique",
-      "category": "EU",
-      "content": "Touring a testé des sièges auto pour enfants et identifié deux modèles, le Britax Römer Baby-Safe Pro + Vario Base 5Z et l'Axkid Minikid Core, présentant de graves défaillances lors des crash-tests frontaux, avec un risque d'éjection de l'enfant ; les deux fabricants ont depuis lancé un rappel ou un échange gratuit.",
-      "relevance": "Ce résultat recoupe celui publié la même semaine par le TCS et le ÖAMTC, preuve d'une coordination sectorielle entre clubs européens sur les tests consommateurs. L'ACL devrait vérifier si ces sièges sont distribués au Luxembourg et envisager une alerte aux membres.",
-      "badge": "SURVEILLER",
-      "url": "https://www.touring.be/fr/presse/touring-test-sieges-auto-enfants"
-    },
-    {
-      "id": "2026-10-26-roole-1",
-      "date": "2026-07-05",
-      "club": "Roole",
-      "category": "EU",
-      "content": "Roole a ajouté un nouvel avantage partenaire pour ses membres Premium : un abonnement d'un an offert au badge de télépéage Ulys by Vinci Autoroutes, activable automatiquement depuis le compte personnel du membre sur le site du partenaire.",
-      "relevance": "Cette stratégie de fidélisation par partenariat tiers à coût marginal, plutôt que par baisse tarifaire directe, pourrait inspirer l'ACL. Des partenariats comparables avec des opérateurs routiers ou de stationnement luxembourgeois enrichiraient l'offre membres.",
-      "badge": "INFO",
-      "url": "https://www.roole.fr/qui-sommes-nous/coulisses/actus-membre/avantage-ulys"
-    },
-    {
-      "id": "2026-10-26-oamtc-1",
-      "date": "2026-10-02",
-      "club": "ÖAMTC",
-      "category": "EU",
-      "content": "Le ÖAMTC a lancé le Pickerlrechner, un outil numérique gratuit qui calcule pour chaque véhicule les nouvelles échéances de contrôle technique en fonction du type de véhicule et de la date de première immatriculation, en anticipation du passage de l'intervalle 3-2-1 à un intervalle 4-2-2-2-1 à partir de mai 2027.",
-      "relevance": "Service digital simple, gratuit et à forte valeur perçue, facilement transposable. L'ACL pourrait étudier la faisabilité d'un calculateur équivalent pour les échéances de contrôle technique luxembourgeoises, un service pratique peu coûteux à développer.",
-      "badge": "NOTABLE",
-      "url": "https://www.oeamtc.at/presse/oeamtc-pickerlrechner-beantwortet-offene-fragen-zur-neuen-57a-regelung-89759908"
-    },
-    {
-      "id": "2026-10-26-oamtc-2",
-      "date": "2026-10-07",
-      "club": "ÖAMTC",
-      "category": "Mobilité",
-      "content": "Une étude du ÖAMTC menée avec l'institut de recherche sur le sommeil ISWF (18 participants, 72 trajets) montre que les utilisateurs de trottinettes électriques réagissent nettement moins bien le soir (temps de réaction, équilibre, perception de l'environnement) sans en avoir conscience eux-mêmes ; le club s'associe à la campagne de sécurité routière de la FIA.",
-      "relevance": "Données factuelles exploitables si l'ACL développe une communication sur la sécurité des mobilités douces, un segment en croissance au Luxembourg. Une étude ou campagne de sensibilisation comparable sur les trottinettes électriques serait-elle pertinente localement ?",
-      "badge": "SURVEILLER",
-      "url": "https://www.oeamtc.at/presse/oeamtc-studie-e-scooter-fahrerinnen-unterschaetzen-risiko-durch-muedigkeit-89865629"
-    },
-    {
-      "id": "2026-10-26-oamtc-3",
-      "date": "2026-10-20",
-      "club": "ÖAMTC",
-      "category": "EU",
-      "content": "Le test d'automne 2026 du ÖAMTC sur 15 sièges auto pour enfants a attribué la mention bien à sept modèles, mais deux (Britax Römer Baby-Safe Pro + Vario Base 5Z et Axkid Minikid Core) ont échoué au crash-test frontal ; trois sièges achetés sur des plateformes extra-européennes présentaient aussi un risque élevé de blessure.",
-      "relevance": "Résultat identique à celui publié par Touring Belgique et le TCS la même semaine, confirmant une coordination des clubs européens sur les tests consommateurs de sécurité. L'ACL devrait vérifier la distribution de ces modèles au Luxembourg et envisager un relais d'alerte commun.",
-      "badge": "SURVEILLER",
-      "url": "https://www.oeamtc.at/presse/oeamtc-kindersitztest-offenbart-grosse-qualitaetsunterschiede-90098919"
-    },
-    {
-      "id": "2026-10-26-aa-1",
-      "date": "2026-10-12",
-      "club": "AA",
-      "category": "EU",
-      "content": "L'indice trimestriel de préparation à l'électrique de l'AA (UK EV Readiness Index) atteint un score record de 60/100 au T3 2026, contre 58,8 au T2, porté par la percée des constructeurs chinois ; les véhicules 100% électriques ont représenté 29,8% des immatriculations neuves en août 2026.",
-      "relevance": "Ce baromètre trimestriel donne une mesure concrète et facilement communicable de la transition électrique, un format réplicable sur le marché luxembourgeois. Un baromètre ACL de préparation à l'électrique, publié chaque trimestre, serait-il pertinent ?",
-      "badge": "SURVEILLER",
-      "url": "https://www.theaa.com/about-us/newsroom/AA-UK-EV-readiness-index-September-2026"
-    },
-    {
-      "id": "2026-10-26-aa-2",
-      "date": "2026-09-22",
-      "club": "AA",
-      "category": "EU",
-      "content": "Boots Opticians a lancé la campagne Eyes on the Road en partenariat avec l'AA Driving School, offrant 100 heures de leçons de remise à niveau gratuites (50 forfaits de deux heures) aux conducteurs de 70 ans et plus ; 98% des conducteurs de cette tranche d'âge jugent la conduite essentielle à leur autonomie.",
-      "relevance": "Ce partenariat santé-mobilité ciblant les seniors répond à un enjeu de maintien de l'autonomie partagé par les membres de l'ACL. Un partenariat similaire avec un acteur de la santé visuelle luxembourgeois pourrait être exploré pour les conducteurs seniors.",
-      "badge": "SURVEILLER",
-      "url": "https://www.theaa.com/about-us/newsroom/Eyes-on-the-road"
-    },
-    {
-      "id": "2026-10-26-aaa-1",
-      "date": "2026-10-15",
-      "club": "AAA",
-      "category": "Monde",
-      "content": "Une étude de la fondation AAA pour la sécurité routière, publiée avant la journée nationale Slow Down, Move Over du 17 octobre, révèle un écart entre les déclarations des conducteurs (plus de 90% affirment ralentir ou changer de voie devant un véhicule à l'arrêt) et les observations réelles sur le terrain (64% seulement) ; 15 intervenants routiers sont morts en 2025 dans ce type d'incidents, pour plus de 30 millions d'interventions AAA cette année-là.",
-      "relevance": "Cet écart entre comportement déclaré et comportement réel face aux intervenants routiers est un sujet universel que l'ACL pourrait documenter au Luxembourg, où dépanneurs et patrouilleurs font face aux mêmes risques. Une étude comparable pourrait appuyer une campagne de sensibilisation sur la sécurité des intervenants routiers.",
-      "badge": "NOTABLE",
-      "url": "https://newsroom.aaa.com/2026/10/new-aaa-foundation-survey-highlights-deadly-roadside-safety-risks/"
-    },
-    {
-      "id": "2026-10-26-aaa-2",
-      "date": "2026-10-20",
-      "club": "AAA",
-      "category": "Monde",
-      "content": "AAA prévoit un nombre record de 22,4 millions d'Américains partant en croisière en 2027, soit +3,6% par rapport à 2026 et une cinquième année record consécutive ; les Caraïbes représentent 71% du volume de passagers et plus de 90% des croisiéristes se disent satisfaits de leur expérience.",
-      "relevance": "Cette diversification d'AAA vers le conseil voyage et les croisières illustre une stratégie de club automobile élargie aux loisirs et à la mobilité multimodale. L'offre croisières d'ACL Voyages est-elle suffisamment visible et promue pour capter cette tendance de fond chez les membres ?",
-      "badge": "SURVEILLER",
-      "url": "https://newsroom.aaa.com/2026/10/record-number-of-americans-planning-cruise-vacations-in-2027/"
     },
     {
       "id": "2026-10-22-saaskia-web-UUrFq7",
@@ -755,6 +751,26 @@
       "date": "2026-10-22"
     },
     {
+      "id": "2026-10-26-anwb-1",
+      "date": "2026-10-21",
+      "club": "ANWB",
+      "category": "EU",
+      "content": "Les syndicats FNV et CNV ont organisé le 21 octobre un quatrième débrayage national consécutif de trois heures chez l'ANWB, les négociations salariales étant bloquées (l'ANWB proposant +3,33% par an sans effet rétroactif) ; depuis fin septembre, les dépanneurs Wegenwacht ne vendent plus de batteries pendant leurs interventions.",
+      "relevance": "Ce conflit social prolongé illustre un risque opérationnel pour la continuité du service de dépannage d'un grand club pair. Le service de dépannage de l'ACL dispose-t-il d'un plan de continuité en cas de mouvement social comparable ?",
+      "badge": "SURVEILLER",
+      "url": "https://www.fnv.nl/nieuwsbericht/regio/noord/2026/10/anwb-staat-woensdag-21-oktober-opnieuw-stil"
+    },
+    {
+      "id": "2026-10-26-aci-1",
+      "date": "2026-10-21",
+      "club": "ACI",
+      "category": "EU",
+      "content": "Du 22 au 25 octobre, ACI et ACI Storico animent l'Arena ACI Storico au salon Auto e Moto d'Epoca de Bologne (plus de 5 000 véhicules, visiteurs de 40 pays), avec le Prix Excellence ACI Storico, la célébration des 120 ans de Lancia et la remise des prix du rallye Youngclassic.",
+      "relevance": "Cet investissement dans le patrimoine automobile montre comment un grand club utilise les événements culturels pour fidéliser ses membres collectionneurs. Un partenariat similaire avec un salon de véhicules anciens au Luxembourg ou en Grande Région est-il envisageable ?",
+      "badge": "INFO",
+      "url": "https://www.lautomobile.aci.it/?p=51018"
+    },
+    {
       "id": "2026-10-21-saaskia-web-qwN9oC",
       "club": "Tageblatt",
       "category": "Veille presse LU",
@@ -808,6 +824,66 @@
       "url": "https://saaskia.keepcontact.lu/data/files/1792557480.6802.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1792557480.6802.pdf",
       "date": "2026-10-21"
+    },
+    {
+      "id": "2026-11-02-adac-1",
+      "date": "2026-10-20",
+      "club": "ADAC",
+      "category": "EU",
+      "content": "Le test d'automne 2026 des sièges auto, mené par l'ADAC avec Stiftung Warentest et des partenaires européens, a publié ses résultats complets le 20 octobre : plusieurs modèles obtiennent la mention « gut », mais le siège Kinderkraft Mink Pro 2 s'est détaché de sa base pendant les essais, poussant le fabricant à proposer un échange ou un remboursement gratuit.",
+      "relevance": "Ce test confirme et élargit (après Axkid et Britax Römer) la série d'alertes sécurité sur les sièges auto enfant relayées par plusieurs clubs européens cet automne ; l'ACL pourrait vérifier si le Kinderkraft Mink Pro 2 est commercialisé au Luxembourg et compléter sa propre communication sécurité enfant.",
+      "badge": "SURVEILLER",
+      "url": "https://presse.adac.de/meldungen/adac-ev/tests/babyschalen-holen-spitzenplaetze-im-adac-kindersitztest.html"
+    },
+    {
+      "id": "2026-11-02-aa-1",
+      "date": "2026-10-20",
+      "club": "AA",
+      "category": "EU",
+      "content": "Le gouvernement britannique a déposé le 20 octobre le nouveau code de bonne pratique sur le stationnement privé (plafond de 60 livres si payé sous 15 jours, 5 minutes minimum pour décider de se garer, 10 minutes pour repartir sans pénalité) et a inscrit le trafic de compteur kilométrique (« clocking ») sur la liste des pratiques interdites ; l'AA a salué la mesure par la voix de son porte-parole Jack Cousens.",
+      "relevance": "Ce cadre réglementaire sur le stationnement privé et la fraude au kilométrage est un sujet sur lequel l'ACL pourrait se positionner publiquement au Luxembourg ; question à creuser : l'ACL dispose-t-elle de données sur les litiges de stationnement privé ou le trafic de compteur au Luxembourg ?",
+      "badge": "SURVEILLER",
+      "url": "https://www.theaa.com/about-us/newsroom/private-parking-code-of-practice-car-clocking"
+    },
+    {
+      "id": "2026-10-26-tcs-3",
+      "date": "2026-10-20",
+      "club": "TCS",
+      "category": "EU",
+      "content": "Le TCS a publié son test d'automne 2026 de sièges auto pour enfants sur 16 modèles : 7 sont très recommandés, 5 recommandés et 2 sont jugés non recommandés après de graves défaillances aux crash-tests (Britax Römer Baby-Safe Pro + Vario Base 5Z et Axkid Minikid Core, déjà signalés le 6 octobre).",
+      "relevance": "Ce test de sécurité enfant, très suivi par les familles, confirme l'alerte conjointe ADAC/TCS/ÖAMTC du 6 octobre déjà relayée. L'ACL devrait vérifier si ces deux sièges sont distribués au Luxembourg et envisager une alerte aux membres avant l'achat de sièges auto cet hiver.",
+      "badge": "SURVEILLER",
+      "url": "https://www.tcs.ch/assets/docs/presse/2026/261020-communiqu-de-presse-test-si-ges-enfants-2026.pdf"
+    },
+    {
+      "id": "2026-10-26-rac-2",
+      "date": "2026-10-20",
+      "club": "RAC",
+      "category": "EU",
+      "content": "Le gouvernement britannique a lancé son Code de bonnes pratiques pour le stationnement privé (délai de 5 minutes pour décider de se garer, 10 minutes pour quitter, plafond de 20 livres sur recours pour erreur mineure, annulation possible des amendes liées à une panne). Le RAC salue une avancée mais regrette l'absence d'interdiction des frais de recouvrement et d'un organisme d'appel indépendant unique.",
+      "relevance": "Le RAC documente publiquement ses revendications non satisfaites face au régulateur sur le stationnement privé abusif, un sujet qui touche aussi les automobilistes luxembourgeois. Disposons-nous d'une position publique documentée sur ce thème au Luxembourg ?",
+      "badge": "SURVEILLER",
+      "url": "https://media.rac.co.uk/private-parking-code-a-step-in-the-right-direction"
+    },
+    {
+      "id": "2026-10-26-oamtc-3",
+      "date": "2026-10-20",
+      "club": "ÖAMTC",
+      "category": "EU",
+      "content": "Le test d'automne 2026 du ÖAMTC sur 15 sièges auto pour enfants a attribué la mention bien à sept modèles, mais deux (Britax Römer Baby-Safe Pro + Vario Base 5Z et Axkid Minikid Core) ont échoué au crash-test frontal ; trois sièges achetés sur des plateformes extra-européennes présentaient aussi un risque élevé de blessure.",
+      "relevance": "Résultat identique à celui publié par Touring Belgique et le TCS la même semaine, confirmant une coordination des clubs européens sur les tests consommateurs de sécurité. L'ACL devrait vérifier la distribution de ces modèles au Luxembourg et envisager un relais d'alerte commun.",
+      "badge": "SURVEILLER",
+      "url": "https://www.oeamtc.at/presse/oeamtc-kindersitztest-offenbart-grosse-qualitaetsunterschiede-90098919"
+    },
+    {
+      "id": "2026-10-26-aaa-2",
+      "date": "2026-10-20",
+      "club": "AAA",
+      "category": "Monde",
+      "content": "AAA prévoit un nombre record de 22,4 millions d'Américains partant en croisière en 2027, soit +3,6% par rapport à 2026 et une cinquième année record consécutive ; les Caraïbes représentent 71% du volume de passagers et plus de 90% des croisiéristes se disent satisfaits de leur expérience.",
+      "relevance": "Cette diversification d'AAA vers le conseil voyage et les croisières illustre une stratégie de club automobile élargie aux loisirs et à la mobilité multimodale. L'offre croisières d'ACL Voyages est-elle suffisamment visible et promue pour capter cette tendance de fond chez les membres ?",
+      "badge": "SURVEILLER",
+      "url": "https://newsroom.aaa.com/2026/10/record-number-of-americans-planning-cruise-vacations-in-2027/"
     },
     {
       "id": "2026-10-20-saaskia-web-tpt8gX",
@@ -1096,6 +1172,26 @@
       "date": "2026-10-19"
     },
     {
+      "id": "2026-10-26-rac-1",
+      "date": "2026-10-16",
+      "club": "RAC",
+      "category": "EU",
+      "content": "Une demande d'accès à l'information du RAC révèle que 11 402 automobilistes britanniques ont contesté en 2025 des amendes liées à des plaques d'immatriculation clonées auprès du DVLA, soit +9% sur un an et un quasi-doublement depuis 2018 ; le club estime qu'une voiture sur quinze pourrait porter une plaque modifiée pour échapper aux radars.",
+      "relevance": "Ce travail d'enquête chiffré, basé sur des données officielles obtenues par voie légale, illustre une méthode de plaidoyer reproductible. Une demande d'accès à l'information auprès des autorités luxembourgeoises pourrait-elle documenter un enjeu équivalent ?",
+      "badge": "INFO",
+      "url": "https://media.rac.co.uk/reports-of-cloned-vehicles-rise-to-record-high-as-law-breaking-drivers-look-to-evade-enforcement-cameras"
+    },
+    {
+      "id": "2026-10-26-aci-2",
+      "date": "2026-10-16",
+      "club": "ACI",
+      "category": "Mobilité",
+      "content": "La mise à jour du rapport ACI-Istat sur l'accidentalité 2025, publiée le 16 octobre, montre une forte hausse des décès chez les usagers vulnérables (+20% cyclistes, +50% utilisateurs de vélos électriques, +8,7% utilisateurs de trottinettes électriques), alors que le nombre total de tués repasse sous 3 000 (-5,3% sur un an).",
+      "relevance": "Cette hausse de la mortalité liée aux mobilités douces et électriques rejoint des enjeux actuels au Luxembourg, où ces usages progressent aussi. Une analyse comparable sur l'accidentalité des mobilités douces localement pourrait nourrir le plaidoyer sécurité routière de l'ACL.",
+      "badge": "SURVEILLER",
+      "url": "https://www.sicurauto.it/news/attualita-e-curiosita/incidenti-stradali-2025-piu-vittime-su-monopattini-e-biciclette/"
+    },
+    {
       "id": "2026-10-19-anwb-1",
       "date": "2026-10-16",
       "club": "ANWB",
@@ -1246,6 +1342,16 @@
       "url": "https://saaskia.keepcontact.lu/data/files/1792133775.7505.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1792133775.7505.pdf",
       "date": "2026-10-16"
+    },
+    {
+      "id": "2026-10-26-aaa-1",
+      "date": "2026-10-15",
+      "club": "AAA",
+      "category": "Monde",
+      "content": "Une étude de la fondation AAA pour la sécurité routière, publiée avant la journée nationale Slow Down, Move Over du 17 octobre, révèle un écart entre les déclarations des conducteurs (plus de 90% affirment ralentir ou changer de voie devant un véhicule à l'arrêt) et les observations réelles sur le terrain (64% seulement) ; 15 intervenants routiers sont morts en 2025 dans ce type d'incidents, pour plus de 30 millions d'interventions AAA cette année-là.",
+      "relevance": "Cet écart entre comportement déclaré et comportement réel face aux intervenants routiers est un sujet universel que l'ACL pourrait documenter au Luxembourg, où dépanneurs et patrouilleurs font face aux mêmes risques. Une étude comparable pourrait appuyer une campagne de sensibilisation sur la sécurité des intervenants routiers.",
+      "badge": "NOTABLE",
+      "url": "https://newsroom.aaa.com/2026/10/new-aaa-foundation-survey-highlights-deadly-roadside-safety-risks/"
     },
     {
       "id": "2026-10-19-adac-2",
@@ -1411,6 +1517,16 @@
       "date": "2026-10-14"
     },
     {
+      "id": "2026-10-26-touringbelgique-1",
+      "date": "2026-10-13",
+      "club": "Touring Belgique",
+      "category": "EU",
+      "content": "Touring a testé des sièges auto pour enfants et identifié deux modèles, le Britax Römer Baby-Safe Pro + Vario Base 5Z et l'Axkid Minikid Core, présentant de graves défaillances lors des crash-tests frontaux, avec un risque d'éjection de l'enfant ; les deux fabricants ont depuis lancé un rappel ou un échange gratuit.",
+      "relevance": "Ce résultat recoupe celui publié la même semaine par le TCS et le ÖAMTC, preuve d'une coordination sectorielle entre clubs européens sur les tests consommateurs. L'ACL devrait vérifier si ces sièges sont distribués au Luxembourg et envisager une alerte aux membres.",
+      "badge": "SURVEILLER",
+      "url": "https://www.touring.be/fr/presse/touring-test-sieges-auto-enfants"
+    },
+    {
       "id": "2026-10-19-anwb-2",
       "date": "2026-10-13",
       "club": "ANWB",
@@ -1551,6 +1667,26 @@
       "url": "https://saaskia.keepcontact.lu/data/files/1791874644.5889.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791874644.5889.pdf",
       "date": "2026-10-13"
+    },
+    {
+      "id": "2026-11-02-oamtc-1",
+      "date": "2026-10-12",
+      "club": "ÖAMTC",
+      "category": "Mobilité",
+      "content": "Le dernier crash-test de l'ÖAMTC (Audi Q7, Kia EV2, XPENG X9) confirme un retour aux commandes physiques : les fonctions essentielles (clignotants, essuie-glaces, warning) accessibles par de vrais boutons sont mieux notées depuis que l'Euro NCAP sanctionne, depuis 2026, les commandes de sécurité uniquement pilotées par écran tactile.",
+      "relevance": "Ce critère Euro NCAP devient un argument d'achat concret ; l'ACL pourrait l'intégrer dans ses guides d'achat et comparatifs auto destinés aux membres, en signalant les modèles pénalisés pour leur interface entièrement tactile.",
+      "badge": "NOTABLE",
+      "url": "https://www.oeamtc.at/presse/aktueller-crashtest-bestaetigt-trend-zurueck-zu-echten-tasten-89965892"
+    },
+    {
+      "id": "2026-10-26-aa-1",
+      "date": "2026-10-12",
+      "club": "AA",
+      "category": "EU",
+      "content": "L'indice trimestriel de préparation à l'électrique de l'AA (UK EV Readiness Index) atteint un score record de 60/100 au T3 2026, contre 58,8 au T2, porté par la percée des constructeurs chinois ; les véhicules 100% électriques ont représenté 29,8% des immatriculations neuves en août 2026.",
+      "relevance": "Ce baromètre trimestriel donne une mesure concrète et facilement communicable de la transition électrique, un format réplicable sur le marché luxembourgeois. Un baromètre ACL de préparation à l'électrique, publié chaque trimestre, serait-il pertinent ?",
+      "badge": "SURVEILLER",
+      "url": "https://www.theaa.com/about-us/newsroom/AA-UK-EV-readiness-index-September-2026"
     },
     {
       "id": "2026-10-19-touringbelgique-1",
@@ -1869,6 +2005,16 @@
       "date": "2026-10-09"
     },
     {
+      "id": "2026-10-26-tcs-2",
+      "date": "2026-10-08",
+      "club": "TCS",
+      "category": "EU",
+      "content": "Le TCS a pris position sur le projet fédéral suisse Transports 45 : il salue la première approche coordonnée route/rail/transports urbains du Conseil fédéral, mais s'oppose à la suppression prévue de 31 projets routiers, jugeant ce choix risqué d'aggraver des points noirs existants pour des décennies.",
+      "relevance": "Cette prise de position institutionnelle illustre comment un club automobile pèse dans un débat d'infrastructure national à long terme. Une communication similaire et documentée serait-elle utile face aux arbitrages d'infrastructure routière au Luxembourg ou en Grande Région ?",
+      "badge": "SURVEILLER",
+      "url": "https://www.tcs.ch/assets/docs/presse/2026/20261008-communiqu-de-presse-transports-45.pdf"
+    },
+    {
       "id": "2026-10-19-aaa-2",
       "date": "2026-10-08",
       "club": "AAA",
@@ -2009,6 +2155,26 @@
       "url": "https://saaskia.keepcontact.lu/data/files/1791436165.2207.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791436165.2207.pdf",
       "date": "2026-10-08"
+    },
+    {
+      "id": "2026-10-26-adac-2",
+      "date": "2026-10-07",
+      "club": "ADAC",
+      "category": "Mobilité",
+      "content": "L'ADAC a mis à jour son classement des meilleures voitures électriques 2026 avec un nouveau protocole de test incluant un banc d'essai climatique de son laboratoire e-mobilité, rendant les notes non comparables aux années précédentes.",
+      "relevance": "Le changement de méthodologie d'un acteur de référence allemand peut influencer les standards sectoriels européens d'évaluation des véhicules électriques. Faut-il suivre l'évolution de ce protocole pour éventuellement harmoniser nos propres critères ?",
+      "badge": "INFO",
+      "url": "https://www.adac.de/rund-ums-fahrzeug/autokatalog/autotest/beste-elektroautos/"
+    },
+    {
+      "id": "2026-10-26-oamtc-2",
+      "date": "2026-10-07",
+      "club": "ÖAMTC",
+      "category": "Mobilité",
+      "content": "Une étude du ÖAMTC menée avec l'institut de recherche sur le sommeil ISWF (18 participants, 72 trajets) montre que les utilisateurs de trottinettes électriques réagissent nettement moins bien le soir (temps de réaction, équilibre, perception de l'environnement) sans en avoir conscience eux-mêmes ; le club s'associe à la campagne de sécurité routière de la FIA.",
+      "relevance": "Données factuelles exploitables si l'ACL développe une communication sur la sécurité des mobilités douces, un segment en croissance au Luxembourg. Une étude ou campagne de sensibilisation comparable sur les trottinettes électriques serait-elle pertinente localement ?",
+      "badge": "SURVEILLER",
+      "url": "https://www.oeamtc.at/presse/oeamtc-studie-e-scooter-fahrerinnen-unterschaetzen-risiko-durch-muedigkeit-89865629"
     },
     {
       "id": "2026-10-19-tcs-2",
@@ -2452,6 +2618,16 @@
       "url": "https://saaskia.keepcontact.lu/data/files/1791177307.8329.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1791177307.8329.pdf",
       "date": "2026-10-05"
+    },
+    {
+      "id": "2026-10-26-oamtc-1",
+      "date": "2026-10-02",
+      "club": "ÖAMTC",
+      "category": "EU",
+      "content": "Le ÖAMTC a lancé le Pickerlrechner, un outil numérique gratuit qui calcule pour chaque véhicule les nouvelles échéances de contrôle technique en fonction du type de véhicule et de la date de première immatriculation, en anticipation du passage de l'intervalle 3-2-1 à un intervalle 4-2-2-2-1 à partir de mai 2027.",
+      "relevance": "Service digital simple, gratuit et à forte valeur perçue, facilement transposable. L'ACL pourrait étudier la faisabilité d'un calculateur équivalent pour les échéances de contrôle technique luxembourgeoises, un service pratique peu coûteux à développer.",
+      "badge": "NOTABLE",
+      "url": "https://www.oeamtc.at/presse/oeamtc-pickerlrechner-beantwortet-offene-fragen-zur-neuen-57a-regelung-89759908"
     },
     {
       "id": "2026-10-19-rac-1",
@@ -3272,6 +3448,16 @@
       "date": "2026-09-24"
     },
     {
+      "id": "2026-10-26-tcs-1",
+      "date": "2026-09-23",
+      "club": "TCS",
+      "category": "Mobilité",
+      "content": "Le TCS a lancé un radar des prix de recharge intégré à son application, en complément de son radar des prix des carburants existant, couvrant environ 19 000 bornes de recharge en Suisse avec filtres par type de prise, puissance, courant et opérateur.",
+      "relevance": "Cet outil répond directement au manque de transparence tarifaire dénoncé par les automobilistes électriques, un problème similaire existe au Luxembourg. L'ACL pourrait évaluer la faisabilité d'un outil équivalent, potentiellement en partenariat avec le TCS.",
+      "badge": "NOTABLE",
+      "url": "https://www.tcs.ch/assets/docs/presse/2026/20260923-communiqu-de-presse-radar-des-prix-de-recharge.pdf"
+    },
+    {
       "id": "2026-10-19-tcs-3",
       "date": "2026-09-23",
       "club": "TCS",
@@ -3389,6 +3575,26 @@
       "url": "https://saaskia.keepcontact.lu/data/files/1790141645.3899.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1790141645.3899.pdf",
       "date": "2026-09-23"
+    },
+    {
+      "id": "2026-10-26-adac-1",
+      "date": "2026-09-22",
+      "club": "ADAC",
+      "category": "Mobilité",
+      "content": "L'ADAC a publié son test de pneus hiver 2026 portant sur 32 modèles en deux dimensions ; le Continental WinterContact TS 870 arrive en tête devant le Michelin Alpin 7, et neuf des seize pneus testés en format citadine (185/65 R15) sont jugés non recommandables.",
+      "relevance": "Ce test consommateur indépendant, largement repris dans la presse automobile allemande, illustre le rôle de conseil technique d'un grand club. L'ACL pourrait relayer ou adapter ce type de comparatif pneus hiver auprès de ses membres avant la saison froide.",
+      "badge": "INFO",
+      "url": "https://presse.adac.de/meldungen/adac-ev/tests/adac-winterreifentest-2026.html"
+    },
+    {
+      "id": "2026-10-26-aa-2",
+      "date": "2026-09-22",
+      "club": "AA",
+      "category": "EU",
+      "content": "Boots Opticians a lancé la campagne Eyes on the Road en partenariat avec l'AA Driving School, offrant 100 heures de leçons de remise à niveau gratuites (50 forfaits de deux heures) aux conducteurs de 70 ans et plus ; 98% des conducteurs de cette tranche d'âge jugent la conduite essentielle à leur autonomie.",
+      "relevance": "Ce partenariat santé-mobilité ciblant les seniors répond à un enjeu de maintien de l'autonomie partagé par les membres de l'ACL. Un partenariat similaire avec un acteur de la santé visuelle luxembourgeois pourrait être exploré pour les conducteurs seniors.",
+      "badge": "SURVEILLER",
+      "url": "https://www.theaa.com/about-us/newsroom/Eyes-on-the-road"
     },
     {
       "id": "2026-09-28-tcs-3",
@@ -9646,6 +9852,16 @@
       "url": "https://rac.com.au/about-rac/media/governance-change"
     },
     {
+      "id": "2026-10-26-roole-1",
+      "date": "2026-07-05",
+      "club": "Roole",
+      "category": "EU",
+      "content": "Roole a ajouté un nouvel avantage partenaire pour ses membres Premium : un abonnement d'un an offert au badge de télépéage Ulys by Vinci Autoroutes, activable automatiquement depuis le compte personnel du membre sur le site du partenaire.",
+      "relevance": "Cette stratégie de fidélisation par partenariat tiers à coût marginal, plutôt que par baisse tarifaire directe, pourrait inspirer l'ACL. Des partenariats comparables avec des opérateurs routiers ou de stationnement luxembourgeois enrichiraient l'offre membres.",
+      "badge": "INFO",
+      "url": "https://www.roole.fr/qui-sommes-nous/coulisses/actus-membre/avantage-ulys"
+    },
+    {
       "id": "2026-06-15-waymo-1",
       "club": "Waymo",
       "category": "Mobilité",
@@ -10104,146 +10320,6 @@
       "relevance": "L'arrivée à Londres marque une première hors États-Unis. Les clubs européens devront se positionner sur l'assistance aux robotaxis avant l'arrivée sur le continent.",
       "badge": "SURVEILLER",
       "url": "https://electrek.co/2026/05/13/waymo-expands-coverage-1400-square-miles-11-cities/"
-    },
-    {
-      "id": "2026-05-04-adac-1",
-      "date": "2026-05-04",
-      "club": "ADAC",
-      "category": "EU",
-      "content": "L'ADAC Autovermietung permet de réserver un véhicule directement via ChatGPT en langage naturel. Premier grand club automobile à intégrer l'IA conversationnelle dans un parcours transactionnel.",
-      "relevance": "Piste d'innovation à surveiller pour les services membres ACL (location, assistance, voyages). L'IA conversationnelle réduit la friction des interfaces complexes.",
-      "badge": "NOTABLE",
-      "url": "https://presse.adac.de/meldungen/adac-se/reisen-unterwegs/neu-bei-der-adac-autovermietung-mietwagen-bequem-ueber-chatgpt-buchen.html"
-    },
-    {
-      "id": "2026-05-04-adac-2",
-      "date": "2026-05-04",
-      "club": "ADAC",
-      "category": "EU",
-      "content": "Pannenstatistik 2026 : les VE sont nettement plus fiables que les thermiques sur toutes les classes d'âge (PKZ 6,5 vs 12,5 pour 4 ans). La batterie 12V reste la première cause de panne (50% des interventions).",
-      "relevance": "Données utiles pour conseiller les membres ACL sur le choix de véhicule et anticiper l'évolution des interventions dépannage.",
-      "badge": "INFO",
-      "url": "https://presse.adac.de/meldungen/adac-ev/technik/adac-pannenstatistik-2026.html"
-    },
-    {
-      "id": "2026-05-04-rac-1",
-      "date": "2026-05-04",
-      "club": "RAC",
-      "category": "EU",
-      "content": "RAC Connected intègre CalAmp CrashBoxx pour détecter les accidents en temps réel via l'IA. Reconstruction instantanée des incidents, accélération des déclarations pour les flottes professionnelles.",
-      "relevance": "Innovation dans la télématique connectée et les services aux flottes professionnelles.",
-      "badge": "SURVEILLER",
-      "url": "https://media.rac.co.uk/rac-connected-introduces-real-time-crash-intelligence-with-calamp-crashboxx"
-    },
-    {
-      "id": "2026-05-04-aa-1",
-      "date": "2026-05-04",
-      "club": "AA",
-      "category": "EU",
-      "content": "The AA soutient la stratégie nationale sécurité routière britannique : objectif -65% décès/blessés graves d'ici 2035. La AA obtient l'introduction de points de pénalité pour non-port de ceinture (campagne Buckle Up).",
-      "relevance": "Positionnement fort de la AA en lobbying sécurité routière. Inspiration pour l'ACL dans son rôle de défense des automobilistes.",
-      "badge": "SURVEILLER",
-      "url": "https://www.theaa.com/about-us/newsroom/road-safety-strategy-2026"
-    },
-    {
-      "id": "2026-05-04-touring-1",
-      "date": "2026-05-04",
-      "club": "Touring Belgique",
-      "category": "EU",
-      "content": "Test ADAS par mauvais temps (ADAC + Touring, chambre AVL à Roding) : systèmes d'assistance (AEB, maintien voie, régulateur adaptatif) non fiables sous pluie intense.",
-      "relevance": "Contenu éditorial à forte valeur ajoutée. Les clubs automobiles pourraient être sollicités pour conseils juridiques en cas d'accident impliquant défaillance ADAS.",
-      "badge": "SURVEILLER",
-      "url": "https://www.touring.be/fr/articles/aides-a-la-conduite-par-mauvais-temps"
-    },
-    {
-      "id": "2026-05-04-tcs-1",
-      "date": "2026-05-04",
-      "club": "TCS",
-      "category": "EU",
-      "content": "TCS couvre l'arrivée des premiers robotaxis autonomes en Suisse : projet AmiGo de CarPostal utilisant le logiciel Baidu dans certaines régions.",
-      "relevance": "La mobilité autonome devient réalité dans des marchés proches du Luxembourg. L'ACL doit anticiper comment accompagner ses membres.",
-      "badge": "SURVEILLER",
-      "url": "https://www.tcs.ch/fr/camping-voyages/informations-touristiques/news-actualites/news-2026.php"
-    },
-    {
-      "id": "2026-05-04-aci-1",
-      "date": "2026-05-04",
-      "club": "ACI",
-      "category": "EU",
-      "content": "Spot sécurité routière '#rispettiamoci' diffusé sur RAI pendant le Giro d'Italia (8-30 mai 2026). Message de coexistence entre tous les usagers de la route.",
-      "relevance": "Stratégie de communication sécurité routière intégrée à un grand événement sportif. Modèle de campagne à fort impact médiatique.",
-      "badge": "INFO",
-      "url": "https://www.aci.it/comunicati/"
-    },
-    {
-      "id": "2026-05-03-race-1",
-      "date": "2026-05-03",
-      "club": "RACE",
-      "category": "EU",
-      "content": "App RACE SOS ouverte aux non-membres : comparaison prix carburant en temps réel, géolocalisation électrolineras et parkings dans 50 km. 28% des demandes d'assistance passent par l'app (x2 depuis 2020).",
-      "relevance": "Stratégie d'acquisition freemium très pertinente. L'app comme porte d'entrée pour les non-membres crée un entonnoir d'adhésion digital. L'ACL n'a pas encore d'équivalent.",
-      "badge": "NOTABLE",
-      "url": "https://www.race.es/revista-autoclub/race/race-actualiza-su-app-race-sos/?n=marzo-abril-2026"
-    },
-    {
-      "id": "2026-05-03-adac-1",
-      "date": "2026-05-03",
-      "club": "ADAC",
-      "category": "EU",
-      "content": "Révision tarifaire soumise au vote AG du 23 mai 2026 : première hausse depuis 2020, justifiée par +31% des coûts automobiles. Entrée en vigueur au 1er janvier 2027 si approuvée.",
-      "relevance": "Signal d'alerte sur la pression inflationniste que subissent tous les clubs. La communication de l'ADAC (transparente et proactive) est un modèle à suivre.",
-      "badge": "SURVEILLER",
-      "url": "https://www.adac.de/der-adac/verein/corporate-news/adac-zukunftssicher/"
-    },
-    {
-      "id": "2026-05-03-touring-1",
-      "date": "2026-05-03",
-      "club": "Touring Belgique",
-      "category": "EU",
-      "content": "Flotte d'intervention 100% électrique en 2026 avec VW ID.Buzz. Partenariat avec AG Insurance pour créer un 'écosystème global de mobilité'.",
-      "relevance": "Question concrète pour l'ACL : quelle est la feuille de route pour l'électrification de ses propres véhicules d'assistance ?",
-      "badge": "SURVEILLER",
-      "url": "https://www.touring.be/fr/articles/services-dassistance-touring-nouveaux-actionnaires"
-    },
-    {
-      "id": "2026-05-03-roole-1",
-      "date": "2026-05-03",
-      "club": "Roole",
-      "category": "EU",
-      "content": "Retour du leasing social électrique en juin 2026 : voiture électrique à 100€/mois, critères d'éligibilité élargis. Mobilisation de 1,5M de membres.",
-      "relevance": "Les offres d'essai et la mobilité inclusive sont des leviers de recrutement membres à explorer.",
-      "badge": "SURVEILLER",
-      "url": "https://media.roole.fr/transition/voiture-propre/leasing-social-2026-la-voiture-electrique-a-100-euros-par-mois-revient-des-juin-avec-un-dispositif-elargi"
-    },
-    {
-      "id": "2026-05-03-rac-1",
-      "date": "2026-05-03",
-      "club": "RAC",
-      "category": "EU",
-      "content": "Lancement de la RAC Academy : programme d'apprentissage pour former des techniciens de patrouille, avec expansion nationale planifiée.",
-      "relevance": "Investissement dans la formation interne comme différenciateur qualité de service.",
-      "badge": "INFO",
-      "url": "https://media.rac.co.uk/rac-academy-salutes-first-graduates-2150297"
-    },
-    {
-      "id": "2026-05-03-race-2",
-      "date": "2026-05-03",
-      "club": "RACE",
-      "category": "EU",
-      "content": "Étude RACE : la crainte d'une cyberattaque sur son véhicule dépasse désormais celle d'une panne mécanique chez les conducteurs de voitures connectées.",
-      "relevance": "Signal fort pour positionner l'ACL sur des services de cybersécurité automobile.",
-      "badge": "SURVEILLER",
-      "url": "https://www.race.es/revista-autoclub/race/un-ciberataque-ya-preocupa-mas-que-una-averia/?n=marzo-abril-2026"
-    },
-    {
-      "id": "2026-05-03-adac-2",
-      "date": "2026-05-03",
-      "club": "ADAC",
-      "category": "EU",
-      "content": "Nouveaux services membres : Schlüsselnotdienst (urgence clé) et Fahrradpannenhilfe (assistance panne vélo) avec 290+ stations nationales.",
-      "relevance": "Extension au vélo et services 'maison' comme vecteur de fidélisation.",
-      "badge": "INFO",
-      "url": "https://www.adac.de/der-adac/verein/corporate-news/"
     }
   ],
   "trends": [
