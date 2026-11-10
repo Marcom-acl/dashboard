@@ -519,12 +519,12 @@
   {
     "date": "2026-11-10",
     "acl": {
-      "mobile": 33,
-      "desktop": 55
+      "mobile": 37,
+      "desktop": 39
     },
     "auto": {
-      "mobile": 62,
-      "desktop": 84
+      "mobile": 66,
+      "desktop": 89
     }
   }
 ]
