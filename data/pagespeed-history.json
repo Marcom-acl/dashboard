@@ -531,11 +531,11 @@
     "date": "2026-11-11",
     "acl": {
       "mobile": 41,
-      "desktop": 50
+      "desktop": 33
     },
     "auto": {
       "mobile": 61,
-      "desktop": 85
+      "desktop": 86
     }
   }
 ]
