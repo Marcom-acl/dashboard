@@ -1,11 +1,7 @@
 {
-  "generated_at": "2026-11-10",
+  "generated_at": "2026-11-11",
   "next_edition": "",
   "editions": [
-    {
-      "date": "2026-05-11",
-      "label": "Semaine du 11 mai 2026"
-    },
     {
       "date": "2026-05-18",
       "label": "Semaine du 18 mai 2026"
@@ -421,15 +417,41 @@
     {
       "date": "2026-11-10",
       "label": "Semaine du 2026-11-10"
+    },
+    {
+      "date": "2026-11-11",
+      "label": "Semaine du 2026-11-11"
     }
   ],
   "items": [
+    {
+      "id": "2026-11-11-saaskia-web-uXjJdx",
+      "club": "infos.rtl.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Information sur la vignette autoroutière en Belgique, susceptible d'intéresser les frontaliers et automobilistes luxembourgeois qui circulent chez le voisin.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1794376985.7755.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794376985.7755.pdf",
+      "date": "2026-11-11"
+    },
+    {
+      "id": "2026-11-11-saaskia-web-f8xplN",
+      "club": "Le Quotidien",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "ProVelo appelle les cyclistes à être davantage visibles dans la circulation, sujet de sécurité routière et de mobilité douce.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1794376883.6987.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794376883.6987.pdf",
+      "date": "2026-11-11"
+    },
     {
       "id": "2026-11-10-saaskia-web-BXsBWy",
       "club": "wort.lu",
       "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "content": "Article en allemand sur les batteries surdimensionnées des véhicules électriques, qui peuvent dépasser le poids admis pour le permis B. Catégorie ACL dans SAASKIA.",
+      "content": "Article sur les grosses batteries des véhicules électriques et sur la difficulté qu'elles posent pour le permis auto, le poids dépassant parfois le seuil de la catégorie B. Classé ACL dans le portail.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1794290868.6054.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794290868.6054.pdf",
@@ -440,7 +462,7 @@
       "club": "Le Quotidien",
       "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "content": "Les garagistes sont submergés de demandes d'équipement en pneus neige à l'approche de l'hiver. Catégorie ACL dans SAASKIA.",
+      "content": "Les garagistes sont submergés de demandes pour équiper les véhicules de pneus neige avant l'hiver. Classé ACL dans le portail.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1794290629.4056.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794290629.4056.pdf",
@@ -451,21 +473,10 @@
       "club": "lesfrontaliers.lu",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Un radar a été installé dans une zone de chantier sur l'autoroute A3, ce qui intéresse directement les usagers de la route au Luxembourg.",
+      "content": "Un radar a été installé dans une zone de chantier sur l'autoroute A3, avec un impact direct sur la sécurité routière et les automobilistes.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1794297236.0051.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794297236.0051.pdf",
-      "date": "2026-11-10"
-    },
-    {
-      "id": "2026-11-10-saaskia-web-lf0wRI",
-      "club": "lesfrontaliers.lu",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Les bus communaux sont absents de l'information en temps réel au Luxembourg, ce qui touche à la qualité du service de transport public.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1794291027.966.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794291027.966.pdf",
       "date": "2026-11-10"
     },
     {
@@ -473,10 +484,21 @@
       "club": "paperjam.lu",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Le Luxembourg a réduit sa consommation d'énergie de 15 %, les transports étant en tête de cette baisse.",
+      "content": "Le Luxembourg a réduit de 15 % sa consommation d'énergie, les transports constituant le premier poste de cette baisse, un point clé pour la politique de mobilité.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1794290989.786.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794290989.786.pdf",
+      "date": "2026-11-10"
+    },
+    {
+      "id": "2026-11-10-saaskia-web-lf0wRI",
+      "club": "lesfrontaliers.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Les bus communaux restent à l'écart de l'information en temps réel sur les transports publics au Luxembourg, un manque pour les usagers de la mobilité.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1794291027.966.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794291027.966.pdf",
       "date": "2026-11-10"
     },
     {
@@ -495,7 +517,7 @@
       "club": "Delano.lu",
       "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "content": "Entretien avec une personnalité sur l'accompagnement durable des personnes, « être là quand tout va bien ». Catégorie ACL et PERSONS dans SAASKIA.",
+      "content": "Entretien avec une personnalité, portant sur l'accompagnement des clients lorsque tout va bien et non seulement en cas de difficulté, en lien avec l'assistance et la protection. Classé ACL et PERSONS dans le portail.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1794210888.2887.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794210888.2887.pdf",
@@ -506,7 +528,7 @@
       "club": "wort.lu",
       "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "content": "Article sur la couverture en cas de panne ou d'accident dans la Grande Région, et la question de savoir si les automobilistes sont réellement assurés. Catégorie ACL dans SAASKIA.",
+      "content": "Conseils sur la couverture en cas de panne ou d'accident dans la Grande Région, avec la question de savoir si les automobilistes sont réellement assurés. Classé ACL dans le portail.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1794210912.1916.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794210912.1916.pdf",
@@ -517,7 +539,7 @@
       "club": "luxtimes.lu (Wort.lu/en)",
       "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "content": "Article en anglais sur les bons réflexes à adopter en cas d'urgence. Catégorie ACL dans SAASKIA.",
+      "content": "Article en anglais sur la conduite à tenir en cas d'urgence sur la route. Classé ACL dans le portail.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1794205901.2596.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794205901.2596.pdf",
@@ -528,7 +550,7 @@
       "club": "chronicle.lu",
       "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "content": "Annonce d'un salon automobile chinois organisé par ChinaLux. Catégorie ACL dans SAASKIA.",
+      "content": "Annonce de ChinaLux concernant un salon de l'automobile chinoise au Luxembourg. Classé ACL dans le portail.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1794205867.1283.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794205867.1283.pdf",
@@ -539,7 +561,7 @@
       "club": "wort.lu",
       "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "content": "Version allemande de l'article sur les batteries trop lourdes des véhicules électriques pour le permis B. Catégorie ACL dans SAASKIA.",
+      "content": "Version en allemand de l'article sur les batteries géantes des voitures électriques qui dépassent le poids admis pour le permis B. Classé ACL dans le portail.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1794205559.2347.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794205559.2347.pdf",
@@ -550,7 +572,7 @@
       "club": "paperjam.lu",
       "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "content": "Version française de l'entretien sur l'accompagnement durable des personnes, « être là quand tout va bien ». Catégorie ACL et PERSONS dans SAASKIA.",
+      "content": "Version française de l'entretien sur l'accompagnement des clients au-delà des seuls moments de difficulté. Classé ACL et PERSONS dans le portail.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1794205486.535.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794205486.535.pdf",
@@ -561,10 +583,76 @@
       "club": "Luxemburger Wort",
       "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "content": "Version imprimée de l'article sur les batteries trop lourdes des véhicules électriques pour le permis B. Catégorie ACL dans SAASKIA.",
+      "content": "Article en allemand sur les batteries trop lourdes pour le permis auto, version Luxemburger Wort. Classé ACL dans le portail.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1794205233.3601.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794205233.3601.pdf",
+      "date": "2026-11-09"
+    },
+    {
+      "id": "2026-11-09-saaskia-web-WMUcmE",
+      "club": "L'Essentiel",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Réaction d'une responsable sur la question de la vignette, sujet de fiscalité routière et de mobilité pour les automobilistes.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1794205117.3916.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794205117.3916.pdf",
+      "date": "2026-11-09"
+    },
+    {
+      "id": "2026-11-09-saaskia-web-wY4MkU",
+      "club": "Luxemburger Wort",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Le ministre Léon Gloden maintient le projet de reconnaissance automatique des plaques d'immatriculation malgré l'avis négatif du Conseil d'État. Sujet de sécurité routière et de contrôle.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1794205948.7039.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794205948.7039.pdf",
+      "date": "2026-11-09"
+    },
+    {
+      "id": "2026-11-09-saaskia-web-kozAtD",
+      "club": "Tout-Luxembourg.com",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Rappel des règles relatives aux pneus hiver au Luxembourg à destination des frontaliers, avec un enjeu de sécurité routière et de conformité.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1794206193.7165.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794206193.7165.pdf",
+      "date": "2026-11-09"
+    },
+    {
+      "id": "2026-11-09-saaskia-web-b8Lj0v",
+      "club": "lessentiel.lu FR",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Selon une enquête, un tiers des résidents laisse désormais la voiture au garage en raison des prix à la pompe, ce qui touche directement la mobilité au Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1794206153.2199.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794206153.2199.pdf",
+      "date": "2026-11-09"
+    },
+    {
+      "id": "2026-11-09-saaskia-web-TIFifq",
+      "club": "Le Quotidien",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Témoignage d'une victime d'accident de la route qui exprime son absence de rancune envers le conducteur, sujet lié à la sécurité routière.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1794205724.8086.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794205724.8086.pdf",
+      "date": "2026-11-09"
+    },
+    {
+      "id": "2026-11-09-saaskia-web-PQqxrJ",
+      "club": "lequotidien.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "ProVelo.lu demande des actions concrètes sur les pistes cyclables au Luxembourg, un enjeu d'aménagement et de mobilité.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1794205802.7985.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794205802.7985.pdf",
       "date": "2026-11-09"
     },
     {
@@ -576,72 +664,6 @@
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1794206216.8749.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794206216.8749.pdf",
-      "date": "2026-11-09"
-    },
-    {
-      "id": "2026-11-09-saaskia-web-kozAtD",
-      "club": "Tout-Luxembourg.com",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Rappel des règles relatives aux pneus hiver au Luxembourg à l'intention des frontaliers.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1794206193.7165.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794206193.7165.pdf",
-      "date": "2026-11-09"
-    },
-    {
-      "id": "2026-11-09-saaskia-web-b8Lj0v",
-      "club": "lessentiel.lu FR",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Selon un sondage, 33 % des résidents laissent leur voiture au garage en raison du prix à la pompe.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1794206153.2199.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794206153.2199.pdf",
-      "date": "2026-11-09"
-    },
-    {
-      "id": "2026-11-09-saaskia-web-wY4MkU",
-      "club": "Luxemburger Wort",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Le ministre Leon Gloden maintient le projet de reconnaissance automatique des plaques d'immatriculation malgré l'opposition du Conseil d'État.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1794205948.7039.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794205948.7039.pdf",
-      "date": "2026-11-09"
-    },
-    {
-      "id": "2026-11-09-saaskia-web-PQqxrJ",
-      "club": "lequotidien.lu",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "ProVelo.lu demande des actions concrètes pour améliorer les pistes cyclables au Luxembourg.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1794205802.7985.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794205802.7985.pdf",
-      "date": "2026-11-09"
-    },
-    {
-      "id": "2026-11-09-saaskia-web-TIFifq",
-      "club": "Le Quotidien",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Témoignage d'une victime d'accident de la route qui ne tient pas rigueur au conducteur, décrit comme un accident involontaire.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1794205724.8086.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794205724.8086.pdf",
-      "date": "2026-11-09"
-    },
-    {
-      "id": "2026-11-09-saaskia-web-WMUcmE",
-      "club": "L'Essentiel",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Déclaration sur la vignette automobile, sujet relevant de la fiscalité routière au Luxembourg.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1794205117.3916.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794205117.3916.pdf",
       "date": "2026-11-09"
     },
     {
@@ -10260,66 +10282,6 @@
       "relevance": "Les baromètres de déplacement des grandes fêtes sont un outil de notoriété. Format transposable : l'ACL pourrait produire un baromètre Ascension/Pentecôte.",
       "badge": "INFO",
       "url": "https://newsroom.aaa.com/2026/05/45-million-americans-planning-memorial-day-weekend-getaways/"
-    },
-    {
-      "id": "2026-05-11-race-1",
-      "date": "2026-05-11",
-      "club": "RACE",
-      "category": "EU",
-      "content": "1er Congrès Mondial Tourisme & Motorsport (WMTC) organisé avec FIA et ONU Tourisme les 15-16 juin au Circuit Madrid Jarama. 300 professionnels attendus.",
-      "relevance": "Positionnement institutionnel fort du RACE à l'intersection sport automobile / tourisme / durabilité.",
-      "badge": "INFO",
-      "url": "https://www.race.es/area-de-prensa/la-fundacion-race-en-colaboracion-con-la-fia-y-onu-turismo-organiza-primer-congreso-mundial-de-turismo-y-motorsport"
-    },
-    {
-      "id": "2026-05-11-rac-1",
-      "date": "2026-05-11",
-      "club": "RAC",
-      "category": "EU",
-      "content": "Plaidoyer RAC pour une refonte de la signalisation 'route barrée' au Royaume-Uni : les panneaux actuels sont trop imprécis, sans itinéraire de substitution.",
-      "relevance": "Modèle de plaidoyer public ancré dans des données d'enquête membres.",
-      "badge": "INFO",
-      "url": "https://media.rac.co.uk/drivers-say-road-ahead-closed-signs-are-uninformative-and-need-to-be-improved"
-    },
-    {
-      "id": "2026-05-11-touring-1",
-      "date": "2026-05-11",
-      "club": "Touring Belgique",
-      "category": "EU",
-      "content": "Badge de télépéage Fulli promu comme avantage membre : une seule puce pour accéder aux réseaux autoroutiers de plusieurs pays européens sans friction.",
-      "relevance": "Avantage membres concret lié aux mobilités transfrontalières, pertinent pour un pays comme le Luxembourg.",
-      "badge": "INFO",
-      "url": "https://www.touring.be/fr/articles/badge-telepeage-fulli"
-    },
-    {
-      "id": "2026-05-11-aci-1",
-      "date": "2026-05-11",
-      "club": "ACI",
-      "category": "EU",
-      "content": "ACI Editore se repositionne comme 'hub culturel de la mobilité' : refonte graphique et éditoriale complète du magazine L'Automobile, nouveaux formats de contenu.",
-      "relevance": "Mouvement de fond chez les clubs vers une identité de 'hub de mobilité'. Piste de réflexion pour le positionnement éditorial de l'ACL.",
-      "badge": "SURVEILLER",
-      "url": "https://www.lautomobile.aci.it/attualita/aci-editore-diventa-hub-culturale-della-mobilita/"
-    },
-    {
-      "id": "2026-05-11-aaa-1",
-      "date": "2026-05-11",
-      "club": "AAA",
-      "category": "Monde",
-      "content": "Étude AAA sur l'impact des températures extrêmes sur VE et hybrides : à -7°C, les VE perdent 39% d'autonomie et 35,6% d'efficacité. Les hybrides perdent 22,8% d'économie en hiver.",
-      "relevance": "Données chiffrées directement exploitables pour des communications membres sur les VE au Luxembourg, notamment en hiver.",
-      "badge": "NOTABLE",
-      "url": "https://newsroom.aaa.com/2026/05/aaa-study-reveals-temperature-impacts-on-ev-and-hybrid-performance-efficiency-and-costs/"
-    },
-    {
-      "id": "2026-05-11-waymo-1",
-      "date": "2026-05-11",
-      "club": "Waymo",
-      "category": "Mobilité",
-      "content": "Expansion couverture robotaxi à 1400 miles carrés (+27%) dans 11 villes américaines. Objectif 1M courses/semaine fin 2026. Préparation marché Londres et Tokyo.",
-      "relevance": "L'arrivée à Londres marque une première hors États-Unis. Les clubs européens devront se positionner sur l'assistance aux robotaxis avant l'arrivée sur le continent.",
-      "badge": "SURVEILLER",
-      "url": "https://electrek.co/2026/05/13/waymo-expands-coverage-1400-square-miles-11-cities/"
     }
   ],
   "trends": [
