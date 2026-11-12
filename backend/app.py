@@ -2859,6 +2859,30 @@ def _n(v, default=0.0):
 
 
 
+# Quota Supermetrics (lignes/mois) : on limite la consommation via
+#  - un cache long (les stats LinkedIn Pages changent au plus 1x/jour),
+#  - un cache séparé pour les blocs peu volatils (total abonnés, démographie),
+#  - l'arrêt des requêtes dès qu'un 429 (quota dépassé) est reçu,
+#  - un fallback sur la dernière réponse valide si Supermetrics est indisponible.
+_LI_TTL_MAIN   = 6 * 3600     # perf / abonnés / posts (par période)
+_LI_TTL_STATIC = 24 * 3600    # total abonnés + démographie (indépendants de la période)
+_LI_LAST_GOOD  = {}           # key -> dernière réponse sans erreur (secours)
+_LI_POST_ROWS  = 50           # était 200
+
+
+def _li_static_query(name, acc, fields, start, end, **kw):
+    """Requête Supermetrics mise en cache 24 h (hors période). Retourne (rows, schema, err)."""
+    ck = f'linkedin-static:{name}'
+    with _API_CACHE_LOCK:
+        e = _API_CACHE.get(ck)
+    if e and time.time() - e['ts'] < e['ttl']:
+        return e['data']['rows'], e['data']['schema'], None
+    rows, sc, err = _supermetrics_query('LIP', acc, fields, start, end, **kw)
+    if not err:
+        _cache_set(ck, {'rows': rows, 'schema': sc}, _LI_TTL_STATIC)
+    return rows, sc, err
+
+
 @app.route('/supermetrics/linkedin')
 def supermetrics_linkedin():
     """LinkedIn Pages analytics via Supermetrics (account 10097790 — ACL)."""
@@ -2886,6 +2910,13 @@ def _supermetrics_linkedin_impl():
                    'page_engagement_rate', 'page_likes', 'page_comments', 'page_shares']
     rows1, sc1, err1 = _supermetrics_query('LIP', acc, perf_fields, start, end)
     if err1: sm_errors.append(f'perf: {err1}')
+    quota_hit = bool(err1 and ('429' in err1 or 'QUOTA' in err1.upper()))
+    if quota_hit:
+        # Quota dépassé : inutile d'enchaîner 5 requêtes vouées à l'échec.
+        stale = _LI_LAST_GOOD.get(key) or next(iter(_LI_LAST_GOOD.values()), None)
+        if stale:
+            return jsonify({**stale, '_stale': True, '_debug_errors': sm_errors})
+        return jsonify({'error': 'Quota Supermetrics dépassé (API_ROW_QUOTA_EXCEEDED) — aucune donnée en cache', '_debug_errors': sm_errors}), 503
     # Filter header rows (Supermetrics sometimes includes a row with field names as values)
     items1 = [r for r in _sm_rows_to_dicts(rows1, sc1 or perf_fields)
               if r.get('date', '') not in ('', 'date', 'Date')]
@@ -2910,7 +2941,7 @@ def _supermetrics_linkedin_impl():
         t['newFollowers'] = gain_by_date.get(t['date'], 0)
 
     # ── 3. Total abonnés (company_statistics, report_type 3) ─────────────────
-    rows3, sc3, err3 = _supermetrics_query('LIP', acc, ['follower_count'], start, end, max_rows=1)
+    rows3, sc3, err3 = _li_static_query('follower_count', acc, ['follower_count'], start, end, max_rows=1)
     if err3: sm_errors.append(f'follower_count: {err3}')
     items3 = _sm_rows_to_dicts(rows3, sc3 or ['follower_count'])
     follower_count = int(_n(items3[-1].get('follower_count'))) if items3 else 0
@@ -2919,7 +2950,7 @@ def _supermetrics_linkedin_impl():
     post_fields = ['update_title', 'update_share_comment', 'update_url',
                    'update_share_media_category', 'page_impressions', 'page_clicks',
                    'page_likes', 'page_comments', 'page_shares', 'page_engagement_rate']
-    rows4, sc4, err4 = _supermetrics_query('LIP', acc, post_fields, start, end, max_rows=200)
+    rows4, sc4, err4 = _supermetrics_query('LIP', acc, post_fields, start, end, max_rows=_LI_POST_ROWS)
     if err4: sm_errors.append(f'posts: {err4}')
     _PLACEHOLDER_URLS = {'Update URL', 'update url', ''}
     items4 = [r for r in _sm_rows_to_dicts(rows4, sc4 or post_fields)
@@ -2942,7 +2973,7 @@ def _supermetrics_linkedin_impl():
     # ── 5. Démographie par pays (follower_statistics, report_type 3) ───────────
     # Note: follower_count retourne le total global pour chaque ligne — seule la
     # liste des segments présents est exploitable.
-    rows5, sc5, err5 = _supermetrics_query('LIP', acc, ['follower_country'], start, end, report_type=3, max_rows=50)
+    rows5, sc5, err5 = _li_static_query('country', acc, ['follower_country'], start, end, report_type=3, max_rows=30)
     if err5: sm_errors.append(f'countries: {err5}')
     items5 = _sm_rows_to_dicts(rows5, sc5 or ['follower_country'])
     countries = sorted(
@@ -2951,7 +2982,7 @@ def _supermetrics_linkedin_impl():
     )[:30]
 
     # ── 6. Démographie par secteur (follower_statistics, report_type 3) ─────────
-    rows6, sc6, err6 = _supermetrics_query('LIP', acc, ['follower_industry'], start, end, report_type=3, max_rows=50)
+    rows6, sc6, err6 = _li_static_query('industry', acc, ['follower_industry'], start, end, report_type=3, max_rows=25)
     if err6: sm_errors.append(f'industries: {err6}')
     items6 = _sm_rows_to_dicts(rows6, sc6 or ['follower_industry'])
     industries = sorted(
@@ -2991,7 +3022,12 @@ def _supermetrics_linkedin_impl():
             'industries': industries,
         },
     }
-    _cache_set(key, data, 900)
+    if sm_errors:
+        # Réponse dégradée : cache court (5 min) pour ne pas marteler Supermetrics
+        _cache_set(key, data, 300)
+    else:
+        _LI_LAST_GOOD[key] = data
+        _cache_set(key, data, _LI_TTL_MAIN)
     return jsonify(data)
 
 
