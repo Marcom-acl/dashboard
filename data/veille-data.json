@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-14",
+  "generated_at": "2026-11-15",
   "next_edition": "",
   "editions": [
     {
@@ -433,6 +433,10 @@
     {
       "date": "2026-11-14",
       "label": "Semaine du 2026-11-14"
+    },
+    {
+      "date": "2026-11-15",
+      "label": "Semaine du 2026-11-15"
     }
   ],
   "items": [
@@ -441,7 +445,7 @@
       "club": "rtl.lu",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Fermeture de l'autoroute A6 à Mamer en direction de la Belgique pendant le week-end. Impact probable sur la circulation transfrontalière.",
+      "content": "Fermeture de l'autoroute A6 à hauteur de Mamer, en direction de la Belgique, prévue pendant le week-end. Impact direct sur la mobilité routière nationale.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1794556400.3826.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794556400.3826.pdf",
@@ -452,32 +456,54 @@
       "club": "diegrenzgaenger.lu",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "De nouvelles pétitions sur la vignette autoroutière sont déposées au Parlement luxembourgeois. Le sujet touche directement les automobilistes frontaliers.",
+      "content": "De nouvelles pétitions concernant la vignette autoroutière sont déposées au Parlement luxembourgeois. Sujet sensible pour les automobilistes frontaliers et résidents.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1794556382.4389.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794556382.4389.pdf",
       "date": "2026-11-13"
     },
     {
-      "id": "2026-11-13-saaskia-web-MkYM7A",
-      "club": "tageblatt.lu",
+      "id": "2026-11-13-saaskia-web-V5LOxY",
+      "club": "rtl.lu",
       "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "La zone Val Saint-André passe en Tempo 30 depuis mercredi, avec l'installation de dos d'âne pour renforcer la sécurité routière.",
+      "badge": "INFO",
+      "content": "Article de la rubrique automobile intitulé « Héich Produktiounskäschten » (coûts de production élevés), probablement lié au secteur automobile. Le titre seul ne permet pas de confirmer le sujet précis, à vérifier dans le PDF.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1794549685.2994.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794549685.2994.pdf",
+      "url": "https://saaskia.keepcontact.lu/data/files/1794556344.8356.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794556344.8356.pdf",
       "date": "2026-11-13"
     },
     {
-      "id": "2026-11-13-saaskia-web-Ckccvu",
-      "club": "Luxemburger Wort",
+      "id": "2026-11-13-saaskia-web-V484MM",
+      "club": "lequotidien.lu",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Dans la région frontalière, les habitants peinent à comprendre les règles de la vignette autoroutière. Le sujet relève de la mobilité et de la politique publique.",
+      "content": "Forte affluence chez les garagistes pour l'équipement en pneus neige à l'approche de l'hiver. Sujet lié à la sécurité routière et aux conditions de circulation hivernales.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1794549159.8027.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794549159.8027.pdf",
+      "url": "https://saaskia.keepcontact.lu/data/files/1794549835.6377.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794549835.6377.pdf",
+      "date": "2026-11-13"
+    },
+    {
+      "id": "2026-11-13-saaskia-web-e3Qe3M",
+      "club": "Gemengen.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Présentation de Bissen comme pôle économique ouvert sur l'extérieur. Article classé en mobilité, mais le titre renvoie surtout au développement économique communal.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1794549816.1968.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794549816.1968.pdf",
+      "date": "2026-11-13"
+    },
+    {
+      "id": "2026-11-13-saaskia-web-8Tiauc",
+      "club": "science.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Étude sur la capacité des systèmes d'aide à la conduite automatisée à éviter les bouchons fantômes. Sujet de mobilité et de gestion du trafic routier.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1794549792.3857.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794549792.3857.pdf",
       "date": "2026-11-13"
     },
     {
@@ -485,10 +511,65 @@
       "club": "100komma7.lu",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Le gouvernement envisage d'augmenter le capital de Luxairport pour financer des projets d'infrastructures à Findel. Enjeu d'aéroport et de mobilité nationale.",
+      "content": "Le gouvernement envisage d'augmenter le capital de Luxairport pour financer des projets d'infrastructure au Findel. Enjeu d'infrastructure de transport national.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1794549718.0996.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794549718.0996.pdf",
+      "date": "2026-11-13"
+    },
+    {
+      "id": "2026-11-13-saaskia-web-MkYM7A",
+      "club": "tageblatt.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Mise en place d'une zone à 30 km/h dans le Val Saint-André depuis mercredi, avec installation de ralentisseurs. Mesure de sécurité routière en milieu urbain.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1794549685.2994.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794549685.2994.pdf",
+      "date": "2026-11-13"
+    },
+    {
+      "id": "2026-11-13-saaskia-web-RJWZKa",
+      "club": "Tageblatt",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Article de mobilité en luxembourgeois, intitulé « Et ass traureg, dass een esou Saache maache muss ». Le titre seul ne permet pas d'identifier le sujet, à vérifier dans le PDF.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1794549633.1248.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794549633.1248.pdf",
+      "date": "2026-11-13"
+    },
+    {
+      "id": "2026-11-13-saaskia-web-SK6jAu",
+      "club": "Tageblatt",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Article de mobilité intitulé « Schwer zu bremsen » (difficile à freiner). Le sujet précis n'est pas identifiable à partir du titre seul.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1794549572.9567.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794549572.9567.pdf",
+      "date": "2026-11-13"
+    },
+    {
+      "id": "2026-11-13-saaskia-web-rxdZTg",
+      "club": "d'Lëtzebuerger Land",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Article classé en mobilité et politique publique, intitulé « Neuf jours ». Le titre ne permet pas de confirmer le sujet, à vérifier dans le PDF.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1794549459.4598.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794549459.4598.pdf",
+      "date": "2026-11-13"
+    },
+    {
+      "id": "2026-11-13-saaskia-web-Ckccvu",
+      "club": "Luxemburger Wort",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Les frontaliers de la région frontalière ne comprennent pas les règles de la vignette autoroutière. Sujet de mobilité et de politique routière qui touche directement les automobilistes.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1794549159.8027.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794549159.8027.pdf",
       "date": "2026-11-13"
     },
     {
@@ -496,32 +577,10 @@
       "club": "Luxemburger Wort",
       "category": "Veille presse LU",
       "badge": "INFO",
-      "content": "Conseils aux conducteurs de voitures électriques pour la recharge de leur véhicule. Sujet classé dans la rubrique ACL du portail SAASKIA, sans mention directe de l'ACL dans le titre.",
+      "content": "Conseils pratiques pour les conducteurs de véhicules électriques lors de la recharge. Sujet lié au marché et à l'usage des véhicules électriques.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1794549041.9227.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794549041.9227.pdf",
-      "date": "2026-11-13"
-    },
-    {
-      "id": "2026-11-13-saaskia-web-V484MM",
-      "club": "lequotidien.lu",
-      "category": "Veille presse LU",
-      "badge": "INFO",
-      "content": "Forte demande dans les garages pour l'équipement en pneus neige avant l'hiver. Sujet classé dans la rubrique ACL du portail SAASKIA, sans mention directe de l'ACL dans le titre.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1794549835.6377.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794549835.6377.pdf",
-      "date": "2026-11-13"
-    },
-    {
-      "id": "2026-11-13-saaskia-web-8Tiauc",
-      "club": "science.lu",
-      "category": "Veille presse LU",
-      "badge": "INFO",
-      "content": "Étude sur l'utilisation de systèmes d'aide à la conduite automatisée pour éviter les bouchons fantômes sur les routes.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1794549792.3857.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794549792.3857.pdf",
       "date": "2026-11-13"
     },
     {
