@@ -1,6 +1,6 @@
 {
   "generated_at": "2026-11-16",
-  "next_edition": "2026-11-23",
+  "next_edition": "",
   "editions": [
     {
       "date": "2026-05-18",
@@ -445,64 +445,169 @@
   ],
   "items": [
     {
-      "id": "2026-11-16-adac-1",
-      "date": "2026-11-05",
-      "club": "ADAC",
-      "category": "EU",
-      "content": "L'ADAC a lancé la flotte électrique de son service de location de véhicules (ADAC Clubmobil), avec quatre modèles électriques incluant une citadine, un SUV compact sportif et un van pleine taille, visant à aligner à terme la part de véhicules électriques sur celle du parc automobile national.",
-      "relevance": "Illustre une électrification volontariste des flottes de services propres des clubs automobiles, au-delà du simple conseil aux membres. Question pour l'ACL : fixer un objectif chiffré de transition électrique pour sa propre flotte de dépannage et de véhicules de service ?",
+      "id": "2026-11-16-saaskia-web-aDdOfL",
+      "club": "luxtimes.lu (Wort.lu/en)",
+      "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "url": "https://presse.adac.de/meldungen/adac-se/automotive-dienstleistungen/adac-clubmobil-erfolgreicher-start-der-elektrischen-clubmobil-flotte.html"
+      "content": "Un test porte sur des batteries de véhicules électriques plus grandes et sur la limite de poids autorisée avec un permis de conduire standard. Le sujet touche à la réglementation des permis et à l'évolution du parc électrique.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1794815726.2779.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794815726.2779.pdf",
+      "date": "2026-11-16"
     },
     {
-      "id": "2026-11-16-tcs-1",
-      "date": "2026-11-11",
-      "club": "TCS",
-      "category": "EU",
-      "content": "Le TCS a publié un communiqué célébrant 60 ans de tests comparatifs indépendants au service des consommateurs, menés depuis 1966 et reconnus officiellement par la loi fédérale suisse de 1990, avec des résultats diffusés gratuitement.",
-      "relevance": "Valorise l'ancienneté et la neutralité d'un programme de tests comme argument de confiance et de fidélisation. Question pour l'ACL : capitaliser en communication sur l'historique de ses propres actions de protection des automobilistes ?",
-      "badge": "INFO",
-      "url": "https://www.tcs.ch/fr/le-tcs/presse/communiques-de-presse-2026/60-ans-d-information-des-consommateurs.php"
-    },
-    {
-      "id": "2026-11-16-anwb-1",
-      "date": "2026-11-01",
-      "club": "ANWB",
-      "category": "EU",
-      "content": "L'ANWB met fin au 31 décembre 2026 à son partenariat avec le prestataire Yellowbrick et reprend en direct, à partir du 1er janvier 2027, la gestion technique de son service de stationnement mobile ANWB Parkeren ; les frais de transaction restent fixés à 0,33 euro.",
-      "relevance": "Exemple de ré-internalisation d'un service numérique mobilité jusque-là sous-traité. Question pour l'ACL : évaluer si certaines briques technologiques externalisées (application, paiement) gagneraient à être reprises en interne pour plus de contrôle et de marge ?",
-      "badge": "NOTABLE",
-      "url": "https://www.anwb.nl/verkeer/anwbparkeren/wijziging"
-    },
-    {
-      "id": "2026-11-16-anwb-2",
-      "date": "2026-11-09",
-      "club": "ANWB",
-      "category": "EU",
-      "content": "Une partie du personnel de l'ANWB (5,3 millions de membres) a fait grève le 9 novembre 2026 pour protester contre l'offre salariale finale de la direction (+5,2% en 2026, +2,3% en 2027), rejetée par 70 à 78% des adhérents syndiqués ; l'ANWB a maintenu le traitement prioritaire des appels de dépannage urgents.",
-      "relevance": "Un conflit social de cette ampleur chez un grand club automobile interroge la résilience des services essentiels en cas de grève. Question pour l'ACL : vérifier la robustesse de son propre plan de continuité du service de dépannage face à un risque social comparable ?",
+      "id": "2026-11-16-saaskia-web-2qAJx9",
+      "club": "virgule.lu (Wort.lu/FR)",
+      "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "url": "https://www.fnv.nl/nieuwsbericht/regio/noord/2026/11/werknemers-anwb-staken-9-november-tegen-cao-eindbo"
+      "content": "Une pétition demande la suppression du « Fonds de compensation » destiné aux communes belges dans le cadre de la vignette routière. Le dossier concerne la fiscalité routière et les transports transfrontaliers.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1794815754.1984.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794815754.1984.pdf",
+      "date": "2026-11-16"
     },
     {
-      "id": "2026-11-16-aci-1",
-      "date": "2026-11-05",
-      "club": "ACI",
-      "category": "EU",
-      "content": "Le numéro de novembre 2026 du magazine L'Automobile (en kiosque depuis le 7 novembre) met en avant Luceverde, le service d'infomobilité désormais regroupé avec ACI Global, ACI Infomobility, l'agence Radio Traffic et ACI Editore sous une structure unique baptisée ACI Mobility.",
-      "relevance": "La consolidation des services d'infomobilité et médias sous une marque et une structure uniques simplifie l'offre perçue par les membres. Question pour l'ACL : une clarification similaire de l'architecture de marques et services (application, infotrafic, médias) apporterait-elle plus de lisibilité aux membres ?",
-      "badge": "NOTABLE",
-      "url": "https://www.lautomobile.aci.it/?p=51638"
-    },
-    {
-      "id": "2026-11-16-aci-2",
-      "date": "2026-11-02",
-      "club": "ACI",
-      "category": "EU",
-      "content": "L'ACI participe, aux côtés du ministère italien des Infrastructures, de l'ANCI, de la police nationale et de l'hôpital pédiatrique Bambino Gesù, à la Semaine de la sécurité de l'enfant en voiture (2 au 8 novembre 2026), centrée sur le bon usage des sièges auto.",
-      "relevance": "Modèle de campagne de sécurité routière coordonnée entre club automobile et acteurs institutionnels/santé. Question pour l'ACL : explorer un partenariat similaire avec les autorités luxembourgeoises de sécurité routière et le secteur de la santé pédiatrique ?",
+      "id": "2026-11-16-saaskia-web-3gbLxb",
+      "club": "chronicle.lu",
+      "category": "Veille presse LU",
       "badge": "INFO",
-      "url": "https://lespresso.it/c/mobilita/2026/11/2/settimana-della-sicurezza-del-bambino-auto-guida/65652"
+      "content": "Présentation d'un salon dédié à l'automobile chinoise, « ChinaLux ». L'événement illustre la présence croissante des constructeurs chinois sur le marché automobile.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1794808578.1353.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794808578.1353.pdf",
+      "date": "2026-11-16"
+    },
+    {
+      "id": "2026-11-16-saaskia-web-WHe3l5",
+      "club": "chronicle.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Le gouvernement a dévoilé une version actualisée de son régime d'aides pour les véhicules électriques et les infrastructures de recharge. Cette mesure a un impact direct sur la mobilité électrique au Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1794808596.9015.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794808596.9015.pdf",
+      "date": "2026-11-16"
+    },
+    {
+      "id": "2026-11-16-saaskia-web-UT7sy6",
+      "club": "Agefi.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "La Chambre des Députés examine un budget d'environ 3,7 milliards d'euros pour 2027 couvrant les volets mobilité et travaux publics. Les arbitrages budgétaires auront des conséquences sur les investissements routiers et de transport.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1794808620.4819.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794808620.4819.pdf",
+      "date": "2026-11-16"
+    },
+    {
+      "id": "2026-11-16-saaskia-web-dwRnqT",
+      "club": "paperjam.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Article sur l'expérience client qui examine l'équilibre entre innovation technologique et relation humaine. Le sujet relève de la stratégie de service plutôt que de la mobilité.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1794808638.9806.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794808638.9806.pdf",
+      "date": "2026-11-16"
+    },
+    {
+      "id": "2026-11-16-saaskia-web-MpJxud",
+      "club": "Le Quotidien",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "La commune de Leudelange apporte son soutien au projet de tram rapide. Le dossier s'inscrit dans les projets de transport en commun de l'agglomération luxembourgeoise.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1794808793.6014.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794808793.6014.pdf",
+      "date": "2026-11-16"
+    },
+    {
+      "id": "2026-11-16-saaskia-web-aBgnOk",
+      "club": "virgule.lu (Wort.lu/FR)",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Les abonnements TER de la région Grand Est augmentent de 5 % dans un contexte de perturbations ferroviaires. L'information concerne surtout les navetteurs frontaliers vers le Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1794808860.475.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794808860.475.pdf",
+      "date": "2026-11-16"
+    },
+    {
+      "id": "2026-11-16-saaskia-web-8WzJAO",
+      "club": "Letzebuerghoje.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Article sur l'animation de la ville de Macao à l'occasion du Grand Prix de Macao. Le sujet relève de l'actualité sportive et événementielle, sans lien direct avec le Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1794808891.7357.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794808891.7357.pdf",
+      "date": "2026-11-16"
+    },
+    {
+      "id": "2026-11-16-saaskia-web-6mptYt",
+      "club": "Luxemburger Wort",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Article interrogeant l'acceptation des contrôles de vitesse (« Wéivill Kontroll ») au Luxembourg. Le sujet touche directement à la sécurité routière et à la perception des automobilistes.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1794808932.3495.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794808932.3495.pdf",
+      "date": "2026-11-16"
+    },
+    {
+      "id": "2026-11-16-saaskia-web-3XsNya",
+      "club": "lequotidien.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Tesla ouvre la vente de son robotaxi Cybercab à certains particuliers. L'information relève du marché automobile et de la conduite autonome à l'échelle internationale.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1794809031.3197.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794809031.3197.pdf",
+      "date": "2026-11-16"
+    },
+    {
+      "id": "2026-11-16-saaskia-web-3XDgZb",
+      "club": "lessentiel.lu FR",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Conseils de sécurité routière rappelant un geste souvent oublié par les automobilistes en hiver. Le sujet concerne directement la prévention routière au Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1794809064.5065.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794809064.5065.pdf",
+      "date": "2026-11-16"
+    },
+    {
+      "id": "2026-11-16-saaskia-web-FBtp9X",
+      "club": "lessentiel.lu DE",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Version allemande de l'article sur la préparation hivernale des véhicules et les oublis fréquents des automobilistes. Le sujet relève de la sécurité routière au Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1794809089.8242.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794809089.8242.pdf",
+      "date": "2026-11-16"
+    },
+    {
+      "id": "2026-11-16-saaskia-web-x2xveL",
+      "club": "Luxemburger Wort",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Des riverains se plaignent de véhicules stationnés devant leur maison qui gênent la visibilité. Le sujet touche au stationnement et à la gestion de la mobilité urbaine.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1794809138.1532.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794809138.1532.pdf",
+      "date": "2026-11-16"
+    },
+    {
+      "id": "2026-11-16-saaskia-web-qNxWL8",
+      "club": "Luxemburger Wort",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Le projet de réaménagement du quartier de Hollerich prévoit plus qu'une simple gare de correspondance. Le dossier concerne l'aménagement des transports en commun à Luxembourg-Ville.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1794809214.1255.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794809214.1255.pdf",
+      "date": "2026-11-16"
     },
     {
       "id": "2026-11-13-saaskia-web-t3fKdc",
@@ -791,6 +896,16 @@
       "date": "2026-11-12"
     },
     {
+      "id": "2026-11-16-tcs-1",
+      "date": "2026-11-11",
+      "club": "TCS",
+      "category": "EU",
+      "content": "Le TCS a publié un communiqué célébrant 60 ans de tests comparatifs indépendants au service des consommateurs, menés depuis 1966 et reconnus officiellement par la loi fédérale suisse de 1990, avec des résultats diffusés gratuitement.",
+      "relevance": "Valorise l'ancienneté et la neutralité d'un programme de tests comme argument de confiance et de fidélisation. Question pour l'ACL : capitaliser en communication sur l'historique de ses propres actions de protection des automobilistes ?",
+      "badge": "INFO",
+      "url": "https://www.tcs.ch/fr/le-tcs/presse/communiques-de-presse-2026/60-ans-d-information-des-consommateurs.php"
+    },
+    {
       "id": "2026-11-11-saaskia-web-Va5Qym",
       "club": "virgule.lu (Wort.lu/FR)",
       "category": "Veille presse LU",
@@ -899,6 +1014,16 @@
       "url": "https://saaskia.keepcontact.lu/data/files/1794290989.786.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794290989.786.pdf",
       "date": "2026-11-10"
+    },
+    {
+      "id": "2026-11-16-anwb-2",
+      "date": "2026-11-09",
+      "club": "ANWB",
+      "category": "EU",
+      "content": "Une partie du personnel de l'ANWB (5,3 millions de membres) a fait grève le 9 novembre 2026 pour protester contre l'offre salariale finale de la direction (+5,2% en 2026, +2,3% en 2027), rejetée par 70 à 78% des adhérents syndiqués ; l'ANWB a maintenu le traitement prioritaire des appels de dépannage urgents.",
+      "relevance": "Un conflit social de cette ampleur chez un grand club automobile interroge la résilience des services essentiels en cas de grève. Question pour l'ACL : vérifier la robustesse de son propre plan de continuité du service de dépannage face à un risque social comparable ?",
+      "badge": "SURVEILLER",
+      "url": "https://www.fnv.nl/nieuwsbericht/regio/noord/2026/11/werknemers-anwb-staken-9-november-tegen-cao-eindbo"
     },
     {
       "id": "2026-11-09-saaskia-web-7xxVy7",
@@ -1053,6 +1178,46 @@
       "url": "https://saaskia.keepcontact.lu/data/files/1794206216.8749.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794206216.8749.pdf",
       "date": "2026-11-09"
+    },
+    {
+      "id": "2026-11-16-adac-1",
+      "date": "2026-11-05",
+      "club": "ADAC",
+      "category": "EU",
+      "content": "L'ADAC a lancé la flotte électrique de son service de location de véhicules (ADAC Clubmobil), avec quatre modèles électriques incluant une citadine, un SUV compact sportif et un van pleine taille, visant à aligner à terme la part de véhicules électriques sur celle du parc automobile national.",
+      "relevance": "Illustre une électrification volontariste des flottes de services propres des clubs automobiles, au-delà du simple conseil aux membres. Question pour l'ACL : fixer un objectif chiffré de transition électrique pour sa propre flotte de dépannage et de véhicules de service ?",
+      "badge": "SURVEILLER",
+      "url": "https://presse.adac.de/meldungen/adac-se/automotive-dienstleistungen/adac-clubmobil-erfolgreicher-start-der-elektrischen-clubmobil-flotte.html"
+    },
+    {
+      "id": "2026-11-16-aci-1",
+      "date": "2026-11-05",
+      "club": "ACI",
+      "category": "EU",
+      "content": "Le numéro de novembre 2026 du magazine L'Automobile (en kiosque depuis le 7 novembre) met en avant Luceverde, le service d'infomobilité désormais regroupé avec ACI Global, ACI Infomobility, l'agence Radio Traffic et ACI Editore sous une structure unique baptisée ACI Mobility.",
+      "relevance": "La consolidation des services d'infomobilité et médias sous une marque et une structure uniques simplifie l'offre perçue par les membres. Question pour l'ACL : une clarification similaire de l'architecture de marques et services (application, infotrafic, médias) apporterait-elle plus de lisibilité aux membres ?",
+      "badge": "NOTABLE",
+      "url": "https://www.lautomobile.aci.it/?p=51638"
+    },
+    {
+      "id": "2026-11-16-aci-2",
+      "date": "2026-11-02",
+      "club": "ACI",
+      "category": "EU",
+      "content": "L'ACI participe, aux côtés du ministère italien des Infrastructures, de l'ANCI, de la police nationale et de l'hôpital pédiatrique Bambino Gesù, à la Semaine de la sécurité de l'enfant en voiture (2 au 8 novembre 2026), centrée sur le bon usage des sièges auto.",
+      "relevance": "Modèle de campagne de sécurité routière coordonnée entre club automobile et acteurs institutionnels/santé. Question pour l'ACL : explorer un partenariat similaire avec les autorités luxembourgeoises de sécurité routière et le secteur de la santé pédiatrique ?",
+      "badge": "INFO",
+      "url": "https://lespresso.it/c/mobilita/2026/11/2/settimana-della-sicurezza-del-bambino-auto-guida/65652"
+    },
+    {
+      "id": "2026-11-16-anwb-1",
+      "date": "2026-11-01",
+      "club": "ANWB",
+      "category": "EU",
+      "content": "L'ANWB met fin au 31 décembre 2026 à son partenariat avec le prestataire Yellowbrick et reprend en direct, à partir du 1er janvier 2027, la gestion technique de son service de stationnement mobile ANWB Parkeren ; les frais de transaction restent fixés à 0,33 euro.",
+      "relevance": "Exemple de ré-internalisation d'un service numérique mobilité jusque-là sous-traité. Question pour l'ACL : évaluer si certaines briques technologiques externalisées (application, paiement) gagneraient à être reprises en interne pour plus de contrôle et de marge ?",
+      "badge": "NOTABLE",
+      "url": "https://www.anwb.nl/verkeer/anwbparkeren/wijziging"
     },
     {
       "id": "2026-11-02-rac-1",
