@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-15",
-  "next_edition": "",
+  "generated_at": "2026-11-16",
+  "next_edition": "2026-11-23",
   "editions": [
     {
       "date": "2026-05-18",
@@ -437,9 +437,73 @@
     {
       "date": "2026-11-15",
       "label": "Semaine du 2026-11-15"
+    },
+    {
+      "date": "2026-11-16",
+      "label": "Semaine du 2026-11-16"
     }
   ],
   "items": [
+    {
+      "id": "2026-11-16-adac-1",
+      "date": "2026-11-05",
+      "club": "ADAC",
+      "category": "EU",
+      "content": "L'ADAC a lancé la flotte électrique de son service de location de véhicules (ADAC Clubmobil), avec quatre modèles électriques incluant une citadine, un SUV compact sportif et un van pleine taille, visant à aligner à terme la part de véhicules électriques sur celle du parc automobile national.",
+      "relevance": "Illustre une électrification volontariste des flottes de services propres des clubs automobiles, au-delà du simple conseil aux membres. Question pour l'ACL : fixer un objectif chiffré de transition électrique pour sa propre flotte de dépannage et de véhicules de service ?",
+      "badge": "SURVEILLER",
+      "url": "https://presse.adac.de/meldungen/adac-se/automotive-dienstleistungen/adac-clubmobil-erfolgreicher-start-der-elektrischen-clubmobil-flotte.html"
+    },
+    {
+      "id": "2026-11-16-tcs-1",
+      "date": "2026-11-11",
+      "club": "TCS",
+      "category": "EU",
+      "content": "Le TCS a publié un communiqué célébrant 60 ans de tests comparatifs indépendants au service des consommateurs, menés depuis 1966 et reconnus officiellement par la loi fédérale suisse de 1990, avec des résultats diffusés gratuitement.",
+      "relevance": "Valorise l'ancienneté et la neutralité d'un programme de tests comme argument de confiance et de fidélisation. Question pour l'ACL : capitaliser en communication sur l'historique de ses propres actions de protection des automobilistes ?",
+      "badge": "INFO",
+      "url": "https://www.tcs.ch/fr/le-tcs/presse/communiques-de-presse-2026/60-ans-d-information-des-consommateurs.php"
+    },
+    {
+      "id": "2026-11-16-anwb-1",
+      "date": "2026-11-01",
+      "club": "ANWB",
+      "category": "EU",
+      "content": "L'ANWB met fin au 31 décembre 2026 à son partenariat avec le prestataire Yellowbrick et reprend en direct, à partir du 1er janvier 2027, la gestion technique de son service de stationnement mobile ANWB Parkeren ; les frais de transaction restent fixés à 0,33 euro.",
+      "relevance": "Exemple de ré-internalisation d'un service numérique mobilité jusque-là sous-traité. Question pour l'ACL : évaluer si certaines briques technologiques externalisées (application, paiement) gagneraient à être reprises en interne pour plus de contrôle et de marge ?",
+      "badge": "NOTABLE",
+      "url": "https://www.anwb.nl/verkeer/anwbparkeren/wijziging"
+    },
+    {
+      "id": "2026-11-16-anwb-2",
+      "date": "2026-11-09",
+      "club": "ANWB",
+      "category": "EU",
+      "content": "Une partie du personnel de l'ANWB (5,3 millions de membres) a fait grève le 9 novembre 2026 pour protester contre l'offre salariale finale de la direction (+5,2% en 2026, +2,3% en 2027), rejetée par 70 à 78% des adhérents syndiqués ; l'ANWB a maintenu le traitement prioritaire des appels de dépannage urgents.",
+      "relevance": "Un conflit social de cette ampleur chez un grand club automobile interroge la résilience des services essentiels en cas de grève. Question pour l'ACL : vérifier la robustesse de son propre plan de continuité du service de dépannage face à un risque social comparable ?",
+      "badge": "SURVEILLER",
+      "url": "https://www.fnv.nl/nieuwsbericht/regio/noord/2026/11/werknemers-anwb-staken-9-november-tegen-cao-eindbo"
+    },
+    {
+      "id": "2026-11-16-aci-1",
+      "date": "2026-11-05",
+      "club": "ACI",
+      "category": "EU",
+      "content": "Le numéro de novembre 2026 du magazine L'Automobile (en kiosque depuis le 7 novembre) met en avant Luceverde, le service d'infomobilité désormais regroupé avec ACI Global, ACI Infomobility, l'agence Radio Traffic et ACI Editore sous une structure unique baptisée ACI Mobility.",
+      "relevance": "La consolidation des services d'infomobilité et médias sous une marque et une structure uniques simplifie l'offre perçue par les membres. Question pour l'ACL : une clarification similaire de l'architecture de marques et services (application, infotrafic, médias) apporterait-elle plus de lisibilité aux membres ?",
+      "badge": "NOTABLE",
+      "url": "https://www.lautomobile.aci.it/?p=51638"
+    },
+    {
+      "id": "2026-11-16-aci-2",
+      "date": "2026-11-02",
+      "club": "ACI",
+      "category": "EU",
+      "content": "L'ACI participe, aux côtés du ministère italien des Infrastructures, de l'ANCI, de la police nationale et de l'hôpital pédiatrique Bambino Gesù, à la Semaine de la sécurité de l'enfant en voiture (2 au 8 novembre 2026), centrée sur le bon usage des sièges auto.",
+      "relevance": "Modèle de campagne de sécurité routière coordonnée entre club automobile et acteurs institutionnels/santé. Question pour l'ACL : explorer un partenariat similaire avec les autorités luxembourgeoises de sécurité routière et le secteur de la santé pédiatrique ?",
+      "badge": "INFO",
+      "url": "https://lespresso.it/c/mobilita/2026/11/2/settimana-della-sicurezza-del-bambino-auto-guida/65652"
+    },
     {
       "id": "2026-11-13-saaskia-web-t3fKdc",
       "club": "rtl.lu",
@@ -10609,15 +10673,17 @@
     }
   ],
   "trends": [
-    "Deux clubs britanniques (RAC et AA) réagissent au Budget d'automne 2026 du 28 octobre sur deux axes distincts : le gel des droits d'accise carburant, salué mais jugé insuffisant par les deux, et l'inégalité de TVA entre recharge électrique à domicile (5 %) et publique (20 %), un angle de lobbying tarifaire post-budgétaire à surveiller.",
-    "La vague d'alertes sécurité sur les sièges auto enfant se poursuit et s'élargit : après Axkid et Britax Römer (alerte du 6 octobre), l'ADAC signale désormais un défaut sur le Kinderkraft Mink Pro 2 dans son test d'automne publié le 20 octobre, confirmant un canal de coordination européen actif sur ce sujet.",
-    "L'Euro NCAP impose depuis 2026 un nouveau critère de notation pénalisant les commandes essentielles uniquement pilotées par écran tactile ; l'ÖAMTC documente un retour visible des constructeurs vers des boutons physiques, un signal fort pour les guides d'achat des clubs automobiles.",
-    "Durcissement réglementaire du stationnement privé au Royaume-Uni (code de bonne pratique du 20 octobre, plafond tarifaire, trafic de compteur kilométrique désormais interdit), salué par l'AA : un dossier consommateur transposable pour un club automobile national."
+    "Électrification volontariste des flottes de services propres des clubs (location, dépannage), au-delà du seul conseil aux membres : ADAC Clubmobil.",
+    "Ré-internalisation de briques technologiques mobilité auparavant sous-traitées, signe d'une reprise de contrôle numérique : fin du partenariat ANWB/Yellowbrick sur le stationnement.",
+    "Simplification de l'architecture de marques et de services d'infomobilité sous une structure unique : consolidation ACI Mobility (Luceverde, ACI Global, ACI Infomobility, ACI Editore).",
+    "Valorisation de l'ancienneté et de la neutralité des programmes de tests consommateurs comme argument de confiance et de fidélisation : 60 ans de tests TCS.",
+    "Multiplication des partenariats institutionnels multi-acteurs (État, police, santé) sur la sécurité routière enfant : semaine de la sécurité de l'enfant en voiture ACI."
   ],
   "signals": [
-    "Si le critère Euro NCAP sur les commandes physiques se généralise, les classements de sécurité pourraient devenir un argument d'achat déterminant dès 2027 : à surveiller dans les prochains comparatifs auto européens.",
-    "Extension possible du champ d'alerte sécurité sièges auto à un troisième fabricant (Kinderkraft) en moins d'un mois, après Axkid et Britax Römer : signal d'une faiblesse structurelle de la filière plutôt que d'incidents isolés.",
-    "Le débat sur la TVA de la recharge électrique publique face à la recharge à domicile, porté par l'AA au Royaume-Uni, pourrait inspirer des revendications similaires d'autres clubs européens dans la perspective des budgets nationaux 2027, y compris au Luxembourg.",
-    "La régulation naissante du stationnement privé et de la fraude au kilométrage au Royaume-Uni (code de bonne pratique, interdiction légale du clocking) pourrait servir de précédent à d'autres pays européens en l'absence de cadre harmonisé : à documenter."
+    "Conflit social persistant chez ANWB (grève du 9 novembre, offre salariale rejetée à 70-78%) : risque de nouvelles actions et d'impact sur la continuité du service de dépannage.",
+    "Hausses tarifaires des cotisations annoncées par plusieurs grands clubs en réponse à l'inflation des coûts (ADAC, jusqu'à +25% dès 2027) : un signal à suivre pour l'ensemble du secteur.",
+    "Mouvement de ré-internalisation des services numériques mobilité après des années d'externalisation : à vérifier si d'autres clubs suivent la voie ouverte par l'ANWB.",
+    "Accélération de l'électrification des flottes de service des clubs automobiles, qui pourrait devenir un standard sectoriel à moyen terme.",
+    "Accès restreint cette semaine à plusieurs sites de clubs (RAC, RACE, Touring Belgique, Roole, ÖAMTC, The AA, AAA) pour une vérification directe des pages : couverture à renforcer la semaine prochaine."
   ]
 }
