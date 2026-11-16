@@ -1,6 +1,156 @@
 {
-  "generated_at": "2026-11-09",
+  "generated_at": "2026-11-16",
   "items": [
+    {
+      "date": "2026-08-24",
+      "theme": "IA générative en marketing",
+      "titre": "Anthropic automatise ses digests commerciaux hebdo avec Claude Code",
+      "synthese": "Chez Anthropic, un field marketer passait jusqu'à plusieurs heures chaque dimanche soir à préparer manuellement un point hebdomadaire de 15 minutes pour les commerciaux. Il a reconstruit ce processus avec Claude Code, connecté via MCP à un entrepôt de données BigQuery croisant HubSpot, Clay et Salesforce, pour générer chaque lundi un message Slack personnalisé par commercial avec trois actions prioritaires et les événements terrain pertinents. Le prompt repose sur neuf règles issues de retours terrain, avec interdiction explicite d'inventer des URL ou de citer un événement sans lien d'inscription valide. Le système a été dupliqué pour les équipes de développement commercial, opérationnelles en deux jours, et a continué de fonctionner seul pendant l'absence de l'auteur. Résultat cité par Anthropic : les inscriptions à un dîner pour dirigeants ont doublé en une semaine après le lancement du digest.",
+      "actionACL": "Tester un digest hebdomadaire comparable pour les équipes commerciales et conseillers ACL (contrats, assistance, assurances) à partir des données déjà disponibles dans les outils CRM et du calendrier d'événements membres, sans nécessiter d'entrepôt de données dédié. Documenter chaque correction demandée par les utilisateurs comme règle explicite du prompt pour l'améliorer en continu, et interdire strictement toute invention de données ou de liens.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "Claude (Anthropic) - article original",
+          "url": "https://claude.com/blog/how-an-anthropic-field-marketer-uses-claude-code-to-send-weekly-personalized-updates-to-every-sales-rep"
+        },
+        {
+          "name": "Claude (Anthropic) - version française",
+          "url": "https://claude.com/fr/resources/articles/how-an-anthropic-field-marketer-uses-claude-code-to-send-weekly-personalized-updates-to-every-sales-rep"
+        },
+        {
+          "name": "ClaudeCode.jp",
+          "url": "https://claudecode.jp/en/news/student/how-an-anthropic-field-marketer-uses-claude-code-to-send-weekly-personalized"
+        }
+      ]
+    },
+    {
+      "date": "2026-05-11",
+      "theme": "CRM & member marketing",
+      "titre": "HubSpot lance un contrôle qualité IA avant l'envoi d'emails marketing",
+      "synthese": "HubSpot a ajouté aux paramètres de Marketing Hub un contrôle qualité des emails, accessible directement depuis l'éditeur via un bouton dédié qui lance l'ensemble des vérifications activées. Les résultats remontent sous forme d'erreurs, d'avertissements ou de suggestions, et les administrateurs peuvent choisir, pour chaque contrôle, un mode avertissement ou blocage avant envoi. La fonctionnalité couvre par défaut un ensemble de vérifications standards et permet de créer jusqu'à cinq contrôles personnalisés. Elle est proposée en version bêta sur les offres Marketing Hub Professional et Enterprise, avec consommation de crédits HubSpot, et reste documentée comme active dans la base de connaissances HubSpot à la mi-novembre 2026. L'objectif annoncé est de repérer en amont les problèmes susceptibles de nuire à la délivrabilité ou à la performance d'un envoi.",
+      "actionACL": "Si l'ACL migre ou évalue des outils d'emailing, inclure ce type de contrôle qualité pré-envoi dans la grille de comparaison des solutions, en particulier pour les communications de masse aux 191 000 membres où une erreur de délivrabilité a un impact direct. Pour l'outil actuellement utilisé, vérifier s'il propose un contrôle équivalent (liens, images, score de spam) et l'activer en mode blocage pour les campagnes à grande diffusion.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "INFO",
+      "sources": [
+        {
+          "name": "HubSpot Knowledge Base",
+          "url": "https://knowledge.hubspot.com/marketing-email/optimize-marketing-emails-with-quality-checks"
+        },
+        {
+          "name": "MarTech",
+          "url": "https://martech.org/hubspots-may-2026-updates-breeze-gets-serious-automation-gets-smarter-and-your-data-gets-cleaner/"
+        },
+        {
+          "name": "Orange Marketing",
+          "url": "https://blog.orangemarketing.com/hubspot-updates-monday-recap-may-11-2026"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-30",
+      "theme": "CRM & member marketing",
+      "titre": "Klaviyo ouvre Composer, son agent IA de création de campagnes, en bêta",
+      "synthese": "Klaviyo a ouvert en bêta publique le 30 juin 2026 son agent Composer, qui génère une campagne email ou SMS prête à être revue à partir d'une simple instruction en langage naturel, après une phase de bêta privée menée avec des marques comme AS Beauty, Spanx et Dermalogica. Aucune campagne ne part sans validation humaine explicite. Chez AS Beauty, la directrice senior de la rétention a indiqué que l'outil, via sa fonction d'audit de flux, a permis de repérer des conflits entre automatisations au sein d'une bibliothèque de 113 flux, invisibles faute de temps pour les équipes internes. Klaviyo positionne Composer comme la première brique de ses agents IA destinés à automatiser le marketing B2C aux côtés de son agent de service client déjà disponible. L'éditeur n'a pas communiqué de tarification spécifique pour cette fonctionnalité.",
+      "actionACL": "Suivre l'évolution de Composer et d'outils équivalents comme fonctionnalité à évaluer pour accélérer la création de campagnes d'emailing membres (relances d'adhésion, newsletters segmentées), sans adopter l'outil tant qu'il reste en bêta et hors de l'écosystème emailing actuel de l'ACL. S'inspirer de la fonction d'audit de flux pour planifier un nettoyage périodique des automatisations existantes dans l'outil CRM de l'ACL, qui peuvent accumuler des conflits avec le temps.",
+      "horizon": "long terme (12+ mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "Business Wire",
+          "url": "https://secure.businesswire.com/news/home/20260630493754/en/Klaviyo-Launches-AI-Agents-that-Work-Together-to-Drive-Revenue-for-Consumer-Brands"
+        },
+        {
+          "name": "Klaviyo Newsroom",
+          "url": "https://www.klaviyo.com/newsroom/composer"
+        },
+        {
+          "name": "Digital Commerce 360",
+          "url": "https://www.digitalcommerce360.com/2026/07/01/klaviyo-launches-beta-for-marketing-ai-agents/"
+        },
+        {
+          "name": "CMSWire",
+          "url": "https://www.cmswire.com/the-wire/klaviyo-launches-ai-agents-that-work-together-to-drive-revenue-for-consumer-brands/"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-29",
+      "theme": "Social & Ads",
+      "titre": "Facebook teste un rôle de voix expertes dans les groupes communautaires",
+      "synthese": "Meta a annoncé le 29 septembre 2026 tester un nouveau rôle destiné à reconnaître les voix les plus actives d'un groupe Facebook, qui remplace les anciens badges de contributeur et le rôle d'expert de groupe. Le rôle est attribué selon des critères comportementaux plutôt que numériques : répondre aux questions, partager une expérience concrète, donner des conseils pratiques ou lancer des discussions, et non un simple volume de publications. Les administrateurs de groupe peuvent désigner directement des membres, et Meta propose aussi ses propres suggestions de candidats. Les membres qui obtiennent le rôle bénéficient d'un badge visible et d'une publication accélérée de leurs messages, et peuvent se retirer du rôle à tout moment. Le test démarre sur Forum, la nouvelle application dédiée aux groupes Facebook lancée en test aux Etats-Unis, ainsi que sur Facebook à l'échelle mondiale, sans calendrier annoncé pour un déploiement plus large.",
+      "actionACL": "Identifier et valoriser, au sein du groupe Facebook communautaire de l'ACL, les membres les plus actifs et utiles (conseils d'entretien auto, partage d'expérience sécurité routière) afin d'être prêt à leur attribuer ce rôle dès qu'il sera disponible au Luxembourg. Profiter du test pour auditer dès maintenant la qualité des réponses dans le groupe et encourager les membres les plus engagés à prendre la parole, ce qui prépare le terrain indépendamment de la disponibilité de la fonctionnalité.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "Meta Newsroom",
+          "url": "https://about.fb.com/news/2026/09/find-community-forum-dedicated-app-facebook-groups/"
+        },
+        {
+          "name": "Relevant Audience",
+          "url": "https://www.relevantaudience.com/social-media-marketing/facebook-groups-top-community-voices-role-forum/"
+        },
+        {
+          "name": "Engadget",
+          "url": "https://www.engadget.com/facebook-groups-experts-200403454.html"
+        },
+        {
+          "name": "Search Engine Journal",
+          "url": "https://www.searchenginejournal.com/facebook-group-expert/413364/"
+        }
+      ]
+    },
+    {
+      "date": "2026-03-17",
+      "theme": "Design & branding",
+      "titre": "Design systems : l'IA en 2026, promesses fortes mais adoption fragile",
+      "synthese": "Le rapport annuel de zeroheight sur l'état des design systems, publié en mars 2026 auprès de près de 150 praticiens, montre une adoption large mais inégale de l'IA dans la gestion de la cohérence visuelle des marques. La majorité des équipes a adopté l'IA, avec la documentation comme principal gain, mais la génération de design reste le maillon le plus faible du processus. Une proportion significative des équipes rapporte des cas de contenus ou interfaces créés par IA en dehors du design system officiel, un phénomène identifié comme du « shadow AI » qui fragilise la cohérence de marque. Le sentiment général reste plutôt favorable envers l'IA, la principale crainte exprimée portant sur la qualité des livrables plutôt que sur la suppression d'emplois. Le rapport souligne que l'IA ne lit pas un design system de la même façon qu'un designer humain, ce qui exige une documentation plus structurée pour qu'elle produise des résultats cohérents.",
+      "actionACL": "Documenter de façon plus structurée la charte graphique ACL (couleurs, typographies, composants) avant de généraliser l'usage d'outils IA génératifs en interne, afin que ces outils produisent des visuels conformes dès la première génération. Mettre en place une revue rapide et régulière des visuels produits avec l'IA par les différentes équipes pour détecter les écarts de marque avant publication, plutôt que de découvrir des incohérences après diffusion.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "zeroheight",
+          "url": "https://zeroheight.com/resources/state-of-ai-in-design-systems/"
+        },
+        {
+          "name": "zeroheight - inscription rapport",
+          "url": "https://report.zeroheight.com/"
+        },
+        {
+          "name": "zeroheight - webinaire des résultats",
+          "url": "https://webinars.zeroheight.com/register/zeroheight-design-systems-report-2026-the-findings"
+        },
+        {
+          "name": "925 Studios",
+          "url": "https://www.925studios.co/blog/build-design-system-with-ai-1"
+        }
+      ]
+    },
+    {
+      "date": "2026-08-26",
+      "theme": "Design & branding",
+      "titre": "Vidéo courte 2026 : TikTok domine Reels et Shorts, selon Metricool",
+      "synthese": "Metricool a publié le 26 août 2026 son rapport annuel sur la vidéo courte, basé sur l'analyse de plus de 6 millions de vidéos issues de plus de 375 000 comptes sur TikTok, Instagram et YouTube. Le constat principal est que TikTok génère près du double de vues par vidéo par rapport à YouTube Shorts et devance aussi Instagram, un écart particulièrement marqué pour les comptes de moins de 2 000 abonnés. Le rapport précise que la plateforme la plus performante peut changer à mesure qu'un compte grandit et que la qualité du contenu s'améliore. Metricool recommande de suivre en priorité la rétention et le temps de visionnage, jugés plus révélateurs que les vues brutes, et conseille de choisir deux ou trois indicateurs clés à relever chaque semaine plutôt que de multiplier les métriques suivies.",
+      "actionACL": "Prioriser la publication de contenus courts ACL (conseils sécurité routière, coulisses, témoignages membres) sur TikTok et Instagram Reels en complément de la stratégie LinkedIn existante, en particulier pour toucher une audience plus jeune. Mettre en place un suivi hebdomadaire simple de deux à trois indicateurs (taux de rétention, temps de visionnage moyen) par plateforme plutôt qu'un tableau de bord exhaustif, pour ajuster rapidement le format des prochaines vidéos.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "Metricool - rapport vidéo courte 2026",
+          "url": "https://metricool.com/short-video-report-2026"
+        },
+        {
+          "name": "Metricool - état de la vidéo courte 2026",
+          "url": "https://metricool.com/the-state-of-short-form-social-media/"
+        },
+        {
+          "name": "Tubefilter",
+          "url": "https://www.tubefilter.com/2026/08/03/youtube-shorts-long-form-study-metricool/"
+        }
+      ]
+    },
     {
       "date": "2026-10-28",
       "theme": "Social & Ads",
