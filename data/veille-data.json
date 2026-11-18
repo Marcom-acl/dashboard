@@ -1,11 +1,7 @@
 {
-  "generated_at": "2026-11-17",
+  "generated_at": "2026-11-18",
   "next_edition": "",
   "editions": [
-    {
-      "date": "2026-05-18",
-      "label": "Semaine du 18 mai 2026"
-    },
     {
       "date": "2026-05-28",
       "label": "Semaine du 28 mai 2026"
@@ -445,9 +441,134 @@
     {
       "date": "2026-11-17",
       "label": "Semaine du 2026-11-17"
+    },
+    {
+      "date": "2026-11-18",
+      "label": "Semaine du 2026-11-18"
     }
   ],
   "items": [
+    {
+      "id": "2026-11-18-saaskia-web-CEp80h",
+      "club": "chronicle.lu",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "L'ACL a contrôlé 6 500 véhicules dans le cadre d'une campagne sur les feux et les pneus au Luxembourg.",
+      "relevance": "ACL explicitement cité : \"ACL\"",
+      "url": "https://saaskia.keepcontact.lu/data/files/1794981653.1188.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794981653.1188.pdf",
+      "date": "2026-11-18"
+    },
+    {
+      "id": "2026-11-18-saaskia-web-jXgIcm",
+      "club": "Tageblatt",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "Article classé ACL traitant de chutes d'arbres et de pannes de courant liées aux intempéries.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1794981555.9744.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794981555.9744.pdf",
+      "date": "2026-11-18"
+    },
+    {
+      "id": "2026-11-18-saaskia-web-pN2REx",
+      "club": "infos.rtl.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Dossier sur les prix des carburants et leur impact pour les travailleurs frontaliers.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1794981715.7599.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794981715.7599.pdf",
+      "date": "2026-11-18"
+    },
+    {
+      "id": "2026-11-18-saaskia-web-YR2OeS",
+      "club": "today.RTL.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Article sur les prix et la pratique du plein de carburant (« At the pump »).",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1794981632.6095.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794981632.6095.pdf",
+      "date": "2026-11-18"
+    },
+    {
+      "id": "2026-11-17-saaskia-web-5EJo6c",
+      "club": "lessentiel.lu DE",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "Conseils de prévention sur treize objets du quotidien à remplacer régulièrement, classés dans la catégorie ACL.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1794894860.8571.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794894860.8571.pdf",
+      "date": "2026-11-17"
+    },
+    {
+      "id": "2026-11-17-saaskia-web-ZByxyb",
+      "club": "L'Essentiel",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "Article classé ACL sur l'entretien du pare-brise, en lien avec la sécurité de conduite.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1794895121.5316.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794895121.5316.pdf",
+      "date": "2026-11-17"
+    },
+    {
+      "id": "2026-11-17-saaskia-web-HWHcki",
+      "club": "lessentiel.lu DE",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Selon la police, près d'un automobiliste sur cinq présente des défauts lors du contrôle hivernal au Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1794894981.998.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794894981.998.pdf",
+      "date": "2026-11-17"
+    },
+    {
+      "id": "2026-11-17-saaskia-web-4y8gPV",
+      "club": "contacto.lu (Wort.lu/PT)",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Aide pouvant aller jusqu'à 6 000 euros et nouvelles réductions pour l'achat d'une voiture électrique au Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1794894832.117.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794894832.117.pdf",
+      "date": "2026-11-17"
+    },
+    {
+      "id": "2026-11-17-saaskia-web-Qee6LY",
+      "club": "infogreen.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Présentation des nouveautés du « Klimabonus Mobilitéit » pour la période 2026-2030.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1794894809.7875.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794894809.7875.pdf",
+      "date": "2026-11-17"
+    },
+    {
+      "id": "2026-11-17-saaskia-web-twHryx",
+      "club": "today.RTL.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Article sur l'objectif « zéro mort sur les routes », au cœur des enjeux de sécurité routière.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1794894925.2406.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794894925.2406.pdf",
+      "date": "2026-11-17"
+    },
+    {
+      "id": "2026-11-17-saaskia-web-xH8IuT",
+      "club": "L'Essentiel",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Analyse des habitudes de déplacement vers le Luxembourg, qui restent difficiles à faire évoluer.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1794895044.5684.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794895044.5684.pdf",
+      "date": "2026-11-17"
+    },
     {
       "id": "2026-11-17-saaskia-web-bQQBZS",
       "club": "paperjam.lu",
@@ -460,102 +581,14 @@
       "date": "2026-11-17"
     },
     {
-      "id": "2026-11-17-saaskia-web-Qee6LY",
-      "club": "infogreen.lu",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Présentation des nouveautés du « Klimabonus Mobilitéit » 2026-2030, aide étatique à la mobilité durable au Luxembourg.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1794894809.7875.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794894809.7875.pdf",
-      "date": "2026-11-17"
-    },
-    {
-      "id": "2026-11-17-saaskia-web-4y8gPV",
-      "club": "contacto.lu (Wort.lu/PT)",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Au Luxembourg, aide pouvant atteindre 6 000 euros pour l'achat d'une voiture électrique, avec de nouvelles remises.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1794894832.117.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794894832.117.pdf",
-      "date": "2026-11-17"
-    },
-    {
-      "id": "2026-11-17-saaskia-web-5EJo6c",
-      "club": "lessentiel.lu DE",
-      "category": "Veille presse LU",
-      "badge": "NOTABLE",
-      "content": "Article grand public sur les risques cachés des objets du quotidien. Classé ACL par SAASKIA alors que le titre ne cite pas l'ACL : vérifier le corps de l'article pour une éventuelle mention de l'ACL.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1794894860.8571.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794894860.8571.pdf",
-      "date": "2026-11-17"
-    },
-    {
-      "id": "2026-11-17-saaskia-web-twHryx",
-      "club": "today.RTL.lu",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Article sur l'objectif « zéro mort sur les routes », en lien avec la sécurité routière.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1794894925.2406.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794894925.2406.pdf",
-      "date": "2026-11-17"
-    },
-    {
-      "id": "2026-11-17-saaskia-web-HWHcki",
-      "club": "lessentiel.lu DE",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Contrôle hivernal de la police au Luxembourg : près d'un automobiliste sur cinq présente des défauts techniques sur son véhicule.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1794894981.998.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794894981.998.pdf",
-      "date": "2026-11-17"
-    },
-    {
-      "id": "2026-11-17-saaskia-web-xH8IuT",
-      "club": "L'Essentiel",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Analyse des habitudes de déplacement vers le Luxembourg, en lien avec la mobilité transfrontalière.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1794895044.5684.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794895044.5684.pdf",
-      "date": "2026-11-17"
-    },
-    {
-      "id": "2026-11-17-saaskia-web-ZByxyb",
-      "club": "L'Essentiel",
-      "category": "Veille presse LU",
-      "badge": "NOTABLE",
-      "content": "Conseils sur l'entretien hivernal du pare-brise. Classé ACL par SAASKIA alors que le titre ne cite pas l'ACL : vérifier le corps de l'article pour une éventuelle mention de l'ACL.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1794895121.5316.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794895121.5316.pdf",
-      "date": "2026-11-17"
-    },
-    {
       "id": "2026-11-16-saaskia-web-aDdOfL",
       "club": "luxtimes.lu (Wort.lu/en)",
       "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "content": "Des batteries de véhicules électriques plus lourdes remettent en question la limite de poids du permis de conduire standard. Classé ACL par SAASKIA alors que le titre ne cite pas l'ACL : vérifier le corps de l'article pour une éventuelle mention de l'ACL.",
+      "content": "Des batteries de véhicules électriques plus lourdes pourraient dépasser la limite de poids du permis de conduire standard, classé ACL.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1794815726.2779.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794815726.2779.pdf",
-      "date": "2026-11-16"
-    },
-    {
-      "id": "2026-11-16-saaskia-web-2qAJx9",
-      "club": "virgule.lu (Wort.lu/FR)",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Une pétition demande la suppression du « Fonds de compensation » versé aux communes belges via la vignette routière luxembourgeoise.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1794815754.1984.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794815754.1984.pdf",
       "date": "2026-11-16"
     },
     {
@@ -563,10 +596,43 @@
       "club": "chronicle.lu",
       "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "content": "Présentation de l'événement « ChinaLux Chinese Automobile Showcase ». Classé ACL par SAASKIA alors que le titre ne cite pas l'ACL : vérifier le corps de l'article pour une éventuelle mention de l'ACL.",
+      "content": "Présentation de véhicules chinois lors du salon ChinaLux, classée ACL.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1794808578.1353.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794808578.1353.pdf",
+      "date": "2026-11-16"
+    },
+    {
+      "id": "2026-11-16-saaskia-web-dwRnqT",
+      "club": "paperjam.lu",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "Article classé ACL et PERSONS sur l'expérience client, entre innovation technologique et relation humaine.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1794808638.9806.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794808638.9806.pdf",
+      "date": "2026-11-16"
+    },
+    {
+      "id": "2026-11-16-saaskia-web-3XDgZb",
+      "club": "lessentiel.lu FR",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "Conseil de sécurité routière sur un geste que les automobilistes oublient souvent en hiver, classé ACL.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1794809064.5065.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794809064.5065.pdf",
+      "date": "2026-11-16"
+    },
+    {
+      "id": "2026-11-16-saaskia-web-FBtp9X",
+      "club": "lessentiel.lu DE",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "Rappel aux automobilistes luxembourgeois sur les vérifications hivernales souvent oubliées, classé ACL.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1794809089.8242.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794809089.8242.pdf",
       "date": "2026-11-16"
     },
     {
@@ -581,25 +647,36 @@
       "date": "2026-11-16"
     },
     {
+      "id": "2026-11-16-saaskia-web-2qAJx9",
+      "club": "virgule.lu (Wort.lu/FR)",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Une pétition demande la suppression du « Fonds de compensation » de la vignette routière belge destiné aux communes, concernant aussi les frontaliers.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1794815754.1984.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794815754.1984.pdf",
+      "date": "2026-11-16"
+    },
+    {
       "id": "2026-11-16-saaskia-web-UT7sy6",
       "club": "Agefi.lu",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Le budget 2027 de près de 3,7 milliards d'euros est alloué aux volets « mobilité » et « travaux publics », selon la Chambre des Députés.",
+      "content": "La Chambre des Députés présente un budget d'environ 3,7 milliards d'euros pour 2027 pour la mobilité et les travaux publics.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1794808620.4819.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794808620.4819.pdf",
       "date": "2026-11-16"
     },
     {
-      "id": "2026-11-16-saaskia-web-dwRnqT",
-      "club": "paperjam.lu",
+      "id": "2026-11-16-saaskia-web-6mptYt",
+      "club": "Luxemburger Wort",
       "category": "Veille presse LU",
-      "badge": "NOTABLE",
-      "content": "Article sur l'expérience client entre innovation technologique et relation humaine, avec une personne citée. Classé ACL par SAASKIA alors que le titre ne cite pas l'ACL : vérifier le corps de l'article pour une éventuelle mention de l'ACL.",
+      "badge": "SURVEILLER",
+      "content": "Article interrogeant l'efficacité et l'acceptation des contrôles routiers (« Wéivill Kontroll ») au Luxembourg.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1794808638.9806.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794808638.9806.pdf",
+      "url": "https://saaskia.keepcontact.lu/data/files/1794808932.3495.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794808932.3495.pdf",
       "date": "2026-11-16"
     },
     {
@@ -614,17 +691,6 @@
       "date": "2026-11-16"
     },
     {
-      "id": "2026-11-16-saaskia-web-6mptYt",
-      "club": "Luxemburger Wort",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Article sur le contrôle « Wéivill Kontroll » et son efficacité, en lien avec les contrôles routiers au Luxembourg.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1794808932.3495.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794808932.3495.pdf",
-      "date": "2026-11-16"
-    },
-    {
       "id": "2026-11-16-saaskia-web-3XsNya",
       "club": "lequotidien.lu",
       "category": "Veille presse LU",
@@ -633,28 +699,6 @@
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1794809031.3197.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794809031.3197.pdf",
-      "date": "2026-11-16"
-    },
-    {
-      "id": "2026-11-16-saaskia-web-3XDgZb",
-      "club": "lessentiel.lu FR",
-      "category": "Veille presse LU",
-      "badge": "NOTABLE",
-      "content": "Conseil de sécurité routière sur un geste que les automobilistes oublient en hiver. Classé ACL par SAASKIA alors que le titre ne cite pas l'ACL : vérifier le corps de l'article pour une éventuelle mention de l'ACL.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1794809064.5065.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794809064.5065.pdf",
-      "date": "2026-11-16"
-    },
-    {
-      "id": "2026-11-16-saaskia-web-FBtp9X",
-      "club": "lessentiel.lu DE",
-      "category": "Veille presse LU",
-      "badge": "NOTABLE",
-      "content": "Conseils aux automobilistes sur les éléments souvent oubliés pour l'hiver. Classé ACL par SAASKIA alors que le titre ne cite pas l'ACL : vérifier le corps de l'article pour une éventuelle mention de l'ACL.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1794809089.8242.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1794809089.8242.pdf",
       "date": "2026-11-16"
     },
     {
@@ -10877,56 +10921,6 @@
       "relevance": "Deux écosystèmes robotaxi (Waymo, Tesla) en phase commerciale simultanée. L'écart opérationnel se creuse (périmètre réduit vs Waymo).",
       "badge": "SURVEILLER",
       "url": "https://electrek.co/2026/04/23/tesla-cybercab-production-starts-no-nhtsa-2500-vehicle-cap/"
-    },
-    {
-      "id": "2026-05-18-oeamtc-1",
-      "date": "2026-05-18",
-      "club": "ÖAMTC",
-      "category": "EU",
-      "content": "36e novelle StVO autrichienne (1er mai 2026) : e-scooters deviennent des véhicules officiels (équipement obligatoire, alcootest, casque -16 ans). E-mopeds soumis à immatriculation dès octobre 2026.",
-      "relevance": "Le Luxembourg devrait suivre cette évolution réglementaire européenne. L'ÖAMTC se positionne comme référence d'orientation réglementaire.",
-      "badge": "NOTABLE",
-      "url": "https://www.oeamtc.at/presse/oeamtc-36-stvo-novelle-welche-neuerungen-gelten-ab-1-mai-2026-86402001"
-    },
-    {
-      "id": "2026-05-18-touring-1",
-      "date": "2026-05-18",
-      "club": "Touring Belgique",
-      "category": "EU",
-      "content": "Baromètre des vacances 2026 : 8 Belges sur 10 prévoient de partir malgré tensions géopolitiques et hausse des prix. Niveau de résilience remarquable.",
-      "relevance": "Les clubs peuvent fidéliser leurs membres via des services voyage. L'ACL pourrait produire un baromètre similaire sur les Luxembourgeois.",
-      "badge": "INFO",
-      "url": "https://www.touring.be/fr/articles/vacances-2026-les-nouvelles-habitudes-des-belges"
-    },
-    {
-      "id": "2026-05-18-oeamtc-2",
-      "date": "2026-05-18",
-      "club": "ÖAMTC",
-      "category": "EU",
-      "content": "Wiener Elektro Tage 2026 (29-31 mai) avec 19 constructeurs VE. Nouveauté : service ÖAMTC ePower accessible directement depuis l'application mobile du club.",
-      "relevance": "L'ÖAMTC intègre ses services mobilité électrique dans son écosystème numérique. Piste pour enrichir l'offre numérique ACL autour de la recharge EV.",
-      "badge": "INFO",
-      "url": "https://www.oeamtc.at/news/wien/wiener-elektro-tage-2026-61812915"
-    },
-    {
-      "id": "2026-05-18-adac-1",
-      "date": "2026-05-18",
-      "club": "ADAC",
-      "category": "EU",
-      "content": "ADAC Stiftung : enquête nationale (340 enseignants) — 47% des enfants présentent déficits d'attention dans la circulation, écoles manquent 5h/an d'éducation mobilité.",
-      "relevance": "L'ACL dispose de programmes de sensibilisation scolaire. Cette étude fournit des arguments chiffrés pour étendre les partenariats avec le monde éducatif luxembourgeois.",
-      "badge": "INFO",
-      "url": "https://presse.adac.de/meldungen/adac-stiftung/adac-stiftung/kinder-im-strassenverkehr-ueberfordert-lehrkraefte-fordern-mehr-mobilitaetsbildung-im-unterricht.html"
-    },
-    {
-      "id": "2026-05-18-aaa-1",
-      "date": "2026-05-18",
-      "club": "AAA",
-      "category": "Monde",
-      "content": "Projection AAA : 45 millions d'Américains en déplacement pour le Memorial Day 2026 (nouveau record). 39,1M en voiture malgré prix carburants au plus haut depuis l'été 2022.",
-      "relevance": "Les baromètres de déplacement des grandes fêtes sont un outil de notoriété. Format transposable : l'ACL pourrait produire un baromètre Ascension/Pentecôte.",
-      "badge": "INFO",
-      "url": "https://newsroom.aaa.com/2026/05/45-million-americans-planning-memorial-day-weekend-getaways/"
     }
   ],
   "trends": [
