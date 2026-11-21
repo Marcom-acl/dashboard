@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-20",
+  "generated_at": "2026-11-21",
   "next_edition": "",
   "editions": [
     {
@@ -453,6 +453,10 @@
     {
       "date": "2026-11-20",
       "label": "Semaine du 2026-11-20"
+    },
+    {
+      "date": "2026-11-21",
+      "label": "Semaine du 2026-11-21"
     }
   ],
   "items": [
@@ -461,7 +465,7 @@
       "club": "Letzebuerghoje.lu",
       "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "content": "Article en portugais sur la progression des voitures chinoises au Luxembourg. Classé ACL dans SAASKIA, mais le titre ne mentionne pas l'ACL : lien à vérifier dans le PDF.",
+      "content": "Article en portugais sur la progression des voitures chinoises au Luxembourg. Classé ACL par SAASKIA, mais le titre ne mentionne pas l'ACL.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1795161084.2453.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795161084.2453.pdf",
@@ -472,7 +476,7 @@
       "club": "virgule.lu (Wort.lu/FR)",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Le coût d'installation du chantier de la piste cyclable du boulevard Roosevelt a bondi de 355 %.",
+      "content": "Le coût d'installation du chantier de la piste cyclable du boulevard Roosevelt augmente de 355 %.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1795153818.9278.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795153818.9278.pdf",
@@ -483,7 +487,7 @@
       "club": "100komma7.lu",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Le parti déi Lénk propose un tram propre au Sud du pays dans le cadre d'une politique climatique plus ambitieuse.",
+      "content": "Le parti déi Lénk propose un tram propre pour le Sud du pays dans le cadre de sa politique climatique.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1795153798.7328.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795153798.7328.pdf",
@@ -494,7 +498,7 @@
       "club": "infos.rtl.lu",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Article consacré aux carburants à la pompe ; le titre étant très court, le contenu est à vérifier dans le PDF.",
+      "content": "Article intitulé « À la pompe », probablement consacré aux prix des carburants. Le titre seul ne permet pas de le confirmer.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1795153679.3214.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795153679.3214.pdf",
@@ -505,7 +509,7 @@
       "club": "today.RTL.lu",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Article évoquant une baisse de 21 cents, vraisemblablement sur le prix des carburants (titre seul).",
+      "content": "Titre « 21 cents less » : baisse de 21 centimes, probablement sur le prix des carburants.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1795153601.4383.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795153601.4383.pdf",
@@ -527,10 +531,32 @@
       "club": "L'Essentiel",
       "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "content": "Article classé ACL dans SAASKIA dont le titre « Fin prêts pour l'hiver » ne permet pas d'identifier le lien avec l'ACL : lien à vérifier dans le PDF.",
+      "content": "Article classé ACL par SAASKIA, mais le titre seul ne permet pas de préciser le sujet. À vérifier dans le PDF.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1795069167.164.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795069167.164.pdf",
+      "date": "2026-11-19"
+    },
+    {
+      "id": "2026-11-19-saaskia-web-p6l29E",
+      "club": "Luxemburger Wort",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Article de la rubrique automobile sur une concession qui place l'humain au centre de son activité.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1795075280.1857.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795075280.1857.pdf",
+      "date": "2026-11-19"
+    },
+    {
+      "id": "2026-11-19-saaskia-web-fkKxga",
+      "club": "infos.rtl.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Titre « En Europe » classé mobilité. Le sujet n'est pas précisé dans le titre.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1795069208.4136.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795069208.4136.pdf",
       "date": "2026-11-19"
     },
     {
@@ -538,10 +564,21 @@
       "club": "Télécran",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Article sur des aides et subventions liées à la mobilité et à la politique publique jusqu'en 2030.",
+      "content": "Article classé mobilité et politique sur les aides et subventions prévues jusqu'en 2030.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1795067493.7093.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795067493.7093.pdf",
+      "date": "2026-11-19"
+    },
+    {
+      "id": "2026-11-19-saaskia-web-IAtv5H",
+      "club": "paperjam.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Les entreprises Goodyear et Rotarex sont retenues pour l'industrie du futur, dans le secteur du pneumatique et de la mobilité.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1795067441.88.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795067441.88.pdf",
       "date": "2026-11-19"
     },
     {
@@ -549,7 +586,7 @@
       "club": "today.RTL.lu",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Article sur la vignette routière belge, susceptible de concerner les automobilistes luxembourgeois circulant en Belgique.",
+      "content": "Article sur la vignette routière belge, qui concerne probablement les automobilistes luxembourgeois circulant en Belgique.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1795067339.7016.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795067339.7016.pdf",
@@ -560,7 +597,7 @@
       "club": "infos.rtl.lu",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Article évoquant une baisse de 21 centimes, vraisemblablement sur le prix des carburants (titre seul).",
+      "content": "Titre « 21 centimes de moins » : baisse de 21 centimes, probablement sur le prix des carburants.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1795067248.7701.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795067248.7701.pdf",
@@ -570,33 +607,22 @@
       "id": "2026-11-19-saaskia-web-YuNsiL",
       "club": "Agefi.lu",
       "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Huit entreprises sont soutenues pour innover dans l'industrie et la mobilité au Luxembourg.",
+      "badge": "INFO",
+      "content": "Huit entreprises reçoivent un soutien pour innover dans l'industrie et la mobilité au Luxembourg.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1795067232.0778.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795067232.0778.pdf",
       "date": "2026-11-19"
     },
     {
-      "id": "2026-11-19-saaskia-web-p6l29E",
-      "club": "Luxemburger Wort",
+      "id": "2026-11-19-saaskia-web-0vMXgx",
+      "club": "Le Quotidien",
       "category": "Veille presse LU",
       "badge": "INFO",
-      "content": "Article sur le secteur automobile (concessions) mettant l'accent sur le facteur humain.",
+      "content": "L'Allemagne va tenter de contenir les prix de l'énergie, sujet pouvant influencer le coût des carburants.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1795075280.1857.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795075280.1857.pdf",
-      "date": "2026-11-19"
-    },
-    {
-      "id": "2026-11-19-saaskia-web-IAtv5H",
-      "club": "paperjam.lu",
-      "category": "Veille presse LU",
-      "badge": "INFO",
-      "content": "Les entreprises Goodyear et Rotarex sont retenues dans le cadre de l'industrie du futur.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1795067441.88.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795067441.88.pdf",
+      "url": "https://saaskia.keepcontact.lu/data/files/1795067148.3672.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795067148.3672.pdf",
       "date": "2026-11-19"
     },
     {
