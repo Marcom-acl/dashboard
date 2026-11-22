@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-21",
+  "generated_at": "2026-11-22",
   "next_edition": "",
   "editions": [
     {
@@ -457,6 +457,10 @@
     {
       "date": "2026-11-21",
       "label": "Semaine du 2026-11-21"
+    },
+    {
+      "date": "2026-11-22",
+      "label": "Semaine du 2026-11-22"
     }
   ],
   "items": [
@@ -464,8 +468,8 @@
       "id": "2026-11-20-saaskia-web-II3N5I",
       "club": "Letzebuerghoje.lu",
       "category": "Veille presse LU",
-      "badge": "NOTABLE",
-      "content": "Article en portugais sur la progression des voitures chinoises au Luxembourg. Classé ACL par SAASKIA, mais le titre ne mentionne pas l'ACL.",
+      "badge": "INFO",
+      "content": "Article en portugais sur la progression des voitures chinoises au Luxembourg. SAASKIA le classe dans la catégorie ACL, mais le titre ne cite pas l'ACL.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1795161084.2453.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795161084.2453.pdf",
@@ -476,7 +480,7 @@
       "club": "virgule.lu (Wort.lu/FR)",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Le coût d'installation du chantier de la piste cyclable du boulevard Roosevelt augmente de 355 %.",
+      "content": "Le coût d'installation de la piste cyclable du boulevard Roosevelt à Luxembourg augmente de 355 %, un dépassement budgétaire important pour un projet de mobilité douce.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1795153818.9278.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795153818.9278.pdf",
@@ -487,10 +491,43 @@
       "club": "100komma7.lu",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Le parti déi Lénk propose un tram propre pour le Sud du pays dans le cadre de sa politique climatique.",
+      "content": "Le parti déi Lénk propose la création d'une ligne de tram dédiée au sud du pays dans le cadre d'une politique climatique plus ambitieuse.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1795153798.7328.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795153798.7328.pdf",
+      "date": "2026-11-20"
+    },
+    {
+      "id": "2026-11-20-saaskia-web-0rmDmb",
+      "club": "paperjam.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Tom Wirion critique les « mesures temporaires » inscrites dans le projet de budget 2027 du Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1795153771.7137.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795153771.7137.pdf",
+      "date": "2026-11-20"
+    },
+    {
+      "id": "2026-11-20-saaskia-web-7g1nmr",
+      "club": "rtl.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Commentaire de François Aulner publié sur RTL. Le contenu exact n'est pas précisé dans le titre fourni.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1795153731.9398.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795153731.9398.pdf",
+      "date": "2026-11-20"
+    },
+    {
+      "id": "2026-11-20-saaskia-web-dMSb1P",
+      "club": "lessentiel.lu FR",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Lors de la COP31, les énergies fossiles ont été retirées du projet de décision finale sur le climat.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1795153701.4513.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795153701.4513.pdf",
       "date": "2026-11-20"
     },
     {
@@ -498,10 +535,32 @@
       "club": "infos.rtl.lu",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Article intitulé « À la pompe », probablement consacré aux prix des carburants. Le titre seul ne permet pas de le confirmer.",
+      "content": "Article intitulé « À la pompe » sur les prix des carburants, sujet directement lié aux coûts de la mobilité des automobilistes luxembourgeois.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1795153679.3214.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795153679.3214.pdf",
+      "date": "2026-11-20"
+    },
+    {
+      "id": "2026-11-20-saaskia-web-E18L1b",
+      "club": "paperjam.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Présentation de cinq points clés sur la réforme des petits crédits au Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1795153658.118.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795153658.118.pdf",
+      "date": "2026-11-20"
+    },
+    {
+      "id": "2026-11-20-saaskia-web-Uyex7b",
+      "club": "today.RTL.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Article en anglais sur la politique environnementale au Luxembourg. Le titre ne permet pas de préciser le sujet.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1795153632.7719.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795153632.7719.pdf",
       "date": "2026-11-20"
     },
     {
@@ -509,7 +568,7 @@
       "club": "today.RTL.lu",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Titre « 21 cents less » : baisse de 21 centimes, probablement sur le prix des carburants.",
+      "content": "Article intitulé « 21 cents less », probablement consacré à une baisse de 21 centimes du prix des carburants, sujet lié à la mobilité automobile.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1795153601.4383.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795153601.4383.pdf",
@@ -520,10 +579,32 @@
       "club": "lessentiel.lu FR",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Un député prend la défense de la SNCF face au chaos sur la liaison Luxembourg-Metz.",
+      "content": "Un député prend la défense de la SNCF face au chaos sur la liaison ferroviaire Luxembourg-Metz.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1795153573.2203.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795153573.2203.pdf",
+      "date": "2026-11-20"
+    },
+    {
+      "id": "2026-11-20-saaskia-web-CONgXk",
+      "club": "Agefi.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "La Chambre des Métiers appelle à davantage de rigueur budgétaire dans le contexte du projet de budget de l'État.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1795153552.1313.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795153552.1313.pdf",
+      "date": "2026-11-20"
+    },
+    {
+      "id": "2026-11-20-saaskia-web-BRIdEL",
+      "club": "Tageblatt",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Article intitulé « Radikales Umdenken verlangt » sur un appel à un changement de cap radical en matière de politique. Le titre ne permet pas de préciser le sujet.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1795153502.1383.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795153502.1383.pdf",
       "date": "2026-11-20"
     },
     {
