@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-22",
-  "next_edition": "",
+  "generated_at": "2026-11-23",
+  "next_edition": "2026-11-30",
   "editions": [
     {
       "date": "2026-05-28",
@@ -461,9 +461,133 @@
     {
       "date": "2026-11-22",
       "label": "Semaine du 2026-11-22"
+    },
+    {
+      "date": "2026-11-23",
+      "label": "Semaine du 2026-11-23"
     }
   ],
   "items": [
+    {
+      "id": "2026-11-23-adac-1",
+      "date": "2026-11-03",
+      "club": "ADAC",
+      "category": "Mobilité",
+      "content": "L'ADAC Monitor 2026 « Mobil in der Stadt », basé sur plus de 11 600 réponses dans 29 villes allemandes de taille moyenne, place Münster en tête avec un indice de satisfaction de 32 points contre une moyenne de 17, en recul par rapport à son score de 35 en 2021 ; les automobilistes se montrent globalement les plus insatisfaits, chantiers et stationnement en tête des griefs.",
+      "relevance": "Ce baromètre de satisfaction multimodale par ville, reconduit depuis 2021, permet à l'ADAC d'alimenter régulièrement sa communication sur la mobilité urbaine. L'ACL pourrait-elle construire un indicateur comparable à l'échelle des communes luxembourgeoises pour objectiver le débat sur la mobilité locale ?",
+      "badge": "SURVEILLER",
+      "url": "https://presse.adac.de/meldungen/adac-ev/verkehr/adac-monitor-2026-zur-zufriedenheit-in-mittelgrossstaedten-muenster-gewinnt-erneut.html"
+    },
+    {
+      "id": "2026-11-23-tcs-1",
+      "date": "2026-11-05",
+      "club": "TCS",
+      "category": "EU",
+      "content": "Le TCS et l'assureur Helvetia (issu de la fusion avec Baloise) reconduisent et élargissent leur partenariat historique actif depuis 1994, qui couvre désormais l'assurance véhicule, la protection juridique et des services de mobilité pour environ 3,65 millions de clients et membres combinés ; à partir de janvier 2028, la filiale du TCS Assista Protection juridique SA reprendra la protection juridique des particuliers.",
+      "relevance": "Cette reconduction illustre la stabilité des partenariats assurance/protection juridique qu'un club automobile peut construire sur plusieurs décennies. L'ACL pourrait revoir à cette occasion le périmètre de ses propres accords assurantiels et juridiques pour ses membres.",
+      "badge": "SURVEILLER",
+      "url": "https://www.tcs.ch/fr/le-tcs/presse/communiques-de-presse-2026/helvetia-et-le-tcs-poursuivent-leur-partenariat-succes.php"
+    },
+    {
+      "id": "2026-11-23-tcs-2",
+      "date": "2026-11-17",
+      "club": "TCS",
+      "category": "Mobilité",
+      "content": "Le TCS a lancé le 17 novembre 2026 la campagne nationale « La membriété TCS est aussi électrique », mettant en scène le chanteur suisse Baschi dans une version électro de son titre « Bring en hei » pour mettre en avant le savoir-faire de sa patrouille sur les pannes de véhicules électriques (environ 5% des interventions), assurée par environ 200 patrouilleurs formés comme techniciens haute tension.",
+      "relevance": "Cette campagne montre comment valoriser une expertise technique (dépannage électrique) par un format grand public et musical plutôt qu'un discours institutionnel classique. L'ACL gagnerait-elle à tester un format de communication similaire pour mettre en avant ses propres compétences en mobilité électrique ?",
+      "badge": "NOTABLE",
+      "url": "https://www.tcs.ch/de/der-tcs/presse/medienmitteilungen-2026/der-tcs-setzt-baschi-unter-strom.php"
+    },
+    {
+      "id": "2026-11-23-rac-1",
+      "date": "2026-11-18",
+      "club": "RAC",
+      "category": "Mobilité",
+      "content": "Le gestionnaire de réseau gazier Northern Gas Networks a réduit ses coûts de flotte d'environ 103 000 livres par an après l'installation de caméras frontales et de la télématique RAC Connected sur 597 véhicules (installation achevée fin mars 2026) : les collisions ont chuté de 60%, les incidents de manœuvre et de stationnement de 47% et les sinistres responsables de 37%, en comparant les périodes octobre 2025-janvier 2026 et avril-août 2026.",
+      "relevance": "Ce cas client chiffré illustre un retour sur investissement concret pour une offre de télématique et vidéo embarquée destinée aux flottes professionnelles. L'ACL pourrait-elle explorer une offre B2B comparable pour les flottes d'entreprises luxembourgeoises, en s'appuyant sur ce type de données pour convaincre ?",
+      "badge": "SURVEILLER",
+      "url": "https://www.rac.co.uk/drive/news/rac-news/rac-connected-save-Northern-Gas-Network-fleet-100000-year/"
+    },
+    {
+      "id": "2026-11-23-anwb-1",
+      "date": "2026-11-13",
+      "club": "ANWB",
+      "category": "Mobilité",
+      "content": "Selon la presse spécialisée néerlandaise, ANWB Energie supprime à partir du 1er décembre 2026 la facture mensuelle unique de sa carte de recharge ANWB Laadpas au profit d'une facturation et d'un débit par session de recharge, l'ANWB estimant que la nouvelle directive européenne sur le crédit à la consommation (applicable depuis le 20 novembre 2026) rend le maintien d'une facture différée incompatible avec la protection des données des clients.",
+      "relevance": "Ce changement réglementaire européen touche potentiellement tout opérateur proposant une carte de recharge avec facturation différée. L'ACL devrait vérifier si ses propres services de mobilité électrique sont concernés par la transposition de cette directive au Luxembourg.",
+      "badge": "SURVEILLER",
+      "url": "https://www.autoreview.nl/nieuws/id/38531/laadpas-maandfactuur-anwb-per-laadsessie-europese-regels"
+    },
+    {
+      "id": "2026-11-23-race-1",
+      "date": "2026-11-12",
+      "club": "RACE",
+      "category": "Mobilité",
+      "content": "Après l'accident ferroviaire de Urda (Tolède, 28 octobre 2026), le RACE a mesuré une hausse de 15,3% des assistances routières fournies à ses adhérents dans le corridor sud (Ciudad Real, Cordoue, Jaén, Séville) sur les deux semaines suivantes, alors que la moyenne nationale reculait de 5,4% sur la même période, signe d'un report vers la route.",
+      "relevance": "Démontre comment les données d'assistance d'un club peuvent documenter un report modal lors d'une perturbation ferroviaire majeure. L'ACL pourrait exploiter ses propres statistiques de dépannage pour objectiver l'impact d'incidents affectant le rail au Luxembourg ou en Grande Région.",
+      "badge": "SURVEILLER",
+      "url": "https://www.race.es/?p=344552"
+    },
+    {
+      "id": "2026-11-23-touring-1",
+      "date": "2026-10-06",
+      "club": "Touring Belgique",
+      "category": "Mobilité",
+      "content": "Lors des États généraux de la sécurité routière du 6 octobre 2026, Touring a réagi à une mesure visant les engins de déplacement motorisés légers (trottinettes électriques, etc.) en soutenant un meilleur contrôle des engins trafiqués ou non conformes, plutôt que des restrictions générales touchant tous les usagers.",
+      "relevance": "Cette position, cibler les comportements et véhicules à risque plutôt que l'ensemble des usagers, offre une ligne de communication équilibrée sur la micromobilité électrique, un sujet aussi sensible au Luxembourg. L'ACL devrait-elle formaliser une position similaire avant d'éventuelles nouvelles règles luxembourgeoises ?",
+      "badge": "SURVEILLER",
+      "url": "https://www.dhnet.be/dernieres-depeches/2026/10/06/le-code-de-la-route-doit-etre-respecte-par-tous-A5HMHXYYIBCBZMQWJZUYV4KA5Q/"
+    },
+    {
+      "id": "2026-11-23-roole-1",
+      "date": "2026-11-01",
+      "club": "Roole",
+      "category": "Mobilité",
+      "content": "Le média de Roole publie son récapitulatif mensuel des changements pour les automobilistes français en novembre 2026, rappelant notamment l'obligation d'équipements hivernaux dans 34 départements de montagne jusqu'au 31 mars 2027 et un nouveau calcul du score environnemental applicable aux véhicules électriques à partir du 24 novembre 2026.",
+      "relevance": "Ce format mensuel récurrent fidélise l'audience par un contenu utilitaire à forte valeur SEO plutôt que par des offres commerciales. L'ACL pourrait évaluer l'intérêt d'un format équivalent récapitulant régulièrement les changements réglementaires pertinents pour ses membres.",
+      "badge": "INFO",
+      "url": "https://media.roole.fr/quotidien/au-volant/ce-qui-change-pour-les-automobilistes-en-novembre-2026-carburants-equipements-hivernaux-a69-recharge-nouvelles-regles-pour-la-loa"
+    },
+    {
+      "id": "2026-11-23-oeamtc-1",
+      "date": "2026-11-11",
+      "club": "ÖAMTC",
+      "category": "Mobilité",
+      "content": "Lors d'une table ronde au Parlement européen le 11 novembre 2026, l'ÖAMTC et l'ADAC allemand ont réclamé conjointement une régulation de l'itinérance (roaming) pour la recharge des véhicules électriques, un affichage obligatoire des tarifs au kWh, davantage de transparence sur les frais annexes et des sanctions nationales renforcées, dans la perspective de la révision du règlement européen AFIR attendue fin 2026.",
+      "relevance": "Cette action conjointe de deux grands clubs européens montre une pression institutionnelle croissante sur la lisibilité des tarifs de recharge électrique, un sujet déjà sensible au Luxembourg et en Grande Région. L'ACL devrait-elle se rapprocher de clubs voisins pour porter une position commune sur la transparence des tarifs de recharge transfrontaliers ?",
+      "badge": "NOTABLE",
+      "url": "https://www.oeamtc.at/presse/oeamtc-fordert-klare-spielregeln-und-preistransparenz-am-e-lademarkt-90522841"
+    },
+    {
+      "id": "2026-11-23-aa-1",
+      "date": "2026-10-05",
+      "club": "AA",
+      "category": "Monde",
+      "content": "Une enquête Yonder pour l'AA menée auprès de 12 213 membres (10-16 septembre 2026) montre que 79% des conducteurs britanniques envisageraient un stage professionnel de remise à niveau ou de confiance au volant dans certaines circonstances, 22% le feraient après un accident ayant affecté leur confiance.",
+      "relevance": "Ce type de stage de remise à niveau post-sinistre pourrait inspirer une offre comparable de l'ACL adossée à son activité d'assurance ou d'école de conduite. Faudrait-il tester un module ciblé pour les membres ACL ayant eu un accident ou pour les conducteurs seniors ?",
+      "badge": "SURVEILLER",
+      "url": "https://www.theaa.com/about-us/newsroom/four-in-five-consider-refresher-lessons"
+    },
+    {
+      "id": "2026-11-23-aa-2",
+      "date": "2026-11-16",
+      "club": "AA",
+      "category": "Monde",
+      "content": "L'AA prévoit une baisse du prix moyen de l'essence pouvant atteindre 10 pence par litre au Royaume-Uni la semaine du 16 novembre 2026 (165,2 pence en moyenne en début de semaine, contre un pic de 174,7 pence début octobre), tout en pointant la lenteur des distributeurs à répercuter la baisse des prix de gros.",
+      "relevance": "Ce suivi régulier et très médiatisé des prix à la pompe renforce la position de l'AA comme référence pour les automobilistes britanniques. L'ACL gagnerait-elle à communiquer de façon aussi systématique sur l'évolution des prix des carburants au Luxembourg ?",
+      "badge": "INFO",
+      "url": "https://www.theaa.com/about-us/newsroom/petrol-prices-to-fall-10p"
+    },
+    {
+      "id": "2026-11-23-aaa-1",
+      "date": "2026-11-12",
+      "club": "AAA",
+      "category": "Monde",
+      "content": "Selon des tests de l'AAA menés sur quatre véhicules 2026 (Chevrolet Equinox, Ford Explorer, Hyundai Tucson, Tesla Model Y), les systèmes de freinage automatique d'urgence aux intersections évitaient tous la collision dans un scénario standard de virage à gauche, mais trois des quatre échouaient face à un véhicule surgissant d'une voie perpendiculaire, sans avertissement ni freinage dans certains scénarios.",
+      "relevance": "Cette étude indépendante illustre les limites réelles des aides à la conduite malgré leur marketing. L'ACL pourrait relayer ces résultats dans sa communication sécurité routière pour nuancer la confiance excessive envers les systèmes d'aide à la conduite.",
+      "badge": "NOTABLE",
+      "url": "https://www.automotive-fleet.com/news/aaa-testing-finds-gaps-in-intersection-aeb-crash-prevention"
+    },
     {
       "id": "2026-11-20-saaskia-web-II3N5I",
       "club": "Letzebuerghoje.lu",
@@ -11226,17 +11350,17 @@
     }
   ],
   "trends": [
-    "Électrification volontariste des flottes de services propres des clubs (location, dépannage), au-delà du seul conseil aux membres : ADAC Clubmobil.",
-    "Ré-internalisation de briques technologiques mobilité auparavant sous-traitées, signe d'une reprise de contrôle numérique : fin du partenariat ANWB/Yellowbrick sur le stationnement.",
-    "Simplification de l'architecture de marques et de services d'infomobilité sous une structure unique : consolidation ACI Mobility (Luceverde, ACI Global, ACI Infomobility, ACI Editore).",
-    "Valorisation de l'ancienneté et de la neutralité des programmes de tests consommateurs comme argument de confiance et de fidélisation : 60 ans de tests TCS.",
-    "Multiplication des partenariats institutionnels multi-acteurs (État, police, santé) sur la sécurité routière enfant : semaine de la sécurité de l'enfant en voiture ACI."
+    "Transparence et régulation de la recharge électrique : ÖAMTC et ADAC réclament un cadre européen harmonisé sur le roaming et l'affichage des tarifs, pendant que l'ANWB adapte sa facturation à la nouvelle directive sur le crédit à la consommation.",
+    "Les clubs automobiles comme porte-parole budgétaires et fiscaux : TCS/Helvetia et RAC illustrent le rôle d'interface entre pouvoirs publics, assureurs et automobilistes sur des sujets de fiscalité et de protection juridique.",
+    "Valorisation des données internes d'assistance comme indicateur de mobilité : le RACE documente un report modal du rail vers la route après un accident ferroviaire, le RAC chiffre le retour sur investissement de sa télématique de flotte.",
+    "Communication créative pour vulgariser l'expertise technique : la campagne TCS avec le chanteur Baschi mise sur l'humour et la musique pour promouvoir le dépannage de véhicules électriques plutôt qu'un discours institutionnel classique.",
+    "Sécurité routière et limites des aides à la conduite : l'étude de l'AAA sur le freinage automatique d'urgence aux intersections et l'enquête de l'AA sur la remise à niveau invitent à nuancer la confiance accordée aux technologies embarquées."
   ],
   "signals": [
-    "Conflit social persistant chez ANWB (grève du 9 novembre, offre salariale rejetée à 70-78%) : risque de nouvelles actions et d'impact sur la continuité du service de dépannage.",
-    "Hausses tarifaires des cotisations annoncées par plusieurs grands clubs en réponse à l'inflation des coûts (ADAC, jusqu'à +25% dès 2027) : un signal à suivre pour l'ensemble du secteur.",
-    "Mouvement de ré-internalisation des services numériques mobilité après des années d'externalisation : à vérifier si d'autres clubs suivent la voie ouverte par l'ANWB.",
-    "Accélération de l'électrification des flottes de service des clubs automobiles, qui pourrait devenir un standard sectoriel à moyen terme.",
-    "Accès restreint cette semaine à plusieurs sites de clubs (RAC, RACE, Touring Belgique, Roole, ÖAMTC, The AA, AAA) pour une vérification directe des pages : couverture à renforcer la semaine prochaine."
+    "Risque de contentieux réglementaire sur la facturation différée des cartes de recharge électrique (directive européenne sur le crédit à la consommation), susceptible de s'étendre à d'autres marchés et opérateurs européens.",
+    "Montée des tensions sur la micromobilité électrique légère (trottinettes, engins non homologués) en Belgique, un débat qui pourrait se poser dans des termes similaires au Luxembourg et en Grande Région.",
+    "Documentation publique croissante du retour sur investissement des offres B2B de télématique et vidéo embarquée pour flottes d'entreprises, un argumentaire commercial de plus en plus chiffré.",
+    "Indicateurs de satisfaction multimodale par ville ou commune (type ADAC Monitor), potentiellement reproductibles comme outil de plaidoyer sur la mobilité locale.",
+    "Lobbying coordonné entre clubs européens voisins (ÖAMTC et ADAC) sur la régulation de la recharge électrique, signe possible d'alliances transfrontalières à anticiper côté ACL."
   ]
 }
