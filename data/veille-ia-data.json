@@ -1,6 +1,140 @@
 {
-  "generated_at": "2026-11-16",
+  "generated_at": "2026-11-23",
   "items": [
+    {
+      "date": "2026-11-10",
+      "theme": "IA générative en marketing",
+      "titre": "Anthropic lance Claude Sheets, Whiteboards et Data",
+      "synthese": "Le 10 novembre 2026, Anthropic a lancé Claude Whiteboards et Claude Sheets en version bêta, tandis que Claude Dashboards (bêta depuis octobre) passe en disponibilité générale sous le nom Claude Data. Whiteboards transforme un brainstorming en feuille de route avec responsables et échéances, et peut exporter vers un document, une présentation ou des outils tiers comme Miro. Sheets génère et modifie des tableurs à partir d'un prompt (onglets, formules, mise en forme), avec suivi des modifications et export vers Excel ou CSV. Claude Data permet d'interroger les entrepôts de données de l'entreprise (BigQuery, Redshift, ClickHouse), de définir des métriques certifiées partagées par toute l'équipe et de produire des récits de données commentés. Les trois outils sont inclus dans tous les forfaits payants à partir de Pro ; en Enterprise, Claude Data sera activé par défaut le 20 novembre 2026.",
+      "actionACL": "Tester Claude Sheets pour un suivi de campagnes partagé (calendrier éditorial, budget pub) sans dépendre d'un tableur Excel central, et évaluer Claude Data pour fiabiliser des métriques marketing communes (ouvertures newsletter, leads, réservations) si l'ACL dispose d'un connecteur de données compatible. Démarrer par un pilote restreint à l'équipe Marcom avant d'envisager une activation plus large.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "Claude (Anthropic) - article officiel",
+          "url": "https://claude.com/resources/articles/sheets-whiteboards-data"
+        },
+        {
+          "name": "Blog du Modérateur",
+          "url": "https://www.blogdumoderateur.com/anthropic-claude-sheets-whiteboards-data/"
+        },
+        {
+          "name": "Siècle Digital",
+          "url": "https://siecledigital.fr/2026/11/12/claude-lance-trois-nouveaux-outils-pour-concurrencer-directement-microsoft-office-et-google-workspace/"
+        }
+      ]
+    },
+    {
+      "date": "2026-11-10",
+      "theme": "IA générative en marketing",
+      "titre": "OpenAI lance Businesses in ChatGPT et des agents d'entreprise",
+      "synthese": "Le 10 novembre 2026, OpenAI a lancé en bêta Businesses in ChatGPT, qui permet aux entreprises éligibles de revendiquer et vérifier un profil officiel dans ChatGPT et d'en corriger les informations affichées aux utilisateurs. Le Business Hub fournit des statistiques agrégées sur la fréquence de mention de la marque, les vues de profil et les clics vers le site, affichées uniquement au-delà d'un seuil minimal d'interactions. Les Business Agents, limités au lancement aux commerces en ligne basés aux États-Unis, répondent directement aux questions des utilisateurs dans la conversation, avec un étiquetage clair lorsqu'ils sont sponsorisés. Business Hub et Business Agents sont gratuits au lancement, et les marchands Shopify peuvent s'y connecter directement depuis leur back-office. OpenAI prévoit d'étendre la fonctionnalité à d'autres marchés et catégories d'entreprises.",
+      "actionACL": "Surveiller l'ouverture de Business Hub aux marchés européens pour, le moment venu, revendiquer un profil ACL et contrôler les informations que ChatGPT affiche sur l'association (horaires, services d'assistance, contacts). Considérer cette fonctionnalité comme un nouveau canal de visibilité à suivre au même titre que le référencement classique.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "AiBusiness",
+          "url": "https://aibusiness.com/generative-ai/openai-s-businesses-in-chatgpt-targets-enterprise-trust"
+        },
+        {
+          "name": "PYMNTS",
+          "url": "https://www.pymnts.com/artificial-intelligence-2/2026/openai-gives-businesses-new-tools-to-reach-chatgpt-users/"
+        },
+        {
+          "name": "IT Brief Australia",
+          "url": "https://itbrief.com.au/story/openai-launches-chatgpt-business-hub-for-companies"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-10",
+      "theme": "CRM & member marketing",
+      "titre": "Associations : la technologie seule ne suffit pas à l'engagement",
+      "synthese": "Une analyse d'Associations Now du 10 juillet 2026, qui s'appuie sur le rapport 2026 Membership Marketing Benchmarking de Marketing General Incorporated (près de 500 professionnels d'associations interrogés), constate un essoufflement généralisé de l'adhésion, accentué par des équipes restreintes et un contexte économique difficile. Seulement 23 % des associations utilisent l'IA pour leur marketing d'adhésion, le plus souvent pour des tâches courantes (création de contenu, communications), rarement pour des usages avancés comme la détection des membres à risque de non-renouvellement. Un article antérieur d'Associations Now, publié en février 2026, relevait que 75 % des associations n'ont pas de plan écrit pour renforcer l'engagement de leurs membres. Les associations qui progressent misent sur la prise de contact personnelle, des invitations ciblées à des programmes et des demandes de retour, pas seulement sur l'automatisation. Conclusion commune aux deux articles : la technologie aide à l'engagement mais ne le remplace pas, la relation humaine reste décisive.",
+      "actionACL": "Formaliser un plan écrit d'engagement membres pour l'ACL (jalons de contact par segment, parcours de bienvenue, demandes de retour régulières), plutôt que de s'appuyer uniquement sur l'automatisation CRM existante. Prioriser les usages IA à plus forte valeur ajoutée, comme la détection des membres à risque de non-renouvellement, plutôt que les seules tâches de création de contenu déjà bien couvertes en interne.",
+      "horizon": "moyen terme (3-12 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "Associations Now - Keys to Member Engagement",
+          "url": "https://associationsnow.com/2026/07/keys-to-member-engagement/"
+        },
+        {
+          "name": "Associations Now - Report: Associations Struggling With Member Engagement",
+          "url": "https://associationsnow.com/2026/02/report-associations-struggling-with-member-engagement/"
+        },
+        {
+          "name": "Marketing General Incorporated - 2026 Membership Marketing Benchmarking Report",
+          "url": "https://go.marketinggeneral.com/2026mmbr"
+        }
+      ]
+    },
+    {
+      "date": "2026-05-19",
+      "theme": "Social & Ads",
+      "titre": "LinkedIn Ads ajoute le ciblage par appareil et système",
+      "synthese": "À partir de la mi-mai 2026, LinkedIn a déployé progressivement un nouveau contrôle de ciblage par type d'appareil (mobile, ordinateur, tablette) et par système d'exploitation dans le gestionnaire de campagnes, une option que la plateforme n'avait jamais proposée jusque-là. Les annonceurs peuvent notamment exclure un système d'exploitation précis, par exemple iOS, sur une campagne de conversion afin d'aligner le ciblage avec les contraintes techniques d'un site ou d'une application. Le déploiement s'est fait sans annonce officielle majeure de LinkedIn, relayé d'abord par des experts certifiés de la plateforme avant d'être documenté plus largement. Cette option s'ajoute aux critères déjà disponibles (fonction, secteur, taille d'entreprise, compétences) et permet d'affiner des campagnes B2B selon l'environnement technique des audiences visées.",
+      "actionACL": "Si l'ACL diffuse des campagnes LinkedIn B2B (partenariats entreprises, offres flottes), tester le ciblage par appareil pour exclure les systèmes incompatibles avec une landing page ou un formulaire spécifique, et comparer le CTR avant et après activation. Documenter le gain éventuel avant de généraliser l'usage à l'ensemble des campagnes LinkedIn de l'ACL.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "PPC Land",
+          "url": "https://ppc.land/linkedin-quietly-adds-device-targeting-what-it-means-for-b2b-ads/"
+        },
+        {
+          "name": "DEV Community",
+          "url": "https://dev.to/mattkundo/linkedin-device-targeting-2026-what-b2b-advertisers-must-do-now-mkdm-5315"
+        }
+      ]
+    },
+    {
+      "date": "2026-10-28",
+      "theme": "Social & Ads",
+      "titre": "Meta reconstruit Andromeda : 1 milliard d'annonces/seconde",
+      "synthese": "Le 28 octobre 2026, l'équipe d'ingénierie de Meta a détaillé une refonte complète de son moteur de sélection publicitaire Andromeda, conçue par co-design modèle/système. Le système de production sélectionne désormais les meilleures annonces à un débit supérieur à 1 milliard d'annonces par seconde, soit un gain de 100x par rapport à la version 2024, et le noyau de calcul optimisé atteint plus de 10 milliards d'annonces par seconde sur une seule puce GH200. Cette refonte réduit d'environ 300 fois le nombre d'opérations de calcul nécessaires au moment de l'inférence par rapport au modèle 2024, tout en conservant une précision proche des modèles de classement final. Depuis 2025, Meta attribue à Andromeda une hausse de 2,4 % des conversions sur Facebook. Andromeda reste une infrastructure interne non activable par l'annonceur, qui favorise les campagnes avec des ensembles publicitaires larges et des créations variées plutôt qu'un ciblage d'audience fin.",
+      "actionACL": "Adapter la stratégie Meta Ads de l'ACL en conséquence : privilégier des ensembles de publicités larges avec plusieurs variantes créatives plutôt qu'un ciblage démographique fin, puisque la sélection des annonces repose désormais surtout sur la qualité et la diversité des créations. Tester 3 à 5 variantes créatives par campagne (visuels, accroches) pour laisser l'algorithme identifier la meilleure combinaison.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "SURVEILLER",
+      "sources": [
+        {
+          "name": "Meta Engineering Blog",
+          "url": "https://engineering.fb.com/2026/10/28/ml-applications/meta-andromeda-next-gen-ads-retrieval-gpu-co-design/"
+        },
+        {
+          "name": "PPC Land",
+          "url": "https://ppc.land/meta-says-andromeda-lifted-facebook-conversions-2-4-since-2025/"
+        },
+        {
+          "name": "ContentGrip",
+          "url": "https://www.contentgrip.com/meta-andromeda-ad-retrieval-billion/"
+        }
+      ]
+    },
+    {
+      "date": "2026-11-10",
+      "theme": "Design & branding",
+      "titre": "Adobe étend Firefly avec Creative Agent et Firefly Graph",
+      "synthese": "Le 10 novembre 2026, lors d'Adobe MAX, Adobe a annoncé l'extension de son Creative Agent à travers Firefly, avec de nouvelles capacités pour l'assistant IA Firefly (bêta) et deux nouveaux outils d'édition et de workflow : Firefly Graph (bêta) et Firefly Builder (bêta privée). L'assistant introduit une étape de revue du plan avant que l'IA ne commence le travail, un choix de modèle, et des réglages de règles de marque (couleurs, typographie, mise en forme) applicables à l'ensemble des projets d'une équipe. Les fonctions Edit Text, Retouch, Relight et Quick Actions sont passées en disponibilité générale à partir du 10 novembre 2026. Une version bêta de l'assistant personnalisable avec préférences et mémoire a également été ajoutée, permettant de conserver des consignes de marque d'une session à l'autre.",
+      "actionACL": "Tester Firefly Graph et les Quick Actions sur des visuels existants de l'ACL (retouche rapide, recadrage, changement de fond) pour accélérer la production sans recourir systématiquement à un graphiste externe. Documenter les règles de marque ACL (couleurs, typographie, logo) dans les réglages de l'assistant Firefly dès la bêta ouverte, pour garantir une cohérence visuelle si l'outil est adopté par plusieurs membres de l'équipe.",
+      "horizon": "court terme (0-3 mois)",
+      "badge": "NOTABLE",
+      "sources": [
+        {
+          "name": "IT Brief UK",
+          "url": "https://itbrief.co.uk/story/adobe-expands-firefly-with-ai-tools-creative-agent"
+        },
+        {
+          "name": "Xenospectrum",
+          "url": "https://xenospectrum.com/en/adobe-firefly-design-graph-builder/"
+        },
+        {
+          "name": "DataStudios",
+          "url": "https://www.datastudios.org/post/adobe-firefly-design-graph-builder-adobe-max-2026"
+        }
+      ]
+    },
     {
       "date": "2026-08-24",
       "theme": "IA générative en marketing",
