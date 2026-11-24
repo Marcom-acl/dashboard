@@ -574,12 +574,12 @@
   {
     "date": "2026-11-24",
     "acl": {
-      "mobile": 34,
-      "desktop": 36
+      "mobile": 48,
+      "desktop": 60
     },
     "auto": {
-      "mobile": 74,
-      "desktop": 83
+      "mobile": 57,
+      "desktop": 66
     }
   }
 ]
