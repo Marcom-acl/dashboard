@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-24",
+  "generated_at": "2026-11-25",
   "next_edition": "",
   "editions": [
     {
@@ -469,15 +469,96 @@
     {
       "date": "2026-11-24",
       "label": "Semaine du 2026-11-24"
+    },
+    {
+      "date": "2026-11-25",
+      "label": "Semaine du 2026-11-25"
     }
   ],
   "items": [
+    {
+      "id": "2026-11-25-saaskia-web-NJ5AFi",
+      "club": "Zeitung zum Lëtzebuerger Vollek",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "Annonce d'une nouvelle convention collective à l'ACL prévoyant des suppléments plus élevés. Le titre cite explicitement l'ACL.",
+      "relevance": "ACL explicitement cité : \"ACL\"",
+      "url": "https://saaskia.keepcontact.lu/data/files/1795590732.6426.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795590732.6426.pdf",
+      "date": "2026-11-25"
+    },
+    {
+      "id": "2026-11-25-saaskia-web-vemhxV",
+      "club": "zlv.lu",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "Même information sur la nouvelle convention collective de l'ACL, avec des suppléments plus élevés pour le personnel.",
+      "relevance": "ACL explicitement cité : \"ACL\"",
+      "url": "https://saaskia.keepcontact.lu/data/files/1795590958.4214.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795590958.4214.pdf",
+      "date": "2026-11-25"
+    },
+    {
+      "id": "2026-11-25-saaskia-web-H84FoF",
+      "club": "Tageblatt",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Le Tageblatt évoque la pression exercée en faveur de la sécurité routière au Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1795590782.888.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795590782.888.pdf",
+      "date": "2026-11-25"
+    },
+    {
+      "id": "2026-11-25-saaskia-web-Smc9Gy",
+      "club": "City Magazine",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Présentation d'un concept de mobilité douce, thème directement lié aux politiques de mobilité locales.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1795591374.8467.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795591374.8467.pdf",
+      "date": "2026-11-25"
+    },
+    {
+      "id": "2026-11-25-saaskia-web-D4jIT9",
+      "club": "Delano.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Quatre voitures neuves sur dix vendues au Luxembourg sont électriques, selon les données du marché.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1795590983.8732.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795590983.8732.pdf",
+      "date": "2026-11-25"
+    },
+    {
+      "id": "2026-11-25-saaskia-web-cxAAWB",
+      "club": "wort.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Les monospaces familiaux regagnent en intérêt face aux SUV, avec davantage d'espace.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1795586785.337.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795586785.337.pdf",
+      "date": "2026-11-25"
+    },
+    {
+      "id": "2026-11-24-saaskia-web-I3wzTx",
+      "club": "Le Quotidien",
+      "category": "Veille presse LU",
+      "badge": "NOTABLE",
+      "content": "Nouvelle convention collective à l'ACL concernant 130 salariés.",
+      "relevance": "ACL explicitement cité : \"ACL\"",
+      "url": "https://saaskia.keepcontact.lu/data/files/1795508103.0174.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795508103.0174.pdf",
+      "date": "2026-11-24"
+    },
     {
       "id": "2026-11-24-saaskia-web-IPBTxd",
       "club": "lequotidien.lu",
       "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "content": "Une nouvelle convention collective est signée à l'ACL et concerne 130 salariés.",
+      "content": "Nouvelle convention collective à l'ACL concernant 130 salariés, version en ligne du Quotidien.",
       "relevance": "ACL explicitement cité : \"ACL\"",
       "url": "https://saaskia.keepcontact.lu/data/files/1795506996.2504.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795506996.2504.pdf",
@@ -499,7 +580,7 @@
       "club": "lessentiel.lu FR",
       "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "content": "Des primes et un jour de congé supplémentaire ont été obtenus pour les salariés de l'ACL.",
+      "content": "Primes et jours de congé supplémentaires obtenus pour les salariés de l'ACL.",
       "relevance": "ACL explicitement cité : \"ACL\"",
       "url": "https://saaskia.keepcontact.lu/data/files/1795503056.799.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795503056.799.pdf",
@@ -510,7 +591,7 @@
       "club": "infos.rtl.lu",
       "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "content": "L'OGBL présente une nouvelle convention collective pour quelque 130 employés de l'ACL.",
+      "content": "L'OGBL annonce une nouvelle convention collective pour quelque 130 employés de l'ACL.",
       "relevance": "ACL explicitement cité : \"ACL\"",
       "url": "https://saaskia.keepcontact.lu/data/files/1795502831.1478.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795502831.1478.pdf",
@@ -521,8 +602,8 @@
       "club": "lessentiel.lu DE",
       "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "content": "Les salariés de l'ACL reçoivent davantage de compensation pour le travail de nuit dans le cadre d'un nouveau contrat.",
-      "relevance": "ACL explicitement cité : \"ACL-Mitarbeiter\"",
+      "content": "Nouveau contrat : les salariés de l'ACL reçoivent davantage d'argent pour le travail de nuit.",
+      "relevance": "ACL explicitement cité : \"ACL\"",
       "url": "https://saaskia.keepcontact.lu/data/files/1795502452.5883.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795502452.5883.pdf",
       "date": "2026-11-24"
@@ -532,10 +613,32 @@
       "club": "L'Essentiel",
       "category": "Veille presse LU",
       "badge": "NOTABLE",
-      "content": "Amélioration des conditions de travail pour les salariés de l'ACL.",
+      "content": "Améliorations des conditions de travail pour les salariés de l'ACL.",
       "relevance": "ACL explicitement cité : \"ACL\"",
       "url": "https://saaskia.keepcontact.lu/data/files/1795499536.3245.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795499536.3245.pdf",
+      "date": "2026-11-24"
+    },
+    {
+      "id": "2026-11-24-saaskia-web-2xl5F4",
+      "club": "Le Quotidien",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Article sur l'inclusion dans la mobilité, qui aborde l'accès au transport pour tous.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1795508074.2446.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795508074.2446.pdf",
+      "date": "2026-11-24"
+    },
+    {
+      "id": "2026-11-24-saaskia-web-Bhm3qa",
+      "club": "rtl.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Reportage sur le rapport entre voiture et vélo dans les déplacements au Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1795503061.756.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795503061.756.pdf",
       "date": "2026-11-24"
     },
     {
@@ -543,10 +646,21 @@
       "club": "luxtimes.lu (Wort.lu/en)",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Le Luxembourg s'interroge sur la nécessité de sept nouvelles citernes de carburant le long de la Moselle.",
+      "content": "Interrogation sur la nécessité de sept nouveaux réservoirs de carburant sur la Moselle pour le Luxembourg.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1795507165.7546.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795507165.7546.pdf",
+      "date": "2026-11-24"
+    },
+    {
+      "id": "2026-11-24-saaskia-web-QGx3Jp",
+      "club": "wort.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Conseils sur l'utilisation des voitures électriques en hiver, les conditions froides imposant des précautions.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1795507124.8605.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795507124.8605.pdf",
       "date": "2026-11-24"
     },
     {
@@ -561,17 +675,6 @@
       "date": "2026-11-24"
     },
     {
-      "id": "2026-11-24-saaskia-web-Bhm3qa",
-      "club": "rtl.lu",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Article en luxembourgeois consacré aux déplacements entre voiture et vélo (contenu à vérifier dans le PDF).",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1795503061.756.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795503061.756.pdf",
-      "date": "2026-11-24"
-    },
-    {
       "id": "2026-11-24-saaskia-web-dkxfVB",
       "club": "Delano.lu",
       "category": "Veille presse LU",
@@ -580,17 +683,6 @@
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1795507157.5179.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795507157.5179.pdf",
-      "date": "2026-11-24"
-    },
-    {
-      "id": "2026-11-24-saaskia-web-QGx3Jp",
-      "club": "wort.lu",
-      "category": "Veille presse LU",
-      "badge": "INFO",
-      "content": "Les véhicules électriques demandent une gestion différente en hiver.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1795507124.8605.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795507124.8605.pdf",
       "date": "2026-11-24"
     },
     {
@@ -620,10 +712,32 @@
       "club": "lessentiel.lu FR",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Le Rhin est au plus bas, mais l'aéroport de Findel ne manque pas de kérosène.",
+      "content": "Le Rhin est au plus bas, mais l'aéroport de Findel dispose toujours de kérosène suffisant, ce qui touche au transport.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1795414720.9111.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795414720.9111.pdf",
+      "date": "2026-11-23"
+    },
+    {
+      "id": "2026-11-23-saaskia-web-5I1j4m",
+      "club": "Le Quotidien",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Présentation d'une offre de réparation gratuite de vélos au Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1795414565.6205.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795414565.6205.pdf",
+      "date": "2026-11-23"
+    },
+    {
+      "id": "2026-11-23-saaskia-web-fM1tem",
+      "club": "paperjam.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Analyse de la place des constructeurs automobiles chinois sur le marché luxembourgeois.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1795420419.8962.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795420419.8962.pdf",
       "date": "2026-11-23"
     },
     {
@@ -635,17 +749,6 @@
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1795414643.1691.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795414643.1691.pdf",
-      "date": "2026-11-23"
-    },
-    {
-      "id": "2026-11-23-saaskia-web-5I1j4m",
-      "club": "Le Quotidien",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Un service permet de faire réparer gratuitement son vélo.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1795414565.6205.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795414565.6205.pdf",
       "date": "2026-11-23"
     },
     {
@@ -668,17 +771,6 @@
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1795414224.745.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795414224.745.pdf",
-      "date": "2026-11-23"
-    },
-    {
-      "id": "2026-11-23-saaskia-web-fM1tem",
-      "club": "paperjam.lu",
-      "category": "Veille presse LU",
-      "badge": "INFO",
-      "content": "Les constructeurs chinois face à la réalité du marché automobile luxembourgeois.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1795420419.8962.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795420419.8962.pdf",
       "date": "2026-11-23"
     },
     {
