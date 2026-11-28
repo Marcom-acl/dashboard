@@ -1,11 +1,7 @@
 {
-  "generated_at": "2026-11-27",
+  "generated_at": "2026-11-28",
   "next_edition": "",
   "editions": [
-    {
-      "date": "2026-05-28",
-      "label": "Semaine du 28 mai 2026"
-    },
     {
       "date": "2026-06-01",
       "label": "Semaine du 1er juin 2026"
@@ -481,29 +477,55 @@
     {
       "date": "2026-11-27",
       "label": "Semaine du 2026-11-27"
+    },
+    {
+      "date": "2026-11-28",
+      "label": "Semaine du 2026-11-28"
     }
   ],
   "items": [
     {
+      "id": "2026-11-27-saaskia-web-qFsgGY",
+      "club": "4x3",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "La voiture électrique pourrait jouer un rôle au service du réseau électrique, au-delà de son usage de mobilité.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1795759672.8432.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795759672.8432.pdf",
+      "date": "2026-11-27"
+    },
+    {
+      "id": "2026-11-27-saaskia-web-VILwXc",
+      "club": "4x3",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Le marché luxembourgeois des voitures électriques connaît une accélération de sa croissance.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1795759590.4017.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795759590.4017.pdf",
+      "date": "2026-11-27"
+    },
+    {
       "id": "2026-11-27-saaskia-web-tobeCj",
       "club": "4x3",
       "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Article critique sur l'hybride rechargeable, présenté comme une fausse bonne idée. Classé ACL par SAASKIA sans mention de l'ACL dans le titre : vérifier le corps de l'article.",
+      "badge": "INFO",
+      "content": "Article critique sur l'hybride rechargeable, présenté comme une fausse bonne idée. Catégorie ACL dans SAASKIA, mais ACL n'apparaît pas dans le titre.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1795760800.897.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795760800.897.pdf",
       "date": "2026-11-27"
     },
     {
-      "id": "2026-11-27-saaskia-web-A2MzIH",
-      "club": "Le Quotidien",
+      "id": "2026-11-27-saaskia-web-K5NiVv",
+      "club": "4x3",
       "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Projet de pôle de mobilité à Hollerich pour 280 millions d'euros. Infrastructure de transport importante pour la capitale.",
+      "badge": "INFO",
+      "content": "Pour les professionnels, l'électrification de la mobilité passe par la formation.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1795761480.3804.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795761480.3804.pdf",
+      "url": "https://saaskia.keepcontact.lu/data/files/1795761276.353.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795761276.353.pdf",
       "date": "2026-11-27"
     },
     {
@@ -511,7 +533,7 @@
       "club": "4x3",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Résultats de l'enquête Luxmobil 2025 : les déplacements augmentent en nombre mais deviennent plus durables. Donnée de référence sur la mobilité nationale.",
+      "content": "Selon Luxmobil 2025, les déplacements sont plus nombreux au Luxembourg mais plus durables.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1795761109.0129.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795761109.0129.pdf",
@@ -522,21 +544,32 @@
       "club": "4x3",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Présentation des solutions de mobilité pour les salariés au Luxembourg. Thème en lien direct avec les offres de mobilité de l'ACL.",
+      "content": "Panorama des solutions de mobilité pour les salariés au Luxembourg.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1795761084.4029.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795761084.4029.pdf",
       "date": "2026-11-27"
     },
     {
-      "id": "2026-11-27-saaskia-web-VILwXc",
-      "club": "4x3",
+      "id": "2026-11-27-saaskia-web-A2MzIH",
+      "club": "Le Quotidien",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Un projet de pôle de mobilité à Hollerich est annoncé, estimé à 280 millions d'euros.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1795761480.3804.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795761480.3804.pdf",
+      "date": "2026-11-27"
+    },
+    {
+      "id": "2026-11-27-saaskia-web-XQBoCk",
+      "club": "rtl.lu",
       "category": "Veille presse LU",
       "badge": "INFO",
-      "content": "Le marché luxembourgeois des voitures électriques connaît une forte accélération. Donnée utile pour le suivi du marché automobile.",
+      "content": "Important incendie rue de Beggen à Beggen, rue complètement fermée à la circulation. Catégorie ACL dans SAASKIA, mais ACL n'apparaît pas dans le titre.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1795759590.4017.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795759590.4017.pdf",
+      "url": "https://saaskia.keepcontact.lu/data/files/1795763733.4533.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795763733.4533.pdf",
       "date": "2026-11-27"
     },
     {
@@ -573,14 +606,91 @@
       "date": "2026-11-27"
     },
     {
+      "id": "2026-11-26-saaskia-web-SVpx4h",
+      "club": "infos.rtl.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Des voitures autonomes circulent désormais sur les routes du Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1795718500.8765.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795718500.8765.pdf",
+      "date": "2026-11-26"
+    },
+    {
+      "id": "2026-11-26-saaskia-web-b2vXCM",
+      "club": "lessentiel.lu FR",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Les voitures autonomes de Bolt circulent à Bissen et Niederanven, au Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1795718496.121.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795718496.121.pdf",
+      "date": "2026-11-26"
+    },
+    {
+      "id": "2026-11-26-saaskia-web-tluGdz",
+      "club": "tageblatt.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Bolt teste des taxis autonomes sans conducteur à Niederanven et Bissen.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1795718486.0724.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795718486.0724.pdf",
+      "date": "2026-11-26"
+    },
+    {
       "id": "2026-11-26-saaskia-web-CbIUDU",
       "club": "wort.lu",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Conseil de sécurité routière sur le risque d'une veste d'hiver épaisse au volant. Classé ACL et PERSONS par SAASKIA sans mention de l'ACL dans le titre.",
+      "content": "Les vêtements d'hiver épais peuvent devenir un risque pour la sécurité au volant. Catégorie ACL dans SAASKIA, mais ACL n'apparaît pas dans le titre.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1795717827.1018.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795717827.1018.pdf",
+      "date": "2026-11-26"
+    },
+    {
+      "id": "2026-11-26-saaskia-web-5pguwd",
+      "club": "virgule.lu (Wort.lu/FR)",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Le prix du SP98 va baisser ce jeudi au Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1795717822.9688.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795717822.9688.pdf",
+      "date": "2026-11-26"
+    },
+    {
+      "id": "2026-11-26-saaskia-web-3IIxGd",
+      "club": "lequotidien.lu",
+      "category": "Veille presse LU",
+      "badge": "SURVEILLER",
+      "content": "Point d'avancement sur le projet de mobilité avec le Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1795717804.6085.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795717804.6085.pdf",
+      "date": "2026-11-26"
+    },
+    {
+      "id": "2026-11-26-saaskia-web-QuqQVx",
+      "club": "Auto Moto",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Article sur les évolutions du secteur automobile, qui change de cap.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1795671749.834.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795671749.834.pdf",
+      "date": "2026-11-26"
+    },
+    {
+      "id": "2026-11-26-saaskia-web-1QeFdi",
+      "club": "Le Quotidien",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Le constructeur chinois BYD confirme son intérêt pour le site d'Ineos à Hambach.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1795671837.0761.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795671837.0761.pdf",
       "date": "2026-11-26"
     },
     {
@@ -588,10 +698,43 @@
       "club": "lessentiel.lu DE",
       "category": "Veille presse LU",
       "badge": "SURVEILLER",
-      "content": "Deux accidents sur l'A1 provoquent plus de douze kilomètres de bouchons. Information trafic pertinente pour la sécurité routière.",
+      "content": "Deux accidents sur l'A1 au Luxembourg provoquent plus de douze kilomètres de bouchons. Catégorie ACL dans SAASKIA, mais ACL n'apparaît pas dans le titre.",
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1795671473.1871.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795671473.1871.pdf",
+      "date": "2026-11-26"
+    },
+    {
+      "id": "2026-11-26-saaskia-web-rcxVAz",
+      "club": "Entreprises Magazine",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "BMW Group présente sa vision 360 de l'ouverture technologique au service de la durabilité.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1795671353.761.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795671353.761.pdf",
+      "date": "2026-11-26"
+    },
+    {
+      "id": "2026-11-26-saaskia-web-yIk2O2",
+      "club": "paperjam.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Bestcharge franchit le cap de son 200e point de recharge rapide au Luxembourg.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1795670903.3173.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795670903.3173.pdf",
+      "date": "2026-11-26"
+    },
+    {
+      "id": "2026-11-26-saaskia-web-CydqFI",
+      "club": "paperjam.lu",
+      "category": "Veille presse LU",
+      "badge": "INFO",
+      "content": "Gilbert Fridgen estime que le Luxembourg peut accélérer son électrification.",
+      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
+      "url": "https://saaskia.keepcontact.lu/data/files/1795670895.7006.pdf",
+      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795670895.7006.pdf",
       "date": "2026-11-26"
     },
     {
@@ -603,72 +746,6 @@
       "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
       "url": "https://saaskia.keepcontact.lu/data/files/1795671124.8754.pdf",
       "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795671124.8754.pdf",
-      "date": "2026-11-26"
-    },
-    {
-      "id": "2026-11-26-saaskia-web-SVpx4h",
-      "club": "infos.rtl.lu",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Des voitures autonomes circulent désormais au Luxembourg. Sujet de mobilité du futur à suivre pour les questions de sécurité et de réglementation.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1795718500.8765.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795718500.8765.pdf",
-      "date": "2026-11-26"
-    },
-    {
-      "id": "2026-11-26-saaskia-web-b2vXCM",
-      "club": "lessentiel.lu FR",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Bolt teste des voitures autonomes à Bissen et Niederanven. Premier déploiement de taxis sans conducteur au Luxembourg.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1795718496.121.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795718496.121.pdf",
-      "date": "2026-11-26"
-    },
-    {
-      "id": "2026-11-26-saaskia-web-3IIxGd",
-      "club": "lequotidien.lu",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Point d'avancement sur la mobilité avec le Luxembourg. Information à suivre pour les projets de transport transfrontalier.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1795717804.6085.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795717804.6085.pdf",
-      "date": "2026-11-26"
-    },
-    {
-      "id": "2026-11-26-saaskia-web-yIk2O2",
-      "club": "paperjam.lu",
-      "category": "Veille presse LU",
-      "badge": "SURVEILLER",
-      "content": "Bestcharge atteint son 200e point de recharge rapide au Luxembourg. Indicateur utile pour suivre le déploiement de l'infrastructure de recharge.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1795670903.3173.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795670903.3173.pdf",
-      "date": "2026-11-26"
-    },
-    {
-      "id": "2026-11-26-saaskia-web-1QeFdi",
-      "club": "Le Quotidien",
-      "category": "Veille presse LU",
-      "badge": "INFO",
-      "content": "BYD confirme son intérêt pour le site d'Ineos à Hambach. Information sur l'industrie automobile européenne, proche du Luxembourg.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1795671837.0761.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795671837.0761.pdf",
-      "date": "2026-11-26"
-    },
-    {
-      "id": "2026-11-26-saaskia-web-QuqQVx",
-      "club": "Auto Moto",
-      "category": "Veille presse LU",
-      "badge": "INFO",
-      "content": "Article sur les évolutions stratégiques de l'industrie automobile. Contexte général du marché auto.",
-      "relevance": "Article de veille presse — secteur automobile et mobilité luxembourgeois.",
-      "url": "https://saaskia.keepcontact.lu/data/files/1795671749.834.pdf",
-      "pdf_url": "https://saaskia.keepcontact.lu/data/files/1795671749.834.pdf",
       "date": "2026-11-26"
     },
     {
@@ -11865,76 +11942,6 @@
       "relevance": "Rapprochement structurel entre clubs automobiles et acteurs de l'assurance. AG Insurance contrôle désormais la totalité de la chaîne de valeur assistance + assurance en Belgique.",
       "url": "https://newsroom.ag.be/ag-insurance-rachete-la-participation-de-bnp-paribas-fortis-dans-touring-sa",
       "date": "2026-05-29"
-    },
-    {
-      "id": "2026-05-28-adac-1",
-      "date": "2026-05-28",
-      "club": "ADAC",
-      "category": "EU",
-      "content": "L'ADAC Autovermietung intègre ChatGPT pour la réservation de voitures de location en langage naturel : première mondiale parmi les clubs automobiles.",
-      "relevance": "Signal fort d'innovation digitale. L'ACL pourrait explorer des intégrations IA pour ses services membres (assistance, voyage).",
-      "badge": "NOTABLE",
-      "url": "https://presse.adac.de/meldungen/adac-se/reisen-unterwegs/neu-bei-der-adac-autovermietung-mietwagen-bequem-ueber-chatgpt-buchen.html"
-    },
-    {
-      "id": "2026-05-28-anwb-1",
-      "date": "2026-05-28",
-      "club": "ANWB",
-      "category": "EU",
-      "content": "ANWB célèbre les 80 ans du Wegenwacht (assistance routière) avec exposition au musée automobile Visscher Classique, valorisant les véhicules d'intervention historiques.",
-      "relevance": "Modèle de valorisation de l'histoire du club à des fins de communication mémorielle. L'ACL (fondé en 1927) dispose d'un patrimoine comparable.",
-      "badge": "INFO",
-      "url": "https://kampioen.anwb.nl/2026-05/leuke-dingen-doen-in-mei"
-    },
-    {
-      "id": "2026-05-28-oeamtc-1",
-      "date": "2026-05-28",
-      "club": "ÖAMTC",
-      "category": "EU",
-      "content": "Sondage ÖAMTC : 68% des Autrichiens veulent maintenir la limite à 130 km/h sur autoroute. 65% adoptent déjà une conduite sobre. Le club s'oppose à toute réduction contraignante.",
-      "relevance": "Illustration d'un club qui utilise les sondages d'opinion pour peser dans le débat politique sur la mobilité.",
-      "badge": "INFO",
-      "url": "https://www.oeamtc.at/presse/oeamtc-umfrage-68-prozent-wollen-bei-tempo-130-auf-autobahnen-bleiben-86337522"
-    },
-    {
-      "id": "2026-05-28-touring-1",
-      "date": "2026-05-28",
-      "club": "Touring Belgique",
-      "category": "EU",
-      "content": "Test collectif ADAC + Touring (chambre climatique AVL Roding) : systèmes de détection de lignes et radars significativement moins fiables sous pluie et brouillard.",
-      "relevance": "La fiabilité des ADAS par mauvais temps devient un sujet de litiges potentiels. Les clubs pourraient être sollicités pour conseils juridiques/techniques.",
-      "badge": "SURVEILLER",
-      "url": "https://www.touring.be/fr/articles/aides-a-la-conduite-par-mauvais-temps"
-    },
-    {
-      "id": "2026-05-28-byd-1",
-      "date": "2026-05-28",
-      "club": "BYD",
-      "category": "Mobilité",
-      "content": "BYD négocie le rachat d'usines européennes (Stellantis et autres). Vente UK : BYD désormais 1ère marque VE devant Tesla et Kia. Usine Hongrie opérationnelle, Turquie fin 2026.",
-      "relevance": "BYD sera un acteur européen à part entière d'ici 2027-2028. Les clubs doivent intégrer BYD dans leurs grilles de tests et anticiper l'assistance sur ces architectures.",
-      "badge": "NOTABLE",
-      "url": "https://electrek.co/2026/05/13/byd-eyes-stellantis-eu-plant-ev-sales-surge-others-too/"
-    },
-    {
-      "id": "2026-05-28-waymo-1",
-      "date": "2026-05-28",
-      "club": "Waymo",
-      "category": "Mobilité",
-      "content": "Expansion à 1400 miles² dans 11 villes US. Flotte ~3000 véhicules, 20M+ courses cumulées. Objectif 1M courses/semaine fin 2026. Prochains marchés : Londres et Tokyo.",
-      "relevance": "Écart opérationnel croissant avec Tesla. L'arrivée à Londres signal que les clubs européens devront bientôt prendre position sur les robotaxis.",
-      "badge": "SURVEILLER",
-      "url": "https://electrek.co/2026/05/13/waymo-expands-coverage-1400-square-miles-11-cities/"
-    },
-    {
-      "id": "2026-05-28-tesla-1",
-      "date": "2026-05-28",
-      "club": "Tesla Robotaxi",
-      "category": "Mobilité",
-      "content": "Production Cybercab démarrée à Giga Texas. Service commercial lancé à Houston et Dallas. Déploiement prévu dans 7 villes US au S1 2026.",
-      "relevance": "Deux écosystèmes robotaxi (Waymo, Tesla) en phase commerciale simultanée. L'écart opérationnel se creuse (périmètre réduit vs Waymo).",
-      "badge": "SURVEILLER",
-      "url": "https://electrek.co/2026/04/23/tesla-cybercab-production-starts-no-nhtsa-2500-vehicle-cap/"
     }
   ],
   "trends": [
